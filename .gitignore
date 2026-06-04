@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Local analysis outputs
+*.tmp
+*.log
+
+# Large / local-only exports
+# Uncomment if raw XMLs should stay local.
+# data/vanilla/raw_xml/
+# data/rot_reference/packages/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
