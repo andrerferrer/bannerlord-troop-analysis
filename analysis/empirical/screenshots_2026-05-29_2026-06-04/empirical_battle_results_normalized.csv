@@ -1,0 +1,96 @@
+battle_id,screenshot_datetime,battle_context,battle_outcome,side,party,troop_name,ready_alive,kills,upgrades,dead,wounded,prisoners,estimated_present,kills_per_present,casualty_rate,transcription_confidence,notes,tier,category,total_score_v71,regular_rank_v71,empirical_bucket
+BR-20260603-162358,2026-06-03 16:23:58,small snowy field skirmish,Victory,attacker,Darim's Party,Imperial Naute,6,11,,0,0,0,6,1.833,0.0,high,Clear row; no casualties visible.,5,Offensive Infantry,72.601,42.0,elite
+BR-20260603-162358,2026-06-03 16:23:58,small snowy field skirmish,Victory,attacker,Darim's Party,Imperial Coast Guard,3,3,2.0,0,1,0,4,0.75,0.25,medium,Wounded value visible near right edge; low casualty count.,4,Offensive Infantry,63.774,69.0,solid
+BR-20260603-162358,2026-06-03 16:23:58,small snowy field skirmish,Victory,attacker,Darim's Party,Khuzait Khan's Guard,13,2,,0,0,0,13,0.154,0.0,high,Clear row; low output due small battle/cleanup context.,6,Horse Archer,92.901,1.0,low
+BR-20260603-162358,2026-06-03 16:23:58,small snowy field skirmish,Victory,attacker,Darim's Party,Imperial Sergeant Crossbowman,7,2,,0,0,0,7,0.286,0.0,high,Clear row.,5,Crossbowman,74.394,35.0,low
+BR-20260603-162358,2026-06-03 16:23:58,small snowy field skirmish,Victory,defender,Esachei's Party,Khuzait Darkhan,0,1,,3,8,0,11,0.091,1.0,high,Enemy row; high casualties.,5,Defensive Infantry,64.908,60.0,low
+BR-20260603-153520,2026-06-03 15:35:20,forest/open-field fight vs Nord party,Victory,attacker,Darim's Party,Khuzait Khan's Guard,9,21,,1,2,0,12,1.75,0.25,high,,6,Horse Archer,92.901,1.0,elite
+BR-20260603-153520,2026-06-03 15:35:20,forest/open-field fight vs Nord party,Victory,attacker,Darim's Party,Khuzait Torguud,1,7,3.0,0,2,0,3,2.333,0.667,high,,4,Horse Archer,45.735,129.0,elite
+BR-20260603-153520,2026-06-03 15:35:20,forest/open-field fight vs Nord party,Victory,attacker,Darim's Party,Imperial Coast Guard,3,7,3.0,0,0,0,3,2.333,0.0,high,,4,Offensive Infantry,63.774,69.0,elite
+BR-20260603-153520,2026-06-03 15:35:20,forest/open-field fight vs Nord party,Victory,attacker,Darim's Party,Imperial Naute,2,6,,0,0,0,2,3.0,0.0,high,,5,Offensive Infantry,72.601,42.0,elite
+BR-20260603-153520,2026-06-03 15:35:20,forest/open-field fight vs Nord party,Victory,attacker,Darim's Party,Khuzait Qanqli,7,6,,4,4,0,15,0.4,0.533,medium,Casualties readable but partially dark.,3,Horse Archer,39.021,143.0,low
+BR-20260603-153520,2026-06-03 15:35:20,forest/open-field fight vs Nord party,Victory,attacker,Darim's Party,Khuzait Kheshig,1,3,1.0,0,0,0,1,3.0,0.0,high,,5,Horse Archer,53.928,105.0,elite
+BR-20260603-153520,2026-06-03 15:35:20,forest/open-field fight vs Nord party,Victory,defender,Yngvar's Party,Nord Sky-Gods Chosen,0,8,,4,10,0,14,0.571,1.0,high,,5,Archer,74.041,40.0,solid
+BR-20260603-153520,2026-06-03 15:35:20,forest/open-field fight vs Nord party,Victory,defender,Yngvar's Party,Nord Ulfhedinn,0,6,,0,9,0,9,0.667,1.0,medium,,5,Offensive Infantry,78.402,19.0,solid
+BR-20260603-153520,2026-06-03 15:35:20,forest/open-field fight vs Nord party,Victory,defender,Yngvar's Party,Nord Huscarl,0,4,,1,2,0,3,1.333,1.0,high,,6,Offensive Infantry,74.803,32.0,high
+BR-20260603-153520,2026-06-03 15:35:20,forest/open-field fight vs Nord party,Victory,defender,Yngvar's Party,Nord Marksman,0,2,,2,9,0,11,0.182,1.0,high,,4,Archer,61.583,79.0,low
+BR-20260603-153520,2026-06-03 15:35:20,forest/open-field fight vs Nord party,Victory,defender,Yngvar's Party,Nord Skjaldbrestir,0,2,,1,7,0,8,0.25,1.0,high,,5,Offensive Infantry,74.251,37.0,low
+BR-20260603-153520,2026-06-03 15:35:20,forest/open-field fight vs Nord party,Victory,defender,Yngvar's Party,Nord Berserkir,0,0,,2,6,0,8,0.0,1.0,high,,5,Offensive Infantry,74.952,31.0,low
+BR-20260603-115004,2026-06-03 11:50:04,Khuzait field battle,Victory,attacker,Darim's Party,Khuzait Qanqli,0,26,,7,22,0,29,0.897,1.0,high,,3,Horse Archer,39.021,143.0,solid
+BR-20260603-115004,2026-06-03 11:50:04,Khuzait field battle,Victory,attacker,Darim's Party,Khuzait Khan's Guard,10,13,,0,1,0,11,1.182,0.091,high,,6,Horse Archer,92.901,1.0,high
+BR-20260603-115004,2026-06-03 11:50:04,Khuzait field battle,Victory,attacker,Darim's Party,Imperial Elite Menavliaton,0,6,,0,2,0,2,3.0,1.0,high,,5,Offensive Infantry,88.687,5.0,elite
+BR-20260603-115004,2026-06-03 11:50:04,Khuzait field battle,Victory,attacker,Darim's Party,Imperial Sergeant Crossbowman,0,4,,0,1,0,1,4.0,1.0,high,,5,Crossbowman,74.394,35.0,elite
+BR-20260603-115004,2026-06-03 11:50:04,Khuzait field battle,Victory,attacker,Darim's Party,Khuzait Torguud,0,3,,1,2,0,3,1.0,1.0,high,,4,Horse Archer,45.735,129.0,solid
+BR-20260603-115004,2026-06-03 11:50:04,Khuzait field battle,Victory,defender,Temun's Party,Khuzait Darkhan,0,26,,1,15,0,16,1.625,1.0,high,,5,Defensive Infantry,64.908,60.0,elite
+BR-20260603-115004,2026-06-03 11:50:04,Khuzait field battle,Victory,defender,Temun's Party,Khuzait Marksman,0,24,,3,10,0,13,1.846,1.0,high,,5,Archer,68.668,50.0,elite
+BR-20260603-115004,2026-06-03 11:50:04,Khuzait field battle,Victory,defender,Temun's Party,Khuzait Heavy Horse Archer,0,4,,2,13,0,15,0.267,1.0,high,,5,Horse Archer,76.432,25.0,low
+BR-20260603-105337,2026-06-03 10:53:37,Imperial/Khuzait mixed field battle,Victory,attacker,Variaisis' Party,Imperial Naute,0,29,,3,17,0,20,1.45,1.0,high,,5,Offensive Infantry,72.601,42.0,high
+BR-20260603-105337,2026-06-03 10:53:37,Imperial/Khuzait mixed field battle,Victory,attacker,Variaisis' Party,Imperial Veteran Infantryman,0,12,6.0,6,14,0,20,0.6,1.0,high,,4,Defensive Infantry,79.772,18.0,solid
+BR-20260603-105337,2026-06-03 10:53:37,Imperial/Khuzait mixed field battle,Victory,attacker,Variaisis' Party,Imperial Sergeant Crossbowman,0,1,,1,6,0,7,0.143,1.0,high,,5,Crossbowman,74.394,35.0,low
+BR-20260603-105337,2026-06-03 10:53:37,Imperial/Khuzait mixed field battle,Victory,defender,Darim's Party,Khuzait Qanqli,44,74,,3,6,0,53,1.396,0.17,high,,3,Horse Archer,39.021,143.0,high
+BR-20260603-105337,2026-06-03 10:53:37,Imperial/Khuzait mixed field battle,Victory,defender,Darim's Party,Khuzait Khan's Guard,10,22,,0,0,0,10,2.2,0.0,high,,6,Horse Archer,92.901,1.0,elite
+BR-20260603-105337,2026-06-03 10:53:37,Imperial/Khuzait mixed field battle,Victory,defender,Darim's Party,Imperial Naute,0,3,,2,2,0,4,0.75,1.0,high,,5,Offensive Infantry,72.601,42.0,solid
+BR-20260604-004715,2026-06-04 00:47:15,siege defense / town battle,Victory,defender,Darim's Party,Khuzait Khan's Guard,0,146,,2,17,0,19,7.684,1.0,high,,6,Horse Archer,92.901,1.0,elite
+BR-20260604-004715,2026-06-04 00:47:15,siege defense / town battle,Victory,defender,Darim's Party,Imperial Sergeant Crossbowman,0,45,,3,21,0,24,1.875,1.0,high,,5,Crossbowman,74.394,35.0,elite
+BR-20260604-004715,2026-06-04 00:47:15,siege defense / town battle,Victory,defender,Darim's Party,Elite Hired Crossbow,0,42,,3,8,0,11,3.818,1.0,high,Mercenary/non-model crossbow reference row.,5,Crossbowman,84.131,,elite
+BR-20260604-004715,2026-06-04 00:47:15,siege defense / town battle,Victory,defender,Darim's Party,Imperial Naute,0,15,,4,15,0,19,0.789,1.0,high,,5,Offensive Infantry,72.601,42.0,solid
+BR-20260604-004715,2026-06-04 00:47:15,siege defense / town battle,Victory,defender,Darim's Party,Imperial Elite Menavliaton,0,15,,6,7,0,13,1.154,1.0,high,,5,Offensive Infantry,88.687,5.0,high
+BR-20260604-004715,2026-06-04 00:47:15,siege defense / town battle,Victory,defender,Darim's Party,Nord Sky-Gods Chosen,0,8,,1,1,0,2,4.0,1.0,high,,5,Archer,74.041,40.0,elite
+BR-20260604-004715,2026-06-04 00:47:15,siege defense / town battle,Victory,defender,Darim's Party,Imperial Palatine Guard,0,5,,0,5,0,5,1.0,1.0,high,,5,Archer,73.613,41.0,solid
+BR-20260604-004715,2026-06-04 00:47:15,siege defense / town battle,Victory,defender,Darim's Party,Imperial Legionary,0,4,,1,5,0,6,0.667,1.0,high,,5,Defensive Infantry,84.229,10.0,solid
+BR-20260604-004715,2026-06-04 00:47:15,siege defense / town battle,Victory,attacker,Aqar's Party,Aserai Vanguard Faris,7,26,,9,13,0,29,0.897,0.759,high,,6,Offensive Cavalry,90.156,3.0,solid
+BR-20260604-004715,2026-06-04 00:47:15,siege defense / town battle,Victory,attacker,Aqar's Party,Aserai Veteran Faris,0,4,3.0,0,8,0,8,0.5,1.0,high,,5,Offensive Cavalry,60.419,83.0,low
+BR-20260604-004715,2026-06-04 00:47:15,siege defense / town battle,Victory,attacker,Aqar's Party,Imperial Naute,3,0,,1,0,0,4,0.0,0.25,medium,Low visibility row; likely reinforcement/late arrival.,5,Offensive Infantry,72.601,42.0,low
+BR-20260603-234916,2026-06-03 23:49:16,field battle vs Aserai party,Victory,attacker,Darim's Party,Imperial Naute,18,32,,5,12,0,35,0.914,0.486,high,,5,Offensive Infantry,72.601,42.0,solid
+BR-20260603-234916,2026-06-03 23:49:16,field battle vs Aserai party,Victory,attacker,Darim's Party,Imperial Elite Menavliaton,15,28,,0,2,0,17,1.647,0.118,high,,5,Offensive Infantry,88.687,5.0,elite
+BR-20260603-234916,2026-06-03 23:49:16,field battle vs Aserai party,Victory,attacker,Darim's Party,Imperial Sergeant Crossbowman,24,25,,0,1,0,25,1.0,0.04,high,,5,Crossbowman,74.394,35.0,solid
+BR-20260603-234916,2026-06-03 23:49:16,field battle vs Aserai party,Victory,attacker,Darim's Party,Khuzait Khan's Guard,21,23,,0,0,0,21,1.095,0.0,high,,6,Horse Archer,92.901,1.0,high
+BR-20260603-234916,2026-06-03 23:49:16,field battle vs Aserai party,Victory,attacker,Darim's Party,Hired Crossbow,9,9,5.0,0,0,0,9,1.0,0.0,high,,4,Crossbowman,75.919,,solid
+BR-20260603-234916,2026-06-03 23:49:16,field battle vs Aserai party,Victory,attacker,Darim's Party,Nord Sky-Gods Chosen,4,6,,0,0,0,4,1.5,0.0,high,,5,Archer,74.041,40.0,high
+BR-20260603-234916,2026-06-03 23:49:16,field battle vs Aserai party,Victory,attacker,Darim's Party,Imperial Palatine Guard,6,3,,0,0,0,6,0.5,0.0,high,,5,Archer,73.613,41.0,low
+BR-20260603-234916,2026-06-03 23:49:16,field battle vs Aserai party,Victory,defender,Adram's Party,Aserai Vanguard Faris,0,2,,1,1,0,2,1.0,1.0,high,,6,Offensive Cavalry,90.156,3.0,solid
+BR-20260603-234916,2026-06-03 23:49:16,field battle vs Aserai party,Victory,defender,Adram's Party,Aserai Veteran Infantry,0,6,,3,16,0,19,0.316,1.0,high,,5,Defensive Infantry,67.55,54.0,low
+BR-20260603-233549,2026-06-03 23:35:49,small field battle,Victory,attacker,Darim's Party,Imperial Naute,24,22,,3,3,0,30,0.733,0.2,high,,5,Offensive Infantry,72.601,42.0,solid
+BR-20260603-233549,2026-06-03 23:35:49,small field battle,Victory,attacker,Darim's Party,Imperial Sergeant Crossbowman,23,10,,0,0,0,23,0.435,0.0,high,,5,Crossbowman,74.394,35.0,low
+BR-20260603-233549,2026-06-03 23:35:49,small field battle,Victory,attacker,Darim's Party,Imperial Elite Menavliaton,10,8,,0,0,0,10,0.8,0.0,high,,5,Offensive Infantry,88.687,5.0,solid
+BR-20260603-233549,2026-06-03 23:35:49,small field battle,Victory,attacker,Darim's Party,Sturgian Heavy Axeman,5,2,,1,0,0,6,0.333,0.167,high,,5,Defensive Infantry,76.34,26.0,low
+BR-20260603-233549,2026-06-03 23:35:49,small field battle,Victory,attacker,Darim's Party,Nord Sky-Gods Chosen,4,2,,0,0,0,4,0.5,0.0,high,,5,Archer,74.041,40.0,low
+BR-20260603-223352,2026-06-03 22:33:52,field battle with Imperial and mixed forces,Victory,attacker,Nerhea's Party,Imperial Naute,0,26,,9,25,0,34,0.765,1.0,high,,5,Offensive Infantry,72.601,42.0,solid
+BR-20260603-223352,2026-06-03 22:33:52,field battle with Imperial and mixed forces,Victory,attacker,Nerhea's Party,Imperial Legionary,0,15,,3,25,0,28,0.536,1.0,high,,5,Defensive Infantry,84.229,10.0,solid
+BR-20260603-223352,2026-06-03 22:33:52,field battle with Imperial and mixed forces,Victory,attacker,Nerhea's Party,Imperial Elite Menavliaton,0,10,,1,7,0,8,1.25,1.0,high,,5,Offensive Infantry,88.687,5.0,high
+BR-20260603-223352,2026-06-03 22:33:52,field battle with Imperial and mixed forces,Victory,defender,Darim's Party,Imperial Sergeant Crossbowman,20,34,,0,0,0,20,1.7,0.0,high,,5,Crossbowman,74.394,35.0,elite
+BR-20260603-223352,2026-06-03 22:33:52,field battle with Imperial and mixed forces,Victory,defender,Darim's Party,Khuzait Khan's Guard,21,24,,0,0,0,21,1.143,0.0,high,,6,Horse Archer,92.901,1.0,high
+BR-20260603-223352,2026-06-03 22:33:52,field battle with Imperial and mixed forces,Victory,defender,Darim's Party,Imperial Naute,6,17,,0,5,0,11,1.545,0.455,high,,5,Offensive Infantry,72.601,42.0,elite
+BR-20260603-223352,2026-06-03 22:33:52,field battle with Imperial and mixed forces,Victory,defender,Darim's Party,Nord Sky-Gods Chosen,4,6,,0,0,0,4,1.5,0.0,high,,5,Archer,74.041,40.0,high
+BR-20260603-223352,2026-06-03 22:33:52,field battle with Imperial and mixed forces,Victory,defender,Darim's Party,Aserai Vanguard Faris,0,5,,1,2,0,3,1.667,1.0,high,,6,Offensive Cavalry,90.156,3.0,elite
+BR-20260603-222535,2026-06-03 22:25:35,small field battle,Victory,attacker,Darim's Party,Imperial Naute,8,22,,1,2,0,11,2.0,0.273,high,,5,Offensive Infantry,72.601,42.0,elite
+BR-20260603-222535,2026-06-03 22:25:35,small field battle,Victory,attacker,Darim's Party,Khuzait Khan's Guard,21,21,,0,0,0,21,1.0,0.0,high,,6,Horse Archer,92.901,1.0,solid
+BR-20260603-222535,2026-06-03 22:25:35,small field battle,Victory,attacker,Darim's Party,Imperial Sergeant Crossbowman,15,20,,0,4,0,19,1.053,0.211,high,,5,Crossbowman,74.394,35.0,high
+BR-20260603-222535,2026-06-03 22:25:35,small field battle,Victory,attacker,Darim's Party,Nord Sky-Gods Chosen,4,4,,0,0,0,4,1.0,0.0,high,,5,Archer,74.041,40.0,solid
+BR-20260603-222535,2026-06-03 22:25:35,small field battle,Victory,defender,Tasynor's Party,Imperial Elite Cataphract,0,5,,1,9,0,10,0.5,1.0,high,,6,Defensive Cavalry,79.857,17.0,low
+BR-20260603-222535,2026-06-03 22:25:35,small field battle,Victory,defender,Tasynor's Party,Imperial Naute,0,1,,1,4,0,5,0.2,1.0,high,,5,Offensive Infantry,72.601,42.0,low
+BR-20260603-200617,2026-06-03 20:06:17,small field battle,Victory,defender,Darim's Party,Khuzait Khan's Guard,20,18,,0,0,0,20,0.9,0.0,high,,6,Horse Archer,92.901,1.0,solid
+BR-20260603-200617,2026-06-03 20:06:17,small field battle,Victory,defender,Darim's Party,Nord Sky-Gods Chosen,3,11,,0,1,0,4,2.75,0.25,high,,5,Archer,74.041,40.0,elite
+BR-20260603-200617,2026-06-03 20:06:17,small field battle,Victory,defender,Darim's Party,Imperial Sergeant Crossbowman,11,9,,0,2,0,13,0.692,0.154,high,,5,Crossbowman,74.394,35.0,solid
+BR-20260603-200617,2026-06-03 20:06:17,small field battle,Victory,defender,Darim's Party,Imperial Palatine Guard,2,3,,0,0,0,2,1.5,0.0,high,,5,Archer,73.613,41.0,high
+BR-20260603-200617,2026-06-03 20:06:17,small field battle,Victory,attacker,Satros' Party,Imperial Naute,0,2,,0,2,0,2,1.0,1.0,high,,5,Offensive Infantry,72.601,42.0,solid
+BR-20260603-200102,2026-06-03 20:01:02,small field battle,Victory,defender,Darim's Party,Imperial Sergeant Crossbowman,13,19,,0,4,0,17,1.118,0.235,high,,5,Crossbowman,74.394,35.0,high
+BR-20260603-200102,2026-06-03 20:01:02,small field battle,Victory,defender,Darim's Party,Khuzait Khan's Guard,19,11,,0,0,0,19,0.579,0.0,high,,6,Horse Archer,92.901,1.0,solid
+BR-20260603-200102,2026-06-03 20:01:02,small field battle,Victory,defender,Darim's Party,Imperial Palatine Guard,2,8,,0,1,0,3,2.667,0.333,high,,5,Archer,73.613,41.0,elite
+BR-20260603-200102,2026-06-03 20:01:02,small field battle,Victory,defender,Darim's Party,Aserai Vanguard Faris,1,2,,0,0,0,1,2.0,0.0,high,,6,Offensive Cavalry,90.156,3.0,elite
+BR-20260603-195629,2026-06-03 19:56:29,small field battle,Victory,attacker,Debana's Party,Imperial Naute,0,27,,0,10,0,10,2.7,1.0,medium,,5,Offensive Infantry,72.601,42.0,elite
+BR-20260603-195629,2026-06-03 19:56:29,small field battle,Victory,defender,Darim's Party,Imperial Naute,0,29,,6,9,0,15,1.933,1.0,high,,5,Offensive Infantry,72.601,42.0,elite
+BR-20260603-195629,2026-06-03 19:56:29,small field battle,Victory,defender,Darim's Party,Khuzait Khan's Guard,15,20,,0,1,0,16,1.25,0.062,high,,6,Horse Archer,92.901,1.0,high
+BR-20260603-195629,2026-06-03 19:56:29,small field battle,Victory,defender,Darim's Party,Imperial Sergeant Crossbowman,15,18,,0,1,0,16,1.125,0.062,high,,5,Crossbowman,74.394,35.0,high
+BR-20260603-195629,2026-06-03 19:56:29,small field battle,Victory,defender,Darim's Party,Nord Skjaldbrestir,0,10,,2,2,0,4,2.5,1.0,high,,5,Offensive Infantry,74.251,37.0,elite
+BR-20260603-195629,2026-06-03 19:56:29,small field battle,Victory,defender,Darim's Party,Nord Sky-Gods Chosen,4,3,,0,0,0,4,0.75,0.0,high,,5,Archer,74.041,40.0,solid
+BR-20260603-194632,2026-06-03 19:46:32,small field battle,Victory,attacker,Darim's Party,Imperial Naute,8,14,,0,3,0,11,1.273,0.273,high,,5,Offensive Infantry,72.601,42.0,high
+BR-20260603-194632,2026-06-03 19:46:32,small field battle,Victory,attacker,Darim's Party,Sturgian Heavy Axeman,5,12,,0,0,0,5,2.4,0.0,high,,5,Defensive Infantry,76.34,26.0,elite
+BR-20260603-194632,2026-06-03 19:46:32,small field battle,Victory,attacker,Darim's Party,Khuzait Khan's Guard,15,10,,0,0,0,15,0.667,0.0,high,,6,Horse Archer,92.901,1.0,solid
+BR-20260603-194632,2026-06-03 19:46:32,small field battle,Victory,attacker,Darim's Party,Imperial Sergeant Crossbowman,11,9,,0,0,0,11,0.818,0.0,high,,5,Crossbowman,74.394,35.0,solid
+BR-20260603-194632,2026-06-03 19:46:32,small field battle,Victory,attacker,Darim's Party,Imperial Elite Menavliaton,5,6,,0,0,0,5,1.2,0.0,high,,5,Offensive Infantry,88.687,5.0,high
+BR-20260603-194632,2026-06-03 19:46:32,small field battle,Victory,defender,Haratheos' Party,Imperial Naute,0,7,,2,8,0,10,0.7,1.0,high,,5,Offensive Infantry,72.601,42.0,solid
+BR-20260601-222611,2026-06-01 22:26:11,siege/settlement fight vs Sturgian militia,Defeat,attacker,Kautas/Dagvi group,Nord Berserkir,2,13,,6,9,0,17,0.765,0.882,medium,,5,Offensive Infantry,74.952,31.0,solid
+BR-20260601-222611,2026-06-01 22:26:11,siege/settlement fight vs Sturgian militia,Defeat,attacker,Kautas/Dagvi group,Nord Ulfhedinn,4,12,,1,4,0,9,1.333,0.556,medium,,5,Offensive Infantry,78.402,19.0,high
+BR-20260601-222611,2026-06-01 22:26:11,siege/settlement fight vs Sturgian militia,Defeat,attacker,Kautas/Dagvi group,Nord Sky-Gods Chosen,6,8,,2,1,0,9,0.889,0.333,medium,,5,Archer,74.041,40.0,solid
+BR-20260601-222611,2026-06-01 22:26:11,siege/settlement fight vs Sturgian militia,Defeat,attacker,Kautas/Dagvi group,Nord Skjaldbrestir,2,4,,2,1,0,5,0.8,0.6,medium,,5,Offensive Infantry,74.251,37.0,solid
