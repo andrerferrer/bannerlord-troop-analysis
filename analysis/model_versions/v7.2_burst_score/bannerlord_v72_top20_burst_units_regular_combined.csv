@@ -1,0 +1,21 @@
+burst_rank_regular_v72,name,tier,category,data_scope,burst_score_v72,burst_source_v72,regular_rank_v71,rank_delta_burst_vs_general_regular_v72,primary_throw_name,primary_throw_ammo,primary_ranged_name
+1.0,Aserai Vanguard Faris,6,Offensive Cavalry,Vanilla pre-War-Sails modules,93.845,throw,3.0,-2.0,Jereed,5.0,
+2.0,Battanian Skipari,5,Offensive Infantry,War Sails / NavalDLC,92.91,throw,38.0,-36.0,Hooked Javelin,10.0,
+3.0,Imperial Naute,5,Offensive Infantry,War Sails / NavalDLC,92.292,throw,42.0,-39.0,Hooked Javelin,10.0,
+4.0,Battanian Fian Champion,6,Archer,Vanilla pre-War-Sails modules,90.16,ranged,2.0,2.0,,0.0,Woodland Longbow
+5.0,Battanian River Raider,4,Offensive Infantry,War Sails / NavalDLC,84.922,throw,58.0,-53.0,Broad Blade Javelin,10.0,
+6.0,Battanian Mounted Skirmisher,5,Defensive Cavalry,Vanilla pre-War-Sails modules,84.384,throw,13.0,-7.0,Hooked Javelin,5.0,
+7.0,Imperial Coast Guard,4,Offensive Infantry,War Sails / NavalDLC,81.968,throw,69.0,-62.0,Broad Blade Javelin,10.0,
+8.0,Battanian Fian,5,Archer,Vanilla pre-War-Sails modules,78.463,ranged,4.0,4.0,,0.0,Woodland Longbow
+9.0,Khuzait Khan's Guard,6,Horse Archer,Vanilla pre-War-Sails modules,78.027,ranged,1.0,8.0,,0.0,Steppe Recurve Bow
+10.0,Imperial Shipmate,3,Offensive Infantry,War Sails / NavalDLC,73.343,throw,125.0,-115.0,Lowland Javelin,10.0,
+11.0,Vlandian Banner Knight,6,Offensive Cavalry,Vanilla pre-War-Sails modules,67.727,charge,12.0,-1.0,,0.0,
+12.0,Aserai Master Archer,5,Archer,Vanilla pre-War-Sails modules,67.473,ranged,34.0,-22.0,,0.0,Steppe Recurve Bow
+13.0,Khuzait Heavy Horse Archer,5,Horse Archer,Vanilla pre-War-Sails modules,66.91,ranged,25.0,-12.0,,0.0,Steppe Recurve Bow
+14.0,Imperial Elite Cataphract,6,Defensive Cavalry,Vanilla pre-War-Sails modules,66.856,charge,17.0,-3.0,,0.0,
+15.0,Imperial Palatine Guard,5,Archer,Vanilla pre-War-Sails modules,66.829,ranged,41.0,-26.0,,0.0,Steppe War Bow
+16.0,Vlandian Champion,5,Defensive Cavalry,Vanilla pre-War-Sails modules,65.809,charge,14.0,2.0,,0.0,
+17.0,Sturgian Druzhinnik Champion,6,Defensive Cavalry,Vanilla pre-War-Sails modules,65.019,charge,22.0,-5.0,,0.0,
+18.0,Khuzait Kheshig,5,Horse Archer,Vanilla pre-War-Sails modules,64.472,melee,105.0,-87.0,,0.0,Steppe War Bow
+19.0,Imperial Cataphract,5,Defensive Cavalry,Vanilla pre-War-Sails modules,64.315,charge,27.0,-8.0,,0.0,
+20.0,Imperial Elite Menavliaton,5,Offensive Infantry,Vanilla pre-War-Sails modules,63.45,melee,5.0,15.0,Pilum,2.0,
