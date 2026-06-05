@@ -8,7 +8,6 @@ from pathlib import Path
 
 import pandas as pd
 
-
 SKILL_COLUMNS = [
     "OneHanded",
     "TwoHanded",
@@ -18,6 +17,28 @@ SKILL_COLUMNS = [
     "Throwing",
     "Riding",
     "Athletics",
+]
+
+NOBLE_ROOTS = {
+    "aserai_youth",
+    "battanian_highborn_youth",
+    "imperial_vigla_recruit",
+    "khuzait_noble_son",
+    "sturgian_warrior_son",
+    "vlandian_squire",
+}
+
+CONTROL_IDS = [
+    "battanian_fian_champion",
+    "khuzait_khans_guard",
+    "imperial_legionary",
+    "vlandian_sergeant",
+    "vlandian_sharpshooter",
+    "imperial_elite_cataphract",
+    "vlandian_banner_knight",
+    "druzhinnik_champion",
+    "aserai_vanguard_faris",
+    "khuzait_darkhan",
 ]
 
 
@@ -60,13 +81,13 @@ def parse_troops(raw_xml_root: Path):
         spnpc = matches[0]
 
     tree = ET.parse(spnpc)
-    rx = tree.getroot()
+    root = tree.getroot()
 
     troop_rows = []
     edge_rows = []
     equipment_rows = []
 
-    for npc in rx.iter():
+    for npc in root.iter():
         if strip_ns(npc.tag) != "NPCCharacter":
             continue
 
@@ -107,25 +128,19 @@ def parse_troops(raw_xml_root: Path):
                         target = clean_ref(up.attrib.get("id"))
                         if target:
                             upgrade_targets.append(target)
-                            edge_rows.append({
-                                "source_troop_id": troop_id,
-                                "target_troop_id": target,
-                            })
+                            edge_rows.append({"source_troop_id": troop_id, "target_troop_id": target})
 
             elif tag == "Equipments":
                 common_equipment = []
                 rosters = []
-
                 for elem in child:
                     elem_tag = strip_ns(elem.tag)
-
                     if elem_tag == "equipment":
                         common_equipment.append({
                             "slot": elem.attrib.get("slot"),
                             "item_id": clean_ref(elem.attrib.get("id")),
                             "equipment_source": "common",
                         })
-
                     elif elem_tag == "EquipmentRoster":
                         roster_equipment = []
                         for eq in elem:
@@ -157,14 +172,13 @@ def parse_troops(raw_xml_root: Path):
         row["upgrade_targets"] = "|".join(upgrade_targets)
         row["has_upgrade_targets"] = bool(upgrade_targets)
         row["is_soldier"] = row["occupation"] == "Soldier"
-
         troop_rows.append(row)
 
-    troops = pd.DataFrame(troop_rows)
-    edges = pd.DataFrame(edge_rows).drop_duplicates()
-    equipment = pd.DataFrame(equipment_rows).drop_duplicates()
-
-    return troops, edges, equipment
+    return (
+        pd.DataFrame(troop_rows),
+        pd.DataFrame(edge_rows).drop_duplicates(),
+        pd.DataFrame(equipment_rows).drop_duplicates(),
+    )
 
 
 def derive_tree_tiers(troops: pd.DataFrame, edges: pd.DataFrame) -> pd.DataFrame:
@@ -176,7 +190,6 @@ def derive_tree_tiers(troops: pd.DataFrame, edges: pd.DataFrame) -> pd.DataFrame
 
     incoming = defaultdict(set)
     outgoing = defaultdict(set)
-
     for _, row in edges_soldier.iterrows():
         src = row["source_troop_id"]
         tgt = row["target_troop_id"]
@@ -184,81 +197,60 @@ def derive_tree_tiers(troops: pd.DataFrame, edges: pd.DataFrame) -> pd.DataFrame
         incoming[tgt].add(src)
 
     roots = sorted([
-        troop_id
-        for troop_id in soldier_ids
+        troop_id for troop_id in soldier_ids
         if len(incoming[troop_id]) == 0 and len(outgoing[troop_id]) > 0
     ])
 
-    tier_rows = []
-    visited_best = {}
-    queue = deque()
-
-    for root_id in roots:
-        queue.append((root_id, root_id, 1, [root_id]))
+    all_paths = []
+    queue = deque((root_id, root_id, 1, [root_id]) for root_id in roots)
 
     while queue:
         troop_id, root_id, depth, path = queue.popleft()
-        key = (troop_id, root_id)
-
-        if key in visited_best and visited_best[key] <= depth:
-            continue
-
-        visited_best[key] = depth
-
-        tier_rows.append({
+        all_paths.append({
             "troop_id": troop_id,
             "tree_root_id": root_id,
+            "upgrade_depth": depth,
             "tree_tier": depth,
             "upgrade_path": "|".join(path),
         })
-
         for next_id in sorted(outgoing.get(troop_id, [])):
             if next_id in path:
                 continue
             queue.append((next_id, root_id, depth + 1, path + [next_id]))
 
-    if tier_rows:
+    if all_paths:
         tree_tiers = (
-            pd.DataFrame(tier_rows)
-            .sort_values(["troop_id", "tree_tier", "tree_root_id"])
+            pd.DataFrame(all_paths)
+            .sort_values(["troop_id", "upgrade_depth", "tree_root_id"], ascending=[True, False, True])
             .drop_duplicates("troop_id", keep="first")
             .copy()
         )
     else:
-        tree_tiers = pd.DataFrame(
-            columns=["troop_id", "tree_root_id", "tree_tier", "upgrade_path"]
-        )
+        tree_tiers = pd.DataFrame(columns=["troop_id", "tree_root_id", "upgrade_depth", "tree_tier", "upgrade_path"])
 
     unreached = sorted(soldier_ids - set(tree_tiers["troop_id"]))
     if unreached:
         extra = pd.DataFrame([{
             "troop_id": troop_id,
             "tree_root_id": None,
+            "upgrade_depth": None,
             "tree_tier": None,
             "upgrade_path": None,
         } for troop_id in unreached])
         tree_tiers = pd.concat([tree_tiers, extra], ignore_index=True)
 
     def line_status(row):
-        if pd.isna(row["tree_tier"]):
+        if pd.isna(row["upgrade_depth"]):
             return "special_or_unlinked"
-        root = str(row["tree_root_id"] or "")
-        if "youth" in root or "noble" in root:
+        if row["tree_root_id"] in NOBLE_ROOTS:
             return "noble_line"
         return "main_or_minor_line"
 
     tree_tiers["line_status"] = tree_tiers.apply(line_status, axis=1)
+    tree_tiers["line_status_corrected"] = tree_tiers["line_status"]
 
     return tree_tiers.merge(
-        troops[[
-            "troop_id",
-            "name",
-            "level",
-            "occupation",
-            "culture",
-            "default_group",
-            "has_upgrade_targets",
-        ]],
+        troops[["troop_id", "name", "level", "occupation", "culture", "default_group", "has_upgrade_targets"]],
         on="troop_id",
         how="left",
     )
@@ -266,20 +258,12 @@ def derive_tree_tiers(troops: pd.DataFrame, edges: pd.DataFrame) -> pd.DataFrame
 
 def parse_direct_items(raw_xml_root: Path) -> pd.DataFrame:
     rows = []
-
     for xml_path in raw_xml_root.rglob("*.xml"):
         rel = str(xml_path.relative_to(raw_xml_root)).replace("\\", "/")
-
         if any(x in rel for x in ["Languages/", "/GUI/", "/Atmospheres/"]):
             continue
-
-        if not (
-            "/ModuleData/items/" in rel
-            or rel.endswith("story_mode_items.xml")
-            or rel.endswith("mpitems.xml")
-        ):
+        if not ("/ModuleData/items/" in rel or rel.endswith("story_mode_items.xml") or rel.endswith("mpitems.xml")):
             continue
-
         try:
             tree = ET.parse(xml_path)
         except ET.ParseError:
@@ -288,13 +272,10 @@ def parse_direct_items(raw_xml_root: Path) -> pd.DataFrame:
         for item in tree.getroot().iter():
             if strip_ns(item.tag) != "Item":
                 continue
-
             attrs = dict(item.attrib)
             item_id = attrs.get("id")
-
             if not item_id:
                 continue
-
             row = {
                 "item_id": item_id,
                 "name": clean_name(attrs.get("name")),
@@ -326,15 +307,12 @@ def parse_direct_items(raw_xml_root: Path) -> pd.DataFrame:
                 "horse_charge_damage": None,
                 "horse_extra_health": None,
             }
-
             for child in item:
                 if strip_ns(child.tag) != "ItemComponent":
                     continue
-
                 for comp in child:
                     ctag = strip_ns(comp.tag)
                     cattrs = dict(comp.attrib)
-
                     if ctag == "Weapon":
                         row["weapon_class"] = cattrs.get("weapon_class")
                         row["stack_amount"] = num(cattrs.get("stack_amount"))
@@ -348,36 +326,29 @@ def parse_direct_items(raw_xml_root: Path) -> pd.DataFrame:
                         row["thrust_damage_type"] = cattrs.get("thrust_damage_type")
                         row["hit_points"] = num(cattrs.get("hit_points"))
                         row["shield_armor"] = num(cattrs.get("body_armor"))
-
                     elif ctag == "Armor":
                         row["head_armor"] = num(cattrs.get("head_armor"))
                         row["body_armor"] = num(cattrs.get("body_armor"))
                         row["arm_armor"] = num(cattrs.get("arm_armor"))
                         row["leg_armor"] = num(cattrs.get("leg_armor"))
-
                     elif ctag == "Horse":
                         row["horse_speed"] = num(cattrs.get("speed"))
                         row["horse_maneuver"] = num(cattrs.get("maneuver"))
                         row["horse_charge_damage"] = num(cattrs.get("charge_damage"))
                         row["horse_extra_health"] = num(cattrs.get("extra_health"))
-
             rows.append(row)
-
     return pd.DataFrame(rows)
 
 
 def parse_crafted_items(raw_xml_root: Path) -> pd.DataFrame:
     rows = []
-
+    piece_rows = []
     for xml_path in raw_xml_root.rglob("*.xml"):
         rel = str(xml_path.relative_to(raw_xml_root)).replace("\\", "/")
-
         if any(x in rel for x in ["Languages/", "/GUI/", "/Atmospheres/"]):
             continue
-
         if not ("/ModuleData/items/" in rel or rel.endswith("mpitems.xml")):
             continue
-
         try:
             tree = ET.parse(xml_path)
         except ET.ParseError:
@@ -386,15 +357,11 @@ def parse_crafted_items(raw_xml_root: Path) -> pd.DataFrame:
         for crafted in tree.getroot().iter():
             if strip_ns(crafted.tag) != "CraftedItem":
                 continue
-
             attrs = dict(crafted.attrib)
             item_id = attrs.get("id")
-
             if not item_id:
                 continue
-
             piece_ids = []
-
             for child in crafted:
                 if strip_ns(child.tag) == "Pieces":
                     for piece in child:
@@ -402,7 +369,12 @@ def parse_crafted_items(raw_xml_root: Path) -> pd.DataFrame:
                             pid = piece.attrib.get("id")
                             if pid:
                                 piece_ids.append(pid)
-
+                                piece_rows.append({
+                                    "item_id": item_id,
+                                    "piece_id": pid,
+                                    "piece_type": piece.attrib.get("Type"),
+                                    "scale_factor": piece.attrib.get("scale_factor"),
+                                })
             rows.append({
                 "item_id": item_id,
                 "name": clean_name(attrs.get("name")),
@@ -416,77 +388,37 @@ def parse_crafted_items(raw_xml_root: Path) -> pd.DataFrame:
                 "crafted_stats_reconstructed": False,
                 "score_usage_status": "audit_only_no_aggressive_htk",
             })
+    return pd.DataFrame(rows), pd.DataFrame(piece_rows)
 
-    return pd.DataFrame(rows)
 
-
-def build_audit_join(
-    troops: pd.DataFrame,
-    tree_tiers: pd.DataFrame,
-    equipment: pd.DataFrame,
-    direct_items: pd.DataFrame,
-    crafted_items: pd.DataFrame,
-) -> tuple[pd.DataFrame, pd.DataFrame]:
+def build_audit_join(troops, tree_tiers, equipment, direct_items, crafted_items):
     direct_lookup = (
-        direct_items
-        .sort_values(["item_id", "source_xml"])
+        direct_items.sort_values(["item_id", "source_xml"])
         .drop_duplicates("item_id", keep="first")
         .set_index("item_id")
         .to_dict("index")
-    )
-
+    ) if not direct_items.empty else {}
     crafted_lookup = (
-        crafted_items
-        .sort_values(["item_id", "source_xml"])
+        crafted_items.sort_values(["item_id", "source_xml"])
         .drop_duplicates("item_id", keep="first")
         .set_index("item_id")
         .to_dict("index")
-    )
+    ) if not crafted_items.empty else {}
 
     rows = []
-
+    stat_cols = [
+        "weapon_class", "stack_amount", "speed_rating", "missile_speed", "accuracy", "weapon_length",
+        "swing_damage", "swing_damage_type", "thrust_damage", "thrust_damage_type", "hit_points", "shield_armor",
+        "head_armor", "body_armor", "arm_armor", "leg_armor",
+        "horse_speed", "horse_maneuver", "horse_charge_damage", "horse_extra_health",
+    ]
     for _, eq in equipment.iterrows():
         item_id = eq["item_id"]
         direct = direct_lookup.get(item_id)
         crafted = crafted_lookup.get(item_id)
-
-        row = {
-            **eq.to_dict(),
-            "item_found": bool(direct or crafted),
-            "item_kind": None,
-            "type": None,
-            "item_name": None,
-            "crafting_template": None,
-            "crafted_stats_reconstructed": None,
-            "score_usage_status": None,
-        }
-
-        stat_cols = [
-            "weapon_class",
-            "stack_amount",
-            "speed_rating",
-            "missile_speed",
-            "accuracy",
-            "weapon_length",
-            "swing_damage",
-            "swing_damage_type",
-            "thrust_damage",
-            "thrust_damage_type",
-            "hit_points",
-            "shield_armor",
-            "head_armor",
-            "body_armor",
-            "arm_armor",
-            "leg_armor",
-            "horse_speed",
-            "horse_maneuver",
-            "horse_charge_damage",
-            "horse_extra_health",
-        ]
-
+        row = {**eq.to_dict(), "item_found": bool(direct or crafted), "item_kind": None, "type": None, "item_name": None, "crafting_template": None, "crafted_stats_reconstructed": None, "score_usage_status": None}
         for col in stat_cols:
             row[col] = None
-
         if direct:
             row["item_kind"] = "Item"
             row["type"] = direct.get("type")
@@ -494,7 +426,6 @@ def build_audit_join(
             row["score_usage_status"] = "direct_stats_available"
             for col in stat_cols:
                 row[col] = direct.get(col)
-
         elif crafted:
             row["item_kind"] = "CraftedItem"
             row["type"] = "CraftedWeapon"
@@ -502,46 +433,34 @@ def build_audit_join(
             row["crafting_template"] = crafted.get("crafting_template")
             row["crafted_stats_reconstructed"] = False
             row["score_usage_status"] = "audit_only_no_aggressive_htk"
-
         rows.append(row)
 
     audit = pd.DataFrame(rows)
-
     audit = audit.merge(
-        troops[[
-            "troop_id",
-            "name",
-            "level",
-            "occupation",
-            "culture",
-            "default_group",
-            *SKILL_COLUMNS,
-        ]].rename(columns={"name": "troop_name"}),
+        troops[["troop_id", "name", "level", "occupation", "culture", "default_group", *SKILL_COLUMNS]].rename(columns={"name": "troop_name"}),
         on="troop_id",
         how="left",
     )
-
     audit = audit.merge(
-        tree_tiers[["troop_id", "tree_root_id", "tree_tier", "line_status"]],
+        tree_tiers[["troop_id", "tree_root_id", "upgrade_depth", "tree_tier", "line_status", "line_status_corrected"]],
         on="troop_id",
         how="left",
     )
 
     roster_rows = []
-
     for (troop_id, roster_index), group in audit.groupby(["troop_id", "roster_index"], dropna=False):
         first = group.iloc[0]
         weapons = group[group["slot"].astype(str).str.startswith("Item", na=False)]
         armor = group[group["slot"].isin(["Head", "Body", "Gloves", "Leg", "Cape"])]
         horse = group[group["slot"].eq("Horse")]
         harness = group[group["slot"].eq("HorseHarness")]
-
         crafted_templates = sorted(set(weapons["crafting_template"].dropna().tolist()))
-
+        has_shield = bool((weapons["type"] == "Shield").any())
         roster_rows.append({
             "troop_id": troop_id,
             "troop_name": first["troop_name"],
             "level": first["level"],
+            "upgrade_depth": first["upgrade_depth"],
             "tree_tier": first["tree_tier"],
             "line_status": first["line_status"],
             "culture": first["culture"],
@@ -556,69 +475,39 @@ def build_audit_join(
             "has_crossbow": bool((weapons["type"] == "Crossbow").any()),
             "has_arrows": bool((weapons["type"] == "Arrows").any()),
             "has_bolts": bool((weapons["type"] == "Bolts").any()),
-            "has_shield": bool((weapons["type"] == "Shield").any()),
+            "has_shield": has_shield,
             "has_horse": bool(len(horse)),
             "has_horse_harness": bool(len(harness)),
             "has_throwing": any(("Javelin" in t or "Throwing" in t) for t in crafted_templates) or bool((weapons["type"] == "Thrown").any()),
-            "armor_total": (
-                armor["head_armor"].fillna(0).sum()
-                + armor["body_armor"].fillna(0).sum()
-                + armor["arm_armor"].fillna(0).sum()
-                + armor["leg_armor"].fillna(0).sum()
-            ),
-            "shield_hp_max": weapons.loc[weapons["type"].eq("Shield"), "hit_points"].fillna(0).max() if bool((weapons["type"] == "Shield").any()) else 0,
+            "armor_total": armor["head_armor"].fillna(0).sum() + armor["body_armor"].fillna(0).sum() + armor["arm_armor"].fillna(0).sum() + armor["leg_armor"].fillna(0).sum(),
+            "shield_hp_max": weapons.loc[weapons["type"].eq("Shield"), "hit_points"].fillna(0).max() if has_shield else 0,
             "horse_speed_max": horse["horse_speed"].fillna(0).max() if len(horse) else 0,
             "horse_charge_max": horse["horse_charge_damage"].fillna(0).max() if len(horse) else 0,
             "horse_harness_armor_max": harness["body_armor"].fillna(0).max() if len(harness) else 0,
             "crafted_weapon_stat_status": "not_reconstructed",
             "unknown_item_count": int((~group["item_found"]).sum()),
         })
-
     return audit, pd.DataFrame(roster_rows)
 
 
 def build_sanity_table(roster_summary: pd.DataFrame) -> pd.DataFrame:
-    sanity_ids = [
-        "battanian_fian_champion",
-        "khuzait_khans_guard",
-        "imperial_legionary",
-        "vlandian_sergeant",
-        "vlandian_sharpshooter",
-        "imperial_elite_cataphract",
-        "vlandian_banner_knight",
-        "druzhinnik_champion",
-        "aserai_vanguard_faris",
-        "khuzait_darkhan",
-    ]
-
     rows = []
-
-    for troop_id in sanity_ids:
-        sub = roster_summary[roster_summary["troop_id"] == troop_id].copy()
-
+    for troop_id in CONTROL_IDS:
+        sub = roster_summary[roster_summary["troop_id"] == troop_id]
         if sub.empty:
-            rows.append({
-                "troop_id": troop_id,
-                "found": False,
-                "parser_verdict": "missing",
-            })
+            rows.append({"troop_id": troop_id, "found": False, "parser_verdict": "missing"})
             continue
-
         first = sub.iloc[0]
-
         direct_weapons = sorted(set("|".join(sub["direct_weapon_items"].fillna("")).split("|")) - {""})
         crafted_weapons = sorted(set("|".join(sub["crafted_weapon_items"].fillna("")).split("|")) - {""})
         crafted_templates = sorted(set("|".join(sub["crafted_templates"].fillna("")).split("|")) - {""})
-
         has_bow = bool(sub["has_bow"].max())
         has_crossbow = bool(sub["has_crossbow"].max())
         has_shield = bool(sub["has_shield"].max())
         has_horse = bool(sub["has_horse"].max())
         has_throwing = bool(sub["has_throwing"].max())
-
         verdicts = []
         name = str(first["troop_name"])
-
         if "Fian" in name and not has_bow:
             verdicts.append("problem: expected bow")
         if "Khan" in name and not (has_horse and has_bow):
@@ -627,15 +516,14 @@ def build_sanity_table(roster_summary: pd.DataFrame) -> pd.DataFrame:
             verdicts.append("problem: expected crossbow")
         if ("Cataphract" in name or "Banner Knight" in name or "Faris" in name) and not has_horse:
             verdicts.append("problem: expected horse")
-
         if not verdicts:
             verdicts.append("parser looks plausible")
-
         rows.append({
             "troop_id": troop_id,
             "found": True,
             "troop_name": first["troop_name"],
             "level": first["level"],
+            "upgrade_depth": first["upgrade_depth"],
             "tree_tier": first["tree_tier"],
             "line_status": first["line_status"],
             "culture": first["culture"],
@@ -655,7 +543,6 @@ def build_sanity_table(roster_summary: pd.DataFrame) -> pd.DataFrame:
             "crafted_templates": "|".join(crafted_templates),
             "parser_verdict": "; ".join(verdicts),
         })
-
     return pd.DataFrame(rows)
 
 
@@ -664,20 +551,13 @@ def main():
     parser.add_argument("--raw-xml-root", type=Path, default=Path("data/vanilla/raw_xml"))
     parser.add_argument("--output-dir", type=Path, default=Path("data/vanilla/audit"))
     args = parser.parse_args()
-
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
     troops, edges, equipment = parse_troops(args.raw_xml_root)
     tree_tiers = derive_tree_tiers(troops, edges)
     direct_items = parse_direct_items(args.raw_xml_root)
-    crafted_items = parse_crafted_items(args.raw_xml_root)
-    audit, roster_summary = build_audit_join(
-        troops=troops,
-        tree_tiers=tree_tiers,
-        equipment=equipment,
-        direct_items=direct_items,
-        crafted_items=crafted_items,
-    )
+    crafted_items, crafted_item_pieces = parse_crafted_items(args.raw_xml_root)
+    audit, roster_summary = build_audit_join(troops, tree_tiers, equipment, direct_items, crafted_items)
     sanity = build_sanity_table(roster_summary)
 
     troops.to_csv(args.output_dir / "vanilla_troops.csv", index=False)
@@ -686,6 +566,7 @@ def main():
     equipment.to_csv(args.output_dir / "vanilla_equipment_rosters.csv", index=False)
     direct_items.to_csv(args.output_dir / "vanilla_items_direct.csv", index=False)
     crafted_items.to_csv(args.output_dir / "vanilla_items_crafted.csv", index=False)
+    crafted_item_pieces.to_csv(args.output_dir / "vanilla_crafted_item_pieces.csv", index=False)
     audit.to_csv(args.output_dir / "vanilla_troop_equipment_audit.csv", index=False)
     roster_summary.to_csv(args.output_dir / "vanilla_roster_audit_summary.csv", index=False)
     sanity.to_csv(args.output_dir / "vanilla_sanity_check_table.csv", index=False)
