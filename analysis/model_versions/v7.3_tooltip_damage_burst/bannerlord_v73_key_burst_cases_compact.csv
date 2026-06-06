@@ -1,0 +1,15 @@
+burst_rank_regular_v73,name,tier,category,data_scope,burst_score_v73,burst_source_v73,regular_rank_v71,burst_rank_regular_v721,rank_delta_v73_vs_v72_burst_regular,throw_damage_source_v73,throw_damage_used_v73,throw_ammo_used_v73,tooltip_throw_damage,tooltip_throw_total_ammo,total_score_v71,defense_score_v71,reliability_score,primary_throw_name,tooltip_throw_name
+1.0,Aserai Vanguard Faris,6,Offensive Cavalry,Vanilla pre-War-Sails modules,96.026,throw,3.0,1.0,0.0,tooltip_validated,121.0,5.0,121.0,5.0,90.156,93.983,83.139,Jereed,Jereed
+2.0,Battanian Skipari,5,Offensive Infantry,War Sails / NavalDLC,92.91,throw,38.0,2.0,0.0,tooltip_validated,117.0,10.0,117.0,10.0,74.22,52.071,88.512,Hooked Javelin,Hooked Javelin
+3.0,Imperial Naute,5,Offensive Infantry,War Sails / NavalDLC,92.828,throw,42.0,3.0,0.0,tooltip_validated,117.0,10.0,117.0,10.0,72.601,54.308,87.991,Hooked Javelin,Hooked Javelin
+4.0,Battanian Fian Champion,6,Archer,Vanilla pre-War-Sails modules,90.161,ranged,2.0,4.0,0.0,model_proxy,0.0,0.0,,,92.442,73.609,84.8,,
+6.0,Imperial Coast Guard,4,Offensive Infantry,War Sails / NavalDLC,84.188,throw,69.0,7.0,-1.0,tooltip_validated,113.0,10.0,113.0,10.0,63.774,39.06,87.865,Harpoon,Harpoon
+7.0,Battanian Fian,5,Archer,Vanilla pre-War-Sails modules,78.467,ranged,4.0,8.0,-1.0,model_proxy,0.0,0.0,,,89.055,56.674,84.8,,
+8.0,Khuzait Khan's Guard,6,Horse Archer,Vanilla pre-War-Sails modules,78.03,ranged,1.0,9.0,-1.0,model_proxy,0.0,0.0,,,92.901,78.403,83.45,,
+9.0,Battanian River Raider,4,Offensive Infantry,War Sails / NavalDLC,77.213,throw,58.0,5.0,4.0,tooltip_validated,101.0,10.0,101.0,10.0,65.665,35.826,87.904,Broad Blade Javelin,Broad Blade Javelin
+12.0,Vlandian Banner Knight,6,Offensive Cavalry,Vanilla pre-War-Sails modules,67.728,charge,12.0,11.0,1.0,model_proxy,0.0,0.0,,,83.307,100.0,74.29,,
+23.0,Imperial Elite Menavliaton,5,Offensive Infantry,Vanilla pre-War-Sails modules,63.452,melee,5.0,20.0,3.0,model_proxy,63.6,2.0,,,88.687,64.324,72.15,Pilum,
+47.0,Nord Huscarl,6,Offensive Infantry,War Sails / NavalDLC,58.906,throw,32.0,58.0,-11.0,model_proxy,66.0,3.0,,,74.803,84.355,89.211,Balanced Engraved Throwing Axe,
+49.0,Imperial Sergeant Crossbowman,5,Crossbowman,Vanilla pre-War-Sails modules,58.431,melee,35.0,42.0,7.0,model_proxy,0.0,0.0,,,74.394,79.059,82.925,,
+61.0,Nord Skjaldbrestir,5,Offensive Infantry,War Sails / NavalDLC,55.482,melee,37.0,55.0,6.0,model_proxy,66.0,3.0,,,74.251,57.667,87.276,Balanced Engraved Throwing Axe,
+77.0,Vlandian Sharpshooter,5,Crossbowman,Vanilla pre-War-Sails modules,52.087,melee,16.0,67.0,10.0,model_proxy,0.0,0.0,,,80.36,82.384,81.993,,
