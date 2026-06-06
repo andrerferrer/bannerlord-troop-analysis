@@ -1,0 +1,21 @@
+burst_rank_regular_v73,name,tier,category,data_scope,burst_score_v73,burst_source_v73,regular_rank_v71,burst_rank_regular_v721,rank_delta_v73_vs_v72_burst_regular,throw_damage_source_v73,throw_damage_used_v73,throw_ammo_used_v73,tooltip_throw_damage,tooltip_throw_total_ammo
+1.0,Aserai Vanguard Faris,6,Offensive Cavalry,Vanilla pre-War-Sails modules,96.026,throw,3.0,1.0,0.0,tooltip_validated,121.0,5.0,121.0,5.0
+2.0,Battanian Skipari,5,Offensive Infantry,War Sails / NavalDLC,92.91,throw,38.0,2.0,0.0,tooltip_validated,117.0,10.0,117.0,10.0
+3.0,Imperial Naute,5,Offensive Infantry,War Sails / NavalDLC,92.828,throw,42.0,3.0,0.0,tooltip_validated,117.0,10.0,117.0,10.0
+4.0,Battanian Fian Champion,6,Archer,Vanilla pre-War-Sails modules,90.161,ranged,2.0,4.0,0.0,model_proxy,0.0,0.0,,
+5.0,Aserai Veteran Faris,5,Offensive Cavalry,Vanilla pre-War-Sails modules,85.218,throw,83.0,50.0,-45.0,tooltip_validated,121.0,5.0,121.0,5.0
+6.0,Imperial Coast Guard,4,Offensive Infantry,War Sails / NavalDLC,84.188,throw,69.0,7.0,-1.0,tooltip_validated,113.0,10.0,113.0,10.0
+7.0,Battanian Fian,5,Archer,Vanilla pre-War-Sails modules,78.467,ranged,4.0,8.0,-1.0,model_proxy,0.0,0.0,,
+8.0,Khuzait Khan's Guard,6,Horse Archer,Vanilla pre-War-Sails modules,78.03,ranged,1.0,9.0,-1.0,model_proxy,0.0,0.0,,
+9.0,Battanian River Raider,4,Offensive Infantry,War Sails / NavalDLC,77.213,throw,58.0,5.0,4.0,tooltip_validated,101.0,10.0,101.0,10.0
+10.0,Battanian Mounted Skirmisher,5,Defensive Cavalry,Vanilla pre-War-Sails modules,71.127,throw,13.0,6.0,4.0,model_proxy,45.2,5.0,,
+11.0,Sturgian Horse Raider,5,Defensive Cavalry,Vanilla pre-War-Sails modules,68.576,throw,84.0,35.0,-24.0,model_proxy,48.0,5.0,,
+12.0,Vlandian Banner Knight,6,Offensive Cavalry,Vanilla pre-War-Sails modules,67.728,charge,12.0,11.0,1.0,model_proxy,0.0,0.0,,
+13.0,Aserai Master Archer,5,Archer,Vanilla pre-War-Sails modules,67.471,ranged,34.0,12.0,1.0,model_proxy,0.0,0.0,,
+14.0,Khuzait Heavy Horse Archer,5,Horse Archer,Vanilla pre-War-Sails modules,66.907,ranged,25.0,13.0,1.0,model_proxy,0.0,0.0,,
+15.0,Imperial Elite Cataphract,6,Defensive Cavalry,Vanilla pre-War-Sails modules,66.856,charge,17.0,14.0,1.0,model_proxy,0.0,0.0,,
+16.0,Imperial Palatine Guard,5,Archer,Vanilla pre-War-Sails modules,66.828,ranged,41.0,15.0,1.0,model_proxy,0.0,0.0,,
+17.0,Vlandian Champion,5,Defensive Cavalry,Vanilla pre-War-Sails modules,65.812,charge,14.0,16.0,1.0,model_proxy,0.0,0.0,,
+18.0,Sturgian Druzhinnik Champion,6,Defensive Cavalry,Vanilla pre-War-Sails modules,65.024,charge,22.0,17.0,1.0,model_proxy,0.0,0.0,,
+19.0,Khuzait Kheshig,5,Horse Archer,Vanilla pre-War-Sails modules,64.47,melee,105.0,18.0,1.0,model_proxy,0.0,0.0,,
+20.0,Imperial Cataphract,5,Defensive Cavalry,Vanilla pre-War-Sails modules,64.314,charge,27.0,19.0,1.0,model_proxy,0.0,0.0,,
