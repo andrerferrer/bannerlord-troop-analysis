@@ -1,0 +1,9 @@
+name,culture,campaign_access_guess,total_weapon_first_v1,weapon_offense_v1,defense_score,best_weapon_item,best_weapon_eff_damage_armor40,best_weapon_damage_type,possible_special_access
+Ibbenese Navigator,ibbenese,likely_campaign_or_faction,84.4,76.45,83.23,ibb_sword,40.54,Cut,False
+Ibbenese Horseman,ibbenese,likely_campaign_or_faction,78.38,72.62,79.89,ibb_sword,40.54,Cut,False
+Qartheen Longbowman,qartheen,likely_campaign_or_faction,78.37,85.48,44.29,qarth_longbow,69.29,Pierce,False
+Qartheen Master Cameleer,qartheen,likely_campaign_or_faction,78.27,72.58,79.63,qarth_sword,40.54,Cut,False
+Ibbenese Whaler,ibbenese,likely_campaign_or_faction,76.67,72.37,74.75,ibb_sword,40.54,Cut,False
+Qartheen Elite Hoplite,qartheen,likely_campaign_or_faction,75.87,72.16,72.7,qarth_sword,40.54,Cut,False
+Ibbenese Master Huntsman,ibbenese,likely_campaign_or_faction,68.96,73.08,43.0,woodland_longbow,48.57,Pierce,False
+Ibbenese Timberman,ibbenese,likely_campaign_or_faction,58.56,55.85,53.79,northern_axe_t3,31.11,Cut,False
