@@ -1,0 +1,19 @@
+name,culture,campaign_access_guess,total_weapon_first_v1,weapon_offense_v1,defense_score,best_weapon_item,best_weapon_eff_damage_armor40,best_weapon_damage_type,possible_special_access
+Westerling Hedgeknight,vlandia,possible_special_or_castellan,100.0,97.82,86.74,westerling_hammer,55.45,Blunt,True
+Qartheen Enthroned Guardian,qartheen,possible_special_or_castellan,96.44,92.35,81.51,qarth_longbow,70.0,Pierce,True
+Grafton Flaming Knight,vale,possible_special_or_castellan,86.86,79.68,87.25,grafton_axe,42.43,Cut,True
+Mallister House Guard,river,possible_special_or_castellan,86.75,82.99,82.37,mallister_hammer,48.05,Blunt,True
+Mallister Eagle Knight,river,possible_special_or_castellan,85.6,73.61,97.69,mallister_sword,37.71,Cut,True
+Ibbenese Navigator,ibbenese,likely_campaign_or_faction,84.4,76.45,83.23,ibb_sword,40.54,Cut,False
+Westerling Knight,vlandia,possible_special_or_castellan,79.14,69.53,89.39,mallister_sword,37.71,Cut,True
+Grafton Horseman,vale,possible_special_or_castellan,78.46,69.36,87.59,mallister_sword,37.71,Cut,True
+Ibbenese Horseman,ibbenese,likely_campaign_or_faction,78.38,72.62,79.89,ibb_sword,40.54,Cut,False
+Qartheen Longbowman,qartheen,likely_campaign_or_faction,78.37,85.48,44.29,qarth_longbow,69.29,Pierce,False
+Qartheen Master Cameleer,qartheen,likely_campaign_or_faction,78.27,72.58,79.63,qarth_sword,40.54,Cut,False
+Ibbenese Whaler,ibbenese,likely_campaign_or_faction,76.67,72.37,74.75,ibb_sword,40.54,Cut,False
+Qartheen Elite Hoplite,qartheen,likely_campaign_or_faction,75.87,72.16,72.7,qarth_sword,40.54,Cut,False
+Grafton Elite Archer,vale,possible_special_or_castellan,70.79,76.9,39.15,crossbow_g,62.86,Pierce,True
+Ibbenese Master Huntsman,ibbenese,likely_campaign_or_faction,68.96,73.08,43.0,woodland_longbow,48.57,Pierce,False
+Westerling Elite Archer,vlandia,possible_special_or_castellan,64.13,67.25,40.69,westerling_mace,40.66,Blunt,True
+Mallister Elite Archer,river,possible_special_or_castellan,62.24,63.27,44.8,steppe_heavy_bow,39.29,Pierce,True
+Ibbenese Timberman,ibbenese,likely_campaign_or_faction,58.56,55.85,53.79,northern_axe_t3,31.11,Cut,False
