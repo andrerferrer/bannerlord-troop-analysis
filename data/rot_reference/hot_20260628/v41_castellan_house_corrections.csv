@@ -1,0 +1,10 @@
+house_or_group,troop_id,name,culture,total_v41_integrated,mode,best_weapon_item,best_weapon_eff_damage_armor40,armor_total,shield_hp_max,corrected_castellan,notes
+Mallister,mallister_knight,Mallister Eagle Knight,river,84.8375,melee,mallister_sword,37.7143,208.0,400.0,TRUE,House/castellan troop confirmed by user
+Mallister,mallister_houseguard,Mallister House Guard,river,77.8880,melee,mallister_hammer,48.0536,197.0,400.0,TRUE,House/castellan troop confirmed by user
+Mallister,mallister_elite_archer,Mallister Elite Archer,river,40.7036,ranged+fallback,steppe_heavy_bow,39.2857,144.0,0.0,TRUE,House/castellan troop confirmed by user
+Westerling,westerling_hedgeknight,Westerling Hedgeknight,vlandia,100.0000,melee,westerling_hammer,55.4464,204.0,380.0,TRUE,House/castellan troop confirmed by user
+Westerling,westerling_horseman,Westerling Knight,vlandia,73.2031,melee,mallister_sword,37.7143,194.0,380.0,TRUE,House/castellan troop confirmed by user
+Westerling,westerling_elite_archer,Westerling Elite Archer,vlandia,39.3274,ranged+fallback,westerling_mace,40.6607,128.0,0.0,TRUE,House/castellan troop confirmed by user
+Grafton,grafton_flameknight,Grafton Flaming Knight,vale,95.7917,melee,grafton_axe,42.4286,206.0,380.0,TRUE,House/castellan troop confirmed by user
+Grafton,grafton_horseman,Grafton Horseman,vale,72.6812,melee,mallister_sword,37.7143,187.0,380.0,TRUE,House/castellan troop confirmed by user
+Grafton,grafton_elite_crossbowman,Grafton Elite Archer,vale,39.3691,ranged+fallback,crossbow_g,62.8571,122.0,0.0,TRUE,House/castellan troop confirmed by user
