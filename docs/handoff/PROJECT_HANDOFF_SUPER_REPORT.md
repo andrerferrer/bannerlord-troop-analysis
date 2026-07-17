@@ -1,62 +1,125 @@
-# Bannerlord Troop Analysis — Project Handoff Super Report
+# Bannerlord Troop Analysis — Complete Project Handoff
 
 **Repository:** `andrerferrer/bannerlord-troop-analysis`  
 **Authoritative branch:** `main`  
-**Current general model:** **v7.1 — head-weighted survivability armor**  
-**Current context model:** **v7.3 — tooltip-validated throwing burst**  
-**Prepared for:** restarting the work in a clean ChatGPT conversation with GitHub access.
+**Primary scope of this handoff:** official Bannerlord troops from vanilla modules plus War Sails / `NavalDLC`  
+**Current overall model:** **v7.1 — head-weighted general battlefield score**  
+**Current context model:** **v7.3 — tooltip-validated throwing burst score**  
+**Open validation priority:** **Battanian Skipari empirical burst performance**  
+**Purpose:** allow a new ChatGPT conversation with GitHub access to continue without relying on this chat history.
 
 ---
 
-## 1. Executive summary
+## 1. Read this first
 
-This project builds an interpretable, data-driven troop analysis pipeline for official **Mount & Blade II: Bannerlord**, covering:
+The project now has **two authoritative rankings** that answer different questions:
 
 ```txt
-vanilla modules
-+
-War Sails / NavalDLC
+v7.1 general_score
+= overall battlefield value across sustained combat
 ```
 
-The project started as an HTK/KPM ranking exercise, but several iterations exposed important parsing and modeling errors. Those errors were audited and corrected rather than hidden.
+```txt
+v7.3 burst_score
+= first-contact / short-duration kill pressure
+```
 
-The project now maintains **two separate authoritative scores**:
+Do not merge them into one score without a new, explicit calibration exercise.
 
-1. **v7.1 general score** — intended to rank overall battlefield value.
-2. **v7.3 burst score** — intended to rank first-contact / short-duration kill pressure.
-
-These scores must not be merged casually. A troop can be excellent at burst without being elite in sustained general combat.
-
-The strongest current conclusions are:
+Current headline results:
 
 ```txt
-General top 3:
+GENERAL TOP 3 — v7.1
 1. Khuzait Khan's Guard
 2. Battanian Fian Champion
 3. Aserai Vanguard Faris
 ```
 
 ```txt
-Burst top 3:
+BURST TOP 3 — v7.3
 1. Aserai Vanguard Faris
 2. Battanian Skipari
 3. Imperial Naute
 ```
 
-The **Imperial Naute** is the central example of why context scoring was added:
+The Imperial Naute is the clearest example of the distinction:
 
 ```txt
-v7.1 general rank: #42 regular combined
-v7.3 burst rank:   #3 regular combined
+v7.1 regular combined general rank: #42
+v7.3 regular combined burst rank:   #3
 ```
 
-That does not mean the Naute is the third-best troop in every battle. It means its 10 high-damage javelins create elite first-contact pressure.
+Interpretation:
+
+- the Naute is **not** claimed to be the third-best troop in every battle;
+- the Naute is claimed to have elite early kill pressure because it carries two real stacks of high-damage javelins;
+- screenshots support the idea that it overperforms its general rank in short fights.
 
 ---
 
-## 2. Scope and source data
+## 2. Exact files a new chat should read
 
-### Official modules included
+Read these in order:
+
+1. `docs/handoff/PROJECT_HANDOFF_SUPER_REPORT.md`
+2. `docs/handoff/NEW_CHAT_STARTER.md`
+3. `README.md`
+4. `analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_burst_summary.md`
+5. `analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_burst_assumptions.md`
+6. `analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_top20_burst_units_regular_compact.csv`
+7. `analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_key_burst_cases_compact.csv`
+8. `analysis/empirical/screenshots_2026-05-29_2026-06-04/empirical_findings_2026-06-04.md`
+9. `analysis/empirical/screenshots_2026-05-29_2026-06-04/empirical_troop_aggregate_summary.csv`
+10. `analysis/item_validation/2026-06-05_throwing_tooltips/findings.md`
+11. `analysis/item_validation/2026-06-05_throwing_tooltips/item_tooltip_validation_20260605.csv`
+12. `scripts/build_v72_burst_score.py`
+13. `scripts/build_v73_tooltip_damage_burst.py`
+14. GitHub issue `#2`
+
+The repository also contains Realm of Thrones work. That material is separate. It must not be allowed to silently change the official vanilla + War Sails conclusions documented here.
+
+---
+
+## 3. Project objective
+
+The project is not intended to be a casual tier list. It is an interpretable modeling pipeline built from exported Bannerlord XML and in-game validation.
+
+The intended pipeline is:
+
+```txt
+XML export
+→ troop/item/equipment normalization
+→ per-roster loadout resolution
+→ weapon and armor metrics
+→ HTK/KPM offense estimates
+→ defense and reliability scores
+→ general and contextual rankings
+→ empirical screenshot validation
+→ item-tooltip validation
+```
+
+Primary questions:
+
+```txt
+Best troop overall
+Best troop by tier
+Best offensive infantry
+Best defensive infantry
+Best offensive cavalry
+Best defensive cavalry
+Best archer
+Best crossbowman
+Best horse archer
+Best non-noble troop
+Best upgrade path
+Best burst troop
+```
+
+---
+
+## 4. Official source scope
+
+Official modules included in the full export/model work:
 
 ```txt
 Native
@@ -67,18 +130,16 @@ CustomBattle
 NavalDLC
 ```
 
-`NavalDLC` is the official module name used by **War Sails**.
+`NavalDLC` is the official module used by War Sails.
 
-### Dataset sizes observed during the v7 review
+Observed dataset sizes during the v7 audit:
 
 ```txt
 305 official troops in the full model
 230 vanilla/pre-War-Sails troops
 75 NavalDLC troops
-150 regular culture-tree troops in the combined ranking scope
+150 regular culture-tree troops in the main combined ranking scope
 ```
-
-### Main scope distinction
 
 The project distinguishes:
 
@@ -92,166 +153,351 @@ from:
 regular culture-tree troops
 ```
 
-The regular culture-tree scope is the main ranking scope because it avoids caravan guards, special templates, minor-faction noise, and diagnostic-only troops.
+The main public rankings use regular culture-tree troops. The all-official table is diagnostic and may include caravan guards, mercenaries, special templates, or other nonstandard units.
 
 ---
 
-## 3. Original model objective
+## 5. Normalized troop model
 
-The original workflow aimed to normalize game XML and calculate:
+Important normalized troop fields include:
 
 ```txt
-HTK
-melee KPM
-ranged KPM
-throwing KPM
-offense score
-defense score
-reliability score
-total combat score
+troop_id
+name
+culture
+tier
+is_noble
+is_mounted
+is_ranged
+is_terminal
+upgrade_targets
 ```
 
-The standard general score remains:
+Skills:
 
 ```txt
-total_score =
-0.65 × offense_score
-+ 0.20 × defense_score
+onehanded
+twohanded
+polearm
+bow
+crossbow
+throwing
+riding
+athletics
+```
+
+Armor:
+
+```txt
+head_armor
+body_armor
+arm_armor
+leg_armor
+armor_total
+survivability_armor_v71
+```
+
+Equipment flags:
+
+```txt
+has_shield
+has_bow
+has_crossbow
+has_throwing
+has_polearm
+has_twohander
+has_horse
+has_couch_lance
+```
+
+Weapon fields:
+
+```txt
+primary_melee_damage
+primary_melee_damage_type
+primary_melee_speed
+primary_melee_reach
+primary_ranged_damage
+primary_ranged_damage_type
+primary_ranged_speed
+primary_ranged_accuracy
+primary_ranged_ammo
+primary_throw_damage
+primary_throw_damage_type
+primary_throw_ammo
+```
+
+Tooltip validation fields added later:
+
+```txt
+tooltip_throw_name
+tooltip_throw_damage
+tooltip_throw_damage_type
+tooltip_throw_weapon_length
+tooltip_throw_missile_speed
+tooltip_throw_accuracy
+tooltip_throw_stack_amount
+tooltip_throw_visible_stacks
+tooltip_throw_total_ammo
+```
+
+---
+
+## 6. Simplified role taxonomy
+
+The official model uses:
+
+```txt
+Offensive Infantry
+Defensive Infantry
+Offensive Cavalry
+Defensive Cavalry
+Archer
+Crossbowman
+Horse Archer
+```
+
+Important modeling rule:
+
+```txt
+Archer, Crossbowman, and Horse Archer are ranged-first roles.
+```
+
+Their melee weapons are fallback tools and must not automatically replace their ranged offense just because a melee KPM proxy is numerically higher.
+
+---
+
+## 7. Core HTK/KPM foundation
+
+Standard target HP:
+
+```txt
+enemy_hp = 100
+```
+
+First-pass effective damage proxy:
+
+```txt
+base_after_armor = raw_damage × 100 / (100 + armor)
+```
+
+Damage-type modifiers used in the model lineage:
+
+```txt
+Blunt = 1.10
+Pierce = 1.00
+Cut = 0.85
+```
+
+Then:
+
+```txt
+effective_damage = base_after_armor × damage_type_modifier
+HTK = enemy_hp / effective_damage
+```
+
+Melee attempts and hit chance:
+
+```txt
+melee_attempts_per_minute = 12 × weapon_speed / 100
+melee_hit_chance = clamp(0.75 + melee_skill / 1000, 0.60, 0.95)
+melee_kpm = attempts_per_minute × hit_chance / HTK
+```
+
+Bow hit chance:
+
+```txt
+bow_hit_chance = clamp(0.35 + bow_skill / 500, 0.30, 0.90)
+```
+
+Crossbow hit chance:
+
+```txt
+crossbow_hit_chance = clamp(0.45 + crossbow_skill / 650, 0.35, 0.90)
+```
+
+Ammo capacity concept:
+
+```txt
+expected_kill_capacity = ammo × hit_chance / HTK
+```
+
+These are transparent proxies, not claims of exact engine reproduction.
+
+---
+
+## 8. General score architecture
+
+The authoritative general score remains:
+
+```txt
+total_score_v71 =
+0.65 × offense_score_v7
++ 0.20 × defense_score_v71
 + 0.15 × reliability_score
 ```
 
-The design intentionally gives offense the largest weight. High armor alone should not make a troop top-tier.
+Design intent:
+
+- offense receives the largest weight;
+- armor alone cannot create a top troop;
+- reliability is separate from defense;
+- a glass cannon can rank highly when its kill pressure is credible;
+- shield and horse durability matter, but must not overwhelm offense.
 
 ---
 
-## 4. Model version history and what went wrong
+## 9. Model version history and resolved failures
 
-### Early vanilla versions
+### Early vanilla pipeline
 
-The first vanilla pipeline normalized troops, equipment, skills, weapons, armor, horses, and troop trees. Initial results correctly identified many elite troops, but several model assumptions were too crude.
+The first full analysis parsed troops, items, armor, horses, skills, trees, and equipment. It produced plausible headline units but exposed role and parsing problems.
 
 ### v4 — throwing calibration
 
-Problem discovered:
+Observed failure:
 
 ```txt
-Aserai Vanguard Faris ranked far too low
+Aserai Vanguard Faris ranked around #46 instead of elite top 3.
 ```
 
 Cause:
 
 ```txt
-throw_blend = 0.35 throw + 0.65 melee
+throw_blend = 0.35 × throw + 0.65 × melee
 ```
 
-This treated Faris mainly as unreliable lance cavalry with incidental javelins.
+That treated Faris mainly as unreliable lance cavalry.
 
 Correction:
 
-- throwing received a much larger role;
+- throwing received greater weight;
 - mounted throwing received a bonus;
-- Faris moved into the expected top-3 vanilla group.
+- high-ammo javelin troops gained real first-contact value;
+- Faris returned to the expected elite group.
 
-### v5 — ranged role fix
+### v5 — ranged role correction
 
-Problem discovered:
-
-```txt
-Aserai Archer ranked above Aserai Master Archer
-```
-
-The XML parsing was not the main issue. The general offense formula used:
+Observed failure:
 
 ```txt
-max(melee, ranged, throwing)
+Aserai Archer > Aserai Master Archer
 ```
 
-This allowed a foot archer with a favorable melee weapon to be ranked as a melee troop with a bow.
+The XML was not the main problem. The model used:
+
+```txt
+offense = max(melee, ranged, throw)
+```
+
+The T4 Archer's blunt melee weapon allowed it to beat the T5 Master Archer despite inferior bow skill and ranged KPM.
 
 Correction:
 
 - foot archers became ranged-first;
 - crossbowmen became ranged-first;
 - melee became a capped fallback;
-- `Aserai Master Archer > Aserai Archer` was restored.
+- the correct line order was restored:
+
+```txt
+Aserai Master Archer > Aserai Archer > Aserai Light Archer
+```
 
 ### v5.1 — horse archer ranged-first
 
-Horse archers were also changed to ranged-first, with capped melee fallback.
+Horse archers also became ranged-first with capped melee fallback.
 
-This preserved Khan's Guard as elite but exposed that Kheshig/Torguud had previously been carried heavily by glaive/melee output.
+This preserved Khan's Guard as elite, but exposed that Kheshig and Torguud had previously been carried heavily by melee/glaive output.
 
-### War Sails failure in v4–v6
+### War Sails failure — the Nord Huscarl false #1
 
-The early combined War Sails ranking produced obvious nonsense, including:
+An early combined ranking produced:
 
 ```txt
 Nord Huscarl #1 overall
 ```
 
-The causes were concrete:
+This was rejected as model slop.
 
-1. **EquipmentRoster alternatives were merged into one super-loadout.**
-2. Crossbow bolts/arrows were counted across multiple alternative rosters.
-3. Crafted weapons were reconstructed by proxy and treated as exact.
-4. Spear + shield infantry KPM was overestimated.
-5. Low-ammo throwing axes were treated like sustained throwing pressure.
+Concrete causes:
+
+1. alternative `EquipmentRoster` blocks were merged into one super-loadout;
+2. arrows/bolts were summed across alternative rosters;
+3. crafted weapon reconstructions were treated as exact;
+4. spear + shield infantry KPM was overestimated;
+5. low-ammo throwing axes were treated as sustained pressure;
+6. offense normalization saturated too early.
+
+### Crossbow roster bug
 
 Example:
 
 ```txt
-Vlandian Nauta
-correct ammo per spawn: 18 bolts
-bugged model ammo:       54 bolts
+Vlandian Nauta correct ammo per spawn: 18 bolts
+bugged merged-roster ammo:            54 bolts
 ```
+
+This falsely put Nauta above Sharpshooter.
+
+Corrected conclusion under v7.1:
+
+```txt
+Vlandian Sharpshooter > Vlandian Nauta
+```
+
+They have comparable basic ranged output, but Sharpshooter has much stronger defense.
 
 ### v7 — roster-first correction
 
-v7 corrected the major parsing error:
+Correct algorithm:
 
 ```txt
 score roster 1
 score roster 2
 score roster 3
-then average the roster scores
+average the roster scores
 ```
 
-It no longer performs:
+Incorrect old algorithm:
 
 ```txt
 roster 1 + roster 2 + roster 3
 ```
 
-v7 also preserved multiple throwing stacks **inside the same roster**, which is correct.
-
-Sanity checks passed:
+Important nuance:
 
 ```txt
-Vlandian Sharpshooter > Vlandian Nauta
+Two javelin stacks inside one roster are real and must both count.
+The same javelin stack repeated across alternative rosters must not be summed.
+```
+
+v7 sanity checks:
+
+```txt
+Sharpshooter > Nauta
 Nord Huscarl is not #1 overall
 Vanguard Faris remains top 3 vanilla
 ```
 
 ### v7.1 — head-weighted survivability armor
 
-The old armor proxy was:
+Old armor proxy:
 
 ```txt
-0.70 body
-0.10 head
-0.10 arm
-0.10 leg
+0.70 body + 0.10 head + 0.10 arm + 0.10 leg
 ```
 
-A deep research review found strong evidence that:
+This overvalued torso-heavy troops with poor helmets.
 
-- the engine tracks the struck body part;
-- headshots are explicitly treated as more lethal;
-- TaleWorlds increased the pierce headshot multiplier;
-- leg damage has been explicitly reduced;
-- no reliable published hit-frequency dataset exists.
+Deep research found strong evidence that:
 
-The new metric is explicitly a **lethality-weighted survivability proxy**, not a measured hit-location frequency formula:
+- Bannerlord tracks the struck body part;
+- headshots are explicitly handled and more lethal;
+- the pierce headshot multiplier was increased in official balancing;
+- leg damage was explicitly reduced;
+- no reliable public telemetry dataset gives exact head/body/arm/leg hit frequencies.
+
+Therefore the new value is a **lethality-weighted survivability proxy**, not a measured hit-frequency equation:
 
 ```txt
 survivability_armor_v71 =
@@ -261,19 +507,17 @@ survivability_armor_v71 =
 + 0.05 × leg_armor
 ```
 
-This reduced false positives such as torso-heavy troops with weak helmets.
+### v7.2 — context-only burst score
 
-### v7.2 — burst context score
+Empirical screenshots showed that high-ammo throwing infantry could heavily outperform their general rank in short engagements.
 
-Empirical screenshots showed that throwing troops, especially Imperial Naute, could kill far more than their general rank suggested in short fights.
-
-The user explicitly chose to implement only:
+The user explicitly chose to add only:
 
 ```txt
 burst_score
 ```
 
-The following were intentionally not implemented:
+Intentionally rejected for now:
 
 ```txt
 boarding_score
@@ -281,42 +525,37 @@ short_engagement_score
 siege_defense_score
 ```
 
-### v7.2.1 — tooltip validation layer
+### v7.2.1 — in-game tooltip validation
 
-In-game item screenshots confirmed key throwing loadouts and exposed item-proxy inaccuracies.
+In-game encyclopedia screenshots validated item names, damage, damage type, stack amount, and visible stack count.
 
-### v7.3 — tooltip damage as source of truth
+### v7.3 — tooltip throwing damage becomes authoritative
 
-The user correctly decided that in-game tooltip values should be treated as authoritative raw item stats when validated.
+The user correctly decided:
 
-v7.3 therefore uses tooltip-validated throwing damage when available and falls back to proxy values only for unvalidated items.
+```txt
+If the in-game tooltip displays the real item stat, use it as the source of truth.
+```
+
+For validated throwing items:
+
+```txt
+throw_damage_used_v73 = tooltip_throw_damage
+```
+
+For unvalidated items:
+
+```txt
+throw_damage_used_v73 = model proxy fallback
+```
 
 ---
 
-## 5. Current authoritative general model: v7.1
+## 10. Authoritative general ranking — v7.1
 
-### General score
+### Regular combined top 10
 
-```txt
-total_score_v71 =
-0.65 × offense_score_v7
-+ 0.20 × defense_score_v71
-+ 0.15 × reliability_score
-```
-
-### Survivability armor
-
-```txt
-survivability_armor_v71 =
-0.55 × body
-+ 0.35 × head
-+ 0.05 × arm
-+ 0.05 × leg
-```
-
-### General top 10 — regular combined
-
-| Rank | Troop | Tier | Category | Total v7.1 |
+| Rank | Troop | Tier | Category | General score v7.1 |
 |---:|---|---:|---|---:|
 | 1 | Khuzait Khan's Guard | 6 | Horse Archer | 92.901 |
 | 2 | Battanian Fian Champion | 6 | Archer | 92.442 |
@@ -329,9 +568,9 @@ survivability_armor_v71 =
 | 9 | Battanian Veteran Falxman | 5 | Offensive Infantry | 84.555 |
 | 10 | Imperial Legionary | 5 | Defensive Infantry | 84.229 |
 
-### War Sails / NavalDLC general top 10 — v7.1
+### War Sails / NavalDLC general top 10
 
-| Rank WS | Troop | Tier | Category | Total v7.1 |
+| Rank WS | Troop | Tier | Category | General score v7.1 |
 |---:|---|---:|---|---:|
 | 1 | Nord Ulfhedinn | 5 | Offensive Infantry | 78.402 |
 | 2 | Aserai Bahriyyah | 5 | Archer | 75.618 |
@@ -344,34 +583,34 @@ survivability_armor_v71 =
 | 9 | Imperial Naute | 5 | Offensive Infantry | 72.601 |
 | 10 | Vlandian Seasoned Seafarer | 4 | Crossbowman | 72.553 |
 
-### Interpretation
+### General interpretation
 
-The general model says:
-
-- Khan's Guard is the best complete battlefield package.
-- Fian Champion is the best foot ranged unit.
-- Vanguard Faris combines elite throwing burst with exceptional defense.
-- Imperial Naute is a good T5 general troop, but not an S-tier sustained-combat troop.
+- Khan's Guard remains the best complete package: ranged uptime, mobility, survivability, and melee fallback.
+- Fian Champion remains the strongest foot ranged benchmark.
+- Vanguard Faris combines elite throwing burst with exceptional survivability.
+- Imperial Elite Menavliaton, Heroic Line Breaker, Voulgier, and Falxman lead sustained shock infantry.
+- Legionary remains a premier defensive infantry benchmark.
+- Imperial Naute is a good T5 general troop but not an elite sustained-combat unit by the current general model.
 
 ---
 
-## 6. Current authoritative burst model: v7.3
+## 11. Authoritative burst model — v7.3
 
 ### Purpose
 
 `burst_score_v73` answers:
 
 ```txt
-Which troop can generate the strongest first-contact / short-duration kill pressure?
+Which troop can generate the strongest first-contact or short-duration kill pressure?
 ```
 
 It does not answer:
 
 ```txt
-Which troop is best overall in a long battle?
+Which troop is best overall across a full battle?
 ```
 
-### Tooltip-first throwing damage
+### Tooltip-first throwing input
 
 ```txt
 throw_damage_used_v73 =
@@ -379,55 +618,67 @@ tooltip_throw_damage if validated
 else primary_throw_damage proxy
 ```
 
-### v7.3 throwing factors
+### Throw-specific calibration
+
+A direct multiplication of old proxy throw pressure by `tooltip/proxy damage ratio` was rejected because it caused nearly all validated javelins to saturate at 100.
+
+Instead:
 
 ```txt
 throw_damage_factor_v73 = clamp(damage / 110, 0.70, 1.10)
+```
 
+```txt
 throw_skill_factor_v73 =
 clamp(0.75 + throwing_skill / 400, 0.75, 1.20)
+```
 
+```txt
 throw_ammo_factor_v73 =
 0.70
 + 0.08 × min(ammo, 5)
 + 0.04 × min(max(ammo - 5, 0), 5)
+```
 
+```txt
 mounted_throw_bonus_v73 =
 1.12 if mounted else 1.00
 ```
 
-The throwing score is normalized around a Faris-like benchmark:
+Throwing damage-type factor:
+
+```txt
+Pierce = 1.00
+Blunt = 0.96
+Cut = 0.88
+```
+
+The throw scale is normalized around a Faris-like benchmark:
 
 ```txt
 Jereed
-140 throwing
+121 tooltip damage
+140 throwing skill
 5 ammo
 mounted
 ```
 
-### v7.3 burst score composition
+### Parallel burst candidates
 
-Each troop receives separate burst candidates for:
+The v7.3 implementation compares context-specific burst candidates from:
 
 ```txt
-throwing
+throw
 ranged
 charge
 melee
 ```
 
-The best candidate becomes `burst_source_v73`, then:
+It selects the strongest burst source for each troop and then combines it with smaller reliability and defense contributions.
 
-```txt
-burst_score_v73 =
-0.70 × burst_offense_score_v73
-+ 0.20 × reliability_score
-+ 0.10 × defense_score_v71
-```
+### v7.3 regular combined burst top 20
 
-### Burst top 10 — regular combined
-
-| Rank | Troop | Tier | Category | Burst v7.3 | Source | General rank v7.1 |
+| Rank | Troop | Tier | Category | Burst score | Burst source | v7.1 general rank |
 |---:|---|---:|---|---:|---|---:|
 | 1 | Aserai Vanguard Faris | 6 | Offensive Cavalry | 96.026 | throw | 3 |
 | 2 | Battanian Skipari | 5 | Offensive Infantry | 92.910 | throw | 38 |
@@ -439,84 +690,156 @@ burst_score_v73 =
 | 8 | Khuzait Khan's Guard | 6 | Horse Archer | 78.030 | ranged | 1 |
 | 9 | Battanian River Raider | 4 | Offensive Infantry | 77.213 | throw | 58 |
 | 10 | Battanian Mounted Skirmisher | 5 | Defensive Cavalry | 71.127 | throw | 13 |
+| 11 | Sturgian Horse Raider | 5 | Defensive Cavalry | 68.576 | throw | 84 |
+| 12 | Vlandian Banner Knight | 6 | Offensive Cavalry | 67.728 | charge | 12 |
+| 13 | Aserai Master Archer | 5 | Archer | 67.471 | ranged | 34 |
+| 14 | Khuzait Heavy Horse Archer | 5 | Horse Archer | 66.907 | ranged | 25 |
+| 15 | Imperial Elite Cataphract | 6 | Defensive Cavalry | 66.856 | charge | 17 |
+| 16 | Imperial Palatine Guard | 5 | Archer | 66.828 | ranged | 41 |
+| 17 | Vlandian Champion | 5 | Defensive Cavalry | 65.812 | charge | 14 |
+| 18 | Sturgian Druzhinnik Champion | 6 | Defensive Cavalry | 65.024 | charge | 22 |
+| 19 | Khuzait Kheshig | 5 | Horse Archer | 64.470 | melee | 105 |
+| 20 | Imperial Cataphract | 5 | Defensive Cavalry | 64.314 | charge | 27 |
 
-### Important interpretation
+### Burst interpretation
 
-```txt
-Khan's Guard:
-#1 general
-#8 burst
-```
-
-This is not a contradiction. Khan's Guard wins through sustained ranged uptime, mobility, survival, and melee fallback.
-
-```txt
-Imperial Naute:
-#42 general
-#3 burst
-```
-
-This means the Naute is a specialist with elite early kill pressure but weaker long-battle survivability.
+- Faris is the validated mounted-javelin benchmark.
+- Skipari and Naute are elite foot-javelin burst units because each carries two real stacks of five Hooked Javelins.
+- Fian Champion remains elite because high ranged first-contact pressure is also burst.
+- Khan's Guard ranks lower in burst than general because much of its value is sustained mobility, uptime, and fallback quality rather than only first-contact output.
+- Banner Knight and Elite Cataphract appear through charge burst, but general cavalry modeling remains less empirically validated than throwing and ranged.
 
 ---
 
-## 7. In-game tooltip validation
+## 12. War Sails-specific findings
 
-The item-validation batch is stored under:
+### Imperial naval line
 
 ```txt
-analysis/item_validation/2026-06-05_throwing_tooltips/
+Imperial Shipmate — Tier 3
+→ Imperial Coast Guard — Tier 4
+→ Imperial Naute — Tier 5
 ```
 
-### Confirmed values
+### Imperial Naute profile
 
-| Troop | Item | Tooltip damage | Type | Stack | Visible stacks | Total ammo |
-|---|---|---:|---|---:|---:|---:|
-| Imperial Naute | Hooked Javelin | 117 | Pierce | 5 | 2 | 10 |
-| Battanian Skipari | Hooked Javelin | 117 | Pierce | 5 | 2 | 10 |
-| Battanian River Raider | Broad Blade Javelin | 101 | Pierce | 5 | 2 | 10 |
-| Imperial Coast Guard | Harpoon | 113 | Pierce | 5 | 2 | 10 |
-| Aserai Vanguard Faris | Jereed | 121 | Pierce | 5 inferred/consistent | 1 | 5 |
+Validated equipment behavior:
 
-### Important item correction
+```txt
+Hooked Javelin
+stack amount: 5
+visible throwing stacks: 2
+total inferred ammo: 10
+tooltip damage: 117 Pierce
+```
 
-The previous model labeled Imperial Coast Guard's throwing item as:
+Melee fallback:
+
+```txt
+Tzikourion
+```
+
+General model position:
+
+```txt
+War Sails regular general rank: #9
+combined regular general rank:  #42
+```
+
+Burst model position:
+
+```txt
+combined regular burst rank: #3
+```
+
+### Imperial Coast Guard correction
+
+The model had labeled the Coast Guard's throwing item as:
 
 ```txt
 Broad Blade Javelin
 ```
 
-The in-game tooltip shows:
+The in-game tooltip showed:
 
 ```txt
 Harpoon
+113 Pierce
+stack amount 5
+2 visible stacks
+10 total ammo
 ```
 
-The current tooltip-validation layer records that correction.
+The model/input documentation was corrected to use Harpoon.
 
-### Meaning for Skipari
+### Nord Huscarl conclusion
 
-Battanian Skipari's high burst rank is **not** caused by an ammo parsing bug.
+The Huscarl is a strong War Sails unit, but the old #1 overall result was invalid.
 
-The game confirms:
+Current interpretation:
 
 ```txt
-2 stacks × 5 Hooked Javelins = 10 total javelins
+strong elite infantry
+not best official troop in the game
 ```
 
-The remaining open question is empirical performance, not equipment data.
+Its low-ammo throwing axe must be treated as limited burst, and spear + shield utility must not be converted directly into shock-infantry KPM.
 
 ---
 
-## 8. Empirical screenshot validation
+## 13. Item tooltip validation
 
-Normalized battle results are stored under:
+Validated in-game throwing stats:
+
+| Troop | Item | Tooltip damage | Type | Stack | Visible stacks | Total ammo |
+|---|---|---:|---|---:|---:|---:|
+| Aserai Vanguard Faris | Jereed | 121 | Pierce | 5 expected | 1 | 5 |
+| Battanian Skipari | Hooked Javelin | 117 | Pierce | 5 | 2 | 10 |
+| Imperial Naute | Hooked Javelin | 117 | Pierce | 5 | 2 | 10 |
+| Battanian River Raider | Broad Blade Javelin | 101 | Pierce | 5 | 2 | 10 |
+| Imperial Coast Guard | Harpoon | 113 | Pierce | 5 | 2 | 10 |
+
+Important consequence:
 
 ```txt
-analysis/empirical/screenshots_2026-05-29_2026-06-04/
+The high Skipari and Naute burst scores are not caused by an ammo-counting bug.
 ```
 
-### Derived metrics
+The open uncertainty is AI battlefield performance, especially for Skipari.
+
+Proxy versus tooltip examples:
+
+```txt
+Hooked Javelin proxy:       45.2
+Hooked Javelin tooltip:    117
+
+Broad Blade proxy:          48.0
+Broad Blade tooltip:       101
+
+Jereed proxy:               54.4
+Jereed tooltip:            121
+```
+
+The proxy values remain useful only as fallbacks for unvalidated items.
+
+---
+
+## 14. Empirical screenshot validation
+
+### Normalization schema
+
+Battle-result columns were interpreted as:
+
+```txt
+ready_alive
+kills
+upgrades
+dead
+wounded
+prisoners
+```
+
+Derived metrics:
 
 ```txt
 estimated_present = ready_alive + dead + wounded
@@ -524,210 +847,141 @@ kills_per_present = kills / estimated_present
 casualty_rate = (dead + wounded) / estimated_present
 ```
 
-### Key aggregate observations
+### Aggregate observations currently stored
 
-| Troop | Observations | Present | Kills | Weighted kills/present | Casualty rate |
-|---|---:|---:|---:|---:|---:|
-| Khuzait Khan's Guard | 12 | 198 | 331 | 1.672 | 0.121 |
-| Imperial Elite Menavliaton | 6 | 55 | 73 | 1.327 | 0.455 |
-| Imperial Naute | 17 | 229 | 263 | 1.148 | 0.672 |
-| Nord Sky-Gods Chosen | 9 | 49 | 56 | 1.143 | 0.408 |
-| Imperial Sergeant Crossbowman | 12 | 183 | 196 | 1.071 | 0.240 |
+Selected aggregate rows:
 
-### Empirical conclusions
+| Troop | Observations | Present | Kills | Weighted kills/present | Casualty rate | v7.1 general rank |
+|---|---:|---:|---:|---:|---:|---:|
+| Khuzait Khan's Guard | 12 | 198 | 331 | 1.672 | 12.1% | 1 |
+| Imperial Elite Menavliaton | 6 | 55 | 73 | 1.327 | 45.5% | 5 |
+| Imperial Naute | 17 | 229 | 263 | 1.148 | 67.2% | 42 |
+| Nord Sky-Gods Chosen | 9 | 49 | 56 | 1.143 | 40.8% | 40 |
+| Imperial Sergeant Crossbowman | 12 | 183 | 196 | 1.071 | 24.0% | 35 |
+| Aserai Vanguard Faris | 4 | 35 | 35 | 1.000 | 77.1% | 3 |
 
-#### Khan's Guard
+### What the screenshots support
 
-Validated as S-tier because it combines:
-
-```txt
-high output
-low casualties
-consistency across contexts
-```
-
-#### Imperial Naute
-
-Validated as a burst overperformer:
+Strong current signals:
 
 ```txt
-strong kills/present
-high casualties
-excellent short-contact output
-less convincing sustained survival
+Khan's Guard S-tier general consistency: supported
+Imperial Naute short-fight burst overperformance: supported
+Imperial Sergeant Crossbowman stable output: supported
+War Sails Nord infantry strong but not game-breaking: supported
+Nord Huscarl #1 overall: rejected
 ```
 
-This supports separate general and burst rankings.
+### Empirical limitations
 
-#### Imperial Sergeant Crossbowman
+The screenshot dataset is not a controlled laboratory sample.
 
-Shows stable performance. This supports the conclusion that crossbows were not inherently broken in the model; the earlier issue was War Sails roster overcount.
+It includes:
 
-#### Nord infantry
+- mixed troop compositions;
+- different enemy quality;
+- different commander/perk contexts;
+- field battles, villages, chokepoints, and siege contexts;
+- some modded/Realm of Thrones opponents;
+- small-sample rows with unstable kills-per-present values.
 
-Strong but variable. The screenshots do not support the old false conclusion that Nord Huscarl is the best troop in the game.
+Therefore:
 
-### Dataset limitations
+```txt
+Do not fit a full general-score regression directly to these aggregate rows.
+```
 
-- Manual transcription from screenshots.
-- Mixed battle contexts.
-- Some battles include overhaul/modded enemy troops.
-- Siege and chokepoint battles inflate ranged output.
-- This is not controlled laboratory telemetry.
+Use them as directional validation and to design controlled future tests.
 
 ---
 
-## 9. Current repo structure relevant to the work
+## 15. Armor research conclusion
+
+The deep research result was:
 
 ```txt
-analysis/
-  empirical/
-    screenshots_2026-05-29_2026-06-04/
-      README.md
-      schema.md
-      screenshot_manifest.csv
-      empirical_battle_results_normalized.csv
-      empirical_troop_aggregate_summary.csv
-      empirical_aggregate_summary.md
-      empirical_findings_2026-06-04.md
+Head armor should weigh much more than 10% in a survivability proxy.
+```
 
-  item_validation/
-    2026-06-05_throwing_tooltips/
-      item_tooltip_validation_20260605.csv
-      findings.md
-      screenshot_manifest.csv
+What is well-supported:
 
-  model_versions/
-    v7.2_burst_score/
-      bannerlord_v72_burst_assumptions.md
-      bannerlord_v72_burst_summary.md
-      bannerlord_v72_top20_burst_units_regular_combined.csv
-      bannerlord_v72_key_burst_cases.csv
-      empirical_v72_burst_validation_summary.csv
+- actual hit body part is tracked;
+- headshots receive special treatment;
+- head hits are more lethal;
+- leg damage is deweighted;
+- the four displayed armor values are only a compression of more granular hit zones.
 
-    v7.3_tooltip_damage_burst/
-      bannerlord_v73_burst_assumptions.md
-      bannerlord_v73_burst_summary.md
-      bannerlord_v73_top20_burst_units_regular_compact.csv
-      bannerlord_v73_key_burst_cases_compact.csv
+What is not available:
 
-scripts/
-  build_v72_burst_score.py
-  build_v73_tooltip_damage_burst.py
+```txt
+A reliable public dataset proving exact AI hit frequencies such as
+30% head / 60% body / 5% arm / 5% leg.
+```
+
+The adopted formula:
+
+```txt
+55% body
+35% head
+5% arm
+5% leg
+```
+
+is a modeling choice for expected survival, not the game's hidden exact formula.
+
+Do not silently rename it to “true effective armor.” Prefer:
+
+```txt
+survivability_armor_v71
 ```
 
 ---
 
-## 10. GitHub issues and decisions
+## 16. Current confidence by subsystem
 
-### Issue #1 — closed
-
-```txt
-v7.2: Add burst_score context scoring only
-```
-
-Decision:
-
-```txt
-implement burst_score only
-```
-
-Explicitly excluded:
-
-```txt
-boarding_score
-short_engagement_score
-siege_defense_score
-```
-
-### Issue #2 — open
-
-```txt
-v7.2 follow-up: validate Battanian Skipari burst ranking
-```
-
-Item loadout is already validated. The remaining requirement is controlled empirical battle evidence.
-
-### Issue #3 — closed
-
-```txt
-v7.3: Use tooltip-validated throwing damage as source of truth
-```
-
-Decision:
-
-```txt
-tooltip damage is authoritative when validated
-proxy damage is fallback only
-```
+| Subsystem | Confidence | Reason |
+|---|---|---|
+| Vanilla troop/item XML parsing | High | Fully exported and repeatedly audited |
+| EquipmentRoster alternatives | High | v7 roster-first logic fixes known overcount |
+| Vanilla ranged role scoring | Medium-high | Archer/Master Archer bug corrected; plausible ordering |
+| Crossbow ammo/loadout parsing | High | Nauta overcount found and corrected |
+| High-ammo javelin loadouts | High | In-game tooltip and stack screenshots |
+| v7.3 throwing raw item stats | High for validated items | Tooltip used as source of truth |
+| General throwing performance | Medium | Empirical support exists but contexts vary |
+| Battanian Skipari burst rank | Medium-low | Loadout validated, controlled battle output missing |
+| Shock cavalry charge model | Medium-low | Directionally improved, insufficient controlled evidence |
+| Crafted unvalidated War Sails weapons | Low-medium | Proxy fallback remains |
+| General score exact ordering below top group | Medium | Sensitive to AI/context assumptions |
+| Head/body armor exact weights | Medium | Direction supported, exact coefficients not empirically measured |
 
 ---
 
-## 11. Current confidence assessment
+## 17. Known open question
 
-### High confidence
-
-```txt
-Khan's Guard is elite overall
-Fian Champion is elite overall
-Vanguard Faris is elite overall and #1-class burst
-Master Archer > Aserai Archer
-Sharpshooter > Vlandian Nauta in general combat
-Imperial Naute has 10 Hooked Javelins
-Battanian Skipari has 10 Hooked Javelins
-Imperial Coast Guard uses Harpoon
-old Nord Huscarl #1 result was invalid
-```
-
-### Medium confidence
+The main official-model issue still open is GitHub issue `#2`:
 
 ```txt
-v7.1 exact ordering below the top group
-v7.3 exact ordering of Skipari vs Naute
-War Sails infantry internal ranking
-shock cavalry exact placement
+Validate Battanian Skipari burst ranking empirically.
 ```
 
-### Low confidence / still proxy-dependent
+What is already validated:
 
 ```txt
-unvalidated crafted throwing weapons
-unvalidated crafted melee weapons
-exact AI-use factors for some War Sails troops
-exact body-part hit frequencies
+Hooked Javelin
+117 Pierce tooltip damage
+5 per stack
+2 visible stacks
+10 total ammo
+throwing skill around 140 in model data
 ```
 
----
-
-## 12. Reproducibility warning
-
-The repo contains scripts and compact outputs, but the full original XML export ZIPs are not stored in GitHub.
-
-The v7.3 builder expects a tooltip-enriched model input. If that full input CSV is not present in the repo checkout, use the archived local package from the original conversation or regenerate it from:
+What is not validated:
 
 ```txt
-v7.1/v7.2 model data
-+
-analysis/item_validation/2026-06-05_throwing_tooltips/item_tooltip_validation_20260605.csv
+Does the AI produce battle output close to Imperial Naute and Vanguard Faris?
 ```
 
-Do not silently reconstruct missing fields with guesses. Record every fallback with a source marker such as:
-
-```txt
-exact_xml
-tooltip_validated
-crafted_reconstructed
-model_proxy
-low_confidence
-```
-
----
-
-## 13. Immediate next steps
-
-### Priority 1 — controlled Skipari validation
-
-Run comparable battles using approximately:
+Recommended controlled test:
 
 ```txt
 20–40 Battanian Skipari
@@ -736,19 +990,40 @@ Run comparable battles using approximately:
 20–40 Battanian Fian Champion
 ```
 
-Keep enemy composition and terrain as similar as possible.
-
-Measure:
+Use the same or closely matched enemy composition and record multiple repetitions in:
 
 ```txt
-kills_per_present
-casualty_rate
-variance across battles
+short open-field contact
+village/chokepoint contact
 ```
 
-### Priority 2 — validate remaining proxy throwing items
+Do not close issue #2 based only on item screenshots; those validate loadout, not AI application.
 
-Recommended order:
+---
+
+## 18. Exact next recommended action
+
+The next action should be **empirical**, not another broad formula rewrite.
+
+### Priority 1 — Skipari controlled results
+
+Collect at least three comparable battle-result screenshots for Skipari.
+
+Minimum fields:
+
+```txt
+troop
+initial or estimated present
+remaining/ready
+dead
+wounded
+kills
+battle context
+```
+
+### Priority 2 — remaining tooltip-proxy throwing units
+
+Useful next item screenshots:
 
 ```txt
 Battanian Mounted Skirmisher
@@ -759,96 +1034,180 @@ Nord Huscarl throwing axe
 Nord Skjaldbrestir throwing axe
 ```
 
-### Priority 3 — add confidence score
+### Priority 3 — add confidence scoring
 
-Recommended fields:
+A future model version should add:
 
 ```txt
-item_data_confidence
+item_input_confidence
 empirical_sample_confidence
-roster_parse_confidence
 model_confidence
 ```
 
-Possible inputs:
+Suggested factors:
 
 ```txt
 tooltip validated?
-exact XML weapon?
-crafted proxy?
+exact XML weapon or crafted reconstruction?
 number of empirical observations?
-total empirical present count?
-context diversity?
+controlled or mixed battle context?
+roster variation?
 ```
 
-### Priority 4 — do not alter general score without evidence
-
-The current split should remain:
-
-```txt
-v7.1 = general battlefield ranking
-v7.3 = burst context ranking
-```
-
-Do not promote a burst specialist into the general top 10 solely because of burst score.
+Do not change v7.1 general-score weights until new controlled evidence justifies it.
 
 ---
 
-## 14. Decisions that should not be reopened casually
+## 19. Reproduction scripts and artifacts
 
-1. **Do not merge EquipmentRoster alternatives.** Score each roster separately and average.
-2. **Do not classify foot archers by max melee output.** They are ranged-first with capped fallback.
-3. **Do not treat horse archers as pure melee glaive troops.** They are ranged-first with meaningful fallback.
-4. **Do not use 70/10/10/10 armor weighting as the main survivability proxy.** It is too torso-heavy.
-5. **Do not treat low-ammo throwing axes as sustained javelin pressure.**
-6. **Do not use crafted proxy damage when an in-game tooltip has validated the real value.**
-7. **Do not merge general and burst rankings.**
-8. **Do not accept a surprising top result without auditing XML, roster structure, and item source.**
+Current scripts:
+
+```txt
+scripts/build_v72_burst_score.py
+scripts/build_v73_tooltip_damage_burst.py
+```
+
+Important note:
+
+The repository intentionally stores compact ranking/audit outputs. Some full intermediate model artifacts originated as generated local CSVs and may not all be committed because of repository size and iteration history.
+
+A new chat should therefore:
+
+1. treat committed compact outputs and summaries as authoritative current snapshots;
+2. inspect script input paths before claiming a clean end-to-end rebuild;
+3. avoid saying “fully reproducible” unless every referenced input CSV exists on `main`;
+4. add a reconstruction script or required compact input snapshot before the next full rerun.
+
+This is a technical reproducibility gap, not a reason to discard the current validated conclusions.
 
 ---
 
-## 15. Recommended new-chat workflow
+## 20. Repository file map
 
-A new ChatGPT conversation with GitHub access should begin by reading, in this order:
-
-```txt
-1. docs/handoff/PROJECT_HANDOFF_SUPER_REPORT.md
-2. README.md
-3. analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_burst_summary.md
-4. analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_burst_assumptions.md
-5. analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_top20_burst_units_regular_compact.csv
-6. analysis/empirical/screenshots_2026-05-29_2026-06-04/empirical_findings_2026-06-04.md
-7. analysis/empirical/screenshots_2026-05-29_2026-06-04/empirical_troop_aggregate_summary.csv
-8. analysis/item_validation/2026-06-05_throwing_tooltips/findings.md
-9. analysis/item_validation/2026-06-05_throwing_tooltips/item_tooltip_validation_20260605.csv
-10. GitHub issue #2
-```
-
-Then the new chat should state back:
+### Handoff
 
 ```txt
-current authoritative general model
-current authoritative burst model
-open validation issue
-next proposed action
+docs/handoff/PROJECT_HANDOFF_SUPER_REPORT.md
+docs/handoff/NEW_CHAT_STARTER.md
+README.md
 ```
 
-before making any model changes.
+### Empirical screenshot validation
+
+```txt
+analysis/empirical/screenshots_2026-05-29_2026-06-04/README.md
+analysis/empirical/screenshots_2026-05-29_2026-06-04/schema.md
+analysis/empirical/screenshots_2026-05-29_2026-06-04/screenshot_manifest.csv
+analysis/empirical/screenshots_2026-05-29_2026-06-04/empirical_battle_results_normalized.csv
+analysis/empirical/screenshots_2026-05-29_2026-06-04/empirical_troop_aggregate_summary.csv
+analysis/empirical/screenshots_2026-05-29_2026-06-04/empirical_aggregate_summary.md
+analysis/empirical/screenshots_2026-05-29_2026-06-04/empirical_findings_2026-06-04.md
+```
+
+### Item tooltip validation
+
+```txt
+analysis/item_validation/2026-06-05_throwing_tooltips/item_tooltip_validation_20260605.csv
+analysis/item_validation/2026-06-05_throwing_tooltips/findings.md
+analysis/item_validation/2026-06-05_throwing_tooltips/screenshot_manifest.csv
+```
+
+### v7.2 burst context
+
+```txt
+analysis/model_versions/v7.2_burst_score/bannerlord_v72_burst_assumptions.md
+analysis/model_versions/v7.2_burst_score/bannerlord_v72_burst_summary.md
+analysis/model_versions/v7.2_burst_score/bannerlord_v72_top20_burst_units_regular_combined.csv
+analysis/model_versions/v7.2_burst_score/bannerlord_v72_key_burst_cases.csv
+analysis/model_versions/v7.2_burst_score/empirical_v72_burst_validation_summary.csv
+```
+
+### v7.3 tooltip-first burst
+
+```txt
+analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_burst_assumptions.md
+analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_burst_summary.md
+analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_top20_burst_units_regular_compact.csv
+analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_key_burst_cases_compact.csv
+```
+
+### Scripts
+
+```txt
+scripts/build_v72_burst_score.py
+scripts/build_v73_tooltip_damage_burst.py
+```
 
 ---
 
-## 16. Ready-to-use handoff statement
+## 21. Rules a new chat must preserve
+
+1. **Do not merge general and burst ranks.**
+2. **Do not implement boarding score unless the user explicitly reopens that decision.**
+3. **Do not merge alternative EquipmentRosters into one loadout.**
+4. **Count multiple throwing stacks only when they coexist inside the same roster.**
+5. **Use tooltip damage as source of truth for validated items.**
+6. **Use proxy/crafted damage only as a fallback and label its confidence.**
+7. **Do not accept Nord Huscarl #1 overall; that result came from known bugs.**
+8. **Keep Master Archer above Aserai Archer in ranged-role evaluation unless new data proves otherwise.**
+9. **Keep Faris in the elite general group unless controlled evidence contradicts it.**
+10. **Do not alter v7.1 general-score weights based only on mixed-context screenshots.**
+11. **Do not claim exact engine simulation; HTK/KPM and survivability armor are proxies.**
+12. **State assumptions, data source, and confidence for every material model change.**
+
+---
+
+## 22. Current accepted answers
 
 ```txt
-This project has two authoritative outputs:
-
-- v7.1 general score for overall battlefield value.
-- v7.3 burst score for first-contact / short-duration kill pressure.
-
-The general top 3 are Khan's Guard, Fian Champion, and Vanguard Faris.
-The burst top 3 are Vanguard Faris, Battanian Skipari, and Imperial Naute.
-
-War Sails must be parsed roster-first. Alternative EquipmentRosters are alternatives, not additive loadouts. Tooltip-validated throwing damage overrides crafted/proxy damage. The only major open issue is empirical validation of Battanian Skipari's #2 burst ranking.
-
-Do not implement boarding_score. Do not change v7.1 general_score without new empirical evidence.
+Best general troop: Khuzait Khan's Guard
+Best foot archer: Battanian Fian Champion
+Best throwing cavalry / burst benchmark: Aserai Vanguard Faris
+Best general defensive infantry benchmark: Imperial Legionary
+Best general crossbow comparison: Vlandian Sharpshooter > Vlandian Nauta
+Imperial Naute: good T5 general unit, elite burst specialist
+Nord Huscarl: strong War Sails elite, not #1 overall
+Battanian Skipari: tooltip-supported #2 burst candidate, empirical validation pending
 ```
+
+---
+
+## 23. Copy-paste prompt for a fresh chat
+
+A shorter ready-to-paste prompt is stored in:
+
+```txt
+docs/handoff/NEW_CHAT_STARTER.md
+```
+
+Minimum fresh-chat instruction:
+
+```txt
+Open andrerferrer/bannerlord-troop-analysis.
+Read docs/handoff/PROJECT_HANDOFF_SUPER_REPORT.md and docs/handoff/NEW_CHAT_STARTER.md first.
+Treat v7.1 as the authoritative general model and v7.3 as the separate burst model.
+Do not merge the scores, do not implement boarding_score, and do not merge alternative EquipmentRosters.
+Tooltip-validated throwing damage overrides proxy damage.
+Issue #2 is the current priority: empirically validate Battanian Skipari's high burst rank.
+Before changing a formula, identify the supporting repo files and state the remaining uncertainty.
+```
+
+---
+
+## 24. Final state
+
+The model is no longer a single opaque ranking. It is a layered system:
+
+```txt
+v7.1 general battlefield value
++
+v7.3 first-contact burst value
++
+empirical screenshot evidence
++
+in-game item-tooltip validation
++
+explicit confidence and known limitations
+```
+
+The highest-value next work is controlled validation, not another uncontrolled round of formula tuning.
