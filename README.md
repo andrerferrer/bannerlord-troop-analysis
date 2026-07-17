@@ -2,6 +2,20 @@
 
 Data-driven troop analysis framework for Mount & Blade II: Bannerlord.
 
+## Start here
+
+For the complete project state, model history, current rankings, validated findings, known limitations, and exact next steps, read:
+
+- [`docs/handoff/PROJECT_HANDOFF_SUPER_REPORT.md`](docs/handoff/PROJECT_HANDOFF_SUPER_REPORT.md)
+- [`docs/handoff/NEW_CHAT_STARTER.md`](docs/handoff/NEW_CHAT_STARTER.md)
+
+Current authoritative models:
+
+```txt
+v7.1 — general battlefield score
+v7.3 — tooltip-validated throwing burst score
+```
+
 ## Goal
 
 Create an interpretable troop analysis pipeline for vanilla Bannerlord, using XML-exported game data and practical battlefield modeling.
@@ -75,6 +89,7 @@ Tier-by-tier analysis matters because campaign progression depends on what is st
 
 ```txt
 docs/
+  handoff/
   methodology/
   vanilla/
   rot_reference/
@@ -82,6 +97,11 @@ docs/
 data/
   vanilla/
   rot_reference/
+
+analysis/
+  empirical/
+  item_validation/
+  model_versions/
 
 scripts/
   export/
