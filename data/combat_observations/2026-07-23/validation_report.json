@@ -1,0 +1,15 @@
+{
+  "counts": {
+    "all_rows": 1541,
+    "battle_consolidated_rows": 1226,
+    "battle_groups": 48,
+    "historical_aggregates": 1298,
+    "primary_troop_occurrences": 1213,
+    "review_queue_rows": 756,
+    "screenshots": 60
+  },
+  "errors": [],
+  "schema_version": "1.0.0-first-pass",
+  "status": "passed_with_warnings",
+  "warnings": []
+}
