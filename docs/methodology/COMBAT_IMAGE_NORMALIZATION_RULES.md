@@ -69,7 +69,7 @@ Preserve all visible aggregation levels:
 ```text
 side_total
 party
- troop
+troop
 player
 hero
 ```
@@ -81,6 +81,23 @@ Primary use:
 - side totals: battle-level analysis and completeness checks;
 - player row: contextual evidence only;
 - companion and lord rows: excluded from troop rankings and do not require canonical hero-ID normalization.
+
+## Relationship to the player
+
+When it can be inferred reliably, retain the following optional metadata on troop occurrences:
+
+```text
+player_party
+allied_party
+enemy_party
+unknown
+```
+
+This field is preserved for auditability and possible future sensitivity analysis, because player perks, captain bonuses, and tactical control may affect results.
+
+It does **not** split the primary historical dataset at this stage. The main consolidations combine valid troop occurrences regardless of relationship to the player, while retaining the metadata so separate views can be generated later without reprocessing the screenshots.
+
+Failure to infer this field does not invalidate an otherwise usable troop observation.
 
 ## Same troop in multiple parties
 
@@ -149,7 +166,6 @@ Policy:
 
 ## Current open decisions
 
-- whether enemy, allied, and player-party troop observations should share one historical dataset or have separate relationship-to-player dimensions;
 - exact treatment and analytical value of routed troops;
 - how to identify and exclude all post-retreat keep screenshots automatically;
 - minimum sample sizes and uncertainty reporting;
