@@ -62,6 +62,23 @@ deployed = survivors + deaths + wounded
 
 `upgrade_ready` and `routed` are preserved because extraction cost is negligible, but they do not drive the primary troop-performance score at this stage.
 
+## Routed troops and morale
+
+Always preserve the visible `routed` count and derive:
+
+```text
+routed_rate = routed / deployed
+```
+
+Policy:
+
+1. `routed` and `routed_rate` remain secondary contextual metrics.
+2. They do not enter the primary troop-performance score.
+3. They do not change the deployed-count formula and must not be added to `deployed` a second time.
+4. Route behavior should be analyzed separately by battle result when the result is available, because army collapse and defeat strongly affect routing.
+5. A high routed rate must not automatically be interpreted as an intrinsic weakness of the troop. Party morale, commander effects, casualties, battle context, and the wider army state may contribute.
+6. Historical outputs may expose routed totals and rates, but primary rankings remain based on the accepted combat-performance metrics.
+
 ## Row hierarchy
 
 Preserve all visible aggregation levels:
@@ -198,7 +215,6 @@ Policy:
 
 ## Current open decisions
 
-- exact treatment and analytical value of routed troops;
 - how to identify and exclude all post-retreat keep screenshots automatically;
 - siege-engine outlier thresholds;
 - exact schema for side totals, party totals, troop occurrences, and historical aggregates;
