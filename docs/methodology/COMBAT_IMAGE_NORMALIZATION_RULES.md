@@ -30,16 +30,11 @@ Rules:
 9. Player party on the defender side supports `siege_defense` when the battle is a siege.
 10. Very high player kills may be retained as supporting evidence, but are not sufficient by themselves to classify a siege defense.
 
-## Keep phases
+## Dataset scope
 
-Screens showing `Retreated to the keep!` and the subsequent keep-combat phases are excluded from the primary analysis.
+The supplied screenshot dataset contains standard battle-result tables only. It does not contain `Retreated to the keep!` screens or subsequent keep-combat result screens.
 
-They may be retained as raw evidence with:
-
-```text
-analysis_status=excluded
-exclusion_reason=keep_phase_not_relevant
-```
+No keep-phase detector, continuation rule, or keep-specific exclusion logic is required for this pipeline version. If such screenshots are added in a future batch, their treatment must be defined from representative examples before implementation.
 
 ## Result-table columns
 
@@ -215,7 +210,6 @@ Policy:
 
 ## Current open decisions
 
-- how to identify and exclude all post-retreat keep screenshots automatically;
 - siege-engine outlier thresholds;
 - exact schema for side totals, party totals, troop occurrences, and historical aggregates;
 - storage policy for raw images.
