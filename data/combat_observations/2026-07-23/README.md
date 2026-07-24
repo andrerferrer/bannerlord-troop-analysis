@@ -13,26 +13,34 @@ This directory contains the first complete structural normalization of the scree
 - Primary troop occurrences: **1213**
 - Rows in the review queue: **756**
 
-## Files
+## Repository contents
+
+Files available directly:
+
+- `normalization_summary.json`: batch coverage, statuses, source ZIP hash, and context counts.
+- `validation_report.json`: structural validation results.
+- `combat_troop_occurrence.schema.json`: first-pass JSON Schema.
+- `bundle/`: all normalized outputs stored in a reconstructible compressed archive.
+
+The archive contains:
 
 - `screenshots_manifest.csv`: one row for every source image, including SHA-256 and battle grouping.
 - `screenshots.jsonl`: screenshot-level extraction and status.
 - `battles.jsonl`: one normalized record per grouped battle/screen set.
 - `troop_occurrences.jsonl`: all extracted party, troop, hero, and OCR-artifact rows with field-level provenance.
-- `primary_troop_occurrences.jsonl`: only ordinary troop rows from final victory screens included in primary analysis.
+- `primary_troop_occurrences.jsonl`: ordinary troop rows from final victory screens included in primary analysis.
 - `troop_battle_consolidated.jsonl`: same troop consolidated within each battle.
 - `historical_troop_aggregates.jsonl`: pooled historical totals by `field`, `siege_attack`, `siege_defense`, and `overall`.
-- `ranking_complete.csv`: provisional ranking containing every usable sample.
-- `ranking_reliable.csv`: only `medium` and `high` evidence grades.
-- `review_queue.csv`: rows with uncertain OCR fields or low extraction confidence.
-- `validation_report.json`: structural and arithmetic validation results.
-- `combat_troop_occurrence.schema.json`: first-pass JSON Schema.
+- `ranking_complete.csv` and `ranking_reliable.csv`.
+- `review_queue.csv`.
+
+See `bundle/README.md` for reconstruction commands and the expected archive SHA-256.
 
 ## Important limitations
 
 This is a complete **first-pass normalization**, not a claim that every small number was read perfectly. The source UI uses small colored text over a variable game background. Uncertain OCR cells are retained with raw OCR text and per-field confidence, and affected rows are placed in `review_queue.csv` rather than silently corrected.
 
-The original 85 MB image ZIP is not committed to ordinary Git history. Its SHA-256 is recorded in `normalization_summary.json` and `screenshots_manifest.csv` records the SHA-256 of every individual screenshot.
+The original 85 MB image ZIP is **not** committed to ordinary Git history. Its SHA-256 is recorded in `normalization_summary.json`, and `screenshots_manifest.csv` records the SHA-256 of every individual screenshot.
 
 ## Primary metric
 
