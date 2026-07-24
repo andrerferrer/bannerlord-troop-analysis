@@ -288,10 +288,11 @@ def build_role_scores(rosters: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame
     return df, agg
 
 
-def write_outputs(rosters: pd.DataFrame, troops: pd.DataFrame, output_dir: Path) -> None:
+def write_outputs(rosters: pd.DataFrame, troops: pd.DataFrame, output_dir: Path, track: str) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
-    rosters.to_csv(output_dir / "vanilla_roster_role_scores_v1.csv", index=False)
-    troops.to_csv(output_dir / "vanilla_troop_role_scores_v1.csv", index=False)
+    prefix = f"{track}_"
+    rosters.to_csv(output_dir / f"{prefix}roster_role_scores_v1.csv", index=False)
+    troops.to_csv(output_dir / f"{prefix}troop_role_scores_v1.csv", index=False)
 
     role_files = {
         "ranged_role_score": "ranged_troops.csv",
@@ -318,32 +319,37 @@ def write_outputs(rosters: pd.DataFrame, troops: pd.DataFrame, output_dir: Path)
         ],
         default=np.nan,
     )
-    primary.sort_values(["primary_category", "primary_category_score"], ascending=[True, False]).to_csv(output_dir / "vanilla_primary_category_rankings_v1.csv", index=False)
+    primary.sort_values(["primary_category", "primary_category_score"], ascending=[True, False]).to_csv(output_dir / f"{prefix}primary_category_rankings_v1.csv", index=False)
 
-    troops[troops["troop_id"].isin(CONTROL_IDS)].to_csv(output_dir / "vanilla_sanity_role_scores_v1.csv", index=False)
+    troops[troops["troop_id"].isin(CONTROL_IDS)].to_csv(output_dir / f"{prefix}sanity_role_scores_v1.csv", index=False)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--audit-dir", type=Path, default=Path("data/vanilla/audit"))
     parser.add_argument("--output-dir", type=Path, default=Path("data/vanilla/role_scores"))
+    parser.add_argument("--track", default="vanilla")
     args = parser.parse_args()
+    if not args.track.strip():
+        parser.error("--track cannot be empty")
 
-    audit = pd.read_csv(args.audit_dir / "vanilla_troop_equipment_audit.csv")
-    troops = pd.read_csv(args.audit_dir / "vanilla_troops.csv")
-    depths = pd.read_csv(args.audit_dir / "vanilla_tree_tiers.csv")
+    prefix = f"{args.track}_"
+    audit = pd.read_csv(args.audit_dir / f"{prefix}troop_equipment_audit.csv")
+    troops = pd.read_csv(args.audit_dir / f"{prefix}troops.csv")
+    depths = pd.read_csv(args.audit_dir / f"{prefix}tree_tiers.csv")
 
     soldiers = set(troops[troops["is_soldier"].astype(str).str.lower().eq("true")]["troop_id"])
     if "line_status_corrected" in depths.columns:
-        depths = depths.rename(columns={"line_status_corrected": "line_status"})
+        depths["line_status"] = depths["line_status_corrected"]
     if "tree_tier" in depths.columns and "upgrade_depth" not in depths.columns:
         depths = depths.rename(columns={"tree_tier": "upgrade_depth"})
 
     roster_features = build_roster_features(audit, soldiers, depths)
     roster_scores, troop_scores = build_role_scores(roster_features)
-    write_outputs(roster_scores, troop_scores, args.output_dir)
+    write_outputs(roster_scores, troop_scores, args.output_dir, args.track)
 
-    print("Vanilla role scores generated.")
+    print("Role scores generated.")
+    print(f"track={args.track}")
     print(f"rosters={len(roster_scores)}")
     print(f"troops={len(troop_scores)}")
     print(f"output={args.output_dir}")
