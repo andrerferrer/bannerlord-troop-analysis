@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "combat-troop-occurrence.schema.json",
+  "title": "Bannerlord combat troop occurrence first-pass schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "observation_id",
+    "battle_id",
+    "side",
+    "row_type",
+    "display_name_raw",
+    "display_name_normalized",
+    "survivors",
+    "kills",
+    "upgrade_ready",
+    "deaths",
+    "wounded",
+    "routed"
+  ],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "observation_id": {"type": "string"},
+    "battle_id": {"type": "string"},
+    "side": {"enum": ["attacker", "defender"]},
+    "row_type": {"enum": ["party", "troop", "hero", "artifact"]},
+    "display_name_raw": {"type": "string"},
+    "display_name_normalized": {"type": "string"},
+    "survivors": {"type": ["integer", "null"], "minimum": 0},
+    "kills": {"type": ["integer", "null"], "minimum": 0},
+    "upgrade_ready": {"type": ["integer", "null"], "minimum": 0},
+    "deaths": {"type": ["integer", "null"], "minimum": 0},
+    "wounded": {"type": ["integer", "null"], "minimum": 0},
+    "routed": {"type": ["integer", "null"], "minimum": 0},
+    "deployed": {"type": ["integer", "null"], "minimum": 0},
+    "analysis_status": {"type": "string"},
+    "needs_review": {"type": "boolean"}
+  },
+  "additionalProperties": true
+}
