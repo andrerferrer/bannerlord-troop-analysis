@@ -145,6 +145,38 @@ Do not use an unweighted average of per-battle rates as the primary metric.
 
 The `overall` view must be marked as mixing battle contexts and must not replace context-specific comparisons.
 
+## Evidence grading and minimum samples
+
+Do not discard troop observations solely because the sample is small. Instead, assign an `evidence_grade` using both total valid deployed troops and independent battle count.
+
+The grade is the highest level for which **both** thresholds are met:
+
+| Evidence grade | Valid deployed troops | Independent battles |
+|---|---:|---:|
+| `exploratory` | any amount | 1 |
+| `low` | at least 10 | at least 2 |
+| `medium` | at least 30 | at least 3 |
+| `high` | at least 100 | at least 5 |
+
+Examples:
+
+- 300 deployed in one battle remains `exploratory`;
+- 20 deployed across four battles is `low`;
+- 80 deployed across three battles is `medium`;
+- 150 deployed across six battles is `high`;
+- 500 deployed across two battles is `low`.
+
+Generate two analytical views:
+
+1. a complete ranking containing every troop with at least one valid observation;
+2. a reliable ranking containing only `medium` and `high` evidence grades.
+
+Calculate the grade separately for `field`, `siege_attack`, `siege_defense`, and `overall`. A troop may therefore have different grades in different contexts.
+
+Occurrences excluded from the primary analysis, including suspected siege-engine outliers, do not contribute to primary sample-size thresholds.
+
+These thresholds are provisional and must be recalibrated after inspecting the distribution of the first processed empirical batch.
+
 ## Suspected siege-engine outliers
 
 A siege-defense occurrence may be automatically marked as a probable siege-engine result when it combines:
@@ -168,7 +200,6 @@ Policy:
 
 - exact treatment and analytical value of routed troops;
 - how to identify and exclude all post-retreat keep screenshots automatically;
-- minimum sample sizes and uncertainty reporting;
 - siege-engine outlier thresholds;
 - exact schema for side totals, party totals, troop occurrences, and historical aggregates;
 - storage policy for raw images.
