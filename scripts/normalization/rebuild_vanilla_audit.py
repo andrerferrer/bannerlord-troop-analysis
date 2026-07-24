@@ -41,6 +41,18 @@ CONTROL_IDS = [
     "khuzait_darkhan",
 ]
 
+EDGE_COLUMNS = ["source_troop_id", "target_troop_id"]
+EQUIPMENT_COLUMNS = ["troop_id", "roster_index", "slot", "item_id", "equipment_source"]
+OVERRIDE_COLUMNS = [
+    "troop_id",
+    "winner_module",
+    "defining_modules",
+    "overridden_modules",
+    "definition_count",
+    "change_type",
+]
+XSLT_GAP_COLUMNS = ["module", "is_baseline", "xslt_file", "status"]
+
 
 def strip_ns(tag: str) -> str:
     return tag.split("}", 1)[-1] if "}" in tag else tag
@@ -72,113 +84,281 @@ def num(value):
         return None
 
 
-def parse_troops(raw_xml_root: Path):
-    spnpc = raw_xml_root / "SandboxCore" / "ModuleData" / "spnpccharacters.xml"
-    if not spnpc.exists():
-        matches = list(raw_xml_root.rglob("spnpccharacters.xml"))
-        if not matches:
-            raise FileNotFoundError("Could not find spnpccharacters.xml")
-        spnpc = matches[0]
+def parse_csv_list(value: str | None) -> list[str]:
+    if not value:
+        return []
+    return [part.strip() for part in value.split(",") if part.strip()]
 
-    tree = ET.parse(spnpc)
-    root = tree.getroot()
+
+def append_unique(values: list[str], value: str | None) -> None:
+    if value and value not in values:
+        values.append(value)
+
+
+def xml_field_value(node: ET.Element, names: tuple[str, ...]) -> str | None:
+    lowered = {name.lower() for name in names}
+    for key, value in node.attrib.items():
+        if strip_ns(key).lower() in lowered:
+            return value
+    for child in node:
+        if strip_ns(child.tag).lower() in lowered:
+            text = (child.text or "").strip()
+            if text:
+                return text
+            for key, value in child.attrib.items():
+                if strip_ns(key).lower() == "value":
+                    return value
+            return ""
+    return None
+
+
+def parse_launcher_load_order(path: Path | None) -> list[str]:
+    if path is None or not path.exists():
+        return []
+
+    try:
+        root = ET.parse(path).getroot()
+    except (ET.ParseError, OSError):
+        return []
+
+    selected: list[str] = []
+    for node in root.iter():
+        if strip_ns(node.tag).lower() != "usermoddata":
+            continue
+        is_selected = xml_field_value(node, ("IsSelected", "Selected"))
+        if str(is_selected).strip().lower() not in {"true", "1"}:
+            continue
+        module_id = xml_field_value(node, ("Id", "ModuleId", "Name"))
+        append_unique(selected, module_id.strip() if module_id else None)
+    return selected
+
+
+def discover_modules(raw_xml_root: Path) -> list[str]:
+    if not raw_xml_root.exists():
+        raise FileNotFoundError(f"Raw XML root does not exist: {raw_xml_root}")
+    return sorted(path.name for path in raw_xml_root.iterdir() if path.is_dir())
+
+
+def resolve_load_order(
+    raw_xml_root: Path,
+    explicit_load_order: list[str],
+    launcher_data: Path | None,
+    baseline_modules: list[str],
+) -> tuple[list[str], str]:
+    present = discover_modules(raw_xml_root)
+    present_by_lower = {module.lower(): module for module in present}
+
+    if explicit_load_order:
+        requested = explicit_load_order
+        source = "--load-order"
+    else:
+        launcher_order = parse_launcher_load_order(launcher_data)
+        if launcher_order:
+            requested = launcher_order
+            source = str(launcher_data)
+        else:
+            requested = baseline_modules
+            source = "auto-discovery"
+
+    resolved: list[str] = []
+    for module in requested:
+        actual = present_by_lower.get(module.lower())
+        append_unique(resolved, actual)
+
+    # Always process every exported module. Baseline leftovers come first, then mods.
+    for module in baseline_modules:
+        actual = present_by_lower.get(module.lower())
+        append_unique(resolved, actual)
+    for module in present:
+        append_unique(resolved, module)
+
+    if not resolved:
+        raise FileNotFoundError(f"No module directories found below {raw_xml_root}")
+    return resolved, source
+
+
+def module_files(module_root: Path, filename: str) -> list[Path]:
+    target = filename.lower()
+    return sorted(
+        (path for path in module_root.rglob("*") if path.is_file() and path.name.lower() == target),
+        key=lambda path: str(path.relative_to(module_root)).lower(),
+    )
+
+
+def iter_module_xml_paths(raw_xml_root: Path, load_order: list[str]):
+    for rank, module in enumerate(load_order):
+        module_root = raw_xml_root / module
+        paths = sorted(
+            (path for path in module_root.rglob("*") if path.is_file() and path.suffix.lower() == ".xml"),
+            key=lambda path: str(path.relative_to(module_root)).lower(),
+        )
+        for path in paths:
+            yield rank, module, path
+
+
+def parse_npc_definition(npc: ET.Element):
+    attrs = dict(npc.attrib)
+    troop_id = attrs.get("id")
+    row = {
+        "troop_id": troop_id,
+        "name_raw": attrs.get("name"),
+        "name": clean_name(attrs.get("name")),
+        "level": num(attrs.get("level")),
+        "occupation": attrs.get("occupation"),
+        "culture": clean_ref(attrs.get("culture")),
+        "default_group": attrs.get("default_group"),
+        "is_basic_troop": attrs.get("is_basic_troop"),
+        "is_hero": attrs.get("is_hero"),
+        "is_template": attrs.get("is_template"),
+    }
+    skills = {}
+    upgrade_targets = []
+    edge_rows = []
+    equipment_rows = []
+
+    for child in npc:
+        tag = strip_ns(child.tag)
+
+        if tag == "skills":
+            for skill in child:
+                if strip_ns(skill.tag) == "skill":
+                    sid = skill.attrib.get("id")
+                    if sid:
+                        skills[sid] = num(skill.attrib.get("value"))
+
+        elif tag == "upgrade_targets":
+            for up in child:
+                if strip_ns(up.tag) == "upgrade_target":
+                    target = clean_ref(up.attrib.get("id"))
+                    if target:
+                        upgrade_targets.append(target)
+                        edge_rows.append({"source_troop_id": troop_id, "target_troop_id": target})
+
+        elif tag == "Equipments":
+            common_equipment = []
+            rosters = []
+            for elem in child:
+                elem_tag = strip_ns(elem.tag)
+                if elem_tag == "equipment":
+                    common_equipment.append({
+                        "slot": elem.attrib.get("slot"),
+                        "item_id": clean_ref(elem.attrib.get("id")),
+                        "equipment_source": "common",
+                    })
+                elif elem_tag == "EquipmentRoster":
+                    roster_equipment = []
+                    for eq in elem:
+                        if strip_ns(eq.tag) == "equipment":
+                            roster_equipment.append({
+                                "slot": eq.attrib.get("slot"),
+                                "item_id": clean_ref(eq.attrib.get("id")),
+                                "equipment_source": "roster",
+                            })
+                    if roster_equipment:
+                        rosters.append(roster_equipment)
+
+            if not rosters and common_equipment:
+                rosters = [[]]
+
+            for roster_index, roster_equipment in enumerate(rosters):
+                for eq in roster_equipment + common_equipment:
+                    equipment_rows.append({
+                        "troop_id": troop_id,
+                        "roster_index": roster_index,
+                        "slot": eq["slot"],
+                        "item_id": eq["item_id"],
+                        "equipment_source": eq["equipment_source"],
+                    })
+
+    for skill_name in SKILL_COLUMNS:
+        row[skill_name] = skills.get(skill_name)
+
+    row["upgrade_targets"] = "|".join(upgrade_targets)
+    row["has_upgrade_targets"] = bool(upgrade_targets)
+    row["is_soldier"] = row["occupation"] == "Soldier"
+    return row, edge_rows, equipment_rows
+
+
+def parse_troops(raw_xml_root: Path, load_order: list[str], baseline_modules: set[str]):
+    definitions: dict[str, list[str]] = defaultdict(list)
+    winners: dict[str, tuple[dict, list[dict], list[dict], str]] = {}
+    troop_order: list[str] = []
+    found_any_file = False
+
+    for module in load_order:
+        spnpc_paths = module_files(raw_xml_root / module, "spnpccharacters.xml")
+        if spnpc_paths:
+            found_any_file = True
+        for spnpc in spnpc_paths:
+            root = ET.parse(spnpc).getroot()
+            for npc in root.iter():
+                if strip_ns(npc.tag) != "NPCCharacter":
+                    continue
+                troop_id = npc.attrib.get("id")
+                if not troop_id:
+                    continue
+                if troop_id not in winners:
+                    troop_order.append(troop_id)
+                if module not in definitions[troop_id]:
+                    definitions[troop_id].append(module)
+                row, edges, equipment = parse_npc_definition(npc)
+                winners[troop_id] = (row, edges, equipment, module)
+
+    if not found_any_file:
+        raise FileNotFoundError("Could not find spnpccharacters.xml in any resolved module")
 
     troop_rows = []
     edge_rows = []
     equipment_rows = []
-
-    for npc in root.iter():
-        if strip_ns(npc.tag) != "NPCCharacter":
-            continue
-
-        attrs = dict(npc.attrib)
-        troop_id = attrs.get("id")
-        if not troop_id:
-            continue
-
-        row = {
-            "troop_id": troop_id,
-            "name_raw": attrs.get("name"),
-            "name": clean_name(attrs.get("name")),
-            "level": num(attrs.get("level")),
-            "occupation": attrs.get("occupation"),
-            "culture": clean_ref(attrs.get("culture")),
-            "default_group": attrs.get("default_group"),
-            "is_basic_troop": attrs.get("is_basic_troop"),
-            "is_hero": attrs.get("is_hero"),
-            "is_template": attrs.get("is_template"),
-        }
-
-        skills = {}
-        upgrade_targets = []
-
-        for child in npc:
-            tag = strip_ns(child.tag)
-
-            if tag == "skills":
-                for skill in child:
-                    if strip_ns(skill.tag) == "skill":
-                        sid = skill.attrib.get("id")
-                        if sid:
-                            skills[sid] = num(skill.attrib.get("value"))
-
-            elif tag == "upgrade_targets":
-                for up in child:
-                    if strip_ns(up.tag) == "upgrade_target":
-                        target = clean_ref(up.attrib.get("id"))
-                        if target:
-                            upgrade_targets.append(target)
-                            edge_rows.append({"source_troop_id": troop_id, "target_troop_id": target})
-
-            elif tag == "Equipments":
-                common_equipment = []
-                rosters = []
-                for elem in child:
-                    elem_tag = strip_ns(elem.tag)
-                    if elem_tag == "equipment":
-                        common_equipment.append({
-                            "slot": elem.attrib.get("slot"),
-                            "item_id": clean_ref(elem.attrib.get("id")),
-                            "equipment_source": "common",
-                        })
-                    elif elem_tag == "EquipmentRoster":
-                        roster_equipment = []
-                        for eq in elem:
-                            if strip_ns(eq.tag) == "equipment":
-                                roster_equipment.append({
-                                    "slot": eq.attrib.get("slot"),
-                                    "item_id": clean_ref(eq.attrib.get("id")),
-                                    "equipment_source": "roster",
-                                })
-                        if roster_equipment:
-                            rosters.append(roster_equipment)
-
-                if not rosters and common_equipment:
-                    rosters = [[]]
-
-                for roster_index, roster_equipment in enumerate(rosters):
-                    for eq in roster_equipment + common_equipment:
-                        equipment_rows.append({
-                            "troop_id": troop_id,
-                            "roster_index": roster_index,
-                            "slot": eq["slot"],
-                            "item_id": eq["item_id"],
-                            "equipment_source": eq["equipment_source"],
-                        })
-
-        for skill_name in SKILL_COLUMNS:
-            row[skill_name] = skills.get(skill_name)
-
-        row["upgrade_targets"] = "|".join(upgrade_targets)
-        row["has_upgrade_targets"] = bool(upgrade_targets)
-        row["is_soldier"] = row["occupation"] == "Soldier"
+    override_rows = []
+    for troop_id in troop_order:
+        row, edges, equipment, winner_module = winners[troop_id]
         troop_rows.append(row)
+        edge_rows.extend(edges)
+        equipment_rows.extend(equipment)
 
-    return (
-        pd.DataFrame(troop_rows),
-        pd.DataFrame(edge_rows).drop_duplicates(),
-        pd.DataFrame(equipment_rows).drop_duplicates(),
-    )
+        defining_modules = definitions[troop_id]
+        baseline_definitions = [module for module in defining_modules if module in baseline_modules]
+        mod_definitions = [module for module in defining_modules if module not in baseline_modules]
+        if baseline_definitions and mod_definitions:
+            change_type = "override"
+        elif mod_definitions:
+            change_type = "novo"
+        else:
+            change_type = "inalterado"
+        override_rows.append({
+            "troop_id": troop_id,
+            "winner_module": winner_module,
+            "defining_modules": "|".join(defining_modules),
+            "overridden_modules": "|".join(module for module in defining_modules if module != winner_module),
+            "definition_count": len(defining_modules),
+            "change_type": change_type,
+        })
+
+    troops = pd.DataFrame(troop_rows)
+    edges = pd.DataFrame(edge_rows, columns=EDGE_COLUMNS).drop_duplicates()
+    equipment = pd.DataFrame(equipment_rows, columns=EQUIPMENT_COLUMNS).drop_duplicates()
+    overrides = pd.DataFrame(override_rows, columns=OVERRIDE_COLUMNS)
+    return troops, edges, equipment, overrides
+
+
+def detect_xslt_gaps(raw_xml_root: Path, load_order: list[str], baseline_modules: set[str]) -> pd.DataFrame:
+    rows = []
+    for module in load_order:
+        module_root = raw_xml_root / module
+        module_data = module_root / "ModuleData"
+        if not module_data.exists():
+            continue
+        for path in sorted(module_data.rglob("*"), key=lambda item: str(item).lower()):
+            if not path.is_file() or path.suffix.lower() != ".xslt":
+                continue
+            rows.append({
+                "module": module,
+                "is_baseline": module in baseline_modules,
+                "xslt_file": str(path.relative_to(module_root)).replace("\\", "/"),
+                "status": "known_gap_not_applied",
+            })
+    return pd.DataFrame(rows, columns=XSLT_GAP_COLUMNS)
 
 
 def derive_tree_tiers(troops: pd.DataFrame, edges: pd.DataFrame) -> pd.DataFrame:
@@ -256,9 +436,9 @@ def derive_tree_tiers(troops: pd.DataFrame, edges: pd.DataFrame) -> pd.DataFrame
     )
 
 
-def parse_direct_items(raw_xml_root: Path) -> pd.DataFrame:
+def parse_direct_items(raw_xml_root: Path, load_order: list[str]) -> pd.DataFrame:
     rows = []
-    for xml_path in raw_xml_root.rglob("*.xml"):
+    for rank, module, xml_path in iter_module_xml_paths(raw_xml_root, load_order):
         rel = str(xml_path.relative_to(raw_xml_root)).replace("\\", "/")
         if any(x in rel for x in ["Languages/", "/GUI/", "/Atmospheres/"]):
             continue
@@ -306,6 +486,8 @@ def parse_direct_items(raw_xml_root: Path) -> pd.DataFrame:
                 "horse_maneuver": None,
                 "horse_charge_damage": None,
                 "horse_extra_health": None,
+                "_module": module,
+                "_load_order_rank": rank,
             }
             for child in item:
                 if strip_ns(child.tag) != "ItemComponent":
@@ -340,10 +522,10 @@ def parse_direct_items(raw_xml_root: Path) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def parse_crafted_items(raw_xml_root: Path) -> pd.DataFrame:
+def parse_crafted_items(raw_xml_root: Path, load_order: list[str]) -> tuple[pd.DataFrame, pd.DataFrame]:
     rows = []
     piece_rows = []
-    for xml_path in raw_xml_root.rglob("*.xml"):
+    for rank, module, xml_path in iter_module_xml_paths(raw_xml_root, load_order):
         rel = str(xml_path.relative_to(raw_xml_root)).replace("\\", "/")
         if any(x in rel for x in ["Languages/", "/GUI/", "/Atmospheres/"]):
             continue
@@ -387,23 +569,25 @@ def parse_crafted_items(raw_xml_root: Path) -> pd.DataFrame:
                 "piece_ids": "|".join(piece_ids),
                 "crafted_stats_reconstructed": False,
                 "score_usage_status": "audit_only_no_aggressive_htk",
+                "_module": module,
+                "_load_order_rank": rank,
             })
     return pd.DataFrame(rows), pd.DataFrame(piece_rows)
 
 
+def deterministic_item_lookup(items: pd.DataFrame) -> dict:
+    if items.empty:
+        return {}
+    ranked = items.sort_values(
+        ["item_id", "_load_order_rank", "source_xml"],
+        ascending=[True, False, True],
+    )
+    return ranked.drop_duplicates("item_id", keep="first").set_index("item_id").to_dict("index")
+
+
 def build_audit_join(troops, tree_tiers, equipment, direct_items, crafted_items):
-    direct_lookup = (
-        direct_items.sort_values(["item_id", "source_xml"])
-        .drop_duplicates("item_id", keep="first")
-        .set_index("item_id")
-        .to_dict("index")
-    ) if not direct_items.empty else {}
-    crafted_lookup = (
-        crafted_items.sort_values(["item_id", "source_xml"])
-        .drop_duplicates("item_id", keep="first")
-        .set_index("item_id")
-        .to_dict("index")
-    ) if not crafted_items.empty else {}
+    direct_lookup = deterministic_item_lookup(direct_items)
+    crafted_lookup = deterministic_item_lookup(crafted_items)
 
     rows = []
     stat_cols = [
@@ -436,6 +620,8 @@ def build_audit_join(troops, tree_tiers, equipment, direct_items, crafted_items)
         rows.append(row)
 
     audit = pd.DataFrame(rows)
+    if audit.empty:
+        audit = pd.DataFrame(columns=[*EQUIPMENT_COLUMNS, "item_found", "item_kind", "type", "item_name", "crafting_template", "crafted_stats_reconstructed", "score_usage_status", *stat_cols])
     audit = audit.merge(
         troops[["troop_id", "name", "level", "occupation", "culture", "default_group", *SKILL_COLUMNS]].rename(columns={"name": "troop_name"}),
         on="troop_id",
@@ -493,7 +679,7 @@ def build_audit_join(troops, tree_tiers, equipment, direct_items, crafted_items)
 def build_sanity_table(roster_summary: pd.DataFrame) -> pd.DataFrame:
     rows = []
     for troop_id in CONTROL_IDS:
-        sub = roster_summary[roster_summary["troop_id"] == troop_id]
+        sub = roster_summary[roster_summary["troop_id"] == troop_id] if "troop_id" in roster_summary.columns else pd.DataFrame()
         if sub.empty:
             rows.append({"troop_id": troop_id, "found": False, "parser_verdict": "missing"})
             continue
@@ -546,32 +732,63 @@ def build_sanity_table(roster_summary: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def public_item_columns(frame: pd.DataFrame) -> pd.DataFrame:
+    return frame.drop(columns=[column for column in frame.columns if column.startswith("_")], errors="ignore")
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--raw-xml-root", type=Path, default=Path("data/vanilla/raw_xml"))
     parser.add_argument("--output-dir", type=Path, default=Path("data/vanilla/audit"))
+    parser.add_argument("--track", default="vanilla")
+    parser.add_argument("--load-order", default=None, help="Comma-separated module load order")
+    parser.add_argument("--launcher-data", type=Path, default=None)
+    parser.add_argument(
+        "--baseline-modules",
+        default="Native,Sandbox,SandboxCore,StoryMode,NavalDLC",
+        help="Comma-separated modules classified as baseline",
+    )
     args = parser.parse_args()
-    args.output_dir.mkdir(parents=True, exist_ok=True)
+    if not args.track.strip():
+        parser.error("--track cannot be empty")
 
-    troops, edges, equipment = parse_troops(args.raw_xml_root)
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    baseline_list = parse_csv_list(args.baseline_modules)
+    baseline_lookup = {module.lower() for module in baseline_list}
+    load_order, load_order_source = resolve_load_order(
+        args.raw_xml_root,
+        parse_csv_list(args.load_order),
+        args.launcher_data,
+        baseline_list,
+    )
+    canonical_baseline = {module for module in load_order if module.lower() in baseline_lookup}
+
+    troops, edges, equipment, overrides = parse_troops(args.raw_xml_root, load_order, canonical_baseline)
     tree_tiers = derive_tree_tiers(troops, edges)
-    direct_items = parse_direct_items(args.raw_xml_root)
-    crafted_items, crafted_item_pieces = parse_crafted_items(args.raw_xml_root)
+    direct_items = parse_direct_items(args.raw_xml_root, load_order)
+    crafted_items, crafted_item_pieces = parse_crafted_items(args.raw_xml_root, load_order)
     audit, roster_summary = build_audit_join(troops, tree_tiers, equipment, direct_items, crafted_items)
     sanity = build_sanity_table(roster_summary)
+    xslt_gaps = detect_xslt_gaps(args.raw_xml_root, load_order, canonical_baseline)
 
-    troops.to_csv(args.output_dir / "vanilla_troops.csv", index=False)
-    edges.to_csv(args.output_dir / "vanilla_upgrade_edges.csv", index=False)
-    tree_tiers.to_csv(args.output_dir / "vanilla_tree_tiers.csv", index=False)
-    equipment.to_csv(args.output_dir / "vanilla_equipment_rosters.csv", index=False)
-    direct_items.to_csv(args.output_dir / "vanilla_items_direct.csv", index=False)
-    crafted_items.to_csv(args.output_dir / "vanilla_items_crafted.csv", index=False)
-    crafted_item_pieces.to_csv(args.output_dir / "vanilla_crafted_item_pieces.csv", index=False)
-    audit.to_csv(args.output_dir / "vanilla_troop_equipment_audit.csv", index=False)
-    roster_summary.to_csv(args.output_dir / "vanilla_roster_audit_summary.csv", index=False)
-    sanity.to_csv(args.output_dir / "vanilla_sanity_check_table.csv", index=False)
+    prefix = f"{args.track}_"
+    troops.to_csv(args.output_dir / f"{prefix}troops.csv", index=False)
+    edges.to_csv(args.output_dir / f"{prefix}upgrade_edges.csv", index=False)
+    tree_tiers.to_csv(args.output_dir / f"{prefix}tree_tiers.csv", index=False)
+    equipment.to_csv(args.output_dir / f"{prefix}equipment_rosters.csv", index=False)
+    public_item_columns(direct_items).to_csv(args.output_dir / f"{prefix}items_direct.csv", index=False)
+    public_item_columns(crafted_items).to_csv(args.output_dir / f"{prefix}items_crafted.csv", index=False)
+    crafted_item_pieces.to_csv(args.output_dir / f"{prefix}crafted_item_pieces.csv", index=False)
+    audit.to_csv(args.output_dir / f"{prefix}troop_equipment_audit.csv", index=False)
+    roster_summary.to_csv(args.output_dir / f"{prefix}roster_audit_summary.csv", index=False)
+    sanity.to_csv(args.output_dir / f"{prefix}sanity_check_table.csv", index=False)
+    overrides.to_csv(args.output_dir / f"{prefix}override_report.csv", index=False)
+    xslt_gaps.to_csv(args.output_dir / f"{prefix}known_gaps_xslt.csv", index=False)
 
     print("Audit rebuild complete.")
+    print(f"track={args.track}")
+    print(f"load_order_source={load_order_source}")
+    print(f"load_order={','.join(load_order)}")
     print(f"troops={len(troops)}")
     print(f"upgrade_edges={len(edges)}")
     print(f"equipment_rows={len(equipment)}")
@@ -579,6 +796,8 @@ def main():
     print(f"crafted_items={len(crafted_items)}")
     print(f"audit_rows={len(audit)}")
     print(f"sanity_rows={len(sanity)}")
+    print(f"overrides={len(overrides)}")
+    print(f"xslt_known_gaps={len(xslt_gaps)}")
 
 
 if __name__ == "__main__":

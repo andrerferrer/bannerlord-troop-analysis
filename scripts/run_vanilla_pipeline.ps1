@@ -1,9 +1,13 @@
 param(
   [string]$BannerlordRoot = "C:\Program Files (x86)\Steam\steamapps\common\Mount & Blade II Bannerlord",
   [string]$ProjectRoot = ".",
-  [string]$RawXmlDir = "data\vanilla\raw_xml",
-  [string]$AuditOutputDir = "data\vanilla\audit",
-  [string]$RoleScoreOutputDir = "data\vanilla\role_scores",
+  [string]$Track = "vanilla",
+  [string]$RawXmlDir = "",
+  [string]$AuditOutputDir = "",
+  [string]$RoleScoreOutputDir = "",
+  [string[]]$Modules = @("Native", "Sandbox", "SandboxCore", "StoryMode"),
+  [string[]]$ExtraModules = @(),
+  [string]$LauncherData = "$env:USERPROFILE\Documents\Mount and Blade II Bannerlord\Configs\LauncherData.xml",
   [switch]$SkipExport,
   [switch]$SkipAudit,
   [switch]$SkipRoleScores,
@@ -57,6 +61,13 @@ function Invoke-PythonCommand([string]$PythonCommand, [string[]]$Arguments) {
   }
 }
 
+if ([string]::IsNullOrWhiteSpace($Track)) {
+  throw "Track cannot be empty."
+}
+if ([string]::IsNullOrWhiteSpace($RawXmlDir)) { $RawXmlDir = "data\$Track\raw_xml" }
+if ([string]::IsNullOrWhiteSpace($AuditOutputDir)) { $AuditOutputDir = "data\$Track\audit" }
+if ([string]::IsNullOrWhiteSpace($RoleScoreOutputDir)) { $RoleScoreOutputDir = "data\$Track\role_scores" }
+
 $ProjectRoot = Resolve-Path $ProjectRoot
 $RawXmlPath = Resolve-ProjectPath $RawXmlDir
 $AuditOutputPath = Resolve-ProjectPath $AuditOutputDir
@@ -64,8 +75,9 @@ $RoleScoreOutputPath = Resolve-ProjectPath $RoleScoreOutputDir
 
 Write-Host ""
 Write-Host "===================================="
-Write-Host " Bannerlord Vanilla Troop Pipeline"
+Write-Host " Bannerlord Troop Pipeline"
 Write-Host "===================================="
+Write-Host "Track: $Track"
 Write-Host "ProjectRoot: $ProjectRoot"
 Write-Host "BannerlordRoot: $BannerlordRoot"
 Write-Host "RawXmlDir: $RawXmlPath"
@@ -80,8 +92,16 @@ if (-not $SkipExport) {
     throw "Missing export script: $exportScript"
   }
 
-  Write-Host "[1/3] Exporting vanilla XMLs..."
-  & $exportScript -BannerlordRoot $BannerlordRoot -Destination $RawXmlPath
+  Write-Host "[1/3] Exporting XMLs..."
+  $exportArguments = @{
+    BannerlordRoot = $BannerlordRoot
+    Track = $Track
+    Destination = $RawXmlPath
+    Modules = $Modules
+    ExtraModules = $ExtraModules
+    LauncherData = $LauncherData
+  }
+  & $exportScript @exportArguments
 
   if ($LASTEXITCODE -ne 0) {
     throw "XML export failed."
@@ -111,11 +131,16 @@ if (-not $SkipAudit) {
   }
 
   Write-Host "[2/3] Rebuilding audit datasets..."
-  Invoke-PythonCommand $python @(
+  $auditArguments = @(
     $auditScript,
     "--raw-xml-root", $RawXmlPath,
-    "--output-dir", $AuditOutputPath
+    "--output-dir", $AuditOutputPath,
+    "--track", $Track
   )
+  if (-not [string]::IsNullOrWhiteSpace($LauncherData)) {
+    $auditArguments += @("--launcher-data", $LauncherData)
+  }
+  Invoke-PythonCommand $python $auditArguments
 } else {
   Write-Host "[2/3] Skipping audit rebuild."
 }
@@ -128,7 +153,8 @@ if (-not $SkipRoleScores) {
     Invoke-PythonCommand $python @(
       $roleScoreScript,
       "--audit-dir", $AuditOutputPath,
-      "--output-dir", $RoleScoreOutputPath
+      "--output-dir", $RoleScoreOutputPath,
+      "--track", $Track
     )
   } else {
     Write-Warning "Role score script not found yet: $roleScoreScript"
@@ -141,8 +167,8 @@ if (-not $SkipRoleScores) {
 if ($ZipOutputs) {
   Write-Host "Creating output ZIPs..."
 
-  $auditZip = Join-Path $ProjectRoot "vanilla_audit_output.zip"
-  $roleZip = Join-Path $ProjectRoot "vanilla_role_scores_output.zip"
+  $auditZip = Join-Path $ProjectRoot "${Track}_audit_output.zip"
+  $roleZip = Join-Path $ProjectRoot "${Track}_role_scores_output.zip"
 
   if (Test-Path $auditZip) { Remove-Item $auditZip -Force }
   if (Test-Path $roleZip) { Remove-Item $roleZip -Force }
@@ -162,7 +188,7 @@ Write-Host ""
 Write-Host "Pipeline complete."
 Write-Host ""
 Write-Host "Key outputs:"
-Write-Host "  $AuditOutputPath\vanilla_sanity_check_table.csv"
-Write-Host "  $AuditOutputPath\vanilla_roster_audit_summary.csv"
-Write-Host "  $AuditOutputPath\vanilla_troop_equipment_audit.csv"
+Write-Host "  $AuditOutputPath\${Track}_sanity_check_table.csv"
+Write-Host "  $AuditOutputPath\${Track}_roster_audit_summary.csv"
+Write-Host "  $AuditOutputPath\${Track}_troop_equipment_audit.csv"
 Write-Host ""

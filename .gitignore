@@ -10,9 +10,11 @@ venv/
 *.log
 
 # Large / local-only exports
-# Uncomment if raw XMLs should stay local.
-# data/vanilla/raw_xml/
-# data/rot_reference/packages/
+data/*/raw_xml/*
+data/rot_reference/packages/
+!data/*/raw_xml/MANIFEST.md
+!data/*/raw_xml/manifest.csv
+!data/*/raw_xml/manifest_modules.csv
 
 # OS / editor
 .DS_Store
