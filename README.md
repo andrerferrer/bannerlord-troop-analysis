@@ -6,6 +6,7 @@ Data-driven troop analysis framework for Mount & Blade II: Bannerlord.
 
 For the complete project state, model history, current rankings, validated findings, known limitations, and exact next steps, read:
 
+- [`TODO.md`](TODO.md) — operational next steps and completion criteria
 - [`docs/handoff/PROJECT_HANDOFF_SUPER_REPORT.md`](docs/handoff/PROJECT_HANDOFF_SUPER_REPORT.md)
 - [`docs/handoff/NEW_CHAT_STARTER.md`](docs/handoff/NEW_CHAT_STARTER.md)
 - [`docs/methodology/ADR-001-combat-image-normalization.md`](docs/methodology/ADR-001-combat-image-normalization.md)
