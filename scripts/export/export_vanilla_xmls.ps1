@@ -144,26 +144,31 @@ foreach ($module in $exportModules) {
   New-Item -ItemType Directory -Force -Path $targetModulePath | Out-Null
 
   $moduleXmlCount = 0
-  Get-ChildItem -LiteralPath $modulePath -Recurse -File -Filter "*.xml" | Sort-Object FullName | ForEach-Object {
-    $relativePath = $_.FullName.Substring($modulePath.Length).TrimStart([char[]]@([char]"\", [char]"/"))
-    $targetPath = Join-Path -Path $targetModulePath -ChildPath $relativePath
-    $targetDir = Split-Path -Path $targetPath -Parent
+  Get-ChildItem -LiteralPath $modulePath -Recurse -File |
+    Where-Object { @(".xml", ".xslt") -contains $_.Extension.ToLowerInvariant() } |
+    Sort-Object FullName |
+    ForEach-Object {
+      $relativePath = $_.FullName.Substring($modulePath.Length).TrimStart([char[]]@([char]"\", [char]"/"))
+      $targetPath = Join-Path -Path $targetModulePath -ChildPath $relativePath
+      $targetDir = Split-Path -Path $targetPath -Parent
 
-    New-Item -ItemType Directory -Force -Path $targetDir | Out-Null
-    Copy-Item -LiteralPath $_.FullName -Destination $targetPath -Force
-    $copied = Get-Item -LiteralPath $targetPath
-    $hash = Get-FileHash -LiteralPath $targetPath -Algorithm SHA256
-    [void]$manifestRows.Add([pscustomobject]@{
-      track = $Track
-      exported_at = $exportedAt
-      game_version = $gameVersion
-      module = $module
-      relative_path = $relativePath.Replace("\", "/")
-      size_bytes = $copied.Length
-      sha256 = $hash.Hash.ToLowerInvariant()
-    })
-    $moduleXmlCount++
-  }
+      New-Item -ItemType Directory -Force -Path $targetDir | Out-Null
+      Copy-Item -LiteralPath $_.FullName -Destination $targetPath -Force
+      $copied = Get-Item -LiteralPath $targetPath
+      $hash = Get-FileHash -LiteralPath $targetPath -Algorithm SHA256
+      [void]$manifestRows.Add([pscustomobject]@{
+        track = $Track
+        exported_at = $exportedAt
+        game_version = $gameVersion
+        module = $module
+        relative_path = $relativePath.Replace("\", "/")
+        size_bytes = $copied.Length
+        sha256 = $hash.Hash.ToLowerInvariant()
+      })
+      if ($_.Extension -ieq ".xml") {
+        $moduleXmlCount++
+      }
+    }
 
   [void]$moduleRows.Add([pscustomobject]@{
     module = $module
@@ -180,6 +185,8 @@ $humanManifestPath = Join-Path -Path $Destination -ChildPath "MANIFEST.md"
 $manifestRows | Export-Csv -LiteralPath $manifestPath -NoTypeInformation -Encoding UTF8
 $moduleRows | Select-Object module, version, load_order_index | Export-Csv -LiteralPath $moduleManifestPath -NoTypeInformation -Encoding UTF8
 
+$xmlFileCount = @($manifestRows | Where-Object { [System.IO.Path]::GetExtension($_.relative_path) -ieq ".xml" }).Count
+$xsltFileCount = @($manifestRows | Where-Object { [System.IO.Path]::GetExtension($_.relative_path) -ieq ".xslt" }).Count
 $loadOrderSource = if (-not [string]::IsNullOrWhiteSpace($LauncherData) -and (Test-Path -LiteralPath $LauncherData)) {
   $LauncherData
 } else {
@@ -193,7 +200,8 @@ $manifestLines = [System.Collections.Generic.List[string]]::new()
 [void]$manifestLines.Add("- **Exported at (UTC):** ``$exportedAt``")
 [void]$manifestLines.Add("- **Game version:** ``$gameVersion``")
 [void]$manifestLines.Add("- **Load-order source:** ``$loadOrderSource``")
-[void]$manifestLines.Add("- **XML files:** $($manifestRows.Count)")
+[void]$manifestLines.Add("- **XML files:** $xmlFileCount")
+[void]$manifestLines.Add("- **XSLT files:** $xsltFileCount")
 [void]$manifestLines.Add("")
 [void]$manifestLines.Add("| Load order | Module | Version | XML files |")
 [void]$manifestLines.Add("|---:|---|---|---:|")
@@ -201,7 +209,7 @@ foreach ($row in ($moduleRows | Sort-Object load_order_index, module)) {
   [void]$manifestLines.Add("| $($row.load_order_index) | ``$($row.module)`` | ``$($row.version)`` | $($row.xml_count) |")
 }
 [void]$manifestLines.Add("")
-[void]$manifestLines.Add("Raw XML files are local-only. ``manifest.csv`` records file sizes and SHA-256 hashes for reproducibility.")
+[void]$manifestLines.Add("Raw XML/XSLT files are local-only. ``manifest.csv`` records file sizes and SHA-256 hashes for reproducibility.")
 $manifestLines | Set-Content -LiteralPath $humanManifestPath -Encoding UTF8
 
 $requiredManifests = @($humanManifestPath, $manifestPath, $moduleManifestPath)
@@ -215,5 +223,6 @@ Write-Host "Bannerlord XML Export Complete"
 Write-Host "Track: $Track"
 Write-Host "Destination: $Destination"
 Write-Host "Modules: $($moduleRows.module -join ', ')"
-Write-Host "XML files copied: $($manifestRows.Count)"
+Write-Host "XML files copied: $xmlFileCount"
+Write-Host "XSLT files copied: $xsltFileCount"
 Write-Host "Manifest: $humanManifestPath"
