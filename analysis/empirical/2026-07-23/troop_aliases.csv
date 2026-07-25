@@ -1,0 +1,4 @@
+alias_slug,canonical_slug,status,basis,evidence
+stormlands_heavy_crossbowmant5,stormlands_heavy_crossbowman_t5,approved,exact_visual_name_and_compact_slug_match,"Stormlands Heavy Crossbowman [T5]; 22 rows across 20 battles; difference is only missing separator before T5"
+free_folkaxeman_t3,free_folk_axeman_t3,approved,compact_slug_match,"Free Folk Axeman [T3]; 2 rows in one battle; difference is missing separator between Folk and Axeman"
+f_ta_gua,f_t_a_gua,unresolved,ocr_artifact_candidate,"Zero deployed; text is not a verified troop identity"
