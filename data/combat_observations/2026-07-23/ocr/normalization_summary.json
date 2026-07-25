@@ -1,0 +1,32 @@
+{
+  "active_scoreboards_excluded": 1,
+  "artifact_rows_total": 34,
+  "battle_type_counts": {
+    "field": 32,
+    "siege_attack": 9,
+    "siege_defense": 2,
+    "undefined": 5
+  },
+  "hero_rows_total": 115,
+  "image_groups_total": 48,
+  "images_total": 60,
+  "keep_retreat_screens_excluded": 1,
+  "normalization_status": "first_pass_complete_review_pending",
+  "notes": [
+    "All 60 source images are represented in the manifest.",
+    "OCR-derived uncertain values are null or flagged; raw OCR text and per-field confidence are retained.",
+    "Four screenshots without result tables are excluded as unsupported screens.",
+    "Image 58 visibly contains Retreated to the keep and is excluded from primary analysis.",
+    "Image 60 is an in-battle scoreboard with a Retreat button and is excluded because the battle was not final.",
+    "Raw images are not embedded in normal Git history; the source ZIP SHA-256 is recorded."
+  ],
+  "observations_needing_review": 756,
+  "party_rows_total": 132,
+  "primary_victory_battles": 42,
+  "schema_version": "1.0.0-first-pass",
+  "source_zip": "/mnt/data/Configurações 23_07_2026 17_42_29.zip",
+  "source_zip_sha256": "00f83754687fe769fdfdea1bda0b68b4d7801c25195ff803aa1a1b35fa15d69f",
+  "suspected_siege_engine_outliers": 1,
+  "troop_occurrences_total": 1260,
+  "unsupported_screens": 4
+}
