@@ -90,7 +90,7 @@ Uncertainty intervals are produced by resampling consolidated battle-level troop
 | Total reviewed | 50 |
 | Remaining | 0 |
 
-All corrections are stored separately from the immutable raw layer in `p0_manual_corrections.csv`.
+All corrections are stored separately from the immutable raw layer as integrity-checked files under [`p0_manual_corrections/`](p0_manual_corrections/). The next 94 player-side review rows are published under [`p1_review_queue/`](p1_review_queue/).
 
 ## Interpretation
 
