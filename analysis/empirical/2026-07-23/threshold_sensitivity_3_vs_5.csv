@@ -1,0 +1,65 @@
+context,display_name,canonical_name_slug,eligible_min3,eligible_min5,battle_count,total_deployed,kills_per_deployed,rank_min3,rank_min5,rank_change_min5_minus_min3,status
+field,Baratheon Hammerknight [T6],baratheon_hammerknight_t6,True,False,3,89,3.47191,2,,,removed_by_five_battle_gate
+field,Battanian Fian Champion,battanian_fian_champion,True,False,3,31,1.451613,16,,,removed_by_five_battle_gate
+field,Battanian Hero,battanian_hero,True,False,3,23,0.652174,22,,,removed_by_five_battle_gate
+field,Captain of the Kingsguard [T6],captain_of_the_kingsguard_t6,True,True,5,23,5.391304,1,1,0,retained
+field,Celtigar Banneret [T6],celtigar_banneret_t6,True,False,4,31,2.774194,3,,,removed_by_five_battle_gate
+field,Dragonstone Elite Halberdier [T5],dragonstone_elite_halberdier_t5,True,True,11,255,2.164706,8,5,-3,retained
+field,Dragonstone House Guard [T5],dragonstone_house_guard_t5,True,False,3,59,1.389831,17,,,removed_by_five_battle_gate
+field,Imperial Naute,imperial_naute,True,True,6,85,0.647059,23,17,-6,retained
+field,Queen's Man [T6],queen_s_man_t6,True,True,13,238,2.44958,5,3,-2,retained
+field,Reach Flower Knight [T6],reach_flower_knight_t6,True,True,9,59,2.661017,4,2,-2,retained
+field,Reach Horseman [T5],reach_horseman_t5,True,True,8,101,1.544554,14,11,-3,retained
+field,Reach House Guard [T5],reach_house_guard_t5,True,True,7,67,0.80597,21,16,-5,retained
+field,Reach Master Archer [T5],reach_master_archer_t5,True,True,6,55,1.818182,10,7,-3,retained
+field,Rhodok Admiral Sharpshooter,rhodok_admiral_sharpshooter,True,True,10,474,1.729958,12,9,-3,retained
+field,Rhodok River Guard,rhodok_river_guard,True,True,5,47,1.085106,19,14,-5,retained
+field,Rhodok River Hunter,rhodok_river_hunter,True,True,6,50,0.92,20,15,-5,retained
+field,Rhodok Sarge,rhodok_sarge,True,True,6,134,1.201493,18,13,-5,retained
+field,Rhodok Sharpshooter,rhodok_sharpshooter,True,True,9,60,1.516667,15,12,-3,retained
+field,Rhodok Veteran Crossbowman,rhodok_veteran_crossbowman,True,False,4,28,0.571429,24,,,removed_by_five_battle_gate
+field,Rhoynar Bahriyyah [T5],rhoynar_bahriyyah_t5,True,True,10,152,2.0,9,6,-3,retained
+field,Riverlands Ranger [T5],riverlands_ranger_t5,True,True,9,132,1.772727,11,8,-3,retained
+field,Stormlands Elite Maceman [T5],stormlands_elite_maceman_t5,True,False,3,37,2.405405,7,,,removed_by_five_battle_gate
+field,Stormlands Heavy Crossbowman[T5],stormlands_heavy_crossbowman_t5,True,True,11,269,1.643123,13,10,-3,retained
+field,Water Gardens Sentinel [T6],water_gardens_sentinel_t6,True,True,10,77,2.415584,6,4,-2,retained
+overall,Baratheon Hammerknight [T6],baratheon_hammerknight_t6,True,True,5,159,2.358491,3,3,0,retained
+overall,Baratheon Knight [T5],baratheon_knight_t5,True,False,3,38,2.315789,4,,,removed_by_five_battle_gate
+overall,Battanian Fian Champion,battanian_fian_champion,True,False,3,31,1.451613,19,,,removed_by_five_battle_gate
+overall,Battanian Hero,battanian_hero,True,False,3,23,0.652174,28,,,removed_by_five_battle_gate
+overall,Captain of the Kingsguard [T6],captain_of_the_kingsguard_t6,True,True,7,31,4.516129,1,1,0,retained
+overall,Celtigar Banneret [T6],celtigar_banneret_t6,True,True,7,169,2.443787,2,2,0,retained
+overall,Celtigar Man at Arms [T4],celtigar_man_at_arms_t4,True,False,4,89,0.314607,31,,,removed_by_five_battle_gate
+overall,Dragonstone Elite Archer [T5],dragonstone_elite_archer_t5,True,False,4,47,1.212766,20,,,removed_by_five_battle_gate
+overall,Dragonstone Elite Halberdier [T5],dragonstone_elite_halberdier_t5,True,True,15,388,1.886598,10,9,-1,retained
+overall,Dragonstone Horseman [T5],dragonstone_horseman_t5,True,False,3,54,0.703704,27,,,removed_by_five_battle_gate
+overall,Dragonstone House Guard [T5],dragonstone_house_guard_t5,True,True,6,90,1.166667,22,18,-4,retained
+overall,Elite Hired Crossbow [T5],elite_hired_crossbow_t5,True,True,7,38,2.0,8,7,-1,retained
+overall,Imperial Naute,imperial_naute,True,True,6,85,0.647059,29,23,-6,retained
+overall,Queen's Man [T6],queen_s_man_t6,True,True,17,313,2.063898,7,6,-1,retained
+overall,Reach Flower Knight [T6],reach_flower_knight_t6,True,True,14,117,1.871795,11,10,-1,retained
+overall,Reach Horseman [T5],reach_horseman_t5,True,True,8,101,1.544554,16,14,-2,retained
+overall,Reach House Guard [T5],reach_house_guard_t5,True,True,7,67,0.80597,26,22,-4,retained
+overall,Reach Master Archer [T5],reach_master_archer_t5,True,True,9,86,1.546512,15,13,-2,retained
+overall,Reaver [T4],reaver_t4,True,True,5,77,0.961039,24,20,-4,retained
+overall,Rhodok Admiral Sharpshooter,rhodok_admiral_sharpshooter,True,True,10,474,1.729958,12,11,-1,retained
+overall,Rhodok River Guard,rhodok_river_guard,True,True,5,47,1.085106,23,19,-4,retained
+overall,Rhodok River Hunter,rhodok_river_hunter,True,True,6,50,0.92,25,21,-4,retained
+overall,Rhodok Sarge,rhodok_sarge,True,True,6,134,1.201493,21,17,-4,retained
+overall,Rhodok Sharpshooter,rhodok_sharpshooter,True,True,9,60,1.516667,17,15,-2,retained
+overall,Rhodok Veteran Crossbowman,rhodok_veteran_crossbowman,True,False,4,28,0.571429,30,,,removed_by_five_battle_gate
+overall,Rhoynar Bahriyyah [T5],rhoynar_bahriyyah_t5,True,True,16,253,2.177866,5,4,-1,retained
+overall,Riverlands Ranger [T5],riverlands_ranger_t5,True,True,10,144,1.701389,13,12,-1,retained
+overall,Stormlands Elite Maceman [T5],stormlands_elite_maceman_t5,True,True,5,75,1.893333,9,8,-1,retained
+overall,Stormlands Heavy Crossbowman[T5],stormlands_heavy_crossbowman_t5,True,True,19,526,1.463878,18,16,-2,retained
+overall,Stormlands Master Archer [T5],stormlands_master_archer_t5,True,False,3,33,1.606061,14,,,removed_by_five_battle_gate
+overall,Water Gardens Sentinel [T6],water_gardens_sentinel_t6,True,True,14,105,2.095238,6,5,-1,retained
+siege_attack,Dragonstone Elite Halberdier [T5],dragonstone_elite_halberdier_t5,True,False,4,133,1.353383,4,,,removed_by_five_battle_gate
+siege_attack,Dragonstone House Guard [T5],dragonstone_house_guard_t5,True,False,3,31,0.741935,9,,,removed_by_five_battle_gate
+siege_attack,Elite Hired Crossbow [T5],elite_hired_crossbow_t5,True,False,3,21,2.047619,2,,,removed_by_five_battle_gate
+siege_attack,Queen's Man [T6],queen_s_man_t6,True,False,3,50,1.04,8,,,removed_by_five_battle_gate
+siege_attack,Reach Flower Knight [T6],reach_flower_knight_t6,True,False,4,47,1.212766,6,,,removed_by_five_battle_gate
+siege_attack,Reach Master Archer. [T5],reach_master_archer_t5,True,False,3,31,1.064516,7,,,removed_by_five_battle_gate
+siege_attack,Rhoynar Bahriyyah [T5],rhoynar_bahriyyah_t5,True,True,6,101,2.445545,1,1,0,retained
+siege_attack,Stormlands Heavy Crossbowman [T5],stormlands_heavy_crossbowman_t5,True,True,7,228,1.289474,5,2,-3,retained
+siege_attack,Water Gardens Sentinel [T6],water_gardens_sentinel_t6,True,False,3,22,1.545455,3,,,removed_by_five_battle_gate
