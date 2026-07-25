@@ -64,7 +64,7 @@ Examples of material corrections include:
 - Stormlands Elite Maceman survivor count;
 - several Rhodok troop kill counts.
 
-The complete row-level audit is in `p0_manual_corrections.csv`.
+The complete row-level audit is stored as integrity-checked CSV parts under [`p0_manual_corrections/`](p0_manual_corrections/). Reproduction commands are included in that directory's README.
 
 ## Alias review
 
@@ -102,7 +102,7 @@ The review materially changed the analyzable population. This validates the deci
 | P2 | Enemy-side, undefined-context, secondary-impact, or otherwise lower-priority rows | 487 |
 | **Total** |  | **581** |
 
-The next image-backed work item is the 94-row P1 queue.
+The next image-backed work item is the 94-row P1 queue, already ordered and published under [`p1_review_queue/`](p1_review_queue/).
 
 ## Current five-battle baseline
 
@@ -139,6 +139,17 @@ Only two labels currently meet the five-battle gate:
 ### Siege defense
 
 No label meets the gate. Additional siege-defense data is required before ranking.
+
+## Reproducibility checks
+
+The published correction parts were replayed against the immutable first-pass JSONL, approved aliases were applied, and the baseline was regenerated deterministically.
+
+```text
+reviewed/aliased baseline SHA-256:
+3c0d27a082801d3c8741faac627efaa55dccb3b3e7ad355699178cf096d69bbd
+```
+
+The regenerated CSV matched the committed baseline byte for byte. Correction and P1 queue manifests record SHA-256 hashes for the exact LF-normalized files published in GitHub.
 
 ## Gate decision
 
