@@ -1,30 +1,31 @@
 {
+  "line_endings": "LF",
   "total_rows": 50,
   "parts": [
     {
       "file": "part-00.csv",
       "rows": 10,
-      "sha256": "3dec4fe8b4d4e54c09ad040f0738004ef6f290c42610d451619932c96c5de13d"
+      "sha256": "b2b2ce0bffda1c51a4b324f01c448f0033e5ad57e2a1249fa9761629c1a40324"
     },
     {
       "file": "part-01.csv",
       "rows": 10,
-      "sha256": "1e350bbef7503e6233a3b1401b78529cbcacb6dc6084909f69c9db3c2b4f5bdd"
+      "sha256": "bcba33e86a2fe26b0412be2803abde0a013ee398f4c1637125ced8bf67dbcc86"
     },
     {
       "file": "part-02.csv",
       "rows": 10,
-      "sha256": "afe130a5ae133fe989c07945bfb2249de536496306ad6a9d9d8833c1222e1595"
+      "sha256": "1dd4435728feefa526e0738d999d89ed5c1609f8788d5cbe431dd84d01ceb0ec"
     },
     {
       "file": "part-03.csv",
       "rows": 10,
-      "sha256": "26e711a481e311b8a747399b3923e73ef1fb249dccabc40ee58aa9c162bccb0c"
+      "sha256": "c138ab330b5517615f6a624e80eaf5c78e5a40eed6b498813fad376a8d9eba76"
     },
     {
       "file": "part-04.csv",
       "rows": 10,
-      "sha256": "3cbcc1d43b7d496044ebe67a8f2d1a3165d1b1d0f005fc3aadacbf4d670f9e32"
+      "sha256": "5a3a4a796d4c2620c0dd704399239e9328fa5e82dc96eeadc42da67d00b6bb2e"
     }
   ]
 }
