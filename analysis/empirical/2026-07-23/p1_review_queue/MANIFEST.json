@@ -1,30 +1,31 @@
 {
+  "line_endings": "LF",
   "total_rows": 94,
   "parts": [
     {
       "file": "part-00.csv",
       "rows": 20,
-      "sha256": "836d7929db4def490910e0acd6dd421a1012f8a521d4203a611dd5600a257612"
+      "sha256": "7fb6b2ed51e7af627fd42a9af7b8fa79690e8db1de8118d7fe6fff50d6d6b4a8"
     },
     {
       "file": "part-01.csv",
       "rows": 20,
-      "sha256": "a0cd37a1034cd04df2e4325b11a4a94288d0138320b659410203f1e90f02867e"
+      "sha256": "efc91482cd64aa9160fcc8038a388f79122cc809fcf281a926c7a5ae5e236316"
     },
     {
       "file": "part-02.csv",
       "rows": 20,
-      "sha256": "9c95b6cae86a335226b56a5c277b0bfb5bd490427bc7873c9f93ef7624c2bf94"
+      "sha256": "f1b607b036e2a6d1a3c4513742ca839a6edeeb8def21265088118b24a097ff4e"
     },
     {
       "file": "part-03.csv",
       "rows": 20,
-      "sha256": "da2b8628b5d21fb194b0fc07454d5092c504f8347dc74f3321a58f7d4e5c2542"
+      "sha256": "229ccca6b2ef5854c416869cca6c13549231239f333d580f66a0331665f7f5f3"
     },
     {
       "file": "part-04.csv",
       "rows": 14,
-      "sha256": "56baf593d837e68daee2f6a0e7dafbae9431844e91cb1a477e3abe4c8ab8a8c3"
+      "sha256": "f87e641cb8de8b8d686ba7f3caafc86b43af57dd9a425476fed019f890ce6bb5"
     }
   ]
 }
