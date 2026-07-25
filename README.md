@@ -4,7 +4,8 @@ Data-driven troop analysis framework for Mount & Blade II: Bannerlord.
 
 ## Start here
 
-- [`docs/research/EMPIRICAL_VALIDATION_ROADMAP.md`](docs/research/EMPIRICAL_VALIDATION_ROADMAP.md) — current empirical research plan, phase gates, and execution order
+- [`docs/research/EXECUTION_TRACKER.md`](docs/research/EXECUTION_TRACKER.md) — current task status and immediate execution order
+- [`docs/research/EMPIRICAL_VALIDATION_ROADMAP.md`](docs/research/EMPIRICAL_VALIDATION_ROADMAP.md) — empirical research plan and phase gates
 - [`analysis/empirical/2026-07-23/PHASE0_EXECUTION_REPORT.md`](analysis/empirical/2026-07-23/PHASE0_EXECUTION_REPORT.md) — latest image-backed review results
 - [`TODO.md`](TODO.md) — broader historical implementation checklist
 - [`docs/handoff/PROJECT_HANDOFF_SUPER_REPORT.md`](docs/handoff/PROJECT_HANDOFF_SUPER_REPORT.md)
@@ -52,6 +53,7 @@ The current rankings are exploratory campaign-performance evidence, not a univer
 - Resolve troop identities against the selected module track before explanatory modeling.
 - Keep field, siege attack, and siege defense separate.
 - Use the battle as the independent sampling unit.
+- Require at least **5 independent battles and 20 deployed troops** before displaying a troop/context estimate.
 - Display uncertainty beside point estimates.
 - Do not pool the victorious player side with the defeated enemy side.
 - Do not recalibrate frozen models until canonicalization and out-of-sample validation gates pass.
@@ -118,38 +120,3 @@ minimum battles: 5
 minimum deployed: 20
 bootstrap repetitions: 5000
 ```
-
-## Repository layout
-
-```text
-analysis/
-  empirical/
-  item_validation/
-  model_versions/        # frozen versions
-
-data/
-  combat_observations/
-  vanilla/
-  rot_reference/
-
-docs/
-  handoff/
-  methodology/
-  research/
-
-scripts/
-  analysis/
-  export/
-  normalization/
-  scoring/
-```
-
-## Validation
-
-Run the offline test suite:
-
-```bash
-python3 -m unittest discover -v
-```
-
-Empirical outputs must additionally be regenerated from the named reviewed/canonical input and compared against committed CSVs before merge.
