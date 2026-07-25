@@ -1,0 +1,31 @@
+{
+  "line_endings": "LF",
+  "total_rows": 50,
+  "parts": [
+    {
+      "file": "part-00.csv",
+      "rows": 10,
+      "sha256": "b2b2ce0bffda1c51a4b324f01c448f0033e5ad57e2a1249fa9761629c1a40324"
+    },
+    {
+      "file": "part-01.csv",
+      "rows": 10,
+      "sha256": "bcba33e86a2fe26b0412be2803abde0a013ee398f4c1637125ced8bf67dbcc86"
+    },
+    {
+      "file": "part-02.csv",
+      "rows": 10,
+      "sha256": "1dd4435728feefa526e0738d999d89ed5c1609f8788d5cbe431dd84d01ceb0ec"
+    },
+    {
+      "file": "part-03.csv",
+      "rows": 10,
+      "sha256": "c138ab330b5517615f6a624e80eaf5c78e5a40eed6b498813fad376a8d9eba76"
+    },
+    {
+      "file": "part-04.csv",
+      "rows": 10,
+      "sha256": "5a3a4a796d4c2620c0dd704399239e9328fa5e82dc96eeadc42da67d00b6bb2e"
+    }
+  ]
+}
