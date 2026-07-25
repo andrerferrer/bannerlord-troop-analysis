@@ -849,17 +849,56 @@ The screenshot-normalization phase is complete when:
 
 Do **not** start by modifying troop scores.
 
-Start with:
+Production work is currently blocked until one of these exact-hash artifacts is recovered:
 
-1. reconstruct and hash-verify the normalized archive;
-2. inspect `review_queue.csv`;
-3. classify the review queue by issue type and ranking impact;
-4. resolve the 5 undefined battle contexts;
-5. review the suspected siege-engine occurrence;
-6. produce the first reviewed/canonical v2 files.
+```text
+source screenshot ZIP:
+00f83754687fe769fdfdea1bda0b68b4d7801c25195ff803aa1a1b35fa15d69f
+
+normalized archive:
+10446ce7afb01ec35211c06468812bf2fa3d53e6091f128a7ec67ca605dea2aa
+```
+
+Do not repeat the bounded recovery searches recorded in
+`reports/p0_recovery_audit.json` unless new evidence or a new candidate artifact
+exists.
+
+After recovering one exact-hash artifact:
+
+1. preserve it unchanged and verify its SHA-256;
+2. use `docs/combat_observations/CLI.md` or
+   `$analyze-bannerlord-combat-zip` to resume the pipeline;
+3. reconstruct/manifest the input through the archive-safety gates;
+4. inspect and categorize `review_queue.csv`;
+5. resolve the 5 undefined battle contexts only where evidence permits;
+6. resolve the screen 58 keep-retreat discrepancy from verified evidence;
+7. review the suspected siege-engine occurrence;
+8. build and validate canonical v2 files and context rankings;
+9. run the v7.1/v7.3 empirical comparison and calibration evidence gate.
+
+Until then, the correct status is `COMPLETE_WITH_EXTERNAL_BLOCKERS`: preserve
+v7.1/v7.3 unchanged, do not fabricate canonical production records, and leave
+the proposed external evidence upload pending recovery and authorization.
 
 ## Suggested continuation prompt
 
 ```text
-Open the repository and read TODO.md first. Continue the Bannerlord combat screenshot project from P0. Reconstruct and verify the normalized bundle, inspect the review queue, and implement the highest-priority steps toward canonical dataset v2. Preserve raw extraction data, never guess unreadable values, keep outlier exclusion occurrence-level, and do not modify frozen model versions v7.1 or v7.3.
+Open the repository and read TODO.md plus
+data/combat_observations/2026-07-23/reports/execution_state.json first.
+
+Resume the Bannerlord combat screenshot project only if you have either the
+source ZIP with SHA-256
+00f83754687fe769fdfdea1bda0b68b4d7801c25195ff803aa1a1b35fa15d69f
+or the normalized archive with SHA-256
+10446ce7afb01ec35211c06468812bf2fa3d53e6091f128a7ec67ca605dea2aa.
+
+Use $analyze-bannerlord-combat-zip or the documented CLI to verify the artifact,
+resume review, build canonical v2 outputs, validate rankings, and run the
+model-comparison evidence gate. Preserve raw evidence, never guess unreadable
+values, keep outlier exclusion occurrence-level, and do not modify frozen
+model versions v7.1 or v7.3.
+
+If neither exact-hash artifact is available, report
+COMPLETE_WITH_EXTERNAL_BLOCKERS and do not repeat the already documented
+bounded recovery searches without new evidence.
 ```
