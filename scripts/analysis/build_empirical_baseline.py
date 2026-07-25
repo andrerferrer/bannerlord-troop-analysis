@@ -149,7 +149,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path, help="primary_troop_occurrences.jsonl")
     parser.add_argument("output", type=Path, help="output CSV path")
-    parser.add_argument("--minimum-battles", type=int, default=3)
+    parser.add_argument("--minimum-battles", type=int, default=5)
     parser.add_argument("--minimum-deployed", type=int, default=20)
     parser.add_argument("--bootstrap-repetitions", type=int, default=5000)
     args = parser.parse_args()
