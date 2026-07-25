@@ -1,0 +1,58 @@
+context,rank,display_name,canonical_name_slug,battle_count,total_deployed,total_kills,kills_per_deployed,ci95_low,ci95_high,death_rate,casualty_rate
+overall,1,Captain of the Kingsguard [T6],captain_of_the_kingsguard_t6,6,26,129,4.961538,1.461538,10.148148,0.0,0.115385
+overall,2,Baratheon Hammerknight [T6],baratheon_hammerknight_t6,4,124,339,2.733871,1.384615,4.220339,0.0,0.08871
+overall,3,Rhoynar Bahriyyah [T5],rhoynar_bahriyyah_t5,10,156,401,2.570513,1.478788,3.777778,0.070513,0.352564
+overall,4,Stormlands Heavy Crossbowman[T5],stormlands_heavy_crossbowmant5,9,184,455,2.472826,1.014286,4.118421,0.005435,0.076087
+overall,5,Celtigar Banneret [T6],celtigar_banneret_t6,7,169,413,2.443787,0.810526,3.3,0.017751,0.136095
+overall,6,Baratheon Knight [T5],baratheon_knight_t5,3,38,88,2.315789,1.0,3.578947,0.078947,0.263158
+overall,7,Reach Flower Knight [T6],reach_flower_knight_t6,10,76,160,2.105263,1.098592,4.0,0.026316,0.210526
+overall,8,Water Gardens Sentinel [T6],water_gardens_sentinel_t6,14,105,220,2.095238,1.528846,2.613208,0.019048,0.266667
+overall,9,Dragonstone Elite Halberdier [T5],dragonstone_elite_halberdier_t5,11,278,556,2.0,1.265766,2.805158,0.021583,0.179856
+overall,10,Elite Hired Crossbow [T5],elite_hired_crossbow_t5,7,38,76,2.0,1.222222,2.8125,0.078947,0.315789
+overall,11,Queen's Man [T6],queen_s_man_t6,13,211,396,1.876777,1.057851,2.738956,0.047393,0.184834
+overall,12,Riverlands Ranger [T5],riverlands_ranger_t5,9,131,238,1.816794,0.613445,3.626866,0.030534,0.129771
+overall,13,Reach Master Archer [T5],reach_master_archer_t5,6,52,85,1.634615,0.709677,3.647059,0.038462,0.173077
+overall,14,Stormlands Master Archer [T5],stormlands_master_archer_t5,3,33,53,1.606061,0.727273,2.117647,0.060606,0.333333
+overall,15,Rhodok Admiral Sharpshooter,rhodok_admiral_sharpshooter,9,397,633,1.594458,0.959184,2.92381,0.002519,0.062972
+overall,16,Battanian Fian Champion,battanian_fian_champion,3,31,45,1.451613,0.8,2.75,0.0,0.032258
+overall,17,Stormlands Elite Maceman [T5],stormlands_elite_maceman_t5,4,41,58,1.414634,0.5,2.142857,0.0,0.0
+overall,18,Rhodok Sarge,rhodok_sarge,5,114,140,1.22807,0.621212,1.536,0.078947,0.324561
+overall,19,Dragonstone Elite Archer [T5],dragonstone_elite_archer_t5,3,42,50,1.190476,0.971429,3.333333,0.02381,0.071429
+overall,20,Rhodok Sharpshooter,rhodok_sharpshooter,6,32,38,1.1875,0.727273,1.526316,0.03125,0.21875
+overall,21,Dragonstone House Guard [T5],dragonstone_house_guard_t5,6,90,105,1.166667,0.686275,1.416667,0.077778,0.655556
+overall,22,Reach Horseman [T5],reach_horseman_t5,5,68,72,1.058824,0.742857,1.421053,0.014706,0.132353
+overall,23,Rhodok River Hunter,rhodok_river_hunter,5,38,39,1.026316,0.785714,1.636364,0.052632,0.210526
+overall,24,Reaver [T4],reaver_t4,4,50,48,0.96,0.52,1.483333,0.04,0.22
+overall,25,Stormlands Heavy Crossbowman [T5],stormlands_heavy_crossbowman_t5,5,205,189,0.921951,0.29108,1.604061,0.087805,0.395122
+overall,26,Reach House Guard [T5],reach_house_guard_t5,5,52,45,0.865385,0.126984,2.22449,0.0,0.153846
+overall,27,Dragonstone Horseman [T5],dragonstone_horseman_t5,3,54,38,0.703704,0.490196,8.0,0.092593,0.944444
+overall,28,Battanian Hero,battanian_hero,3,23,15,0.652174,0.0,1.272727,0.043478,0.130435
+overall,29,Rhodok Veteran Crossbowman,rhodok_veteran_crossbowman,4,28,16,0.571429,0.277778,1.277778,0.071429,0.071429
+overall,30,Celtigar Man at Arms [T4],celtigar_man_at_arms_t4,4,89,28,0.314607,0.0,0.394366,0.044944,0.168539
+field,1,Reach Flower Knight [T6],reach_flower_knight_t6,6,28,107,3.821429,1.866667,8.214286,0.0,0.357143
+field,2,Baratheon Hammerknight [T6],baratheon_hammerknight_t6,3,89,309,3.47191,2.0,5.041667,0.0,0.101124
+field,3,Celtigar Banneret [T6],celtigar_banneret_t6,4,31,86,2.774194,2.482759,7.5,0.0,0.032258
+field,4,Stormlands Heavy Crossbowman[T5],stormlands_heavy_crossbowmant5,7,158,411,2.601266,0.691176,4.548387,0.006329,0.056962
+field,5,Queen's Man [T6],queen_s_man_t6,9,136,333,2.448529,1.368421,3.584615,0.051471,0.213235
+field,6,Rhoynar Bahriyyah [T5],rhoynar_bahriyyah_t5,7,115,280,2.434783,1.083333,4.017241,0.052174,0.33913
+field,7,Water Gardens Sentinel [T6],water_gardens_sentinel_t6,10,77,186,2.415584,1.876712,2.954023,0.012987,0.272727
+field,8,Dragonstone Elite Halberdier [T5],dragonstone_elite_halberdier_t5,9,227,505,2.22467,1.434043,3.14433,0.017621,0.154185
+field,9,Riverlands Ranger [T5],riverlands_ranger_t5,8,119,227,1.907563,0.575,3.928571,0.033613,0.10084
+field,10,Reach Master Archer [T5],reach_master_archer_t5,4,31,59,1.903226,0.541667,6.571429,0.032258,0.064516
+field,11,Rhodok Admiral Sharpshooter,rhodok_admiral_sharpshooter,9,397,633,1.594458,0.943489,2.907692,0.002519,0.062972
+field,12,Battanian Fian Champion,battanian_fian_champion,3,31,45,1.451613,0.8,2.75,0.0,0.032258
+field,13,Dragonstone House Guard [T5],dragonstone_house_guard_t5,3,59,82,1.389831,1.0,2.5,0.101695,0.915254
+field,14,Rhodok Sarge,rhodok_sarge,5,114,140,1.22807,0.621212,1.53719,0.078947,0.324561
+field,15,Rhodok Sharpshooter,rhodok_sharpshooter,6,32,38,1.1875,0.714286,1.529412,0.03125,0.21875
+field,16,Reach Horseman [T5],reach_horseman_t5,5,68,72,1.058824,0.742857,1.419355,0.014706,0.132353
+field,17,Rhodok River Hunter,rhodok_river_hunter,5,38,39,1.026316,0.785714,1.636364,0.052632,0.210526
+field,18,Reach House Guard [T5],reach_house_guard_t5,5,52,45,0.865385,0.114286,2.22449,0.0,0.153846
+field,19,Battanian Hero,battanian_hero,3,23,15,0.652174,0.0,1.272727,0.043478,0.130435
+field,20,Rhodok Veteran Crossbowman,rhodok_veteran_crossbowman,4,28,16,0.571429,0.277778,1.277778,0.071429,0.071429
+siege_attack,1,Rhoynar Bahriyyah [T5],rhoynar_bahriyyah_t5,3,41,121,2.95122,1.272727,4.315789,0.121951,0.390244
+siege_attack,2,Elite Hired Crossbow [T5],elite_hired_crossbow_t5,3,21,43,2.047619,1.25,3.333333,0.095238,0.380952
+siege_attack,3,Water Gardens Sentinel [T6],water_gardens_sentinel_t6,3,22,34,1.545455,0.714286,2.714286,0.045455,0.318182
+siege_attack,4,Reach Flower Knight [T6],reach_flower_knight_t6,3,37,48,1.297297,0.571429,1.857143,0.054054,0.135135
+siege_attack,5,Stormlands Heavy Crossbowman [T5],stormlands_heavy_crossbowman_t5,3,126,151,1.198413,0.238095,1.813559,0.142857,0.634921
+siege_attack,6,Queen's Man [T6],queen_s_man_t6,3,50,52,1.04,0.307692,1.888889,0.06,0.18
+siege_attack,7,Dragonstone House Guard [T5],dragonstone_house_guard_t5,3,31,23,0.741935,0.533333,1.5,0.032258,0.16129
