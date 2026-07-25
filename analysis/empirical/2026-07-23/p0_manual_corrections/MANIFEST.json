@@ -1,0 +1,30 @@
+{
+  "total_rows": 50,
+  "parts": [
+    {
+      "file": "part-00.csv",
+      "rows": 10,
+      "sha256": "3dec4fe8b4d4e54c09ad040f0738004ef6f290c42610d451619932c96c5de13d"
+    },
+    {
+      "file": "part-01.csv",
+      "rows": 10,
+      "sha256": "1e350bbef7503e6233a3b1401b78529cbcacb6dc6084909f69c9db3c2b4f5bdd"
+    },
+    {
+      "file": "part-02.csv",
+      "rows": 10,
+      "sha256": "afe130a5ae133fe989c07945bfb2249de536496306ad6a9d9d8833c1222e1595"
+    },
+    {
+      "file": "part-03.csv",
+      "rows": 10,
+      "sha256": "26e711a481e311b8a747399b3923e73ef1fb249dccabc40ee58aa9c162bccb0c"
+    },
+    {
+      "file": "part-04.csv",
+      "rows": 10,
+      "sha256": "3cbcc1d43b7d496044ebe67a8f2d1a3165d1b1d0f005fc3aadacbf4d670f9e32"
+    }
+  ]
+}
