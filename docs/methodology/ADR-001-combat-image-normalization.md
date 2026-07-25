@@ -1,6 +1,6 @@
 # ADR-001: Combat Screenshot Normalization Pipeline
 
-- **Status:** Accepted as a provisional architecture
+- **Status:** Implemented for deterministic/offline tooling; production extraction blocked
 - **Date:** 2026-07-24
 - **Scope:** Empirical Bannerlord battle-result screenshots
 - **Repository:** `andrerferrer/bannerlord-troop-analysis`
@@ -8,6 +8,8 @@
 ## Context
 
 The project currently uses screenshots as empirical evidence for troop performance. Manual transcription is slow, difficult to reproduce, and vulnerable to inconsistent naming, missed rows, and transcription mistakes.
+
+Implementation note (2026-07-24): the CLI, schemas, review/canonical layers, mockable extraction contract, ZIP safety, and offline tests exist under `scripts/combat_observations/`. No live provider call or paid upload was performed. Current model IDs remain environment configuration because production inputs are unavailable and model selection must be revalidated against official documentation at execution time.
 
 The goal is to convert combat screenshots into structured, auditable observations that can be committed to the repository and analyzed alongside XML-derived troop data.
 

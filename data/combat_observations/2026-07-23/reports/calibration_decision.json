@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "decision": "no_model_change",
+  "canonical_coverage_sufficient": false,
+  "frozen_models": [
+    "v7.1",
+    "v7.3"
+  ],
+  "reason": "The production canonical dataset cannot be generated from the corrupt normalized bundle, and the source image archive is unavailable. No evidence-backed calibration is possible.",
+  "wavey_v2_9_integration": "not_evaluated_and_not_integrated",
+  "additional_evidence_required": [
+    "Recover and review the production screenshot batch.",
+    "Generate medium/high context-specific evidence across independent battles.",
+    "Match the complete canonical troop universe to committed v7.1 and v7.3 inputs.",
+    "Confirm stable residuals across battles and contexts before proposing a separately versioned model."
+  ]
+}

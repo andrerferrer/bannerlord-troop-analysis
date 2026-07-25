@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "base_commit": "d741ac272bb50613a7a91d5b2f27294d7fbf0404",
+  "working_branch": "andrerferrer/arquivo-md-review",
+  "phase_statuses": {
+    "P0": "tooling_complete_production_blocked",
+    "P1": "tooling_complete_production_blocked",
+    "P2": "tooling_complete_production_blocked",
+    "P3": "offline_tooling_complete_live_provider_not_run",
+    "P4": "tooling_complete_production_blocked",
+    "P5": "complete_no_model_change",
+    "P6": "complete_upload_not_authorized",
+    "P7": "complete",
+    "P8": "complete_static_and_fixture_validation"
+  },
+  "last_completed_gate": "P8 portable skill validation",
+  "commands_run": [
+    "git fetch --prune origin",
+    "git fsck --full --unreachable --no-reflogs",
+    "gh release list --repo andrerferrer/bannerlord-troop-analysis --limit 100",
+    "targeted local artifact search",
+    "python3 -m unittest -v tests.test_combat_bundle",
+    "python3 -m scripts.combat_observations reconstruct-bundle ...",
+    "bounded structural bundle repair searches",
+    "python3 -m unittest discover -v",
+    "skill-creator quick_validate.py .agents/skills/analyze-bannerlord-combat-zip",
+    "agentskills validate .agents/skills/analyze-bannerlord-combat-zip",
+    "portable adapter dry runs"
+  ],
+  "tests_run": [
+    {
+      "command": "python3 -m unittest discover -v",
+      "result": "58 passed"
+    }
+  ],
+  "verified_hashes": {
+    "base_commit": "d741ac272bb50613a7a91d5b2f27294d7fbf0404",
+    "expected_normalized_archive_sha256": "10446ce7afb01ec35211c06468812bf2fa3d53e6091f128a7ec67ca605dea2aa",
+    "recorded_source_zip_sha256": "00f83754687fe769fdfdea1bda0b68b4d7801c25195ff803aa1a1b35fa15d69f"
+  },
+  "verified_counts": {
+    "bundle_parts_present": 11,
+    "recorded_source_images": 60,
+    "recorded_battle_groups": 48,
+    "recorded_primary_battles": 42,
+    "recorded_troop_occurrences": 1260,
+    "recorded_primary_occurrences": 1213,
+    "recorded_review_queue_rows": 756
+  },
+  "generated_artifacts": [
+    "data/combat_observations/2026-07-23/reports/execution_state.json",
+    "data/combat_observations/2026-07-23/reports/p0_verification_report.json",
+    "data/combat_observations/2026-07-23/reports/p0_bundle_forensics.json",
+    "data/combat_observations/2026-07-23/reports/p0_recovery_audit.json",
+    "data/combat_observations/2026-07-23/reports/raw_first_pass_snapshot.json",
+    "data/combat_observations/2026-07-23/reports/review_progress.json",
+    "data/combat_observations/2026-07-23/reports/canonical_validation_report.json",
+    "data/combat_observations/2026-07-23/reports/calibration_decision.json",
+    "data/combat_observations/schemas/v2/",
+    "scripts/combat_observations/",
+    ".agents/skills/analyze-bannerlord-combat-zip/"
+  ],
+  "open_blockers": [
+    {
+      "id": "P0-BUNDLE-INTEGRITY",
+      "status": "confirmed",
+      "summary": "Committed Base64 parts have inconsistent lengths, intermediate padding, and overlapping content; bounded repair attempts did not recover the expected archive hash."
+    },
+    {
+      "id": "SOURCE-IMAGES-MISSING",
+      "status": "confirmed",
+      "summary": "The recorded 85 MB source screenshot ZIP has not been found locally or in GitHub releases."
+    }
+  ],
+  "next_action": "Recover one exact-hash production source, then resume at image review without changing the frozen v7.1/v7.3 models.",
+  "updated_at": "2026-07-24T21:45:02-03:00"
+}

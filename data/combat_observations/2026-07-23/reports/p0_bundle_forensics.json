@@ -1,0 +1,130 @@
+{
+  "attempted_repairs": [
+    {
+      "decoded_size": 170768,
+      "matches_expected_sha256": false,
+      "method": "strip_all_padding_then_restore_terminal_padding",
+      "sha256": "a472fbc0751a2c74440be9bced56af52db0531199786e0f121fc4fa90e5816ee",
+      "xz_error": "Corrupt input data",
+      "xz_status": "invalid"
+    }
+  ],
+  "combined_base64_modulo_4": 0,
+  "combined_base64_size": 227696,
+  "combined_padding_positions": [
+    196772,
+    196773,
+    220914,
+    220915,
+    227695
+  ],
+  "containment_relationships": [
+    {
+      "contained": "bannerlord_normalized_v1.tar.xz.base64.part-08",
+      "container": "bannerlord_normalized_v1.tar.xz.base64.part-09",
+      "offset": 44
+    }
+  ],
+  "exact_reconstruction_error": "non-padding Base64 data follows padding in bannerlord_normalized_v1.tar.xz.base64.part-09",
+  "expected_archive_sha256": "10446ce7afb01ec35211c06468812bf2fa3d53e6091f128a7ec67ca605dea2aa",
+  "parts": [
+    {
+      "index": 0,
+      "name": "bannerlord_normalized_v1.tar.xz.base64.part-00",
+      "padding_count": 0,
+      "padding_positions": [],
+      "sha256": "3efe2279c7293d84020ac622d102fd98b57c219f8dd5a1205e73c33edac59196",
+      "size": 20000
+    },
+    {
+      "index": 1,
+      "name": "bannerlord_normalized_v1.tar.xz.base64.part-01",
+      "padding_count": 0,
+      "padding_positions": [],
+      "sha256": "7c2d5080bbbbdb4cd432cd15deb3387a31f7474addc899d2c22dea2de6e3adfe",
+      "size": 20000
+    },
+    {
+      "index": 2,
+      "name": "bannerlord_normalized_v1.tar.xz.base64.part-02",
+      "padding_count": 0,
+      "padding_positions": [],
+      "sha256": "b087b686f4addba850a0ae7344dc21e47a2a6b9e519241b3e7ef8380382ff0b6",
+      "size": 19999
+    },
+    {
+      "index": 3,
+      "name": "bannerlord_normalized_v1.tar.xz.base64.part-03",
+      "padding_count": 0,
+      "padding_positions": [],
+      "sha256": "969b1230c0e509dfb3b5c53ce651d65542c155c8da8353410e0f193a126e4b9f",
+      "size": 20000
+    },
+    {
+      "index": 4,
+      "name": "bannerlord_normalized_v1.tar.xz.base64.part-04",
+      "padding_count": 0,
+      "padding_positions": [],
+      "sha256": "e787fd93118d478aff5241696e310a0380e05df748d2c4852334529109418f6b",
+      "size": 20000
+    },
+    {
+      "index": 5,
+      "name": "bannerlord_normalized_v1.tar.xz.base64.part-05",
+      "padding_count": 0,
+      "padding_positions": [],
+      "sha256": "458e0fc3cdb1f22aa8363312af5993bfb3bea22378d5273202e6606cdbc64951",
+      "size": 32677
+    },
+    {
+      "index": 6,
+      "name": "bannerlord_normalized_v1.tar.xz.base64.part-06",
+      "padding_count": 0,
+      "padding_positions": [],
+      "sha256": "fad18902291ac8b8532ab40dd486a0e6b0bdf09ff8b16ed5f4c1e342ef7458cf",
+      "size": 20000
+    },
+    {
+      "index": 7,
+      "name": "bannerlord_normalized_v1.tar.xz.base64.part-07",
+      "padding_count": 0,
+      "padding_positions": [],
+      "sha256": "9cad59cbc200a33c6d39dad95a6c5d8391a1b4ad2e28d37c555581730e852430",
+      "size": 20000
+    },
+    {
+      "index": 8,
+      "name": "bannerlord_normalized_v1.tar.xz.base64.part-08",
+      "padding_count": 2,
+      "padding_positions": [
+        24096,
+        24097
+      ],
+      "sha256": "f5d7f3a83017837ca4bde999bc86047b9fa7a4f2d31cad0e882dfafc1eda88c0",
+      "size": 24098
+    },
+    {
+      "index": 9,
+      "name": "bannerlord_normalized_v1.tar.xz.base64.part-09",
+      "padding_count": 2,
+      "padding_positions": [
+        24140,
+        24141
+      ],
+      "sha256": "5fb955b587eaa3e86b2b2c084ef6bb15de1a1bd352492f81e3eaa8ea4c67fe5d",
+      "size": 24142
+    },
+    {
+      "index": 10,
+      "name": "bannerlord_normalized_v1.tar.xz.base64.part-10",
+      "padding_count": 1,
+      "padding_positions": [
+        6779
+      ],
+      "sha256": "5431824788b3622c966fe0650d899b94f400f5f1e8068cc494ed474accee317b",
+      "size": 6780
+    }
+  ],
+  "schema_version": "1.0.0",
+  "status": "corrupt_unverified"
+}

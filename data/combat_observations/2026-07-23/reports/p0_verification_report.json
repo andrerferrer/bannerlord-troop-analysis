@@ -1,0 +1,7 @@
+{
+  "error": "non-padding Base64 data follows padding in bannerlord_normalized_v1.tar.xz.base64.part-09",
+  "error_type": "BundleError",
+  "expected_archive_sha256": "10446ce7afb01ec35211c06468812bf2fa3d53e6091f128a7ec67ca605dea2aa",
+  "schema_version": "1.0.0",
+  "status": "failed"
+}

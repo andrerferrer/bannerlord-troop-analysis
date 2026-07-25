@@ -1,0 +1,102 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "row_count": null,
+      "sha256": "37a6114d9d4315416f96f56147c3efdda499329f978d278708de4aa40fbc033a",
+      "size": 2540
+    },
+    {
+      "path": "bundle/README.md",
+      "row_count": null,
+      "sha256": "1d9c4cc1f7ced796e1ddb96dde3c550e8716a71101085216d1573f4f4277f259",
+      "size": 1163
+    },
+    {
+      "path": "bundle/bannerlord_normalized_v1.tar.xz.base64.part-00",
+      "row_count": null,
+      "sha256": "3efe2279c7293d84020ac622d102fd98b57c219f8dd5a1205e73c33edac59196",
+      "size": 20000
+    },
+    {
+      "path": "bundle/bannerlord_normalized_v1.tar.xz.base64.part-01",
+      "row_count": null,
+      "sha256": "7c2d5080bbbbdb4cd432cd15deb3387a31f7474addc899d2c22dea2de6e3adfe",
+      "size": 20000
+    },
+    {
+      "path": "bundle/bannerlord_normalized_v1.tar.xz.base64.part-02",
+      "row_count": null,
+      "sha256": "b087b686f4addba850a0ae7344dc21e47a2a6b9e519241b3e7ef8380382ff0b6",
+      "size": 19999
+    },
+    {
+      "path": "bundle/bannerlord_normalized_v1.tar.xz.base64.part-03",
+      "row_count": null,
+      "sha256": "969b1230c0e509dfb3b5c53ce651d65542c155c8da8353410e0f193a126e4b9f",
+      "size": 20000
+    },
+    {
+      "path": "bundle/bannerlord_normalized_v1.tar.xz.base64.part-04",
+      "row_count": null,
+      "sha256": "e787fd93118d478aff5241696e310a0380e05df748d2c4852334529109418f6b",
+      "size": 20000
+    },
+    {
+      "path": "bundle/bannerlord_normalized_v1.tar.xz.base64.part-05",
+      "row_count": null,
+      "sha256": "458e0fc3cdb1f22aa8363312af5993bfb3bea22378d5273202e6606cdbc64951",
+      "size": 32677
+    },
+    {
+      "path": "bundle/bannerlord_normalized_v1.tar.xz.base64.part-06",
+      "row_count": null,
+      "sha256": "fad18902291ac8b8532ab40dd486a0e6b0bdf09ff8b16ed5f4c1e342ef7458cf",
+      "size": 20000
+    },
+    {
+      "path": "bundle/bannerlord_normalized_v1.tar.xz.base64.part-07",
+      "row_count": null,
+      "sha256": "9cad59cbc200a33c6d39dad95a6c5d8391a1b4ad2e28d37c555581730e852430",
+      "size": 20000
+    },
+    {
+      "path": "bundle/bannerlord_normalized_v1.tar.xz.base64.part-08",
+      "row_count": null,
+      "sha256": "f5d7f3a83017837ca4bde999bc86047b9fa7a4f2d31cad0e882dfafc1eda88c0",
+      "size": 24098
+    },
+    {
+      "path": "bundle/bannerlord_normalized_v1.tar.xz.base64.part-09",
+      "row_count": null,
+      "sha256": "5fb955b587eaa3e86b2b2c084ef6bb15de1a1bd352492f81e3eaa8ea4c67fe5d",
+      "size": 24142
+    },
+    {
+      "path": "bundle/bannerlord_normalized_v1.tar.xz.base64.part-10",
+      "row_count": null,
+      "sha256": "5431824788b3622c966fe0650d899b94f400f5f1e8068cc494ed474accee317b",
+      "size": 6780
+    },
+    {
+      "path": "combat_troop_occurrence.schema.json",
+      "row_count": null,
+      "sha256": "61d85d26a5ca08e652c42a61c89cecbd7101451bccc7d4e8b0e6aae00972d821",
+      "size": 1350
+    },
+    {
+      "path": "normalization_summary.json",
+      "row_count": null,
+      "sha256": "14bd9c79c9186d09da7d5ad3f2e2ff26b6c70620799d04d7324b943f4aa0246d",
+      "size": 1324
+    },
+    {
+      "path": "validation_report.json",
+      "row_count": null,
+      "sha256": "2d01255ee7c9eda1d8d3c39cacec649e904cc70069eb91a6950ed78fc1ecebe6",
+      "size": 343
+    }
+  ],
+  "raw_root": "2026-07-23",
+  "schema_version": "1.0.0"
+}

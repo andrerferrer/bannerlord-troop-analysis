@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "pipeline_version": "0.2.0",
+  "game": {
+    "version": "1.4.x",
+    "track": "vanilla_war_sails_1.4.x",
+    "active_modules": [
+      "Native",
+      "SandBox",
+      "SandBoxCore",
+      "StoryMode",
+      "CustomBattle",
+      "NavalDLC"
+    ]
+  },
+  "extraction": {
+    "mode": "offline-existing",
+    "extractor_model_env": "VISION_EXTRACTOR_MODEL",
+    "reviewer_model_env": "VISION_REVIEWER_MODEL",
+    "image_detail": "high",
+    "prompt_version": "combat-v2",
+    "max_retries": 2
+  },
+  "archive_limits": {
+    "max_members": 10000,
+    "max_uncompressed_bytes": 1000000000,
+    "max_compression_ratio": 1000
+  },
+  "matching": {
+    "fuzzy_threshold": 0.94,
+    "fuzzy_margin": 0.05
+  },
+  "evidence_grades": {
+    "low": {
+      "minimum_deployed": 10,
+      "minimum_battles": 2
+    },
+    "medium": {
+      "minimum_deployed": 30,
+      "minimum_battles": 3
+    },
+    "high": {
+      "minimum_deployed": 100,
+      "minimum_battles": 5
+    }
+  }
+}

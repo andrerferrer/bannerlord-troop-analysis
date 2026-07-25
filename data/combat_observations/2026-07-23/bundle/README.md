@@ -2,7 +2,22 @@
 
 The complete normalized dataset is stored as 11 ordered Base64 chunks because the connector could not upload the binary archive directly.
 
-From this directory on Linux/macOS/WSL:
+The historical shell command below is retained only to explain the original format. **Do not use successful decoding or tar opening as the integrity gate.** The current committed parts are corrupt and include intermediate padding/overlap.
+
+Use the repository CLI from the repository root on macOS, Linux, or Windows:
+
+```bash
+python3 -m scripts.combat_observations reconstruct-bundle \
+  --bundle-dir data/combat_observations/2026-07-23/bundle \
+  --archive data/combat_observations/2026-07-23/bundle/bannerlord_normalized_v1.tar.xz \
+  --extract-dir data/combat_observations/2026-07-23/bundle/reconstructed \
+  --report data/combat_observations/2026-07-23/reports/p0_verification_report.json \
+  --forensic-report data/combat_observations/2026-07-23/reports/p0_bundle_forensics.json
+```
+
+It requires the exact SHA-256, inspects the tar safely before extraction, rejects traversal/links, parses every required data file, and reconciles recorded counts.
+
+Historical Linux/macOS/WSL command (known to fail on the current parts):
 
 ```bash
 cat bannerlord_normalized_v1.tar.xz.base64.part-* \

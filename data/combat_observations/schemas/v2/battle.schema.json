@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://andrerferrer.github.io/bannerlord-troop-analysis/schemas/combat/v2/battle.schema.json",
+  "title": "Canonical combat battle",
+  "type": "object",
+  "required": ["schema_version", "battle_id", "battle_context", "classification_source", "source_image_sha256s"],
+  "properties": {
+    "schema_version": {"const": "2.0.0"},
+    "battle_id": {"type": "string", "minLength": 1},
+    "battle_context": {"enum": ["field", "siege_attack", "siege_defense", "undefined"]},
+    "result": {"enum": ["victory", "defeat", "retreat", "active", "undefined"]},
+    "classification_source": {"enum": ["raw_extraction", "deterministic_rule", "model_inference", "user_override"]},
+    "original_image_inference": {"type": ["string", "null"]},
+    "original_confidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "review_reason": {"type": ["string", "null"]},
+    "source_image_sha256s": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+      "uniqueItems": true
+    },
+    "observation_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "review_correction_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "game_versions": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "game_tracks": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "code_commit_shas": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+  },
+  "additionalProperties": false
+}

@@ -4,6 +4,36 @@
 - **Purpose:** operational handoff for continuing the project in another chat, machine, or work session
 - **Current priority:** turn the first-pass combat screenshot normalization into a reviewed, reproducible canonical dataset before using it to recalibrate troop scores
 
+## Execution update — 2026-07-24
+
+The P0–P8 implementation program has been attempted. Local deterministic tooling, schemas, tests, forensic reports, review/canonical builders, empirical analysis scaffolding, storage ADR, and portable-skill packaging are the current workstream. Production data review/generation is blocked because the committed bundle is corrupt and neither exact-hash source artifact is available.
+
+Current classification:
+
+| Phase | Local implementation | Production data |
+|---|---|---|
+| P0 | complete and tested | blocked: exact archive hash cannot be reconstructed |
+| P1 | triage/correction/matching/dedup/validation tooling complete | blocked: review queue and images unavailable |
+| P2 | schemas and deterministic canonical builder complete | blocked: no verified raw records |
+| P3 | offline CLI, ZIP safety, resumability, extraction queues complete | live provider execution intentionally not performed |
+| P4 | rankings/model-comparison tooling complete | blocked: no canonical production records |
+| P5 | evidence gate complete; decision is no model change | no calibration justified |
+| P6 | storage ADR and reproducibility configuration complete | release/upload pending recovery and authorization |
+| P7 | documentation updated to the evidence-backed state | complete |
+| P8 | see `.agents/skills/analyze-bannerlord-combat-zip/` | runtime support varies by host |
+
+The unchecked legacy checklist below remains the original production definition of done. Do not interpret local fixture-tested tooling as completion of image-dependent production review.
+
+Exact unblock:
+
+```text
+source ZIP SHA-256:
+00f83754687fe769fdfdea1bda0b68b4d7801c25195ff803aa1a1b35fa15d69f
+
+or normalized archive SHA-256:
+10446ce7afb01ec35211c06468812bf2fa3d53e6091f128a7ec67ca605dea2aa
+```
+
 ## Start here
 
 Read these files in order:

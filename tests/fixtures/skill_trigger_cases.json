@@ -1,0 +1,17 @@
+{
+  "trigger": [
+    "Analyze this Bannerlord combat screenshot ZIP.",
+    "Process these Bannerlord battle-result screenshots.",
+    "Normalize a new Bannerlord combat screenshot batch.",
+    "Build canonical empirical rankings from this Bannerlord ZIP.",
+    "Review the uncertain rows from my Bannerlord screenshot dataset.",
+    "Validate or regenerate a Bannerlord combat-observation batch."
+  ],
+  "non_trigger": [
+    "Extract this generic ZIP file.",
+    "Analyze these unrelated vacation photos.",
+    "What is the best Bannerlord infantry troop?",
+    "Refactor this Python repository.",
+    "Change the v7.1 model formula without using screenshots."
+  ]
+}

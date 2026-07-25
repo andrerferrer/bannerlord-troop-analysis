@@ -1,0 +1,2 @@
+schema_version,alias,canonical_troop_id,reason,source
+1.0.0,,,No production aliases can be accepted until the normalized records and 1.4.x + War Sails registry are recovered.,P0 recovery audit

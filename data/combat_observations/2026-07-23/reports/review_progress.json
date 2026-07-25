@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "status": "tooling_complete_production_review_blocked",
+  "recorded_review_queue_rows": 756,
+  "categorized_rows": 0,
+  "ranking_impact_rows": null,
+  "automatic_resolution_eligible": null,
+  "image_inspection_required": null,
+  "blocker": "review_queue.csv is inside the unrecoverable normalized bundle and the verified source screenshot ZIP is unavailable",
+  "required_unblock": "Provide the source ZIP with SHA-256 00f83754687fe769fdfdea1bda0b68b4d7801c25195ff803aa1a1b35fa15d69f or the normalized archive with SHA-256 10446ce7afb01ec35211c06468812bf2fa3d53e6091f128a7ec67ca605dea2aa"
+}

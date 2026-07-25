@@ -8,6 +8,10 @@ venv/
 # Local analysis outputs
 *.tmp
 *.log
+data/combat_observations/*/bundle/*.tar.xz
+data/combat_observations/*/bundle/reconstructed/
+data/combat_observations/*/generated/
+data/combat_observations/*/staging/
 
 # Large / local-only exports
 data/*/raw_xml/*

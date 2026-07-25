@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "status": "production_bundle_unrecoverable_from_available_sources",
+  "integrity_gate": {
+    "expected_sha256": "10446ce7afb01ec35211c06468812bf2fa3d53e6091f128a7ec67ca605dea2aa",
+    "result": "failed"
+  },
+  "source_searches": [
+    {
+      "source": "latest origin/main and all fetched remote branches",
+      "result": "only the same 11 corrupt blobs were found"
+    },
+    {
+      "source": "Git history and unreachable object scan",
+      "result": "no alternate intact bundle or normalized text artifacts were found"
+    },
+    {
+      "source": "GitHub releases",
+      "result": "no releases or release assets were present"
+    },
+    {
+      "source": "targeted local Spotlight and filesystem search in Downloads, Desktop, Documents, code, and Orca workspaces",
+      "result": "no source ZIP, reconstructed archive, troop_occurrences.jsonl, or review_queue.csv was found"
+    }
+  ],
+  "repair_attempts": [
+    {
+      "method": "strict ordered concatenation and streaming Base64 decode",
+      "result": "failed because non-padding data follows padding before part-09"
+    },
+    {
+      "method": "strip intermediate padding and restore terminal Base64 padding",
+      "result": "decoded SHA-256 a472fbc0751a2c74440be9bced56af52db0531199786e0f121fc4fa90e5816ee; XZ stream corrupt"
+    },
+    {
+      "method": "structural trimming to ten 20000-character parts plus the 6780-character final part, with all 64 Base64 values inserted at the apparent part-02 boundary",
+      "candidates_tested": 256,
+      "result": "no candidate matched the expected SHA-256 or produced a valid XZ stream"
+    },
+    {
+      "method": "bounded missing-character search around the XZ corruption detection region in part-02",
+      "candidates_tested": 5184,
+      "result": "no candidate allowed the XZ stream to continue through the next committed part"
+    }
+  ],
+  "observed_corruption": {
+    "part_02_size": 19999,
+    "part_05_size": 32677,
+    "part_08_size": 24098,
+    "part_09_size": 24142,
+    "part_08_contained_in_part_09_at_offset": 44,
+    "intermediate_padding_count": 4,
+    "combined_padding_positions": [
+      196772,
+      196773,
+      220914,
+      220915,
+      227695
+    ]
+  },
+  "production_consequence": "P1 image/raw review and P2 production canonical generation are blocked. Tooling, schemas, fixtures, deterministic reports, documentation, storage design, analysis scaffolding, and portable-skill work may continue.",
+  "required_unblock": "Provide either the source ZIP with SHA-256 00f83754687fe769fdfdea1bda0b68b4d7801c25195ff803aa1a1b35fa15d69f or an intact normalized archive with SHA-256 10446ce7afb01ec35211c06468812bf2fa3d53e6091f128a7ec67ca605dea2aa."
+}

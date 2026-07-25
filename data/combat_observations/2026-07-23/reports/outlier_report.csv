@@ -1,0 +1,2 @@
+observation_id,canonical_troop_id,battle_id,battle_context,deployed,kills,kills_per_deployed,robust_z,status,primary_excluded
+,,,,,,,,blocked_source_unavailable,

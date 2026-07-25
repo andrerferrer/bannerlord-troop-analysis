@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://andrerferrer.github.io/bannerlord-troop-analysis/schemas/combat/v2/historical-aggregate.schema.json",
+  "title": "Canonical historical troop aggregate",
+  "type": "object",
+  "required": [
+    "schema_version", "aggregate_id", "canonical_troop_id", "battle_context", "mixed_contexts",
+    "battle_count", "total_deployed", "total_kills", "historical_kills_per_deployed", "evidence_grade"
+  ],
+  "properties": {
+    "schema_version": {"const": "2.0.0"},
+    "aggregate_id": {"type": "string"},
+    "canonical_troop_id": {"type": "string"},
+    "battle_context": {"enum": ["field", "siege_attack", "siege_defense", "overall"]},
+    "mixed_contexts": {"type": "boolean"},
+    "battle_count": {"type": "integer", "minimum": 1},
+    "consolidated_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "battle_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "observation_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "source_filenames": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "source_image_sha256s": {"type": "array", "items": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "uniqueItems": true},
+    "review_correction_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "game_versions": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "game_tracks": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "active_modules": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "pipeline_versions": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "code_commit_shas": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "total_deployed": {"type": "integer", "minimum": 0},
+    "total_kills": {"type": "integer", "minimum": 0},
+    "total_survivors": {"type": "integer", "minimum": 0},
+    "total_deaths": {"type": "integer", "minimum": 0},
+    "total_wounded": {"type": "integer", "minimum": 0},
+    "total_routed": {"type": "integer", "minimum": 0},
+    "historical_kills_per_deployed": {"type": ["string", "null"]},
+    "survival_rate": {"type": ["string", "null"]},
+    "death_rate": {"type": ["string", "null"]},
+    "wounded_rate": {"type": ["string", "null"]},
+    "casualty_rate": {"type": ["string", "null"]},
+    "routed_rate": {"type": ["string", "null"]},
+    "median_battle_kills_per_deployed": {"type": ["string", "null"]},
+    "best_battle_kills_per_deployed": {"type": ["string", "null"]},
+    "worst_battle_kills_per_deployed": {"type": ["string", "null"]},
+    "best_battle_id": {"type": ["string", "null"]},
+    "worst_battle_id": {"type": ["string", "null"]},
+    "variation_by_battle": {"type": ["string", "null"]},
+    "context_distribution": {
+      "type": "object",
+      "properties": {
+        "field": {"type": "integer", "minimum": 0},
+        "siege_attack": {"type": "integer", "minimum": 0},
+        "siege_defense": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "evidence_grade": {"enum": ["exploratory", "low", "medium", "high"]}
+  },
+  "additionalProperties": false
+}

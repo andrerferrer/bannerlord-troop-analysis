@@ -30,11 +30,19 @@ Rules:
 9. Player party on the defender side supports `siege_defense` when the battle is a siege.
 10. Very high player kills may be retained as supporting evidence, but are not sufficient by themselves to classify a siege defense.
 
-## Dataset scope
+## Dataset scope and unresolved keep-retreat discrepancy
 
-The supplied screenshot dataset contains standard battle-result tables only. It does not contain `Retreated to the keep!` screens or subsequent keep-combat result screens.
+The original rule interview stated that the supplied dataset contained no `Retreated to the keep!` screen. The later first-pass summary states that image 58 visibly contains that screen and was excluded.
 
-No keep-phase detector, continuation rule, or keep-specific exclusion logic is required for this pipeline version. If such screenshots are added in a future batch, their treatment must be defined from representative examples before implementation.
+The source image and normalized screenshot record are currently unavailable because the source ZIP is missing and the committed normalized bundle is corrupt. Repository history proves that PR #11 removed keep-phase scope before PR #12 added the conflicting first-pass claim, but it does not prove which visual classification is correct.
+
+Canonical policy:
+
+1. preserve image 58 in the manifest and exclusion audit;
+2. label its current classification `explicitly_unresolved`;
+3. do not implement a keep detector from the contradictory prose;
+4. resolve only from the exact-hash source image or independently verified raw extraction evidence;
+5. continue excluding it from production rankings until that evidence is reviewed, without claiming visual confirmation.
 
 ## Result-table columns
 
@@ -202,11 +210,11 @@ Policy:
 
 1. Never delete the raw occurrence.
 2. Mark the occurrence as `suspected_siege_engine_outlier`.
-3. Exclude that occurrence automatically from the primary troop analysis.
+3. Exclude an occurrence automatically only when an explicit reviewed flag or a calibrated deterministic rule with retained provenance supports it.
 4. Retain it in a separate siege-engine-assisted analysis and outlier report.
 5. Apply exclusion at occurrence level only.
 6. Other normal occurrences of the same troop, including another party in the same battle, remain in the consolidated primary analysis.
-7. Detection thresholds remain open until calibrated against the empirical image set.
+7. Uncalibrated descriptive thresholds route to review only; detection thresholds remain open until the verified empirical image set is available.
 
 ## Current open decisions
 

@@ -2,6 +2,8 @@
 
 This directory contains the first complete structural normalization of the screenshot batch `Configurações 23_07_2026 17_42_29.zip`.
 
+> **Integrity warning (verified 2026-07-24):** the committed chunk set does not reconstruct the documented archive hash and contains overlapping/padded content. Treat the coverage below as recorded first-pass metadata, not as independently verified reconstructed records. See `reports/p0_recovery_audit.json`. No production canonical v2 dataset has been generated.
+
 ## Coverage
 
 - Source images: **60**
@@ -35,6 +37,8 @@ The archive contains:
 - `review_queue.csv`.
 
 See `bundle/README.md` for reconstruction commands and the expected archive SHA-256.
+
+The supported reconstruction command is now the cross-platform Python CLI documented in `docs/combat_observations/CLI.md`; it rejects the current corrupt stream and emits deterministic forensics.
 
 ## Important limitations
 

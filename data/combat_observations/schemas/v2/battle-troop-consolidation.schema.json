@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://andrerferrer.github.io/bannerlord-troop-analysis/schemas/combat/v2/battle-troop-consolidation.schema.json",
+  "title": "Canonical battle/troop consolidation",
+  "type": "object",
+  "required": [
+    "schema_version", "consolidated_id", "battle_id", "canonical_troop_id", "battle_context",
+    "observation_ids", "survivors", "kills", "deaths", "wounded", "routed", "deployed"
+  ],
+  "properties": {
+    "schema_version": {"const": "2.0.0"},
+    "consolidated_id": {"type": "string"},
+    "battle_id": {"type": "string"},
+    "canonical_troop_id": {"type": "string"},
+    "battle_context": {"enum": ["field", "siege_attack", "siege_defense", "undefined"]},
+    "observation_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1, "uniqueItems": true},
+    "source_filenames": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "source_image_sha256s": {"type": "array", "items": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "uniqueItems": true},
+    "review_correction_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "game_versions": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "game_tracks": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "active_modules": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "pipeline_versions": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "code_commit_shas": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "survivors": {"type": "integer", "minimum": 0},
+    "kills": {"type": "integer", "minimum": 0},
+    "upgrade_ready": {"type": "integer", "minimum": 0},
+    "deaths": {"type": "integer", "minimum": 0},
+    "wounded": {"type": "integer", "minimum": 0},
+    "routed": {"type": "integer", "minimum": 0},
+    "deployed": {"type": "integer", "minimum": 0},
+    "casualties": {"type": "integer", "minimum": 0},
+    "kills_per_deployed": {"type": ["string", "null"]},
+    "survival_rate": {"type": ["string", "null"]},
+    "death_rate": {"type": ["string", "null"]},
+    "wounded_rate": {"type": ["string", "null"]},
+    "casualty_rate": {"type": ["string", "null"]},
+    "routed_rate": {"type": ["string", "null"]}
+  },
+  "additionalProperties": false
+}

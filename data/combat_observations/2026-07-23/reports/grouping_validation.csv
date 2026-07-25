@@ -1,0 +1,2 @@
+duplicate_group_id,observation_ids,grouping_status,grouping_explanation
+,,production_blocked,Production occurrence rows are unavailable; grouping validation tooling is fixture-tested
