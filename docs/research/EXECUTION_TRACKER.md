@@ -9,7 +9,19 @@ The project uses a minimum reporting gate of:
 20 deployed troops
 ```
 
-This gate is already implemented in `scripts/analysis/build_empirical_baseline.py` and applied to the reviewed baseline. Five battles is a minimum reporting threshold, not proof of stable ranking; battle-level uncertainty remains mandatory.
+Five battles is a minimum reporting threshold, not proof of stable ranking; battle-level uncertainty remains mandatory.
+
+Current reviewed sample:
+
+```text
+strict player-side occurrences: 527
+independent battles: 40
+eligible overall labels: 24
+eligible field labels: 17
+eligible siege-attack labels: 2
+eligible siege-defense labels: 0
+remaining review flags: 487 P2 rows
+```
 
 ## Completed
 
@@ -18,33 +30,30 @@ This gate is already implemented in `scripts/analysis/build_empirical_baseline.p
 - [x] Separate player-side and enemy-side observations.
 - [x] Adopt the five-battle reporting gate.
 - [x] Review all 50 P0 high-impact rows.
-- [x] Store corrections separately from immutable raw data.
+- [x] Review all 94 P1 player-side core-uncertainty rows.
+- [x] Store corrections, confirmations, and exclusions separately from immutable raw data.
+- [x] Publish compact P1 decisions with source-row fingerprints.
+- [x] Expand the approved provisional alias table to 18 visually supported aliases.
 - [x] Generate a reviewed five-battle player-side baseline.
 - [x] Publish battle-bootstrap uncertainty intervals.
-- [x] Approve two conservative OCR aliases.
+- [x] Publish P0-to-P1 ranking sensitivity.
+- [x] Reproduce the P1 baseline byte for byte.
 
-## Active workstream: Phase 0 completion
-
-### P1 review
-
-- [ ] Review the 94 remaining player-side core-uncertainty rows against screenshots.
-- [ ] Preserve original values, reviewed values, changed fields, reason, source image, reviewer, and date.
-- [ ] Rebuild the reviewed dataset after each review batch.
-- [ ] Measure whether any troop enters or leaves the five-battle gate.
-- [ ] Publish a P1 completion report and integrity manifest.
-
-### Canonical troop identity
+## Active workstream: canonical troop identity
 
 - [ ] Match every ranked provisional slug to the Bannerlord 1.4.x + War Sails track audit.
-- [ ] Create a versioned alias table.
-- [ ] Store verified XML/game troop IDs separately from display names.
+- [ ] Create a versioned canonical troop-ID table.
+- [ ] Store verified XML/game troop IDs separately from raw and normalized display names.
 - [ ] Mark ambiguous or missing IDs explicitly rather than guessing.
 - [ ] Validate that all empirical joins use verified IDs.
+- [ ] Distinguish Realm of Thrones evidence from vanilla/War Sails data at every join and output boundary.
 
-### Canonical dataset v1
+## Canonical dataset v2
 
-- [ ] Replay P0 and P1 corrections from the immutable raw layer.
-- [ ] Apply approved aliases deterministically.
+- [x] Replay P0 corrections from the immutable raw layer.
+- [x] Replay P1 corrections, confirmations, and exclusions.
+- [x] Apply approved provisional aliases deterministically.
+- [ ] Replace provisional labels with verified track troop IDs where available.
 - [ ] Resolve accepted battle-context corrections.
 - [ ] Generate canonical JSONL/CSV outputs.
 - [ ] Generate structural, formula, hierarchy, and join validation reports.
@@ -52,20 +61,23 @@ This gate is already implemented in `scripts/analysis/build_empirical_baseline.p
 
 ## Phase 1: descriptive empirical baseline
 
-- [ ] Regenerate complete and eligible-only rankings from canonical dataset v1.
-- [ ] Produce overall, field, siege-attack, and siege-defense tables.
-- [ ] Show battle count, deployed, kills, deaths, casualties, and rates.
-- [ ] Show battle-bootstrap intervals beside every displayed estimate.
-- [ ] Produce ranking sensitivity across raw, P0-reviewed, P1-reviewed, and canonical versions.
+- [x] Regenerate eligible rankings from the reviewed P1 dataset.
+- [x] Produce overall, field, and siege-attack tables.
+- [x] Show battle count, deployed, kills, deaths, casualties, and rates.
+- [x] Show battle-bootstrap intervals beside every displayed estimate.
+- [x] Produce ranking sensitivity from P0 to P1.
+- [ ] Regenerate complete and eligible-only rankings from canonical dataset v2.
 - [ ] Publish an explicit unranked/insufficient-evidence table.
+- [ ] Expand siege-defense evidence until at least one troop meets the gate.
 
 ### Phase 1 exit gate
 
-- [ ] Every displayed result has at least 5 battles and 20 deployed.
-- [ ] Results regenerate with one command.
-- [ ] Player and enemy sides are never pooled.
-- [ ] Context-specific claims do not pool contexts.
-- [ ] Ranking sensitivity to review and aliases is documented.
+- [x] Every displayed result has at least 5 battles and 20 deployed.
+- [x] Player and enemy sides are never pooled.
+- [x] Context-specific claims do not pool contexts.
+- [x] Ranking sensitivity to P1 review and provisional aliases is documented.
+- [ ] Results regenerate from canonical IDs with one command.
+- [ ] All displayed provisional slugs are resolved or explicitly marked unresolved.
 
 ## Phase 2: attribute and equipment integration
 
@@ -110,15 +122,14 @@ This phase is blocked until Phases 2–4 demonstrate useful grouped out-of-sampl
 
 ## Immediate execution order
 
-1. Review the 94 P1 rows.
-2. Build the verified alias and troop-ID table.
-3. Generate canonical dataset v1.
-4. Regenerate the five-battle baseline.
-5. Produce ranking-stability analysis.
-6. Expand siege coverage.
-7. Run the first controlled speed-versus-damage experiment.
-8. Begin feature integration and explanatory modeling.
+1. Build the verified provisional-slug → Bannerlord 1.4.x + War Sails troop-ID table.
+2. Generate canonical dataset v2.
+3. Regenerate reviewed rankings and insufficient-evidence tables from canonical IDs.
+4. Expand siege coverage, especially siege defense.
+5. Define and run the first controlled speed-versus-damage experiment.
+6. Build the versioned attribute/equipment feature table.
+7. Begin grouped out-of-sample explanatory modeling.
 
 ## Interpretation rule
 
-Until controlled evidence exists, results describe realized contribution in this campaign sample. They do not establish universal troop superiority or causal effects of equipment, skills, perks, or other attributes.
+Until canonical joins and controlled evidence exist, results describe realized contribution in this campaign sample. They do not establish universal troop superiority or causal effects of equipment, skills, perks, or other attributes.

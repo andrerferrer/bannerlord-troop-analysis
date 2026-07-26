@@ -1,0 +1,15 @@
+{
+  "source_screenshot_zip_sha256": "00f83754687fe769fdfdea1bda0b68b4d7801c25195ff803aa1a1b35fa15d69f",
+  "normalized_archive_sha256": "10446ce7afb01ec35211c06468812bf2fa3d53e6091f128a7ec67ca605dea2aa",
+  "reviewed_at": "2026-07-26",
+  "reviewer": "OpenAI GPT-5.6 Thinking with user-authorized repository workflow",
+  "rows": 94,
+  "counts": {
+    "corrected": 27,
+    "confirmed": 44,
+    "excluded": 23
+  },
+  "decision_file": "p1_review_decisions.csv",
+  "decision_file_sha256": "002204543a2f7a16a210d696952abdd8ce9852a4637403880b4dcb0d9cf07b01",
+  "baseline_sha256": "b6ed7790f52480b96fbea88b7f64bfb761eb93cd605374392872c01ab87783d6"
+}

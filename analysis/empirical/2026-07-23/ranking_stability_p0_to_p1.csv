@@ -1,0 +1,44 @@
+context,canonical_name_slug,display_name,p0_rank,p1_rank,rank_change,p0_battles,p1_battles,p0_deployed,p1_deployed,p0_kills_per_deployed,p1_kills_per_deployed,status
+field,captain_of_the_kingsguard_t6,Captain of the Kingsguard [T6],1,1,0,5,5,23,23,5.391304,5.391304,retained
+field,dragonstone_elite_halberdier_t5,Dragonstone Elite Halberdier [T5],5,5,0,11,11,255,255,2.164706,2.164706,retained
+field,imperial_naute,Imperial Naute,17,17,0,6,6,85,85,0.647059,0.647059,retained
+field,queen_s_man_t6,Queen's Man [T6],3,3,0,13,13,238,238,2.44958,2.44958,retained
+field,reach_flower_knight_t6,Reach Flower Knight [T6],2,2,0,9,9,59,59,2.661017,2.661017,retained
+field,reach_horseman_t5,Reach Horseman [T5],11,11,0,8,8,101,101,1.544554,1.544554,retained
+field,reach_house_guard_t5,Reach House Guard [T5],16,16,0,7,8,67,85,0.80597,0.705882,retained
+field,reach_master_archer_t5,Reach Master Archer [T5],7,8,-1,6,6,55,55,1.818182,1.818182,retained
+field,rhodok_admiral_sharpshooter,Rhodok Admiral Sharpshooter,9,6,3,10,11,474,578,1.729958,2.044983,retained
+field,rhodok_river_guard,Rhodok River Guard,14,13,1,5,6,47,70,1.085106,1.214286,retained
+field,rhodok_river_hunter,Rhodok River Hunter,15,15,0,6,7,50,94,0.92,1.074468,retained
+field,rhodok_sarge,Rhodok Sarge,13,14,-1,6,6,134,134,1.201493,1.201493,retained
+field,rhodok_sharpshooter,Rhodok Sharpshooter,12,12,0,9,9,60,60,1.516667,1.516667,retained
+field,rhoynar_bahriyyah_t5,Rhoynar Bahriyyah [T5],6,7,-1,10,10,152,152,2.0,2.0,retained
+field,riverlands_ranger_t5,Riverlands Ranger [T5],8,9,-1,9,9,132,132,1.772727,1.772727,retained
+field,stormlands_heavy_crossbowman_t5,Stormlands Heavy Crossbowman[T5],10,10,0,11,11,269,269,1.643123,1.643123,retained
+field,water_gardens_sentinel_t6,Water Gardens Sentinel [T6],4,4,0,10,10,77,77,2.415584,2.415584,retained
+overall,baratheon_hammerknight_t6,Baratheon Hammerknight [T6],3,3,0,5,5,159,159,2.358491,2.358491,retained
+overall,captain_of_the_kingsguard_t6,Captain of the Kingsguard [T6],1,1,0,7,7,31,31,4.516129,4.516129,retained
+overall,celtigar_banneret_t6,Celtigar Banneret [T6],2,2,0,7,7,169,169,2.443787,2.443787,retained
+overall,dragonstone_elite_archer_t5,Dragonstone Elite Archer [T5],,11,,,5,,61,,1.868852,newly_eligible
+overall,dragonstone_elite_halberdier_t5,Dragonstone Elite Halberdier [T5],9,9,0,15,15,388,388,1.886598,1.886598,retained
+overall,dragonstone_house_guard_t5,Dragonstone House Guard [T5],18,20,-2,6,6,90,90,1.166667,1.166667,retained
+overall,elite_hired_crossbow_t5,Elite Hired Crossbow [T5],7,12,-5,7,8,38,44,2.0,1.75,retained
+overall,imperial_naute,Imperial Naute,23,24,-1,6,6,85,85,0.647059,0.647059,retained
+overall,queen_s_man_t6,Queen's Man [T6],6,6,0,17,18,313,348,2.063898,2.08908,retained
+overall,reach_flower_knight_t6,Reach Flower Knight [T6],10,10,0,14,14,117,117,1.871795,1.871795,retained
+overall,reach_horseman_t5,Reach Horseman [T5],14,15,-1,8,8,101,101,1.544554,1.544554,retained
+overall,reach_house_guard_t5,Reach House Guard [T5],22,23,-1,7,8,67,85,0.80597,0.705882,retained
+overall,reach_master_archer_t5,Reach Master Archer [T5],13,14,-1,9,9,86,86,1.546512,1.546512,retained
+overall,reaver_t4,Reaver [T4],20,22,-2,5,5,77,77,0.961039,0.961039,retained
+overall,rhodok_admiral_sharpshooter,Rhodok Admiral Sharpshooter,11,7,4,10,11,474,578,1.729958,2.044983,retained
+overall,rhodok_river_guard,Rhodok River Guard,19,18,1,5,6,47,70,1.085106,1.214286,retained
+overall,rhodok_river_hunter,Rhodok River Hunter,21,21,0,6,7,50,94,0.92,1.074468,retained
+overall,rhodok_sarge,Rhodok Sarge,17,19,-2,6,6,134,134,1.201493,1.201493,retained
+overall,rhodok_sharpshooter,Rhodok Sharpshooter,15,16,-1,9,9,60,60,1.516667,1.516667,retained
+overall,rhoynar_bahriyyah_t5,Rhoynar Bahriyyah [T5],4,4,0,16,16,253,253,2.177866,2.177866,retained
+overall,riverlands_ranger_t5,Riverlands Ranger [T5],12,13,-1,10,10,144,144,1.701389,1.701389,retained
+overall,stormlands_elite_maceman_t5,Stormlands Elite Maceman [T5],8,8,0,5,5,75,75,1.893333,1.893333,retained
+overall,stormlands_heavy_crossbowman_t5,Stormlands Heavy Crossbowman[T5],16,17,-1,19,19,526,526,1.463878,1.463878,retained
+overall,water_gardens_sentinel_t6,Water Gardens Sentinel [T6],5,5,0,14,14,105,105,2.095238,2.095238,retained
+siege_attack,rhoynar_bahriyyah_t5,Rhoynar Bahriyyah [T5],1,1,0,6,6,101,101,2.445545,2.445545,retained
+siege_attack,stormlands_heavy_crossbowman_t5,Stormlands Heavy Crossbowman [T5],2,2,0,7,7,228,228,1.289474,1.289474,retained
