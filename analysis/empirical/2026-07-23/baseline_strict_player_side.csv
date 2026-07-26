@@ -4,40 +4,41 @@ overall,2,Celtigar Banneret [T6],celtigar_banneret_t6,7,169,413,2.443787,0.81052
 overall,3,Baratheon Hammerknight [T6],baratheon_hammerknight_t6,5,159,375,2.358491,1.129412,3.77027,0.031447,0.220126
 overall,4,Rhoynar Bahriyyah [T5],rhoynar_bahriyyah_t5,16,253,551,2.177866,1.434978,2.931507,0.071146,0.375494
 overall,5,Water Gardens Sentinel [T6],water_gardens_sentinel_t6,14,105,220,2.095238,1.528846,2.613208,0.019048,0.266667
-overall,6,Queen's Man [T6],queen_s_man_t6,17,313,646,2.063898,1.429204,2.648794,0.038339,0.188498
-overall,7,Elite Hired Crossbow [T5],elite_hired_crossbow_t5,7,38,76,2.0,1.222222,2.8125,0.078947,0.315789
+overall,6,Queen's Man [T6],queen_s_man_t6,18,348,727,2.08908,1.520384,2.628986,0.045977,0.212644
+overall,7,Rhodok Admiral Sharpshooter,rhodok_admiral_sharpshooter,11,578,1182,2.044983,1.224026,3.040201,0.022491,0.15917
 overall,8,Stormlands Elite Maceman [T5],stormlands_elite_maceman_t5,5,75,142,1.893333,1.166667,2.452055,0.0,0.093333
 overall,9,Dragonstone Elite Halberdier [T5],dragonstone_elite_halberdier_t5,15,388,732,1.886598,1.354922,2.547872,0.03866,0.293814
 overall,10,Reach Flower Knight [T6],reach_flower_knight_t6,14,117,219,1.871795,1.119403,3.123711,0.042735,0.230769
-overall,11,Rhodok Admiral Sharpshooter,rhodok_admiral_sharpshooter,10,474,820,1.729958,1.077799,2.763889,0.004219,0.07384
-overall,12,Riverlands Ranger [T5],riverlands_ranger_t5,10,144,245,1.701389,0.586207,3.390411,0.027778,0.118056
-overall,13,Reach Master Archer [T5],reach_master_archer_t5,9,86,133,1.546512,0.782609,2.726027,0.034884,0.174419
-overall,14,Reach Horseman [T5],reach_horseman_t5,8,101,156,1.544554,1.048077,2.26,0.069307,0.316832
-overall,15,Rhodok Sharpshooter,rhodok_sharpshooter,9,60,91,1.516667,1.038462,1.944444,0.033333,0.166667
-overall,16,Stormlands Heavy Crossbowman[T5],stormlands_heavy_crossbowman_t5,19,526,770,1.463878,0.741525,2.450102,0.058935,0.254753
-overall,17,Rhodok Sarge,rhodok_sarge,6,134,161,1.201493,0.722628,1.482955,0.067164,0.313433
-overall,18,Dragonstone House Guard [T5],dragonstone_house_guard_t5,6,90,105,1.166667,0.686275,1.416667,0.077778,0.655556
-overall,19,Rhodok River Guard,rhodok_river_guard,5,47,51,1.085106,0.166667,1.361446,0.042553,0.170213
-overall,20,Reaver [T4],reaver_t4,5,77,74,0.961039,0.568966,1.360465,0.064935,0.493506
-overall,21,Rhodok River Hunter,rhodok_river_hunter,6,50,46,0.92,0.631579,1.275862,0.06,0.22
-overall,22,Reach House Guard [T5],reach_house_guard_t5,7,67,54,0.80597,0.21519,1.9,0.029851,0.343284
-overall,23,Imperial Naute,imperial_naute,6,85,55,0.647059,0.378641,1.138889,0.152941,0.552941
+overall,11,Dragonstone Elite Archer [T5],dragonstone_elite_archer_t5,5,61,114,1.868852,1.047619,3.730769,0.016393,0.04918
+overall,12,Elite Hired Crossbow [T5],elite_hired_crossbow_t5,8,44,77,1.75,0.957447,2.5625,0.090909,0.340909
+overall,13,Riverlands Ranger [T5],riverlands_ranger_t5,10,144,245,1.701389,0.586207,3.390411,0.027778,0.118056
+overall,14,Reach Master Archer [T5],reach_master_archer_t5,9,86,133,1.546512,0.782609,2.726027,0.034884,0.174419
+overall,15,Reach Horseman [T5],reach_horseman_t5,8,101,156,1.544554,1.048077,2.26,0.069307,0.316832
+overall,16,Rhodok Sharpshooter,rhodok_sharpshooter,9,60,91,1.516667,1.038462,1.944444,0.033333,0.166667
+overall,17,Stormlands Heavy Crossbowman[T5],stormlands_heavy_crossbowman_t5,19,526,770,1.463878,0.741525,2.450102,0.058935,0.254753
+overall,18,Rhodok River Guard,rhodok_river_guard,6,70,85,1.214286,0.636364,1.419355,0.1,0.428571
+overall,19,Rhodok Sarge,rhodok_sarge,6,134,161,1.201493,0.722628,1.482955,0.067164,0.313433
+overall,20,Dragonstone House Guard [T5],dragonstone_house_guard_t5,6,90,105,1.166667,0.686275,1.416667,0.077778,0.655556
+overall,21,Rhodok River Hunter,rhodok_river_hunter,7,94,101,1.074468,0.745098,1.253731,0.159574,0.542553
+overall,22,Reaver [T4],reaver_t4,5,77,74,0.961039,0.568966,1.360465,0.064935,0.493506
+overall,23,Reach House Guard [T5],reach_house_guard_t5,8,85,60,0.705882,0.235955,1.631579,0.035294,0.482353
+overall,24,Imperial Naute,imperial_naute,6,85,55,0.647059,0.378641,1.138889,0.152941,0.552941
 field,1,Captain of the Kingsguard [T6],captain_of_the_kingsguard_t6,5,23,124,5.391304,1.5,11.375,0.0,0.086957
 field,2,Reach Flower Knight [T6],reach_flower_knight_t6,9,59,157,2.661017,1.352941,5.185185,0.033898,0.305085
 field,3,Queen's Man [T6],queen_s_man_t6,13,238,583,2.44958,1.793103,3.086957,0.037815,0.205882
 field,4,Water Gardens Sentinel [T6],water_gardens_sentinel_t6,10,77,186,2.415584,1.876712,2.954023,0.012987,0.272727
 field,5,Dragonstone Elite Halberdier [T5],dragonstone_elite_halberdier_t5,11,255,552,2.164706,1.473988,2.928571,0.019608,0.203922
-field,6,Rhoynar Bahriyyah [T5],rhoynar_bahriyyah_t5,10,152,304,2.0,0.87619,3.251534,0.039474,0.256579
-field,7,Reach Master Archer [T5],reach_master_archer_t5,6,55,100,1.818182,0.645161,3.853659,0.018182,0.054545
-field,8,Riverlands Ranger [T5],riverlands_ranger_t5,9,132,234,1.772727,0.561538,3.616541,0.030303,0.090909
-field,9,Rhodok Admiral Sharpshooter,rhodok_admiral_sharpshooter,10,474,820,1.729958,1.082616,2.782857,0.004219,0.07384
+field,6,Rhodok Admiral Sharpshooter,rhodok_admiral_sharpshooter,11,578,1182,2.044983,1.209814,3.018987,0.022491,0.15917
+field,7,Rhoynar Bahriyyah [T5],rhoynar_bahriyyah_t5,10,152,304,2.0,0.87619,3.251534,0.039474,0.256579
+field,8,Reach Master Archer [T5],reach_master_archer_t5,6,55,100,1.818182,0.645161,3.853659,0.018182,0.054545
+field,9,Riverlands Ranger [T5],riverlands_ranger_t5,9,132,234,1.772727,0.561538,3.616541,0.030303,0.090909
 field,10,Stormlands Heavy Crossbowman[T5],stormlands_heavy_crossbowman_t5,11,269,442,1.643123,0.355769,3.340909,0.007435,0.040892
 field,11,Reach Horseman [T5],reach_horseman_t5,8,101,156,1.544554,1.044248,2.22807,0.069307,0.316832
 field,12,Rhodok Sharpshooter,rhodok_sharpshooter,9,60,91,1.516667,1.02381,1.957746,0.033333,0.166667
-field,13,Rhodok Sarge,rhodok_sarge,6,134,161,1.201493,0.725,1.474453,0.067164,0.313433
-field,14,Rhodok River Guard,rhodok_river_guard,5,47,51,1.085106,0.166667,1.361446,0.042553,0.170213
-field,15,Rhodok River Hunter,rhodok_river_hunter,6,50,46,0.92,0.631579,1.26087,0.06,0.22
-field,16,Reach House Guard [T5],reach_house_guard_t5,7,67,54,0.80597,0.214286,1.847826,0.029851,0.343284
+field,13,Rhodok River Guard,rhodok_river_guard,6,70,85,1.214286,0.638889,1.418605,0.1,0.428571
+field,14,Rhodok Sarge,rhodok_sarge,6,134,161,1.201493,0.725,1.474453,0.067164,0.313433
+field,15,Rhodok River Hunter,rhodok_river_hunter,7,94,101,1.074468,0.739726,1.253731,0.159574,0.542553
+field,16,Reach House Guard [T5],reach_house_guard_t5,8,85,60,0.705882,0.234043,1.618421,0.035294,0.482353
 field,17,Imperial Naute,imperial_naute,6,85,55,0.647059,0.378641,1.132075,0.152941,0.552941
 siege_attack,1,Rhoynar Bahriyyah [T5],rhoynar_bahriyyah_t5,6,101,247,2.445545,1.703297,3.444444,0.118812,0.554455
 siege_attack,2,Stormlands Heavy Crossbowman [T5],stormlands_heavy_crossbowman_t5,7,228,294,1.289474,0.772926,1.725962,0.127193,0.535088
