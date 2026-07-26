@@ -38,15 +38,22 @@ remaining review flags: 487 P2 rows
 - [x] Publish battle-bootstrap uncertainty intervals.
 - [x] Publish P0-to-P1 ranking sensitivity.
 - [x] Reproduce the P1 baseline byte for byte.
+- [x] Establish a conservative multi-track canonical identity gate.
+- [x] Add deterministic resolution from generated `<track>_troops.csv` audits.
+- [x] Detect cross-track exact-name ambiguity and conflicts with existing confirmations.
+- [x] Preserve unresolved identities explicitly and block incomplete attribute joins.
 
 ## Active workstream: canonical troop identity
 
-- [ ] Match every ranked provisional slug to the Bannerlord 1.4.x + War Sails track audit.
-- [ ] Create a versioned canonical troop-ID table.
-- [ ] Store verified XML/game troop IDs separately from raw and normalized display names.
-- [ ] Mark ambiguous or missing IDs explicitly rather than guessing.
-- [ ] Validate that all empirical joins use verified IDs.
-- [ ] Distinguish Realm of Thrones evidence from vanilla/War Sails data at every join and output boundary.
+- [ ] Export or recover complete troop audits for every represented track.
+- [ ] Match every ranked provisional slug to the correct track audit.
+- [x] Create a versioned canonical troop-ID audit table.
+- [x] Store verified XML/game troop IDs separately from raw and normalized display names.
+- [x] Mark ambiguous or missing IDs explicitly rather than guessing.
+- [x] Add a fail-closed gate so unresolved identities cannot enter attribute joins.
+- [x] Distinguish Realm of Thrones evidence from vanilla/War Sails data at every canonical join boundary.
+- [ ] Run the automated resolver against complete RoT, official vanilla/War Sails, and Rhodok-source audits.
+- [ ] Reach complete or explicitly approved identity coverage for every label entering modeling.
 
 ## Canonical dataset v2
 
@@ -77,7 +84,7 @@ remaining review flags: 487 P2 rows
 - [x] Context-specific claims do not pool contexts.
 - [x] Ranking sensitivity to P1 review and provisional aliases is documented.
 - [ ] Results regenerate from canonical IDs with one command.
-- [ ] All displayed provisional slugs are resolved or explicitly marked unresolved.
+- [ ] All displayed provisional slugs are resolved or explicitly approved as unresolved.
 
 ## Phase 2: attribute and equipment integration
 
@@ -122,13 +129,14 @@ This phase is blocked until Phases 2–4 demonstrate useful grouped out-of-sampl
 
 ## Immediate execution order
 
-1. Build the verified provisional-slug → Bannerlord 1.4.x + War Sails troop-ID table.
-2. Generate canonical dataset v2.
-3. Regenerate reviewed rankings and insufficient-evidence tables from canonical IDs.
-4. Expand siege coverage, especially siege defense.
-5. Define and run the first controlled speed-versus-damage experiment.
-6. Build the versioned attribute/equipment feature table.
-7. Begin grouped out-of-sample explanatory modeling.
+1. Generate complete `realm_of_thrones_troops.csv`, official `vanilla_troops.csv`, and the Rhodok-source `<track>_troops.csv`.
+2. Run `scripts/run_canonical_identity_pipeline.ps1` with all track audits and `-RequireComplete`.
+3. Generate canonical dataset v2.
+4. Regenerate reviewed rankings and insufficient-evidence tables from canonical IDs.
+5. Expand siege coverage, especially siege defense.
+6. Define and run the first controlled speed-versus-damage experiment.
+7. Build the versioned attribute/equipment feature table.
+8. Begin grouped out-of-sample explanatory modeling.
 
 ## Interpretation rule
 
