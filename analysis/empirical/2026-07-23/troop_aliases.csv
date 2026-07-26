@@ -1,4 +1,20 @@
 alias_slug,canonical_slug,status,basis,evidence
-stormlands_heavy_crossbowmant5,stormlands_heavy_crossbowman_t5,approved,exact_visual_name_and_compact_slug_match,"Stormlands Heavy Crossbowman [T5]; 22 rows across 20 battles; difference is only missing separator before T5"
-free_folkaxeman_t3,free_folk_axeman_t3,approved,compact_slug_match,"Free Folk Axeman [T3]; 2 rows in one battle; difference is missing separator between Folk and Axeman"
-f_ta_gua,f_t_a_gua,unresolved,ocr_artifact_candidate,"Zero deployed; text is not a verified troop identity"
+stormlands_heavy_crossbowmant5,stormlands_heavy_crossbowman_t5,approved,exact_visual_name_and_compact_slug_match,Stormlands Heavy Crossbowman [T5]; difference is only missing separator before T5
+free_folkaxeman_t3,free_folk_axeman_t3,approved,compact_slug_match,Free Folk Axeman [T3]; difference is missing separator between Folk and Axeman
+rhodok_admiral_sharpshooter_no,rhodok_admiral_sharpshooter,approved,exact_visual_name_with_trailing_ocr_noise,Visible row reads Rhodok Admiral Sharpshooter; trailing = no is OCR noise
+rhodok_river_hunter_rapeeaps,rhodok_river_hunter,approved,exact_visual_name_with_trailing_ocr_noise,Visible row reads Rhodok River Hunter; bracketed suffix is OCR noise
+rhodok_river_guard_o_v,rhodok_river_guard,approved,exact_visual_name_with_trailing_ocr_noise,Visible row reads Rhodok River Guard; trailing symbols are OCR noise
+mts_watch_master_crossbowman,nights_watch_master_crossbowman_t5,approved,manual_visual_name_recovery,Visible row reads Night's Watch Master Crossbowman [T5]
+dragonstone_elite_archer_t5_l,dragonstone_elite_archer_t5,approved,exact_visual_name_with_trailing_ocr_noise,Visible row reads Dragonstone Elite Archer [T5]
+fe_flite_hired_crosshow_t5,elite_hired_crossbow_t5,approved,manual_visual_name_recovery,Visible row reads Elite Hired Crossbow [T5]
+pegeorstone_militia_veteran_archer,dragonstone_militia_veteran_archer_t3,approved,manual_visual_name_recovery,Visible row reads Dragonstone Militia Veteran Archer [T3]
+stormlands_bowman_t2_sees,stormlands_bowman_t2,approved,exact_visual_name_with_trailing_ocr_noise,Visible row reads Stormlands Bowman [T2]
+queen_s_man_t6_an,queen_s_man_t6,approved,exact_visual_name_with_trailing_ocr_noise,Visible row reads Queen's Man [T6]
+j_ravager_t3_tn,ravager_t3,approved,manual_visual_name_recovery,Visible row reads Ravager [T3]
+celtigar_halberdier_t5_le_ae,celtigar_halberdier_t5,approved,exact_visual_name_with_trailing_ocr_noise,Visible row reads Celtigar Halberdier [T5]
+je_night_s_watch_elite_crossbowman_t4,nights_watch_elite_crossbowman_t4,approved,manual_visual_name_recovery,Visible row reads Night's Watch Elite Crossbowman [T4]
+freefolk_thenn_impaler_t6,free_folk_thenn_impaler_t6,approved,word_separator_normalization,Visible row reads Free Folk Thenn Impaler [T6]
+i_ti_marksman_t5,yi_ti_marksman_t5,approved,manual_visual_name_recovery,Visible row reads Yi Ti Marksman [T5]
+yale_master_archer_t5,vale_master_archer_t5,approved,manual_visual_name_recovery,Visible row reads Vale Master Archer [T5]
+reach_house_guard_t5_vv,reach_house_guard_t5,approved,exact_visual_name_with_trailing_ocr_noise,Visible row reads Reach House Guard [T5]
+f_ta_gua,f_t_a_gua,unresolved,ocr_artifact_candidate,Zero deployed; text is not a verified troop identity
