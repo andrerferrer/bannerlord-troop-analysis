@@ -6,7 +6,8 @@ Data-driven troop analysis framework for Mount & Blade II: Bannerlord.
 
 - [`docs/research/EXECUTION_TRACKER.md`](docs/research/EXECUTION_TRACKER.md) — current task status and immediate execution order
 - [`docs/research/EMPIRICAL_VALIDATION_ROADMAP.md`](docs/research/EMPIRICAL_VALIDATION_ROADMAP.md) — empirical research plan and phase gates
-- [`analysis/empirical/2026-07-23/PHASE0_EXECUTION_REPORT.md`](analysis/empirical/2026-07-23/PHASE0_EXECUTION_REPORT.md) — latest image-backed review results
+- [`analysis/empirical/2026-07-23/P1_EXECUTION_REPORT.md`](analysis/empirical/2026-07-23/P1_EXECUTION_REPORT.md) — current reviewed-data state
+- [`analysis/empirical/2026-07-23/PHASE0_EXECUTION_REPORT.md`](analysis/empirical/2026-07-23/PHASE0_EXECUTION_REPORT.md) — P0 image-review history
 - [`TODO.md`](TODO.md) — broader historical implementation checklist
 - [`docs/handoff/PROJECT_HANDOFF_SUPER_REPORT.md`](docs/handoff/PROJECT_HANDOFF_SUPER_REPORT.md)
 - [`docs/methodology/ADR-001-combat-image-normalization.md`](docs/methodology/ADR-001-combat-image-normalization.md)
@@ -36,20 +37,22 @@ Current empirical state:
 
 - player-side and enemy-side observations are separated;
 - minimum display gate is **5 independent battles and 20 deployed troops**;
-- all 50 high-impact P0 rows were checked against source screenshots;
-- 28 P0 rows were corrected and 22 were confirmed;
+- all 50 P0 high-impact rows were reviewed: 28 corrected and 22 confirmed;
+- all 94 P1 rows were reviewed: 27 corrected, 44 confirmed, and 23 excluded;
 - P0 remaining: 0;
-- P1 remaining: 94;
+- P1 remaining: 0;
 - P2 remaining: 487;
-- strict reviewed player-side sample: 456 occurrences across 40 battles;
-- eligible labels: 23 overall, 17 field, 2 siege attack, and 0 siege defense.
+- approved provisional OCR aliases: 18;
+- strict reviewed player-side sample: 527 occurrences across 40 battles;
+- eligible labels: 24 overall, 17 field, 2 siege attack, and 0 siege defense;
+- current baseline SHA-256: `b6ed7790f52480b96fbea88b7f64bfb761eb93cd605374392872c01ab87783d6`.
 
 The current rankings are exploratory campaign-performance evidence, not a universal tier list or causal estimate of intrinsic troop strength.
 
 ## Core methodological rules
 
 - Preserve immutable raw extraction data.
-- Apply corrections in a separate reviewed layer with provenance.
+- Apply corrections and exclusions in separate reviewed layers with provenance.
 - Resolve troop identities against the selected module track before explanatory modeling.
 - Keep field, siege attack, and siege defense separate.
 - Use the battle as the independent sampling unit.
@@ -62,7 +65,7 @@ The current rankings are exploratory campaign-performance evidence, not a univer
 
 Create an interpretable troop-analysis pipeline using XML-exported game data, controlled tests, and real campaign observations.
 
-The project should avoid shallow rankings based only on raw stats. Target outputs include:
+Target outputs include:
 
 - hits to kill;
 - expected kills per minute;
@@ -94,26 +97,30 @@ XML/module export
 → calibrated prediction, only if supported
 ```
 
-## Current model direction
-
-The preferred theoretical offense framework is based on HTK/KPM:
-
-```text
-HTK = effective_enemy_hp / effective_damage
-KPM = attempts_per_minute × hit_chance / HTK
-```
-
-For mixed-loadout troops, melee, ranged, and throwing contribution are modeled separately before any context-dependent blend.
-
-## Empirical baseline command
+## Empirical review and baseline commands
 
 ```bash
+python scripts/analysis/apply_review_corrections.py \
+  primary_troop_occurrences.jsonl \
+  p0_reviewed.jsonl \
+  --corrections analysis/empirical/2026-07-23/p0_manual_corrections/part-*.csv
+
+python scripts/analysis/apply_p1_review_decisions.py \
+  p0_reviewed.jsonl \
+  analysis/empirical/2026-07-23/p1_review_decisions.csv \
+  p1_reviewed.jsonl
+
+python scripts/analysis/apply_troop_aliases.py \
+  p1_reviewed.jsonl \
+  analysis/empirical/2026-07-23/troop_aliases.csv \
+  reviewed_aliases.jsonl
+
 python scripts/analysis/build_empirical_baseline.py \
-  reviewed_primary_troop_occurrences.jsonl \
+  reviewed_aliases.jsonl \
   baseline_strict_player_side.csv
 ```
 
-Defaults:
+Baseline defaults:
 
 ```text
 minimum battles: 5
