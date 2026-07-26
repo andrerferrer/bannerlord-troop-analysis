@@ -1,0 +1,25 @@
+provisional_slug,display_name,observed_track,canonical_troop_id,match_status,evidence_path,evidence_detail,blocking_reason
+captain_of_the_kingsguard_t6,Captain of the Kingsguard [T6],realm_of_thrones,,unresolved,,,No versioned exact name-to-ID reference located
+celtigar_banneret_t6,Celtigar Banneret [T6],realm_of_thrones,,unresolved,,,No versioned exact name-to-ID reference located
+baratheon_hammerknight_t6,Baratheon Hammerknight [T6],realm_of_thrones,baratheon_pikeknight,confirmed_id,data/rot_reference/hot_20260717/v43_top20_overall.csv,Exact V4.3 name-to-troop_id row,
+rhoynar_bahriyyah_t5,Rhoynar Bahriyyah [T5],unresolved,,unresolved,,,Track and ID require exact snapshot match
+water_gardens_sentinel_t6,Water Gardens Sentinel [T6],realm_of_thrones,,unresolved,,,No versioned exact name-to-ID reference located
+queen_s_man_t6,Queen's Man [T6],realm_of_thrones,,track_confirmed_id_unresolved,data/rot_reference/empirical/20260703_empirical_troop_aggregate_batch1.csv,Name appears in preserved RoT empirical aggregate,Aggregate does not contain troop_id
+rhodok_admiral_sharpshooter,Rhodok Admiral Sharpshooter,unresolved,,unresolved,,,Likely separate/overlapping mod content; do not assign to RoT without source audit
+stormlands_elite_maceman_t5,Stormlands Elite Maceman [T5],realm_of_thrones,,unresolved,,,No versioned exact name-to-ID reference located
+dragonstone_elite_halberdier_t5,Dragonstone Elite Halberdier [T5],realm_of_thrones,dragonstone_headsman,confirmed_id,data/rot_reference/empirical/20260703_model_vs_empirical_delta_controls.csv,Exact preserved name-to-troop_id row,
+reach_flower_knight_t6,Reach Flower Knight [T6],realm_of_thrones,,unresolved,,,No versioned exact name-to-ID reference located
+dragonstone_elite_archer_t5,Dragonstone Elite Archer [T5],realm_of_thrones,,unresolved,,,No versioned exact name-to-ID reference located
+elite_hired_crossbow_t5,Elite Hired Crossbow [T5],unresolved,,unresolved,,,Generic name may collide across tracks
+riverlands_ranger_t5,Riverlands Ranger [T5],realm_of_thrones,,unresolved,,,No versioned exact name-to-ID reference located
+reach_master_archer_t5,Reach Master Archer [T5],realm_of_thrones,,unresolved,,,No versioned exact name-to-ID reference located
+reach_horseman_t5,Reach Horseman [T5],realm_of_thrones,,unresolved,,,No versioned exact name-to-ID reference located
+rhodok_sharpshooter,Rhodok Sharpshooter,unresolved,,unresolved,,,Likely separate/overlapping mod content; do not assign to RoT without source audit
+stormlands_heavy_crossbowman_t5,Stormlands Heavy Crossbowman [T5],realm_of_thrones,,track_confirmed_id_unresolved,data/rot_reference/empirical/20260703_empirical_troop_aggregate_batch1.csv,Name appears in preserved RoT empirical aggregate,Aggregate does not contain troop_id
+rhodok_river_guard,Rhodok River Guard,unresolved,,unresolved,,,Likely separate/overlapping mod content; do not assign to RoT without source audit
+rhodok_sarge,Rhodok Sarge,unresolved,,unresolved,,,Likely separate/overlapping mod content; do not assign to RoT without source audit
+dragonstone_house_guard_t5,Dragonstone House Guard [T5],realm_of_thrones,,track_confirmed_id_unresolved,data/rot_reference/empirical/20260703_empirical_troop_aggregate_batch1.csv,Name appears in preserved RoT empirical aggregate,Aggregate does not contain troop_id
+rhodok_river_hunter,Rhodok River Hunter,unresolved,,unresolved,,,Likely separate/overlapping mod content; do not assign to RoT without source audit
+reaver_t4,Reaver [T4],unresolved,,unresolved,,,Generic name may collide across tracks
+reach_house_guard_t5,Reach House Guard [T5],realm_of_thrones,,unresolved,,,No versioned exact name-to-ID reference located
+imperial_naute,Imperial Naute,war_sails_official,,track_confirmed_id_unresolved,analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_top20_burst_units_regular_compact.csv,Exact name and official War Sails data_scope,Reference file does not contain troop_id
