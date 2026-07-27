@@ -1,0 +1,32 @@
+{
+  "batch_id": "combat_2026-07-27_222843_010541",
+  "battle_context_counts": {
+    "field": 4,
+    "siege_attack": 5,
+    "siege_defense": 1
+  },
+  "battles": 10,
+  "game_track": "realm_of_thrones",
+  "game_version": "1.4.x",
+  "interpretation": "Descriptive campaign contribution from visible player-side result rows. Not a causal troop-strength tier list.",
+  "observations": 328,
+  "primary_troop_occurrences": 143,
+  "reliable_overall_labels": 11,
+  "review_queue": 5,
+  "schema_version": "1.1.0",
+  "screenshots": 13,
+  "source_zip_name": "Mount and Blade II Bannerlord - Singleplayer PID_ 6076 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 27_07_2026 01_05_41.zip",
+  "source_zip_sha256": "42d4adf2e8d9f9bce0dc90945832c673aeddf81d06044cb0e6f08a2ddb852617",
+  "top_reliable_overall": [
+    {"battles": 5, "casualty_rate": 0.352941, "deployed": 34, "kills": 148, "kills_per_deployed": 4.352941, "rank": 1, "troop": "northern_winter_champion"},
+    {"battles": 10, "casualty_rate": 0.195652, "deployed": 184, "kills": 656, "kills_per_deployed": 3.565217, "rank": 2, "troop": "ravens_teeth"},
+    {"battles": 10, "casualty_rate": 0.190332, "deployed": 331, "kills": 373, "kills_per_deployed": 1.126888, "rank": 3, "troop": "mallister_elite_archer"},
+    {"battles": 7, "casualty_rate": 0.12069, "deployed": 58, "kills": 55, "kills_per_deployed": 0.948276, "rank": 4, "troop": "westerlands_banner_knight"},
+    {"battles": 10, "casualty_rate": 0.170051, "deployed": 394, "kills": 368, "kills_per_deployed": 0.93401, "rank": 5, "troop": "riverlands_ranger"},
+    {"battles": 7, "casualty_rate": 0.090909, "deployed": 44, "kills": 41, "kills_per_deployed": 0.931818, "rank": 6, "troop": "northern_mounted_warlord"},
+    {"battles": 5, "casualty_rate": 0.294118, "deployed": 34, "kills": 29, "kills_per_deployed": 0.852941, "rank": 7, "troop": "blackwood_horseman"},
+    {"battles": 10, "casualty_rate": 0.192593, "deployed": 135, "kills": 90, "kills_per_deployed": 0.666667, "rank": 8, "troop": "mallister_eagle_knight"},
+    {"battles": 10, "casualty_rate": 0.102041, "deployed": 147, "kills": 96, "kills_per_deployed": 0.653061, "rank": 9, "troop": "mallister_house_guard"},
+    {"battles": 10, "casualty_rate": 0.184211, "deployed": 190, "kills": 113, "kills_per_deployed": 0.594737, "rank": 10, "troop": "blackwood_house_guard"}
+  ]
+}
