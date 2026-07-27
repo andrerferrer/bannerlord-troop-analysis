@@ -1,5 +1,7 @@
 # Bannerlord Troop Analysis — Complete Project Handoff
 
+> **Superseding screenshot-pipeline update (2026-07-24):** the committed 2026-07-23 normalized bundle is corrupt and the source ZIP is unavailable. Deterministic P0–P8 tooling is implemented and fixture-tested, but no production canonical v2 records or rankings were generated. The calibration decision is no model change; v7.1 and v7.3 remain frozen. Start with `TODO.md`, `docs/combat_observations/CLI.md`, and `data/combat_observations/2026-07-23/reports/execution_state.json`. The model history below remains authoritative but predates this integrity finding.
+
 **Repository:** `andrerferrer/bannerlord-troop-analysis`  
 **Authoritative branch:** `main`  
 **Primary scope of this handoff:** official Bannerlord troops from vanilla modules plus War Sails / `NavalDLC`  

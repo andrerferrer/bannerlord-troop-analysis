@@ -1,0 +1,2 @@
+battle_id,original_context,canonical_context,classification_source,review_status,review_reason
+,undefined,undefined,first-pass summary only,blocked,Five groups are recorded as undefined but their IDs and stored evidence are inside the unrecoverable bundle

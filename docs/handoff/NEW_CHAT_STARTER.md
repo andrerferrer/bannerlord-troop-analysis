@@ -1,49 +1,48 @@
 # New Chat Starter — Bannerlord Troop Analysis
 
-Paste the prompt below into a new ChatGPT conversation that has GitHub access.
+## Current continuation priority
+
+Before working on model issue #2, inspect `TODO.md` and `data/combat_observations/2026-07-23/reports/execution_state.json`. The 2026-07-23 normalized bundle is corrupt and the exact source ZIP is missing. Do not claim production image review or canonical rankings. Resume by supplying an artifact with one of the recorded exact SHA-256 values and running the reconstruction/validation CLI. v7.1 and v7.3 remain frozen.
+
+Paste the prompt below into a new Codex/agent conversation with access to the
+checkout and, if available, the recovered evidence file.
 
 ---
 
 ```txt
-Open the GitHub repository:
+Open the andrerferrer/bannerlord-troop-analysis checkout.
 
-andrerferrer/bannerlord-troop-analysis
+Read, in order:
 
-Start by reading these files in order:
+1. TODO.md
+2. data/combat_observations/2026-07-23/README.md
+3. data/combat_observations/2026-07-23/bundle/README.md
+4. docs/combat_observations/CLI.md
+5. data/combat_observations/2026-07-23/reports/execution_state.json
+6. data/combat_observations/2026-07-23/reports/p0_recovery_audit.json
+7. docs/methodology/COMBAT_IMAGE_NORMALIZATION_RULES.md
+8. docs/methodology/ADR-001-combat-image-normalization.md
+9. docs/methodology/ADR-002-combat-evidence-storage.md
+10. .agents/skills/analyze-bannerlord-combat-zip/SKILL.md
 
-1. docs/handoff/PROJECT_HANDOFF_SUPER_REPORT.md
-2. README.md
-3. analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_burst_summary.md
-4. analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_burst_assumptions.md
-5. analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_top20_burst_units_regular_compact.csv
-6. analysis/empirical/screenshots_2026-05-29_2026-06-04/empirical_findings_2026-06-04.md
-7. analysis/empirical/screenshots_2026-05-29_2026-06-04/empirical_troop_aggregate_summary.csv
-8. analysis/item_validation/2026-06-05_throwing_tooltips/findings.md
-9. analysis/item_validation/2026-06-05_throwing_tooltips/item_tooltip_validation_20260605.csv
-10. GitHub issue #2
+The production normalized bundle is corrupt. Do not weaken its integrity gate
+or generate production canonical records from it. Resume only from either:
 
-Then summarize:
+- source screenshot ZIP SHA-256
+  00f83754687fe769fdfdea1bda0b68b4d7801c25195ff803aa1a1b35fa15d69f
+- normalized archive SHA-256
+  10446ce7afb01ec35211c06468812bf2fa3d53e6091f128a7ec67ca605dea2aa
 
-- the current authoritative general model;
-- the current authoritative burst model;
-- the current top general troops;
-- the current top burst troops;
-- the important corrected bugs;
-- the remaining open validation question;
-- the exact next recommended action.
+If one exact-hash artifact is available, use the documented CLI or
+$analyze-bannerlord-combat-zip to verify it, resume image/review work, build
+canonical v2 outputs, validate them, and only then run empirical comparisons.
+If neither is available, report COMPLETE_WITH_EXTERNAL_BLOCKERS and do not
+repeat bounded recovery searches already recorded in p0_recovery_audit.json
+unless new evidence exists.
 
-Important constraints:
-
-- v7.1 general_score remains the baseline for overall battlefield value.
-- v7.3 burst_score is a separate first-contact/short-duration context score.
-- Do not merge general and burst rankings.
-- Do not implement boarding_score.
-- Do not merge alternative EquipmentRosters into one loadout.
-- Tooltip-validated item damage overrides crafted/proxy damage.
-- Do not change the general model without new empirical evidence.
-- The current open priority is empirical validation of Battanian Skipari's high burst ranking.
-
-Before changing code or formulas, state which repo files support the proposed change and what uncertainty remains.
+Keep v7.1 general and v7.3 burst separate and frozen. Do not integrate the Wavey
+melee-engine branch or change formulas without new medium/high canonical
+evidence and explicit user direction.
 ```
 
 ---

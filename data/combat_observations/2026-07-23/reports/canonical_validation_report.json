@@ -1,0 +1,19 @@
+{
+  "schema_version": "2.0.0",
+  "status": "production_generation_blocked",
+  "canonical_files_generated": false,
+  "reason": "The normalized production bundle failed its exact SHA-256 and archive integrity gates, and the verified source ZIP is unavailable.",
+  "tooling_validation": {
+    "fixture_pipeline": "passed",
+    "raw_immutability": "passed",
+    "schema_validation": "passed",
+    "semantic_validation": "passed",
+    "deterministic_rerun": "passed"
+  },
+  "prohibited_claims": [
+    "No production image was visually reviewed.",
+    "No production review decision was inferred from the recorded summary counts.",
+    "No production canonical occurrence or ranking was generated."
+  ],
+  "required_unblock": "Recover either the exact normalized archive or the verified source screenshot ZIP."
+}

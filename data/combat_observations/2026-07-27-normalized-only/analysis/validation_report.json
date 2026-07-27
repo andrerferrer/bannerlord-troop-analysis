@@ -1,0 +1,81 @@
+{
+  "boundaries": {
+    "battle_is_independent_unit": true,
+    "contexts_pooled": false,
+    "frozen_models_changed": false,
+    "off_screen_rows_inferred": false,
+    "player_enemy_pooled": false,
+    "track": "realm_of_thrones"
+  },
+  "external_blockers": [],
+  "identity": {
+    "labels": 48,
+    "provisional_slugs_are_not_canonical_ids": true,
+    "status_counts": {
+      "confirmed_id": 6,
+      "unresolved": 42
+    }
+  },
+  "ranking": {
+    "bootstrap_repetitions": 5000,
+    "bootstrap_seed": "sha256(batch_id|context|provisional_slug|repetitions)",
+    "complete_rows": 76,
+    "coverage_by_context": {
+      "field": {
+        "context": "field",
+        "deployed": 705,
+        "independent_battles": 4,
+        "insufficient_labels": 21,
+        "minimum_battles": 5,
+        "minimum_deployed": 20,
+        "observed_labels": 21,
+        "reliable_labels": 0
+      },
+      "siege_attack": {
+        "context": "siege_attack",
+        "deployed": 1113,
+        "independent_battles": 5,
+        "insufficient_labels": 36,
+        "minimum_battles": 5,
+        "minimum_deployed": 20,
+        "observed_labels": 42,
+        "reliable_labels": 6
+      },
+      "siege_defense": {
+        "context": "siege_defense",
+        "deployed": 191,
+        "independent_battles": 1,
+        "insufficient_labels": 13,
+        "minimum_battles": 5,
+        "minimum_deployed": 20,
+        "observed_labels": 13,
+        "reliable_labels": 0
+      }
+    },
+    "insufficient_rows": 70,
+    "minimum_battles": 5,
+    "minimum_deployed": 20,
+    "reliable_rows": 6
+  },
+  "review": {
+    "decisions": 5,
+    "heroes_excluded_from_rankings": true,
+    "queued": 5,
+    "unresolved": 5
+  },
+  "status": "passed",
+  "structural_validation": {
+    "battle_context_counts": {
+      "field": 4,
+      "siege_attack": 5,
+      "siege_defense": 1
+    },
+    "battles": 10,
+    "consolidated_rows": 143,
+    "occurrences": 328,
+    "ordinary_troop_labels": 48,
+    "primary_occurrences": 143,
+    "review_items": 5
+  },
+  "validation_errors": []
+}

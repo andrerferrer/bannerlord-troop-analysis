@@ -1,0 +1,147 @@
+{
+  "batch_id": "combat_2026-07-27_222843_010541",
+  "external_blockers": [],
+  "frozen_model_changes": [],
+  "immutable_normalized_changes": [],
+  "manifest_checks": [
+    {
+      "actual_sha256": "0150ca0e14b3930b1bedbfaae6d881e8b0669ff59c488fc90e23a19cdff23d97",
+      "actual_size_bytes": 1629,
+      "expected_sha256": "0150ca0e14b3930b1bedbfaae6d881e8b0669ff59c488fc90e23a19cdff23d97",
+      "expected_size_bytes": 1629,
+      "file": "README.md",
+      "passed": true
+    },
+    {
+      "actual_sha256": "ea72a1b7ace59b1f33bad92752e5952bad829d10a2dbe2e877c33c9b8d68e5c5",
+      "actual_size_bytes": 3522,
+      "expected_sha256": "ea72a1b7ace59b1f33bad92752e5952bad829d10a2dbe2e877c33c9b8d68e5c5",
+      "expected_size_bytes": 3522,
+      "file": "battles.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "21cbcc51c3f2c89a1a44867a90a960f9ba10c22c583af72c5bd299f3da833dc8",
+      "actual_size_bytes": 793,
+      "expected_sha256": "21cbcc51c3f2c89a1a44867a90a960f9ba10c22c583af72c5bd299f3da833dc8",
+      "expected_size_bytes": 793,
+      "file": "normalization_summary.json",
+      "passed": true
+    },
+    {
+      "actual_sha256": "1e2b52bebd0c7819bedef61cd0d55b9b405278286fae6fc82c202bc358215b58",
+      "actual_size_bytes": 109189,
+      "expected_sha256": "1e2b52bebd0c7819bedef61cd0d55b9b405278286fae6fc82c202bc358215b58",
+      "expected_size_bytes": 109189,
+      "file": "primary_troop_occurrences.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "7b9a073431ad0f019588cece63cb7fba5cf8dfd1c1cf0bd5946746600755b1c5",
+      "actual_size_bytes": 1069,
+      "expected_sha256": "7b9a073431ad0f019588cece63cb7fba5cf8dfd1c1cf0bd5946746600755b1c5",
+      "expected_size_bytes": 1069,
+      "file": "review_queue.csv",
+      "passed": true
+    },
+    {
+      "actual_sha256": "53f5390d0d336e0c7775fbb5cf3487133c9163537bb318de73731a1b65299b83",
+      "actual_size_bytes": 7420,
+      "expected_sha256": "53f5390d0d336e0c7775fbb5cf3487133c9163537bb318de73731a1b65299b83",
+      "expected_size_bytes": 7420,
+      "file": "screenshots.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "04b1b03bc2fcceafa24a170fd96976ddb6b77a846f166821a04a1b64f0766ed8",
+      "actual_size_bytes": 2963,
+      "expected_sha256": "04b1b03bc2fcceafa24a170fd96976ddb6b77a846f166821a04a1b64f0766ed8",
+      "expected_size_bytes": 2963,
+      "file": "screenshots_manifest.csv",
+      "passed": true
+    },
+    {
+      "actual_sha256": "49b7afda6c902007ff4541d51f4463890e9e51298ad15feb43920339d8e14f4e",
+      "actual_size_bytes": 52832,
+      "expected_sha256": "49b7afda6c902007ff4541d51f4463890e9e51298ad15feb43920339d8e14f4e",
+      "expected_size_bytes": 52832,
+      "file": "troop_battle_consolidated.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "ea4068465a73a6958993abca8d81993d53b0cb12955ad1b2e9d6900df6aef575",
+      "actual_size_bytes": 251656,
+      "expected_sha256": "ea4068465a73a6958993abca8d81993d53b0cb12955ad1b2e9d6900df6aef575",
+      "expected_size_bytes": 251656,
+      "file": "troop_occurrences.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "3f49efc6302210cfa0b5633c79f94f7af88a297ba7e2be027807dba27f514d3f",
+      "actual_size_bytes": 921,
+      "expected_sha256": "3f49efc6302210cfa0b5633c79f94f7af88a297ba7e2be027807dba27f514d3f",
+      "expected_size_bytes": 921,
+      "file": "validation_report.json",
+      "passed": true
+    }
+  ],
+  "normalized_archive": {
+    "actual_sha256": "031a7c60d4ed239a2fcb70a81bb6edf047711c3a422ee3ba4420c4a4af534855",
+    "expected_sha256": "031a7c60d4ed239a2fcb70a81bb6edf047711c3a422ee3ba4420c4a4af534855",
+    "name": "bannerlord_combat_normalized_only_2026-07-27.tar.xz",
+    "passed": true,
+    "safe_preflight": {
+      "members": 12,
+      "regular_files": 11,
+      "total_uncompressed_bytes": 432953
+    }
+  },
+  "normalized_summary": {
+    "battle_context_counts": {
+      "field": 4,
+      "siege_attack": 5,
+      "siege_defense": 1
+    },
+    "battles": 10,
+    "consolidated_rows": 143,
+    "occurrences": 328,
+    "ordinary_troop_labels": 48,
+    "primary_occurrences": 143,
+    "review_items": 5
+  },
+  "pipeline_mode": "offline-existing",
+  "schema_version": "1.1.0",
+  "source_archive": {
+    "actual_sha256": "",
+    "actual_size_bytes": null,
+    "expected_sha256": "42d4adf2e8d9f9bce0dc90945832c673aeddf81d06044cb0e6f08a2ddb852617",
+    "expected_size_bytes": 18596761,
+    "limits_visual_rereview": true,
+    "locally_verified": false,
+    "repository_addressable": false,
+    "repository_path": "data/combat_observations/2026-07-27-normalized-only/source/original_screenshots.zip",
+    "retention_policy": "optional_after_verified_normalization",
+    "retention_status": "not_retained"
+  },
+  "source_provenance_checks": [
+    {
+      "expected": "42d4adf2e8d9f9bce0dc90945832c673aeddf81d06044cb0e6f08a2ddb852617",
+      "field": "normalization_summary.json:source_zip_sha256",
+      "passed": true,
+      "recorded": "42d4adf2e8d9f9bce0dc90945832c673aeddf81d06044cb0e6f08a2ddb852617"
+    },
+    {
+      "expected": "42d4adf2e8d9f9bce0dc90945832c673aeddf81d06044cb0e6f08a2ddb852617",
+      "field": "validation_report.json:source_zip_sha256",
+      "passed": true,
+      "recorded": "42d4adf2e8d9f9bce0dc90945832c673aeddf81d06044cb0e6f08a2ddb852617"
+    },
+    {
+      "expected": 18596761,
+      "field": "validation_report.json:source_zip_size_bytes",
+      "passed": true,
+      "recorded": 18596761
+    }
+  ],
+  "status": "passed"
+}

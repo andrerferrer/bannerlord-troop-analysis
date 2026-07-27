@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://andrerferrer.github.io/bannerlord-troop-analysis/schemas/combat/v2/review-correction.schema.json",
+  "title": "Combat observation review correction",
+  "type": "object",
+  "required": [
+    "review_id", "observation_id", "field_path", "original_value", "original_raw_text",
+    "corrected_value", "resolution_status", "correction_source", "reviewer", "reviewed_at",
+    "reason", "source_image_sha256"
+  ],
+  "properties": {
+    "review_id": {"type": "string", "minLength": 1},
+    "observation_id": {"type": "string", "minLength": 1},
+    "field_path": {"type": "string", "minLength": 1},
+    "original_value": {},
+    "original_raw_text": {"type": ["string", "null"]},
+    "corrected_value": {},
+    "resolution_status": {"enum": ["reviewed", "canonical", "excluded", "unresolved", "not_applicable"]},
+    "correction_source": {"enum": ["source_image", "stored_metadata", "deterministic_rule", "human_judgment", "model_review"]},
+    "reviewer": {"type": "string", "minLength": 1},
+    "reviewed_at": {"type": "string", "format": "date-time"},
+    "reason": {"type": "string", "minLength": 1},
+    "source_image_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"}
+  },
+  "additionalProperties": false
+}

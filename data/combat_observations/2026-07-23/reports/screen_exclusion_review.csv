@@ -1,0 +1,7 @@
+screen_number,recorded_reason,evidence_source,review_status,canonical_decision,review_reason
+2,unsupported screen,normalization_summary and dataset README,provisional_metadata_only,unresolved,Source image and normalized screenshot record unavailable
+18,unsupported screen,normalization_summary and dataset README,provisional_metadata_only,unresolved,Source image and normalized screenshot record unavailable
+49,unsupported screen,normalization_summary and dataset README,provisional_metadata_only,unresolved,Source image and normalized screenshot record unavailable
+54,unsupported screen,normalization_summary and dataset README,provisional_metadata_only,unresolved,Source image and normalized screenshot record unavailable
+58,claimed keep-retreat result screen,normalization_summary and dataset README versus normalization-rules contradiction,explicitly_unresolved,unresolved,Source image unavailable and committed documentation conflicts
+60,active in-battle scoreboard,normalization_summary and dataset README,provisional_metadata_only,unresolved,Source image and normalized screenshot record unavailable

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://andrerferrer.github.io/bannerlord-troop-analysis/schemas/combat/v2/screenshot.schema.json",
+  "title": "Canonical combat screenshot source",
+  "type": "object",
+  "required": ["schema_version", "screenshot_id", "source_filename", "source_sha256", "analysis_status"],
+  "properties": {
+    "schema_version": {"const": "2.0.0"},
+    "screenshot_id": {"type": "string", "minLength": 1},
+    "source_filename": {"type": "string", "minLength": 1},
+    "source_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "captured_at": {"type": ["string", "null"], "format": "date-time"},
+    "analysis_status": {"enum": ["canonical_source", "excluded", "unsupported", "unresolved"]},
+    "exclusion_reason": {"type": ["string", "null"]},
+    "observation_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "game_versions": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "game_tracks": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "code_commit_shas": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+  },
+  "additionalProperties": false
+}

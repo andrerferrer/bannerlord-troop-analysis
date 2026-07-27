@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://andrerferrer.github.io/bannerlord-troop-analysis/schemas/combat/v2/troop-occurrence.schema.json",
+  "title": "Canonical combat occurrence",
+  "type": "object",
+  "required": [
+    "schema_version", "observation_id", "battle_id", "battle_context", "side", "row_type",
+    "display_name_raw", "canonical_troop_id", "relationship_to_player", "source",
+    "survivors", "kills", "upgrade_ready", "deaths", "wounded", "routed", "analysis_status"
+  ],
+  "properties": {
+    "schema_version": {"const": "2.0.0"},
+    "observation_id": {"type": "string", "minLength": 1},
+    "battle_id": {"type": "string", "minLength": 1},
+    "battle_context": {"enum": ["field", "siege_attack", "siege_defense", "undefined"]},
+    "side": {"enum": ["attacker", "defender"]},
+    "parent_group": {"type": ["string", "null"]},
+    "row_type": {"enum": ["side_total", "party", "troop", "player", "hero", "artifact"]},
+    "display_name_raw": {"type": "string", "minLength": 1},
+    "canonical_troop_id": {"type": ["string", "null"]},
+    "relationship_to_player": {"enum": ["player_party", "allied_party", "enemy_party", "unknown"]},
+    "source": {
+      "type": "object",
+      "required": ["image_file", "image_sha256"],
+      "properties": {
+        "image_file": {"type": "string", "minLength": 1},
+        "image_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      },
+      "additionalProperties": true
+    },
+    "survivors": {"type": ["integer", "null"], "minimum": 0},
+    "kills": {"type": ["integer", "null"], "minimum": 0},
+    "upgrade_ready": {"type": ["integer", "null"], "minimum": 0},
+    "deaths": {"type": ["integer", "null"], "minimum": 0},
+    "wounded": {"type": ["integer", "null"], "minimum": 0},
+    "routed": {"type": ["integer", "null"], "minimum": 0},
+    "deployed": {"type": ["integer", "null"], "minimum": 0},
+    "casualties": {"type": ["integer", "null"], "minimum": 0},
+    "kills_per_deployed": {"type": ["string", "null"], "pattern": "^[0-9]+\\.[0-9]{6}$"},
+    "survival_rate": {"type": ["string", "null"], "pattern": "^[0-9]+\\.[0-9]{6}$"},
+    "death_rate": {"type": ["string", "null"], "pattern": "^[0-9]+\\.[0-9]{6}$"},
+    "wounded_rate": {"type": ["string", "null"], "pattern": "^[0-9]+\\.[0-9]{6}$"},
+    "casualty_rate": {"type": ["string", "null"], "pattern": "^[0-9]+\\.[0-9]{6}$"},
+    "routed_rate": {"type": ["string", "null"], "pattern": "^[0-9]+\\.[0-9]{6}$"},
+    "analysis_status": {"enum": ["raw", "reviewed", "canonical", "excluded", "unresolved", "non_ranking"]},
+    "review_correction_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "game": {
+      "type": "object",
+      "required": ["version", "track"],
+      "properties": {
+        "version": {"type": "string"},
+        "track": {"type": "string"},
+        "active_modules": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "provenance": {"type": "object"}
+  },
+  "additionalProperties": true
+}

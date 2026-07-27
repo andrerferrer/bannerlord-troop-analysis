@@ -1,0 +1,21 @@
+{
+  "active_scoreboards_excluded": 1,
+  "battle_count": 10,
+  "consolidated_player_troop_battle_rows": 143,
+  "final_result_screens": 12,
+  "image_count": 13,
+  "limitations": [
+    "Only visible scoreboard rows are normalized; party headers preserve full-party totals when lower rows are off-screen.",
+    "Canonical XML troop IDs are not assigned in this batch; normalized display slugs remain provisional.",
+    "White hero level-up icons are preserved as review items and not converted into numeric upgrade counts.",
+    "No raw screenshots are committed to normal Git history; SHA-256 hashes provide provenance."
+  ],
+  "observation_count": 328,
+  "primary_troop_occurrences": 143,
+  "review_queue_count": 5,
+  "schema_version": "1.1.0",
+  "source_zip_sha256": "42d4adf2e8d9f9bce0dc90945832c673aeddf81d06044cb0e6f08a2ddb852617",
+  "source_zip_size_bytes": 18596761,
+  "status": "passed",
+  "validation_errors": []
+}

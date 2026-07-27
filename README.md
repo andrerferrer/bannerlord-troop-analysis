@@ -4,109 +4,171 @@ Data-driven troop analysis framework for Mount & Blade II: Bannerlord.
 
 ## Start here
 
-For the complete project state, model history, current rankings, validated findings, known limitations, and exact next steps, read:
-
+- [`AGENTS.md`](AGENTS.md) — mandatory repository rules for normalization and analysis agents
+- [`docs/protocols/analysis-task-v1.md`](docs/protocols/analysis-task-v1.md) — versioned PR-comment analysis queue
+- [`docs/methodology/ADR-002-two-agent-batch-workflow.md`](docs/methodology/ADR-002-two-agent-batch-workflow.md) — one-batch, one-PR, two-agent workflow
+- [`docs/research/EXECUTION_TRACKER.md`](docs/research/EXECUTION_TRACKER.md) — current task status and immediate execution order
+- [`docs/research/EMPIRICAL_VALIDATION_ROADMAP.md`](docs/research/EMPIRICAL_VALIDATION_ROADMAP.md) — empirical research plan and phase gates
+- [`analysis/empirical/2026-07-23/P1_EXECUTION_REPORT.md`](analysis/empirical/2026-07-23/P1_EXECUTION_REPORT.md) — current reviewed-data state
+- [`analysis/empirical/2026-07-23/PHASE0_EXECUTION_REPORT.md`](analysis/empirical/2026-07-23/PHASE0_EXECUTION_REPORT.md) — P0 image-review history
+- [`TODO.md`](TODO.md) — broader historical implementation checklist
 - [`docs/handoff/PROJECT_HANDOFF_SUPER_REPORT.md`](docs/handoff/PROJECT_HANDOFF_SUPER_REPORT.md)
-- [`docs/handoff/NEW_CHAT_STARTER.md`](docs/handoff/NEW_CHAT_STARTER.md)
+- [`docs/methodology/ADR-001-combat-image-normalization.md`](docs/methodology/ADR-001-combat-image-normalization.md)
 
-Current authoritative models:
+Current authoritative frozen models:
 
-```txt
+```text
 v7.1 — general battlefield score
 v7.3 — tooltip-validated throwing burst score
 ```
 
+Files under `analysis/model_versions/` remain frozen until empirical evidence passes the documented recalibration gates.
+
+## Batch workflow
+
+Every new evidence batch uses **one branch and one draft pull request**, completed in two separate phases by different agents:
+
+```text
+normalization agent
+→ source provenance, deterministic normalized records, review queue, validation
+→ committed handoff/ANALYSIS_PROMPT.md
+→ versioned pending comment in the same draft PR
+→ local analysis agent checks out the same branch
+→ reviewed corrections, canonicalization, aggregation, uncertainty, analysis
+→ complete comment, validation, and merge
+```
+
+Normalization and analysis must remain separate layers even when delivered in one PR. Phase 1 normalized artifacts become immutable at handoff. Corrections are additive reviewed records, never silent replacements.
+
+The deterministic normalized evidence and generated work required for downstream analysis must be repository-addressable. Raw screenshots are optional after normalization passes its integrity and structural-validation gates; when retained, use Git LFS or a reconstructible chunked archive. Always document known raw-source provenance and any visual re-review limitation.
+
+### Analysis queue
+
+Open PRs plus their append-only `bannerlord-analysis-task:v1` comments form the complete local-analysis queue. The newest valid comment for a `task_id` is authoritative; PR bodies, labels, issues, and chat history are not task state.
+
+Discover actionable work from the repository root:
+
+```bash
+python scripts/analysis/discover_analysis_tasks.py
+```
+
+Machine-readable output for a local agent:
+
+```bash
+python scripts/analysis/discover_analysis_tasks.py --json
+```
+
+The operator instruction `Fecha as análises` means: discover all actionable comments, execute each handoff, publish state transitions, and merge every task that passes its gates.
+
+See [`AGENTS.md`](AGENTS.md), the [v1 protocol](docs/protocols/analysis-task-v1.md), and [`ADR-002`](docs/methodology/ADR-002-two-agent-batch-workflow.md).
+
+## Combat screenshot pipeline status
+
+The 2026-07-23 production sources are recovered and verified:
+
+```text
+60-screenshot source ZIP SHA-256:
+00f83754687fe769fdfdea1bda0b68b4d7801c25195ff803aa1a1b35fa15d69f
+
+Normalized archive SHA-256:
+10446ce7afb01ec35211c06468812bf2fa3d53e6091f128a7ec67ca605dea2aa
+```
+
+Current empirical state:
+
+- player-side and enemy-side observations are separated;
+- minimum display gate is **5 independent battles and 20 deployed troops**;
+- all 50 P0 high-impact rows were reviewed: 28 corrected and 22 confirmed;
+- all 94 P1 rows were reviewed: 27 corrected, 44 confirmed, and 23 excluded;
+- P0 remaining: 0;
+- P1 remaining: 0;
+- P2 remaining: 487;
+- approved provisional OCR aliases: 18;
+- strict reviewed player-side sample: 527 occurrences across 40 battles;
+- eligible labels: 24 overall, 17 field, 2 siege attack, and 0 siege defense;
+- current baseline SHA-256: `b6ed7790f52480b96fbea88b7f64bfb761eb93cd605374392872c01ab87783d6`.
+
+The current rankings are exploratory campaign-performance evidence, not a universal tier list or causal estimate of intrinsic troop strength.
+
+## Core methodological rules
+
+- Use one draft PR per evidence batch, with separate normalization and local-analysis agents.
+- Commit a batch-specific analysis prompt before transferring the branch.
+- Publish and advance analysis state through versioned append-only PR comments.
+- Preserve immutable raw extraction and normalized data.
+- Store all reproducibility-critical source and generated artifacts in the repository.
+- Apply corrections and exclusions in separate reviewed layers with provenance.
+- Resolve troop identities against the selected module track before explanatory modeling.
+- Keep field, siege attack, and siege defense separate.
+- Use the battle as the independent sampling unit.
+- Require at least **5 independent battles and 20 deployed troops** before displaying a troop/context estimate.
+- Display uncertainty beside point estimates.
+- Do not pool the victorious player side with the defeated enemy side.
+- Do not recalibrate frozen models until canonicalization and out-of-sample validation gates pass.
+
 ## Goal
 
-Create an interpretable troop analysis pipeline for vanilla Bannerlord, using XML-exported game data and practical battlefield modeling.
+Create an interpretable troop-analysis pipeline using XML-exported game data, controlled tests, and real campaign observations.
 
-The project should avoid shallow tier lists based only on raw stats. The target is to estimate practical combat value using:
+Target outputs include:
 
-- hits to kill
-- expected kills per minute
-- melee/ranged split offense
-- defensive durability
-- reliability and AI usability
-- tier-by-tier progression analysis
-- empirical battle validation
+- hits to kill;
+- expected kills per minute;
+- melee/ranged/throwing offense;
+- defensive durability;
+- reliability and AI usability;
+- tier-by-tier and role-specific rankings;
+- empirical campaign validation;
+- controlled matchup evidence;
+- eventually, calibrated battle predictions with uncertainty.
 
 ## Primary target
 
-The main target is vanilla Bannerlord.
-
-Realm of Thrones work is kept only as reference material because it helped develop the methodology.
+The primary track is Bannerlord 1.4.x with War Sails integrated into the baseline. Realm of Thrones data remains useful as a methodological and empirical reference track, but must not be silently mixed with vanilla data.
 
 ## Analysis pipeline
 
-```txt
-XML export
-→ normalization
-→ weapon and armor extraction
-→ effective damage calculation
-→ HTK calculation
-→ KPM calculation
-→ offense / defense / reliability scoring
-→ tier-by-tier rankings
-→ empirical validation
+```text
+XML/module export
+→ deterministic normalization and load-order resolution
+→ weapon, armor, mount, skill, and perk features
+→ HTK/KPM and role scoring
+→ screenshot/result normalization
+→ reviewed canonical empirical dataset
+→ descriptive battle-level baseline
+→ attribute and equipment integration
+→ controlled tests and explanatory models
+→ out-of-sample validation
+→ calibrated prediction, only if supported
 ```
 
-## Current model direction
+## Empirical review and baseline commands
 
-The preferred offense model is based on HTK/KPM:
+```bash
+python scripts/analysis/apply_review_corrections.py \
+  primary_troop_occurrences.jsonl \
+  p0_reviewed.jsonl \
+  --corrections analysis/empirical/2026-07-23/p0_manual_corrections/part-*.csv
 
-```txt
-HTK = effective_enemy_hp / effective_damage
-KPM = attempts_per_minute × hit_chance ÷ HTK
+python scripts/analysis/apply_p1_review_decisions.py \
+  p0_reviewed.jsonl \
+  analysis/empirical/2026-07-23/p1_review_decisions.csv \
+  p1_reviewed.jsonl
+
+python scripts/analysis/apply_troop_aliases.py \
+  p1_reviewed.jsonl \
+  analysis/empirical/2026-07-23/troop_aliases.csv \
+  reviewed_aliases.jsonl
+
+python scripts/analysis/build_empirical_baseline.py \
+  reviewed_aliases.jsonl \
+  baseline_strict_player_side.csv
 ```
 
-For troops with both ranged and melee capability, the model separates:
+Baseline defaults:
 
-```txt
-melee_kpm
-ranged_kpm
-throwing_kpm
-```
-
-Then it blends them according to expected battlefield usage.
-
-## Vanilla output priorities
-
-Because vanilla has fewer troops than overhaul mods, the main output should not only be a final Top 20.
-
-Primary outputs:
-
-- Tier 2 rankings
-- Tier 3 rankings
-- Tier 4 rankings
-- Tier 5 rankings
-- Tier 6 rankings
-- role-specific rankings
-- overall rankings
-
-Tier-by-tier analysis matters because campaign progression depends on what is strong at each upgrade stage.
-
-## Repository layout
-
-```txt
-docs/
-  handoff/
-  methodology/
-  vanilla/
-  rot_reference/
-
-data/
-  vanilla/
-  rot_reference/
-
-analysis/
-  empirical/
-  item_validation/
-  model_versions/
-
-scripts/
-  export/
-  normalization/
-  scoring/
-
-research/
+```text
+minimum battles: 5
+minimum deployed: 20
+bootstrap repetitions: 5000
 ```

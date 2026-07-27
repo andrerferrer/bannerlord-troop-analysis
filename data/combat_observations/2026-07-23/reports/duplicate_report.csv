@@ -1,0 +1,2 @@
+duplicate_group_id,observation_ids,kept_observation_id,status,reason
+,,,,Production occurrence rows are unavailable; deterministic deduplication tooling is fixture-tested

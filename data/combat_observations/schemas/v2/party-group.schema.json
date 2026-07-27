@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://andrerferrer.github.io/bannerlord-troop-analysis/schemas/combat/v2/party-group.schema.json",
+  "title": "Canonical combat party or group",
+  "type": "object",
+  "required": ["schema_version", "group_id", "battle_id", "side", "row_type", "display_name_raw"],
+  "properties": {
+    "schema_version": {"const": "2.0.0"},
+    "group_id": {"type": "string", "minLength": 1},
+    "battle_id": {"type": "string", "minLength": 1},
+    "parent_group_id": {"type": ["string", "null"]},
+    "side": {"enum": ["attacker", "defender"]},
+    "row_type": {"enum": ["side_total", "party"]},
+    "display_name_raw": {"type": "string", "minLength": 1},
+    "relationship_to_player": {"enum": ["player_party", "allied_party", "enemy_party", "unknown"]},
+    "aggregation_status": {"enum": ["partial", "consistent", "inconsistent", "not_applicable"]}
+  },
+  "additionalProperties": false
+}
