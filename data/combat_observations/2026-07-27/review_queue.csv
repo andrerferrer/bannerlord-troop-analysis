@@ -1,0 +1,6 @@
+observation_id,battle_id,source_image_file,display_name_raw,row_type,uncertain_fields,notes
+battle_20260726_233535_lorch_lannister_0091,battle_20260726_233535_lorch_lannister,26_07_2026_23_35_35.png,Patrek Mallister,hero,upgrade_ready,White level-up icon present; not converted to numeric upgrade count.
+battle_20260726_233535_lorch_lannister_0101,battle_20260726_233535_lorch_lannister,26_07_2026_23_35_35.png,Julia,hero,upgrade_ready,White level-up icon present; not converted to numeric upgrade count.
+battle_20260726_235658_kenning_0148,battle_20260726_235658_kenning,26_07_2026_23_56_58.png,Julia,hero,upgrade_ready,White level-up icon present; not converted to numeric upgrade count.
+battle_20260727_010541_kayce_0308,battle_20260727_010541_kayce,27_07_2026_01_05_41.png,Julia,hero,upgrade_ready,White level-up icon present; not converted to numeric upgrade count.
+battle_20260727_010541_kayce_0312,battle_20260727_010541_kayce,27_07_2026_01_05_41.png,Patrek Mallister,hero,upgrade_ready,White level-up icon present; not converted to numeric upgrade count.
