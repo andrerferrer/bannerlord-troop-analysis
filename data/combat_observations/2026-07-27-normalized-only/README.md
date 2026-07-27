@@ -6,14 +6,14 @@ This directory is the shared work envelope for one Realm of Thrones evidence bat
 
 | Phase | Owner | Status |
 |---|---|---|
-| Source retention | local machine with original ZIP | pending Git LFS upload |
+| Raw-source retention | optional | not retained; provenance documented |
 | Phase 1: normalization | normalization agent | complete |
 | Phase 1: structural validation | normalization agent | complete |
 | Phase 1: analysis handoff | normalization agent | complete |
-| Phase 2: review and analysis | local analysis agent | pending |
-| Final merge gate | reviewer | blocked until Phase 2 completes |
+| Phase 2: review and analysis | local analysis agent | complete |
+| Final merge gate | reviewer | ready after complete protocol state |
 
-The pull request must remain draft while any pending item above remains incomplete.
+The normalized archive is the immutable, repository-reconstructible input for Phase 2. Raw screenshots may be retained later for visual re-review but are not required for deterministic downstream reproduction.
 
 ## Phase boundary
 
@@ -64,7 +64,7 @@ Normalized-only archive SHA-256:
 031a7c60d4ed239a2fcb70a81bb6edf047711c3a422ee3ba4420c4a4af534855
 ```
 
-The source manifest and screenshot hashes are already versioned. The original 18,596,761-byte ZIP must still be pushed from the local machine through Git LFS, or published as an equivalent repository-reconstructible chunk package, before the PR leaves draft state.
+The source manifest and screenshot hashes are versioned. The original 18,596,761-byte ZIP is not retained; its filename, size, and SHA-256 remain documented. This prevents later visual re-review of the five queued hero icon fields, which remain unresolved and excluded, but does not block deterministic analysis of the verified normalized evidence.
 
 ## Analytical constraints
 

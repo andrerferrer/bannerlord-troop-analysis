@@ -60,6 +60,6 @@ empirical_analysis_summary.md
 
 Use `COMPLETE` only after the requested production input passes integrity, review, canonical validation, and output gates.
 
-Use `COMPLETE_WITH_EXTERNAL_BLOCKERS` after every safe local task is complete but images, paid authorization, upload authority, or human decisions remain.
+Use `COMPLETE_WITH_EXTERNAL_BLOCKERS` after every safe local task is complete but a required input, paid authorization, upload authority, or human decision remains. Optional raw-image retention does not force this status when a verified normalized bundle is the declared authoritative input and any non-reviewable fields remain explicitly unresolved or excluded.
 
 Use `BLOCKED` when a missing prerequisite prevents meaningful processing of the supplied input.

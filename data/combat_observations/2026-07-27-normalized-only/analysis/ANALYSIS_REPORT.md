@@ -2,7 +2,7 @@
 
 ## Result
 
-The deterministic local analysis passed all structural, boundary, ranking, and hash checks. Merge remains blocked only because the exact original source ZIP is not repository-addressable.
+The deterministic local analysis passed all structural, boundary, ranking, and hash checks. The repository-reconstructible normalized archive is the authoritative downstream input; raw screenshot retention is optional.
 
 These rankings describe visible player-side campaign contribution. They are not a universal tier list, intrinsic-strength estimate, or causal equipment analysis.
 
@@ -31,5 +31,5 @@ Field has only four independent battles and siege defense only one, so neither c
 - Victory-only, observational campaign data are confounded by army composition, difficulty, map, siege state, enemy composition, and player choices.
 - Only visible scoreboard rows are represented; off-screen rows are not inferred.
 - Canonical identity coverage is incomplete, so unresolved labels remain provisional.
-- The original screenshots cannot be re-reviewed until the exact source ZIP is restored.
+- The original screenshots are not retained, so the five visual hero icon fields cannot be re-reviewed and remain unresolved; heroes are excluded from rankings.
 - No earlier baseline comparison or model recalibration was performed.

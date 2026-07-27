@@ -157,6 +157,37 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
             self.assertEqual(checks, [])
             self.assertEqual(errors, ["unsafe artifact manifest path: ../outside.txt"])
 
+    def test_missing_optional_raw_source_is_not_a_validation_error(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source, errors = MODULE.inspect_optional_source(
+                root / "not-retained.zip",
+                root,
+                "a" * 64,
+                123,
+            )
+            self.assertEqual(errors, [])
+            self.assertEqual(source["retention_status"], "not_retained")
+            self.assertFalse(source["repository_addressable"])
+            self.assertTrue(source["limits_visual_rereview"])
+
+    def test_retained_raw_source_must_match_recorded_identity(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source_path = root / "retained.zip"
+            source_path.write_bytes(b"wrong")
+            source, errors = MODULE.inspect_optional_source(
+                source_path,
+                root,
+                "a" * 64,
+                123,
+            )
+            self.assertEqual(
+                errors,
+                ["retained raw source does not match its recorded hash and size"],
+            )
+            self.assertEqual(source["retention_status"], "mismatch")
+
     def test_git_revision_rejects_option_injection(self) -> None:
         with self.assertRaisesRegex(ValueError, "full 40-character"):
             MODULE.git_changed_paths(Path("."), "--output=/tmp/owned", ["README.md"])

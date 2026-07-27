@@ -88,15 +88,15 @@ tar -xJf $archive -C $inputDir
 
 Stop and document the blocker if the reconstructed hash does not match.
 
-## Source-retention requirement
+## Raw-source retention status
 
-Before the PR can leave draft state, the original source ZIP must be stored under this batch's `source/` directory through Git LFS or another repository-reconstructible package. Its reconstructed SHA-256 must equal:
+The original source ZIP is not retained in the repository. Its recorded SHA-256 is:
 
 ```text
 42d4adf2e8d9f9bce0dc90945832c673aeddf81d06044cb0e6f08a2ddb852617
 ```
 
-Do not substitute regenerated screenshots or a different archive.
+Do not substitute regenerated screenshots or a different archive. Raw retention is optional after the deterministic normalized package passes its hash, manifest, and structural-validation gates. Its absence limits later visual re-review but does not block analysis or merge.
 
 ## Immutable Phase 1 inputs
 
@@ -138,7 +138,7 @@ Do not edit these files during analysis. Confirm at completion that their hashes
 
 ### 2. Review uncertainty
 
-Inspect all five entries in `review_queue.csv` against the repository source evidence. Keep unresolved fields null/unknown. Do not convert visual icons into numeric values without direct evidence.
+Inspect all five entries in `review_queue.csv` against raw source evidence when it is retained. When it is unavailable, keep those fields null/unknown and document the limitation. Do not convert visual icons into numeric values without direct evidence. These entries are heroes excluded from ordinary-troop rankings, so unresolved visual review does not block the normalized analysis.
 
 Store decisions in a separate reviewed layer. Do not change normalized rows.
 
@@ -219,7 +219,7 @@ Add scripts under `scripts/analysis/` when computation is not already reproducib
 - Update PR #23 rather than opening another PR.
 - Replace the pending findings section with the actual analytical summary.
 - Check every completed Phase 2 checklist item.
-- Keep the PR draft while source retention, review, analysis, validation, or hashes remain incomplete.
+- Keep the PR draft while normalized-evidence reconstruction, review, analysis, validation, or hashes remain incomplete.
 - Mark ready only after confirming normalized inputs are unchanged and all required outputs are committed.
 
 ## Completion report

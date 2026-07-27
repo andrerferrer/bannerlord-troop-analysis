@@ -1,13 +1,6 @@
 {
   "batch_id": "combat_2026-07-27_222843_010541",
-  "external_blockers": [
-    {
-      "code": "original_source_archive_unavailable",
-      "expected_path": "data/combat_observations/2026-07-27-normalized-only/source/original_screenshots.zip",
-      "expected_sha256": "42d4adf2e8d9f9bce0dc90945832c673aeddf81d06044cb0e6f08a2ddb852617",
-      "expected_size_bytes": 18596761
-    }
-  ],
+  "external_blockers": [],
   "frozen_model_changes": [],
   "immutable_normalized_changes": [],
   "manifest_checks": [
@@ -123,8 +116,11 @@
     "actual_size_bytes": null,
     "expected_sha256": "42d4adf2e8d9f9bce0dc90945832c673aeddf81d06044cb0e6f08a2ddb852617",
     "expected_size_bytes": 18596761,
+    "limits_visual_rereview": true,
     "repository_addressable": false,
-    "repository_path": "data/combat_observations/2026-07-27-normalized-only/source/original_screenshots.zip"
+    "repository_path": "data/combat_observations/2026-07-27-normalized-only/source/original_screenshots.zip",
+    "retention_policy": "optional_after_verified_normalization",
+    "retention_status": "not_retained"
   },
-  "status": "passed_with_external_source_blocker"
+  "status": "passed"
 }

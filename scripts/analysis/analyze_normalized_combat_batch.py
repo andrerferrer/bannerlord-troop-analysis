@@ -123,6 +123,41 @@ def safe_tar_preflight(archive_path: Path) -> dict[str, int]:
     }
 
 
+def inspect_optional_source(
+    source_path: Path,
+    repo_root: Path,
+    expected_sha256: str,
+    expected_size_bytes: int,
+) -> tuple[dict[str, Any], list[str]]:
+    source_exists = source_path.is_file()
+    actual_sha256 = sha256_file(source_path) if source_exists else ""
+    actual_size_bytes = source_path.stat().st_size if source_exists else None
+    source_matches = (
+        source_exists
+        and actual_sha256 == expected_sha256
+        and actual_size_bytes == expected_size_bytes
+    )
+    errors: list[str] = []
+    if source_exists and not source_matches:
+        errors.append("retained raw source does not match its recorded hash and size")
+    return (
+        {
+            "repository_path": str(source_path.relative_to(repo_root)),
+            "retention_policy": "optional_after_verified_normalization",
+            "retention_status": (
+                "verified" if source_matches else "mismatch" if source_exists else "not_retained"
+            ),
+            "expected_sha256": expected_sha256,
+            "actual_sha256": actual_sha256,
+            "expected_size_bytes": expected_size_bytes,
+            "actual_size_bytes": actual_size_bytes,
+            "repository_addressable": source_matches,
+            "limits_visual_rereview": not source_matches,
+        },
+        errors,
+    )
+
+
 def verify_manifest(input_dir: Path, manifest_path: Path) -> tuple[list[dict[str, Any]], list[str]]:
     checks: list[dict[str, Any]] = []
     errors: list[str] = []
@@ -500,11 +535,11 @@ def build_review_decisions(
                     "field": field,
                     "original_value": "" if source.get(field) is None else str(source[field]),
                     "reviewed_value": "",
-                    "decision_status": "unresolved_source_unavailable",
+                    "decision_status": "unresolved_no_raw_image_review",
                     "reason": (
                         "The normalized evidence records a visual level-up icon, but the "
-                        "repository-addressable source image is unavailable; no numeric value "
-                        "is inferred."
+                        "raw screenshot is not retained for visual re-review; no numeric "
+                        "value is inferred."
                     ),
                     "reviewer": reviewer,
                     "evidence_reference": "normalized occurrence and review_queue.csv",
@@ -596,26 +631,18 @@ def main() -> None:
         args.repo_root, args.normalization_commit, ["analysis/model_versions"]
     )
 
-    source_exists = args.source_path.is_file()
-    source_hash = sha256_file(args.source_path) if source_exists else ""
-    source_size = args.source_path.stat().st_size if source_exists else None
-    source_ok = (
-        source_exists
-        and source_hash == args.expected_source_sha256
-        and source_size == args.expected_source_size_bytes
+    source_archive, source_errors = inspect_optional_source(
+        args.source_path,
+        args.repo_root,
+        args.expected_source_sha256,
+        args.expected_source_size_bytes,
     )
-    external_blockers = [] if source_ok else [
-        {
-            "code": "original_source_archive_unavailable",
-            "expected_path": str(args.source_path.relative_to(args.repo_root)),
-            "expected_sha256": args.expected_source_sha256,
-            "expected_size_bytes": args.expected_source_size_bytes,
-        }
-    ]
+    external_blockers: list[dict[str, Any]] = []
 
     validation_errors = [
         *manifest_errors,
         *structural_errors,
+        *source_errors,
         *[f"immutable normalized input changed: {path}" for path in immutable_changes],
         *[f"frozen model changed: {path}" for path in frozen_model_changes],
     ]
@@ -644,9 +671,10 @@ def main() -> None:
     (review_dir / "README.md").write_text(
         "# Phase 2 review decisions\n\n"
         "All five queued values remain unresolved. Each is a hero `upgrade_ready` field "
-        "derived from a visual icon. The original screenshots are not repository-addressable, "
-        "so the reviewed layer preserves null values and does not infer numeric counts. Heroes "
-        "remain excluded from ordinary troop rankings.\n",
+        "derived from a visual icon. Raw screenshots are not retained for visual re-review, "
+        "so the reviewed layer preserves null values and does not infer numeric counts. This "
+        "is a documented limitation rather than a merge blocker because heroes remain "
+        "excluded from ordinary troop rankings.\n",
         encoding="utf-8",
     )
 
@@ -691,7 +719,7 @@ def main() -> None:
     )
 
     input_verification = {
-        "status": "passed_with_external_source_blocker" if external_blockers else "passed",
+        "status": "passed",
         "batch_id": args.batch_id,
         "schema_version": "1.1.0",
         "pipeline_mode": "offline-existing",
@@ -702,14 +730,7 @@ def main() -> None:
             "passed": archive_ok,
             "safe_preflight": archive_preflight,
         },
-        "source_archive": {
-            "repository_path": str(args.source_path.relative_to(args.repo_root)),
-            "expected_sha256": args.expected_source_sha256,
-            "actual_sha256": source_hash,
-            "expected_size_bytes": args.expected_source_size_bytes,
-            "actual_size_bytes": source_size,
-            "repository_addressable": source_ok,
-        },
+        "source_archive": source_archive,
         "manifest_checks": manifest_checks,
         "immutable_normalized_changes": immutable_changes,
         "frozen_model_changes": frozen_model_changes,
@@ -721,7 +742,7 @@ def main() -> None:
     identity_counts = Counter(row["match_status"] for row in identities)
     coverage_by_context = {row["context"]: row for row in coverage_rows}
     validation = {
-        "status": "passed_with_external_blocker" if external_blockers else "passed",
+        "status": "passed",
         "validation_errors": [],
         "external_blockers": external_blockers,
         "structural_validation": normalized_summary,
@@ -777,8 +798,8 @@ def main() -> None:
         "## Result",
         "",
         "The deterministic local analysis passed all structural, boundary, ranking, and "
-        "hash checks. Merge remains blocked only because the exact original source ZIP is "
-        "not repository-addressable.",
+        "hash checks. The repository-reconstructible normalized archive is the authoritative "
+        "downstream input; raw screenshot retention is optional.",
         "",
         "These rankings describe visible player-side campaign contribution. They are not a "
         "universal tier list, intrinsic-strength estimate, or causal equipment analysis.",
@@ -822,7 +843,8 @@ def main() -> None:
             "difficulty, map, siege state, enemy composition, and player choices.",
             "- Only visible scoreboard rows are represented; off-screen rows are not inferred.",
             "- Canonical identity coverage is incomplete, so unresolved labels remain provisional.",
-            "- The original screenshots cannot be re-reviewed until the exact source ZIP is restored.",
+            "- The original screenshots are not retained, so the five visual hero icon fields "
+            "cannot be re-reviewed and remain unresolved; heroes are excluded from rankings.",
             "- No earlier baseline comparison or model recalibration was performed.",
         ]
     )

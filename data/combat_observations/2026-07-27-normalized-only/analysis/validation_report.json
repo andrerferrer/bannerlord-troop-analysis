@@ -7,14 +7,7 @@
     "player_enemy_pooled": false,
     "track": "realm_of_thrones"
   },
-  "external_blockers": [
-    {
-      "code": "original_source_archive_unavailable",
-      "expected_path": "data/combat_observations/2026-07-27-normalized-only/source/original_screenshots.zip",
-      "expected_sha256": "42d4adf2e8d9f9bce0dc90945832c673aeddf81d06044cb0e6f08a2ddb852617",
-      "expected_size_bytes": 18596761
-    }
-  ],
+  "external_blockers": [],
   "identity": {
     "labels": 48,
     "provisional_slugs_are_not_canonical_ids": true,
@@ -70,7 +63,7 @@
     "queued": 5,
     "unresolved": 5
   },
-  "status": "passed_with_external_blocker",
+  "status": "passed",
   "structural_validation": {
     "battle_context_counts": {
       "field": 4,

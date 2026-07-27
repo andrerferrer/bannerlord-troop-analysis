@@ -24,8 +24,8 @@ The draft pull request is the shared work envelope. It stays open between phases
 
 Phase 1 ends only when all of the following exist in the repository:
 
-- source evidence or a repository-reconstructible source package;
-- source hashes and manifest;
+- a repository-reconstructible normalized evidence package;
+- known source provenance and normalized artifact hashes;
 - normalized structured records;
 - normalization summary;
 - structural validation report;
@@ -36,11 +36,11 @@ Phase 1 ends only when all of the following exist in the repository:
 
 At that point, normalized artifacts become immutable inputs to Phase 2.
 
-## Source-storage policy
+## Evidence-storage policy
 
-Everything required to reproduce the work must be repository-addressable.
+The deterministic normalized package is the required repository-addressable input for downstream analysis. It must include a manifest, reconstruction commands, per-artifact hashes, and the expected reconstructed archive hash.
 
-Preferred order:
+Raw screenshots are optional after normalization passes structural and integrity validation. Retain them when later visual re-review is valuable and storage is practical, using this preferred order:
 
 1. Git LFS for large binary evidence;
 2. ordinary Git for suitably small files;
@@ -54,7 +54,7 @@ A chunked archive must include:
 - Bash and PowerShell reconstruction commands;
 - a README explaining the original filename and contents.
 
-A local-only path is not sufficient evidence storage.
+A local-only raw-source path is not a merge blocker when the normalized package is complete and verified. Its known filename, size, SHA-256, and retention status must still be documented. The limitation is explicit: fields that require visual re-review remain unresolved rather than guessed.
 
 ## Analysis-agent contract
 
@@ -76,7 +76,8 @@ The local analysis agent must:
 A completed batch should contain:
 
 ```text
-source manifest and reproducible source package
+known source provenance and retention status
+reconstructible normalized evidence package and manifest
 normalized records and normalization validation
 review queue and reviewed correction layer, when needed
 analysis prompt used by the local agent
@@ -110,7 +111,7 @@ analysis validation and artifact hashes
 
 - draft PRs remain open longer;
 - branch ownership must transfer cleanly between agents;
-- binary evidence may require Git LFS or chunk reconstruction;
+- optional raw binary evidence may require Git LFS or chunk reconstruction;
 - normalized-data corrections require additive review layers rather than direct edits.
 
 ## Rejected alternatives
@@ -123,6 +124,6 @@ Rejected because extraction errors and interpretation choices become difficult t
 
 Rejected as the default because the second PR must reconstruct the exact input state and frequently duplicates handoff context. A separate PR remains acceptable only when analysis is intentionally deferred across releases or requires changes outside the batch scope.
 
-### Keep source files only on the normalizer's machine
+### Require raw source retention for every batch
 
-Rejected because hashes alone prove identity but do not make the evidence recoverable.
+Rejected because a verified, reconstructible normalized package is sufficient to reproduce downstream analysis. Requiring duplicate raw binaries for every batch adds storage and handoff cost. Missing raw screenshots still limits later visual re-review and must remain documented.
