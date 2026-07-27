@@ -7,7 +7,7 @@ field,5,Northern Hero [T4],northern_hero,,unresolved,1,2,2,3,0,0,0,1.500000,0.00
 field,6,Northern Mounted Warlord [T6],northern_mounted_warlord,,unresolved,3,15,14,21,0,1,0,1.400000,0.000000,0.066667,,,insufficient_evidence
 field,7,Riverlands House Guard [T5],riverlands_house_guard,,unresolved,1,3,3,4,0,0,0,1.333333,0.000000,0.000000,,,insufficient_evidence
 field,8,Riverlands Soldier [T3],riverlands_soldier,,unresolved,1,3,3,4,0,0,0,1.333333,0.000000,0.000000,,,insufficient_evidence
-field,9,Riverlands Ranger [T5],riverlands_ranger,,unresolved,4,167,163,179,1,3,0,1.071856,0.005988,0.023952,,,insufficient_evidence
+field,9,Riverlands Ranger [T5],riverlands_ranger,river_ranger,confirmed_id,4,167,163,179,1,3,0,1.071856,0.005988,0.023952,,,insufficient_evidence
 field,10,Riverlands Axeman [T5],riverlands_axeman,river_axeman,confirmed_id,2,19,18,17,1,0,0,0.894737,0.052632,0.052632,,,insufficient_evidence
 field,11,Blackwood Horseman [T5],blackwood_horseman,,unresolved,3,16,15,14,0,1,0,0.875000,0.000000,0.062500,,,insufficient_evidence
 field,12,Riverlands Cavalry [T5],riverlands_cavalry,,unresolved,3,14,13,12,0,1,0,0.857143,0.000000,0.071429,,,insufficient_evidence
@@ -39,7 +39,7 @@ siege_attack,16,Riverlands Man at Arms [T4],riverlands_man_at_arms,,unresolved,1
 siege_attack,17,Mallister Elite Archer [T5],mallister_elite_archer,mallister_elite_archer,confirmed_id,5,164,107,159,19,38,0,0.969512,0.115854,0.347561,0.796407,1.167665,reliable
 siege_attack,18,Mallister Man at Arms [T4],mallister_man_at_arms,,unresolved,2,11,2,10,4,5,0,0.909091,0.363636,0.818182,,,insufficient_evidence
 siege_attack,19,Blackwood Horseman [T5],blackwood_horseman,,unresolved,2,18,9,15,2,7,0,0.833333,0.111111,0.500000,,,insufficient_evidence
-siege_attack,20,Riverlands Ranger [T5],riverlands_ranger,,unresolved,5,175,116,143,16,43,0,0.817143,0.091429,0.337143,0.638298,0.920904,reliable
+siege_attack,20,Riverlands Ranger [T5],riverlands_ranger,river_ranger,confirmed_id,5,175,116,143,16,43,0,0.817143,0.091429,0.337143,0.638298,0.920904,reliable
 siege_attack,21,Blackwood House Guard [T5],blackwood_house_guard,,unresolved,5,98,70,76,5,23,0,0.775510,0.051020,0.285714,0.340000,1.230769,reliable
 siege_attack,22,Mallister Archer [T4],mallister_archer,,unresolved,1,13,4,10,1,8,0,0.769231,0.076923,0.692308,,,insufficient_evidence
 siege_attack,23,Blackwood Man at Arms [T4],blackwood_man_at_arms,,unresolved,1,20,3,15,6,11,0,0.750000,0.300000,0.850000,,,insufficient_evidence
@@ -70,7 +70,7 @@ siege_defense,5,Mallister Elite Archer [T5],mallister_elite_archer,mallister_eli
 siege_defense,6,Ravens' Teeth [T6],ravens_teeth,ravens_teeth,confirmed_id,1,19,19,61,0,0,0,3.210526,0.000000,0.000000,,,insufficient_evidence
 siege_defense,7,Mallister House Guard [T5],mallister_house_guard,mallister_houseguard,confirmed_id,1,13,12,19,0,1,0,1.461538,0.000000,0.076923,,,insufficient_evidence
 siege_defense,8,Westerlands Banner Knight [T6],westerlands_banner_knight,,unresolved,1,10,9,12,0,1,0,1.200000,0.000000,0.100000,,,insufficient_evidence
-siege_defense,9,Riverlands Ranger [T5],riverlands_ranger,,unresolved,1,52,48,46,0,4,0,0.884615,0.000000,0.076923,,,insufficient_evidence
+siege_defense,9,Riverlands Ranger [T5],riverlands_ranger,river_ranger,confirmed_id,1,52,48,46,0,4,0,0.884615,0.000000,0.076923,,,insufficient_evidence
 siege_defense,10,Mallister Eagle Knight [T6],mallister_eagle_knight,mallister_knight,confirmed_id,1,15,11,12,1,3,0,0.800000,0.066667,0.266667,,,insufficient_evidence
 siege_defense,11,Westerlands Militia Archer [T2],westerlands_militia_archer,,unresolved,1,10,9,7,1,0,0,0.700000,0.100000,0.100000,,,insufficient_evidence
 siege_defense,12,Blackwood House Guard [T5],blackwood_house_guard,,unresolved,1,19,14,7,1,4,0,0.368421,0.052632,0.263158,,,insufficient_evidence

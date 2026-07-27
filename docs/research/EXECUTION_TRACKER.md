@@ -42,6 +42,8 @@ remaining review flags: 487 P2 rows
 - [x] Add deterministic resolution from generated `<track>_troops.csv` audits.
 - [x] Detect cross-track exact-name ambiguity and conflicts with existing confirmations.
 - [x] Preserve unresolved identities explicitly and block incomplete attribute joins.
+- [x] Recover and version the 17 exact identity relationships published by historical PR #20.
+- [x] Re-run the resolver against the recovered RoT, vanilla, and War Sails evidence.
 
 ## Active workstream: canonical troop identity
 
@@ -129,14 +131,15 @@ This phase is blocked until Phases 2–4 demonstrate useful grouped out-of-sampl
 
 ## Immediate execution order
 
-1. Generate complete `realm_of_thrones_troops.csv`, official `vanilla_troops.csv`, and the Rhodok-source `<track>_troops.csv`.
-2. Run `scripts/run_canonical_identity_pipeline.ps1` with all track audits and `-RequireComplete`.
-3. Generate canonical dataset v2.
-4. Regenerate reviewed rankings and insufficient-evidence tables from canonical IDs.
-5. Expand siege coverage, especially siege defense.
-6. Define and run the first controlled speed-versus-damage experiment.
-7. Build the versioned attribute/equipment feature table.
-8. Begin grouped out-of-sample explanatory modeling.
+1. Identify and audit the missing Rhodok-source module and the two near-miss-only labels.
+2. Recover or regenerate complete `realm_of_thrones_troops.csv` and official vanilla/War Sails audits.
+3. Run `scripts/run_canonical_identity_pipeline.ps1` with all track audits and `-RequireComplete`.
+4. Generate canonical dataset v2.
+5. Regenerate reviewed rankings and insufficient-evidence tables from canonical IDs.
+6. Expand siege coverage, especially siege defense.
+7. Define and run the first controlled speed-versus-damage experiment.
+8. Build the versioned attribute/equipment feature table.
+9. Begin grouped out-of-sample explanatory modeling.
 
 ## Interpretation rule
 
