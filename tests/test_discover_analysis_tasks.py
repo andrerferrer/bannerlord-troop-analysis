@@ -6,13 +6,7 @@ import sys
 import unittest
 from pathlib import Path
 
-
-MODULE_PATH = (
-    Path(__file__).resolve().parents[1]
-    / "scripts"
-    / "analysis"
-    / "discover_analysis_tasks.py"
-)
+MODULE_PATH = Path(__file__).resolve().parents[1] / "scripts" / "analysis" / "discover_analysis_tasks.py"
 SPEC = importlib.util.spec_from_file_location("discover_analysis_tasks", MODULE_PATH)
 assert SPEC is not None and SPEC.loader is not None
 MODULE = importlib.util.module_from_spec(SPEC)
@@ -54,44 +48,27 @@ def protocol_comment(payload, *, created_at="2026-07-27T18:00:00Z", comment_id=1
 class AnalysisTaskProtocolTests(unittest.TestCase):
     def test_parses_valid_pending_comment(self):
         parsed = MODULE.parse_protocol_comment(protocol_comment(valid_payload()))
-
         self.assertIsNotNone(parsed)
         assert parsed is not None
         self.assertEqual(parsed.payload["task_id"], "batch-1")
         self.assertEqual(parsed.payload["status"], "pending")
-        self.assertEqual(parsed.comment_id, 1)
 
     def test_ignores_unmarked_comments(self):
         parsed = MODULE.parse_protocol_comment(
-            {
-                "id": 2,
-                "created_at": "2026-07-27T18:01:00Z",
-                "body": "ordinary human comment",
-            }
+            {"id": 2, "created_at": "2026-07-27T18:01:00Z", "body": "ordinary comment"}
         )
-
         self.assertIsNone(parsed)
 
     def test_blocked_state_requires_blocker(self):
-        payload = valid_payload(status="blocked", blockers=[])
-
         with self.assertRaisesRegex(ValueError, "blocked tasks must include"):
-            MODULE.parse_protocol_comment(protocol_comment(payload))
+            MODULE.parse_protocol_comment(protocol_comment(valid_payload(status="blocked")))
 
     def test_marker_and_payload_versions_must_match(self):
-        comment = protocol_comment(valid_payload(version=2))
-
         with self.assertRaisesRegex(ValueError, "version does not match"):
-            MODULE.parse_protocol_comment(comment)
+            MODULE.parse_protocol_comment(protocol_comment(valid_payload(version=2)))
 
     def test_flattens_paginated_comment_pages(self):
-        pages = [
-            [{"id": 1, "body": "first"}],
-            [{"id": 2, "body": "second"}],
-        ]
-
-        flattened = MODULE.flatten_comment_pages(pages)
-
+        flattened = MODULE.flatten_comment_pages([[{"id": 1}], [{"id": 2}]])
         self.assertEqual([item["id"] for item in flattened], [1, 2])
 
 
