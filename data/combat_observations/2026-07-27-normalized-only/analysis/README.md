@@ -2,7 +2,7 @@
 
 `ranking_complete.csv` contains every observed troop/context estimate. `ranking_reliable.csv` applies the 5-battle / 20-deployed gate. `insufficient_evidence.csv` retains all rows that fail the gate. `canonical_identity_audit.csv` never treats provisional slugs as XML IDs.
 
-The batch-level `../README.md` is an immutable Phase 1 handoff snapshot; current workflow state lives in append-only protocol comments.
+The batch-level `../README.md` documents the shared batch envelope; authoritative workflow state lives in append-only protocol comments.
 
 Reproduce from the repository root:
 

@@ -9,7 +9,7 @@
   "source_sha256": "42d4adf2e8d9f9bce0dc90945832c673aeddf81d06044cb0e6f08a2ddb852617",
   "normalized_archive_sha256": "031a7c60d4ed239a2fcb70a81bb6edf047711c3a422ee3ba4420c4a4af534855",
   "required_actions": [
-    "store_original_source_archive",
+    "document_raw_source_retention_status",
     "verify_handoff_hashes",
     "preserve_normalized_inputs",
     "complete_review_layer",

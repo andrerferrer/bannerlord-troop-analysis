@@ -77,6 +77,16 @@ def read_csv(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(handle))
 
 
+def read_json_object(path: Path) -> dict[str, Any]:
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as error:
+        raise ValueError(f"{path}: invalid JSON: {error}") from error
+    if not isinstance(value, dict):
+        raise ValueError(f"{path}: expected an object")
+    return value
+
+
 def write_csv(path: Path, fields: Iterable[str], rows: Iterable[dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="") as handle:
@@ -130,6 +140,7 @@ def inspect_optional_source(
     expected_size_bytes: int,
 ) -> tuple[dict[str, Any], list[str]]:
     source_exists = source_path.is_file()
+    source_is_symlink = source_path.is_symlink()
     actual_sha256 = sha256_file(source_path) if source_exists else ""
     actual_size_bytes = source_path.stat().st_size if source_exists else None
     source_matches = (
@@ -140,22 +151,93 @@ def inspect_optional_source(
     errors: list[str] = []
     if source_exists and not source_matches:
         errors.append("retained raw source does not match its recorded hash and size")
+    try:
+        repository_path = str(source_path.relative_to(repo_root))
+    except ValueError:
+        repository_path = ""
+    resolves_inside_repo = False
+    if source_exists and not source_is_symlink:
+        try:
+            source_path.resolve(strict=True).relative_to(repo_root.resolve(strict=True))
+            resolves_inside_repo = True
+        except (FileNotFoundError, ValueError):
+            pass
+    tracked = False
+    if repository_path and resolves_inside_repo:
+        tracked = (
+            subprocess.run(
+                ["git", "ls-files", "--error-unmatch", "--", repository_path],
+                cwd=repo_root,
+                check=False,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            ).returncode
+            == 0
+        )
+    repository_addressable = source_matches and resolves_inside_repo and tracked
     return (
         {
-            "repository_path": str(source_path.relative_to(repo_root)),
+            "repository_path": repository_path,
             "retention_policy": "optional_after_verified_normalization",
             "retention_status": (
-                "verified" if source_matches else "mismatch" if source_exists else "not_retained"
+                "repository_verified"
+                if repository_addressable
+                else "locally_verified"
+                if source_matches
+                else "mismatch"
+                if source_exists
+                else "not_retained"
             ),
             "expected_sha256": expected_sha256,
             "actual_sha256": actual_sha256,
             "expected_size_bytes": expected_size_bytes,
             "actual_size_bytes": actual_size_bytes,
-            "repository_addressable": source_matches,
+            "locally_verified": source_matches,
+            "repository_addressable": repository_addressable,
             "limits_visual_rereview": not source_matches,
         },
         errors,
     )
+
+
+def verify_recorded_source_identity(
+    expected_sha256: str,
+    expected_size_bytes: int,
+    normalization_summary: dict[str, Any],
+    normalization_validation: dict[str, Any],
+) -> tuple[list[dict[str, Any]], list[str]]:
+    recorded_values = (
+        (
+            "normalization_summary.json:source_zip_sha256",
+            normalization_summary.get("source_zip_sha256"),
+            expected_sha256,
+        ),
+        (
+            "validation_report.json:source_zip_sha256",
+            normalization_validation.get("source_zip_sha256"),
+            expected_sha256,
+        ),
+        (
+            "validation_report.json:source_zip_size_bytes",
+            normalization_validation.get("source_zip_size_bytes"),
+            expected_size_bytes,
+        ),
+    )
+    checks: list[dict[str, Any]] = []
+    errors: list[str] = []
+    for field, recorded, expected in recorded_values:
+        passed = recorded == expected
+        checks.append(
+            {
+                "field": field,
+                "recorded": recorded,
+                "expected": expected,
+                "passed": passed,
+            }
+        )
+        if not passed:
+            errors.append(f"recorded source identity mismatch: {field}")
+    return checks, errors
 
 
 def verify_manifest(input_dir: Path, manifest_path: Path) -> tuple[list[dict[str, Any]], list[str]]:
@@ -519,6 +601,7 @@ def build_review_decisions(
     review_queue: list[dict[str, str]],
     occurrences: list[dict[str, Any]],
     reviewer: str,
+    raw_visual_review_available: bool,
 ) -> list[dict[str, str]]:
     occurrences_by_id = {str(row["observation_id"]): row for row in occurrences}
     output: list[dict[str, str]] = []
@@ -535,11 +618,18 @@ def build_review_decisions(
                     "field": field,
                     "original_value": "" if source.get(field) is None else str(source[field]),
                     "reviewed_value": "",
-                    "decision_status": "unresolved_no_raw_image_review",
+                    "decision_status": (
+                        "unresolved_pending_raw_image_review"
+                        if raw_visual_review_available
+                        else "unresolved_no_raw_image_review"
+                    ),
                     "reason": (
-                        "The normalized evidence records a visual level-up icon, but the "
-                        "raw screenshot is not retained for visual re-review; no numeric "
-                        "value is inferred."
+                        "The normalized evidence records a visual level-up icon, but no "
+                        "direct visual review decision is recorded; no numeric value is inferred."
+                        if raw_visual_review_available
+                        else "The normalized evidence records a visual level-up icon, but the "
+                        "raw screenshot is not retained for visual re-review; no numeric value "
+                        "is inferred."
                     ),
                     "reviewer": reviewer,
                     "evidence_reference": "normalized occurrence and review_queue.csv",
@@ -605,6 +695,12 @@ def main() -> None:
     consolidated = read_jsonl(args.input_dir / "troop_battle_consolidated.jsonl")
     screenshot_manifest = read_csv(args.input_dir / "screenshots_manifest.csv")
     review_queue = read_csv(args.input_dir / "review_queue.csv")
+    recorded_normalization_summary = read_json_object(
+        args.input_dir / "normalization_summary.json"
+    )
+    recorded_normalization_validation = read_json_object(
+        args.input_dir / "validation_report.json"
+    )
     structural_errors, normalized_summary = validate_normalized(
         battles,
         occurrences,
@@ -637,12 +733,19 @@ def main() -> None:
         args.expected_source_sha256,
         args.expected_source_size_bytes,
     )
+    source_provenance_checks, source_provenance_errors = verify_recorded_source_identity(
+        args.expected_source_sha256,
+        args.expected_source_size_bytes,
+        recorded_normalization_summary,
+        recorded_normalization_validation,
+    )
     external_blockers: list[dict[str, Any]] = []
 
     validation_errors = [
         *manifest_errors,
         *structural_errors,
         *source_errors,
+        *source_provenance_errors,
         *[f"immutable normalized input changed: {path}" for path in immutable_changes],
         *[f"frozen model changed: {path}" for path in frozen_model_changes],
     ]
@@ -665,14 +768,27 @@ def main() -> None:
     insufficient = [
         row for row in rankings if row["reliability_status"] == "insufficient_evidence"
     ]
-    review_decisions = build_review_decisions(review_queue, occurrences, args.reviewer)
+    raw_visual_review_available = bool(source_archive["locally_verified"])
+    review_decisions = build_review_decisions(
+        review_queue,
+        occurrences,
+        args.reviewer,
+        raw_visual_review_available,
+    )
 
     write_csv(review_dir / "review_decisions.csv", review_decisions[0].keys(), review_decisions)
+    raw_review_sentence = (
+        "Raw screenshots are locally verified but no direct visual review decision is "
+        "recorded, so the reviewed layer preserves null values."
+        if raw_visual_review_available
+        else "Raw screenshots are not retained for visual re-review, so the reviewed layer "
+        "preserves null values."
+    )
     (review_dir / "README.md").write_text(
         "# Phase 2 review decisions\n\n"
         "All five queued values remain unresolved. Each is a hero `upgrade_ready` field "
-        "derived from a visual icon. Raw screenshots are not retained for visual re-review, "
-        "so the reviewed layer preserves null values and does not infer numeric counts. This "
+        f"derived from a visual icon. {raw_review_sentence} The analysis does not infer "
+        "numeric counts. This "
         "is a documented limitation rather than a merge blocker because heroes remain "
         "excluded from ordinary troop rankings.\n",
         encoding="utf-8",
@@ -731,6 +847,7 @@ def main() -> None:
             "safe_preflight": archive_preflight,
         },
         "source_archive": source_archive,
+        "source_provenance_checks": source_provenance_checks,
         "manifest_checks": manifest_checks,
         "immutable_normalized_changes": immutable_changes,
         "frozen_model_changes": frozen_model_changes,
@@ -843,8 +960,15 @@ def main() -> None:
             "difficulty, map, siege state, enemy composition, and player choices.",
             "- Only visible scoreboard rows are represented; off-screen rows are not inferred.",
             "- Canonical identity coverage is incomplete, so unresolved labels remain provisional.",
-            "- The original screenshots are not retained, so the five visual hero icon fields "
-            "cannot be re-reviewed and remain unresolved; heroes are excluded from rankings.",
+            (
+                "- The original screenshots are locally verified but the five visual hero icon "
+                "fields have no direct review decision and remain unresolved; heroes are "
+                "excluded from rankings."
+                if raw_visual_review_available
+                else "- The original screenshots are not retained, so the five visual hero "
+                "icon fields cannot be re-reviewed and remain unresolved; heroes are excluded "
+                "from rankings."
+            ),
             "- No earlier baseline comparison or model recalibration was performed.",
         ]
     )
@@ -857,7 +981,7 @@ def main() -> None:
         "`ranking_reliable.csv` applies the 5-battle / 20-deployed gate. "
         "`insufficient_evidence.csv` retains all rows that fail the gate. "
         "`canonical_identity_audit.csv` never treats provisional slugs as XML IDs.\n\n"
-        "The batch-level `../README.md` is an immutable Phase 1 handoff snapshot; current "
+        "The batch-level `../README.md` documents the shared batch envelope; authoritative "
         "workflow state lives in append-only protocol comments.\n\n"
         "Reproduce from the repository root:\n\n"
         "```bash\n"

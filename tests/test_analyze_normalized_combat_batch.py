@@ -188,6 +188,39 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
             )
             self.assertEqual(source["retention_status"], "mismatch")
 
+    def test_optional_source_provenance_must_match_normalized_records(self) -> None:
+        checks, errors = MODULE.verify_recorded_source_identity(
+            "a" * 64,
+            123,
+            {"source_zip_sha256": "b" * 64},
+            {"source_zip_sha256": "a" * 64, "source_zip_size_bytes": 123},
+        )
+        self.assertEqual(
+            errors,
+            ["recorded source identity mismatch: normalization_summary.json:source_zip_sha256"],
+        )
+        self.assertFalse(checks[0]["passed"])
+        self.assertTrue(checks[1]["passed"])
+        self.assertTrue(checks[2]["passed"])
+
+    def test_symlinked_raw_source_is_never_repository_addressable(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            outside = root / "outside.zip"
+            outside.write_bytes(b"exact")
+            source_path = root / "source.zip"
+            source_path.symlink_to(outside)
+            source, errors = MODULE.inspect_optional_source(
+                source_path,
+                root,
+                MODULE.sha256_file(outside),
+                outside.stat().st_size,
+            )
+            self.assertEqual(errors, [])
+            self.assertEqual(source["retention_status"], "locally_verified")
+            self.assertTrue(source["locally_verified"])
+            self.assertFalse(source["repository_addressable"])
+
     def test_git_revision_rejects_option_injection(self) -> None:
         with self.assertRaisesRegex(ValueError, "full 40-character"):
             MODULE.git_changed_paths(Path("."), "--output=/tmp/owned", ["README.md"])

@@ -30,7 +30,7 @@ Every new evidence batch uses **one branch and one draft pull request**, complet
 
 ```text
 normalization agent
-→ source retention, deterministic normalized records, review queue, validation
+→ source provenance, deterministic normalized records, review queue, validation
 → committed handoff/ANALYSIS_PROMPT.md
 → versioned pending comment in the same draft PR
 → local analysis agent checks out the same branch
@@ -40,7 +40,7 @@ normalization agent
 
 Normalization and analysis must remain separate layers even when delivered in one PR. Phase 1 normalized artifacts become immutable at handoff. Corrections are additive reviewed records, never silent replacements.
 
-All evidence and generated work must be repository-addressable. Use Git LFS for large binary source files; when that is unavailable, publish a reconstructible chunked archive with hashes and reconstruction commands.
+The deterministic normalized evidence and generated work required for downstream analysis must be repository-addressable. Raw screenshots are optional after normalization passes its integrity and structural-validation gates; when retained, use Git LFS or a reconstructible chunked archive. Always document known raw-source provenance and any visual re-review limitation.
 
 ### Analysis queue
 

@@ -117,10 +117,31 @@
     "expected_sha256": "42d4adf2e8d9f9bce0dc90945832c673aeddf81d06044cb0e6f08a2ddb852617",
     "expected_size_bytes": 18596761,
     "limits_visual_rereview": true,
+    "locally_verified": false,
     "repository_addressable": false,
     "repository_path": "data/combat_observations/2026-07-27-normalized-only/source/original_screenshots.zip",
     "retention_policy": "optional_after_verified_normalization",
     "retention_status": "not_retained"
   },
+  "source_provenance_checks": [
+    {
+      "expected": "42d4adf2e8d9f9bce0dc90945832c673aeddf81d06044cb0e6f08a2ddb852617",
+      "field": "normalization_summary.json:source_zip_sha256",
+      "passed": true,
+      "recorded": "42d4adf2e8d9f9bce0dc90945832c673aeddf81d06044cb0e6f08a2ddb852617"
+    },
+    {
+      "expected": "42d4adf2e8d9f9bce0dc90945832c673aeddf81d06044cb0e6f08a2ddb852617",
+      "field": "validation_report.json:source_zip_sha256",
+      "passed": true,
+      "recorded": "42d4adf2e8d9f9bce0dc90945832c673aeddf81d06044cb0e6f08a2ddb852617"
+    },
+    {
+      "expected": 18596761,
+      "field": "validation_report.json:source_zip_size_bytes",
+      "passed": true,
+      "recorded": 18596761
+    }
+  ],
   "status": "passed"
 }
