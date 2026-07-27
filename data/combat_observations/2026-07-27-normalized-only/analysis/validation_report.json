@@ -26,7 +26,7 @@
   "ranking": {
     "bootstrap_repetitions": 5000,
     "bootstrap_seed": "sha256(batch_id|context|provisional_slug|repetitions)",
-    "complete_rows": 124,
+    "complete_rows": 76,
     "coverage_by_context": {
       "field": {
         "context": "field",
@@ -37,16 +37,6 @@
         "minimum_deployed": 20,
         "observed_labels": 21,
         "reliable_labels": 0
-      },
-      "overall": {
-        "context": "overall",
-        "deployed": 2009,
-        "independent_battles": 10,
-        "insufficient_labels": 37,
-        "minimum_battles": 5,
-        "minimum_deployed": 20,
-        "observed_labels": 48,
-        "reliable_labels": 11
       },
       "siege_attack": {
         "context": "siege_attack",
@@ -69,10 +59,10 @@
         "reliable_labels": 0
       }
     },
-    "insufficient_rows": 107,
+    "insufficient_rows": 70,
     "minimum_battles": 5,
     "minimum_deployed": 20,
-    "reliable_rows": 17
+    "reliable_rows": 6
   },
   "review": {
     "decisions": 5,

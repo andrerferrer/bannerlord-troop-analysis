@@ -76,12 +76,11 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
             minimum_deployed=20,
             repetitions=100,
         )
-        overall = next(row for row in rankings if row["context"] == "overall")
         siege = next(row for row in rankings if row["context"] == "siege_attack")
-        self.assertEqual(overall["reliability_status"], "reliable")
         self.assertEqual(siege["reliability_status"], "reliable")
-        self.assertEqual(overall["independent_battles"], 5)
-        self.assertEqual(overall["deployed"], 25)
+        self.assertEqual(siege["independent_battles"], 5)
+        self.assertEqual(siege["deployed"], 25)
+        self.assertNotIn("overall", {row["context"] for row in rankings})
 
     def test_four_battles_never_pass_display_gate(self) -> None:
         rows = [
@@ -121,6 +120,41 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
                 archive.addfile(info, io.BytesIO(payload))
             with self.assertRaisesRegex(ValueError, "unsafe archive member path"):
                 MODULE.safe_tar_preflight(archive_path)
+
+    def test_archive_preflight_rejects_canonical_collision(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            archive_path = Path(directory) / "input.tar.xz"
+            with tarfile.open(archive_path, "w:xz") as archive:
+                for name, payload in (("dir/file", b"one"), ("dir/./file", b"two")):
+                    info = tarfile.TarInfo(name)
+                    info.size = len(payload)
+                    archive.addfile(info, io.BytesIO(payload))
+            with self.assertRaisesRegex(ValueError, "duplicate canonical archive member"):
+                MODULE.safe_tar_preflight(archive_path)
+
+    def test_manifest_rejects_path_escape(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            input_dir = root / "input"
+            input_dir.mkdir()
+            outside = root / "outside.txt"
+            outside.write_text("secret", encoding="utf-8")
+            manifest = root / "manifest.csv"
+            manifest.write_text(
+                "file,sha256,size_bytes\n../outside.txt,ignored,6\n",
+                encoding="utf-8",
+            )
+            checks, errors = MODULE.verify_manifest(input_dir, manifest)
+            self.assertEqual(checks, [])
+            self.assertEqual(errors, ["unsafe artifact manifest path: ../outside.txt"])
+
+    def test_git_revision_rejects_option_injection(self) -> None:
+        with self.assertRaisesRegex(ValueError, "full 40-character"):
+            MODULE.git_changed_paths(Path("."), "--output=/tmp/owned", ["README.md"])
+
+    def test_csv_formula_values_are_neutralized(self) -> None:
+        self.assertEqual(MODULE.escape_spreadsheet_formula("=2+2"), "'=2+2")
+        self.assertEqual(MODULE.escape_spreadsheet_formula("safe"), "safe")
 
 
 if __name__ == "__main__":

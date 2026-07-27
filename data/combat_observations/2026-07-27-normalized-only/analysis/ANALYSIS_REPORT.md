@@ -1,4 +1,4 @@
-# Phase 2 analysis — 2026-07-27 Realm of Thrones batch
+# Phase 2 analysis — combat_2026-07-27_222843_010541
 
 ## Result
 
@@ -10,21 +10,21 @@ These rankings describe visible player-side campaign contribution. They are not 
 
 - 10 independent battles: 4 field, 5 siege attack, 1 siege defense.
 - 143 consolidated player-side ordinary-troop rows.
-- 17 reliable troop/context rows and 107 insufficient-evidence rows under the 5-battle / 20-deployed gate.
+- 6 reliable troop/context rows and 70 insufficient-evidence rows under the 5-battle / 20-deployed gate.
 - 6 of 48 display labels have a conservative exact canonical ID match.
 - All 5 queued hero icon fields remain unresolved and excluded.
 
-## Highest reliable overall descriptive rates
+## Highest reliable siege-attack descriptive rates
 
 | Rank | Troop | Battles | Deployed | Kills/deployed | 95% battle bootstrap interval | Casualty rate |
 |---:|---|---:|---:|---:|---:|---:|
-| 1 | `northern_winter_champion` | 5 | 34 | 4.353 | 0.359–15.538 | 0.353 |
-| 2 | `ravens_teeth` | 10 | 184 | 3.565 | 2.719–4.622 | 0.196 |
-| 3 | `mallister_elite_archer` | 10 | 331 | 1.127 | 0.608–1.953 | 0.190 |
-| 4 | `westerlands_banner_knight` | 7 | 58 | 0.948 | 0.696–1.145 | 0.121 |
-| 5 | `riverlands_ranger` | 10 | 394 | 0.934 | 0.661–1.224 | 0.170 |
+| 1 | `ravens_teeth` | 5 | 88 | 3.830 | 3.264–4.657 | 0.409 |
+| 2 | `mallister_elite_archer` | 5 | 164 | 0.970 | 0.796–1.168 | 0.348 |
+| 3 | `riverlands_ranger` | 5 | 175 | 0.817 | 0.638–0.921 | 0.337 |
+| 4 | `blackwood_house_guard` | 5 | 98 | 0.776 | 0.340–1.231 | 0.286 |
+| 5 | `mallister_house_guard` | 5 | 68 | 0.691 | 0.425–0.945 | 0.176 |
 
-Field has only four independent battles and siege defense only one, so neither context produces a reliable row. Siege attack reaches five battles and has 6 reliable rows.
+Field has only four independent battles and siege defense only one, so neither context produces a reliable row. Contexts are never pooled to manufacture an overall display gate. Siege attack reaches five battles and has 6 reliable rows.
 
 ## Limitations
 

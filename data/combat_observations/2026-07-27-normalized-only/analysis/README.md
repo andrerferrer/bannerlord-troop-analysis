@@ -2,6 +2,8 @@
 
 `ranking_complete.csv` contains every observed troop/context estimate. `ranking_reliable.csv` applies the 5-battle / 20-deployed gate. `insufficient_evidence.csv` retains all rows that fail the gate. `canonical_identity_audit.csv` never treats provisional slugs as XML IDs.
 
+The batch-level `../README.md` is an immutable Phase 1 handoff snapshot; current workflow state lives in append-only protocol comments.
+
 Reproduce from the repository root:
 
 ```bash
@@ -26,6 +28,7 @@ python3 scripts/analysis/analyze_normalized_combat_batch.py \
   --expected-archive-sha256 031a7c60d4ed239a2fcb70a81bb6edf047711c3a422ee3ba4420c4a4af534855 \
   --archive-path "$archive" \
   --expected-source-sha256 42d4adf2e8d9f9bce0dc90945832c673aeddf81d06044cb0e6f08a2ddb852617 \
+  --expected-source-size-bytes 18596761 \
   --source-path "$PWD/$batch/source/original_screenshots.zip" \
   --batch-id combat_2026-07-27_222843_010541 --track realm_of_thrones \
   --minimum-battles 5 --minimum-deployed 20 --bootstrap-repetitions 5000

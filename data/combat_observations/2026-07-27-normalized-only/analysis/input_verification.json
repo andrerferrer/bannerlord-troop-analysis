@@ -120,7 +120,9 @@
   "schema_version": "1.1.0",
   "source_archive": {
     "actual_sha256": "",
+    "actual_size_bytes": null,
     "expected_sha256": "42d4adf2e8d9f9bce0dc90945832c673aeddf81d06044cb0e6f08a2ddb852617",
+    "expected_size_bytes": 18596761,
     "repository_addressable": false,
     "repository_path": "data/combat_observations/2026-07-27-normalized-only/source/original_screenshots.zip"
   },

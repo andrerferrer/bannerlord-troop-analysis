@@ -11,10 +11,14 @@ import random
 import re
 import subprocess
 import tarfile
-import unicodedata
 from collections import Counter, defaultdict
 from pathlib import Path, PurePosixPath
 from typing import Any, Iterable
+
+try:
+    from scripts.analysis.build_canonical_identity_audit import normalize_display_name
+except ModuleNotFoundError:  # Direct script execution sets sys.path to scripts/analysis.
+    from build_canonical_identity_audit import normalize_display_name
 
 CONTEXTS = ("field", "siege_attack", "siege_defense")
 COUNT_FIELDS = ("deployed", "survivors", "kills", "deaths", "wounded", "routed")
@@ -74,7 +78,13 @@ def write_csv(path: Path, fields: Iterable[str], rows: Iterable[dict[str, Any]])
     with path.open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=list(fields), lineterminator="\n")
         writer.writeheader()
-        writer.writerows(rows)
+        writer.writerows(
+            {
+                field: escape_spreadsheet_formula(value)
+                for field, value in row.items()
+            }
+            for row in rows
+        )
 
 
 def write_json(path: Path, value: Any) -> None:
@@ -93,8 +103,14 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def escape_spreadsheet_formula(value: Any) -> Any:
+    if isinstance(value, str) and value.lstrip().startswith(("=", "+", "-", "@")):
+        return "'" + value
+    return value
+
+
 def safe_tar_preflight(archive_path: Path) -> dict[str, int]:
-    names: set[str] = set()
+    members_by_path: dict[str, str] = {}
     regular_files = 0
     total_uncompressed_bytes = 0
     with tarfile.open(archive_path, "r:xz") as archive:
@@ -103,40 +119,66 @@ def safe_tar_preflight(archive_path: Path) -> dict[str, int]:
             pure = PurePosixPath(name)
             if not name or pure.is_absolute() or ".." in pure.parts:
                 raise ValueError(f"unsafe archive member path: {name!r}")
-            if name in names:
-                raise ValueError(f"duplicate archive member: {name}")
-            names.add(name)
+            canonical = pure.as_posix()
+            if canonical in {"", "."}:
+                raise ValueError(f"unsafe archive member path: {name!r}")
             if member.issym() or member.islnk() or member.isdev() or member.isfifo():
                 raise ValueError(f"unsupported archive member type: {name}")
             if not (member.isfile() or member.isdir()):
                 raise ValueError(f"unsupported archive member type: {name}")
+            kind = "file" if member.isfile() else "directory"
+            if canonical in members_by_path:
+                raise ValueError(f"duplicate canonical archive member: {canonical}")
+            ancestors = list(PurePosixPath(canonical).parents)[:-1]
+            if any(members_by_path.get(parent.as_posix()) == "file" for parent in ancestors):
+                raise ValueError(f"archive member is nested beneath a file: {canonical}")
+            if kind == "file" and any(
+                existing.startswith(canonical + "/") for existing in members_by_path
+            ):
+                raise ValueError(f"archive file collides with a directory: {canonical}")
+            members_by_path[canonical] = kind
             if member.isfile():
                 regular_files += 1
                 total_uncompressed_bytes += member.size
-    if len(names) > 10_000:
+    if len(members_by_path) > 10_000:
         raise ValueError("archive member limit exceeded")
     if total_uncompressed_bytes > 1_000_000_000:
         raise ValueError("archive uncompressed-size limit exceeded")
     return {
-        "members": len(names),
+        "members": len(members_by_path),
         "regular_files": regular_files,
         "total_uncompressed_bytes": total_uncompressed_bytes,
     }
 
 
-def normalize_display_name(value: str) -> str:
-    text = unicodedata.normalize("NFKC", value or "")
-    text = text.replace("’", "'").replace("‘", "'").replace("`", "'")
-    text = re.sub(r"\s*\[(?:\s*(?:t|tier)?\s*\d{1,2})\s*\]\s*$", "", text, flags=re.I)
-    return re.sub(r"\s+", " ", text).strip(" .").casefold()
-
-
 def verify_manifest(input_dir: Path, manifest_path: Path) -> tuple[list[dict[str, Any]], list[str]]:
     checks: list[dict[str, Any]] = []
     errors: list[str] = []
+    base = input_dir.resolve(strict=True)
     for row in read_csv(manifest_path):
         relative = row["file"]
-        path = input_dir / relative
+        pure = PurePosixPath(relative)
+        if pure.is_absolute() or ".." in pure.parts or pure.as_posix() in {"", "."}:
+            errors.append(f"unsafe artifact manifest path: {relative}")
+            continue
+        path = input_dir.joinpath(*pure.parts)
+        lexical = input_dir
+        traverses_symlink = False
+        for part in pure.parts:
+            lexical /= part
+            if lexical.is_symlink():
+                errors.append(f"artifact manifest path traverses symlink: {relative}")
+                traverses_symlink = True
+                break
+        if traverses_symlink:
+            continue
+        try:
+            resolved = path.resolve(strict=True)
+            resolved.relative_to(base)
+        except (FileNotFoundError, ValueError):
+            errors.append(f"artifact manifest path escapes input directory: {relative}")
+            continue
+        path = resolved
         exists = path.is_file()
         actual_hash = sha256_file(path) if exists else ""
         actual_size = path.stat().st_size if exists else None
@@ -161,8 +203,18 @@ def verify_manifest(input_dir: Path, manifest_path: Path) -> tuple[list[dict[str
 
 
 def git_changed_paths(repo_root: Path, commit: str, paths: list[str]) -> list[str]:
+    if not re.fullmatch(r"[0-9a-fA-F]{40}", commit):
+        raise ValueError("normalization commit must be a full 40-character hexadecimal SHA")
+    commit_check = subprocess.run(
+        ["git", "cat-file", "-e", f"{commit}^{{commit}}"],
+        cwd=repo_root,
+        capture_output=True,
+        text=True,
+    )
+    if commit_check.returncode:
+        raise ValueError(f"normalization commit does not resolve to a commit: {commit}")
     result = subprocess.run(
-        ["git", "diff", "--name-only", commit, "--", *paths],
+        ["git", "diff", "--no-ext-diff", "--name-only", commit, "--", *paths],
         cwd=repo_root,
         check=True,
         capture_output=True,
@@ -383,10 +435,10 @@ def build_rankings(
 ) -> list[dict[str, Any]]:
     identity_by_slug = {row["provisional_slug"]: row for row in identities}
     output: list[dict[str, Any]] = []
-    for context in ("overall", *CONTEXTS):
+    for context in CONTEXTS:
         groups: dict[str, list[dict[str, Any]]] = defaultdict(list)
         for row in consolidated:
-            if context == "overall" or row["battle_context"] == context:
+            if row["battle_context"] == context:
                 groups[str(row["display_name_normalized"])].append(row)
         context_rows: list[dict[str, Any]] = []
         for slug, rows in groups.items():
@@ -507,6 +559,7 @@ def main() -> None:
     parser.add_argument("--expected-archive-sha256", required=True)
     parser.add_argument("--archive-path", type=Path, required=True)
     parser.add_argument("--expected-source-sha256", required=True)
+    parser.add_argument("--expected-source-size-bytes", type=int, required=True)
     parser.add_argument("--source-path", type=Path, required=True)
     parser.add_argument("--batch-id", required=True)
     parser.add_argument("--track", default="realm_of_thrones")
@@ -567,13 +620,18 @@ def main() -> None:
 
     source_exists = args.source_path.is_file()
     source_hash = sha256_file(args.source_path) if source_exists else ""
-    source_ok = source_exists and source_hash == args.expected_source_sha256
+    source_size = args.source_path.stat().st_size if source_exists else None
+    source_ok = (
+        source_exists
+        and source_hash == args.expected_source_sha256
+        and source_size == args.expected_source_size_bytes
+    )
     external_blockers = [] if source_ok else [
         {
             "code": "original_source_archive_unavailable",
             "expected_path": str(args.source_path.relative_to(args.repo_root)),
             "expected_sha256": args.expected_source_sha256,
-            "expected_size_bytes": 18596761,
+            "expected_size_bytes": args.expected_source_size_bytes,
         }
     ]
 
@@ -628,13 +686,9 @@ def main() -> None:
     )
 
     coverage_rows: list[dict[str, Any]] = []
-    for context in ("overall", *CONTEXTS):
+    for context in CONTEXTS:
         context_rankings = [row for row in rankings if row["context"] == context]
-        context_battles = (
-            battles
-            if context == "overall"
-            else [row for row in battles if row["battle_context"] == context]
-        )
+        context_battles = [row for row in battles if row["battle_context"] == context]
         coverage_rows.append(
             {
                 "context": context,
@@ -674,6 +728,8 @@ def main() -> None:
             "repository_path": str(args.source_path.relative_to(args.repo_root)),
             "expected_sha256": args.expected_source_sha256,
             "actual_sha256": source_hash,
+            "expected_size_bytes": args.expected_source_size_bytes,
+            "actual_size_bytes": source_size,
             "repository_addressable": source_ok,
         },
         "manifest_checks": manifest_checks,
@@ -734,11 +790,11 @@ def main() -> None:
         encoding="utf-8",
     )
 
-    top_overall = [
-        row for row in reliable if row["context"] == "overall"
+    top_siege_attack = [
+        row for row in reliable if row["context"] == "siege_attack"
     ][:5]
     report_lines = [
-        "# Phase 2 analysis — 2026-07-27 Realm of Thrones batch",
+        f"# Phase 2 analysis — {args.batch_id}",
         "",
         "## Result",
         "",
@@ -762,12 +818,12 @@ def main() -> None:
         "a conservative exact canonical ID match.",
         f"- All {len(review_decisions)} queued hero icon fields remain unresolved and excluded.",
         "",
-        "## Highest reliable overall descriptive rates",
+        "## Highest reliable siege-attack descriptive rates",
         "",
         "| Rank | Troop | Battles | Deployed | Kills/deployed | 95% battle bootstrap interval | Casualty rate |",
         "|---:|---|---:|---:|---:|---:|---:|",
     ]
-    for rank, row in enumerate(top_overall, start=1):
+    for rank, row in enumerate(top_siege_attack, start=1):
         report_lines.append(
             f"| {rank} | `{row['provisional_slug']}` | {row['independent_battles']} | "
             f"{row['deployed']} | {row['kills_per_deployed']:.3f} | "
@@ -778,7 +834,8 @@ def main() -> None:
         [
             "",
             "Field has only four independent battles and siege defense only one, so neither "
-            "context produces a reliable row. Siege attack reaches five battles and has "
+            "context produces a reliable row. Contexts are never pooled to manufacture an "
+            "overall display gate. Siege attack reaches five battles and has "
             f"{coverage_by_context['siege_attack']['reliable_labels']} reliable rows.",
             "",
             "## Limitations",
@@ -800,6 +857,8 @@ def main() -> None:
         "`ranking_reliable.csv` applies the 5-battle / 20-deployed gate. "
         "`insufficient_evidence.csv` retains all rows that fail the gate. "
         "`canonical_identity_audit.csv` never treats provisional slugs as XML IDs.\n\n"
+        "The batch-level `../README.md` is an immutable Phase 1 handoff snapshot; current "
+        "workflow state lives in append-only protocol comments.\n\n"
         "Reproduce from the repository root:\n\n"
         "```bash\n"
         "batch='data/combat_observations/2026-07-27-normalized-only'\n"
@@ -823,6 +882,7 @@ def main() -> None:
         "  --expected-archive-sha256 031a7c60d4ed239a2fcb70a81bb6edf047711c3a422ee3ba4420c4a4af534855 \\\n"
         "  --archive-path \"$archive\" \\\n"
         "  --expected-source-sha256 42d4adf2e8d9f9bce0dc90945832c673aeddf81d06044cb0e6f08a2ddb852617 \\\n"
+        "  --expected-source-size-bytes 18596761 \\\n"
         "  --source-path \"$PWD/$batch/source/original_screenshots.zip\" \\\n"
         "  --batch-id combat_2026-07-27_222843_010541 --track realm_of_thrones \\\n"
         "  --minimum-battles 5 --minimum-deployed 20 --bootstrap-repetitions 5000\n"
