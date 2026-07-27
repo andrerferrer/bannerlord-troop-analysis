@@ -4,6 +4,8 @@ Data-driven troop analysis framework for Mount & Blade II: Bannerlord.
 
 ## Start here
 
+- [`AGENTS.md`](AGENTS.md) — mandatory repository rules for normalization and analysis agents
+- [`docs/methodology/ADR-002-two-agent-batch-workflow.md`](docs/methodology/ADR-002-two-agent-batch-workflow.md) — one-batch, one-PR, two-agent workflow
 - [`docs/research/EXECUTION_TRACKER.md`](docs/research/EXECUTION_TRACKER.md) — current task status and immediate execution order
 - [`docs/research/EMPIRICAL_VALIDATION_ROADMAP.md`](docs/research/EMPIRICAL_VALIDATION_ROADMAP.md) — empirical research plan and phase gates
 - [`analysis/empirical/2026-07-23/P1_EXECUTION_REPORT.md`](analysis/empirical/2026-07-23/P1_EXECUTION_REPORT.md) — current reviewed-data state
@@ -20,6 +22,26 @@ v7.3 — tooltip-validated throwing burst score
 ```
 
 Files under `analysis/model_versions/` remain frozen until empirical evidence passes the documented recalibration gates.
+
+## Batch workflow
+
+Every new evidence batch uses **one branch and one draft pull request**, completed in two separate phases by different agents:
+
+```text
+normalization agent
+→ source retention, deterministic normalized records, review queue, validation
+→ committed handoff/ANALYSIS_PROMPT.md
+→ same PR remains draft
+→ local analysis agent checks out the same branch
+→ reviewed corrections, canonicalization, aggregation, uncertainty, analysis
+→ final validation and merge review
+```
+
+Normalization and analysis must remain separate layers even when delivered in one PR. Phase 1 normalized artifacts become immutable at handoff. Corrections are additive reviewed records, never silent replacements.
+
+All evidence and generated work must be repository-addressable. Use Git LFS for large binary source files; when that is unavailable, publish a reconstructible chunked archive with hashes and reconstruction commands.
+
+See [`AGENTS.md`](AGENTS.md) for mandatory agent behavior and [`ADR-002`](docs/methodology/ADR-002-two-agent-batch-workflow.md) for the decision record.
 
 ## Combat screenshot pipeline status
 
@@ -51,7 +73,10 @@ The current rankings are exploratory campaign-performance evidence, not a univer
 
 ## Core methodological rules
 
-- Preserve immutable raw extraction data.
+- Use one draft PR per evidence batch, with separate normalization and local-analysis agents.
+- Commit a batch-specific analysis prompt before transferring the branch.
+- Preserve immutable raw extraction and normalized data.
+- Store all reproducibility-critical source and generated artifacts in the repository.
 - Apply corrections and exclusions in separate reviewed layers with provenance.
 - Resolve troop identities against the selected module track before explanatory modeling.
 - Keep field, siege attack, and siege defense separate.
