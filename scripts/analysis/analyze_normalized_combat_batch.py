@@ -10,15 +10,19 @@ import json
 import random
 import re
 import subprocess
-import tarfile
 from collections import Counter, defaultdict
 from pathlib import Path, PurePosixPath
 from typing import Any, Iterable
 
 try:
     from scripts.analysis.build_canonical_identity_audit import normalize_display_name
+    from scripts.combat_observations.bundle import inspect_tar
 except ModuleNotFoundError:  # Direct script execution sets sys.path to scripts/analysis.
+    import sys
+
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
     from build_canonical_identity_audit import normalize_display_name
+    from combat_observations.bundle import inspect_tar
 
 CONTEXTS = ("field", "siege_attack", "siege_defense")
 COUNT_FIELDS = ("deployed", "survivors", "kills", "deaths", "wounded", "routed")
@@ -110,44 +114,12 @@ def escape_spreadsheet_formula(value: Any) -> Any:
 
 
 def safe_tar_preflight(archive_path: Path) -> dict[str, int]:
-    members_by_path: dict[str, str] = {}
-    regular_files = 0
-    total_uncompressed_bytes = 0
-    with tarfile.open(archive_path, "r:xz") as archive:
-        for member in archive.getmembers():
-            name = member.name
-            pure = PurePosixPath(name)
-            if not name or pure.is_absolute() or ".." in pure.parts:
-                raise ValueError(f"unsafe archive member path: {name!r}")
-            canonical = pure.as_posix()
-            if canonical in {"", "."}:
-                raise ValueError(f"unsafe archive member path: {name!r}")
-            if member.issym() or member.islnk() or member.isdev() or member.isfifo():
-                raise ValueError(f"unsupported archive member type: {name}")
-            if not (member.isfile() or member.isdir()):
-                raise ValueError(f"unsupported archive member type: {name}")
-            kind = "file" if member.isfile() else "directory"
-            if canonical in members_by_path:
-                raise ValueError(f"duplicate canonical archive member: {canonical}")
-            ancestors = list(PurePosixPath(canonical).parents)[:-1]
-            if any(members_by_path.get(parent.as_posix()) == "file" for parent in ancestors):
-                raise ValueError(f"archive member is nested beneath a file: {canonical}")
-            if kind == "file" and any(
-                existing.startswith(canonical + "/") for existing in members_by_path
-            ):
-                raise ValueError(f"archive file collides with a directory: {canonical}")
-            members_by_path[canonical] = kind
-            if member.isfile():
-                regular_files += 1
-                total_uncompressed_bytes += member.size
-    if len(members_by_path) > 10_000:
-        raise ValueError("archive member limit exceeded")
-    if total_uncompressed_bytes > 1_000_000_000:
-        raise ValueError("archive uncompressed-size limit exceeded")
+    members = inspect_tar(archive_path)
+    regular_files = [member for member in members if member["type"] == "file"]
     return {
-        "members": len(members_by_path),
-        "regular_files": regular_files,
-        "total_uncompressed_bytes": total_uncompressed_bytes,
+        "members": len(members),
+        "regular_files": len(regular_files),
+        "total_uncompressed_bytes": sum(int(member["size"]) for member in regular_files),
     }
 
 
@@ -265,6 +237,8 @@ def validate_normalized(
             if not isinstance(row.get(field), int) or int(row[field]) < 0:
                 errors.append(f"invalid {field}: {observation_id}")
         if all(isinstance(row.get(field), int) for field in COUNT_FIELDS):
+            if int(row["deployed"]) <= 0:
+                errors.append(f"non-positive deployed count: {observation_id}")
             accounted = sum(int(row[field]) for field in ("survivors", "deaths", "wounded", "routed"))
             if accounted != int(row["deployed"]):
                 errors.append(f"troop arithmetic mismatch: {observation_id}")
@@ -287,6 +261,8 @@ def validate_normalized(
             if not isinstance(row.get(field), int) or int(row[field]) < 0:
                 errors.append(f"invalid consolidated {field}: {'|'.join(key)}")
         if all(isinstance(row.get(field), int) for field in COUNT_FIELDS):
+            if int(row["deployed"]) <= 0:
+                errors.append(f"non-positive consolidated deployed count: {'|'.join(key)}")
             accounted = sum(int(row[field]) for field in ("survivors", "deaths", "wounded", "routed"))
             if accounted != int(row["deployed"]):
                 errors.append(f"consolidated arithmetic mismatch: {'|'.join(key)}")
@@ -444,6 +420,8 @@ def build_rankings(
         for slug, rows in groups.items():
             counts = {field: sum(int(row[field]) for row in rows) for field in COUNT_FIELDS}
             battles = len({str(row["battle_id"]) for row in rows})
+            if counts["deployed"] <= 0:
+                raise ValueError(f"non-positive deployed total for {context}|{slug}")
             reliable = battles >= minimum_battles and counts["deployed"] >= minimum_deployed
             ci_low: float | str = ""
             ci_high: float | str = ""
@@ -577,14 +555,14 @@ def main() -> None:
     analysis_dir.mkdir(parents=True, exist_ok=True)
     review_dir.mkdir(parents=True, exist_ok=True)
 
-    manifest_checks, manifest_errors = verify_manifest(
-        args.input_dir, args.batch_dir / "artifact_hashes.csv"
-    )
     archive_hash = sha256_file(args.archive_path)
     archive_ok = archive_hash == args.expected_archive_sha256
     if not archive_ok:
-        manifest_errors.append("normalized archive hash mismatch")
+        raise ValueError("normalized archive hash mismatch")
     archive_preflight = safe_tar_preflight(args.archive_path)
+    manifest_checks, manifest_errors = verify_manifest(
+        args.input_dir, args.batch_dir / "artifact_hashes.csv"
+    )
 
     battles = read_jsonl(args.input_dir / "battles.jsonl")
     occurrences = read_jsonl(args.input_dir / "troop_occurrences.jsonl")

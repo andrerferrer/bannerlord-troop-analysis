@@ -118,7 +118,7 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
                 payload = b"{}\n"
                 info.size = len(payload)
                 archive.addfile(info, io.BytesIO(payload))
-            with self.assertRaisesRegex(ValueError, "unsafe archive member path"):
+            with self.assertRaisesRegex(RuntimeError, "unsafe archive member path"):
                 MODULE.safe_tar_preflight(archive_path)
 
     def test_archive_preflight_rejects_canonical_collision(self) -> None:
@@ -129,8 +129,17 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
                     info = tarfile.TarInfo(name)
                     info.size = len(payload)
                     archive.addfile(info, io.BytesIO(payload))
-            with self.assertRaisesRegex(ValueError, "duplicate canonical archive member"):
+            with self.assertRaisesRegex(RuntimeError, "duplicate archive member name"):
                 MODULE.safe_tar_preflight(archive_path)
+
+    def test_archive_member_limit_is_enforced_during_iteration(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            archive_path = Path(directory) / "input.tar.xz"
+            with tarfile.open(archive_path, "w:xz") as archive:
+                archive.addfile(tarfile.TarInfo("one"))
+                archive.addfile(tarfile.TarInfo("two"))
+            with self.assertRaisesRegex(RuntimeError, "member count exceeds limit"):
+                MODULE.inspect_tar(archive_path, max_members=1)
 
     def test_manifest_rejects_path_escape(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -155,6 +164,19 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
     def test_csv_formula_values_are_neutralized(self) -> None:
         self.assertEqual(MODULE.escape_spreadsheet_formula("=2+2"), "'=2+2")
         self.assertEqual(MODULE.escape_spreadsheet_formula("safe"), "safe")
+
+    def test_zero_deployment_is_rejected_before_rate_calculation(self) -> None:
+        rows = [consolidated("b1", "field", "empty", 0, 0)]
+        identities = MODULE.build_identity_audit(rows, {}, "realm_of_thrones")
+        with self.assertRaisesRegex(ValueError, "non-positive deployed total"):
+            MODULE.build_rankings(
+                rows,
+                identities,
+                "batch",
+                minimum_battles=5,
+                minimum_deployed=20,
+                repetitions=100,
+            )
 
 
 if __name__ == "__main__":
