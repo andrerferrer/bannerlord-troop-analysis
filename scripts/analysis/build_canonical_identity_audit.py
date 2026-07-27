@@ -26,6 +26,7 @@ OUTPUT_COLUMNS = [
     "canonical_troop_id",
     "match_status",
     "resolution_method",
+    "evidence_kind",
     "evidence_path",
     "evidence_detail",
     "candidate_count",
@@ -174,6 +175,7 @@ def resolve_row(
         "canonical_troop_id": "",
         "match_status": "unresolved",
         "resolution_method": "",
+        "evidence_kind": "",
         "evidence_path": "",
         "evidence_detail": "",
         "candidate_count": str(len(candidates)),
@@ -210,6 +212,7 @@ def resolve_row(
                 "resolution_method": exact_resolution_method(
                     candidate, verified_existing=True
                 ),
+                "evidence_kind": candidate.evidence_kind,
                 "evidence_path": candidate.source_path,
                 "evidence_detail": exact_evidence_detail(candidate),
                 "blocking_reason": "",
@@ -219,6 +222,7 @@ def resolve_row(
             "observed_track": track_hint or "unresolved",
             "match_status": "conflict_existing_vs_track_audit",
             "resolution_method": "manual_confirmation_conflict",
+            "evidence_kind": existing.get("evidence_kind", ""),
             "evidence_path": existing.get("evidence_path", ""),
             "evidence_detail": f"Existing confirmed ID {existing_id} conflicts with supplied audit candidate(s)",
             "blocking_reason": "Resolve conflict before canonical joins",
@@ -232,6 +236,7 @@ def resolve_row(
             "canonical_troop_id": candidate.troop_id,
             "match_status": CONFIRMED,
             "resolution_method": exact_resolution_method(candidate),
+            "evidence_kind": candidate.evidence_kind,
             "evidence_path": candidate.source_path,
             "evidence_detail": exact_evidence_detail(candidate),
             "blocking_reason": "",
@@ -242,6 +247,9 @@ def resolve_row(
             **base,
             "match_status": "ambiguous_exact_name",
             "resolution_method": "exact_name_multiple_candidates",
+            "evidence_kind": "|".join(
+                sorted({candidate.evidence_kind for candidate in candidates})
+            ),
             "evidence_path": "|".join(sorted({candidate.source_path for candidate in candidates})),
             "evidence_detail": "Multiple exact normalized name matches",
             "blocking_reason": "Select the correct track/troop ID explicitly",

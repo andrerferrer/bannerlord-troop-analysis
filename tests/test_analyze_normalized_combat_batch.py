@@ -82,6 +82,10 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
             identities[0]["resolution_method"],
             "historical_pr_reported_exact_name_in_versioned_source",
         )
+        self.assertEqual(
+            identities[0]["evidence_kind"],
+            MODULE.HISTORICAL_REPORTED_EXACT,
+        )
 
     def test_reliable_gate_uses_independent_battles_and_deployed(self) -> None:
         rows = [

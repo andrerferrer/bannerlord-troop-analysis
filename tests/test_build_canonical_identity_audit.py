@@ -50,6 +50,10 @@ class CanonicalIdentityResolverTests(unittest.TestCase):
             resolved["resolution_method"],
             "historical_pr_reported_exact_name",
         )
+        self.assertEqual(
+            resolved["evidence_kind"],
+            module.HISTORICAL_REPORTED_EXACT,
+        )
 
     def test_cross_track_duplicate_is_ambiguous(self):
         row = {"canonical_name_slug": "reaver_t4", "display_name": "Reaver [T4]"}

@@ -7,6 +7,7 @@
       "reported_full_audit_rows": 6187,
       "rows": 15,
       "sha256": "3c37b6578f27c0e1a9b10760d95037d804561d699cd514a17bde638f59eec2c1",
+      "source_track": "realm_of_thrones",
       "track": "realm_of_thrones"
     },
     {
@@ -16,6 +17,7 @@
       "reported_full_audit_rows": 1937,
       "rows": 1,
       "sha256": "032c23d7e01a153828604bdd2c7366b552907604588914649c0254b0f304530c",
+      "source_track": "vanilla",
       "track": "vanilla"
     },
     {
@@ -25,6 +27,8 @@
       "reported_full_audit_rows": 1937,
       "rows": 1,
       "sha256": "c8cbd89f2e83bbe25ff4ecd5e5789c5b2f7d10f8b7c53ce49baef060ad3fb7df",
+      "source_track": "vanilla",
+      "track_override_reason": "PR #20 grouped NavalDLC under vanilla; preserve the repository's existing war_sails_official boundary",
       "track": "war_sails_official"
     }
   ],

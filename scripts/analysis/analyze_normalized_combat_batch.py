@@ -55,6 +55,7 @@ IDENTITY_FIELDS = (
     "canonical_troop_id",
     "match_status",
     "resolution_method",
+    "evidence_kind",
     "evidence_paths",
     "candidate_count",
     "candidate_troop_ids",
@@ -454,9 +455,12 @@ def collect_identity_candidates(
                 name = row.get("display_name", "")
                 resolution_method = row.get("resolution_method") or ""
                 evidence_kind = (
-                    HISTORICAL_REPORTED_EXACT
-                    if resolution_method.startswith("historical_pr_reported_exact")
-                    else "versioned_track_reference"
+                    (row.get("evidence_kind") or "").strip()
+                    or (
+                        HISTORICAL_REPORTED_EXACT
+                        if resolution_method.startswith("historical_pr_reported_exact")
+                        else "versioned_track_reference"
+                    )
                 )
                 candidate = (
                     row["canonical_troop_id"],
@@ -507,6 +511,15 @@ def build_identity_audit(
                         else "exact_normalized_display_name_in_versioned_track_reference"
                     )
                     if confirmed
+                    else ""
+                ),
+                "evidence_kind": (
+                    HISTORICAL_REPORTED_EXACT
+                    if confirmed and historical_only
+                    else "versioned_track_reference"
+                    if confirmed
+                    else "|".join(sorted(evidence_kinds))
+                    if len(ids) > 1
                     else ""
                 ),
                 "evidence_paths": "|".join(paths),

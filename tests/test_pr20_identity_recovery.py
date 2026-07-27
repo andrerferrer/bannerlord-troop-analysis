@@ -20,8 +20,8 @@ sys.modules[spec.name] = resolver
 spec.loader.exec_module(resolver)
 
 
-def source_identity_pairs() -> set[tuple[str, str]]:
-    pairs: set[tuple[str, str]] = set()
+def source_identity_triples() -> set[tuple[str, str, str]]:
+    triples: set[tuple[str, str, str]] = set()
     in_table = False
     source = (RECOVERY_ROOT / "SOURCE_PR_BODY.md").read_text(encoding="utf-8")
     for line in source.splitlines():
@@ -34,9 +34,10 @@ def source_identity_pairs() -> set[tuple[str, str]]:
             break
         cells = [cell.strip() for cell in line.strip("|").split("|")]
         name = re.sub(r" \[T\d+\]$", "", cells[0])
+        source_track = cells[1]
         troop_id = cells[2].split("`")[1]
-        pairs.add((resolver.normalize_display_name(name), troop_id))
-    return pairs
+        triples.add((source_track, resolver.normalize_display_name(name), troop_id))
+    return triples
 
 
 class Pr20IdentityRecoveryTests(unittest.TestCase):
@@ -48,7 +49,7 @@ class Pr20IdentityRecoveryTests(unittest.TestCase):
             hashlib.sha256(source_path.read_bytes()).hexdigest(),
             manifest["source"]["body_sha256_utf8"],
         )
-        recovered_pairs: set[tuple[str, str]] = set()
+        recovered_triples: set[tuple[str, str, str]] = set()
         for artifact in manifest["artifacts"]:
             artifact_path = RECOVERY_ROOT / artifact["path"]
             self.assertEqual(
@@ -74,11 +75,22 @@ class Pr20IdentityRecoveryTests(unittest.TestCase):
                 len({(row["troop_id"], resolver.normalize_display_name(row["name"])) for row in rows}),
                 len(rows),
             )
-            recovered_pairs.update(
-                (resolver.normalize_display_name(row["name"]), row["troop_id"])
+            recovered_triples.update(
+                (
+                    artifact["source_track"],
+                    resolver.normalize_display_name(row["name"]),
+                    row["troop_id"],
+                )
                 for row in rows
             )
-        self.assertEqual(recovered_pairs, source_identity_pairs())
+        self.assertEqual(recovered_triples, source_identity_triples())
+        war_sails = next(
+            artifact
+            for artifact in manifest["artifacts"]
+            if artifact["track"] == "war_sails_official"
+        )
+        self.assertEqual(war_sails["source_track"], "vanilla")
+        self.assertIn("NavalDLC under vanilla", war_sails["track_override_reason"])
 
     def test_recovered_exact_matches_resolve_seventeen_baseline_labels(self):
         manifest = json.loads((RECOVERY_ROOT / "manifest.json").read_text(encoding="utf-8"))

@@ -45,6 +45,8 @@ It also recorded the missing full-audit hashes:
 - `war_sails_exact_matches.csv` contains the published NavalDLC relationship.
   PR #20 grouped both under its generated `vanilla` audit; the recovery keeps
   the repository's existing `war_sails_official` track boundary explicit.
+  `manifest.json` records both the published `source_track` and the effective
+  repository `track`, including the reason for this one intentional override.
 - The five Rhodok-labelled rows and the two near-miss-only rows remain
   unresolved.
 - Every compact row is tagged `historical_pr_reported_exact`; this distinguishes
