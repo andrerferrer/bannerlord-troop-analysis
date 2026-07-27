@@ -62,6 +62,27 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
         self.assertEqual(unresolved[0]["canonical_troop_id"], "")
         self.assertEqual(unresolved[0]["match_status"], "unresolved")
 
+    def test_historical_identity_evidence_tier_is_preserved(self) -> None:
+        rows = [consolidated("b1", "field", "riverlands_ranger", 10, 20)]
+        identities = MODULE.build_identity_audit(
+            rows,
+            {
+                "riverlands ranger": [
+                    (
+                        "river_ranger",
+                        "data/canonical_identity_recovery/pr20/realm_of_thrones_exact_matches.csv",
+                        MODULE.HISTORICAL_REPORTED_EXACT,
+                    )
+                ]
+            },
+            "realm_of_thrones",
+        )
+        self.assertEqual(identities[0]["match_status"], "confirmed_id")
+        self.assertEqual(
+            identities[0]["resolution_method"],
+            "historical_pr_reported_exact_name_in_versioned_source",
+        )
+
     def test_reliable_gate_uses_independent_battles_and_deployed(self) -> None:
         rows = [
             consolidated(f"b{index}", "siege_attack", "ravens_teeth", 5, 10)

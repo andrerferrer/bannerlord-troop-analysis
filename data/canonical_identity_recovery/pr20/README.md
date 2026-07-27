@@ -1,10 +1,11 @@
 # PR #20 canonical identity recovery
 
-This directory preserves the exact name-to-`troop_id` relationships published in
-the body of historical pull request
-[#20](https://github.com/andrerferrer/bannerlord-troop-analysis/pull/20).
+This directory preserves the exact body of historical pull request
+[#20](https://github.com/andrerferrer/bannerlord-troop-analysis/pull/20) in
+`SOURCE_PR_BODY.md` and the exact name-to-`troop_id` relationships published
+there.
 
-The pull request reported that these relationships were produced by unique exact
+The source snapshot reports that these relationships were produced by unique exact
 normalized display-name matches against audits generated from the installed game.
 The attempted Base64 transport of the complete audit bundle was corrupt and the
 full audit CSVs were never merged. These compact recovery tables therefore preserve
@@ -19,6 +20,7 @@ all-troop audits and must not be used for attribute or equipment joins.
 | Title | `Resolve canonical troop identities from local track audits` |
 | Created | `2026-07-26T21:41:05Z` |
 | Closed | `2026-07-26T23:10:19Z` |
+| Versioned source snapshot | `SOURCE_PR_BODY.md` |
 | PR body UTF-8 bytes | `6927` |
 | PR body SHA-256 | `fe9090c797081893358f849d7be8b9c4711c287891f9b6a7a38a5d0423e3ae08` |
 
@@ -45,5 +47,8 @@ It also recorded the missing full-audit hashes:
   the repository's existing `war_sails_official` track boundary explicit.
 - The five Rhodok-labelled rows and the two near-miss-only rows remain
   unresolved.
+- Every compact row is tagged `historical_pr_reported_exact`; this distinguishes
+  the versioned historical report from a directly available complete track audit
+  in machine-readable resolver output.
 - A complete track audit is still required before feature joins or full
   canonical-dataset promotion.

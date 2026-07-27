@@ -18,6 +18,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 CONFIRMED = "confirmed_id"
+HISTORICAL_REPORTED_EXACT = "historical_pr_reported_exact"
 OUTPUT_COLUMNS = [
     "provisional_slug",
     "display_name",
@@ -40,6 +41,7 @@ class Candidate:
     troop_id: str
     source_name: str
     source_path: str
+    evidence_kind: str = "generated_track_audit"
 
 
 def read_rows(path: Path) -> list[dict[str, str]]:
@@ -84,22 +86,65 @@ def load_candidates(specs: list[tuple[str, Path]]) -> dict[str, list[Candidate]]
             source_name = (row.get("name") or "").strip()
             if not troop_id or not source_name:
                 continue
-            candidate = Candidate(track, troop_id, source_name, str(path))
+            evidence_kind = (row.get("evidence_kind") or "generated_track_audit").strip()
+            candidate = Candidate(track, troop_id, source_name, str(path), evidence_kind)
             key = normalize_display_name(source_name)
             if candidate not in by_name[key]:
                 by_name[key].append(candidate)
     return by_name
 
 
+def describe_track_audit(track: str, path: Path) -> dict[str, object]:
+    rows = read_rows(path)
+    return {
+        "track": track,
+        "path": str(path),
+        "input_rows": len(rows),
+        "evidence_kinds": sorted(
+            {(row.get("evidence_kind") or "generated_track_audit").strip() for row in rows}
+        ),
+        "coverage_scopes": sorted(
+            {(row.get("coverage_scope") or "unspecified").strip() for row in rows}
+        ),
+        "reported_full_audit_rows": sorted(
+            {
+                int(row["reported_full_audit_rows"])
+                for row in rows
+                if (row.get("reported_full_audit_rows") or "").strip()
+            }
+        ),
+    }
+
+
 def unique_candidates(candidates: list[Candidate]) -> list[Candidate]:
-    result: list[Candidate] = []
-    seen: set[tuple[str, str]] = set()
+    result: dict[tuple[str, str], Candidate] = {}
     for candidate in candidates:
         key = (candidate.track, candidate.troop_id)
-        if key not in seen:
-            seen.add(key)
-            result.append(candidate)
-    return result
+        existing = result.get(key)
+        if existing is None or (
+            existing.evidence_kind == HISTORICAL_REPORTED_EXACT
+            and candidate.evidence_kind != HISTORICAL_REPORTED_EXACT
+        ):
+            result[key] = candidate
+    return list(result.values())
+
+
+def exact_resolution_method(candidate: Candidate, verified_existing: bool = False) -> str:
+    method = (
+        "historical_pr_reported_exact_name"
+        if candidate.evidence_kind == HISTORICAL_REPORTED_EXACT
+        else "exact_normalized_name"
+    )
+    return f"{method}_verified_existing" if verified_existing else method
+
+
+def exact_evidence_detail(candidate: Candidate) -> str:
+    qualifier = (
+        " published in versioned historical PR source"
+        if candidate.evidence_kind == HISTORICAL_REPORTED_EXACT
+        else ""
+    )
+    return f"Exact normalized display-name match{qualifier}: {candidate.source_name}"
 
 
 def resolve_row(
@@ -162,9 +207,11 @@ def resolve_row(
                 "observed_track": candidate.track,
                 "canonical_troop_id": candidate.troop_id,
                 "match_status": CONFIRMED,
-                "resolution_method": "exact_normalized_name_verified_existing",
+                "resolution_method": exact_resolution_method(
+                    candidate, verified_existing=True
+                ),
                 "evidence_path": candidate.source_path,
-                "evidence_detail": f"Exact normalized display-name match: {candidate.source_name}",
+                "evidence_detail": exact_evidence_detail(candidate),
                 "blocking_reason": "",
             }
         return {
@@ -184,9 +231,9 @@ def resolve_row(
             "observed_track": candidate.track,
             "canonical_troop_id": candidate.troop_id,
             "match_status": CONFIRMED,
-            "resolution_method": "exact_normalized_name",
+            "resolution_method": exact_resolution_method(candidate),
             "evidence_path": candidate.source_path,
-            "evidence_detail": f"Exact normalized display-name match: {candidate.source_name}",
+            "evidence_detail": exact_evidence_detail(candidate),
             "blocking_reason": "",
         }
 
@@ -261,7 +308,9 @@ def main() -> None:
         "confirmed_ids": len(output_rows) - len(unresolved),
         "unresolved": len(unresolved),
         "status_counts": {},
-        "track_audits": [{"track": track, "path": str(path)} for track, path in args.track_audit],
+        "track_audits": [
+            describe_track_audit(track, path) for track, path in args.track_audit
+        ],
         "unresolved_slugs": [row["provisional_slug"] for row in unresolved],
     }
     for row in output_rows:

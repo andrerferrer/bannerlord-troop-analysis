@@ -39,7 +39,7 @@ riverlands_elite_archer,Riverlands Elite Archer [T4],realm_of_thrones,,unresolve
 riverlands_elite_swordsman,Riverlands Elite Swordsman [T4],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
 riverlands_house_guard,Riverlands House Guard [T5],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
 riverlands_man_at_arms,Riverlands Man at Arms [T4],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
-riverlands_ranger,Riverlands Ranger [T5],realm_of_thrones,river_ranger,confirmed_id,exact_normalized_display_name_in_versioned_track_reference,analysis/empirical/2026-07-23/canonical_identity_audit.csv,1,river_ranger,
+riverlands_ranger,Riverlands Ranger [T5],realm_of_thrones,river_ranger,confirmed_id,historical_pr_reported_exact_name_in_versioned_source,analysis/empirical/2026-07-23/canonical_identity_audit.csv,1,river_ranger,
 riverlands_soldier,Riverlands Soldier [T3],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
 riverlands_swordmaster,Riverlands Swordmaster [T5],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
 westerlands_banner_knight,Westerlands Banner Knight [T6],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references

@@ -7,15 +7,45 @@
   },
   "track_audits": [
     {
+      "coverage_scopes": [
+        "sparse_published_exact_matches"
+      ],
+      "evidence_kinds": [
+        "historical_pr_reported_exact"
+      ],
+      "input_rows": 15,
       "path": "data/canonical_identity_recovery/pr20/realm_of_thrones_exact_matches.csv",
+      "reported_full_audit_rows": [
+        6187
+      ],
       "track": "realm_of_thrones"
     },
     {
+      "coverage_scopes": [
+        "sparse_published_exact_matches"
+      ],
+      "evidence_kinds": [
+        "historical_pr_reported_exact"
+      ],
+      "input_rows": 1,
       "path": "data/canonical_identity_recovery/pr20/vanilla_exact_matches.csv",
+      "reported_full_audit_rows": [
+        1937
+      ],
       "track": "vanilla"
     },
     {
+      "coverage_scopes": [
+        "sparse_published_exact_matches"
+      ],
+      "evidence_kinds": [
+        "historical_pr_reported_exact"
+      ],
+      "input_rows": 1,
       "path": "data/canonical_identity_recovery/pr20/war_sails_exact_matches.csv",
+      "reported_full_audit_rows": [
+        1937
+      ],
       "track": "war_sails_official"
     }
   ],
