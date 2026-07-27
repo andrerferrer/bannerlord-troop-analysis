@@ -84,6 +84,25 @@ class Pr20IdentityRecoveryTests(unittest.TestCase):
                 for row in rows
             )
         self.assertEqual(recovered_triples, source_identity_triples())
+        self.assertEqual(
+            {
+                (artifact["path"], artifact["source_track"], artifact["track"])
+                for artifact in manifest["artifacts"]
+            },
+            {
+                (
+                    "realm_of_thrones_exact_matches.csv",
+                    "realm_of_thrones",
+                    "realm_of_thrones",
+                ),
+                ("vanilla_exact_matches.csv", "vanilla", "vanilla"),
+                (
+                    "war_sails_exact_matches.csv",
+                    "vanilla",
+                    "war_sails_official",
+                ),
+            },
+        )
         war_sails = next(
             artifact
             for artifact in manifest["artifacts"]
