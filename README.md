@@ -5,6 +5,7 @@ Data-driven troop analysis framework for Mount & Blade II: Bannerlord.
 ## Start here
 
 - [`AGENTS.md`](AGENTS.md) — mandatory repository rules for normalization and analysis agents
+- [`docs/protocols/analysis-task-v1.md`](docs/protocols/analysis-task-v1.md) — versioned PR-comment analysis queue
 - [`docs/methodology/ADR-002-two-agent-batch-workflow.md`](docs/methodology/ADR-002-two-agent-batch-workflow.md) — one-batch, one-PR, two-agent workflow
 - [`docs/research/EXECUTION_TRACKER.md`](docs/research/EXECUTION_TRACKER.md) — current task status and immediate execution order
 - [`docs/research/EMPIRICAL_VALIDATION_ROADMAP.md`](docs/research/EMPIRICAL_VALIDATION_ROADMAP.md) — empirical research plan and phase gates
@@ -31,17 +32,35 @@ Every new evidence batch uses **one branch and one draft pull request**, complet
 normalization agent
 → source retention, deterministic normalized records, review queue, validation
 → committed handoff/ANALYSIS_PROMPT.md
-→ same PR remains draft
+→ versioned pending comment in the same draft PR
 → local analysis agent checks out the same branch
 → reviewed corrections, canonicalization, aggregation, uncertainty, analysis
-→ final validation and merge review
+→ complete comment, validation, and merge
 ```
 
 Normalization and analysis must remain separate layers even when delivered in one PR. Phase 1 normalized artifacts become immutable at handoff. Corrections are additive reviewed records, never silent replacements.
 
 All evidence and generated work must be repository-addressable. Use Git LFS for large binary source files; when that is unavailable, publish a reconstructible chunked archive with hashes and reconstruction commands.
 
-See [`AGENTS.md`](AGENTS.md) for mandatory agent behavior and [`ADR-002`](docs/methodology/ADR-002-two-agent-batch-workflow.md) for the decision record.
+### Analysis queue
+
+Open PRs plus their append-only `bannerlord-analysis-task:v1` comments form the complete local-analysis queue. The newest valid comment for a `task_id` is authoritative; PR bodies, labels, issues, and chat history are not task state.
+
+Discover actionable work from the repository root:
+
+```bash
+python scripts/analysis/discover_analysis_tasks.py
+```
+
+Machine-readable output for a local agent:
+
+```bash
+python scripts/analysis/discover_analysis_tasks.py --json
+```
+
+The operator instruction `Fecha as análises` means: discover all actionable comments, execute each handoff, publish state transitions, and merge every task that passes its gates.
+
+See [`AGENTS.md`](AGENTS.md), the [v1 protocol](docs/protocols/analysis-task-v1.md), and [`ADR-002`](docs/methodology/ADR-002-two-agent-batch-workflow.md).
 
 ## Combat screenshot pipeline status
 
@@ -75,6 +94,7 @@ The current rankings are exploratory campaign-performance evidence, not a univer
 
 - Use one draft PR per evidence batch, with separate normalization and local-analysis agents.
 - Commit a batch-specific analysis prompt before transferring the branch.
+- Publish and advance analysis state through versioned append-only PR comments.
 - Preserve immutable raw extraction and normalized data.
 - Store all reproducibility-critical source and generated artifacts in the repository.
 - Apply corrections and exclusions in separate reviewed layers with provenance.
