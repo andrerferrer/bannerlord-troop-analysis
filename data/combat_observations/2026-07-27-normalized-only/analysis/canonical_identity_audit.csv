@@ -1,0 +1,49 @@
+provisional_slug,display_name,observed_track,canonical_troop_id,match_status,resolution_method,evidence_paths,candidate_count,candidate_troop_ids,blocking_reason
+blackwood_archer,Blackwood Archer [T4],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+blackwood_bowman,Blackwood Bowman [T3],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+blackwood_footman,Blackwood Footman [T3],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+blackwood_horseman,Blackwood Horseman [T5],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+blackwood_house_guard,Blackwood House Guard [T5],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+blackwood_levy,Blackwood Levy [T2],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+blackwood_longbowman,Blackwood Longbowman [T5],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+blackwood_man_at_arms,Blackwood Man at Arms [T4],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+blackwood_recruit,Blackwood Recruit [T1],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+blackwood_scout,Blackwood Scout [T4],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+bracken_pikemaster,Bracken Pikemaster [T6],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+guardian_of_the_rock,Guardian of the Rock [T6],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+mallister_archer,Mallister Archer [T4],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+mallister_eagle_knight,Mallister Eagle Knight [T6],realm_of_thrones,mallister_knight,confirmed_id,exact_normalized_display_name_in_versioned_track_reference,data/rot_reference/empirical/20260703_contextual_control_status.csv|data/rot_reference/empirical/20260703_model_vs_empirical_delta_controls.csv|data/rot_reference/empirical/20260703_v42_control_adjustments.csv|data/rot_reference/empirical/20260717_robust_metric_audit.csv|data/rot_reference/hot_20260628/v41_castellan_house_corrections.csv,1,mallister_knight,
+mallister_elite_archer,Mallister Elite Archer [T5],realm_of_thrones,mallister_elite_archer,confirmed_id,exact_normalized_display_name_in_versioned_track_reference,data/rot_reference/hot_20260628/v41_castellan_house_corrections.csv,1,mallister_elite_archer,
+mallister_footman,Mallister Footman [T3],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+mallister_horseman,Mallister Horseman [T4],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+mallister_house_guard,Mallister House Guard [T5],realm_of_thrones,mallister_houseguard,confirmed_id,exact_normalized_display_name_in_versioned_track_reference,data/rot_reference/hot_20260628/v41_castellan_house_corrections.csv|data/rot_reference/hot_20260717/v43_top20_overall.csv,1,mallister_houseguard,
+mallister_man_at_arms,Mallister Man at Arms [T4],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+marauder,Marauder [T5],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+northern_archer,Northern Archer [T4],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+northern_colonel,Northern Colonel [T5],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+northern_hero,Northern Hero [T4],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+northern_horseman,Northern Horseman [T5],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+northern_mounted_warlord,Northern Mounted Warlord [T6],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+northern_noble_warrior,Northern Noble Warrior [T3],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+northern_pikeman,Northern Pikeman [T5],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+northern_ranger,Northern Ranger [T5],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+northern_scout,Northern Scout [T4],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+northern_winter_champion,Northern Winter Champion [T5],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+northern_winter_warrior,Northern Winter Warrior [T4],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+ravens_teeth,Ravens' Teeth [T6],realm_of_thrones,ravens_teeth,confirmed_id,exact_normalized_display_name_in_versioned_track_reference,data/rot_reference/empirical/20260703_contextual_control_status.csv|data/rot_reference/empirical/20260703_model_vs_empirical_delta_controls.csv|data/rot_reference/empirical/20260703_v42_control_adjustments.csv|data/rot_reference/empirical/20260717_robust_metric_audit.csv|data/rot_reference/hot_20260628/v41_key_controls.csv|data/rot_reference/hot_20260628/v4_integrated_key_controls.csv|data/rot_reference/hot_20260717/v43_top20_overall.csv,1,ravens_teeth,
+riverlands_admiral,Riverlands Admiral [T6],realm_of_thrones,river_admiral,confirmed_id,exact_normalized_display_name_in_versioned_track_reference,data/rot_reference/empirical/20260703_contextual_control_status.csv|data/rot_reference/empirical/20260703_model_vs_empirical_delta_controls.csv|data/rot_reference/empirical/20260703_v42_control_adjustments.csv|data/rot_reference/empirical/20260717_robust_metric_audit.csv|data/rot_reference/hot_20260717/v43_top20_overall.csv,1,river_admiral,
+riverlands_archer,Riverlands Archer [T3],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+riverlands_axeman,Riverlands Axeman [T5],realm_of_thrones,river_axeman,confirmed_id,exact_normalized_display_name_in_versioned_track_reference,data/rot_reference/empirical/20260717_robust_metric_audit.csv,1,river_axeman,
+riverlands_cavalry,Riverlands Cavalry [T5],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+riverlands_elite_archer,Riverlands Elite Archer [T4],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+riverlands_elite_swordsman,Riverlands Elite Swordsman [T4],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+riverlands_house_guard,Riverlands House Guard [T5],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+riverlands_man_at_arms,Riverlands Man at Arms [T4],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+riverlands_ranger,Riverlands Ranger [T5],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+riverlands_soldier,Riverlands Soldier [T3],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+riverlands_swordmaster,Riverlands Swordmaster [T5],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+westerlands_banner_knight,Westerlands Banner Knight [T6],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+westerlands_militia_archer,Westerlands Militia Archer [T2],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+westerlands_militia_spearman,Westerlands Militia Spearman [T2],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+westerlands_militia_veteran_archer,Westerlands Militia Veteran Archer [T4],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references
+westerlands_sharpshooter,Westerlands Sharpshooter [T5],realm_of_thrones,,unresolved,,,0,,No exact name-to-ID match in versioned Realm of Thrones references

@@ -10,10 +10,10 @@ The normalization agent must not perform the analytical phase. The analysis agen
 
 The normalization agent must:
 
-1. preserve source provenance and calculate SHA-256 hashes;
-2. store every source and generated artifact in the repository;
-3. use Git LFS for large binary source files when available;
-4. otherwise publish a reconstructible chunked archive with a manifest, reconstruction commands, and expected hash;
+1. preserve known source provenance and calculate SHA-256 hashes;
+2. store every generated artifact required to reproduce downstream analysis in the repository;
+3. publish a deterministic normalized archive with a manifest, reconstruction commands, and expected hash;
+4. retain raw screenshots through Git LFS or a reconstructible source package when useful and available, but do not require raw retention after the normalized evidence passes its integrity and validation gates;
 5. normalize the source into deterministic structured records;
 6. keep player and enemy sides separate;
 7. keep field, siege attack, and siege defense separate;
@@ -33,7 +33,7 @@ The local analysis agent must:
 
 1. check out the same branch and continue the same pull request;
 2. read the batch-specific `handoff/ANALYSIS_PROMPT.md` before changing files;
-3. verify source and normalized hashes;
+3. verify the normalized archive and artifact hashes, plus raw-source hashes when raw evidence is retained;
 4. treat normalized artifacts as immutable inputs;
 5. record corrections in a separate reviewed layer with provenance;
 6. resolve troop identities only against versioned track audits;
@@ -92,7 +92,7 @@ Protocol specification:
 
 A batch pull request remains draft after normalization. It may be marked ready and merged only when:
 
-- source evidence is repository-addressable;
+- the deterministic normalized evidence is repository-addressable and reconstructible;
 - normalization and structural validation are complete;
 - the analysis prompt is committed;
 - the latest protocol comment for the task is `complete`;

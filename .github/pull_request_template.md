@@ -8,7 +8,8 @@
 
 ## Phase 1 — normalization agent
 
-- [ ] Source evidence is repository-addressable.
+- [ ] Normalized evidence is repository-addressable and reconstructible.
+- [ ] Raw-source retention status and known provenance are documented.
 - [ ] Source manifest and hashes are committed.
 - [ ] Normalized records and validation are committed.
 - [ ] Side, track, and battle-context boundaries remain separate.

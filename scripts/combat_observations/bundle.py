@@ -12,6 +12,7 @@ import re
 import shutil
 import tarfile
 import tempfile
+import unicodedata
 from dataclasses import asdict, dataclass
 from pathlib import Path, PurePosixPath
 from typing import Iterable, Sequence
@@ -234,25 +235,31 @@ def inspect_tar(
     members: list[dict[str, object]] = []
     try:
         with tarfile.open(archive_path, mode="r:xz") as archive:
-            archive_members = archive.getmembers()
-            if len(archive_members) > max_members:
-                raise BundleError(
-                    f"tar member count exceeds limit: {len(archive_members)} > {max_members}"
-                )
-            seen: set[str] = set()
-            seen_casefold: set[str] = set()
+            seen: dict[str, str] = {}
             total_uncompressed = 0
-            for member in archive_members:
+            for member_count, member in enumerate(archive, start=1):
+                if member_count > max_members:
+                    raise BundleError(
+                        f"tar member count exceeds limit: {member_count} > {max_members}"
+                    )
                 _safe_member_path(Path("/safe-root"), member.name)
                 normalized = PurePosixPath(member.name).as_posix()
-                if normalized in seen or normalized.casefold() in seen_casefold:
+                collision_key = unicodedata.normalize("NFC", normalized).casefold()
+                if collision_key in seen:
                     raise BundleError(f"duplicate archive member name: {normalized}")
-                seen.add(normalized)
-                seen_casefold.add(normalized.casefold())
                 if member.issym() or member.islnk():
                     raise BundleError(f"archive links are not allowed: {member.name}")
                 if not (member.isfile() or member.isdir()):
                     raise BundleError(f"unsupported archive member type: {member.name}")
+                kind = "file" if member.isfile() else "directory"
+                ancestors = list(PurePosixPath(collision_key).parents)[:-1]
+                if any(seen.get(parent.as_posix()) == "file" for parent in ancestors):
+                    raise BundleError(f"archive member is nested beneath a file: {normalized}")
+                if kind == "file" and any(
+                    existing.startswith(collision_key + "/") for existing in seen
+                ):
+                    raise BundleError(f"archive file collides with a directory: {normalized}")
+                seen[collision_key] = kind
                 if member.isfile():
                     total_uncompressed += member.size
                     if total_uncompressed > max_uncompressed_bytes:
@@ -260,7 +267,7 @@ def inspect_tar(
                             "tar declared uncompressed size exceeds limit: "
                             f"{total_uncompressed} > {max_uncompressed_bytes}"
                         )
-                members.append({"name": member.name, "size": member.size, "type": "file" if member.isfile() else "directory"})
+                members.append({"name": member.name, "size": member.size, "type": kind})
     except (tarfile.TarError, lzma.LZMAError, EOFError) as error:
         raise BundleError(f"invalid tar.xz archive: {error}") from error
     return members
@@ -283,7 +290,7 @@ def safe_extract_tar(archive_path: Path, destination: Path) -> None:
                 source = archive.extractfile(member)
                 if source is None:
                     raise BundleError(f"could not read archive member: {member.name}")
-                with source, target.open("wb") as output:
+                with source, target.open("xb") as output:
                     shutil.copyfileobj(source, output, length=1024 * 1024)
         if destination.exists() or destination.is_symlink():
             if not directory_trees_equal(destination, temporary):

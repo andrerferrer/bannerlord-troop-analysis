@@ -43,7 +43,7 @@ The invocation script must discover a compatible repository/package or fail with
 
 ## Respect gates
 
-- Require source ZIP and per-file SHA-256 manifests.
+- Require one verified immutable analysis input: the original ZIP when processing raw screenshots, or a deterministic normalized bundle with per-artifact SHA-256 manifests for offline reanalysis. Raw ZIP retention is optional after the normalized bundle passes integrity and validation gates; record its provenance and absence as a limitation.
 - Reject corrupt archives, traversal, absolute paths, symlinks, duplicate members, suspicious compression, and resource-limit violations.
 - Keep raw extraction immutable.
 - Keep corrections in the reviewed layer with original/corrected values and provenance.
