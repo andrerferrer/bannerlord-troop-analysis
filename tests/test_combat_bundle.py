@@ -240,6 +240,18 @@ class BundleTests(unittest.TestCase):
         with self.assertRaisesRegex(BundleError, "duplicate archive member"):
             inspect_tar(archive_path)
 
+    def test_unicode_equivalent_tar_members_are_rejected(self) -> None:
+        output = io.BytesIO()
+        with tarfile.open(fileobj=output, mode="w:xz") as archive:
+            for name, payload in (("d/é.txt", b"first"), ("d/e\u0301.txt", b"second")):
+                info = tarfile.TarInfo(name)
+                info.size = len(payload)
+                archive.addfile(info, io.BytesIO(payload))
+        archive_path = self.root / "unicode-collision.tar.xz"
+        archive_path.write_bytes(output.getvalue())
+        with self.assertRaisesRegex(BundleError, "duplicate archive member"):
+            inspect_tar(archive_path)
+
     def test_tar_size_limit_is_enforced(self) -> None:
         archive_path = self.root / "oversize.tar.xz"
         archive_path.write_bytes(build_tar(valid_payloads()))
