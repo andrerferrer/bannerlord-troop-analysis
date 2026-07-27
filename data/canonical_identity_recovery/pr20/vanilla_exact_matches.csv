@@ -1,0 +1,2 @@
+troop_id,name,source_pr,source_method,reported_full_audit_sha256
+western_crossbow_t5,Elite Hired Crossbow,https://github.com/andrerferrer/bannerlord-troop-analysis/pull/20,unique_exact_normalized_display_name,669e57b2338f90615517466dff4a1baf0b9540c02cc093124ab1c8520d363df3

@@ -1,0 +1,32 @@
+{
+  "baseline_labels": 24,
+  "confirmed_ids": 17,
+  "status_counts": {
+    "confirmed_id": 17,
+    "unresolved": 7
+  },
+  "track_audits": [
+    {
+      "path": "data/canonical_identity_recovery/pr20/realm_of_thrones_exact_matches.csv",
+      "track": "realm_of_thrones"
+    },
+    {
+      "path": "data/canonical_identity_recovery/pr20/vanilla_exact_matches.csv",
+      "track": "vanilla"
+    },
+    {
+      "path": "data/canonical_identity_recovery/pr20/war_sails_exact_matches.csv",
+      "track": "war_sails_official"
+    }
+  ],
+  "unresolved": 7,
+  "unresolved_slugs": [
+    "rhoynar_bahriyyah_t5",
+    "rhodok_admiral_sharpshooter",
+    "rhodok_sharpshooter",
+    "rhodok_river_guard",
+    "rhodok_sarge",
+    "rhodok_river_hunter",
+    "reaver_t4"
+  ]
+}
