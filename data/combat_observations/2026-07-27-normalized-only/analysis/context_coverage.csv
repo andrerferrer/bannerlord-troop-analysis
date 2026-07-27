@@ -1,0 +1,5 @@
+context,independent_battles,observed_labels,deployed,reliable_labels,insufficient_labels,minimum_battles,minimum_deployed
+overall,10,48,2009,11,37,5,20
+field,4,21,705,0,21,5,20
+siege_attack,5,42,1113,6,36,5,20
+siege_defense,1,13,191,0,13,5,20

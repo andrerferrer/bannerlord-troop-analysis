@@ -1,0 +1,18 @@
+context,rank,display_name,provisional_slug,canonical_troop_id,identity_status,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,ci95_low,ci95_high,reliability_status
+overall,1,Northern Winter Champion [T5],northern_winter_champion,,unresolved,5,34,22,148,6,6,0,4.352941,0.176471,0.352941,0.358974,15.538462,reliable
+overall,2,Ravens' Teeth [T6],ravens_teeth,ravens_teeth,confirmed_id,10,184,148,656,8,28,0,3.565217,0.043478,0.195652,2.718593,4.621622,reliable
+overall,3,Mallister Elite Archer [T5],mallister_elite_archer,mallister_elite_archer,confirmed_id,10,331,268,373,21,42,0,1.126888,0.063444,0.190332,0.608309,1.952663,reliable
+overall,4,Westerlands Banner Knight [T6],westerlands_banner_knight,,unresolved,7,58,51,55,2,5,0,0.948276,0.034483,0.120690,0.696429,1.145455,reliable
+overall,5,Riverlands Ranger [T5],riverlands_ranger,,unresolved,10,394,327,368,17,50,0,0.934010,0.043147,0.170051,0.661247,1.224138,reliable
+overall,6,Northern Mounted Warlord [T6],northern_mounted_warlord,,unresolved,7,44,40,41,0,4,0,0.931818,0.000000,0.090909,0.491525,1.477273,reliable
+overall,7,Blackwood Horseman [T5],blackwood_horseman,,unresolved,5,34,24,29,2,8,0,0.852941,0.058824,0.294118,0.678571,1.038462,reliable
+overall,8,Mallister Eagle Knight [T6],mallister_eagle_knight,mallister_knight,confirmed_id,10,135,109,90,6,20,0,0.666667,0.044444,0.192593,0.467626,0.856061,reliable
+overall,9,Mallister House Guard [T5],mallister_house_guard,mallister_houseguard,confirmed_id,10,147,132,96,6,9,0,0.653061,0.040816,0.102041,0.435897,0.911765,reliable
+overall,10,Blackwood House Guard [T5],blackwood_house_guard,,unresolved,10,190,155,113,6,29,0,0.594737,0.031579,0.184211,0.333333,0.901099,reliable
+overall,11,Northern Horseman [T5],northern_horseman,,unresolved,5,43,37,23,3,3,0,0.534884,0.069767,0.139535,0.294118,0.720930,reliable
+siege_attack,1,Ravens' Teeth [T6],ravens_teeth,ravens_teeth,confirmed_id,5,88,52,337,8,28,0,3.829545,0.090909,0.409091,3.263736,4.657143,reliable
+siege_attack,2,Mallister Elite Archer [T5],mallister_elite_archer,mallister_elite_archer,confirmed_id,5,164,107,159,19,38,0,0.969512,0.115854,0.347561,0.796407,1.167665,reliable
+siege_attack,3,Riverlands Ranger [T5],riverlands_ranger,,unresolved,5,175,116,143,16,43,0,0.817143,0.091429,0.337143,0.638298,0.920904,reliable
+siege_attack,4,Blackwood House Guard [T5],blackwood_house_guard,,unresolved,5,98,70,76,5,23,0,0.775510,0.051020,0.285714,0.340000,1.230769,reliable
+siege_attack,5,Mallister House Guard [T5],mallister_house_guard,mallister_houseguard,confirmed_id,5,68,56,47,4,8,0,0.691176,0.058824,0.176471,0.424658,0.945455,reliable
+siege_attack,6,Mallister Eagle Knight [T6],mallister_eagle_knight,mallister_knight,confirmed_id,5,67,53,38,4,10,0,0.567164,0.059701,0.208955,0.295775,0.753846,reliable
