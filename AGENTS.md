@@ -1,5 +1,13 @@
 # Agent workflow
 
+## Git authorization (standing)
+
+In this repository (`bannerlord-troop-analysis`), agents may **commit and push**
+by default when finishing a slice of work. Do not wait for per-step push
+approval. Still never force-push to `main`/`master`, never skip hooks, and never
+commit secrets or unrelated untracked files (for example `arquivo.md`) unless
+explicitly asked.
+
 ## One batch, one pull request, two agents
 
 Every new evidence batch must use one branch and one draft pull request from ingestion through analysis. The work is split into two explicitly separate phases owned by different agents.

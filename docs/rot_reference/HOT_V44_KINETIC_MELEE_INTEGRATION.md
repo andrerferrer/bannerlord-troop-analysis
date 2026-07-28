@@ -83,12 +83,22 @@ python3 scripts/rot/rot_v44_kinetic_overlay.py \
   --mode canonical \
   --input <rot_hot_v43_all_humanoid_ranked.csv> \
   --item-reference <v44_exact_item_profiles.csv> \
+  --family-audit <v43_item_family_audit.csv> \
+  --domain-manifest <v43_all_humanoid_domain.json> \
+  --source-root <repo-or-artifact-root> \
   --output <rot_hot_v44_all_humanoid_ranked.csv> \
   --audit-output <rot_hot_v44_profile_audit.csv> \
   --summary-output <rot_hot_v44_summary.json>
 ```
 
-The default exact-profile coverage gate is 100%.
+Canonical mode fails closed unless:
+
+- `--domain-manifest` matches the input file SHA-256 and unique `troop_ids`;
+- `--family-audit` supplies the versioned V4.3 family for every melee item
+  (eligibility does not use item-id substring inference);
+- each exact sword profile includes repository-addressable `source` and
+  `source_sha256`, and the hash verifies;
+- `--minimum-exact-coverage` is finite and inside `[0, 1]` (default 100%).
 
 ## Preserved-top-20 sensitivity
 

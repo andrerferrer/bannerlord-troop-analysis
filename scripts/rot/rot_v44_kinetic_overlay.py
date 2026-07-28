@@ -11,9 +11,9 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import json
 import math
-import re
 import sys
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -89,6 +89,8 @@ class ProfileResolution:
     source: str
     missing_fields: tuple[str, ...]
     profile: WeaponProfile | None
+    source_path: str = ""
+    source_sha256: str = ""
 
 
 def as_float(value: object, default: float = math.nan) -> float:
@@ -114,6 +116,98 @@ def first_value(row: dict[str, object], aliases: Iterable[str]) -> object:
         if value is not None and str(value).strip() != "":
             return value
     return ""
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def validate_minimum_exact_coverage(value: float) -> float:
+    if not math.isfinite(value) or value < 0.0 or value > 1.0:
+        raise ValueError(
+            "minimum-exact-coverage must be a finite number in [0, 1]; "
+            f"got {value!r}"
+        )
+    return float(value)
+
+
+def load_family_audit(path: Path) -> dict[str, str]:
+    rows = read_csv(path)
+    required = {"item_id", "family"}
+    missing_columns = sorted(required - set(rows[0]))
+    if missing_columns:
+        raise ValueError(
+            "family audit requires columns: " + ", ".join(sorted(required))
+        )
+    lookup: dict[str, str] = {}
+    for row in rows:
+        item_id = str(row.get("item_id") or "").strip()
+        family = str(row.get("family") or "").strip()
+        if not item_id or not family:
+            raise ValueError(
+                f"family audit row missing item_id/family: {row!r}"
+            )
+        if family not in FAMILY_PRIORS and family not in EXACT_SUPPORTED_FAMILIES:
+            raise ValueError(f"unknown family in audit: {family}")
+        lookup[item_id] = family
+    return lookup
+
+
+def verify_ranking_domain(
+    rows: list[dict[str, str]],
+    input_path: Path,
+    manifest: dict[str, object],
+) -> None:
+    expected_hash = str(manifest.get("input_sha256") or "").strip().lower()
+    if not expected_hash:
+        raise ValueError("domain manifest requires input_sha256")
+    actual_hash = sha256_file(input_path)
+    if actual_hash != expected_hash:
+        raise ValueError(
+            "ranking input sha256 does not match domain manifest: "
+            f"expected {expected_hash}, got {actual_hash}"
+        )
+
+    expected_troops = manifest.get("troop_ids")
+    if not isinstance(expected_troops, list) or not expected_troops:
+        raise ValueError("domain manifest requires a non-empty troop_ids list")
+    expected_set = {str(troop_id).strip() for troop_id in expected_troops}
+    if "" in expected_set:
+        raise ValueError("domain manifest troop_ids must be non-empty strings")
+    actual_set = {str(row.get("troop_id") or "").strip() for row in rows}
+    if "" in actual_set:
+        raise ValueError("ranking input contains an empty troop_id")
+    if actual_set != expected_set:
+        missing = sorted(expected_set - actual_set)
+        unexpected = sorted(actual_set - expected_set)
+        details = []
+        if missing:
+            details.append(f"missing troop_ids={missing}")
+        if unexpected:
+            details.append(f"unexpected troop_ids={unexpected}")
+        raise ValueError(
+            "ranking troop set does not match domain manifest: "
+            + "; ".join(details)
+        )
+
+
+def resolve_source_path(source: str, source_root: Path) -> Path:
+    candidate = Path(source)
+    if not candidate.is_absolute():
+        candidate = source_root / candidate
+    resolved = candidate.resolve()
+    root = source_root.resolve()
+    try:
+        resolved.relative_to(root)
+    except ValueError as error:
+        raise ValueError(
+            f"source path escapes source root: {source}"
+        ) from error
+    return resolved
 
 
 def infer_family(
@@ -171,6 +265,8 @@ def build_item_lookup(rows: list[dict[str, str]]) -> dict[str, dict[str, str]]:
         "has_thrust",
         "thrust_damage",
         "thrust_speed",
+        "source",
+        "source_sha256",
     }
     for row in rows:
         item_id = str(row.get("item_id") or "").strip()
@@ -201,21 +297,27 @@ def melee_damage(row: dict[str, object]) -> float:
     return math.nan
 
 
+def audited_family(item_id: str, family_by_item: dict[str, str]) -> str:
+    if item_id not in family_by_item:
+        raise ValueError(
+            "canonical mode requires a versioned V4.3 family audit entry for "
+            f"item_id={item_id!r}"
+        )
+    return family_by_item[item_id]
+
+
 def resolve_exact_profile(
     row: dict[str, object],
     item_lookup: dict[str, dict[str, str]],
+    *,
+    family_by_item: dict[str, str],
+    source_root: Path,
 ) -> ProfileResolution:
     item_id = str(row.get("best_melee_item") or "").strip()
     if not item_id:
         return ProfileResolution("", "none", "no_melee_weapon", "none", (), None)
 
-    item = item_lookup.get(item_id, {})
-    combined: dict[str, object] = {**row, **item}
-    family = infer_family(
-        item_id,
-        first_value(combined, ("weapon_class", "best_melee_weapon_class")),
-        first_value(combined, ("damage_type", "best_melee_damage_type", "best_weapon_damage_type")),
-    )
+    family = audited_family(item_id, family_by_item)
     if family not in EXACT_SUPPORTED_FAMILIES:
         return ProfileResolution(
             item_id,
@@ -226,6 +328,8 @@ def resolve_exact_profile(
             None,
         )
 
+    item = item_lookup.get(item_id, {})
+    combined: dict[str, object] = {**row, **item}
     values = {
         "swing_damage": melee_damage(row),
         "swing_speed": as_float(
@@ -247,6 +351,13 @@ def resolve_exact_profile(
     missing = [key for key, value in values.items() if not math.isfinite(value)]
     if has_thrust is None:
         missing.append("has_thrust")
+
+    source = str(first_value(combined, ("source",)) or "").strip()
+    source_sha256 = str(first_value(combined, ("source_sha256",)) or "").strip().lower()
+    if not source:
+        missing.append("source")
+    if not source_sha256:
+        missing.append("source_sha256")
 
     thrust_damage = as_float(
         first_value(combined, ("thrust_damage", "best_melee_thrust_damage")), 0.0
@@ -270,6 +381,16 @@ def resolve_exact_profile(
             None,
         )
 
+    source_path = resolve_source_path(source, source_root)
+    if not source_path.is_file():
+        raise ValueError(f"exact profile source not found: {source_path}")
+    actual_sha256 = sha256_file(source_path)
+    if actual_sha256 != source_sha256:
+        raise ValueError(
+            f"source_sha256 mismatch for item_id={item_id}: "
+            f"expected {source_sha256}, got {actual_sha256}"
+        )
+
     return ProfileResolution(
         item_id,
         family,
@@ -282,6 +403,8 @@ def resolve_exact_profile(
             thrust_damage=thrust_damage,
             thrust_speed=thrust_speed,
         ),
+        source_path=str(source_path),
+        source_sha256=source_sha256,
     )
 
 
@@ -368,6 +491,8 @@ def audit_row(
         "family": resolution.family,
         "kinetic_status": resolution.status,
         "profile_source": resolution.source,
+        "source": resolution.source_path,
+        "source_sha256": resolution.source_sha256,
         "missing_fields": "|".join(resolution.missing_fields),
         "kinetic_application_factor": round(factor, 6),
         **{f"profile_{key}": value for key, value in profile.items()},
@@ -378,7 +503,11 @@ def apply_canonical(
     rows: list[dict[str, str]],
     item_lookup: dict[str, dict[str, str]],
     minimum_coverage: float,
+    *,
+    family_by_item: dict[str, str],
+    source_root: Path,
 ) -> tuple[list[dict[str, object]], list[dict[str, object]], dict[str, object]]:
+    minimum_coverage = validate_minimum_exact_coverage(minimum_coverage)
     required = {
         "troop_id",
         "name",
@@ -400,7 +529,15 @@ def apply_canonical(
             + ", ".join(missing_columns)
         )
 
-    resolutions = [resolve_exact_profile(row, item_lookup) for row in rows]
+    resolutions = [
+        resolve_exact_profile(
+            row,
+            item_lookup,
+            family_by_item=family_by_item,
+            source_root=source_root,
+        )
+        for row in rows
+    ]
     eligible = [resolution.family in EXACT_SUPPORTED_FAMILIES for resolution in resolutions]
     eligible_count = sum(eligible)
     applied_count = sum(
@@ -468,6 +605,8 @@ def apply_canonical(
             {
                 "v44_kinetic_status": resolution.status,
                 "v44_kinetic_profile_source": resolution.source,
+                "v44_kinetic_source": resolution.source_path,
+                "v44_kinetic_source_sha256": resolution.source_sha256,
                 "v44_kinetic_application_factor": round(factor, 6),
                 "v44_melee_mixed_kpm": round(kpm, 6),
                 "v44_melee_carry_score": round(melee, 6),
@@ -666,6 +805,9 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", type=Path, required=True)
     parser.add_argument("--item-reference", type=Path)
+    parser.add_argument("--family-audit", type=Path)
+    parser.add_argument("--domain-manifest", type=Path)
+    parser.add_argument("--source-root", type=Path, default=Path.cwd())
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--audit-output", type=Path, required=True)
     parser.add_argument("--summary-output", type=Path, required=True)
@@ -678,21 +820,37 @@ def main() -> None:
     args = parser.parse_args()
 
     try:
+        minimum_coverage = validate_minimum_exact_coverage(
+            args.minimum_exact_coverage
+        )
         rows = read_csv(args.input)
         if args.mode == "canonical":
             if not args.item_reference:
                 parser.error("--item-reference is required in canonical mode")
+            if not args.family_audit:
+                parser.error("--family-audit is required in canonical mode")
+            if not args.domain_manifest:
+                parser.error("--domain-manifest is required in canonical mode")
+            manifest = json.loads(
+                args.domain_manifest.read_text(encoding="utf-8")
+            )
+            if not isinstance(manifest, dict):
+                raise ValueError("domain manifest must be a JSON object")
+            verify_ranking_domain(rows, args.input, manifest)
             item_lookup = build_item_lookup(
                 read_csv(args.item_reference, require_rows=False)
             )
+            family_by_item = load_family_audit(args.family_audit)
             output, audit, summary = apply_canonical(
                 rows,
                 item_lookup,
-                args.minimum_exact_coverage,
+                minimum_coverage,
+                family_by_item=family_by_item,
+                source_root=args.source_root,
             )
         else:
             output, audit, summary = apply_sensitivity(rows)
-    except (OSError, ValueError) as error:
+    except (OSError, ValueError, json.JSONDecodeError) as error:
         parser.error(str(error))
 
     write_csv(args.output, output)

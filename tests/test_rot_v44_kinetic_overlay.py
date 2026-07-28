@@ -1,6 +1,10 @@
 from __future__ import annotations
 
+import hashlib
+import json
+import math
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -10,7 +14,10 @@ from rot.rot_v44_kinetic_overlay import (  # noqa: E402
     apply_canonical,
     apply_sensitivity,
     build_item_lookup,
+    load_family_audit,
     resolve_exact_profile,
+    validate_minimum_exact_coverage,
+    verify_ranking_domain,
 )
 
 
@@ -50,7 +57,17 @@ def v43_row(
     }
 
 
-def exact_sword(item_id: str) -> dict[str, str]:
+def write_bytes(path: Path, payload: bytes) -> str:
+    path.write_bytes(payload)
+    return hashlib.sha256(payload).hexdigest()
+
+
+def exact_sword(
+    item_id: str,
+    *,
+    source: str,
+    source_sha256: str,
+) -> dict[str, str]:
     return {
         "item_id": item_id,
         "weapon_class": "OneHandedSword",
@@ -61,58 +78,219 @@ def exact_sword(item_id: str) -> dict[str, str]:
         "has_thrust": "true",
         "thrust_damage": "45",
         "thrust_speed": "81",
+        "source": source,
+        "source_sha256": source_sha256,
     }
+
+
+def family_audit(*pairs: tuple[str, str]) -> dict[str, str]:
+    return {item_id: family for item_id, family in pairs}
 
 
 class ProfileResolutionTests(unittest.TestCase):
     def test_exact_one_handed_sword_profile_is_applied(self):
-        row = v43_row("swordsman", "test_sword")
-        lookup = build_item_lookup([exact_sword("test_sword")])
-        resolution = resolve_exact_profile(row, lookup)
-        self.assertEqual(resolution.status, "applied_exact")
-        self.assertEqual(resolution.family, "onehand_sword")
-        self.assertEqual(resolution.profile.reach, 100)
-        self.assertTrue(resolution.profile.has_thrust)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            artifact = root / "sword_source.bin"
+            digest = write_bytes(artifact, b"sword-profile-v1")
+            row = v43_row("swordsman", "test_sword")
+            lookup = build_item_lookup(
+                [
+                    exact_sword(
+                        "test_sword",
+                        source=str(artifact),
+                        source_sha256=digest,
+                    )
+                ]
+            )
+            resolution = resolve_exact_profile(
+                row,
+                lookup,
+                family_by_item=family_audit(("test_sword", "onehand_sword")),
+                source_root=root,
+            )
+            self.assertEqual(resolution.status, "applied_exact")
+            self.assertEqual(resolution.family, "onehand_sword")
+            self.assertEqual(resolution.profile.reach, 100)
+            self.assertTrue(resolution.profile.has_thrust)
+            self.assertEqual(resolution.source_path, str(artifact.resolve()))
+            self.assertEqual(resolution.source_sha256, digest)
 
     def test_exact_profile_requires_explicit_thrust_provenance(self):
-        row = v43_row("swordsman", "test_sword")
-        item = exact_sword("test_sword")
-        del item["has_thrust"]
-        resolution = resolve_exact_profile(row, build_item_lookup([item]))
-        self.assertEqual(resolution.status, "missing_exact_profile")
-        self.assertIn("has_thrust", resolution.missing_fields)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            artifact = root / "sword_source.bin"
+            digest = write_bytes(artifact, b"sword-profile-v1")
+            row = v43_row("swordsman", "test_sword")
+            item = exact_sword(
+                "test_sword",
+                source=str(artifact),
+                source_sha256=digest,
+            )
+            del item["has_thrust"]
+            resolution = resolve_exact_profile(
+                row,
+                build_item_lookup([item]),
+                family_by_item=family_audit(("test_sword", "onehand_sword")),
+                source_root=root,
+            )
+            self.assertEqual(resolution.status, "missing_exact_profile")
+            self.assertIn("has_thrust", resolution.missing_fields)
+
+    def test_exact_profile_requires_source_and_verified_sha256(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            artifact = root / "sword_source.bin"
+            digest = write_bytes(artifact, b"sword-profile-v1")
+            row = v43_row("swordsman", "test_sword")
+            item = exact_sword(
+                "test_sword",
+                source=str(artifact),
+                source_sha256=digest,
+            )
+            del item["source"]
+            resolution = resolve_exact_profile(
+                row,
+                build_item_lookup([item]),
+                family_by_item=family_audit(("test_sword", "onehand_sword")),
+                source_root=root,
+            )
+            self.assertEqual(resolution.status, "missing_exact_profile")
+            self.assertIn("source", resolution.missing_fields)
+
+            bad = exact_sword(
+                "test_sword",
+                source=str(artifact),
+                source_sha256="0" * 64,
+            )
+            with self.assertRaisesRegex(ValueError, "source_sha256"):
+                resolve_exact_profile(
+                    row,
+                    build_item_lookup([bad]),
+                    family_by_item=family_audit(("test_sword", "onehand_sword")),
+                    source_root=root,
+                )
 
     def test_non_sword_family_remains_on_v43(self):
         row = v43_row("hammerman", "test_hammer")
-        resolution = resolve_exact_profile(row, {})
+        resolution = resolve_exact_profile(
+            row,
+            {},
+            family_by_item=family_audit(("test_hammer", "onehand_blunt")),
+            source_root=Path("."),
+        )
         self.assertEqual(resolution.status, "unsupported_family")
         self.assertIsNone(resolution.profile)
+
+    def test_eligibility_uses_family_audit_not_item_id_inference(self):
+        # Opaque sword ID would infer as generic_melee without the audit.
+        row = v43_row("swordsman", "opaque_blade_t4")
+        resolution = resolve_exact_profile(
+            row,
+            {},
+            family_by_item=family_audit(("opaque_blade_t4", "onehand_sword")),
+            source_root=Path("."),
+        )
+        self.assertEqual(resolution.family, "onehand_sword")
+        self.assertEqual(resolution.status, "missing_exact_profile")
+
+
+class DomainAndCoverageGateTests(unittest.TestCase):
+    def test_validate_minimum_exact_coverage_rejects_nan_and_out_of_range(self):
+        self.assertEqual(validate_minimum_exact_coverage(1.0), 1.0)
+        with self.assertRaisesRegex(ValueError, "minimum-exact-coverage"):
+            validate_minimum_exact_coverage(math.nan)
+        with self.assertRaisesRegex(ValueError, "minimum-exact-coverage"):
+            validate_minimum_exact_coverage(-0.1)
+        with self.assertRaisesRegex(ValueError, "minimum-exact-coverage"):
+            validate_minimum_exact_coverage(1.1)
+
+    def test_verify_ranking_domain_rejects_truncated_troop_set(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            ranking = root / "ranking.csv"
+            payload = b"troop_id\nswordsman\n"
+            digest = write_bytes(ranking, payload)
+            manifest = {
+                "input_sha256": digest,
+                "troop_ids": ["hammerman", "swordsman"],
+            }
+            rows = [v43_row("swordsman", "test_sword")]
+            with self.assertRaisesRegex(ValueError, "troop"):
+                verify_ranking_domain(rows, ranking, manifest)
+
+    def test_verify_ranking_domain_rejects_input_hash_mismatch(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            ranking = root / "ranking.csv"
+            write_bytes(ranking, b"troop_id\nswordsman\n")
+            manifest = {
+                "input_sha256": "0" * 64,
+                "troop_ids": ["swordsman"],
+            }
+            rows = [v43_row("swordsman", "test_sword")]
+            with self.assertRaisesRegex(ValueError, "sha256"):
+                verify_ranking_domain(rows, ranking, manifest)
+
+    def test_load_family_audit_requires_item_id_and_family(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "family.csv"
+            path.write_text("item_id,family\ntest_sword,onehand_sword\n", encoding="utf-8")
+            self.assertEqual(
+                load_family_audit(path),
+                {"test_sword": "onehand_sword"},
+            )
 
 
 class OverlayTests(unittest.TestCase):
     def test_canonical_overlay_applies_exact_sword_and_keeps_other_family(self):
-        rows = [
-            v43_row("swordsman", "test_sword", melee_kpm="6", rank="1"),
-            v43_row("hammerman", "test_hammer", melee_kpm="5", rank="2"),
-        ]
-        ranked, audit, summary = apply_canonical(
-            rows,
-            build_item_lookup([exact_sword("test_sword")]),
-            1.0,
-        )
-        audit_by_id = {row["troop_id"]: row for row in audit}
-        self.assertEqual(audit_by_id["swordsman"]["kinetic_status"], "applied_exact")
-        self.assertEqual(
-            audit_by_id["hammerman"]["kinetic_status"],
-            "unsupported_family",
-        )
-        self.assertEqual(summary["exact_profile_coverage"], 1.0)
-        self.assertEqual({row["rank_v44"] for row in ranked}, {1, 2})
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            artifact = root / "sword_source.bin"
+            digest = write_bytes(artifact, b"sword-profile-v1")
+            rows = [
+                v43_row("swordsman", "test_sword", melee_kpm="6", rank="1"),
+                v43_row("hammerman", "test_hammer", melee_kpm="5", rank="2"),
+            ]
+            ranked, audit, summary = apply_canonical(
+                rows,
+                build_item_lookup(
+                    [
+                        exact_sword(
+                            "test_sword",
+                            source=str(artifact),
+                            source_sha256=digest,
+                        )
+                    ]
+                ),
+                1.0,
+                family_by_item=family_audit(
+                    ("test_sword", "onehand_sword"),
+                    ("test_hammer", "onehand_blunt"),
+                ),
+                source_root=root,
+            )
+            audit_by_id = {row["troop_id"]: row for row in audit}
+            self.assertEqual(audit_by_id["swordsman"]["kinetic_status"], "applied_exact")
+            self.assertEqual(audit_by_id["swordsman"]["source"], str(artifact.resolve()))
+            self.assertEqual(audit_by_id["swordsman"]["source_sha256"], digest)
+            self.assertEqual(
+                audit_by_id["hammerman"]["kinetic_status"],
+                "unsupported_family",
+            )
+            self.assertEqual(summary["exact_profile_coverage"], 1.0)
+            self.assertEqual({row["rank_v44"] for row in ranked}, {1, 2})
 
     def test_canonical_overlay_fails_closed_on_incomplete_exact_coverage(self):
-        rows = [v43_row("swordsman", "test_sword")]
+        rows = [v43_row("swordsman", "opaque_blade_t4")]
         with self.assertRaisesRegex(ValueError, "coverage"):
-            apply_canonical(rows, {}, 1.0)
+            apply_canonical(
+                rows,
+                {},
+                1.0,
+                family_by_item=family_audit(("opaque_blade_t4", "onehand_sword")),
+                source_root=Path("."),
+            )
 
     def test_canonical_overlay_preserves_v43_melee_axis_without_supported_profiles(self):
         rows = [
@@ -131,7 +309,16 @@ class OverlayTests(unittest.TestCase):
                 rank="1",
             ),
         ]
-        ranked, _, _ = apply_canonical(rows, {}, 1.0)
+        ranked, _, _ = apply_canonical(
+            rows,
+            {},
+            1.0,
+            family_by_item=family_audit(
+                ("weak_hammer", "onehand_blunt"),
+                ("strong_hammer", "onehand_blunt"),
+            ),
+            source_root=Path("."),
+        )
         by_id = {row["troop_id"]: row for row in ranked}
         self.assertEqual(by_id["weak_hammerman"]["v44_melee_carry_score"], 0.0)
         self.assertEqual(by_id["strong_hammerman"]["v44_melee_carry_score"], 100.0)
