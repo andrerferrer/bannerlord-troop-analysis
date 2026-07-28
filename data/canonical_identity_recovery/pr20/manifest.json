@@ -1,0 +1,48 @@
+{
+  "artifacts": [
+    {
+      "coverage_scope": "sparse_published_exact_matches",
+      "evidence_kind": "historical_pr_reported_exact",
+      "path": "realm_of_thrones_exact_matches.csv",
+      "reported_full_audit_rows": 6187,
+      "rows": 15,
+      "sha256": "3c37b6578f27c0e1a9b10760d95037d804561d699cd514a17bde638f59eec2c1",
+      "source_track": "realm_of_thrones",
+      "track": "realm_of_thrones"
+    },
+    {
+      "coverage_scope": "sparse_published_exact_matches",
+      "evidence_kind": "historical_pr_reported_exact",
+      "path": "vanilla_exact_matches.csv",
+      "reported_full_audit_rows": 1937,
+      "rows": 1,
+      "sha256": "032c23d7e01a153828604bdd2c7366b552907604588914649c0254b0f304530c",
+      "source_track": "vanilla",
+      "track": "vanilla"
+    },
+    {
+      "coverage_scope": "sparse_published_exact_matches",
+      "evidence_kind": "historical_pr_reported_exact",
+      "path": "war_sails_exact_matches.csv",
+      "reported_full_audit_rows": 1937,
+      "rows": 1,
+      "sha256": "c8cbd89f2e83bbe25ff4ecd5e5789c5b2f7d10f8b7c53ce49baef060ad3fb7df",
+      "source_track": "vanilla",
+      "track_override_reason": "PR #20 grouped NavalDLC under vanilla; preserve the repository's existing war_sails_official boundary",
+      "track": "war_sails_official"
+    }
+  ],
+  "expected_resolution": {
+    "baseline_labels": 24,
+    "confirmed_ids": 17,
+    "unresolved": 7
+  },
+  "schema_version": "1.1.0",
+  "source": {
+    "body_bytes_utf8": 6927,
+    "body_sha256_utf8": "fe9090c797081893358f849d7be8b9c4711c287891f9b6a7a38a5d0423e3ae08",
+    "closed_at": "2026-07-26T23:10:19Z",
+    "path": "SOURCE_PR_BODY.md",
+    "pull_request": "https://github.com/andrerferrer/bannerlord-troop-analysis/pull/20"
+  }
+}

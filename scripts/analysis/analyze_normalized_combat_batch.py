@@ -15,13 +15,19 @@ from pathlib import Path, PurePosixPath
 from typing import Any, Iterable
 
 try:
-    from scripts.analysis.build_canonical_identity_audit import normalize_display_name
+    from scripts.analysis.build_canonical_identity_audit import (
+        HISTORICAL_REPORTED_EXACT,
+        normalize_display_name,
+    )
     from scripts.combat_observations.bundle import inspect_tar
 except ModuleNotFoundError:  # Direct script execution sets sys.path to scripts/analysis.
     import sys
 
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-    from build_canonical_identity_audit import normalize_display_name
+    from build_canonical_identity_audit import (
+        HISTORICAL_REPORTED_EXACT,
+        normalize_display_name,
+    )
     from combat_observations.bundle import inspect_tar
 
 CONTEXTS = ("field", "siege_attack", "siege_defense")
@@ -49,6 +55,7 @@ IDENTITY_FIELDS = (
     "canonical_troop_id",
     "match_status",
     "resolution_method",
+    "evidence_kind",
     "evidence_paths",
     "candidate_count",
     "candidate_troop_ids",
@@ -412,8 +419,8 @@ def validate_normalized(
 def collect_identity_candidates(
     identity_root: Path,
     existing_audit: Path | None,
-) -> dict[str, list[tuple[str, str]]]:
-    candidates: dict[str, list[tuple[str, str]]] = defaultdict(list)
+) -> dict[str, list[tuple[str, str, str]]]:
+    candidates: dict[str, list[tuple[str, str, str]]] = defaultdict(list)
     for path in sorted(identity_root.rglob("*.csv")):
         try:
             rows = read_csv(path)
@@ -432,7 +439,8 @@ def collect_identity_candidates(
                 "",
             )
             if troop_id and name:
-                candidate = (troop_id, str(path))
+                evidence_kind = (row.get("evidence_kind") or "versioned_track_reference").strip()
+                candidate = (troop_id, str(path), evidence_kind)
                 key = normalize_display_name(name)
                 if candidate not in candidates[key]:
                     candidates[key].append(candidate)
@@ -445,7 +453,20 @@ def collect_identity_candidates(
                 and row.get("canonical_troop_id")
             ):
                 name = row.get("display_name", "")
-                candidate = (row["canonical_troop_id"], str(existing_audit))
+                resolution_method = row.get("resolution_method") or ""
+                evidence_kind = (
+                    (row.get("evidence_kind") or "").strip()
+                    or (
+                        HISTORICAL_REPORTED_EXACT
+                        if resolution_method.startswith("historical_pr_reported_exact")
+                        else "versioned_track_reference"
+                    )
+                )
+                candidate = (
+                    row["canonical_troop_id"],
+                    str(existing_audit),
+                    evidence_kind,
+                )
                 key = normalize_display_name(name)
                 if candidate not in candidates[key]:
                     candidates[key].append(candidate)
@@ -454,7 +475,7 @@ def collect_identity_candidates(
 
 def build_identity_audit(
     consolidated: list[dict[str, Any]],
-    candidates: dict[str, list[tuple[str, str]]],
+    candidates: dict[str, list[tuple[str, str] | tuple[str, str, str]]],
     track: str,
 ) -> list[dict[str, str]]:
     labels: dict[str, str] = {}
@@ -466,9 +487,14 @@ def build_identity_audit(
     output: list[dict[str, str]] = []
     for slug, display_name in sorted(labels.items()):
         matches = candidates.get(normalize_display_name(display_name), [])
-        ids = sorted({troop_id for troop_id, _ in matches})
-        paths = sorted({path for _, path in matches})
+        ids = sorted({match[0] for match in matches})
+        paths = sorted({match[1] for match in matches})
+        evidence_kinds = {
+            match[2] if len(match) > 2 else "versioned_track_reference"
+            for match in matches
+        }
         confirmed = len(ids) == 1
+        historical_only = evidence_kinds == {HISTORICAL_REPORTED_EXACT}
         output.append(
             {
                 "provisional_slug": slug,
@@ -479,8 +505,21 @@ def build_identity_audit(
                     "ambiguous_exact_name" if len(ids) > 1 else "unresolved"
                 ),
                 "resolution_method": (
-                    "exact_normalized_display_name_in_versioned_track_reference"
+                    (
+                        "historical_pr_reported_exact_name_in_versioned_source"
+                        if historical_only
+                        else "exact_normalized_display_name_in_versioned_track_reference"
+                    )
                     if confirmed
+                    else ""
+                ),
+                "evidence_kind": (
+                    HISTORICAL_REPORTED_EXACT
+                    if confirmed and historical_only
+                    else "versioned_track_reference"
+                    if confirmed
+                    else "|".join(sorted(evidence_kinds))
+                    if len(ids) > 1
                     else ""
                 ),
                 "evidence_paths": "|".join(paths),

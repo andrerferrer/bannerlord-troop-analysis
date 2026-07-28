@@ -22,23 +22,16 @@ Status values include:
 | Measure | Count |
 |---|---:|
 | Eligible overall labels | 24 |
-| Confirmed canonical IDs | 2 |
-| Track confirmed, ID unresolved | 4 |
-| Fully unresolved | 18 |
+| Confirmed canonical IDs | 17 |
+| Unresolved | 7 |
 
-Confirmed mappings:
-
-| Observed label | Track | Canonical troop ID | Evidence |
-|---|---|---|---|
-| Baratheon Hammerknight [T6] | Realm of Thrones | `baratheon_pikeknight` | `data/rot_reference/hot_20260717/v43_top20_overall.csv` |
-| Dragonstone Elite Halberdier [T5] | Realm of Thrones | `dragonstone_headsman` | `data/rot_reference/empirical/20260703_model_vs_empirical_delta_controls.csv` |
-
-Track-only confirmations:
-
-- Queen's Man [T6] — preserved RoT empirical aggregate;
-- Stormlands Heavy Crossbowman [T5] — preserved RoT empirical aggregate;
-- Dragonstone House Guard [T5] — preserved RoT empirical aggregate;
-- Imperial Naute — official War Sails scope in the v7.3 model output.
+Fifteen Realm of Thrones relationships, one vanilla relationship, and one
+War Sails relationship are confirmed. The complete machine-generated audit bundle
+was not recoverable, but its 17 published exact matches were recovered without
+alteration from historical PR #20 and committed under
+`data/canonical_identity_recovery/pr20/`. The recovery README pins the PR-body hash,
+installed module versions, reported full-audit hashes, and the limits of this
+evidence.
 
 ## Automated resolution
 
@@ -78,21 +71,28 @@ To enforce the canonical join gate:
 
 ## Important blocker
 
-The V4.3 generator proves that a complete RoT audit existed and that its outputs carry real `troop_id` values. However, the complete all-troop V4.3 output or original RoT troop-audit input has not yet been located as a directly committed file. Selected outputs and scripts are present.
+Historical PR #20 proves that complete installed-game audits were generated for
+vanilla/War Sails and Realm of Thrones. It reported 1,937 and 6,187 rows
+respectively, plus their SHA-256 hashes. Its attempted Base64 payload transport
+lost bytes inside a single XZ block, so the complete audit files cannot be
+validated or materialized from the Git history.
 
-Raw XML snapshots are intentionally local-only. The remaining identity coverage therefore requires generated track audits from the installed game/modules or recovery of the original audit outputs.
+The 17 exact relationships explicitly published in that PR are now versioned and
+reproducible through the normal resolver. The remaining seven labels are:
 
-Until those references are supplied:
+- five Rhodok-labelled troops whose producing module is no longer identified;
+- `Rhoynar Bahriyyah [T5]`, whose only recorded near miss changes the culture;
+- `Reaver [T4]`, whose only recorded near miss changes both the full name and tier.
 
-- descriptive rankings continue to use the reviewed provisional slug;
-- model joins requiring attributes must use `--require-complete` or `-RequireComplete` and fail;
-- no unresolved slug may be silently treated as an XML troop ID;
-- Rhodok-labelled rows remain a separate unresolved track.
+No near miss is promoted. `canonical_identity_resolution_report.json` records the
+17/24 result, and `--require-complete` continues to exit non-zero. Attribute and
+equipment joins remain blocked because the compact recovery tables do not contain
+the all-troop audit features.
 
 ## Next execution step
 
-1. export or recover the complete RoT track and generate `realm_of_thrones_troops.csv`;
-2. generate the official vanilla + War Sails `vanilla_troops.csv`;
-3. identify and audit the source module for the Rhodok-labelled units;
-4. run the automated resolver with all three track audits and `-RequireComplete`;
+1. identify and audit the source module for the five Rhodok-labelled units;
+2. locate exact installed-track evidence for the two near-miss-only labels;
+3. recover or regenerate the complete RoT and vanilla/War Sails all-troop audits;
+4. rerun the automated resolver with `-RequireComplete`;
 5. generate canonical dataset v2 only after the identity gate passes.

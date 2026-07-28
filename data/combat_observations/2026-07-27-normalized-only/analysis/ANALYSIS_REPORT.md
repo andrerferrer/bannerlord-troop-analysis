@@ -11,7 +11,7 @@ These rankings describe visible player-side campaign contribution. They are not 
 - 10 independent battles: 4 field, 5 siege attack, 1 siege defense.
 - 143 consolidated player-side ordinary-troop rows.
 - 6 reliable troop/context rows and 70 insufficient-evidence rows under the 5-battle / 20-deployed gate.
-- 6 of 48 display labels have a conservative exact canonical ID match.
+- 7 of 48 display labels have a conservative exact canonical ID match.
 - All 5 queued hero icon fields remain unresolved and excluded.
 
 ## Highest reliable siege-attack descriptive rates

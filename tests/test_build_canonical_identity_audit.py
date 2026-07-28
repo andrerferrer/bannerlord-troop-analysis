@@ -31,6 +31,30 @@ class CanonicalIdentityResolverTests(unittest.TestCase):
         self.assertEqual(resolved["match_status"], module.CONFIRMED)
         self.assertEqual(resolved["canonical_troop_id"], "queens_man")
 
+    def test_historical_exact_match_preserves_machine_readable_evidence_tier(self):
+        row = {"canonical_name_slug": "riverlands_ranger_t5", "display_name": "Riverlands Ranger [T5]"}
+        candidates = {
+            module.normalize_display_name("Riverlands Ranger"): [
+                module.Candidate(
+                    "realm_of_thrones",
+                    "river_ranger",
+                    "Riverlands Ranger",
+                    "SOURCE_PR_BODY.md",
+                    module.HISTORICAL_REPORTED_EXACT,
+                )
+            ]
+        }
+        resolved = module.resolve_row(row, None, candidates)
+        self.assertEqual(resolved["match_status"], module.CONFIRMED)
+        self.assertEqual(
+            resolved["resolution_method"],
+            "historical_pr_reported_exact_name",
+        )
+        self.assertEqual(
+            resolved["evidence_kind"],
+            module.HISTORICAL_REPORTED_EXACT,
+        )
+
     def test_cross_track_duplicate_is_ambiguous(self):
         row = {"canonical_name_slug": "reaver_t4", "display_name": "Reaver [T4]"}
         key = module.normalize_display_name("Reaver")
