@@ -1,0 +1,112 @@
+{
+  "mode": "sensitivity_noncanonical",
+  "rows": 20,
+  "profiles_from_low_confidence_family_priors": 15,
+  "warning": "Directional sensitivity only. Family priors and an incomplete ranking domain cannot produce a canonical V4.4 ranking.",
+  "top_10_within_preserved_input": [
+    {
+      "rank": 1,
+      "name": "Ravens' Teeth",
+      "directional_total": 100.0,
+      "rank_change": 1
+    },
+    {
+      "rank": 2,
+      "name": "Goldenheart Warrior",
+      "directional_total": 92.411769,
+      "rank_change": 2
+    },
+    {
+      "rank": 3,
+      "name": "Stark Sworn Sword",
+      "directional_total": 90.78309,
+      "rank_change": 2
+    },
+    {
+      "rank": 4,
+      "name": "Westerling Hedgeknight",
+      "directional_total": 89.188509,
+      "rank_change": -3
+    },
+    {
+      "rank": 5,
+      "name": "Tarly Vanguard",
+      "directional_total": 87.043358,
+      "rank_change": 1
+    },
+    {
+      "rank": 6,
+      "name": "Ibbenese Navigator",
+      "directional_total": 86.944422,
+      "rank_change": 1
+    },
+    {
+      "rank": 7,
+      "name": "Qartheen Enthroned Guardian",
+      "directional_total": 84.66502,
+      "rank_change": 2
+    },
+    {
+      "rank": 8,
+      "name": "Mallister House Guard",
+      "directional_total": 83.508318,
+      "rank_change": -5
+    },
+    {
+      "rank": 9,
+      "name": "Qohorik Falxman",
+      "directional_total": 82.411439,
+      "rank_change": 3
+    },
+    {
+      "rank": 10,
+      "name": "Riverlands Admiral",
+      "directional_total": 82.323564,
+      "rank_change": 0
+    }
+  ],
+  "largest_rank_gains_within_preserved_input": [
+    {
+      "name": "Qohorik Falxman",
+      "rank_change": 3
+    },
+    {
+      "name": "Myrish Artisan of War",
+      "rank_change": 3
+    },
+    {
+      "name": "Goldenheart Warrior",
+      "rank_change": 2
+    },
+    {
+      "name": "Stark Sworn Sword",
+      "rank_change": 2
+    },
+    {
+      "name": "Qartheen Enthroned Guardian",
+      "rank_change": 2
+    }
+  ],
+  "largest_rank_drops_within_preserved_input": [
+    {
+      "name": "Grafton Flaming Knight",
+      "rank_change": -6
+    },
+    {
+      "name": "Mallister House Guard",
+      "rank_change": -5
+    },
+    {
+      "name": "Westerling Hedgeknight",
+      "rank_change": -3
+    },
+    {
+      "name": "Baratheon Hammerknight",
+      "rank_change": -3
+    },
+    {
+      "name": "Ibbenese Whaler",
+      "rank_change": -1
+    }
+  ]
+}

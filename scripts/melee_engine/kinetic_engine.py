@@ -63,6 +63,12 @@ class EngineCalibration:
 
 
 WAVEY_V29 = EngineCalibration()
+ROT_V44 = WAVEY_V29.derive(
+    armour_light=25.15,
+    armour_heavy=50.91,
+    weight_light=0.25,
+    weight_heavy=0.75,
+)
 
 
 @dataclass(frozen=True)
@@ -101,6 +107,52 @@ def tier_for(final_score: int) -> str:
         if final_score >= threshold:
             return tier
     return "F"
+
+
+def kinetic_application_factor(
+    weapon: WeaponProfile,
+    cal: EngineCalibration = ROT_V44,
+) -> float:
+    """Return the Wavey application multiplier not already modeled by V4.3.
+
+    RoT V4.3 already models damage, damage type, armour, speed, and skill.
+    Multiplying its melee KPM by this factor adds only the complementary
+    Wavey terms: reach/collision, handling, weight/momentum, and the AI
+    swing/thrust switching penalty.  A neutral weapon (100 reach/handling,
+    calibration reference weight, no thrust) therefore returns exactly 1.
+    """
+    reach_penalty = max(
+        cal.reach_penalty_floor,
+        1.0 - max(0.0, weapon.reach - cal.reach_soft_cap) / 100.0,
+    )
+    reach_term = max(0.0, weapon.reach / 100.0 * reach_penalty)
+    handling_term = max(0.0, weapon.handling / 100.0)
+    weight_term = max(0.0, weapon.weight / cal.weight_ref)
+
+    thrust_mult = 1.0
+    if weapon.has_thrust:
+        if weapon.swing_damage <= 0 or weapon.swing_speed <= 0:
+            thrust_ratio = 0.0
+        else:
+            thrust_ratio = min(
+                1.0,
+                max(
+                    0.0,
+                    (weapon.thrust_damage / weapon.swing_damage)
+                    * (weapon.thrust_speed / weapon.swing_speed),
+                ),
+            )
+        thrust_mult = (
+            cal.thrust_penalty_base
+            + (1.0 - cal.thrust_penalty_base) * thrust_ratio
+        )
+
+    return (
+        reach_term**cal.reach_curve
+        * handling_term**cal.handling_curve
+        * weight_term**cal.weight_curve
+        * thrust_mult
+    )
 
 
 def base_kills(

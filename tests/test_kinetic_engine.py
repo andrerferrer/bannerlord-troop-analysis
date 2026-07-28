@@ -13,9 +13,11 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
 from melee_engine.kinetic_engine import (  # noqa: E402
+    ROT_V44,
     WAVEY_V29,
     WeaponProfile,
     grade,
+    kinetic_application_factor,
     tier_for,
 )
 
@@ -124,6 +126,18 @@ class EdgeCaseTests(unittest.TestCase):
         self.assertEqual(WAVEY_V29.armour_heavy, 45.0)
         self.assertEqual(rot_cal.armour_heavy, 60.0)
         self.assertEqual(rot_cal.scale, WAVEY_V29.scale)
+
+    def test_neutral_kinetic_application_factor_is_one(self):
+        neutral = sword(60, 90, 100, 100, ROT_V44.weight_ref)
+        self.assertAlmostEqual(kinetic_application_factor(neutral), 1.0)
+
+    def test_kinetic_application_factor_adds_thrust_penalty(self):
+        swing_only = sword(60, 90, 90, 100, 1.3)
+        with_thrust = sword(60, 90, 90, 100, 1.3, td=45, ts=81)
+        self.assertLess(
+            kinetic_application_factor(with_thrust),
+            kinetic_application_factor(swing_only),
+        )
 
 
 if __name__ == "__main__":
