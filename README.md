@@ -126,6 +126,10 @@ Target outputs include:
 
 The primary track is Bannerlord 1.4.x with War Sails integrated into the baseline. Realm of Thrones data remains useful as a methodological and empirical reference track, but must not be silently mixed with vanilla data.
 
+The Realm of Thrones V4.4 kinetic-melee overlay, its exact-profile gate, and
+the current non-canonical top-20 sensitivity are documented in
+[`HOT_V44_KINETIC_MELEE_INTEGRATION.md`](docs/rot_reference/HOT_V44_KINETIC_MELEE_INTEGRATION.md).
+
 ## Analysis pipeline
 
 ```text
