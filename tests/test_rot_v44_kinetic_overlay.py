@@ -3,12 +3,16 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import subprocess
 import sys
 import tempfile
 import unittest
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+REPO_ROOT = Path(__file__).resolve().parents[1]
+OVERLAY_SCRIPT = REPO_ROOT / "scripts" / "rot" / "rot_v44_kinetic_overlay.py"
+
+sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from rot.rot_v44_kinetic_overlay import (  # noqa: E402
     apply_canonical,
@@ -240,6 +244,154 @@ class DomainAndCoverageGateTests(unittest.TestCase):
                 load_family_audit(path),
                 {"test_sword": "onehand_sword"},
             )
+
+    def test_load_family_audit_rejects_duplicate_item_ids(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "family.csv"
+            path.write_text(
+                "item_id,family\n"
+                "test_sword,onehand_sword\n"
+                "test_sword,onehand_blunt\n",
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "duplicate"):
+                load_family_audit(path)
+
+    def test_verify_ranking_domain_rejects_duplicate_troop_ids(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            ranking = root / "ranking.csv"
+            payload = b"troop_id\nswordsman\nswordsman\n"
+            digest = write_bytes(ranking, payload)
+            manifest = {
+                "input_sha256": digest,
+                "troop_ids": ["swordsman"],
+            }
+            rows = [
+                v43_row("swordsman", "test_sword"),
+                v43_row("swordsman", "test_sword"),
+            ]
+            with self.assertRaisesRegex(ValueError, "duplicate"):
+                verify_ranking_domain(rows, ranking, manifest)
+
+    def test_verify_ranking_domain_rejects_duplicate_manifest_troop_ids(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            ranking = root / "ranking.csv"
+            payload = b"troop_id\nswordsman\n"
+            digest = write_bytes(ranking, payload)
+            manifest = {
+                "input_sha256": digest,
+                "troop_ids": ["swordsman", "swordsman"],
+            }
+            rows = [v43_row("swordsman", "test_sword")]
+            with self.assertRaisesRegex(ValueError, "duplicate"):
+                verify_ranking_domain(rows, ranking, manifest)
+
+
+class CanonicalCliGateTests(unittest.TestCase):
+    def _write_minimal_ranking(self, path: Path) -> None:
+        fieldnames = list(v43_row("swordsman", "test_sword").keys())
+        with path.open("w", newline="", encoding="utf-8") as handle:
+            writer = __import__("csv").DictWriter(handle, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerow(v43_row("swordsman", "test_sword"))
+
+    def _run_overlay(self, *args: str) -> subprocess.CompletedProcess[str]:
+        return subprocess.run(
+            [sys.executable, str(OVERLAY_SCRIPT), *args],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+
+    def test_cli_requires_domain_manifest_in_canonical_mode(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            ranking = root / "ranking.csv"
+            family = root / "family.csv"
+            items = root / "items.csv"
+            self._write_minimal_ranking(ranking)
+            family.write_text(
+                "item_id,family\ntest_sword,onehand_sword\n",
+                encoding="utf-8",
+            )
+            items.write_text("item_id\n", encoding="utf-8")
+            result = self._run_overlay(
+                "--mode",
+                "canonical",
+                "--input",
+                str(ranking),
+                "--item-reference",
+                str(items),
+                "--family-audit",
+                str(family),
+                "--output",
+                str(root / "out.csv"),
+                "--audit-output",
+                str(root / "audit.csv"),
+                "--summary-output",
+                str(root / "summary.json"),
+            )
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("domain-manifest", result.stderr)
+            self.assertFalse((root / "out.csv").exists())
+
+    def test_cli_requires_family_audit_in_canonical_mode(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            ranking = root / "ranking.csv"
+            items = root / "items.csv"
+            manifest = root / "domain.json"
+            self._write_minimal_ranking(ranking)
+            items.write_text("item_id\n", encoding="utf-8")
+            manifest.write_text(
+                json.dumps({"input_sha256": "0" * 64, "troop_ids": ["swordsman"]}),
+                encoding="utf-8",
+            )
+            result = self._run_overlay(
+                "--mode",
+                "canonical",
+                "--input",
+                str(ranking),
+                "--item-reference",
+                str(items),
+                "--domain-manifest",
+                str(manifest),
+                "--output",
+                str(root / "out.csv"),
+                "--audit-output",
+                str(root / "audit.csv"),
+                "--summary-output",
+                str(root / "summary.json"),
+            )
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("family-audit", result.stderr)
+            self.assertFalse((root / "out.csv").exists())
+
+    def test_cli_rejects_invalid_minimum_exact_coverage(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            ranking = root / "ranking.csv"
+            self._write_minimal_ranking(ranking)
+            result = self._run_overlay(
+                "--mode",
+                "sensitivity",
+                "--input",
+                str(ranking),
+                "--minimum-exact-coverage",
+                "nan",
+                "--output",
+                str(root / "out.csv"),
+                "--audit-output",
+                str(root / "audit.csv"),
+                "--summary-output",
+                str(root / "summary.json"),
+            )
+            self.assertNotEqual(result.returncode, 0)
+            self.assertRegex(result.stderr, r"minimum-exact-coverage|invalid")
+            self.assertFalse((root / "out.csv").exists())
 
 
 class OverlayTests(unittest.TestCase):

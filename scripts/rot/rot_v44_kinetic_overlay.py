@@ -153,8 +153,27 @@ def load_family_audit(path: Path) -> dict[str, str]:
             )
         if family not in FAMILY_PRIORS and family not in EXACT_SUPPORTED_FAMILIES:
             raise ValueError(f"unknown family in audit: {family}")
+        if item_id in lookup:
+            raise ValueError(f"duplicate item_id in family audit: {item_id}")
         lookup[item_id] = family
     return lookup
+
+
+def _unique_ids(values: list[str], *, label: str) -> list[str]:
+    seen: set[str] = set()
+    duplicates: set[str] = set()
+    ordered: list[str] = []
+    for value in values:
+        if value in seen:
+            duplicates.add(value)
+            continue
+        seen.add(value)
+        ordered.append(value)
+    if duplicates:
+        raise ValueError(
+            f"duplicate {label}: {sorted(duplicates)}"
+        )
+    return ordered
 
 
 def verify_ranking_domain(
@@ -175,12 +194,20 @@ def verify_ranking_domain(
     expected_troops = manifest.get("troop_ids")
     if not isinstance(expected_troops, list) or not expected_troops:
         raise ValueError("domain manifest requires a non-empty troop_ids list")
-    expected_set = {str(troop_id).strip() for troop_id in expected_troops}
-    if "" in expected_set:
+    expected_list = [
+        str(troop_id).strip() for troop_id in expected_troops
+    ]
+    if any(not troop_id for troop_id in expected_list):
         raise ValueError("domain manifest troop_ids must be non-empty strings")
-    actual_set = {str(row.get("troop_id") or "").strip() for row in rows}
-    if "" in actual_set:
+    expected_unique = _unique_ids(expected_list, label="troop_ids in domain manifest")
+
+    actual_list = [str(row.get("troop_id") or "").strip() for row in rows]
+    if any(not troop_id for troop_id in actual_list):
         raise ValueError("ranking input contains an empty troop_id")
+    actual_unique = _unique_ids(actual_list, label="troop_ids in ranking input")
+
+    expected_set = set(expected_unique)
+    actual_set = set(actual_unique)
     if actual_set != expected_set:
         missing = sorted(expected_set - actual_set)
         unexpected = sorted(actual_set - expected_set)
