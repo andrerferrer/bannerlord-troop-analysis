@@ -279,24 +279,49 @@ def parse_npc_definition(npc: ET.Element):
     return row, edge_rows, equipment_rows
 
 
+def iter_npc_character_xml_paths(module_root: Path) -> list[Path]:
+    """Return module XML files that may define NPCCharacter rows.
+
+    Vanilla uses ``spnpccharacters.xml``, but major overhaul mods (RoT, TAOM,
+    Nightmare Sails, etc.) ship troops under other filenames. Prefer the
+    canonical filename when present, then every other ``*.xml`` under the
+    module so incremental overrides still apply in load order.
+    """
+    if not module_root.exists():
+        return []
+    canonical = module_files(module_root, "spnpccharacters.xml")
+    others = sorted(
+        (
+            path
+            for path in module_root.rglob("*")
+            if path.is_file()
+            and path.suffix.lower() == ".xml"
+            and path.name.lower() != "spnpccharacters.xml"
+        ),
+        key=lambda path: str(path.relative_to(module_root)).lower(),
+    )
+    return canonical + others
+
+
 def parse_troops(raw_xml_root: Path, load_order: list[str], baseline_modules: set[str]):
     definitions: dict[str, list[str]] = defaultdict(list)
     winners: dict[str, tuple[dict, list[dict], list[dict], str]] = {}
     troop_order: list[str] = []
-    found_any_file = False
+    found_any_npc = False
 
     for module in load_order:
-        spnpc_paths = module_files(raw_xml_root / module, "spnpccharacters.xml")
-        if spnpc_paths:
-            found_any_file = True
-        for spnpc in spnpc_paths:
-            root = ET.parse(spnpc).getroot()
+        for xml_path in iter_npc_character_xml_paths(raw_xml_root / module):
+            try:
+                root = ET.parse(xml_path).getroot()
+            except ET.ParseError:
+                continue
             for npc in root.iter():
                 if strip_ns(npc.tag) != "NPCCharacter":
                     continue
                 troop_id = npc.attrib.get("id")
                 if not troop_id:
                     continue
+                found_any_npc = True
                 if troop_id not in winners:
                     troop_order.append(troop_id)
                 if module not in definitions[troop_id]:
@@ -304,8 +329,10 @@ def parse_troops(raw_xml_root: Path, load_order: list[str], baseline_modules: se
                 row, edges, equipment = parse_npc_definition(npc)
                 winners[troop_id] = (row, edges, equipment, module)
 
-    if not found_any_file:
-        raise FileNotFoundError("Could not find spnpccharacters.xml in any resolved module")
+    if not found_any_npc:
+        raise FileNotFoundError(
+            "Could not find any NPCCharacter definitions in resolved modules"
+        )
 
     troop_rows = []
     edge_rows = []
