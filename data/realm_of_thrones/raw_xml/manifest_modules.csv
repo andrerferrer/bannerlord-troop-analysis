@@ -1,0 +1,10 @@
+track,module,load_order_index,is_baseline,version,file_count,bytes
+realm_of_thrones,Native,0,True,,416,23788329
+realm_of_thrones,Sandbox,1,True,,1571,25759334
+realm_of_thrones,SandBoxCore,2,True,,82,4580860
+realm_of_thrones,StoryMode,3,True,v1.4.7,286,2582157
+realm_of_thrones,NavalDLC,4,True,v1.2.7,1025,10206310
+realm_of_thrones,ROT-Core,5,False,v8.1.6,4,742227
+realm_of_thrones,ROT-Content,6,False,,131,17278900
+realm_of_thrones,ROT-Dragon,7,False,v8.1.6,8,92468
+realm_of_thrones,ROT_Map,8,False,v8.1.6,2,1189967

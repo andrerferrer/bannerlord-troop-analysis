@@ -1,0 +1,6 @@
+track,module,load_order_index,is_baseline,version,file_count,bytes
+vanilla,Native,0,True,,416,23788329
+vanilla,Sandbox,1,True,,1571,25759334
+vanilla,SandBoxCore,2,True,,82,4580860
+vanilla,StoryMode,3,True,v1.4.7,286,2582157
+vanilla,NavalDLC,4,True,v1.2.7,1025,10206310
