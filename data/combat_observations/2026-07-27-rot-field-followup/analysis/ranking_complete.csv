@@ -1,0 +1,13 @@
+context,rank,display_name,provisional_slug,canonical_troop_id,identity_status,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,ci95_low,ci95_high,reliability_status
+field,1,Ravens' Teeth [T6],ravens_teeth,ravens_teeth,confirmed_id,1,9,9,28,0,0,0,3.111111,0.000000,0.000000,,,insufficient_evidence
+field,2,Mallister Horseman [T4],mallister_horseman,,unresolved,1,1,1,3,0,0,0,3.000000,0.000000,0.000000,,,insufficient_evidence
+field,3,Frey Assassin [T6],frey_assassin,,unresolved,1,5,5,12,0,0,0,2.400000,0.000000,0.000000,,,insufficient_evidence
+field,4,Riverlands Admiral [T6],riverlands_admiral,river_admiral,confirmed_id,1,2,2,4,0,0,0,2.000000,0.000000,0.000000,,,insufficient_evidence
+field,5,Riverrun Captain [T6],riverrun_captain,,unresolved,1,2,2,3,0,0,0,1.500000,0.000000,0.000000,,,insufficient_evidence
+field,6,Blackwood Longbowman [T5],blackwood_longbowman,,unresolved,2,27,26,38,0,1,0,1.407407,0.000000,0.037037,,,insufficient_evidence
+field,7,Guard of the Crossing [T5],guard_of_the_crossing,,unresolved,1,3,3,4,0,0,0,1.333333,0.000000,0.000000,,,insufficient_evidence
+field,8,Blackwood Archer [T4],blackwood_archer,,unresolved,2,59,54,52,0,5,0,0.881356,0.000000,0.084746,,,insufficient_evidence
+field,9,Blackwood Bowman [T3],blackwood_bowman,,unresolved,2,61,60,45,0,1,0,0.737705,0.000000,0.016393,,,insufficient_evidence
+field,10,Mallister Man at Arms [T4],mallister_man_at_arms,,unresolved,2,62,47,42,4,11,0,0.677419,0.064516,0.241935,,,insufficient_evidence
+field,11,Mallister House Guard [T5],mallister_house_guard,mallister_houseguard,confirmed_id,2,51,45,34,0,6,0,0.666667,0.000000,0.117647,,,insufficient_evidence
+field,12,Mallister Footman [T3],mallister_footman,,unresolved,1,29,15,3,3,11,0,0.103448,0.103448,0.482759,,,insufficient_evidence
