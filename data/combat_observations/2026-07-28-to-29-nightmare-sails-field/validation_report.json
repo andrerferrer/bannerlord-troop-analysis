@@ -1,0 +1,32 @@
+{
+  "battle_context_counts": {
+    "field": 9
+  },
+  "battles": 9,
+  "consolidated_rows": 113,
+  "contexts_pooled": false,
+  "errors": [],
+  "game_track": "nightmare_sails",
+  "heroes_in_primary": false,
+  "known_limitations": [
+    "Only screenshot-visible troop rows are present; off-screen rows are not inferred.",
+    "Partial troop lists can undercount battle appearances for troops below the scroll position."
+  ],
+  "occurrences": 137,
+  "offscreen_rows_inferred": false,
+  "primary_occurrences": 113,
+  "review_items": 2,
+  "schema_version": "1.1.0",
+  "screenshots": 9,
+  "sides_pooled": false,
+  "status": "pass",
+  "track_resolution": {
+    "evidence": [
+      "Forest Reaper → forest_bandits_bossen",
+      "Hired Valkyrja → shield_sisters_sister_t5",
+      "Mountain Hedgeknight → mountain_bandits_bossen",
+      "data/nightmare_sails/audit/nightmare_sails_troops.csv"
+    ],
+    "method": "exact_display_name_matches_in_versioned_track_audit"
+  }
+}
