@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import re
+import sys
 import xml.etree.ElementTree as ET
 from collections import defaultdict, deque
 from pathlib import Path
@@ -802,7 +803,191 @@ def public_item_columns(frame: pd.DataFrame) -> pd.DataFrame:
     return frame.drop(columns=[column for column in frame.columns if column.startswith("_")], errors="ignore")
 
 
-def main():
+CATALOG_COLUMNS = [
+    "item_id",
+    "item_kind",
+    "type",
+    "crafting_template",
+    "name",
+    "culture",
+    "source_xml",
+    "winner_module",
+    "load_order_rank",
+]
+
+QUEUE_COLUMNS = [
+    "troop_id",
+    "troop_name",
+    "is_soldier",
+    "roster_index",
+    "slot",
+    "item_id",
+    "default_group",
+    "occupation",
+    "culture",
+    "severity",
+    "allowlist_reason",
+]
+
+
+def build_items_catalog(direct_items: pd.DataFrame, crafted_items: pd.DataFrame) -> pd.DataFrame:
+    """Deterministic union of direct + crafted items (last load-order winner)."""
+    frames = []
+    if not direct_items.empty:
+        frames.append(direct_items.copy())
+    if not crafted_items.empty:
+        crafted = crafted_items.copy()
+        if "type" not in crafted.columns:
+            crafted["type"] = "CraftedWeapon"
+        frames.append(crafted)
+    if not frames:
+        return pd.DataFrame(columns=CATALOG_COLUMNS)
+
+    combined = pd.concat(frames, ignore_index=True, sort=False)
+    if "_load_order_rank" not in combined.columns:
+        combined["_load_order_rank"] = 0
+    if "_module" not in combined.columns:
+        combined["_module"] = None
+    if "crafting_template" not in combined.columns:
+        combined["crafting_template"] = None
+    if "source_xml" not in combined.columns:
+        combined["source_xml"] = None
+    if "name" not in combined.columns:
+        combined["name"] = None
+    if "culture" not in combined.columns:
+        combined["culture"] = None
+    if "item_kind" not in combined.columns:
+        combined["item_kind"] = None
+    if "type" not in combined.columns:
+        combined["type"] = None
+
+    ranked = combined.sort_values(
+        ["item_id", "_load_order_rank", "source_xml"],
+        ascending=[True, False, True],
+    )
+    winners = ranked.drop_duplicates("item_id", keep="first").copy()
+    winners["winner_module"] = winners["_module"]
+    winners["load_order_rank"] = winners["_load_order_rank"]
+    return winners[CATALOG_COLUMNS].sort_values("item_id").reset_index(drop=True)
+
+
+def load_unknown_items_allowlist(path: Path | None) -> pd.DataFrame | None:
+    if path is None:
+        return None
+    frame = pd.read_csv(path)
+    required = {"item_id", "reason", "added_by", "date"}
+    missing = required - set(frame.columns)
+    if missing:
+        raise ValueError(f"allowlist missing columns: {sorted(missing)}")
+    if frame["item_id"].astype(str).str.contains(r"[\*\?]", regex=True).any():
+        raise ValueError("allowlist wildcards are not permitted")
+    return frame
+
+
+def build_unknown_items_review_queue(
+    audit: pd.DataFrame,
+    troops: pd.DataFrame,
+    allowlist: pd.DataFrame | None,
+) -> tuple[pd.DataFrame, dict[str, int]]:
+    """Build unknown-item queue and gate counters.
+
+    Blocking = soldier equipment row with non-empty item_id and item_found=false,
+    unless allowlisted (severity=allowed, still present in queue).
+    """
+    soldier_count = int(troops["is_soldier"].fillna(False).astype(bool).sum()) if (
+        not troops.empty and "is_soldier" in troops.columns
+    ) else 0
+
+    if audit is None or audit.empty:
+        if soldier_count > 0:
+            raise ValueError(
+                "unknown-item gate scope is empty but track has soldiers "
+                f"(soldiers={soldier_count}, equipment_rows=0); refusing fail-open"
+            )
+        empty = pd.DataFrame(columns=QUEUE_COLUMNS)
+        return empty, {"evaluated": 0, "blocking": 0, "info": 0, "allowed": 0}
+
+    unknown = audit[
+        (~audit["item_found"].fillna(False).astype(bool))
+        & audit["item_id"].notna()
+        & audit["item_id"].astype(str).str.len().gt(0)
+    ].copy()
+
+    if "is_soldier" not in unknown.columns:
+        soldier_ids = set(troops.loc[troops["is_soldier"].fillna(False).astype(bool), "troop_id"])
+        unknown["is_soldier"] = unknown["troop_id"].isin(soldier_ids)
+    else:
+        unknown["is_soldier"] = unknown["is_soldier"].fillna(False).astype(bool)
+
+    allow_ids: set[str] = set()
+    allow_reasons: dict[str, str] = {}
+    if allowlist is not None and not allowlist.empty:
+        for _, row in allowlist.iterrows():
+            item_id = str(row["item_id"])
+            allow_ids.add(item_id)
+            allow_reasons[item_id] = str(row["reason"])
+
+    severities = []
+    reasons = []
+    for _, row in unknown.iterrows():
+        item_id = str(row["item_id"])
+        if item_id in allow_ids:
+            severities.append("allowed")
+            reasons.append(allow_reasons.get(item_id, ""))
+        elif bool(row["is_soldier"]):
+            severities.append("blocking")
+            reasons.append("")
+        else:
+            severities.append("info")
+            reasons.append("")
+    unknown["severity"] = severities
+    unknown["allowlist_reason"] = reasons
+
+    for col in ("troop_name", "occupation", "culture", "default_group"):
+        if col not in unknown.columns:
+            unknown[col] = None
+
+    queue = unknown[
+        [
+            "troop_id",
+            "troop_name",
+            "is_soldier",
+            "roster_index",
+            "slot",
+            "item_id",
+            "default_group",
+            "occupation",
+            "culture",
+            "severity",
+            "allowlist_reason",
+        ]
+    ].sort_values(["severity", "troop_id", "roster_index", "slot", "item_id"]).reset_index(drop=True)
+
+    counters = {
+        "evaluated": int(len(unknown)),
+        "blocking": int((queue["severity"] == "blocking").sum()),
+        "info": int((queue["severity"] == "info").sum()),
+        "allowed": int((queue["severity"] == "allowed").sum()),
+    }
+    if soldier_count > 0 and counters["evaluated"] == 0 and int((~audit["item_found"].fillna(False).astype(bool)).sum()) == 0:
+        # All items resolved — evaluated unknowns can be zero; that is OK.
+        pass
+    elif soldier_count > 0 and len(audit) == 0:
+        raise ValueError(
+            "unknown-item gate scope is empty but track has soldiers; refusing fail-open"
+        )
+    return queue, counters
+
+
+def gate_unknown_items(counters: dict[str, int], allow_unknown_items: bool) -> int:
+    if allow_unknown_items:
+        return 0
+    if counters.get("blocking", 0) > 0:
+        return 2
+    return 0
+
+
+def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--raw-xml-root", type=Path, default=Path("data/vanilla/raw_xml"))
     parser.add_argument("--output-dir", type=Path, default=Path("data/vanilla/audit"))
@@ -813,6 +998,17 @@ def main():
         "--baseline-modules",
         default="Native,Sandbox,SandboxCore,StoryMode,NavalDLC",
         help="Comma-separated modules classified as baseline",
+    )
+    parser.add_argument(
+        "--allow-unknown-items",
+        action="store_true",
+        help="Debug/bootstrap only: do not exit 2 on blocking unknowns",
+    )
+    parser.add_argument(
+        "--unknown-items-allowlist",
+        type=Path,
+        default=None,
+        help="Provenance CSV: item_id,reason,added_by,date",
     )
     args = parser.parse_args()
     if not args.track.strip():
@@ -836,6 +1032,9 @@ def main():
     audit, roster_summary = build_audit_join(troops, tree_tiers, equipment, direct_items, crafted_items)
     sanity = build_sanity_table(roster_summary)
     xslt_gaps = detect_xslt_gaps(args.raw_xml_root, load_order, canonical_baseline)
+    catalog = build_items_catalog(direct_items, crafted_items)
+    allowlist = load_unknown_items_allowlist(args.unknown_items_allowlist)
+    queue, counters = build_unknown_items_review_queue(audit, troops, allowlist=allowlist)
 
     prefix = f"{args.track}_"
     troops.to_csv(args.output_dir / f"{prefix}troops.csv", index=False)
@@ -850,6 +1049,8 @@ def main():
     sanity.to_csv(args.output_dir / f"{prefix}sanity_check_table.csv", index=False)
     overrides.to_csv(args.output_dir / f"{prefix}override_report.csv", index=False)
     xslt_gaps.to_csv(args.output_dir / f"{prefix}known_gaps_xslt.csv", index=False)
+    catalog.to_csv(args.output_dir / f"{prefix}items_catalog.csv", index=False)
+    queue.to_csv(args.output_dir / f"{prefix}unknown_items_review_queue.csv", index=False)
 
     print("Audit rebuild complete.")
     print(f"track={args.track}")
@@ -860,10 +1061,28 @@ def main():
     print(f"equipment_rows={len(equipment)}")
     print(f"direct_items={len(direct_items)}")
     print(f"crafted_items={len(crafted_items)}")
+    print(f"catalog_items={len(catalog)}")
     print(f"audit_rows={len(audit)}")
     print(f"sanity_rows={len(sanity)}")
     print(f"overrides={len(overrides)}")
     print(f"xslt_known_gaps={len(xslt_gaps)}")
+    print(
+        "unknown_items_gate "
+        f"evaluated={counters['evaluated']} "
+        f"blocking={counters['blocking']} "
+        f"info={counters['info']} "
+        f"allowed={counters['allowed']}",
+        file=sys.stderr,
+    )
+
+    exit_code = gate_unknown_items(counters, allow_unknown_items=args.allow_unknown_items)
+    if exit_code != 0:
+        print(
+            f"FAIL unknown-items gate: {counters['blocking']} blocking row(s); "
+            f"see {args.output_dir / (prefix + 'unknown_items_review_queue.csv')}",
+            file=sys.stderr,
+        )
+        raise SystemExit(exit_code)
 
 
 if __name__ == "__main__":

@@ -34,11 +34,21 @@ $PY "$AUD" --raw-xml-root data/nightmare_sails/raw_xml --output-dir data/nightma
   --track nightmare_sails --load-order "$BASE,NightmareSailsxDTAB" --baseline-modules "$BASE"
 
 $PY "$AUD" --raw-xml-root data/realm_of_thrones/raw_xml --output-dir data/realm_of_thrones/audit \
-  --track realm_of_thrones --load-order "$BASE,ROT-Core,ROT-Content,ROT-Dragon,ROT_Map" --baseline-modules "$BASE"
+  --track realm_of_thrones --load-order "$BASE,ROT-Core,ROT-Content,ROT-Dragon,ROT_Map" --baseline-modules "$BASE" \
+  --unknown-items-allowlist data/realm_of_thrones/audit/realm_of_thrones_unknown_items_allowlist.csv
 
 $PY "$AUD" --raw-xml-root data/taom/raw_xml --output-dir data/taom/audit \
-  --track taom --load-order "$BASE,TAOM.Dependencies,TAOM,TAOM_Map" --baseline-modules "$BASE"
+  --track taom --load-order "$BASE,TAOM.Dependencies,TAOM,TAOM_Map" --baseline-modules "$BASE" \
+  --unknown-items-allowlist data/taom/audit/taom_unknown_items_allowlist.csv
 ```
+
+Outputs also include `<track>_items_catalog.csv` and
+`<track>_unknown_items_review_queue.csv`. Rebuild exits **2** if any soldier
+equipment ID is unresolved and not allowlisted. Do **not** finalize with
+`--allow-unknown-items`.
+
+Note: this export’s TAOM modules ship almost no item definition XML, so many
+TAOM equipment IDs are allowlisted as absent-from-export (see allowlist reason).
 
 ## Refresh package hashes
 

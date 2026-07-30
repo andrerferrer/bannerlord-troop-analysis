@@ -11,8 +11,8 @@
 ## Inputs
 
 - Export: `export_20260729_025002`
-- Package digest: `fab4a5e583244f18cc2e81eefe3d5d157f528569eab6432f69eb4b356cf3387a`
-- Track audit files verified against `artifact_hashes.csv`: 12
+- Package digest: `afef4c8483d4d27a228f13c78ed84f89fd624f9e7103d2801b1cec065eee767f`
+- Track audit files verified against `artifact_hashes.csv`: 14
 
 ## Outputs
 

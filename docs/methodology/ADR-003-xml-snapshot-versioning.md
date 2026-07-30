@@ -29,6 +29,11 @@ TaleWorlds and third-party content.
 5. Item XML discovery also reads `ModuleData/*.xml` item dumps outside
    `ModuleData/items/` (e.g. RoT `ROTassets.xml`) when they define `Item` /
    `CraftedItem`, so mod bows/arrows are not left `item_found=false`.
+6. Each track audit includes `items_catalog.csv` (deterministic Item∪CraftedItem
+   index) and `unknown_items_review_queue.csv`. Rebuild is **fail-closed** on
+   unresolved equipment IDs for soldiers (`severity=blocking`) unless a
+   provenance allowlist (`item_id,reason,added_by,date`) marks them
+   `severity=allowed`. Broad `--allow-unknown-items` is debug/bootstrap only.
 
 ## Consequences
 
@@ -36,3 +41,4 @@ TaleWorlds and third-party content.
 - Rebuilding audits requires the local raw XML extract (or regenerating from the
   pinned zip).
 - Tracks must not be concatenated; join only via explicit multi-track tools.
+- Silent `item_found=false` can no longer ship a “clean” rebuild for soldiers.
