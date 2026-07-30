@@ -1,11 +1,17 @@
 # XML export snapshot `export_20260729_025002`
 
+**Package kind:** `xml_ssot_package` (XML audit SSOT). **Not** an ADR-002 combat
+evidence package — no `bannerlord-analysis-task:v1` protocol. See `PACKAGE.json`,
+`RECONSTRUCTION.md`, ADR-003, ADR-004.
+
 ## SSOT
 
-- Ordered track audits under `data/<track>/audit/` (committed).
+- Ordered track audits under `data/<track>/audit/` (committed; hash-pinned).
 - Per-track `data/<track>/raw_xml/manifest.csv` + `manifest_modules.csv` + `MANIFEST.md` (committed).
 - Raw XML bodies remain local-only under `data/<track>/raw_xml/<Module>/` (gitignored).
-- Package identity: zip SHA-256 `307d9eab533b1b83bb76545141226f86144af6712ed0b64b29e3efc3e23f3ad8` (local Downloads / machine export; not committed as loose XML).
+- Source zip: `bannerlord_xml_export_20260729_025002.zip`, SHA-256
+  `307d9eab533b1b83bb76545141226f86144af6712ed0b64b29e3efc3e23f3ad8`, retention
+  **local_only** (LFS/Git declined).
 
 ## Track policy
 

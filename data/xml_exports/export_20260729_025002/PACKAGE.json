@@ -1,0 +1,32 @@
+{
+  "export_id": "export_20260729_025002",
+  "game_version": "v1.4.7",
+  "package_kind": "xml_ssot_package",
+  "not_combat_evidence_package": true,
+  "analysis_task_protocol": null,
+  "tracks": [
+    "vanilla",
+    "nightmare_sails",
+    "realm_of_thrones",
+    "taom"
+  ],
+  "source_zip": {
+    "filename": "bannerlord_xml_export_20260729_025002.zip",
+    "size_bytes": 22862973,
+    "sha256": "307d9eab533b1b83bb76545141226f86144af6712ed0b64b29e3efc3e23f3ad8",
+    "retention": "local_only",
+    "lfs_declined": true,
+    "git_declined": true,
+    "local_path_convention": [
+      "$BANNERLORD_XML_EXPORT_ZIP",
+      "~/Downloads/bannerlord_xml_export_20260729_025002.zip"
+    ]
+  },
+  "reconstruction_commands": [
+    "unzip -d /tmp/export_20260729_025002 ~/Downloads/bannerlord_xml_export_20260729_025002.zip",
+    "python3 scripts/normalization/rebuild_vanilla_audit.py --raw-xml-root data/<track>/raw_xml --output-dir data/<track>/audit --track <track> --load-order <ordered-modules> --baseline-modules <baseline>",
+    "python3 scripts/normalization/build_xml_ssot_package_hashes.py --export-id export_20260729_025002"
+  ],
+  "expected_package_sha256": "4c27f2b1069b36f6cc8c5d484f5cff792ddadaa601b9e3ff9eea6b1c95f69a38",
+  "hash_algorithm": "SHA-256 of UTF-8 text formed by sorting artifact_hashes.csv data rows as path,bytes,sha256 lines joined by \\n with a trailing \\n; artifact_hashes.csv and PACKAGE.json are excluded from the row set"
+}

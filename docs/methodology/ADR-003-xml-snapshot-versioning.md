@@ -9,11 +9,15 @@ TaleWorlds and third-party content.
 
 ## Decision
 
-1. **Version the ordered derived form**: per-track audit CSVs under
+1. **Version the ordered derived form** as an **`xml_ssot_package`** (not an
+   ADR-002 combat “normalized” package): per-track audit CSVs under
    `data/<track>/audit/` plus allowlisted `manifest.csv` /
-   `manifest_modules.csv` / `MANIFEST.md`.
-2. **Keep XML bodies local-only** (gitignored). The zip remains a local package
-   pinned by SHA-256 in the snapshot README / manifests.
+   `manifest_modules.csv` / `MANIFEST.md`, with package metadata under
+   `data/xml_exports/<export_id>/` (`PACKAGE.json`, `artifact_hashes.csv`,
+   `RECONSTRUCTION.md`).
+2. **Keep XML bodies local-only** (gitignored). The zip remains local-only
+   (LFS/Git declined for this public repo), pinned by filename + size + SHA-256
+   in `PACKAGE.json` / `RECONSTRUCTION.md`.
 3. **Track policy for this snapshot**
    - `vanilla`: Native + Sandbox + SandBoxCore + StoryMode + **NavalDLC**
      (War Sails folded into the vanilla baseline).
