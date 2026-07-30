@@ -26,6 +26,9 @@ TaleWorlds and third-party content.
    - `taom`: **promoted** baselines + TAOM modules.
 4. Troop XML discovery reads every module `*.xml` for `NPCCharacter`, not only
    `spnpccharacters.xml`, so RoT/TAOM troop files participate.
+5. Item XML discovery also reads `ModuleData/*.xml` item dumps outside
+   `ModuleData/items/` (e.g. RoT `ROTassets.xml`) when they define `Item` /
+   `CraftedItem`, so mod bows/arrows are not left `item_found=false`.
 
 ## Consequences
 
