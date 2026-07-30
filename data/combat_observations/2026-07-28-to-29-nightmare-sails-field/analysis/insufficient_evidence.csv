@@ -1,0 +1,31 @@
+context,rank,display_name,provisional_slug,canonical_troop_id,identity_status,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,ci95_low,ci95_high,reliability_status
+field,1,Nord Hearthguard [T4],nord_hearthguard,nord_jarlsmann,confirmed_id,1,4,2,15,0,2,0,3.750000,0.000000,0.500000,,,insufficient_evidence
+field,2,Forest Lord [T6],forest_lord,forest_bandits_boss,confirmed_id,5,5,5,18,0,0,0,3.600000,0.000000,0.000000,,,insufficient_evidence
+field,3,Battanian Veteran Skirmisher [T4],battanian_veteran_skirmisher,,unresolved,1,2,2,7,0,0,0,3.500000,0.000000,0.000000,,,insufficient_evidence
+field,5,Desert Emir [T6],desert_emir,desert_bandits_boss,confirmed_id,3,3,3,9,0,0,0,3.000000,0.000000,0.000000,,,insufficient_evidence
+field,6,Nord War-Proven [T3],nord_war_proven,nord_thegn,confirmed_id,2,2,2,6,0,0,0,3.000000,0.000000,0.000000,,,insufficient_evidence
+field,8,Sturgian Varyag Guard [T4],sturgian_varyag_guard,varyag_veteran,confirmed_id,2,5,5,11,0,0,0,2.200000,0.000000,0.000000,,,insufficient_evidence
+field,9,Nord Scion [T2],nord_scion,nord_ungmann,confirmed_id,1,7,6,15,1,0,0,2.142857,0.142857,0.142857,,,insufficient_evidence
+field,10,Sturgian Varyag [T3],sturgian_varyag,varyag,confirmed_id,2,5,5,10,0,0,0,2.000000,0.000000,0.000000,,,insufficient_evidence
+field,11,Nord Shield-Companion [T5],nord_shield_companion,nord_hirdmann,confirmed_id,1,1,1,2,0,0,0,2.000000,0.000000,0.000000,,,insufficient_evidence
+field,12,Sturgian Soldier [T3],sturgian_soldier,,unresolved,1,1,1,2,0,0,0,2.000000,0.000000,0.000000,,,insufficient_evidence
+field,13,Sturgian Druzhinnik Champion [T6],sturgian_druzhinnik_champion,druzhinnik_champion,confirmed_id,5,14,12,27,0,2,0,1.928571,0.000000,0.142857,,,insufficient_evidence
+field,14,Hired Valkyrja [T5],hired_valkyrja,shield_sisters_sister_t5,confirmed_id,6,16,10,30,1,5,0,1.875000,0.062500,0.375000,,,insufficient_evidence
+field,15,Vlandian Banner Knight [T6],vlandian_banner_knight,vlandian_banner_knight,confirmed_id,2,4,4,7,0,0,0,1.750000,0.000000,0.000000,,,insufficient_evidence
+field,16,Imperial Legionary [T5],imperial_legionary,imperial_legionary,confirmed_id,3,26,24,39,1,1,0,1.500000,0.038462,0.076923,,,insufficient_evidence
+field,17,Steppe Chief [T6],steppe_chief,steppe_bandits_boss,confirmed_id,2,2,2,3,0,0,0,1.500000,0.000000,0.000000,,,insufficient_evidence
+field,18,Steppe Khorchighai [T5],steppe_khorchighai,steppe_bandits_bossen,confirmed_id,2,2,2,3,0,0,0,1.500000,0.000000,0.000000,,,insufficient_evidence
+field,19,Mountain Hedgeknight [T5],mountain_hedgeknight,mountain_bandits_bossen,confirmed_id,5,9,6,13,1,2,0,1.444444,0.111111,0.333333,,,insufficient_evidence
+field,22,Imperial Menavliaton [T4],imperial_menavliaton,,unresolved,1,7,4,7,0,3,0,1.000000,0.000000,0.428571,,,insufficient_evidence
+field,23,Khuzait Qanqli [T3],khuzait_qanqli,,unresolved,1,5,5,5,0,0,0,1.000000,0.000000,0.000000,,,insufficient_evidence
+field,24,Battanian Skirmisher [T3],battanian_skirmisher,,unresolved,1,2,1,2,1,0,0,1.000000,0.500000,0.500000,,,insufficient_evidence
+field,25,Khuzait Torguud [T4],khuzait_torguud,,unresolved,1,2,2,2,0,0,0,1.000000,0.000000,0.000000,,,insufficient_evidence
+field,26,Imperial Veteran Infantryman [T4],imperial_veteran_infantryman,,unresolved,3,20,18,19,0,2,0,0.950000,0.000000,0.100000,,,insufficient_evidence
+field,29,Imperial Elite Menavliaton [T5],imperial_elite_menavliaton,,unresolved,1,8,4,7,0,4,0,0.875000,0.000000,0.500000,,,insufficient_evidence
+field,30,Khuzait Footman [T2],khuzait_footman,,unresolved,1,8,4,7,2,2,0,0.875000,0.250000,0.500000,,,insufficient_evidence
+field,32,Sturgian Otrok [T2],sturgian_otrok,sturgian_warrior_son,confirmed_id,1,4,4,3,0,0,0,0.750000,0.000000,0.000000,,,insufficient_evidence
+field,33,Khuzait Marksman [T5],khuzait_marksman,khuzait_marksman,confirmed_id,4,15,15,11,0,0,0,0.733333,0.000000,0.000000,,,insufficient_evidence
+field,34,Imperial Recruit [T1],imperial_recruit,,unresolved,4,62,44,31,5,13,0,0.500000,0.080645,0.290323,,,insufficient_evidence
+field,35,Imperial Infantryman [T2],imperial_infantryman,,unresolved,4,30,25,13,0,5,0,0.433333,0.000000,0.166667,,,insufficient_evidence
+field,36,Sturgian Druzhinnik [T5],sturgian_druzhinnik,druzhinnik,confirmed_id,1,5,4,2,0,1,0,0.400000,0.000000,0.200000,,,insufficient_evidence
+field,37,Khuzait Noble's Son [T2],khuzait_nobles_son,,unresolved,2,14,10,3,1,3,0,0.214286,0.071429,0.285714,,,insufficient_evidence

@@ -1,0 +1,27 @@
+{
+  "batch_id": "combat_2026-07-28_183356_2026-07-29_015856_nightmare_sails",
+  "battle_context_counts": {
+    "field": 9
+  },
+  "battles": 9,
+  "game_track": "nightmare_sails",
+  "game_version": "1.4.x",
+  "normalization_scope": "evidence_and_structural_normalization_only",
+  "observations": 137,
+  "primary_troop_occurrences": 113,
+  "review_queue": 2,
+  "schema_version": "1.1.0",
+  "screenshots": 9,
+  "source_kind": "individual_scoreboard_images",
+  "source_retention_status": "not_retained_in_repository_hashes_recorded",
+  "status": "normalized_pending_analysis",
+  "track_resolution": {
+    "evidence": [
+      "Forest Reaper → forest_bandits_bossen",
+      "Hired Valkyrja → shield_sisters_sister_t5",
+      "Mountain Hedgeknight → mountain_bandits_bossen",
+      "data/nightmare_sails/audit/nightmare_sails_troops.csv"
+    ],
+    "method": "exact_display_name_matches_in_versioned_track_audit"
+  }
+}
