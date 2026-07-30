@@ -22,7 +22,20 @@
     "update_pull_request_summary",
     "validate_and_merge"
   ],
-  "status": "pending",
+  "required_actions_completed": [
+    "verify_handoff_hashes",
+    "preserve_normalized_inputs",
+    "complete_review_layer",
+    "resolve_canonical_identities",
+    "generate_reliable_and_complete_rankings",
+    "publish_insufficient_evidence_and_context_coverage",
+    "quantify_battle_level_uncertainty",
+    "commit_analysis_validation_and_hashes",
+    "confirm_frozen_models_unchanged",
+    "update_pull_request_summary",
+    "validate_and_merge"
+  ],
+  "status": "complete",
   "task_id": "combat_2026-07-28_183356_2026-07-29_015856_nightmare_sails",
   "version": 1
 }
