@@ -7,8 +7,8 @@
 | Raw-source retention | not retained; hashes recorded |
 | Phase 1 normalization | complete |
 | Structural validation | complete |
-| Phase 2 analysis | pending |
-| Final merge gate | blocked pending Phase 2 |
+| Phase 2 analysis | complete |
+| Final merge gate | ready |
 
 ## Coverage
 
