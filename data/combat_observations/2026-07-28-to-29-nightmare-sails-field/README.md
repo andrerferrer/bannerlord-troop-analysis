@@ -7,8 +7,8 @@
 | Raw-source retention | not retained; hashes recorded |
 | Phase 1 normalization | complete |
 | Structural validation | complete |
-| Phase 2 analysis | pending |
-| Final merge gate | blocked pending Phase 2 |
+| Phase 2 analysis | complete |
+| Final merge gate | ready |
 
 ## Coverage
 
@@ -19,7 +19,7 @@
 - Screenshots: 9
 - Troop occurrences: 137 total; 113 included ordinary-troop rows
 - Review exclusions: 2
-- Reliable ranking rows: pending Phase 2
+- Reliable ranking rows: 7
 - Normalized archive SHA-256: `67faffdb8dd882299c97d289136338d9c79fd33ce07c0b11db261514454facde`
 
 ## Boundaries
