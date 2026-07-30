@@ -1,0 +1,4 @@
+context,independent_battles,ordinary_troop_labels,reliable_rows,display_gate_battles,display_gate_deployed,status
+field,9,37,7,5,20,analyzed
+siege_attack,0,0,0,5,20,not_observed
+siege_defense,0,0,0,5,20,not_observed
