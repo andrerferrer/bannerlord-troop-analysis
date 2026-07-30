@@ -1,0 +1,19 @@
+{
+  "batch_id": "combat_2026-07-27_103534_104834_rot",
+  "bootstrap_repetitions": 10000,
+  "complete_rows": 12,
+  "contexts": [
+    "field"
+  ],
+  "errors": [],
+  "heroes_excluded": true,
+  "insufficient_rows": 12,
+  "minimum_battles": 5,
+  "minimum_deployed": 20,
+  "model_versions_changed": false,
+  "offscreen_rows_inferred": false,
+  "reliable_rows": 0,
+  "review_rows_excluded": true,
+  "status": "pass",
+  "track": "realm_of_thrones"
+}
