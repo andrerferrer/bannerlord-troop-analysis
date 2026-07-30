@@ -1,0 +1,28 @@
+{
+  "blockers": [],
+  "branch": "agent/normalize-combat-2026-07-28-29-nightmare-sails",
+  "completion": {
+    "action": "merge",
+    "merge_method": "squash"
+  },
+  "handoff_path": "data/combat_observations/2026-07-28-to-29-nightmare-sails-field/handoff/ANALYSIS_PROMPT.md",
+  "normalization_commit": "4a3b6cbda8f7f1165f8d2018197bfbb4ca6ce5b9",
+  "normalized_archive_sha256": "67faffdb8dd882299c97d289136338d9c79fd33ce07c0b11db261514454facde",
+  "protocol": "bannerlord-analysis-task",
+  "required_actions": [
+    "verify_handoff_hashes",
+    "preserve_normalized_inputs",
+    "complete_review_layer",
+    "resolve_canonical_identities",
+    "generate_reliable_and_complete_rankings",
+    "publish_insufficient_evidence_and_context_coverage",
+    "quantify_battle_level_uncertainty",
+    "commit_analysis_validation_and_hashes",
+    "confirm_frozen_models_unchanged",
+    "update_pull_request_summary",
+    "validate_and_merge"
+  ],
+  "status": "pending",
+  "task_id": "combat_2026-07-28_183356_2026-07-29_015856_nightmare_sails",
+  "version": 1
+}
