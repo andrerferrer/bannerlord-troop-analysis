@@ -2,7 +2,7 @@
   "export_id": "export_20260729_025002",
   "track": "taom",
   "package_kind_source": "xml_ssot_package",
-  "expected_package_sha256": "4c27f2b1069b36f6cc8c5d484f5cff792ddadaa601b9e3ff9eea6b1c95f69a38",
+  "expected_package_sha256": "fab4a5e583244f18cc2e81eefe3d5d157f528569eab6432f69eb4b356cf3387a",
   "model": "role_scores_v1",
   "evidence_basis": "xml_structural",
   "empirical": false,

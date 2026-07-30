@@ -463,13 +463,54 @@ def derive_tree_tiers(troops: pd.DataFrame, edges: pd.DataFrame) -> pd.DataFrame
     )
 
 
+def is_excluded_item_scan_path(rel: str) -> bool:
+    return any(
+        token in rel
+        for token in (
+            "Languages/",
+            "/GUI/",
+            "/Atmospheres/",
+            "/Dialogues/",
+            "Voiceovers/",
+        )
+    )
+
+
+def xml_may_define_items(path: Path) -> bool:
+    """True when the file looks like an Item/CraftedItem catalog.
+
+    Mods such as Realm of Thrones put bows in ModuleData/ROTassets.xml, outside
+    ModuleData/items/. Avoid matching ItemModifier / ItemComponent via a loose
+    '<Item' substring.
+    """
+    try:
+        sample = path.read_bytes()[:131072]
+    except OSError:
+        return False
+    if b"<CraftedItem" in sample:
+        return True
+    return re.search(br"<Item[\s>]", sample) is not None
+
+
+def is_item_definition_xml(rel: str, path: Path) -> bool:
+    rel = rel.replace("\\", "/")
+    if is_excluded_item_scan_path(rel):
+        return False
+    if "/ModuleData/items/" in rel:
+        return True
+    if rel.endswith(("story_mode_items.xml", "mpitems.xml", "items.xml")):
+        return True
+    # ModuleData dumps used by mods (ROTassets.xml, naval_weapons.xml, ...).
+    if "/ModuleData/" in rel and rel.lower().endswith(".xml"):
+        return xml_may_define_items(path)
+    return False
+
+
 def parse_direct_items(raw_xml_root: Path, load_order: list[str]) -> pd.DataFrame:
     rows = []
     for rank, module, xml_path in iter_module_xml_paths(raw_xml_root, load_order):
         rel = str(xml_path.relative_to(raw_xml_root)).replace("\\", "/")
-        if any(x in rel for x in ["Languages/", "/GUI/", "/Atmospheres/"]):
-            continue
-        if not ("/ModuleData/items/" in rel or rel.endswith("story_mode_items.xml") or rel.endswith("mpitems.xml")):
+        if not is_item_definition_xml(rel, xml_path):
             continue
         try:
             tree = ET.parse(xml_path)
@@ -554,9 +595,7 @@ def parse_crafted_items(raw_xml_root: Path, load_order: list[str]) -> tuple[pd.D
     piece_rows = []
     for rank, module, xml_path in iter_module_xml_paths(raw_xml_root, load_order):
         rel = str(xml_path.relative_to(raw_xml_root)).replace("\\", "/")
-        if any(x in rel for x in ["Languages/", "/GUI/", "/Atmospheres/"]):
-            continue
-        if not ("/ModuleData/items/" in rel or rel.endswith("mpitems.xml")):
+        if not is_item_definition_xml(rel, xml_path):
             continue
         try:
             tree = ET.parse(xml_path)
