@@ -1,0 +1,25 @@
+{
+  "export_id": "export_20260729_025002",
+  "track": "nightmare_sails",
+  "package_kind_source": "xml_ssot_package",
+  "expected_package_sha256": "4c27f2b1069b36f6cc8c5d484f5cff792ddadaa601b9e3ff9eea6b1c95f69a38",
+  "model": "role_scores_v1",
+  "evidence_basis": "xml_structural",
+  "empirical": false,
+  "adr": "ADR-004",
+  "verified_audit_files": [
+    "data/nightmare_sails/audit/nightmare_sails_crafted_item_pieces.csv",
+    "data/nightmare_sails/audit/nightmare_sails_equipment_rosters.csv",
+    "data/nightmare_sails/audit/nightmare_sails_items_crafted.csv",
+    "data/nightmare_sails/audit/nightmare_sails_items_direct.csv",
+    "data/nightmare_sails/audit/nightmare_sails_known_gaps_xslt.csv",
+    "data/nightmare_sails/audit/nightmare_sails_override_report.csv",
+    "data/nightmare_sails/audit/nightmare_sails_roster_audit_summary.csv",
+    "data/nightmare_sails/audit/nightmare_sails_sanity_check_table.csv",
+    "data/nightmare_sails/audit/nightmare_sails_tree_tiers.csv",
+    "data/nightmare_sails/audit/nightmare_sails_troop_equipment_audit.csv",
+    "data/nightmare_sails/audit/nightmare_sails_troops.csv",
+    "data/nightmare_sails/audit/nightmare_sails_upgrade_edges.csv"
+  ],
+  "troop_rows": 371
+}
