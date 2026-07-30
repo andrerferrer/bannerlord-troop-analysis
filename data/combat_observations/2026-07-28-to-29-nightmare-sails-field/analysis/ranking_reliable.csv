@@ -1,0 +1,8 @@
+context,rank,display_name,provisional_slug,canonical_troop_id,identity_status,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,ci95_low,ci95_high,reliability_status
+field,1,Nord Huscarl [T6],nord_huscarl,nord_huscarl,confirmed_id,6,25,20,78,1,4,0,3.120000,0.040000,0.200000,2.666667,3.520000,reliable
+field,2,Battanian Wildling [T5],battanian_wildling,battanian_wildling,confirmed_id,8,34,26,91,0,8,0,2.676471,0.000000,0.235294,2.058824,3.285714,reliable
+field,3,Forest Reaper [T5],forest_reaper,forest_bandits_bossen,confirmed_id,6,24,24,33,0,0,0,1.375000,0.000000,0.000000,0.916667,1.791667,reliable
+field,4,Imperial Elite Cataphract [T6],imperial_elite_cataphract,imperial_elite_cataphract,confirmed_id,7,140,129,189,1,10,0,1.350000,0.007143,0.078571,0.934783,1.751880,reliable
+field,5,Veteran Outrider [T5],veteran_outrider,eastern_mounted_mercenary_t5,confirmed_id,5,39,38,36,0,1,0,0.923077,0.000000,0.025641,0.410256,1.400000,reliable
+field,6,Khuzait Khan's Guard [T6],khuzait_khans_guard,khuzait_khans_guard,confirmed_id,7,112,111,99,0,1,0,0.883929,0.000000,0.008929,0.321429,1.562500,reliable
+field,7,Imperial Trained Infantryman [T3],imperial_trained_infantryman,,unresolved,5,41,39,32,0,2,0,0.780488,0.000000,0.048780,0.566667,0.972973,reliable
