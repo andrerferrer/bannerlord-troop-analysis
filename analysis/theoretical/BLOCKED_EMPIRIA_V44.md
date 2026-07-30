@@ -1,51 +1,46 @@
-# Empiria / V4.4 — blocked-on-data (plan v3.1 Fase C)
+# Empiria / V4.4 — execution status (plan v3.1 Fase C)
 
-Status: **partially unblocked, not queued**. Does not block theoretical Fase B.
+Status: **field empiria available for Nightmare Sails; Realm of Thrones follow-up remains below display gate**. Theoretical Fase B remains independent.
 
-## What is already online
+## Online empirical batches
 
-- The reviewed Realm of Thrones combat batch from 2026-07-26/27 is repository-addressable and analyzed under `data/combat_observations/2026-07-27-normalized-only/` and `analysis/empirical/2026-07-27/`.
-- Multi-track XML SSOT packages and theoretical `role_scores_v1` outputs are online for `nightmare_sails`, `taom`, and `realm_of_thrones`.
-- The `bannerlord-analysis-task:v1` workflow, dispatcher, validation gates, and two-agent handoff protocol are online.
+### Realm of Thrones
 
-## Current 2026-07-27 to 2026-07-29 screenshot set
+- Reviewed 2026-07-26/27 batch: `data/combat_observations/2026-07-27-normalized-only/`.
+- Field follow-up B01–B02: `data/combat_observations/2026-07-27-rot-field-followup/`.
+- Follow-up coverage: 2 independent field battles, 17 included ordinary-troop occurrences, 0 reliable rows.
+- The follow-up is valid evidence but is insufficient by itself for the 5-battle / 20-deployed display gate.
 
-A new set of **11 final scoreboards** was normalized outside the repository into:
+### Nightmare Sails
 
-- `bannerlord_battles_normalized_2026-07-27_to_29.xlsx`
-- `bannerlord_battles_normalized_2026-07-27_to_29.zip`
-- CSV tables for battles, sides, parties, and visible player troops
+- Field batch B03–B11: `data/combat_observations/2026-07-28-to-29-nightmare-sails-field/`.
+- Coverage: 9 independent field battles, 113 included ordinary-troop occurrences, 7 reliable rows.
+- Track resolution is backed by exact display-name matches in `data/nightmare_sails/audit/nightmare_sails_troops.csv`.
+- Two partially obscured rows remain excluded in the reviewed layer rather than guessed.
 
-These artifacts are **not yet repository-addressable** and therefore are not an authoritative empirical input.
+Reliable field rows:
 
-The screenshots must not be treated as one track:
+1. Nord Huscarl — 6 battles, 25 deployed, 3.120 kills/deployed.
+2. Battanian Wildling — 8 battles, 34 deployed, 2.676 kills/deployed.
+3. Forest Reaper — 6 battles, 24 deployed, 1.375 kills/deployed.
+4. Imperial Elite Cataphract — 7 battles, 140 deployed, 1.350 kills/deployed.
+5. Veteran Outrider — 5 battles, 39 deployed, 0.923 kills/deployed.
+6. Khuzait Khan's Guard — 7 battles, 112 deployed, 0.884 kills/deployed.
+7. Imperial Trained Infantryman — 5 battles, 41 deployed, 0.780 kills/deployed.
 
-- B01–B02: visibly Realm of Thrones (`Lannister` / `Mallister`).
-- B03–B11: track remains unresolved from the scoreboard alone; do not assign `nightmare_sails` or `taom` by guess.
+These are descriptive campaign-contribution rates, not intrinsic-strength rankings. Tracks, sides, and contexts remain separate.
 
-Battle context is also unresolved for this set. The result screen alone does not reliably establish `field`, `siege_attack`, or `siege_defense`.
+## Reproducibility state
 
-## Required next steps
-
-1. **Split the intake by track.** Create separate evidence batches and separate draft PRs for B01–B02 and B03–B11.
-2. **Resolve the track for B03–B11.** Confirm the campaign/module set before canonical identity matching.
-3. **Label battle context.** Record `field`, `siege_attack`, or `siege_defense` for every battle; preserve unresolved cases in `review_queue.csv`.
-4. **Rebuild canonical normalized bundles.** Convert the staging spreadsheet/CSVs into deterministic JSONL/CSV artifacts using the current batch schema.
-5. **Add reproducibility metadata.** Commit source provenance, screenshot SHA-256 values, artifact hashes, validation report, reconstruction instructions, and normalized archive hash.
-6. **Preserve partial visibility.** B03 and B04 have complete visible player troop lists; the other screenshots have off-screen rows and must remain explicitly partial.
-7. **Create the Phase 2 handoff.** Add `handoff/ANALYSIS_PROMPT.md`, open one draft PR per track, and publish a valid `bannerlord-analysis-task:v1` `pending` comment.
-8. **Run empirical analysis only after the gates pass.** Keep sides and contexts separate; display only cells with at least 5 independent battles and 20 deployed troops.
-
-## Current blocker summary
-
-- **Repository upload:** pending for the new 11-scoreboard set.
-- **Track identity:** resolved for B01–B02; unresolved for B03–B11.
-- **Battle context:** unresolved for all 11 battles.
-- **Display gate:** cannot be assessed safely until track/context splitting is complete.
+- All 11 scoreboards are split into track-correct repository batches.
+- Deterministic normalized archives, reconstruction instructions, SHA-256 manifests, structural validation, review layers, analytical outputs, and protocol state are repository-addressable.
+- Raw screenshots are not retained in Git; original filenames and image SHA-256 values are versioned. This is allowed after deterministic normalization passes the repository gates.
+- Off-screen rows are not inferred.
+- Heroes are excluded from ordinary troop rankings.
 
 ## Realm of Thrones priority troops
 
-When a compatible RoT empirical batch reaches the display gate, prioritize:
+When compatible RoT evidence reaches the display gate, prioritize:
 
 - Ravens' Teeth
 - Goldenheart Warrior
@@ -58,5 +53,6 @@ When a compatible RoT empirical batch reaches the display gate, prioritize:
 
 ## V4.4 kinetic overlay
 
-Requires exact-item profiles / model-change PR. Outside this critical path.
+Still blocked on exact-item profiles and a dedicated model-change pull request. This is outside the empirical batch critical path.
+
 `analysis/model_versions/` remains frozen.
