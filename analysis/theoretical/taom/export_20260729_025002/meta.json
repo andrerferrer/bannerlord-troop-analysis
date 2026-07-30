@@ -2,7 +2,7 @@
   "export_id": "export_20260729_025002",
   "track": "taom",
   "package_kind_source": "xml_ssot_package",
-  "expected_package_sha256": "fab4a5e583244f18cc2e81eefe3d5d157f528569eab6432f69eb4b356cf3387a",
+  "expected_package_sha256": "afef4c8483d4d27a228f13c78ed84f89fd624f9e7103d2801b1cec065eee767f",
   "model": "role_scores_v1",
   "evidence_basis": "xml_structural",
   "empirical": false,
@@ -10,6 +10,7 @@
   "verified_audit_files": [
     "data/taom/audit/taom_crafted_item_pieces.csv",
     "data/taom/audit/taom_equipment_rosters.csv",
+    "data/taom/audit/taom_items_catalog.csv",
     "data/taom/audit/taom_items_crafted.csv",
     "data/taom/audit/taom_items_direct.csv",
     "data/taom/audit/taom_known_gaps_xslt.csv",
@@ -19,6 +20,8 @@
     "data/taom/audit/taom_tree_tiers.csv",
     "data/taom/audit/taom_troop_equipment_audit.csv",
     "data/taom/audit/taom_troops.csv",
+    "data/taom/audit/taom_unknown_items_allowlist.csv",
+    "data/taom/audit/taom_unknown_items_review_queue.csv",
     "data/taom/audit/taom_upgrade_edges.csv"
   ],
   "troop_rows": 1237

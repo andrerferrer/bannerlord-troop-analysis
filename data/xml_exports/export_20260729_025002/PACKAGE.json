@@ -27,6 +27,6 @@
     "python3 scripts/normalization/rebuild_vanilla_audit.py --raw-xml-root data/<track>/raw_xml --output-dir data/<track>/audit --track <track> --load-order <ordered-modules> --baseline-modules <baseline>",
     "python3 scripts/normalization/build_xml_ssot_package_hashes.py --export-id export_20260729_025002"
   ],
-  "expected_package_sha256": "fab4a5e583244f18cc2e81eefe3d5d157f528569eab6432f69eb4b356cf3387a",
+  "expected_package_sha256": "afef4c8483d4d27a228f13c78ed84f89fd624f9e7103d2801b1cec065eee767f",
   "hash_algorithm": "SHA-256 of UTF-8 text formed by sorting artifact_hashes.csv data rows as path,bytes,sha256 lines joined by \\n with a trailing \\n; artifact_hashes.csv and PACKAGE.json are excluded from the row set"
 }

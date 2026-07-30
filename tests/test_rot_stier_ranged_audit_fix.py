@@ -40,6 +40,18 @@ class RotStierRangedAuditFixTests(unittest.TestCase):
             self.assertEqual(row["primary_category"], "Ranged Troops", troop_id)
             self.assertGreater(float(row["ranged_role_score"]), 80.0, troop_id)
 
+    def test_s_tier_longbows_not_in_blocking_unknown_queue(self) -> None:
+        queue_path = (
+            REPO
+            / "data/realm_of_thrones/audit/realm_of_thrones_unknown_items_review_queue.csv"
+        )
+        self.assertTrue(queue_path.is_file())
+        queue = pd.read_csv(queue_path)
+        for bow_id in S_TIER_BOWS.values():
+            hits = queue[queue["item_id"] == bow_id]
+            blocking = hits[hits["severity"] == "blocking"] if len(hits) else hits
+            self.assertEqual(len(blocking), 0, bow_id)
+
 
 if __name__ == "__main__":
     unittest.main()
