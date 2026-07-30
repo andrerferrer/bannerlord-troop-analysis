@@ -1,0 +1,12 @@
+{
+  "archive_members": 11,
+  "artifact_manifest_verified_locally": true,
+  "batch_id": "combat_2026-07-27_103534_104834_rot",
+  "internal_normalized_manifest_entries": 11,
+  "model_versions_changed": false,
+  "normalization_validation_status": "pass",
+  "normalized_archive_sha256": "70abe0385130a6d96aa9c594b08edc9bfa528bfdddeedd94c92dcf1d9de940ce",
+  "normalized_inputs_modified_after_handoff": false,
+  "raw_source_retention": "not_retained_hashes_recorded",
+  "repository_artifact_manifest_entries": 6
+}
