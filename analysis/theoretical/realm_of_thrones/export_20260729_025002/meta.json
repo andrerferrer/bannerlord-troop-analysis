@@ -1,0 +1,25 @@
+{
+  "export_id": "export_20260729_025002",
+  "track": "realm_of_thrones",
+  "package_kind_source": "xml_ssot_package",
+  "expected_package_sha256": "4c27f2b1069b36f6cc8c5d484f5cff792ddadaa601b9e3ff9eea6b1c95f69a38",
+  "model": "role_scores_v1",
+  "evidence_basis": "xml_structural",
+  "empirical": false,
+  "adr": "ADR-004",
+  "verified_audit_files": [
+    "data/realm_of_thrones/audit/realm_of_thrones_crafted_item_pieces.csv",
+    "data/realm_of_thrones/audit/realm_of_thrones_equipment_rosters.csv",
+    "data/realm_of_thrones/audit/realm_of_thrones_items_crafted.csv",
+    "data/realm_of_thrones/audit/realm_of_thrones_items_direct.csv",
+    "data/realm_of_thrones/audit/realm_of_thrones_known_gaps_xslt.csv",
+    "data/realm_of_thrones/audit/realm_of_thrones_override_report.csv",
+    "data/realm_of_thrones/audit/realm_of_thrones_roster_audit_summary.csv",
+    "data/realm_of_thrones/audit/realm_of_thrones_sanity_check_table.csv",
+    "data/realm_of_thrones/audit/realm_of_thrones_tree_tiers.csv",
+    "data/realm_of_thrones/audit/realm_of_thrones_troop_equipment_audit.csv",
+    "data/realm_of_thrones/audit/realm_of_thrones_troops.csv",
+    "data/realm_of_thrones/audit/realm_of_thrones_upgrade_edges.csv"
+  ],
+  "troop_rows": 1232
+}
