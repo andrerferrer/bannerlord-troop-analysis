@@ -1,0 +1,13 @@
+provisional_slug,display_name,observed_track,canonical_troop_id,match_status,resolution_method,evidence_kind,evidence_paths,candidate_count,candidate_troop_ids,blocking_reason
+blackwood_archer,Blackwood Archer [T4],realm_of_thrones,,unresolved,,,,0,,No manually verified exact name-to-ID match recorded for this batch.
+blackwood_bowman,Blackwood Bowman [T3],realm_of_thrones,,unresolved,,,,0,,No manually verified exact name-to-ID match recorded for this batch.
+blackwood_longbowman,Blackwood Longbowman [T5],realm_of_thrones,,unresolved,,,,0,,No manually verified exact name-to-ID match recorded for this batch.
+frey_assassin,Frey Assassin [T6],realm_of_thrones,,unresolved,,,,0,,No manually verified exact name-to-ID match recorded for this batch.
+guard_of_the_crossing,Guard of the Crossing [T5],realm_of_thrones,,unresolved,,,,0,,No manually verified exact name-to-ID match recorded for this batch.
+mallister_footman,Mallister Footman [T3],realm_of_thrones,,unresolved,,,,0,,No manually verified exact name-to-ID match recorded for this batch.
+mallister_horseman,Mallister Horseman [T4],realm_of_thrones,,unresolved,,,,0,,No manually verified exact name-to-ID match recorded for this batch.
+mallister_house_guard,Mallister House Guard [T5],realm_of_thrones,mallister_houseguard,confirmed_id,exact_normalized_display_name_in_versioned_track_reference,versioned_track_reference,data/realm_of_thrones/audit/realm_of_thrones_troops.csv,1,mallister_houseguard,
+mallister_man_at_arms,Mallister Man at Arms [T4],realm_of_thrones,,unresolved,,,,0,,No manually verified exact name-to-ID match recorded for this batch.
+ravens_teeth,Ravens' Teeth [T6],realm_of_thrones,ravens_teeth,confirmed_id,exact_normalized_display_name_in_versioned_track_reference,versioned_track_reference,data/realm_of_thrones/audit/realm_of_thrones_troops.csv,1,ravens_teeth,
+riverlands_admiral,Riverlands Admiral [T6],realm_of_thrones,river_admiral,confirmed_id,exact_normalized_display_name_in_versioned_track_reference,versioned_track_reference,data/realm_of_thrones/audit/realm_of_thrones_troops.csv,1,river_admiral,
+riverrun_captain,Riverrun Captain [T6],realm_of_thrones,,unresolved,,,,0,,No manually verified exact name-to-ID match recorded for this batch.

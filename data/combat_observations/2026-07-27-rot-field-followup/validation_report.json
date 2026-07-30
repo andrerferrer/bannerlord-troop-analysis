@@ -1,0 +1,25 @@
+{
+  "battle_context_counts": {"field": 2},
+  "battles": 2,
+  "consolidated_rows": 17,
+  "contexts_pooled": false,
+  "errors": [],
+  "game_track": "realm_of_thrones",
+  "heroes_in_primary": false,
+  "known_limitations": [
+    "Only screenshot-visible troop rows are present; off-screen rows are not inferred.",
+    "Partial troop lists can undercount battle appearances for troops below the scroll position."
+  ],
+  "occurrences": 27,
+  "offscreen_rows_inferred": false,
+  "primary_occurrences": 17,
+  "review_items": 0,
+  "schema_version": "1.1.0",
+  "screenshots": 2,
+  "sides_pooled": false,
+  "status": "pass",
+  "track_resolution": {
+    "evidence": ["Lannister/Mallister party labels", "Ravens' Teeth", "data/realm_of_thrones/audit/realm_of_thrones_troops.csv"],
+    "method": "faction_and_troop_names_unique_to_realm_of_thrones"
+  }
+}

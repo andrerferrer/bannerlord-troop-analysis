@@ -1,0 +1,20 @@
+{
+  "batch_id": "combat_2026-07-27_103534_104834_rot",
+  "battle_context_counts": {"field": 2},
+  "battles": 2,
+  "game_track": "realm_of_thrones",
+  "game_version": "1.4.x",
+  "normalization_scope": "evidence_and_structural_normalization_only",
+  "observations": 27,
+  "primary_troop_occurrences": 17,
+  "review_queue": 0,
+  "schema_version": "1.1.0",
+  "screenshots": 2,
+  "source_kind": "individual_scoreboard_images",
+  "source_retention_status": "not_retained_in_repository_hashes_recorded",
+  "status": "normalized_pending_analysis",
+  "track_resolution": {
+    "evidence": ["Lannister/Mallister party labels", "Ravens' Teeth", "data/realm_of_thrones/audit/realm_of_thrones_troops.csv"],
+    "method": "faction_and_troop_names_unique_to_realm_of_thrones"
+  }
+}
