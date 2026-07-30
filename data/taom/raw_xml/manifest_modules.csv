@@ -1,0 +1,9 @@
+track,module,load_order_index,is_baseline,version,file_count,bytes
+taom,Native,0,True,,416,23788329
+taom,Sandbox,1,True,,1571,25759334
+taom,SandBoxCore,2,True,,82,4580860
+taom,StoryMode,3,True,v1.4.7,286,2582157
+taom,NavalDLC,4,True,v1.2.7,1025,10206310
+taom,TAOM.Dependencies,5,False,v2.0.5,53,87781
+taom,TAOM,6,False,v2.0.12,240,25299498
+taom,TAOM_Map,7,False,v2.0.8,45,3309497

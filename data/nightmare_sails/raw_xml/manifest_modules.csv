@@ -1,0 +1,7 @@
+track,module,load_order_index,is_baseline,version,file_count,bytes
+nightmare_sails,Native,0,True,,416,23788329
+nightmare_sails,Sandbox,1,True,,1571,25759334
+nightmare_sails,SandBoxCore,2,True,,82,4580860
+nightmare_sails,StoryMode,3,True,v1.4.7,286,2582157
+nightmare_sails,NavalDLC,4,True,v1.2.7,1025,10206310
+nightmare_sails,NightmareSailsxDTAB,5,False,v1.0.0,52,7034977
