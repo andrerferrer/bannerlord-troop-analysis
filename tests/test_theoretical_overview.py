@@ -1,4 +1,4 @@
-"""Filtered theoretical OVERVIEW.md must exclude spectacle units."""
+"""Mod-track OVERVIEW lists: full mod-owned ranks; no name/specials filters."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ EXPORT_ID = "export_20260729_025002"
 
 
 class TheoreticalOverviewTests(unittest.TestCase):
-    def test_rot_overview_excludes_mammoth_giant_from_ranged_top(self) -> None:
+    def test_rot_overview_keeps_mod_troops_drops_vanilla_baseline(self) -> None:
         path = (
             REPO
             / "analysis"
@@ -21,15 +21,15 @@ class TheoreticalOverviewTests(unittest.TestCase):
         )
         self.assertTrue(path.is_file(), "run write_theoretical_overview.py first")
         text = path.read_text(encoding="utf-8")
-        # Top ranged section should not lead with spectacle units.
-        ranged = text.split("## Top 20 — Ranged", 1)[1].split("## Top 20 —", 1)[0]
-        self.assertNotIn("Mammoth Riding Giant", ranged)
-        self.assertNotIn("Giant Archer", ranged)
+        ranged = text.split("## Ranked — Ranged", 1)[1].split("## Ranked —", 1)[0]
         self.assertIn("Myrish Artisan of War", ranged)
-        self.assertNotIn("Khuzait Khan's Guard", ranged)
-        self.assertNotIn("Battanian Fian Champion", ranged)
         self.assertIn("Ravens' Teeth", ranged)
         self.assertIn("Goldenheart Warrior", ranged)
+        # Name filters removed — spectacle / Greyjoy lines may appear.
+        self.assertNotIn("Khuzait Khan's Guard", ranged)
+        self.assertNotIn("Battanian Fian Champion", ranged)
+        self.assertIn("change_type=inalterado", text)
+        self.assertNotIn("Drop troop names matching", text)
 
     def test_human_input_doc_exists(self) -> None:
         path = REPO / "analysis" / "theoretical" / "HUMAN_INPUT.md"
