@@ -16,6 +16,37 @@ ROLE_COLS = [
     ("offensive_melee_role_score", "Offensive melee"),
     ("skirmisher_role_score", "Skirmisher"),
 ]
+# Drivers + raw when present (melee crafted has no real weapon damage — template proxy only).
+ROLE_WHY_COLS: dict[str, list[str]] = {
+    "ranged_role_score": [
+        "ranged_score_base",
+        "ranged_damage",
+        "ranged_item",
+        "has_horse",
+        "has_shield",
+    ],
+    "defensive_role_score": [
+        "defense_score_base",
+        "armor_total",
+        "effective_armor",
+        "has_shield",
+        "has_horse",
+    ],
+    "offensive_melee_role_score": [
+        "crafted_melee_score_base",
+        "crafted_melee_template",
+        "crafted_melee_item",
+        "defense_score_base",
+        "has_horse",
+    ],
+    "skirmisher_role_score": [
+        "throw_score_base",
+        "throw_damage",
+        "direct_throw_item",
+        "crafted_throw_item",
+        "has_horse",
+    ],
+}
 LATEST_REPORT_START = "<!-- latest-theoretical-report:start -->"
 LATEST_REPORT_END = "<!-- latest-theoretical-report:end -->"
 
@@ -35,7 +66,18 @@ def filter_mod_troops(df: Any, overrides: Any | None = None) -> Any:
 def rank_table(df: Any, col: str) -> Any:
     ranked = df.dropna(subset=[col]).sort_values(col, ascending=False).reset_index(drop=True)
     ranked.insert(0, "rank", range(1, len(ranked) + 1))
-    cols = ["rank", "troop_name", "troop_id", col, "primary_category", "culture", "level", "line_status"]
+    why = [c for c in ROLE_WHY_COLS.get(col, []) if c in ranked.columns]
+    cols = [
+        "rank",
+        "troop_name",
+        "troop_id",
+        col,
+        *why,
+        "primary_category",
+        "culture",
+        "level",
+        "line_status",
+    ]
     return ranked[[c for c in cols if c in ranked.columns]]
 
 
@@ -79,6 +121,17 @@ def write_track_overview(repo: Path, track: str, package_sha: str) -> Path:
         f"- Package digest: `{package_sha}`",
         f"- Rows scored: **{len(df)}**; after filters: **{len(filtered)}** "
         f"(excluded {excluded}: untouched vanilla `change_type=inalterado` only)",
+        "",
+        "## Why columns",
+        "",
+        "- **Defensive:** `defense_score_base` (driver) + `armor_total` / `effective_armor` "
+        "(raw) + shield/horse flags",
+        "- **Ranged:** `ranged_score_base` (driver) + `ranged_damage` (weapon+ammo thrust) "
+        "+ item + horse/shield",
+        "- **Offensive melee:** `crafted_melee_score_base` + template/item "
+        "(**no real weapon damage** — template proxy only)",
+        "- **Skirmisher:** `throw_score_base` + `throw_damage` when the throw item is a "
+        "direct `Thrown` weapon (crafted javelins stay proxy-only)",
         "",
         "## Filters",
         "",

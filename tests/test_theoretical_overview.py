@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import csv
 import sys
 import tempfile
 import unittest
@@ -14,12 +15,71 @@ sys.path.insert(0, str(REPO / "scripts" / "scoring"))
 from write_theoretical_overview import (  # noqa: E402
     LATEST_REPORT_END,
     LATEST_REPORT_START,
+    rank_table,
     update_root_readme_latest_report,
     update_theoretical_readme_latest_report,
 )
 
 
+class _FakeFrame:
+    """Minimal stand-in so rank_table tests run without pandas."""
+
+    def __init__(self, rows: list[dict]):
+        self._rows = rows
+        self.columns = list(rows[0].keys()) if rows else []
+
+    def __len__(self) -> int:
+        return len(self._rows)
+
+    def dropna(self, subset: list[str]) -> "_FakeFrame":
+        col = subset[0]
+        return _FakeFrame([r for r in self._rows if r.get(col) is not None])
+
+    def sort_values(self, col: str, ascending: bool = True) -> "_FakeFrame":
+        return _FakeFrame(
+            sorted(self._rows, key=lambda r: r[col], reverse=not ascending)
+        )
+
+    def reset_index(self, drop: bool = True) -> "_FakeFrame":
+        return self
+
+    def insert(self, loc: int, column: str, value) -> None:
+        for i, row in enumerate(self._rows):
+            items = list(row.items())
+            items.insert(loc, (column, value[i]))
+            self._rows[i] = dict(items)
+        if column not in self.columns:
+            self.columns.insert(loc, column)
+
+    def __getitem__(self, cols: list[str]) -> "_FakeFrame":
+        return _FakeFrame([{c: r.get(c) for c in cols} for r in self._rows])
+
+
 class TheoreticalOverviewTests(unittest.TestCase):
+    def test_rank_table_includes_why_columns_when_present(self) -> None:
+        frame = _FakeFrame(
+            [
+                {
+                    "troop_name": "A",
+                    "troop_id": "a",
+                    "defensive_role_score": 90.0,
+                    "defense_score_base": 80.0,
+                    "armor_total": 120.0,
+                    "effective_armor": 70.0,
+                    "has_shield": True,
+                    "has_horse": False,
+                    "primary_category": "Defensive Troops",
+                    "culture": "x",
+                    "level": 21,
+                    "line_status": "main_or_minor_line",
+                }
+            ]
+        )
+        out = rank_table(frame, "defensive_role_score")
+        self.assertIn("armor_total", out.columns)
+        self.assertIn("effective_armor", out.columns)
+        self.assertIn("defense_score_base", out.columns)
+
     def test_rot_overview_keeps_mod_troops_drops_vanilla_baseline(self) -> None:
         path = (
             REPO
@@ -35,11 +95,49 @@ class TheoreticalOverviewTests(unittest.TestCase):
         self.assertIn("Myrish Artisan of War", ranged)
         self.assertIn("Ravens' Teeth", ranged)
         self.assertIn("Goldenheart Warrior", ranged)
-        # Name filters removed — spectacle / Greyjoy lines may appear.
         self.assertNotIn("Khuzait Khan's Guard", ranged)
         self.assertNotIn("Battanian Fian Champion", ranged)
         self.assertIn("change_type=inalterado", text)
         self.assertNotIn("Drop troop names matching", text)
+
+    def test_rot_overview_includes_why_columns(self) -> None:
+        path = (
+            REPO
+            / "analysis"
+            / "theoretical"
+            / "realm_of_thrones"
+            / EXPORT_ID
+            / "OVERVIEW.md"
+        )
+        text = path.read_text(encoding="utf-8")
+        self.assertIn("## Why columns", text)
+        defensive = text.split("## Ranked — Defensive", 1)[1].split("## Ranked —", 1)[0]
+        self.assertIn("armor_total", defensive)
+        self.assertIn("effective_armor", defensive)
+        self.assertIn("defense_score_base", defensive)
+        ranged = text.split("## Ranked — Ranged", 1)[1].split("## Ranked —", 1)[0]
+        self.assertIn("ranged_damage", ranged)
+        offensive = text.split("## Ranked — Offensive melee", 1)[1].split(
+            "## Ranked —", 1
+        )[0]
+        self.assertIn("crafted_melee_template", offensive)
+
+    def test_troop_scores_export_raw_why_fields(self) -> None:
+        path = (
+            REPO
+            / "analysis"
+            / "theoretical"
+            / "realm_of_thrones"
+            / EXPORT_ID
+            / "realm_of_thrones_troop_role_scores_v1.csv"
+        )
+        self.assertTrue(path.is_file(), "run run_theoretical_role_scores.py first")
+        with path.open(newline="", encoding="utf-8") as handle:
+            rows = list(csv.DictReader(handle))
+        self.assertIn("armor_total", rows[0])
+        self.assertIn("effective_armor", rows[0])
+        self.assertIn("ranged_damage", rows[0])
+        self.assertIn("throw_damage", rows[0])
 
     def test_human_input_doc_exists(self) -> None:
         path = REPO / "analysis" / "theoretical" / "HUMAN_INPUT.md"
@@ -76,7 +174,7 @@ class TheoreticalOverviewTests(unittest.TestCase):
             self.assertIn(LATEST_REPORT_START, text)
             self.assertIn(LATEST_REPORT_END, text)
             self.assertNotIn("stale content", text)
-            self.assertIn(f"analysis/theoretical/OVERVIEW_INDEX.md", text)
+            self.assertIn("analysis/theoretical/OVERVIEW_INDEX.md", text)
             self.assertIn(EXPORT_ID, text)
             self.assertIn(
                 f"analysis/theoretical/realm_of_thrones/{EXPORT_ID}/OVERVIEW.md",
