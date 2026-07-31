@@ -123,6 +123,7 @@ def build_roster_features(audit: pd.DataFrame, soldiers: set[str], depths: pd.Da
         armor_body = pd.to_numeric(armor.get("body_armor", 0), errors="coerce").fillna(0).sum()
         armor_arm = pd.to_numeric(armor.get("arm_armor", 0), errors="coerce").fillna(0).sum()
         armor_leg = pd.to_numeric(armor.get("leg_armor", 0), errors="coerce").fillna(0).sum()
+        armor_total = float(armor_head + armor_body + armor_arm + armor_leg)
         effective_armor = 0.20 * armor_head + 0.65 * armor_body + 0.10 * armor_arm + 0.05 * armor_leg
 
         shield_hp = max_numeric(shield, "hit_points")
@@ -202,8 +203,11 @@ def build_roster_features(audit: pd.DataFrame, soldiers: set[str], depths: pd.Da
             "has_crossbow": bool((weapons["type"] == "Crossbow").any()),
             "has_ranged": not ranged.empty,
             "has_throwing": (not direct_throw.empty) or bool(best_crafted_throw),
+            "armor_total": armor_total,
+            "effective_armor": float(effective_armor),
             "defense_raw": defense_raw,
             "ranged_item": best_ranged.get("item_id"),
+            "ranged_damage": float(best_ranged.get("ranged_damage_real", 0) or 0),
             "ranged_raw": best_ranged.get("ranged_raw", 0),
             "ammo_stack": ammo_stack,
             "crafted_melee_item": best_crafted.get("item_id"),
@@ -211,6 +215,7 @@ def build_roster_features(audit: pd.DataFrame, soldiers: set[str], depths: pd.Da
             "crafted_melee_class": best_crafted.get("crafted_class"),
             "crafted_melee_raw": best_crafted.get("melee_raw", 0),
             "direct_throw_item": best_direct_throw.get("item_id"),
+            "throw_damage": float(best_direct_throw.get("throw_damage_real", 0) or 0),
             "direct_throw_raw": best_direct_throw.get("throw_raw", 0),
             "crafted_throw_item": best_crafted_throw.get("item_id"),
             "crafted_throw_raw": best_crafted_throw.get("throw_proxy_raw", 0),
@@ -267,6 +272,10 @@ def build_role_scores(rosters: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame
         "ranged_score_base": "max",
         "crafted_melee_score_base": "max",
         "throw_score_base": "max",
+        "armor_total": "mean",
+        "effective_armor": "mean",
+        "ranged_damage": "max",
+        "throw_damage": "max",
         "ranged_item": join_unique,
         "crafted_melee_item": join_unique,
         "crafted_melee_template": join_unique,
