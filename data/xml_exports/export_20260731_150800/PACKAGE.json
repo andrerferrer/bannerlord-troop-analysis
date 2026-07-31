@@ -29,7 +29,7 @@
     "python3 scripts/scoring/run_theoretical_role_scores.py",
     "python3 scripts/scoring/write_theoretical_overview.py"
   ],
-  "expected_package_sha256": "9444e75330ea380c75a06492e6b9b4cbda89582223e079437ba48d976f547db4",
+  "expected_package_sha256": "fc87e360e884cc9aa4baa15e4bdd372824c1f7054b2a9acef6d8c0df3732db3b",
   "hash_algorithm": "SHA-256 of UTF-8 text formed by sorting artifact_hashes.csv data rows as path,bytes,sha256 lines joined by \\n with a trailing \\n; artifact_hashes.csv and PACKAGE.json are excluded from the row set",
   "notes": [
     "2026-07-31 TAOM items resolved via LOTRLOME_Armory + Alliance.Wargs from TAOM zip",

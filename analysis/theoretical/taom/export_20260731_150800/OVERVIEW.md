@@ -4,7 +4,7 @@
 
 - `evidence_basis=xml_structural`, `empirical=false` (ADR-004)
 - Model: `role_scores_v1` conservative (crafted melee = proxy, not HTK)
-- Package digest: `9444e75330ea380c75a06492e6b9b4cbda89582223e079437ba48d976f547db4`
+- Package digest: `fc87e360e884cc9aa4baa15e4bdd372824c1f7054b2a9acef6d8c0df3732db3b`
 - Rows scored: **1239**; after filters: **872** (excluded 367: untouched vanilla `change_type=inalterado` only)
 
 ## Tiers
