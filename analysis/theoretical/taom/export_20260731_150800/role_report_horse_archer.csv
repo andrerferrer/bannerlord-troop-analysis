@@ -1,0 +1,23 @@
+rank,tier,troop_name,troop_id,ranged_role_score,ranged_score_base,ranged_damage,ranged_item,Bow,Crossbow,Riding,mobility_factor,horse_speed,horse_maneuver,mount,armor_total,culture,level,n_rosters,line_status
+1,S,[Rivendell] Rider of Himring,rider_of_himring,97.35,96.83,118.0,highelf_longbowc|highelf_longbowd,385.0,85.0,410.0,1.25,68.0,78.0,noble_horse_southern,342.33,rivendell,46.0,9,main_or_minor_line
+2,S,[Rivendell] Imladris Horse Archer,imladris_horse_archer,96.97,97.18,118.29,highelf_longbowc|highelf_longbowd,360.0,80.0,380.0,1.25,49.0,68.0,t3_vlandia_horse,280.43,rivendell,41.0,7,main_or_minor_line
+3,B,[Rohan] Éothéod Horse Archer,rohan_wold_kings_own_horse_archer,63.37,59.47,58.0,steppe_war_bow,285.0,25.0,330.0,1.25,68.0,78.0,noble_horse_southern,165.0,vlandia,36.0,1,main_or_minor_line
+4,B,[Rhûn] Kharaghûl Karash Keshig,kharaghul_karash_keshig,62.26,62.13,57.0,steppe_war_bow,280.0,25.0,328.0,1.25,65.0,73.0,t3_aserai_horse,186.0,khuzait,36.0,1,main_or_minor_line
+5,B,[Rohan] Wold Eorlingas Horse Archer,rohan_wold_eorlingas_horse_archer,59.28,59.47,58.0,steppe_war_bow,240.0,20.0,275.0,1.25,65.0,73.0,t3_aserai_horse,130.0,vlandia,31.0,1,main_or_minor_line
+6,B,[Rhûn] Kharaghûl Keshig,kharaghul_keshig,57.95,62.13,57.0,steppe_war_bow,235.0,20.0,273.0,1.25,65.0,73.0,t3_aserai_horse,184.0,khuzait,31.0,1,main_or_minor_line
+7,B,[Rhûn] Balcoth Farshot Horse Archer,balcoth_farshot_horse_archer,57.79,62.13,57.0,steppe_war_bow,235.0,20.0,273.0,1.25,65.0,73.0,t3_aserai_horse,176.0,khuzait,31.0,1,main_or_minor_line
+8,C,[Harad] Serpent Archer,harad_serpenthorsearcher,49.16,60.43,54.0,composite_steppe_bow,205.0,25.0,215.0,1.25,47.0,69.0,t2_khuzait_horse,183.0,aserai,26.0,1,main_or_minor_line
+9,C,[Rohan] Wold Elite Horse Rider,rohan_wold_elite_horse_archer,48.06,59.47,58.0,steppe_war_bow,190.0,15.0,220.0,1.25,59.0,66.0,t3_empire_horse,129.0,vlandia,26.0,1,main_or_minor_line
+10,C,[Rhûn] Kharaghûl Horse Archer,kharaghul_horse_archer,44.61,60.94,55.0,composite_steppe_bow,185.0,15.0,218.0,1.25,65.0,73.0,t3_aserai_horse,146.0,khuzait,26.0,1,main_or_minor_line
+11,C,[Rhûn] Balcoth Horse Archer,balcoth_horse_archer,44.59,60.94,55.0,composite_steppe_bow,185.0,15.0,218.0,1.25,65.0,73.0,t3_aserai_horse,140.0,khuzait,26.0,1,main_or_minor_line
+12,C,[Gundabad] Despoiler of the Vale,gundabad_despoiler_of_the_vale,43.24,60.43,54.0,composite_steppe_bow,185.0,15.0,195.0,1.25,0.0,0.0,,180.0,gundabad,26.0,6,main_or_minor_line
+13,C,[Harad] Rider of the Golden Veil,harad_horsearcher,37.2,60.43,54.0,composite_steppe_bow,155.0,20.0,165.0,1.25,47.0,69.0,t2_khuzait_horse,158.0,aserai,21.0,1,main_or_minor_line
+14,C,[Rohan] Wold Veteran Horse Rider,rohan_wold_veteran_horse_archer,35.95,58.27,56.0,composite_steppe_bow,140.0,10.0,170.0,1.25,56.0,76.0,noble_horse_northern,106.0,vlandia,21.0,1,main_or_minor_line
+15,D,[Rhûn] Kharaghûl Horse Scout,kharaghul_horse_scout,31.05,57.21,55.0,steppe_heavy_bow,135.0,10.0,168.0,1.25,65.0,73.0,t3_aserai_horse,144.0,khuzait,21.0,1,main_or_minor_line
+16,D,[Gundabad] Scout,gundabad_scout,28.79,57.39,54.0,composite_steppe_bow,135.0,10.0,145.0,1.23,0.0,0.0,,152.0,gundabad,21.0,5,main_or_minor_line
+17,D,[Rohan] Wold Horse Archer,rohan_wold_horse_archer,24.77,57.89,55.0,composite_steppe_bow,95.0,5.0,130.0,1.21,55.0,72.0,noble_horse_battania,100.0,vlandia,16.0,1,main_or_minor_line
+18,D,[Rohan] Wold Scout,rohan_wold_scout,16.48,57.89,55.0,composite_steppe_bow,60.0,0.0,95.0,1.18,49.0,68.0,t3_vlandia_horse,81.0,vlandia,11.0,1,main_or_minor_line
+19,D,[Dunland] Hebog-lûth Noble Horse Archer,dunland_falcon_noble_horse_archer,15.21,60.43,54.0,composite_steppe_bow,35.0,25.0,205.0,1.25,57.0,63.0,t2_sturgia_horse,158.0,empire,31.0,1,main_or_minor_line
+20,D,[Dunland] Hebog-lûth Horse Archer,dunland_falcon_wildrider,14.6,60.43,54.0,composite_steppe_bow,30.0,20.0,155.0,1.24,57.0,63.0,t2_sturgia_horse,137.0,empire,26.0,1,main_or_minor_line
+21,D,[Rohan] Wold Recruit,rohan_wold_recruit,14.41,57.89,55.0,composite_steppe_bow,35.0,0.0,70.0,1.15,45.0,50.0,steppe_war_horse,31.0,vlandia,6.0,1,main_or_minor_line
+22,D,[Dunland] Hebog-lûth Scout,dunland_falcon_archer,12.59,59.75,54.0,steppe_heavy_bow,25.0,15.0,115.0,1.2,57.0,63.0,t2_sturgia_horse,96.0,empire,21.0,1,main_or_minor_line

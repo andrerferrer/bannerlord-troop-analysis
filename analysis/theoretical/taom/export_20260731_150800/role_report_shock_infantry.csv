@@ -1,0 +1,129 @@
+rank,tier,troop_name,troop_id,offensive_melee_role_score,crafted_melee_score_base,melee_skill_factor,crafted_melee_template,armor_total,effective_armor,armor_audit_sum,TwoHanded,OneHanded,Polearm,Athletics,culture,level,n_rosters,line_status
+1,S,[Rivendell] Imladris Blademaster,imladris_blademaster,93.09,100.0,1.15,TwoHandedSword,325.82,72.3,235.6,330.0,360.0,335.0,195.0,rivendell,41.0,11,main_or_minor_line
+2,S,[Isengard] Uruk-Hai Nazg-hai,urukhai_nazg_hai,92.4,100.0,1.15,TwoHandedSword,225.0,64.2,189.0,265.0,280.0,290.0,150.0,isengard,36.0,1,main_or_minor_line
+3,S,[Gondor] Calembel Heavy Swordsman,gondor_cal_heavy_swordsman,91.08,100.0,1.15,TwoHandedSword,157.0,48.85,131.0,215.0,255.0,225.0,125.0,gondor,31.0,1,main_or_minor_line
+4,S,[Gondor] Calembel Sergeant,gondor_cal_sergeant,91.08,100.0,1.15,TwoHandedSword,157.0,48.85,131.0,255.0,280.0,280.0,145.0,gondor,36.0,1,main_or_minor_line
+5,S,[Gondor] Calembel Vale-Knight,gondor_cal_vale_knight,91.08,100.0,1.15,TwoHandedSword,157.0,48.85,131.0,295.0,320.0,315.0,165.0,gondor,41.0,1,main_or_minor_line
+6,S,[Isengard] Uruk-Hai Berserker,urukhai_berserker,88.69,100.0,1.14,TwoHandedSword,176.0,35.1,136.0,225.0,240.0,250.0,130.0,isengard,31.0,1,main_or_minor_line
+7,S,[Gondor] Lamedon Hill-Warden,gondor_lam_hill_warden,85.95,100.0,1.09,TwoHandedSword,165.0,50.45,139.0,215.0,240.0,240.0,125.0,gondor,31.0,1,main_or_minor_line
+8,A,[Dale] Lake-Town Hearthguard,dale_lake_town_hearthguard,73.43,81.96,1.15,TwoHandedPolearm,201.0,58.75,169.0,222.0,235.0,260.0,125.0,sturgia,31.0,2,main_or_minor_line
+9,A,[Mirkwood] Glaivesman of Amon,mirkwood_glaivesman,72.51,81.96,1.15,TwoHandedPolearm,196.0,47.95,146.0,340.0,355.0,375.0,220.0,mirkwood,46.0,1,main_or_minor_line
+10,A,[Mirkwood] Greenwood Woodsman,mirkwood_woodsman,72.51,81.96,1.15,TwoHandedPolearm,196.0,47.95,146.0,320.0,350.0,340.0,205.0,mirkwood,41.0,1,main_or_minor_line
+11,B,[Gondor] Lamedon Veteran Swordman,gondor_lam_vet_swordman,69.57,100.0,0.91,TwoHandedSword,149.0,48.45,123.0,160.0,200.0,160.0,105.0,gondor,26.0,1,main_or_minor_line
+12,B,[Isengard] Uruk-Hai Veteran Pikeman,urukhai_veteranpikeman,67.41,75.72,1.15,OneHandedSword,220.0,63.0,184.0,225.0,225.0,265.0,130.0,isengard,31.0,1,main_or_minor_line
+13,B,[Erebor] Shield-Breaker,erebor_noble_shield_breaker,66.65,73.33,1.15,TwoHandedAxe,286.5,82.7,230.9,310.0,335.0,305.0,170.0,erebor,41.0,4,main_or_minor_line
+14,B,[Gondor] Cair Andros Pikewarden,gondor_ca_pikewarden,66.19,75.72,1.15,OneHandedSword,157.0,48.85,131.0,255.0,265.0,295.0,145.0,gondor,36.0,1,main_or_minor_line
+15,B,[Gondor] Cair Andros Pikeman,gondor_ca_pikeman,66.16,75.72,1.15,OneHandedSword,149.0,48.45,123.0,215.0,225.0,255.0,125.0,gondor,31.0,1,main_or_minor_line
+16,B,[Erebor] Veteran Axe-Guard,erebor_noble_veteran_axe_guard,65.5,73.33,1.15,TwoHandedAxe,255.5,69.35,200.7,285.0,265.0,285.0,150.0,erebor,36.0,4,main_or_minor_line
+17,B,[Dol Guldur] Uruk Black Slayer,dg_uruk_black_slayer,64.87,73.33,1.15,TwoHandedAxe,225.0,62.0,180.0,235.0,245.0,253.0,132.0,dolguldur,31.0,1,main_or_minor_line
+18,B,[Rhûn] Black Sun Scourge,black_sun_scourge,64.34,73.33,1.15,TwoHandedAxe,209.0,55.85,154.0,250.0,270.0,290.0,145.0,khuzait,36.0,1,main_or_minor_line
+19,B,[Iron Hills] Axe Warrior,iron_hills_reg_axe_warrior,64.15,58.67,1.15,TwoHandedAxe,168.4,43.71,118.6,245.0,230.0,255.0,130.0,erebor,31.0,5,main_or_minor_line
+20,B,[Dol Guldur] Khamûl's Shadow-Reaper,dg_khamul_shadow_reaper,63.73,73.33,1.15,TwoHandedAxe,189.67,48.67,142.7,335.0,345.0,348.0,187.0,dolguldur,46.0,3,main_or_minor_line
+21,B,[Isengard] Uruk-Hai Reaver,urukhai_reaver,63.64,73.33,1.14,TwoHandedAxe,215.0,58.1,175.0,240.0,225.0,250.0,130.0,isengard,31.0,1,main_or_minor_line
+22,B,[Dol Guldur] Khamûl's Veiled Reaper,dg_khamul_veiled_reaper,63.48,73.33,1.15,TwoHandedAxe,180.33,45.82,131.1,315.0,325.0,328.0,172.0,dolguldur,41.0,3,main_or_minor_line
+23,B,[Rhûn] Black Sun Executioner,black_sun_executioner,62.74,73.33,1.14,TwoHandedAxe,187.0,47.55,136.0,210.0,230.0,250.0,125.0,khuzait,31.0,1,main_or_minor_line
+24,B,[Erebor] Axe-Guard,erebor_noble_axe_guard,62.56,73.33,1.11,TwoHandedAxe,232.75,62.77,180.5,245.0,225.0,245.0,130.0,erebor,31.0,4,main_or_minor_line
+25,B,[Isengard] Uruk-Hai Champion,urukhai_champion,62.4,100.0,0.84,TwoHandedSword,171.0,35.65,131.0,170.0,185.0,185.0,110.0,isengard,26.0,1,main_or_minor_line
+26,B,[Iron Hills] Anvilguard,iron_hills_noble_anvilguard,62.21,70.11,1.15,TwoHandedMace,261.0,69.5,169.0,270.0,285.0,295.0,150.0,erebor,36.0,1,main_or_minor_line
+27,B,[Iron Hills] Hammer-Guard,iron_hills_noble_hammer_guard,62.01,70.11,1.15,TwoHandedMace,257.0,67.2,170.0,245.0,230.0,255.0,130.0,erebor,31.0,1,main_or_minor_line
+28,B,[Rhûn] Dragon-Wrath Obsidian War-Reaver,dragon_wrath_obsidian_war_reaver,61.53,70.11,1.15,TwoHandedMace,237.0,61.62,173.5,325.0,315.0,345.0,180.0,khuzait,46.0,2,main_or_minor_line
+29,B,[Iron Hills] Ironbreaker,iron_hills_noble_ironbreaker,61.44,70.11,1.15,TwoHandedMace,236.0,60.55,166.0,310.0,325.0,330.0,170.0,erebor,41.0,1,main_or_minor_line
+30,B,[Rhûn] Loke-Rim Gilded Champion,loke_rim_gilded_champion,61.43,70.11,1.15,TwoHandedMace,233.0,60.38,168.0,250.0,270.0,290.0,145.0,khuzait,36.0,3,main_or_minor_line
+31,B,[Gundabad] Pale Uruk Skull Crusher,gundabad_veteran_berserker,61.28,70.11,1.15,TwoHandedMace,225.83,58.71,168.3,260.0,270.0,280.0,145.0,gundabad,36.0,6,main_or_minor_line
+32,B,[Erebor] Mattock Warrior,erebor_reg_mattock_warrior,60.26,70.75,1.15,OneHandedAxe|TwoHandedMace,137.2,39.02,99.6,230.0,225.0,260.0,130.0,erebor,31.0,5,main_or_minor_line
+33,B,[Goblin] Goblin Skull Crusher,goblin_veteran_berserker,59.98,70.11,1.15,Mace,138.0,43.5,116.0,245.0,262.0,267.0,130.0,goblin,36.0,6,main_or_minor_line
+34,B,[Misty Mountains] Orc Skull Crusher,mistymountainorcs_veteran_berserker,59.98,70.11,1.15,Mace,138.0,43.5,116.0,255.0,270.0,278.0,145.0,mistymountainorcs,36.0,6,main_or_minor_line
+35,B,[Rhûn] Dragon-Wrath Ash Executioner,dragon_wrath_ash_executioner,59.45,70.11,1.15,TwoHandedMace,151.5,37.33,111.5,290.0,310.0,325.0,165.0,khuzait,41.0,2,main_or_minor_line
+36,B,[Dale] Lake-Town Veteran Pikeman,dale_veteran_spearman,59.07,81.96,0.95,TwoHandedPolearm,197.0,57.75,165.0,167.0,165.0,210.0,105.0,sturgia,26.0,2,main_or_minor_line
+37,B,[Dunland] Arth-lûth Executioner,dunland_bear_executioner,58.57,73.33,1.07,TwoHandedAxe,163.0,50.9,142.0,215.0,235.0,235.0,140.0,empire,31.0,1,main_or_minor_line
+38,B,[Rhûn] Loke-Rim Maceman,loke_rim_maceman,58.57,70.11,1.14,TwoHandedMace,150.33,37.02,110.3,210.0,230.0,250.0,125.0,khuzait,31.0,3,main_or_minor_line
+39,B,[Umbar] Abrazanim Narduzagar,umbar_elite_root001,58.53,94.67,0.84,TwoHandedAxe|TwoHandedSword,156.0,37.14,84.8,160.0,185.0,170.0,110.0,umbar,26.0,5,main_or_minor_line
+40,B,[Gundabad] Pale Uruk Bone Breaker,gundabad_berserker,56.76,70.11,1.09,TwoHandedMace,185.0,49.0,140.0,220.0,230.0,240.0,125.0,gundabad,31.0,1,main_or_minor_line
+41,B,[Misty Mountains] Orc Bone Breaker,mistymountainorcs_berserker,55.72,70.11,1.08,Mace,138.0,43.5,116.0,215.0,230.0,238.0,125.0,mistymountainorcs,31.0,1,main_or_minor_line
+42,B,[Goblin] Goblin Bone Breaker,goblin_berserker,52.59,70.11,1.03,Mace,138.0,43.5,116.0,205.0,222.0,227.0,110.0,goblin,31.0,1,main_or_minor_line
+43,C,[Gundabad] Pale Uruk Spearman,gundabad_spear_warrior,51.07,81.96,0.86,TwoHandedPolearm,170.0,42.0,125.0,165.0,160.0,190.0,105.0,gundabad,26.0,1,main_or_minor_line
+44,C,[Dale] Lake-Town Officer of the Watch,dale_lake_town_veteran,50.84,78.84,0.89,OneHandedSword|TwoHandedPolearm,160.0,48.65,139.0,167.0,180.0,195.0,105.0,sturgia,26.0,2,main_or_minor_line
+45,C,[Isengard] Uruk-Hai Pikeman,urukhai_pikeman,50.52,75.72,0.91,OneHandedSword,198.0,55.75,164.0,170.0,170.0,200.0,110.0,isengard,26.0,1,main_or_minor_line
+46,C,[Misty Mountains] Orc Spearman,mistymountainorcs_spear_warrior,50.21,81.96,0.85,TwoHandedPolearm,124.0,39.65,105.0,160.0,160.0,188.0,105.0,mistymountainorcs,26.0,1,main_or_minor_line
+47,C,[Mordor] Morannon Heavy Spearman,morannon_heavy_spearman,48.21,81.96,0.82,TwoHandedPolearm,158.0,47.3,134.0,160.0,160.0,180.0,95.0,mordor,26.0,1,main_or_minor_line
+48,C,[Goblin] Goblin Spearman,goblin_spear_warrior,46.56,81.96,0.8,TwoHandedPolearm,124.0,39.65,105.0,150.0,152.0,177.0,90.0,goblin,26.0,1,main_or_minor_line
+49,C,[Gondor] Cair Andros Spearman,gondor_ca_spearman,46.05,75.72,0.86,OneHandedSword,130.0,39.4,110.0,160.0,170.0,190.0,105.0,gondor,26.0,1,main_or_minor_line
+50,C,[Gondor] Serelond Phalanx,gondor_ser_phalanx,45.04,54.35,1.15,Pike,197.0,57.75,165.0,255.0,280.0,280.0,145.0,gondor,36.0,1,main_or_minor_line
+51,C,[Dale] Lake-Town Pikeman,dale_spearman,44.97,81.96,0.77,TwoHandedPolearm,162.0,48.3,138.0,122.0,115.0,170.0,100.0,sturgia,21.0,2,main_or_minor_line
+52,C,[Gundabad] Pale Uruk War-Pike,gundabad_guardian_of_the_tower,44.85,54.35,1.15,Pike,220.0,55.5,165.0,260.0,255.0,295.0,145.0,gundabad,36.0,1,main_or_minor_line
+53,C,[Gondor] Serelond Pikewarden,gondor_ser_pikewarden,44.31,54.35,1.15,Pike,172.0,49.2,148.0,215.0,225.0,255.0,125.0,gondor,31.0,1,main_or_minor_line
+54,C,[Isengard] Uruk-Hai Slayer,urukhai_slayer,43.94,73.33,0.84,TwoHandedAxe,199.0,53.6,161.0,170.0,185.0,185.0,110.0,isengard,26.0,1,main_or_minor_line
+55,C,[Goblin] Goblin War-Pike,goblin_guardian_of_the_tower,43.82,54.35,1.15,Pike,138.0,43.5,116.0,245.0,247.0,282.0,130.0,goblin,36.0,1,main_or_minor_line
+56,C,[Misty Mountains] Orc War-Pike,mistymountainorcs_guardian_of_the_tower,43.82,54.35,1.15,Pike,138.0,43.5,116.0,255.0,255.0,293.0,145.0,mistymountainorcs,36.0,1,main_or_minor_line
+57,C,[Dol Guldur] Uruk Fell Fang,dg_uruk_fell_fang,42.85,70.11,0.86,TwoHandedMace,195.0,52.5,150.0,180.0,190.0,188.0,112.0,dolguldur,26.0,1,main_or_minor_line
+58,C,[Rhûn] Black Sun Reaver,black_sun_reaver,42.45,73.33,0.84,OneHandedAxe,142.0,36.15,103.0,170.0,160.0,185.0,105.0,khuzait,26.0,1,main_or_minor_line
+59,C,[Dunland] Arth-lûth Berserker,dunland_bear_berserker,42.21,73.33,0.82,TwoHandedAxe,161.0,50.7,142.0,160.0,180.0,170.0,120.0,empire,26.0,1,main_or_minor_line
+60,C,[Misty Mountains] Orc Mauler,mistymountainorcs_sword_warrior,41.35,70.11,0.86,Mace,116.0,35.0,98.0,160.0,190.0,158.0,105.0,mistymountainorcs,26.0,1,main_or_minor_line
+61,C,[Rivendell] Imladris Recruit,imladris_recruit,41.32,75.72,0.77,OneHandedSword,218.43,55.78,154.9,150.0,160.0,170.0,130.0,rivendell,21.0,14,main_or_minor_line
+62,C,[Gundabad] Pale Uruk Mauler,gundabad_sword_warrior,41.25,70.11,0.86,TwoHandedMace,135.0,33.75,90.0,165.0,190.0,160.0,105.0,gundabad,26.0,1,main_or_minor_line
+63,C,[Rohan] Westfold Helmingas Heavy Axeman,rohan_westfold_veteran_2h_axeman,40.71,73.33,0.82,TwoHandedAxe,109.0,33.15,92.0,170.0,160.0,180.0,95.0,vlandia,26.0,1,main_or_minor_line
+64,C,[Gondor] Lossarnach Veteran Axe-Thrower,gondor_loss_vet_axe_thrower,40.57,73.33,0.8,ThrowingAxe,157.0,48.85,131.0,175.0,170.0,175.0,105.0,gondor,26.0,6,main_or_minor_line
+65,C,[Goblin] Goblin Mauler,goblin_sword_warrior,39.08,70.11,0.83,Mace,116.0,35.0,98.0,150.0,182.0,147.0,90.0,goblin,26.0,1,main_or_minor_line
+66,C,[Dale] Lake-Town Veteran Watchman,dale_lake_town_mariner,38.06,78.84,0.7,OneHandedSword|TwoHandedPolearm,160.0,48.65,139.0,122.0,130.0,155.0,100.0,sturgia,21.0,2,main_or_minor_line
+67,C,[Dol Guldur] Goblin Impaler,dg_goblin_impaler,37.43,81.96,0.67,TwoHandedPolearm,173.25,45.51,129.9,135.0,140.0,148.0,107.0,dolguldur,21.0,4,main_or_minor_line
+68,C,[Gondor] Lamedon Swordman,gondor_lam_swordman,34.32,100.0,0.52,TwoHandedSword,122.0,39.0,102.0,90.0,115.0,85.0,85.0,gondor,16.0,1,main_or_minor_line
+69,C,[Mordor] Morannon Spearman,morannon_spearman,33.87,81.96,0.64,TwoHandedPolearm,116.0,35.0,98.0,115.0,110.0,140.0,90.0,mordor,21.0,1,main_or_minor_line
+70,D,[Gundabad] Pale Uruk Impaler,gundabad_guard,31.93,81.96,0.61,TwoHandedPolearm,125.0,31.75,80.0,120.0,125.0,135.0,100.0,gundabad,21.0,1,main_or_minor_line
+71,D,[Isengard] Uruk-Hai Feller,urukhai_feller,31.71,73.33,0.66,TwoHandedAxe,182.0,49.6,144.0,125.0,135.0,145.0,105.0,isengard,21.0,1,main_or_minor_line
+72,D,[Mordor] Orc Reaver,mordor_orc_reaver,31.28,81.96,0.59,TwoHandedPolearm,138.0,43.5,116.0,130.0,110.0,125.0,90.0,mordor,21.0,1,main_or_minor_line
+73,D,[Misty Mountains] Orc Impaler,mistymountainorcs_guard,31.2,81.96,0.6,TwoHandedPolearm,101.0,30.95,86.0,115.0,125.0,133.0,100.0,mistymountainorcs,21.0,1,main_or_minor_line
+74,D,[Isengard] Orc Slayer,isengard_orc_slayer,31.19,73.33,0.66,TwoHandedAxe,138.0,43.5,116.0,125.0,135.0,145.0,105.0,isengard,21.0,1,main_or_minor_line
+75,D,[Umbar] Adûnaims Faithful,umbar_elite_root010,31.15,58.14,0.84,Pike|TwoHandedAxe,156.0,37.14,84.8,160.0,185.0,170.0,110.0,umbar,26.0,5,main_or_minor_line
+76,D,[Gondor] Serelond Pikeman,gondor_ser_pikeman,30.41,54.35,0.86,Pike,166.0,48.9,142.0,160.0,170.0,190.0,105.0,gondor,26.0,1,main_or_minor_line
+77,D,[Rhûn] Black Sun Raider,black_sun_raider,29.91,73.33,0.66,OneHandedAxe,121.0,28.6,91.0,110.0,125.0,145.0,100.0,khuzait,21.0,1,main_or_minor_line
+78,D,[Rohan] Westfold Heavy Axeman,rohan_westfold_2h_axeman,29.07,73.33,0.64,TwoHandedAxe,101.0,36.05,87.0,125.0,110.0,140.0,90.0,vlandia,21.0,1,main_or_minor_line
+79,D,[Gondor] Serelond Veteran,gondor_ser_veteran,28.94,75.72,0.61,OneHandedSword,124.0,36.6,106.0,115.0,135.0,135.0,100.0,gondor,21.0,1,main_or_minor_line
+80,D,[Dale] Lake-Town Patrolman,dale_footman,28.28,81.96,0.55,TwoHandedPolearm,158.0,47.3,134.0,97.0,95.0,120.0,85.0,sturgia,16.0,2,main_or_minor_line
+81,D,[Gondor] Lossarnach Axe-Thrower,gondor_loss_axe_thrower,27.87,73.33,0.61,ThrowingAxe,130.0,39.4,110.0,130.0,120.0,135.0,100.0,gondor,21.0,6,main_or_minor_line
+82,D,[Goblin] Goblin Impaler,goblin_guard,27.54,81.96,0.55,TwoHandedPolearm,101.0,30.95,86.0,105.0,117.0,122.0,85.0,goblin,21.0,1,main_or_minor_line
+83,D,[Dunland] Arth-lûth Chosen,dunland_bear_chosen,26.65,73.33,0.59,TwoHandedAxe,129.0,42.5,110.0,115.0,130.0,130.0,115.0,empire,21.0,1,main_or_minor_line
+84,D,[Dale] Lake-Town Watchman,dale_lake_town_skirmisher,25.64,78.84,0.55,OneHandedSword|TwoHandedPolearm,112.0,34.1,100.0,97.0,95.0,120.0,85.0,sturgia,16.0,2,main_or_minor_line
+85,D,[Dunland] Tribal Spearman,dunland_spearman,22.79,81.96,0.5,TwoHandedPolearm,83.0,22.0,70.0,90.0,80.0,110.0,100.0,empire,16.0,1,main_or_minor_line
+86,D,[Dol Guldur] Goblin Skirmisher,dg_goblin_skirmisher,21.77,76.97,0.51,OneHandedSword|TwoHandedMace|TwoHandedPolearm,130.83,25.08,100.8,110.0,105.0,113.0,92.0,dolguldur,16.0,6,main_or_minor_line
+87,D,[Umbar] Rozadan Halberdiers,umbar_elite_root01,21.72,58.14,0.66,Pike|TwoHandedAxe,156.0,37.14,84.8,115.0,120.0,145.0,105.0,umbar,21.0,5,main_or_minor_line
+88,D,[Rhûn] Darkhûn Footman,darkhun_footman,20.35,73.33,0.5,OneHandedAxe,147.0,38.4,103.0,85.0,90.0,110.0,85.0,khuzait,16.0,1,main_or_minor_line
+89,D,[Dunland] Tribal Swordsman,dunland_swordsman,20.01,75.72,0.5,OneHandedSword,83.0,22.0,70.0,90.0,110.0,80.0,100.0,empire,16.0,1,main_or_minor_line
+90,D,[Isengard] Orc Butcher,isengard_orc_butcher,19.85,73.33,0.5,TwoHandedAxe,108.0,32.55,95.0,100.0,100.0,110.0,90.0,isengard,16.0,1,main_or_minor_line
+91,D,[Rhûn] Black Sun Footman,black_sun_footman,19.33,73.33,0.5,OneHandedAxe,110.0,26.5,80.0,85.0,90.0,110.0,85.0,khuzait,16.0,1,main_or_minor_line
+92,D,[Gondor] Serelond Noble,gondor_ser_noble,18.0,75.72,0.45,OneHandedSword,118.0,34.35,103.0,90.0,100.0,100.0,85.0,gondor,16.0,1,main_or_minor_line
+93,D,[Gondor] Cair Andros Noble,gondor_ca_noble,17.27,75.72,0.45,OneHandedSword,86.0,25.8,78.0,90.0,100.0,100.0,85.0,gondor,16.0,1,main_or_minor_line
+94,D,[Mordor] Orc Impaler,mordor_orc_impaler,17.26,81.96,0.41,TwoHandedPolearm,116.0,35.0,98.0,90.0,90.0,90.0,75.0,mordor,16.0,1,main_or_minor_line
+95,D,[Gondor] Lamedon Footman,gondor_lam_footman,16.93,100.0,0.34,TwoHandedSword,80.0,25.2,72.0,60.0,70.0,75.0,53.0,gondor,11.0,1,main_or_minor_line
+96,D,[Gundabad] Pale Uruk Brawler,gundabad_grunt,16.86,73.33,0.45,OneHandedAxe,132.0,32.25,83.5,95.0,90.0,100.0,85.0,gundabad,16.0,10,main_or_minor_line
+97,D,[Umbar] Adûnaim Footmen,umbar_elite_root0,16.8,75.25,0.45,OneHandedSword|TwoHandedAxe,68.8,22.58,60.0,90.0,100.0,95.0,90.0,umbar,16.0,5,main_or_minor_line
+98,D,[Gondor] Lossarnach Skirmisher,gondor_loss_skirmisher,16.49,73.33,0.45,TwoHandedAxe,86.0,28.0,76.0,90.0,100.0,100.0,85.0,gondor,16.0,6,main_or_minor_line
+99,D,[Misty Mountains] Orc Brawler,mistymountainorcs_grunt,15.93,73.33,0.45,OneHandedAxe,84.2,28.41,74.3,90.0,90.0,98.0,85.0,mistymountainorcs,16.0,10,main_or_minor_line
+100,D,[Dol Guldur] Orc Gnasher,dg_orc_gnasher,15.11,81.96,0.4,TwoHandedPolearm,81.25,17.56,51.2,80.0,75.0,88.0,60.0,dolguldur,11.0,4,main_or_minor_line
+101,D,[Dol Guldur] Uruk Fighter,dg_uruk_warrior,14.96,75.72,0.43,OneHandedSword,80.0,16.75,50.0,90.0,95.0,95.0,80.0,dolguldur,13.0,1,main_or_minor_line
+102,D,[Dol Guldur] Uruk Foul,dg_uruk_foul,12.81,75.72,0.4,OneHandedSword,80.0,16.75,50.0,80.0,75.0,88.0,60.0,dolguldur,11.0,1,main_or_minor_line
+103,D,[Goblin] Goblin Brawler,goblin_grunt,12.66,73.33,0.4,OneHandedAxe,84.2,28.41,74.3,80.0,82.0,87.0,70.0,goblin,16.0,10,main_or_minor_line
+104,D,[Isengard] Orc Ravager,isengard_orc_ravager,12.18,73.33,0.39,TwoHandedAxe,85.0,29.75,72.0,70.0,70.0,85.0,58.0,isengard,11.0,1,main_or_minor_line
+105,D,[Rhûn] Darkhûn Recruit,darkhun_recruit,11.77,73.33,0.39,OneHandedAxe,96.0,24.9,70.0,55.0,60.0,85.0,53.0,khuzait,11.0,1,main_or_minor_line
+106,D,[Gondor] Pinnath Gelin Militia,gondor_pg_militia,11.44,81.96,0.34,TwoHandedPolearm,80.0,25.2,72.0,60.0,70.0,75.0,53.0,gondor,11.0,1,main_or_minor_line
+107,D,[Rhûn] Black Sun Trainee,black_sun_trainee,11.38,73.33,0.39,OneHandedAxe,81.0,20.35,62.0,55.0,60.0,85.0,53.0,khuzait,11.0,1,main_or_minor_line
+108,D,Guard,guard_dale,10.15,73.33,0.36,OneHandedAxe,69.0,23.3,56.0,,80.0,80.0,50.0,sturgia,16.0,2,special_or_unlinked
+109,D,Guard,guard_khand,9.72,73.33,0.36,OneHandedAxe,64.0,18.3,52.0,,80.0,80.0,50.0,battania,16.0,2,special_or_unlinked
+110,D,[Gondor] Anfalas Militia,gondor_anf_militia,9.55,75.72,0.34,OneHandedSword,80.0,25.2,72.0,60.0,70.0,75.0,53.0,gondor,11.0,1,main_or_minor_line
+111,D,[Gundabad] Pale Uruk Warrior,gundabad_snaga,9.18,73.33,0.34,OneHandedAxe,111.0,29.32,64.0,65.0,60.0,75.0,53.0,gundabad,11.0,10,main_or_minor_line
+112,D,[Gondor] Lebennin Militia,gondor_leb_militia,8.55,75.72,0.34,OneHandedSword,32.0,13.6,32.0,60.0,70.0,75.0,53.0,gondor,11.0,1,main_or_minor_line
+113,D,[Misty Mountains] Orc Warrior,mistymountainorcs_snaga,8.36,73.33,0.33,OneHandedAxe,70.6,26.77,61.2,60.0,60.0,73.0,53.0,mistymountainorcs,11.0,10,main_or_minor_line
+114,D,[Gondor] Lamedon Clansman,gondor_lam_clansman,8.15,100.0,0.25,TwoHandedSword,55.0,17.4,55.0,23.0,38.0,33.0,38.0,gondor,6.0,1,main_or_minor_line
+115,D,[Dunland] Tribal Raider,dunland_raider,6.43,73.33,0.32,OneHandedAxe,49.0,14.6,39.0,60.0,65.0,70.0,68.0,empire,11.0,1,main_or_minor_line
+116,D,[Goblin] Goblin Warrior,goblin_snaga,5.09,73.33,0.28,OneHandedAxe,70.6,26.77,61.2,50.0,52.0,62.0,38.0,goblin,11.0,10,main_or_minor_line
+117,D,[Gondor] Pinnath Gelin Volunteer,gondor_pg_volunteer,3.81,81.96,0.25,TwoHandedPolearm,32.0,13.6,32.0,23.0,38.0,33.0,38.0,gondor,6.0,1,main_or_minor_line
+118,D,[Dol Guldur] Orc Recruit,dg_orc_recruit,3.8,81.96,0.25,TwoHandedPolearm,61.25,13.56,31.2,43.0,43.0,46.0,45.0,dolguldur,6.0,4,main_or_minor_line
+119,D,[Isengard] Orc Grunt,isengard_orc_grunt,2.74,75.72,0.25,OneHandedSword,55.0,17.4,55.0,30.0,35.0,35.0,35.0,isengard,1.0,1,main_or_minor_line
+120,D,[Mordor] Nurn Warg Tamer,mordor_warg_tamer,2.67,75.72,0.25,OneHandedSword,47.0,16.6,47.0,,25.0,15.0,20.0,mordor,1.0,1,main_or_minor_line
+121,D,[Mordor] Orc Recruit,mordor_orc_recruit,2.67,75.72,0.25,OneHandedSword,47.0,16.6,47.0,20.0,25.0,15.0,20.0,mordor,1.0,1,main_or_minor_line
+122,D,[Gondor] Anfalas Levy,gondor_anf_levy,2.42,75.72,0.25,OneHandedSword,32.0,13.6,32.0,23.0,38.0,33.0,38.0,gondor,6.0,1,main_or_minor_line
+123,D,[Gondor] Belfalas Recruit,gondor_bel_recruit,2.42,75.72,0.25,OneHandedSword,32.0,13.6,32.0,23.0,38.0,33.0,38.0,gondor,6.0,1,main_or_minor_line
+124,D,[Isengard] Orc Berserker,isengard_orc_berserker,2.21,73.33,0.25,TwoHandedAxe,55.0,17.4,55.0,33.0,38.0,43.0,43.0,isengard,6.0,1,main_or_minor_line
+125,D,[Dol Guldur] Goblin Crawler,dg_goblin_crawler,2.15,74.53,0.25,OneHandedSword|TwoHandedAxe,61.25,13.56,31.2,43.0,43.0,46.0,45.0,dolguldur,6.0,4,main_or_minor_line
+126,D,[Dol Guldur] Goblin Harrier,dg_goblin_harrier,2.15,74.53,0.25,OneHandedSword|TwoHandedAxe,61.25,13.56,31.2,43.0,43.0,46.0,45.0,dolguldur,6.0,4,main_or_minor_line
+127,D,[Dunland] Peasant,dunland_peasant,1.29,73.33,0.25,OneHandedAxe,21.0,6.7,14.0,23.0,33.0,28.0,53.0,empire,6.0,1,main_or_minor_line
+128,D,[Dol Guldur] Goblin Runt,dg_goblin_slave,0.78,73.33,0.25,TwoHandedAxe,15.0,0.75,15.0,40.0,40.0,38.0,37.0,dolguldur,1.0,1,main_or_minor_line

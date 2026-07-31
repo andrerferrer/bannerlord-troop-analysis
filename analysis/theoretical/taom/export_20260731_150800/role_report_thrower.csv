@@ -1,0 +1,91 @@
+rank,tier,troop_name,troop_id,skirmisher_role_score,throw_score_base,throw_damage,direct_throw_item,crafted_throw_item,Throwing,throw_skill_factor,armor_total,culture,level,n_rosters,line_status
+1,S,[Rohan] Riders of Rohan,rohan_edoras_golden_hall_supreme_rider,67.98,30.46,0.0,,eastern_javelin_3_t4,72.0,0.45,201.4,vlandia,41.0,5,main_or_minor_line
+2,S,[Rohan] West Emnet Heavy Shock Cavalry,rohan_westemnet_kings_own_rider,63.4,30.46,0.0,,northern_javelin_3_t4,62.0,0.39,173.0,vlandia,36.0,1,main_or_minor_line
+3,S,[Dunland] Caru-lûth Noble Lancer,dunland_stag_noble_lancer,63.25,30.46,0.0,,northern_javelin_3_t4,65.0,0.41,173.0,empire,31.0,1,main_or_minor_line
+4,A,[Rohan] King's Royal Guard,rohan_edoras_golden_hall_kings_own_rider,61.1,30.46,0.0,,eastern_javelin_3_t4,62.0,0.39,193.8,vlandia,36.0,5,main_or_minor_line
+5,A,[Dunland] Avanc-lûth Noble Cavalry,dunland_lizard_noble_cavalry,58.08,30.46,0.0,,northern_javelin_3_t4,65.0,0.41,173.0,empire,31.0,1,main_or_minor_line
+6,A,[Dunland] Caru-lûth Rider,dunland_stag_rider,57.36,30.46,0.0,,northern_javelin_3_t4,55.0,0.34,147.0,empire,26.0,1,main_or_minor_line
+7,A,[Rohan] King's Knight,rohan_edoras_golden_hall_eorlingas_rider,55.57,30.46,0.0,,eastern_javelin_3_t4,52.0,0.33,175.4,vlandia,31.0,5,main_or_minor_line
+8,A,[Rohan] West Emnet Shock Cavalry,rohan_westemnet_royal_rider,54.98,30.46,0.0,,northern_javelin_3_t4,52.0,0.33,169.0,vlandia,31.0,1,main_or_minor_line
+9,A,[Umbar] Naru n'Aru Royal Guard,umbar_elite_root0000,52.2,11.51,2.0,throwing_stone,,80.0,0.5,156.0,umbar,31.0,5,main_or_minor_line
+10,B,[Dunland] Avanc-lûth Outrider,dunland_lizard_outrider,50.82,30.46,0.0,,northern_javelin_3_t4,55.0,0.34,152.0,empire,26.0,1,main_or_minor_line
+11,B,[Harad] Fang of the King,harad_fangking,50.56,30.46,0.0,,eastern_javelin_3_t4,50.0,0.31,169.0,aserai,31.0,1,main_or_minor_line
+12,B,[Dunland] Caru-lûth Lancer,dunland_stag_lancer,46.76,30.46,0.0,,northern_javelin_3_t4,45.0,0.28,129.0,empire,21.0,1,main_or_minor_line
+13,B,[Harad] Serpent Guard,harad_serpentguard,46.68,30.46,0.0,,eastern_javelin_3_t4,40.0,0.25,183.0,aserai,26.0,1,main_or_minor_line
+14,B,[Rohan] West Emnet Medium Cavalry,rohan_westemnet_eorlingas_rider,46.22,30.46,0.0,,northern_javelin_3_t4,42.0,0.26,122.0,vlandia,26.0,1,main_or_minor_line
+15,B,[Gondor] Pinnath Gelin Veteran Horseman,gondor_pg_vet_cavalry,46.06,30.46,0.0,,western_javelin_3_t4,40.0,0.25,152.0,gondor,31.0,1,main_or_minor_line
+16,B,[Harad] Initiate of the Sand Blades,harad_sandblade,45.78,30.46,0.0,,eastern_javelin_3_t4,30.0,0.25,169.0,aserai,16.0,1,main_or_minor_line
+17,B,[Harad] Warrior of the Gilded Fang,harad_gildedfang,45.78,30.46,0.0,,eastern_javelin_3_t4,30.0,0.25,169.0,aserai,21.0,1,main_or_minor_line
+18,B,[Harad] Youngblood of the Serpent,harad_noble,45.78,30.46,0.0,,eastern_javelin_3_t4,15.0,0.25,169.0,aserai,11.0,1,main_or_minor_line
+19,B,[Dunland] Turch-lûth Huskarl,dunland_boar_warlord,45.55,30.46,0.0,,northern_javelin_3_t4,95.0,0.59,168.0,empire,31.0,1,main_or_minor_line
+20,B,[Rhûn] Far-Rhun Cavalry,far_rhun_cavalry,44.49,30.46,0.0,,eastern_javelin_3_t4,25.0,0.25,150.0,khuzait,21.0,1,main_or_minor_line
+21,B,[Rhûn] Far-Rhun Horse Master,far_rhun_horse_master,44.49,30.46,0.0,,eastern_javelin_3_t4,25.0,0.25,150.0,khuzait,21.0,1,special_or_unlinked
+22,B,[Rhûn] Easterling Cavalry,easterling_cavalry_new,44.01,30.46,0.0,,eastern_javelin_3_t4,25.0,0.25,139.0,khuzait,21.0,1,main_or_minor_line
+23,B,[Gondor] Pinnath Gelin Light Horseman,gondor_pg_cavalry,43.63,30.46,0.0,,western_javelin_2_t3,30.0,0.25,127.0,gondor,26.0,1,main_or_minor_line
+24,B,[Rhûn] Kharaghûl Raider,kharaghul_raider,43.56,30.46,0.0,,eastern_javelin_3_t4,25.0,0.25,131.0,khuzait,21.0,1,main_or_minor_line
+25,B,[Umbar] Abrazanim Nardutarik,umbar_elite_root000,43.16,11.51,2.0,throwing_stone,,70.0,0.44,156.0,umbar,26.0,5,main_or_minor_line
+26,B,[Umbar] Abrazanim Narduzagar,umbar_elite_root001,43.16,11.51,2.0,throwing_stone,,70.0,0.44,156.0,umbar,26.0,5,main_or_minor_line
+27,B,[Umbar] Adûnaims Faithful,umbar_elite_root010,43.16,11.51,2.0,throwing_stone,,70.0,0.44,156.0,umbar,26.0,5,main_or_minor_line
+28,B,[Harad] Camel Rider,harad_camelrider,42.98,30.46,0.0,,eastern_javelin_3_t4,30.0,0.25,154.0,aserai,21.0,1,main_or_minor_line
+29,B,[Dunland] Avanc-lûth Horseman,dunland_lizard_horseman,42.34,30.46,0.0,,northern_javelin_3_t4,45.0,0.28,129.0,empire,21.0,1,main_or_minor_line
+30,B,[Harad] Camel Lancer,harad_camel_lancer,42.18,30.46,0.0,,eastern_javelin_3_t4,40.0,0.25,149.0,aserai,26.0,1,main_or_minor_line
+31,B,[Dunland] Blaidd-lûth Champion,dunland_wolf_champion,40.85,30.46,0.0,,northern_javelin_3_t4,95.0,0.59,168.0,empire,31.0,1,main_or_minor_line
+32,B,[Rhûn] Wain Darkhan,wain_darkhan,40.84,30.46,0.0,,eastern_javelin_1_t2,85.0,0.53,209.0,khuzait,36.0,1,main_or_minor_line
+33,B,[Dunland] Turch-lûth Ironhide,dunland_boar_boar_warrior,40.45,30.46,0.0,,northern_javelin_3_t4,85.0,0.53,161.0,empire,26.0,1,main_or_minor_line
+34,B,[Rhûn] Far-Rhun Horseman,far_rhun_horseman,40.28,30.46,0.0,,eastern_javelin_3_t4,20.0,0.25,135.0,khuzait,16.0,1,main_or_minor_line
+35,B,[Harad] Camel Scout,harad_camelscout,39.61,30.46,0.0,,eastern_javelin_3_t4,25.0,0.25,96.0,aserai,16.0,1,main_or_minor_line
+36,B,[Rhûn] Sagarûn Storm Forged Marine,sagarun_storm_forged_marine,39.38,30.46,0.0,,eastern_javelin_3_t4,85.0,0.53,219.5,khuzait,36.0,2,main_or_minor_line
+37,B,[Rhûn] Kharaghûl Rider,kharaghul_rider,38.05,30.46,0.0,,eastern_javelin_3_t4,20.0,0.25,106.0,khuzait,16.0,1,main_or_minor_line
+38,B,[Gundabad] Pale Uruk Skull Crusher,gundabad_veteran_berserker,37.96,30.46,0.0,,wm_gundabad_javelin_a02,95.0,0.59,225.83,gundabad,36.0,6,main_or_minor_line
+39,B,[Dunland] Arth-lûth Executioner,dunland_bear_executioner,37.8,30.46,0.0,,northern_javelin_3_t4,95.0,0.59,163.0,empire,31.0,1,main_or_minor_line
+40,C,[Harad] Warlance,harad_warlance,36.02,30.46,0.0,,eastern_javelin_3_t4,80.0,0.5,169.0,aserai,31.0,1,main_or_minor_line
+41,C,[Rhûn] Sagarûn Marine,sagarun_marine,35.88,30.46,0.0,,eastern_javelin_3_t4,75.0,0.47,217.5,khuzait,31.0,2,main_or_minor_line
+42,C,[Dunland] Blaidd-lûth Axeman,dunland_wolf_axeman,35.45,30.46,0.0,,northern_javelin_2_t3,85.0,0.53,161.0,empire,26.0,1,main_or_minor_line
+43,C,[Gondor] Lebennin Sea Guard,gondor_leb_sea_guard,34.8,30.46,0.0,,eastern_javelin_2_t3,80.0,0.5,157.0,gondor,36.0,1,main_or_minor_line
+44,C,[Gondor] Osgiliath Dome Guard,gondor_osg_dome_guard,34.24,30.46,0.0,,eastern_javelin_3_t4,80.0,0.5,163.0,gondor,36.0,1,main_or_minor_line
+45,C,[Misty Mountains] Orc Skull Crusher,mistymountainorcs_veteran_berserker,34.0,30.46,0.0,,wm_gundabad_javelin_a02,95.0,0.59,138.0,mistymountainorcs,36.0,6,main_or_minor_line
+46,C,[Dunland] Arth-lûth Berserker,dunland_bear_berserker,32.96,30.46,0.0,,northern_javelin_3_t4,85.0,0.53,161.0,empire,26.0,1,main_or_minor_line
+47,C,[Rhûn] Far-Rhun Iron Legionary,far_rhun_iron_legionary,32.95,30.46,0.0,,eastern_javelin_3_t4,75.0,0.47,185.0,khuzait,31.0,1,main_or_minor_line
+48,C,[Harad] Bronze Fang,harad_bronzefang,31.23,30.46,0.0,,eastern_javelin_3_t4,70.0,0.44,169.0,aserai,26.0,1,main_or_minor_line
+49,C,[Harad] Sunlance,harad_sunlance,31.23,30.46,0.0,,eastern_javelin_3_t4,70.0,0.44,169.0,aserai,26.0,1,main_or_minor_line
+50,C,[Gundabad] Pale Uruk Bone Breaker,gundabad_berserker,30.65,30.46,0.0,,wm_gundabad_javelin_a01,85.0,0.53,185.0,gundabad,31.0,1,main_or_minor_line
+51,C,[Dunland] Uch-lûth Iron Wall,dunland_ox_iron_wall,30.1,30.46,0.0,,northern_javelin_3_t4,95.0,0.59,173.0,empire,31.0,1,main_or_minor_line
+52,C,[Goblin] Goblin Skull Crusher,goblin_veteran_berserker,29.22,30.46,0.0,,wm_gundabad_javelin_a02,85.0,0.53,138.0,goblin,36.0,6,main_or_minor_line
+53,C,[Misty Mountains] Orc Bone Breaker,mistymountainorcs_berserker,29.22,30.46,0.0,,wm_gundabad_javelin_a01,85.0,0.53,138.0,mistymountainorcs,31.0,1,main_or_minor_line
+54,C,[Dunland] Turch-lûth Goreblade,dunland_boar_spearman,28.84,30.46,0.0,,northern_javelin_3_t4,65.0,0.41,143.0,empire,21.0,1,main_or_minor_line
+55,C,[Rhûn] Far-Rhun Gate Guard,far_rhun_gate_guard,27.55,30.46,0.0,,eastern_javelin_3_t4,65.0,0.41,176.0,khuzait,26.0,1,main_or_minor_line
+56,C,[Dunland] Wild-man Spearman,dunland_veteran_spearman,27.06,30.46,0.0,,western_javelin_1_t2,65.0,0.41,124.0,empire,21.0,1,main_or_minor_line
+57,C,[Rhûn] Balcoth Veteran Axeman,balcoth_veteran_axeman,25.28,30.46,0.0,,eastern_javelin_3_t4,65.0,0.41,146.0,khuzait,26.0,1,main_or_minor_line
+58,C,[Rhûn] Easterling Veteran Swordsman,easterling_veteran_swordsman_new,25.28,30.46,0.0,,eastern_javelin_3_t4,65.0,0.41,146.0,khuzait,26.0,1,main_or_minor_line
+59,C,[Umbar] Abrazanim Nardubawib,umbar_elite_root100,25.1,11.51,2.0,throwing_stone,,50.0,0.31,156.0,umbar,26.0,5,main_or_minor_line
+60,C,[Umbar] Beruthiel's Rangers,umbar_elite_root101,25.1,11.51,2.0,throwing_stone,,50.0,0.31,91.2,umbar,26.0,5,main_or_minor_line
+61,C,[Umbar] Naru n'Aru Royal Knights,umbar_elite_root0001,25.1,11.51,2.0,throwing_stone,,50.0,0.31,156.0,umbar,31.0,5,main_or_minor_line
+62,C,[Umbar] Rozadan Footmen,umbar_elite_root00,25.1,11.51,2.0,throwing_stone,,50.0,0.31,156.0,umbar,21.0,5,main_or_minor_line
+63,C,[Umbar] Rozadan Halberdiers,umbar_elite_root01,25.1,11.51,2.0,throwing_stone,,50.0,0.31,156.0,umbar,21.0,5,main_or_minor_line
+64,C,[Dunland] Uch-lûth Bodyguard,dunland_ox_guard,24.45,30.46,0.0,,northern_javelin_3_t4,85.0,0.53,161.0,empire,26.0,1,main_or_minor_line
+65,C,[Goblin] Goblin Bone Breaker,goblin_berserker,24.44,30.46,0.0,,wm_gundabad_javelin_a01,75.0,0.47,138.0,goblin,31.0,1,main_or_minor_line
+66,C,[Rhûn] Sagarûn Storm Helmed Naffatun,sagarun_storm_helmed_naffatun,23.91,30.46,0.0,,eastern_javelin_3_t4,65.0,0.41,203.0,khuzait,36.0,2,main_or_minor_line
+67,D,[Dunland] Blaidd-lûth Raider,dunland_wolf_raider,23.58,30.46,0.0,,northern_javelin_2_t3,65.0,0.41,129.0,empire,21.0,1,main_or_minor_line
+68,D,[Dunland] Wild-man Swordman,dunland_veteran_swordman,22.94,30.46,0.0,,western_javelin_1_t2,65.0,0.41,98.0,empire,21.0,1,main_or_minor_line
+69,D,[Gondor] Lebennin Veteran Infantry,gondor_leb_vet_infantry,22.78,30.46,0.0,,eastern_javelin_2_t3,60.0,0.38,130.0,gondor,26.0,1,main_or_minor_line
+70,D,[Dunland] Arth-lûth Chosen,dunland_bear_chosen,21.27,30.46,0.0,,northern_javelin_3_t4,65.0,0.41,129.0,empire,21.0,1,main_or_minor_line
+71,D,[Rhûn] Sagarûn Naffatun,sagarun_naffatun,16.28,30.46,0.0,,eastern_javelin_3_t4,55.0,0.34,160.5,khuzait,31.0,2,main_or_minor_line
+72,D,[Umbar] Adûnaim Bowmen,umbar_elite_root1,16.07,11.51,2.0,throwing_stone,,30.0,0.25,68.8,umbar,16.0,5,main_or_minor_line
+73,D,[Umbar] Adûnaim Footmen,umbar_elite_root0,16.07,11.51,2.0,throwing_stone,,30.0,0.25,68.8,umbar,16.0,5,main_or_minor_line
+74,D,[Umbar] Adûnaim Recruits,umbar_elite,16.07,11.51,2.0,throwing_stone,,20.0,0.25,46.4,umbar,11.0,5,main_or_minor_line
+75,D,[Umbar] Auxiliary Recruit,aux_basic,16.07,11.51,2.0,throwing_stone,,10.0,0.25,68.6,umbar,6.0,5,special_or_unlinked
+76,D,[Umbar] Rozadan Bowmen,umbar_elite_root10,16.07,11.51,2.0,throwing_stone,,40.0,0.25,104.8,umbar,21.0,5,main_or_minor_line
+77,D,[Gondor] Harondor Javelineer,gondor_har_javelineer,15.53,30.46,0.0,,western_javelin_3_t4,40.0,0.25,160.0,gondor,26.0,1,main_or_minor_line
+78,D,[Gondor] Harondor Veteran Skirmisher,gondor_har_vet_skirmisher,15.01,30.46,0.0,,western_javelin_3_t4,30.0,0.25,144.0,gondor,21.0,1,main_or_minor_line
+79,D,[Dunland] Blaidd-lûth Warrior,dunland_clan_warrior,13.77,30.46,0.0,,northern_javelin_2_t3,45.0,0.28,138.0,empire,16.0,1,main_or_minor_line
+80,D,[Dunland] Turch-lûth Tuskrunner,dunland_boar_warrior,13.77,30.46,0.0,,northern_javelin_2_t3,45.0,0.28,138.0,empire,16.0,1,main_or_minor_line
+81,D,[Gondor] Lebennin Infantry,gondor_leb_infantry,12.22,30.46,0.0,,eastern_javelin_2_t3,40.0,0.25,110.0,gondor,21.0,1,main_or_minor_line
+82,D,[Dunland] Uch-lûth Pikeman,dunland_ox_pikeman,11.84,30.46,0.0,,northern_javelin_3_t4,65.0,0.41,123.0,empire,21.0,1,main_or_minor_line
+83,D,[Dunland] Tribal Spearman,dunland_spearman,11.37,30.46,0.0,,western_javelin_1_t2,45.0,0.28,83.0,empire,16.0,1,main_or_minor_line
+84,D,[Gondor] Harondor Skirmisher,gondor_har_skirmisher,8.9,30.46,0.0,,western_javelin_3_t4,20.0,0.25,110.0,gondor,16.0,1,main_or_minor_line
+85,D,[Dunland] Blaidd-lûth Noble Son,dunland_noble_son,8.81,30.46,0.0,,northern_javelin_2_t3,35.0,0.25,107.0,empire,11.0,1,main_or_minor_line
+86,D,[Dunland] Turch-lûth Noble Son,dunland_boar_noble_son,8.81,30.46,0.0,,northern_javelin_2_t3,35.0,0.25,107.0,empire,11.0,1,main_or_minor_line
+87,D,[Dunland] Tribal Swordsman,dunland_swordsman,7.76,30.46,0.0,,western_javelin_1_t2,45.0,0.28,83.0,empire,16.0,1,main_or_minor_line
+88,D,[Gondor] Lossarnach Skirmisher,gondor_loss_skirmisher,5.54,30.46,0.0,,eastern_javelin_2_t3|generic_javelin_1_t3|northern_javelin_2_t3|western_javelin_1_t2|western_javelin_2_t3,20.0,0.25,86.0,gondor,16.0,6,main_or_minor_line
+89,D,[Dunland] Tribal Raider,dunland_raider,2.05,30.46,0.0,,western_javelin_1_t2,35.0,0.25,49.0,empire,11.0,1,main_or_minor_line
+90,D,[Dunland] Peasant,dunland_peasant,0.0,30.46,0.0,,northern_javelin_1_t2,25.0,0.25,21.0,empire,6.0,1,main_or_minor_line
