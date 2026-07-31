@@ -27,7 +27,7 @@ Files under `analysis/model_versions/` remain frozen until empirical evidence pa
 <!-- latest-theoretical-report:start -->
 ## Latest theoretical report
 
-Export `export_20260731_150800` · package `9444e75330ea…` · model `role_scores_v1` (XML-structural; not empiria).
+Export `export_20260731_150800` · package `fc87e360e884…` · model `role_scores_v1` (XML-structural; not empiria).
 
 - Index: [`analysis/theoretical/OVERVIEW_INDEX.md`](analysis/theoretical/OVERVIEW_INDEX.md)
 - Nightmare Sails: [`OVERVIEW.md`](analysis/theoretical/nightmare_sails/export_20260731_150800/OVERVIEW.md)
