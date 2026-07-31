@@ -9,13 +9,13 @@ import unittest
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-EXPORT_ID = "export_20260729_025002"
+EXPORT_ID = "export_20260731_150800"
 PACKAGE_ROOT = REPO / "data" / "xml_exports" / EXPORT_ID
 HASHES_PATH = PACKAGE_ROOT / "artifact_hashes.csv"
 PACKAGE_JSON = PACKAGE_ROOT / "PACKAGE.json"
 TRACKS = ("vanilla", "nightmare_sails", "realm_of_thrones", "taom")
 SOURCE_ZIP_SHA256 = (
-    "307d9eab533b1b83bb76545141226f86144af6712ed0b64b29e3efc3e23f3ad8"
+    "c3614f6e41ae629bf95d3a34adf2b730a9ad0453a20d9c1d3858e277f30ea962"
 )
 
 

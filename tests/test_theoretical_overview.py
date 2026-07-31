@@ -9,7 +9,7 @@ import unittest
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-EXPORT_ID = "export_20260729_025002"
+EXPORT_ID = "export_20260731_150800"
 sys.path.insert(0, str(REPO / "scripts" / "scoring"))
 
 from write_theoretical_overview import (  # noqa: E402
@@ -225,8 +225,9 @@ class TheoreticalOverviewTests(unittest.TestCase):
         path = REPO / "analysis" / "theoretical" / "HUMAN_INPUT.md"
         self.assertTrue(path.is_file())
         text = path.read_text(encoding="utf-8")
-        self.assertIn("TAOM item XML export", text)
         self.assertIn("RoT field empiria", text)
+        self.assertIn("TAOM item XML", text)
+        self.assertIn("Resolved", text)
 
     def test_update_root_readme_rewrites_latest_report_block(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

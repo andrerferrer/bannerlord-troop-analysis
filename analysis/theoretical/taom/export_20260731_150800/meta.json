@@ -1,0 +1,28 @@
+{
+  "export_id": "export_20260731_150800",
+  "track": "taom",
+  "package_kind_source": "xml_ssot_package",
+  "expected_package_sha256": "9444e75330ea380c75a06492e6b9b4cbda89582223e079437ba48d976f547db4",
+  "model": "role_scores_v1",
+  "evidence_basis": "xml_structural",
+  "empirical": false,
+  "adr": "ADR-004",
+  "verified_audit_files": [
+    "data/taom/audit/taom_crafted_item_pieces.csv",
+    "data/taom/audit/taom_equipment_rosters.csv",
+    "data/taom/audit/taom_items_catalog.csv",
+    "data/taom/audit/taom_items_crafted.csv",
+    "data/taom/audit/taom_items_direct.csv",
+    "data/taom/audit/taom_known_gaps_xslt.csv",
+    "data/taom/audit/taom_override_report.csv",
+    "data/taom/audit/taom_roster_audit_summary.csv",
+    "data/taom/audit/taom_sanity_check_table.csv",
+    "data/taom/audit/taom_tree_tiers.csv",
+    "data/taom/audit/taom_troop_equipment_audit.csv",
+    "data/taom/audit/taom_troops.csv",
+    "data/taom/audit/taom_unknown_items_allowlist.csv",
+    "data/taom/audit/taom_unknown_items_review_queue.csv",
+    "data/taom/audit/taom_upgrade_edges.csv"
+  ],
+  "troop_rows": 1239
+}
