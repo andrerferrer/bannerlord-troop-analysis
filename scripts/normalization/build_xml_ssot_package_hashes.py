@@ -14,10 +14,8 @@ from pathlib import Path
 
 TRACKS = ("vanilla", "nightmare_sails", "realm_of_thrones", "taom")
 ALLOWLISTED_RAW_NAMES = ("manifest.csv", "manifest_modules.csv", "MANIFEST.md")
-SOURCE_ZIP_SHA256 = (
-    "307d9eab533b1b83bb76545141226f86144af6712ed0b64b29e3efc3e23f3ad8"
-)
-SOURCE_ZIP_FILENAME = "bannerlord_xml_export_20260729_025002.zip"
+DEFAULT_EXPORT_ID = "export_20260731_150800"
+DEFAULT_SOURCE_ZIP_FILENAME = "bannerlord_analysis_pack_20260731.zip"
 
 
 def sha256_file(path: Path) -> str:
@@ -54,6 +52,11 @@ def collect_paths(repo: Path, export_id: str) -> list[Path]:
             candidate = raw_dir / name
             if candidate.is_file():
                 paths.append(candidate)
+    analysis_pack = repo / "analysis_pack"
+    if analysis_pack.is_dir():
+        for path in sorted(analysis_pack.rglob("*")):
+            if path.is_file() and path.suffix.lower() in {".csv", ".md"}:
+                paths.append(path)
     return paths
 
 
@@ -84,13 +87,24 @@ def write_hashes(path: Path, rows: list[dict[str, str]]) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo", type=Path, default=Path(__file__).resolve().parents[2])
-    parser.add_argument("--export-id", default="export_20260729_025002")
+    parser.add_argument("--export-id", default=DEFAULT_EXPORT_ID)
     parser.add_argument(
         "--source-zip",
         type=Path,
         default=None,
-        help="Optional local zip for size_bytes; SHA must match pin",
+        help="Local transfer zip to pin (size + sha256)",
     )
+    parser.add_argument(
+        "--source-zip-filename",
+        default=DEFAULT_SOURCE_ZIP_FILENAME,
+        help="Filename recorded in PACKAGE.json when zip is absent locally",
+    )
+    parser.add_argument(
+        "--expected-source-sha256",
+        default=None,
+        help="If set with --source-zip, require this digest; otherwise hash the zip",
+    )
+    parser.add_argument("--game-version", default="v1.4.7")
     args = parser.parse_args()
     repo = args.repo.resolve()
     package_root = repo / "data" / "xml_exports" / args.export_id
@@ -101,49 +115,56 @@ def main() -> None:
     digest = package_digest(rows)
 
     size_bytes = None
+    source_sha = args.expected_source_sha256
+    source_name = args.source_zip_filename
     source_zip = args.source_zip
     if source_zip is None:
-        env_zip = Path.home() / "Downloads" / SOURCE_ZIP_FILENAME
-        if env_zip.is_file():
-            source_zip = env_zip
+        candidate = Path.home() / "Downloads" / source_name
+        if candidate.is_file():
+            source_zip = candidate
     if source_zip is not None and source_zip.is_file():
         actual = sha256_file(source_zip)
-        if actual != SOURCE_ZIP_SHA256:
+        if source_sha and actual != source_sha:
             raise SystemExit(
-                f"source zip sha mismatch: expected {SOURCE_ZIP_SHA256}, got {actual}"
+                f"source zip sha mismatch: expected {source_sha}, got {actual}"
             )
+        source_sha = actual
         size_bytes = source_zip.stat().st_size
+        source_name = source_zip.name
+    if not source_sha:
+        raise SystemExit(
+            "need --source-zip (or Downloads copy) and/or --expected-source-sha256"
+        )
 
     package = {
         "export_id": args.export_id,
-        "game_version": "v1.4.7",
+        "game_version": args.game_version,
         "package_kind": "xml_ssot_package",
         "not_combat_evidence_package": True,
         "analysis_task_protocol": None,
         "tracks": list(TRACKS),
         "source_zip": {
-            "filename": SOURCE_ZIP_FILENAME,
+            "filename": source_name,
             "size_bytes": size_bytes,
-            "sha256": SOURCE_ZIP_SHA256,
+            "sha256": source_sha,
             "retention": "local_only",
             "lfs_declined": True,
             "git_declined": True,
+            "kind": "normalized_analysis_pack",
             "local_path_convention": [
-                "$BANNERLORD_XML_EXPORT_ZIP",
-                f"~/Downloads/{SOURCE_ZIP_FILENAME}",
+                "$BANNERLORD_ANALYSIS_PACK_ZIP",
+                f"~/Downloads/{source_name}",
             ],
         },
         "reconstruction_commands": [
-            f"unzip -d /tmp/{args.export_id} ~/Downloads/{SOURCE_ZIP_FILENAME}",
-            (
-                "python3 scripts/normalization/rebuild_vanilla_audit.py "
-                "--raw-xml-root data/<track>/raw_xml --output-dir data/<track>/audit "
-                "--track <track> --load-order <ordered-modules> --baseline-modules <baseline>"
-            ),
+            f"unzip -d /tmp/{args.export_id} ~/Downloads/{source_name}",
             (
                 "python3 scripts/normalization/build_xml_ssot_package_hashes.py "
-                f"--export-id {args.export_id}"
+                f"--export-id {args.export_id} "
+                f"--source-zip ~/Downloads/{source_name}"
             ),
+            "python3 scripts/scoring/run_theoretical_role_scores.py",
+            "python3 scripts/scoring/write_theoretical_overview.py",
         ],
         "expected_package_sha256": digest,
         "hash_algorithm": (
@@ -151,6 +172,11 @@ def main() -> None:
             "path,bytes,sha256 lines joined by \\n with a trailing \\n; "
             "artifact_hashes.csv and PACKAGE.json are excluded from the row set"
         ),
+        "notes": [
+            "2026-07-31 TAOM items resolved via LOTRLOME_Armory + Alliance.Wargs from TAOM zip",
+            "allowlist reduced to 13 orc_rider_* multiplayer-test stubs",
+            "prior export_20260729_025002 TAOM scores are obsolete",
+        ],
     }
     (package_root / "PACKAGE.json").write_text(
         json.dumps(package, indent=2, sort_keys=False) + "\n",
@@ -158,6 +184,7 @@ def main() -> None:
     )
     print(f"wrote {len(rows)} hash rows")
     print(f"expected_package_sha256={digest}")
+    print(f"source_zip_sha256={source_sha}")
 
 
 if __name__ == "__main__":

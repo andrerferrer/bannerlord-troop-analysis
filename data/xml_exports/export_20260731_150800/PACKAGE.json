@@ -1,0 +1,39 @@
+{
+  "export_id": "export_20260731_150800",
+  "game_version": "v1.4.7",
+  "package_kind": "xml_ssot_package",
+  "not_combat_evidence_package": true,
+  "analysis_task_protocol": null,
+  "tracks": [
+    "vanilla",
+    "nightmare_sails",
+    "realm_of_thrones",
+    "taom"
+  ],
+  "source_zip": {
+    "filename": "bannerlord_analysis_pack_20260731.zip",
+    "size_bytes": 3766407,
+    "sha256": "c3614f6e41ae629bf95d3a34adf2b730a9ad0453a20d9c1d3858e277f30ea962",
+    "retention": "local_only",
+    "lfs_declined": true,
+    "git_declined": true,
+    "kind": "normalized_analysis_pack",
+    "local_path_convention": [
+      "$BANNERLORD_ANALYSIS_PACK_ZIP",
+      "~/Downloads/bannerlord_analysis_pack_20260731.zip"
+    ]
+  },
+  "reconstruction_commands": [
+    "unzip -d /tmp/export_20260731_150800 ~/Downloads/bannerlord_analysis_pack_20260731.zip",
+    "python3 scripts/normalization/build_xml_ssot_package_hashes.py --export-id export_20260731_150800 --source-zip ~/Downloads/bannerlord_analysis_pack_20260731.zip",
+    "python3 scripts/scoring/run_theoretical_role_scores.py",
+    "python3 scripts/scoring/write_theoretical_overview.py"
+  ],
+  "expected_package_sha256": "9444e75330ea380c75a06492e6b9b4cbda89582223e079437ba48d976f547db4",
+  "hash_algorithm": "SHA-256 of UTF-8 text formed by sorting artifact_hashes.csv data rows as path,bytes,sha256 lines joined by \\n with a trailing \\n; artifact_hashes.csv and PACKAGE.json are excluded from the row set",
+  "notes": [
+    "2026-07-31 TAOM items resolved via LOTRLOME_Armory + Alliance.Wargs from TAOM zip",
+    "allowlist reduced to 13 orc_rider_* multiplayer-test stubs",
+    "prior export_20260729_025002 TAOM scores are obsolete"
+  ]
+}

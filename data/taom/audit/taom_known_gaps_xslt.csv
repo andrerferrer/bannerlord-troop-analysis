@@ -1,1 +1,16 @@
 module,is_baseline,xslt_file,status
+NavalDLC,True,ModuleData/XSLT/NavalDLC_Native_CraftingTemplates.xslt,known_gap_not_applied
+NavalDLC,True,ModuleData/XSLT/NavalDLC_Native_WeaponDescriptions.xslt,known_gap_not_applied
+NavalDLC,True,ModuleData/XSLT/NavalDLC_Sandbox_partyTemplates.xslt,known_gap_not_applied
+NavalDLC,True,ModuleData/XSLT/NavalDLC_SandBoxCore_SPCultures.xslt,known_gap_not_applied
+NavalDLC,True,ModuleData/XSLT/NavalDLC_StoryMode_Settlements.xslt,known_gap_not_applied
+Alliance.Wargs,False,ModuleData/Animations/action_sets.xslt,known_gap_not_applied
+Alliance.Wargs,False,ModuleData/MonsterUsage/LOTR/lotr_monster_usage_warg.xslt,known_gap_not_applied
+Alliance.Wargs,False,ModuleData/physics_materials.xslt,known_gap_not_applied
+LOTRLOME_Armory,False,ModuleData/action_sets.xslt,known_gap_not_applied
+LOTRLOME_Armory,False,ModuleData/action_types.xslt,known_gap_not_applied
+LOTRLOME_Armory,False,ModuleData/Animations/action_sets.xslt,known_gap_not_applied
+LOTRLOME_Armory,False,ModuleData/crafting_templates.xslt,known_gap_not_applied
+LOTRLOME_Armory,False,ModuleData/monster_usage_sets.xslt,known_gap_not_applied
+LOTRLOME_Armory,False,ModuleData/MonsterUsage/LOTR/lotr_monster_usage_spider.xslt,known_gap_not_applied
+LOTRLOME_Armory,False,ModuleData/weapon_descriptions.xslt,known_gap_not_applied

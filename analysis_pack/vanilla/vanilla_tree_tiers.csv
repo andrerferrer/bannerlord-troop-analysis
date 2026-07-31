@@ -1,0 +1,368 @@
+troop_id,tree_root_id,upgrade_depth,tree_tier,upgrade_path,line_status,line_status_corrected,name,level,occupation,culture,default_group,has_upgrade_targets
+aserai_faris,aserai_youth,3,3,aserai_youth|aserai_tribal_horseman|aserai_faris,noble_line,noble_line,Aserai Faris,21.0,Soldier,aserai,Cavalry,True
+aserai_footman,aserai_recruit,3,3,aserai_recruit|aserai_tribesman|aserai_footman,main_or_minor_line,main_or_minor_line,Aserai Footman,16.0,Soldier,aserai,Infantry,True
+aserai_infantry,aserai_recruit,4,4,aserai_recruit|aserai_tribesman|aserai_footman|aserai_infantry,main_or_minor_line,main_or_minor_line,Aserai Infantry,21.0,Soldier,aserai,Infantry,True
+aserai_mameluke_axeman,aserai_recruit,3,3,aserai_recruit|aserai_mameluke_soldier|aserai_mameluke_axeman,main_or_minor_line,main_or_minor_line,Aserai Mamluke Axeman,16.0,Soldier,aserai,Infantry,True
+aserai_mameluke_cavalry,aserai_recruit,4,4,aserai_recruit|aserai_mameluke_soldier|aserai_mameluke_regular|aserai_mameluke_cavalry,main_or_minor_line,main_or_minor_line,Aserai Mamluke Cavalry,21.0,Soldier,aserai,HorseArcher,True
+aserai_mameluke_guard,aserai_recruit,4,4,aserai_recruit|aserai_mameluke_soldier|aserai_mameluke_axeman|aserai_mameluke_guard,main_or_minor_line,main_or_minor_line,Aserai Mamluke Guard,21.0,Soldier,aserai,Infantry,True
+aserai_mameluke_heavy_cavalry,aserai_recruit,5,5,aserai_recruit|aserai_mameluke_soldier|aserai_mameluke_regular|aserai_mameluke_cavalry|aserai_mameluke_heavy_cavalry,main_or_minor_line,main_or_minor_line,Aserai Mamluke Heavy Cavalry,26.0,Soldier,aserai,HorseArcher,False
+aserai_mameluke_regular,aserai_recruit,3,3,aserai_recruit|aserai_mameluke_soldier|aserai_mameluke_regular,main_or_minor_line,main_or_minor_line,Aserai Mamluke Regular,16.0,Soldier,aserai,Cavalry,True
+aserai_mameluke_soldier,aserai_recruit,2,2,aserai_recruit|aserai_mameluke_soldier,main_or_minor_line,main_or_minor_line,Aserai Mamluke Soldier,11.0,Soldier,aserai,Infantry,True
+aserai_marine_t4,aserai_marine_t4,1,1,aserai_marine_t4,main_or_minor_line,main_or_minor_line,Aserai Veteran Sailor,21.0,Soldier,aserai,Ranged,True
+aserai_marine_t5,aserai_marine_t4,2,2,aserai_marine_t4|aserai_marine_t5,main_or_minor_line,main_or_minor_line,Aserai Bahriyyah,26.0,Soldier,aserai,Ranged,False
+aserai_recruit,aserai_recruit,1,1,aserai_recruit,main_or_minor_line,main_or_minor_line,Aserai Recruit,6.0,Soldier,aserai,Infantry,True
+aserai_tribal_horseman,aserai_youth,2,2,aserai_youth|aserai_tribal_horseman,noble_line,noble_line,Aserai Tribal Horseman,16.0,Soldier,aserai,Cavalry,True
+aserai_tribesman,aserai_recruit,2,2,aserai_recruit|aserai_tribesman,main_or_minor_line,main_or_minor_line,Aserai Tribesman,11.0,Soldier,aserai,Infantry,True
+aserai_vanguard_faris,aserai_youth,5,5,aserai_youth|aserai_tribal_horseman|aserai_faris|aserai_veteran_faris|aserai_vanguard_faris,noble_line,noble_line,Aserai Vanguard Faris,31.0,Soldier,aserai,Cavalry,False
+aserai_veteran_faris,aserai_youth,4,4,aserai_youth|aserai_tribal_horseman|aserai_faris|aserai_veteran_faris,noble_line,noble_line,Aserai Veteran Faris,26.0,Soldier,aserai,Cavalry,True
+aserai_veteran_infantry,aserai_recruit,5,5,aserai_recruit|aserai_tribesman|aserai_footman|aserai_infantry|aserai_veteran_infantry,main_or_minor_line,main_or_minor_line,Aserai Veteran Infantry,26.0,Soldier,aserai,Infantry,False
+aserai_youth,aserai_youth,1,1,aserai_youth,noble_line,noble_line,Aserai Youth,11.0,Soldier,aserai,Cavalry,True
+battanian_clanwarrior,battanian_volunteer,2,2,battanian_volunteer|battanian_clanwarrior,main_or_minor_line,main_or_minor_line,Battanian Clan Warrior,11.0,Soldier,battania,Infantry,True
+battanian_falxman,battanian_volunteer,4,4,battanian_volunteer|battanian_woodrunner|battanian_raider|battanian_falxman,main_or_minor_line,main_or_minor_line,Battanian Falxman,21.0,Soldier,battania,Infantry,True
+battanian_fian,battanian_highborn_youth,4,4,battanian_highborn_youth|battanian_highborn_warrior|battanian_hero|battanian_fian,noble_line,noble_line,Battanian Fian,26.0,Soldier,battania,Ranged,True
+battanian_fian_champion,battanian_highborn_youth,5,5,battanian_highborn_youth|battanian_highborn_warrior|battanian_hero|battanian_fian|battanian_fian_champion,noble_line,noble_line,Battanian Fian Champion,31.0,Soldier,battania,Ranged,False
+battanian_hero,battanian_highborn_youth,3,3,battanian_highborn_youth|battanian_highborn_warrior|battanian_hero,noble_line,noble_line,Battanian Hero,21.0,Soldier,battania,Ranged,True
+battanian_highborn_warrior,battanian_highborn_youth,2,2,battanian_highborn_youth|battanian_highborn_warrior,noble_line,noble_line,Battanian Highborn Warrior,16.0,Soldier,battania,Ranged,True
+battanian_highborn_youth,battanian_highborn_youth,1,1,battanian_highborn_youth,noble_line,noble_line,Battanian Highborn Youth,11.0,Soldier,battania,Ranged,True
+battanian_horseman,battanian_volunteer,5,5,battanian_volunteer|battanian_clanwarrior|battanian_trained_warrior|battanian_scout|battanian_horseman,main_or_minor_line,main_or_minor_line,Battanian Horseman,26.0,Soldier,battania,Cavalry,False
+battanian_marine_t4,battanian_marine_t4,1,1,battanian_marine_t4,main_or_minor_line,main_or_minor_line,Battanian River Raider,21.0,Soldier,battania,Infantry,True
+battanian_marine_t5,battanian_marine_t4,2,2,battanian_marine_t4|battanian_marine_t5,main_or_minor_line,main_or_minor_line,Battanian Skipari,26.0,Soldier,battania,Infantry,False
+battanian_oathsworn,battanian_volunteer,5,5,battanian_volunteer|battanian_clanwarrior|battanian_trained_warrior|battanian_picked_warrior|battanian_oathsworn,main_or_minor_line,main_or_minor_line,Battanian Oathsworn,26.0,Soldier,battania,Infantry,False
+battanian_picked_warrior,battanian_volunteer,4,4,battanian_volunteer|battanian_clanwarrior|battanian_trained_warrior|battanian_picked_warrior,main_or_minor_line,main_or_minor_line,Battanian Picked Warrior,21.0,Soldier,battania,Infantry,True
+battanian_raider,battanian_volunteer,3,3,battanian_volunteer|battanian_woodrunner|battanian_raider,main_or_minor_line,main_or_minor_line,Battanian Raider,16.0,Soldier,battania,Infantry,True
+battanian_scout,battanian_volunteer,4,4,battanian_volunteer|battanian_clanwarrior|battanian_trained_warrior|battanian_scout,main_or_minor_line,main_or_minor_line,Battanian Scout,21.0,Soldier,battania,Cavalry,True
+battanian_trained_warrior,battanian_volunteer,3,3,battanian_volunteer|battanian_clanwarrior|battanian_trained_warrior,main_or_minor_line,main_or_minor_line,Battanian Trained Warrior,16.0,Soldier,battania,Infantry,True
+battanian_veteran_falxman,battanian_volunteer,5,5,battanian_volunteer|battanian_woodrunner|battanian_raider|battanian_falxman|battanian_veteran_falxman,main_or_minor_line,main_or_minor_line,Battanian Veteran Falxman,26.0,Soldier,battania,Infantry,False
+battanian_volunteer,battanian_volunteer,1,1,battanian_volunteer,main_or_minor_line,main_or_minor_line,Battanian Volunteer,6.0,Soldier,battania,Infantry,True
+battanian_woodrunner,battanian_volunteer,2,2,battanian_volunteer|battanian_woodrunner,main_or_minor_line,main_or_minor_line,Battanian Wood Runner,11.0,Soldier,battania,Infantry,True
+beni_zilal_tier_1,beni_zilal_tier_1,1,1,beni_zilal_tier_1,main_or_minor_line,main_or_minor_line,Beni Zilal Recruit,11.0,Soldier,aserai,Cavalry,True
+beni_zilal_tier_2,beni_zilal_tier_1,2,2,beni_zilal_tier_1|beni_zilal_tier_2,main_or_minor_line,main_or_minor_line,Beni Zilal Soldier,16.0,Soldier,aserai,Cavalry,True
+beni_zilal_tier_3,beni_zilal_tier_1,3,3,beni_zilal_tier_1|beni_zilal_tier_2|beni_zilal_tier_3,main_or_minor_line,main_or_minor_line,Beni Zilal Royal Guard,21.0,Soldier,aserai,Cavalry,False
+borrowed_troop,borrowed_troop,1,1,borrowed_troop,main_or_minor_line,main_or_minor_line,Borrowed Troop,6.0,Soldier,empire,Infantry,True
+brotherhood_of_woods_tier_1,brotherhood_of_woods_tier_1,1,1,brotherhood_of_woods_tier_1,main_or_minor_line,main_or_minor_line,Sprout,11.0,Soldier,vlandia,Ranged,True
+brotherhood_of_woods_tier_2,brotherhood_of_woods_tier_1,2,2,brotherhood_of_woods_tier_1|brotherhood_of_woods_tier_2,main_or_minor_line,main_or_minor_line,Sapling,16.0,Soldier,vlandia,Ranged,True
+brotherhood_of_woods_tier_3,brotherhood_of_woods_tier_1,3,3,brotherhood_of_woods_tier_1|brotherhood_of_woods_tier_2|brotherhood_of_woods_tier_3,main_or_minor_line,main_or_minor_line,Arboreal,21.0,Soldier,vlandia,Ranged,False
+bucellarii,imperial_recruit,5,5,imperial_recruit|imperial_archer|imperial_trained_archer|imperial_veteran_archer|bucellarii,main_or_minor_line,main_or_minor_line,Imperial Bucellarii,26.0,Soldier,empire,HorseArcher,False
+company_of_the_boar_tier_1,company_of_the_boar_tier_1,1,1,company_of_the_boar_tier_1,main_or_minor_line,main_or_minor_line,Boar Novice,11.0,Soldier,vlandia,Ranged,True
+company_of_the_boar_tier_2,company_of_the_boar_tier_1,2,2,company_of_the_boar_tier_1|company_of_the_boar_tier_2,main_or_minor_line,main_or_minor_line,Boar Veteran,16.0,Soldier,vlandia,Ranged,True
+company_of_the_boar_tier_3,company_of_the_boar_tier_1,3,3,company_of_the_boar_tier_1|company_of_the_boar_tier_2|company_of_the_boar_tier_3,main_or_minor_line,main_or_minor_line,Boar Champion,21.0,Soldier,vlandia,Ranged,False
+druzhinnik,sturgian_warrior_son,4,4,sturgian_warrior_son|varyag|varyag_veteran|druzhinnik,noble_line,noble_line,Sturgian Druzhinnik,26.0,Soldier,sturgia,Cavalry,True
+druzhinnik_champion,sturgian_warrior_son,5,5,sturgian_warrior_son|varyag|varyag_veteran|druzhinnik|druzhinnik_champion,noble_line,noble_line,Sturgian Druzhinnik Champion,31.0,Soldier,sturgia,Cavalry,False
+eleftheroi_tier_1,eleftheroi_tier_1,1,1,eleftheroi_tier_1,main_or_minor_line,main_or_minor_line,Recruit Eleftheroi,11.0,Soldier,empire,Cavalry,True
+eleftheroi_tier_2,eleftheroi_tier_1,2,2,eleftheroi_tier_1|eleftheroi_tier_2,main_or_minor_line,main_or_minor_line,Expert Eleftheroi,16.0,Soldier,empire,Cavalry,True
+eleftheroi_tier_3,eleftheroi_tier_1,3,3,eleftheroi_tier_1|eleftheroi_tier_2|eleftheroi_tier_3,main_or_minor_line,main_or_minor_line,Veteran Eleftheroi,21.0,Soldier,empire,Cavalry,False
+embers_of_flame_tier_1,embers_of_flame_tier_1,1,1,embers_of_flame_tier_1,main_or_minor_line,main_or_minor_line,Spark,11.0,Soldier,empire,Infantry,True
+embers_of_flame_tier_2,embers_of_flame_tier_1,2,2,embers_of_flame_tier_1|embers_of_flame_tier_2,main_or_minor_line,main_or_minor_line,Flame,16.0,Soldier,empire,Infantry,True
+embers_of_flame_tier_3,embers_of_flame_tier_1,3,3,embers_of_flame_tier_1|embers_of_flame_tier_2|embers_of_flame_tier_3,main_or_minor_line,main_or_minor_line,Blaze,21.0,Soldier,empire,Infantry,False
+empire_marine_t3,empire_marine_t3,1,1,empire_marine_t3,main_or_minor_line,main_or_minor_line,Imperial Shipmate,16.0,Soldier,empire,Infantry,True
+empire_marine_t4,empire_marine_t3,2,2,empire_marine_t3|empire_marine_t4,main_or_minor_line,main_or_minor_line,Imperial Coast Guard,21.0,Soldier,empire,Infantry,True
+empire_marine_t5,empire_marine_t3,3,3,empire_marine_t3|empire_marine_t4|empire_marine_t5,main_or_minor_line,main_or_minor_line,Imperial Naute,26.0,Soldier,empire,Infantry,False
+forest_people_tier_1,forest_people_tier_1,1,1,forest_people_tier_1,main_or_minor_line,main_or_minor_line,Recruit Forester,11.0,Soldier,vakken,Ranged,True
+forest_people_tier_2,forest_people_tier_1,2,2,forest_people_tier_1|forest_people_tier_2,main_or_minor_line,main_or_minor_line,Expert Forester,16.0,Soldier,vakken,Ranged,True
+forest_people_tier_3,forest_people_tier_1,3,3,forest_people_tier_1|forest_people_tier_2|forest_people_tier_3,main_or_minor_line,main_or_minor_line,Veteran Forester,21.0,Soldier,vakken,Ranged,False
+galloglass_tier_1,galloglass_tier_1,1,1,galloglass_tier_1,main_or_minor_line,main_or_minor_line,Skene,11.0,Soldier,battania,Infantry,True
+galloglass_tier_2,galloglass_tier_1,2,2,galloglass_tier_1|galloglass_tier_2,main_or_minor_line,main_or_minor_line,Kern,16.0,Soldier,battania,Infantry,True
+galloglass_tier_3,galloglass_tier_1,3,3,galloglass_tier_1|galloglass_tier_2|galloglass_tier_3,main_or_minor_line,main_or_minor_line,Redshank,21.0,Soldier,battania,Infantry,False
+ghilman_tier_1,ghilman_tier_1,1,1,ghilman_tier_1,main_or_minor_line,main_or_minor_line,Koleman,11.0,Soldier,darshi,Cavalry,True
+ghilman_tier_2,ghilman_tier_1,2,2,ghilman_tier_1|ghilman_tier_2,main_or_minor_line,main_or_minor_line,Ghilman,16.0,Soldier,darshi,Cavalry,True
+ghilman_tier_3,ghilman_tier_1,3,3,ghilman_tier_1|ghilman_tier_2|ghilman_tier_3,main_or_minor_line,main_or_minor_line,Ghulam,21.0,Soldier,darshi,Cavalry,False
+guardians_tier_1,guardians_tier_1,1,1,guardians_tier_1,main_or_minor_line,main_or_minor_line,Guardian Recruit,11.0,Soldier,empire,Ranged,True
+guardians_tier_2,guardians_tier_1,2,2,guardians_tier_1|guardians_tier_2,main_or_minor_line,main_or_minor_line,Expert Guardian,16.0,Soldier,empire,Ranged,True
+guardians_tier_3,guardians_tier_1,3,3,guardians_tier_1|guardians_tier_2|guardians_tier_3,main_or_minor_line,main_or_minor_line,Veteran Guardian,21.0,Soldier,empire,Ranged,False
+hidden_hand_tier_1,hidden_hand_tier_1,1,1,hidden_hand_tier_1,main_or_minor_line,main_or_minor_line,Hidden Pawn,11.0,Soldier,empire,Infantry,True
+hidden_hand_tier_2,hidden_hand_tier_1,2,2,hidden_hand_tier_1|hidden_hand_tier_2,main_or_minor_line,main_or_minor_line,Hidden Soldati,16.0,Soldier,empire,Infantry,True
+hidden_hand_tier_3,hidden_hand_tier_1,3,3,hidden_hand_tier_1|hidden_hand_tier_2|hidden_hand_tier_3,main_or_minor_line,main_or_minor_line,Puppeteer,21.0,Soldier,empire,Infantry,False
+imperial_archer,imperial_recruit,2,2,imperial_recruit|imperial_archer,main_or_minor_line,main_or_minor_line,Imperial Archer,11.0,Soldier,empire,Ranged,True
+imperial_cataphract,imperial_vigla_recruit,4,4,imperial_vigla_recruit|imperial_equite|imperial_heavy_horseman|imperial_cataphract,noble_line,noble_line,Imperial Cataphract,26.0,Soldier,empire,Cavalry,True
+imperial_crossbowman,imperial_recruit,4,4,imperial_recruit|imperial_archer|imperial_trained_archer|imperial_crossbowman,main_or_minor_line,main_or_minor_line,Imperial Crossbowman,21.0,Soldier,empire,Ranged,True
+imperial_elite_cataphract,imperial_vigla_recruit,5,5,imperial_vigla_recruit|imperial_equite|imperial_heavy_horseman|imperial_cataphract|imperial_elite_cataphract,noble_line,noble_line,Imperial Elite Cataphract,31.0,Soldier,empire,Cavalry,False
+imperial_elite_menavliaton,imperial_menavliaton,2,2,imperial_menavliaton|imperial_elite_menavliaton,main_or_minor_line,main_or_minor_line,Imperial Elite Menavliaton,26.0,Soldier,empire,Infantry,False
+imperial_equite,imperial_vigla_recruit,2,2,imperial_vigla_recruit|imperial_equite,noble_line,noble_line,Imperial Equite,16.0,Soldier,empire,Cavalry,True
+imperial_heavy_horseman,imperial_vigla_recruit,3,3,imperial_vigla_recruit|imperial_equite|imperial_heavy_horseman,noble_line,noble_line,Imperial Heavy Horseman,21.0,Soldier,empire,Cavalry,True
+imperial_menavliaton,imperial_menavliaton,1,1,imperial_menavliaton,main_or_minor_line,main_or_minor_line,Imperial Menavliaton,21.0,Soldier,empire,Infantry,True
+imperial_palatine_guard,imperial_recruit,5,5,imperial_recruit|imperial_archer|imperial_trained_archer|imperial_veteran_archer|imperial_palatine_guard,main_or_minor_line,main_or_minor_line,Imperial Palatine Guard,26.0,Soldier,empire,Ranged,False
+imperial_recruit,imperial_recruit,1,1,imperial_recruit,main_or_minor_line,main_or_minor_line,Imperial Recruit,6.0,Soldier,empire,Infantry,True
+imperial_sergeant_crossbowman,imperial_recruit,5,5,imperial_recruit|imperial_archer|imperial_trained_archer|imperial_crossbowman|imperial_sergeant_crossbowman,main_or_minor_line,main_or_minor_line,Imperial Sergeant Crossbowman,26.0,Soldier,empire,Ranged,False
+imperial_trained_archer,imperial_recruit,3,3,imperial_recruit|imperial_archer|imperial_trained_archer,main_or_minor_line,main_or_minor_line,Imperial Trained Archer,16.0,Soldier,empire,Ranged,True
+imperial_veteran_archer,imperial_recruit,4,4,imperial_recruit|imperial_archer|imperial_trained_archer|imperial_veteran_archer,main_or_minor_line,main_or_minor_line,Imperial Veteran Archer,21.0,Soldier,empire,Ranged,True
+imperial_vigla_recruit,imperial_vigla_recruit,1,1,imperial_vigla_recruit,noble_line,noble_line,Imperial Vigla Recruit,11.0,Soldier,empire,Infantry,True
+jawwal_tier_1,jawwal_tier_1,1,1,jawwal_tier_1,main_or_minor_line,main_or_minor_line,Jawwal Recruit,11.0,Soldier,aserai,Infantry,True
+jawwal_tier_2,jawwal_tier_1,2,2,jawwal_tier_1|jawwal_tier_2,main_or_minor_line,main_or_minor_line,Jawwal Camel Rider,16.0,Soldier,aserai,Cavalry,True
+jawwal_tier_3,jawwal_tier_1,3,3,jawwal_tier_1|jawwal_tier_2|jawwal_tier_3,main_or_minor_line,main_or_minor_line,Jawwal Bedouin,21.0,Soldier,aserai,Cavalry,False
+karakhuzaits_tier_1,karakhuzaits_tier_1,1,1,karakhuzaits_tier_1,main_or_minor_line,main_or_minor_line,Karakhergit Nomad,11.0,Soldier,khuzait,HorseArcher,True
+karakhuzaits_tier_2,karakhuzaits_tier_1,2,2,karakhuzaits_tier_1|karakhuzaits_tier_2,main_or_minor_line,main_or_minor_line,Karakhergit Rider,16.0,Soldier,khuzait,HorseArcher,True
+karakhuzaits_tier_3,karakhuzaits_tier_1,3,3,karakhuzaits_tier_1|karakhuzaits_tier_2|karakhuzaits_tier_3,main_or_minor_line,main_or_minor_line,Karakhergit Elder,21.0,Soldier,khuzait,HorseArcher,False
+khuzait_archer,khuzait_nomad,4,4,khuzait_nomad|khuzait_footman|khuzait_hunter|khuzait_archer,main_or_minor_line,main_or_minor_line,Khuzait Archer,21.0,Soldier,khuzait,Ranged,True
+khuzait_darkhan,khuzait_nomad,5,5,khuzait_nomad|khuzait_footman|khuzait_spearman|khuzait_spear_infantry|khuzait_darkhan,main_or_minor_line,main_or_minor_line,Khuzait Darkhan,26.0,Soldier,khuzait,Infantry,False
+khuzait_footman,khuzait_nomad,2,2,khuzait_nomad|khuzait_footman,main_or_minor_line,main_or_minor_line,Khuzait Footman,11.0,Soldier,khuzait,Infantry,True
+khuzait_heavy_horse_archer,khuzait_nomad,5,5,khuzait_nomad|khuzait_tribal_warrior|khuzait_raider|khuzait_horse_archer|khuzait_heavy_horse_archer,main_or_minor_line,main_or_minor_line,Khuzait Heavy Horse Archer,26.0,Soldier,khuzait,HorseArcher,False
+khuzait_heavy_lancer,khuzait_nomad,5,5,khuzait_nomad|khuzait_tribal_warrior|khuzait_horseman|khuzait_lancer|khuzait_heavy_lancer,main_or_minor_line,main_or_minor_line,Khuzait Heavy Lancer,26.0,Soldier,khuzait,Cavalry,False
+khuzait_horse_archer,khuzait_nomad,4,4,khuzait_nomad|khuzait_tribal_warrior|khuzait_raider|khuzait_horse_archer,main_or_minor_line,main_or_minor_line,Khuzait Horse Archer,21.0,Soldier,khuzait,HorseArcher,True
+khuzait_horseman,khuzait_nomad,3,3,khuzait_nomad|khuzait_tribal_warrior|khuzait_horseman,main_or_minor_line,main_or_minor_line,Khuzait Horseman,16.0,Soldier,khuzait,Cavalry,True
+khuzait_hunter,khuzait_nomad,3,3,khuzait_nomad|khuzait_footman|khuzait_hunter,main_or_minor_line,main_or_minor_line,Khuzait Hunter,16.0,Soldier,khuzait,Ranged,True
+khuzait_khans_guard,khuzait_noble_son,5,5,khuzait_noble_son|khuzait_qanqli|khuzait_torguud|khuzait_kheshig|khuzait_khans_guard,noble_line,noble_line,Khuzait Khan's Guard,31.0,Soldier,khuzait,HorseArcher,False
+khuzait_kheshig,khuzait_noble_son,4,4,khuzait_noble_son|khuzait_qanqli|khuzait_torguud|khuzait_kheshig,noble_line,noble_line,Khuzait Kheshig,26.0,Soldier,khuzait,HorseArcher,True
+khuzait_lancer,khuzait_nomad,4,4,khuzait_nomad|khuzait_tribal_warrior|khuzait_horseman|khuzait_lancer,main_or_minor_line,main_or_minor_line,Khuzait Lancer,21.0,Soldier,khuzait,Cavalry,True
+khuzait_marksman,khuzait_nomad,5,5,khuzait_nomad|khuzait_footman|khuzait_hunter|khuzait_archer|khuzait_marksman,main_or_minor_line,main_or_minor_line,Khuzait Marksman,26.0,Soldier,khuzait,Ranged,False
+khuzait_noble_son,khuzait_noble_son,1,1,khuzait_noble_son,noble_line,noble_line,Khuzait Noble's Son,11.0,Soldier,khuzait,HorseArcher,True
+khuzait_nomad,khuzait_nomad,1,1,khuzait_nomad,main_or_minor_line,main_or_minor_line,Khuzait Nomad,6.0,Soldier,khuzait,Infantry,True
+khuzait_qanqli,khuzait_noble_son,2,2,khuzait_noble_son|khuzait_qanqli,noble_line,noble_line,Khuzait Qanqli,16.0,Soldier,khuzait,HorseArcher,True
+khuzait_raider,khuzait_nomad,3,3,khuzait_nomad|khuzait_tribal_warrior|khuzait_raider,main_or_minor_line,main_or_minor_line,Khuzait Raider,16.0,Soldier,khuzait,HorseArcher,True
+khuzait_spear_infantry,khuzait_nomad,4,4,khuzait_nomad|khuzait_footman|khuzait_spearman|khuzait_spear_infantry,main_or_minor_line,main_or_minor_line,Khuzait Spear Infantry,21.0,Soldier,khuzait,Infantry,True
+khuzait_spearman,khuzait_nomad,3,3,khuzait_nomad|khuzait_footman|khuzait_spearman,main_or_minor_line,main_or_minor_line,Khuzait Spearman,16.0,Soldier,khuzait,Infantry,True
+khuzait_torguud,khuzait_noble_son,3,3,khuzait_noble_son|khuzait_qanqli|khuzait_torguud,noble_line,noble_line,Khuzait Torguud,21.0,Soldier,khuzait,HorseArcher,True
+khuzait_tribal_warrior,khuzait_nomad,2,2,khuzait_nomad|khuzait_tribal_warrior,main_or_minor_line,main_or_minor_line,Khuzait Tribal Warrior,11.0,Soldier,khuzait,HorseArcher,True
+lakepike_tier_1,lakepike_tier_1,1,1,lakepike_tier_1,main_or_minor_line,main_or_minor_line,Lake Rat Recruit,11.0,Soldier,sturgia,Infantry,True
+lakepike_tier_2,lakepike_tier_1,2,2,lakepike_tier_1|lakepike_tier_2,main_or_minor_line,main_or_minor_line,Lake Rat Veteran,16.0,Soldier,sturgia,Infantry,True
+lakepike_tier_3,lakepike_tier_1,3,3,lakepike_tier_1|lakepike_tier_2|lakepike_tier_3,main_or_minor_line,main_or_minor_line,Lake Rat Wrecker ,21.0,Soldier,sturgia,Infantry,False
+legion_of_the_betrayed_tier_1,legion_of_the_betrayed_tier_1,1,1,legion_of_the_betrayed_tier_1,main_or_minor_line,main_or_minor_line,Hastati,11.0,Soldier,empire,Infantry,True
+legion_of_the_betrayed_tier_2,legion_of_the_betrayed_tier_1,2,2,legion_of_the_betrayed_tier_1|legion_of_the_betrayed_tier_2,main_or_minor_line,main_or_minor_line,Principes,16.0,Soldier,empire,Infantry,True
+legion_of_the_betrayed_tier_3,legion_of_the_betrayed_tier_1,3,3,legion_of_the_betrayed_tier_1|legion_of_the_betrayed_tier_2|legion_of_the_betrayed_tier_3,main_or_minor_line,main_or_minor_line,Triarii,21.0,Soldier,empire,Infantry,False
+mamluke_palace_guard,aserai_recruit,5,5,aserai_recruit|aserai_mameluke_soldier|aserai_mameluke_axeman|aserai_mameluke_guard|mamluke_palace_guard,main_or_minor_line,main_or_minor_line,Aserai Mamluke Palace Guard,26.0,Soldier,aserai,Infantry,False
+nord_axe_warrior,nord_youngling,3,3,nord_youngling|nord_drengr|nord_axe_warrior,main_or_minor_line,main_or_minor_line,Nord Axe Warrior,16.0,Soldier,nord,Infantry,True
+nord_berserkr,nord_youngling,5,5,nord_youngling|nord_drengr|nord_axe_warrior|nord_boandi|nord_berserkr,main_or_minor_line,main_or_minor_line,Nord Berserkir,26.0,Soldier,nord,Infantry,False
+nord_boandi,nord_youngling,4,4,nord_youngling|nord_drengr|nord_axe_warrior|nord_boandi,main_or_minor_line,main_or_minor_line,Nord Shield Biters,21.0,Soldier,nord,Infantry,True
+nord_drengr,nord_youngling,2,2,nord_youngling|nord_drengr,main_or_minor_line,main_or_minor_line,Nord Warrior,11.0,Soldier,nord,Infantry,True
+nord_freeman_archer,nord_youngling,3,3,nord_youngling|nord_huntsman|nord_freeman_archer,main_or_minor_line,main_or_minor_line,Nord Freeman Archer,16.0,Soldier,nord,Ranged,True
+nord_hew-bearer,nord_youngling,4,4,nord_youngling|nord_drengr|nord_axe_warrior|nord_hew-bearer,main_or_minor_line,main_or_minor_line,Nord Marauder,21.0,Soldier,nord,Infantry,True
+nord_hirdmann,nord_ungmann,4,4,nord_ungmann|nord_thegn|nord_jarlsmann|nord_hirdmann,main_or_minor_line,main_or_minor_line,Nord Shield-Companion,26.0,Soldier,nord,Infantry,True
+nord_huntsman,nord_youngling,2,2,nord_youngling|nord_huntsman,main_or_minor_line,main_or_minor_line,Nord Huntsman,11.0,Soldier,nord,Ranged,True
+nord_huscarl,nord_ungmann,5,5,nord_ungmann|nord_thegn|nord_jarlsmann|nord_hirdmann|nord_huscarl,main_or_minor_line,main_or_minor_line,Nord Huscarl,31.0,Soldier,nord,Infantry,False
+nord_jarlsmann,nord_ungmann,3,3,nord_ungmann|nord_thegn|nord_jarlsmann,main_or_minor_line,main_or_minor_line,Nord Hearthguard,21.0,Soldier,nord,Infantry,True
+nord_marksman,nord_youngling,4,4,nord_youngling|nord_huntsman|nord_freeman_archer|nord_marksman,main_or_minor_line,main_or_minor_line,Nord Marksman,21.0,Soldier,nord,Ranged,True
+nord_skathi,nord_youngling,5,5,nord_youngling|nord_huntsman|nord_freeman_archer|nord_marksman|nord_skathi,main_or_minor_line,main_or_minor_line,Nord Sky-Gods Chosen,26.0,Soldier,nord,Ranged,False
+nord_skjaldbrestir,nord_youngling,5,5,nord_youngling|nord_drengr|nord_axe_warrior|nord_hew-bearer|nord_skjaldbrestir,main_or_minor_line,main_or_minor_line,Nord Skjaldbrestir,26.0,Soldier,nord,Infantry,False
+nord_spear_warrior,nord_youngling,3,3,nord_youngling|nord_drengr|nord_spear_warrior,main_or_minor_line,main_or_minor_line,Nord Spear Warrior,16.0,Soldier,nord,Infantry,True
+nord_thegn,nord_ungmann,2,2,nord_ungmann|nord_thegn,main_or_minor_line,main_or_minor_line,Nord War-Proven,16.0,Soldier,nord,Infantry,True
+nord_ulfhednar,nord_youngling,5,5,nord_youngling|nord_drengr|nord_spear_warrior|nord_vargr|nord_ulfhednar,main_or_minor_line,main_or_minor_line,Nord Ulfhedinn,26.0,Soldier,nord,Infantry,False
+nord_ungmann,nord_ungmann,1,1,nord_ungmann,main_or_minor_line,main_or_minor_line,Nord Scion,11.0,Soldier,nord,Infantry,True
+nord_vargr,nord_youngling,4,4,nord_youngling|nord_drengr|nord_spear_warrior|nord_vargr,main_or_minor_line,main_or_minor_line,Nord Warfang,21.0,Soldier,nord,Infantry,True
+nord_youngling,nord_youngling,1,1,nord_youngling,main_or_minor_line,main_or_minor_line,Nord Youngling,6.0,Soldier,nord,Infantry,True
+skolderbrotva_tier_1,skolderbrotva_tier_1,1,1,skolderbrotva_tier_1,main_or_minor_line,main_or_minor_line,Skolder Recruit,11.0,Soldier,nord,Infantry,True
+skolderbrotva_tier_2,skolderbrotva_tier_1,2,2,skolderbrotva_tier_1|skolderbrotva_tier_2,main_or_minor_line,main_or_minor_line,Skolder Warrior Broda,16.0,Soldier,nord,Infantry,True
+skolderbrotva_tier_3,skolderbrotva_tier_1,3,3,skolderbrotva_tier_1|skolderbrotva_tier_2|skolderbrotva_tier_3,main_or_minor_line,main_or_minor_line,Skolder Veteran Broda,21.0,Soldier,nord,Infantry,False
+sturgia_marine_t3,sturgia_marine_t3,1,1,sturgia_marine_t3,main_or_minor_line,main_or_minor_line,Sturgian Crewman,16.0,Soldier,sturgia,Infantry,True
+sturgia_marine_t4,sturgia_marine_t3,2,2,sturgia_marine_t3|sturgia_marine_t4,main_or_minor_line,main_or_minor_line,Sturgian Veteran Shipman,21.0,Soldier,sturgia,Infantry,True
+sturgia_marine_t5,sturgia_marine_t3,3,3,sturgia_marine_t3|sturgia_marine_t4|sturgia_marine_t5,main_or_minor_line,main_or_minor_line,Sturgian Reaver,26.0,Soldier,sturgia,Infantry,False
+sturgian_archer,sturgian_recruit,4,4,sturgian_recruit|sturgian_woodsman|sturgian_hunter|sturgian_archer,main_or_minor_line,main_or_minor_line,Sturgian Archer,21.0,Soldier,sturgia,Ranged,True
+sturgian_berzerker,sturgian_berzerker,1,1,sturgian_berzerker,main_or_minor_line,main_or_minor_line,Sturgian Line Breaker,21.0,Soldier,sturgia,Infantry,True
+sturgian_brigand,sturgian_recruit,3,3,sturgian_recruit|sturgian_woodsman|sturgian_brigand,main_or_minor_line,main_or_minor_line,Sturgian Brigand,16.0,Soldier,sturgia,Infantry,True
+sturgian_hardened_brigand,sturgian_recruit,4,4,sturgian_recruit|sturgian_woodsman|sturgian_brigand|sturgian_hardened_brigand,main_or_minor_line,main_or_minor_line,Sturgian Hardened Brigand,21.0,Soldier,sturgia,Cavalry,True
+sturgian_horse_raider,sturgian_recruit,5,5,sturgian_recruit|sturgian_woodsman|sturgian_brigand|sturgian_hardened_brigand|sturgian_horse_raider,main_or_minor_line,main_or_minor_line,Sturgian Horse Raider,26.0,Soldier,sturgia,Cavalry,False
+sturgian_hunter,sturgian_recruit,3,3,sturgian_recruit|sturgian_woodsman|sturgian_hunter,main_or_minor_line,main_or_minor_line,Sturgian Hunter,16.0,Soldier,sturgia,Ranged,True
+sturgian_recruit,sturgian_recruit,1,1,sturgian_recruit,main_or_minor_line,main_or_minor_line,Sturgian Recruit,6.0,Soldier,sturgia,Infantry,True
+sturgian_ulfhednar,sturgian_berzerker,2,2,sturgian_berzerker|sturgian_ulfhednar,main_or_minor_line,main_or_minor_line,Sturgian Heroic Line Breaker,26.0,Soldier,sturgia,Infantry,False
+sturgian_veteran_bowman,sturgian_recruit,5,5,sturgian_recruit|sturgian_woodsman|sturgian_hunter|sturgian_archer|sturgian_veteran_bowman,main_or_minor_line,main_or_minor_line,Sturgian Veteran Bowman,26.0,Soldier,sturgia,Ranged,False
+sturgian_warrior_son,sturgian_warrior_son,1,1,sturgian_warrior_son,noble_line,noble_line,Sturgian Otrok,11.0,Soldier,sturgia,Infantry,True
+sturgian_woodsman,sturgian_recruit,2,2,sturgian_recruit|sturgian_woodsman,main_or_minor_line,main_or_minor_line,Sturgian Woodsman,11.0,Soldier,sturgia,Infantry,True
+varyag,sturgian_warrior_son,2,2,sturgian_warrior_son|varyag,noble_line,noble_line,Varyag,16.0,Soldier,sturgia,Infantry,True
+varyag_veteran,sturgian_warrior_son,3,3,sturgian_warrior_son|varyag|varyag_veteran,noble_line,noble_line,Varyag Veteran,21.0,Soldier,sturgia,Cavalry,True
+veteran_borrowed_troop,borrowed_troop,2,2,borrowed_troop|veteran_borrowed_troop,main_or_minor_line,main_or_minor_line,Veteran Borrowed Troop,11.0,Soldier,empire,Infantry,False
+vlandian_banner_knight,vlandian_squire,5,5,vlandian_squire|vlandian_gallant|vlandian_knight|vlandian_champion|vlandian_banner_knight,noble_line,noble_line,Vlandian Banner Knight,31.0,Soldier,vlandia,Cavalry,False
+vlandian_billman,vlandian_recruit,4,4,vlandian_recruit|vlandian_footman|vlandian_spearman|vlandian_billman,main_or_minor_line,main_or_minor_line,Vlandian Billman,21.0,Soldier,vlandia,Infantry,True
+vlandian_cavalry,vlandian_recruit,4,4,vlandian_recruit|vlandian_footman|vlandian_light_cavalry|vlandian_cavalry,main_or_minor_line,main_or_minor_line,Vlandian Cavalry,21.0,Soldier,vlandia,Cavalry,True
+vlandian_champion,vlandian_squire,4,4,vlandian_squire|vlandian_gallant|vlandian_knight|vlandian_champion,noble_line,noble_line,Vlandian Champion,26.0,Soldier,vlandia,Cavalry,True
+vlandian_footman,vlandian_recruit,2,2,vlandian_recruit|vlandian_footman,main_or_minor_line,main_or_minor_line,Vlandian Footman,11.0,Soldier,vlandia,Infantry,True
+vlandian_gallant,vlandian_squire,2,2,vlandian_squire|vlandian_gallant,noble_line,noble_line,Vlandian Gallant,16.0,Soldier,vlandia,Cavalry,True
+vlandian_infantry,vlandian_infantry,1,1,vlandian_infantry,main_or_minor_line,main_or_minor_line,Vlandian Infantry,16.0,Soldier,vlandia,Infantry,True
+vlandian_knight,vlandian_squire,3,3,vlandian_squire|vlandian_gallant|vlandian_knight,noble_line,noble_line,Vlandian Knight,21.0,Soldier,vlandia,Cavalry,True
+vlandian_levy_crossbowman,vlandian_recruit,2,2,vlandian_recruit|vlandian_levy_crossbowman,main_or_minor_line,main_or_minor_line,Vlandian Levy Crossbowman,11.0,Soldier,vlandia,Ranged,True
+vlandian_light_cavalry,vlandian_recruit,3,3,vlandian_recruit|vlandian_footman|vlandian_light_cavalry,main_or_minor_line,main_or_minor_line,Vlandian Light Cavalry,16.0,Soldier,vlandia,Cavalry,True
+vlandian_marine_t4,vlandian_marine_t4,1,1,vlandian_marine_t4,main_or_minor_line,main_or_minor_line,Vlandian Seasoned Seafarer,21.0,Soldier,vlandia,Ranged,True
+vlandian_marine_t5,vlandian_marine_t4,2,2,vlandian_marine_t4|vlandian_marine_t5,main_or_minor_line,main_or_minor_line,Vlandian Nauta,26.0,Soldier,vlandia,Ranged,False
+vlandian_pikeman,vlandian_recruit,5,5,vlandian_recruit|vlandian_footman|vlandian_spearman|vlandian_billman|vlandian_pikeman,main_or_minor_line,main_or_minor_line,Vlandian Pikeman,26.0,Soldier,vlandia,Infantry,False
+vlandian_recruit,vlandian_recruit,1,1,vlandian_recruit,main_or_minor_line,main_or_minor_line,Vlandian Recruit,6.0,Soldier,vlandia,Infantry,True
+vlandian_sergeant,vlandian_recruit,5,5,vlandian_recruit|vlandian_footman|vlandian_spearman|vlandian_swordsman|vlandian_sergeant,main_or_minor_line,main_or_minor_line,Vlandian Sergeant,26.0,Soldier,vlandia,Infantry,False
+vlandian_spearman,vlandian_recruit,3,3,vlandian_recruit|vlandian_footman|vlandian_spearman,main_or_minor_line,main_or_minor_line,Vlandian Spearman,16.0,Soldier,vlandia,Infantry,True
+vlandian_squire,vlandian_squire,1,1,vlandian_squire,noble_line,noble_line,Vlandian Squire,11.0,Soldier,vlandia,Cavalry,True
+vlandian_swordsman,vlandian_recruit,4,4,vlandian_recruit|vlandian_footman|vlandian_spearman|vlandian_swordsman,main_or_minor_line,main_or_minor_line,Vlandian Swordsman,21.0,Soldier,vlandia,Infantry,True
+vlandian_vanguard,vlandian_recruit,5,5,vlandian_recruit|vlandian_footman|vlandian_light_cavalry|vlandian_cavalry|vlandian_vanguard,main_or_minor_line,main_or_minor_line,Vlandian Vanguard,26.0,Soldier,vlandia,Cavalry,False
+vlandian_voulgier,vlandian_recruit,5,5,vlandian_recruit|vlandian_footman|vlandian_spearman|vlandian_billman|vlandian_voulgier,main_or_minor_line,main_or_minor_line,Vlandian Voulgier,26.0,Soldier,vlandia,Infantry,False
+wolfskins_tier_1,wolfskins_tier_1,1,1,wolfskins_tier_1,main_or_minor_line,main_or_minor_line,Young Wolf,11.0,Soldier,battania,Ranged,True
+wolfskins_tier_2,wolfskins_tier_1,2,2,wolfskins_tier_1|wolfskins_tier_2,main_or_minor_line,main_or_minor_line,Seasoned Wolf,16.0,Soldier,battania,Ranged,True
+wolfskins_tier_3,wolfskins_tier_1,3,3,wolfskins_tier_1|wolfskins_tier_2|wolfskins_tier_3,main_or_minor_line,main_or_minor_line,Chosen Wolf,21.0,Soldier,battania,Ranged,False
+anti_imperial_conspiracy_boss,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Commander,31.0,Soldier,sturgia,Infantry,False
+aserai_master_archer,,,,,special_or_unlinked,special_or_unlinked,Aserai Master Archer,26.0,Soldier,aserai,Ranged,False
+aserai_militia_archer,,,,,special_or_unlinked,special_or_unlinked,Aserai Militia Archer,11.0,Soldier,aserai,Ranged,False
+aserai_militia_spearman,,,,,special_or_unlinked,special_or_unlinked,Aserai Militia Spearman,11.0,Soldier,aserai,Infantry,False
+aserai_militia_veteran_archer,,,,,special_or_unlinked,special_or_unlinked,Aserai Militia Veteran Archer,16.0,Soldier,aserai,Ranged,False
+aserai_militia_veteran_spearman,,,,,special_or_unlinked,special_or_unlinked,Aserai Militia Veteran Spearman,16.0,Soldier,aserai,Infantry,False
+battanian_militia_archer,,,,,special_or_unlinked,special_or_unlinked,Battanian Militia Archer,11.0,Soldier,battania,Ranged,False
+battanian_militia_spearman,,,,,special_or_unlinked,special_or_unlinked,Battanian Militia Spearman,11.0,Soldier,battania,Infantry,False
+battanian_militia_veteran_archer,,,,,special_or_unlinked,special_or_unlinked,Battanian Militia Veteran Archer,16.0,Soldier,battania,Ranged,False
+battanian_militia_veteran_spearman,,,,,special_or_unlinked,special_or_unlinked,Battanian Militia Veteran Spearman,16.0,Soldier,battania,Infantry,False
+battanian_mounted_skirmisher,,,,,special_or_unlinked,special_or_unlinked,Battanian Mounted Skirmisher,26.0,Soldier,battania,Cavalry,False
+battanian_wildling,,,,,special_or_unlinked,special_or_unlinked,Battanian Wildling,26.0,Soldier,battania,Infantry,False
+bold_contender,,,,,special_or_unlinked,special_or_unlinked,Bold Contender,16.0,Soldier,sturgia,Infantry,False
+bold_contender_easy,,,,,special_or_unlinked,special_or_unlinked,Bold Contender,16.0,Soldier,sturgia,Infantry,False
+bold_contender_hard,,,,,special_or_unlinked,special_or_unlinked,Bold Contender,16.0,Soldier,sturgia,Infantry,False
+bold_contender_normal,,,,,special_or_unlinked,special_or_unlinked,Bold Contender,16.0,Soldier,sturgia,Infantry,False
+bold_contender_very_hard,,,,,special_or_unlinked,special_or_unlinked,Bold Contender,16.0,Soldier,sturgia,Infantry,False
+champion_fighter,,,,,special_or_unlinked,special_or_unlinked,Champion Fighter,21.0,Soldier,empire,Infantry,False
+confident_contender,,,,,special_or_unlinked,special_or_unlinked,Confident Contender,16.0,Soldier,aserai,Infantry,False
+confident_contender_easy,,,,,special_or_unlinked,special_or_unlinked,Confident Contender,16.0,Soldier,aserai,Infantry,False
+confident_contender_hard,,,,,special_or_unlinked,special_or_unlinked,Confident Contender,16.0,Soldier,aserai,Infantry,False
+confident_contender_normal,,,,,special_or_unlinked,special_or_unlinked,Confident Contender,16.0,Soldier,aserai,Infantry,False
+confident_contender_very_hard,,,,,special_or_unlinked,special_or_unlinked,Confident Contender,16.0,Soldier,aserai,Infantry,False
+conspiracy_battlerider,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Battle Rider,26.0,Soldier,sturgia,Cavalry,False
+conspiracy_berserker,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Berserker,16.0,Soldier,sturgia,Infantry,False
+conspiracy_fighter,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Fighter,16.0,Soldier,empire,Infantry,False
+conspiracy_guardian,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Guardian,26.0,Soldier,aserai,Infantry,False
+conspiracy_guardsman,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Guardsman,16.0,Soldier,aserai,Infantry,False
+conspiracy_hellion,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Hellion,26.0,Soldier,sturgia,Infantry,False
+conspiracy_horse_archer,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Horse Archer,16.0,Soldier,khuzait,HorseArcher,False
+conspiracy_hunt_leader,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Hunt Leader,26.0,Soldier,empire,Ranged,False
+conspiracy_kern,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Kern,16.0,Soldier,battania,Infantry,False
+conspiracy_knight,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Knight,26.0,Soldier,vlandia,Infantry,False
+conspiracy_knight_trainee,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Knight Trainee,16.0,Soldier,vlandia,Infantry,False
+conspiracy_longbowman,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Longbowman,26.0,Soldier,battania,Ranged,False
+conspiracy_mounted_fighter,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Mounted Fighter,26.0,Soldier,empire,Cavalry,False
+conspiracy_mounted_huntsman,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Mounted Hunstman,16.0,Soldier,empire,HorseArcher,False
+conspiracy_mounted_master_archer,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Mounted Master Archer,26.0,Soldier,khuzait,HorseArcher,False
+conspiracy_noble_horseman,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Noble Horseman,16.0,Soldier,empire,Cavalry,False
+conspiracy_packmaster,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Packmaster,16.0,Soldier,empire,HorseArcher,False
+conspiracy_raider,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Raider,16.0,Soldier,battania,Cavalry,False
+conspiracy_spearmaster,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Spear Master,26.0,Soldier,vlandia,Infantry,False
+conspiracy_trained_bowman,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Trained Bowman,16.0,Soldier,aserai,Ranged,False
+conspiracy_trained_crossbowman,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Trained Crossbowman,16.0,Soldier,vlandia,Ranged,False
+conspiracy_trained_huntsman,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Trained Huntsman,16.0,Soldier,empire,Ranged,False
+conspiracy_trained_spearman,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Trained Spearman,16.0,Soldier,vlandia,Infantry,False
+conspiracy_veteran_fighter,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Veteran Fighter,26.0,Soldier,empire,Infantry,False
+conspiracy_warmonger,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Warmonger,26.0,Soldier,battania,Infantry,False
+conspiracy_warworn_crossbowman,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Warworn Crossbowman,26.0,Soldier,vlandia,Ranged,False
+conspiracy_wilder,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Wilder,16.0,Soldier,sturgia,infantry,False
+dignified_contender,,,,,special_or_unlinked,special_or_unlinked,Dignified Contender,16.0,Soldier,vlandia,Infantry,False
+dignified_contender_easy,,,,,special_or_unlinked,special_or_unlinked,Dignified Contender,16.0,Soldier,vlandia,Infantry,False
+dignified_contender_hard,,,,,special_or_unlinked,special_or_unlinked,Dignified Contender,16.0,Soldier,vlandia,Infantry,False
+dignified_contender_normal,,,,,special_or_unlinked,special_or_unlinked,Dignified Contender,16.0,Soldier,vlandia,Infantry,False
+dignified_contender_very_hard,,,,,special_or_unlinked,special_or_unlinked,Dignified Contender,16.0,Soldier,vlandia,Infantry,False
+guard_aserai,,,,,special_or_unlinked,special_or_unlinked,Guard,21.0,Soldier,aserai,Infantry,False
+guard_battania,,,,,special_or_unlinked,special_or_unlinked,Guard,4.0,Soldier,battania,Infantry,False
+guard_empire,,,,,special_or_unlinked,special_or_unlinked,Guard,21.0,Soldier,empire,Infantry,False
+guard_khuzait,,,,,special_or_unlinked,special_or_unlinked,Guard,4.0,Soldier,khuzait,Infantry,False
+guard_nord,,,,,special_or_unlinked,special_or_unlinked,Guard,4.0,Soldier,nord,Infantry,False
+guard_sturgia,,,,,special_or_unlinked,special_or_unlinked,Guard,4.0,Soldier,sturgia,Infantry,False
+guard_vlandia,,,,,special_or_unlinked,special_or_unlinked,Guard,4.0,Soldier,vlandia,Infantry,False
+hardy_contender,,,,,special_or_unlinked,special_or_unlinked,Hardy Contender,16.0,Soldier,empire,Infantry,False
+hardy_contender_easy,,,,,special_or_unlinked,special_or_unlinked,Hardy Contender,16.0,Soldier,empire,Infantry,False
+hardy_contender_hard,,,,,special_or_unlinked,special_or_unlinked,Hardy Contender,16.0,Soldier,empire,Infantry,False
+hardy_contender_normal,,,,,special_or_unlinked,special_or_unlinked,Hardy Contender,16.0,Soldier,empire,Infantry,False
+hardy_contender_very_hard,,,,,special_or_unlinked,special_or_unlinked,Hardy Contender,16.0,Soldier,empire,Infantry,False
+huskarl_swordsman,,,,,special_or_unlinked,special_or_unlinked,Huscarl Swordsman,26.0,Soldier,sturgia,Infantry,False
+imperial_conspiracy_boss,,,,,special_or_unlinked,special_or_unlinked,Conspiracy Commander,31.0,Soldier,vlandia,Infantry,False
+imperial_legionary,,,,,special_or_unlinked,special_or_unlinked,Imperial Legionary,26.0,Soldier,empire,Infantry,False
+imperial_militia_archer,,,,,special_or_unlinked,special_or_unlinked,Imperial Militia Archer,11.0,Soldier,empire,Ranged,False
+imperial_militia_spearman,,,,,special_or_unlinked,special_or_unlinked,Imperial Militia Spearman,11.0,Soldier,empire,Infantry,False
+imperial_militia_veteran_archer,,,,,special_or_unlinked,special_or_unlinked,Imperial Militia Veteran Archer,16.0,Soldier,empire,Ranged,False
+imperial_militia_veteran_spearman,,,,,special_or_unlinked,special_or_unlinked,Imperial Militia Veteran Spearman,16.0,Soldier,empire,Infantry,False
+khuzait_militia_archer,,,,,special_or_unlinked,special_or_unlinked,Khuzait Militia Archer,11.0,Soldier,khuzait,Ranged,False
+khuzait_militia_spearman,,,,,special_or_unlinked,special_or_unlinked,Khuzait Militia Spearman,11.0,Soldier,khuzait,Infantry,False
+khuzait_militia_veteran_archer,,,,,special_or_unlinked,special_or_unlinked,Khuzait Militia Veteran Archer,16.0,Soldier,khuzait,Ranged,False
+khuzait_militia_veteran_spearman,,,,,special_or_unlinked,special_or_unlinked,Khuzait Militia Veteran Spearman,16.0,Soldier,khuzait,Infantry,False
+mp_heavy_cavalry_aserai_hero,,,,,special_or_unlinked,special_or_unlinked,Mamluke,30.0,Soldier,aserai,Cavalry,False
+mp_heavy_cavalry_aserai_troop,,,,,special_or_unlinked,special_or_unlinked,Mamluke,30.0,Soldier,aserai,Cavalry,False
+mp_heavy_cavalry_empire_hero,,,,,special_or_unlinked,special_or_unlinked,Cataphract,30.0,Soldier,empire,Cavalry,False
+mp_heavy_cavalry_empire_troop,,,,,special_or_unlinked,special_or_unlinked,Cataphract,30.0,Soldier,empire,Cavalry,False
+mp_heavy_cavalry_khuzait_hero,,,,,special_or_unlinked,special_or_unlinked,Lancer,30.0,Soldier,khuzait,Cavalry,False
+mp_heavy_cavalry_khuzait_troop,,,,,special_or_unlinked,special_or_unlinked,Lancer,30.0,Soldier,khuzait,Cavalry,False
+mp_heavy_cavalry_sturgia_hero,,,,,special_or_unlinked,special_or_unlinked,Druzhinnik,30.0,Soldier,sturgia,Cavalry,False
+mp_heavy_cavalry_sturgia_troop,,,,,special_or_unlinked,special_or_unlinked,Druzhinnik,30.0,Soldier,sturgia,Cavalry,False
+mp_heavy_cavalry_vlandia_hero,,,,,special_or_unlinked,special_or_unlinked,Knight,30.0,Soldier,vlandia,Cavalry,False
+mp_heavy_cavalry_vlandia_troop,,,,,special_or_unlinked,special_or_unlinked,Knight,30.0,Soldier,vlandia,Cavalry,False
+mp_heavy_infantry_battania_hero,,,,,special_or_unlinked,special_or_unlinked,Oathsworn,25.0,Soldier,battania,Infantry,False
+mp_heavy_infantry_battania_troop,,,,,special_or_unlinked,special_or_unlinked,Oathsworn,25.0,Soldier,battania,Infantry,False
+mp_heavy_infantry_empire_hero,,,,,special_or_unlinked,special_or_unlinked,Legionary,25.0,Soldier,empire,Infantry,False
+mp_heavy_infantry_empire_troop,,,,,special_or_unlinked,special_or_unlinked,Legionary,25.0,Soldier,empire,Infantry,False
+mp_heavy_infantry_khuzait_hero,,,,,special_or_unlinked,special_or_unlinked,Spear Infantry,25.0,Soldier,khuzait,Infantry,False
+mp_heavy_infantry_khuzait_troop,,,,,special_or_unlinked,special_or_unlinked,Spear Infantry,25.0,Soldier,khuzait,Infantry,False
+mp_heavy_infantry_sturgia_hero,,,,,special_or_unlinked,special_or_unlinked,Varyag,36.0,Soldier,sturgia,Infantry,False
+mp_heavy_infantry_sturgia_troop,,,,,special_or_unlinked,special_or_unlinked,Varyag,25.0,Soldier,sturgia,Infantry,False
+mp_heavy_infantry_vlandia_hero,,,,,special_or_unlinked,special_or_unlinked,Sergeant,25.0,Soldier,vlandia,Infantry,False
+mp_heavy_infantry_vlandia_troop,,,,,special_or_unlinked,special_or_unlinked,Sergeant,25.0,Soldier,vlandia,Infantry,False
+mp_heavy_ranged_aserai_hero,,,,,special_or_unlinked,special_or_unlinked,Veteran,20.0,Soldier,aserai,Ranged,False
+mp_heavy_ranged_aserai_troop,,,,,special_or_unlinked,special_or_unlinked,Veteran,20.0,Soldier,aserai,Ranged,False
+mp_heavy_ranged_battania_hero,,,,,special_or_unlinked,special_or_unlinked,Fiann,20.0,Soldier,battania,Ranged,False
+mp_heavy_ranged_battania_troop,,,,,special_or_unlinked,special_or_unlinked,Fiann,20.0,Soldier,battania,Ranged,False
+mp_heavy_ranged_empire_hero,,,,,special_or_unlinked,special_or_unlinked,Palatine Guard,20.0,Soldier,empire,Ranged,False
+mp_heavy_ranged_empire_troop,,,,,special_or_unlinked,special_or_unlinked,Palatine Guard,20.0,Soldier,empire,Ranged,False
+mp_heavy_ranged_khuzait_hero,,,,,special_or_unlinked,special_or_unlinked,Khan's Guard,20.0,Soldier,khuzait,Ranged,False
+mp_heavy_ranged_khuzait_troop,,,,,special_or_unlinked,special_or_unlinked,Khan's Guard,20.0,Soldier,khuzait,Ranged,False
+mp_heavy_ranged_vlandia_hero,,,,,special_or_unlinked,special_or_unlinked,Sharpshooter,20.0,Soldier,vlandia,Ranged,False
+mp_heavy_ranged_vlandia_troop,,,,,special_or_unlinked,special_or_unlinked,Sharpshooter,20.0,Soldier,vlandia,Ranged,False
+mp_horse_archer_khuzait_hero,,,,,special_or_unlinked,special_or_unlinked,Mounted Archer,15.0,Soldier,khuzait,HorseArcher,False
+mp_horse_archer_khuzait_troop,,,,,special_or_unlinked,special_or_unlinked,Mounted Archer,15.0,Soldier,khuzait,HorseArcher,False
+mp_light_cavalry_aserai_hero,,,,,special_or_unlinked,special_or_unlinked,Jawwal,15.0,Soldier,aserai,Cavalry,False
+mp_light_cavalry_aserai_troop,,,,,special_or_unlinked,special_or_unlinked,Jawwal,15.0,Soldier,aserai,Cavalry,False
+mp_light_cavalry_battania_hero,,,,,special_or_unlinked,special_or_unlinked,Mounted Warrior,20.0,Soldier,battania,Cavalry,False
+mp_light_cavalry_battania_troop,,,,,special_or_unlinked,special_or_unlinked,Mounted Warrior,20.0,Soldier,battania,Cavalry,False
+mp_light_cavalry_empire_hero,,,,,special_or_unlinked,special_or_unlinked,Courser,15.0,Soldier,empire,Cavalry,False
+mp_light_cavalry_empire_troop,,,,,special_or_unlinked,special_or_unlinked,Courser,15.0,Soldier,empire,Cavalry,False
+mp_light_cavalry_khuzait_hero,,,,,special_or_unlinked,special_or_unlinked,Nomad,15.0,Soldier,khuzait,Cavalry,False
+mp_light_cavalry_khuzait_troop,,,,,special_or_unlinked,special_or_unlinked,Nomad,15.0,Soldier,khuzait,Cavalry,False
+mp_light_cavalry_sturgia_hero,,,,,special_or_unlinked,special_or_unlinked,Raider,15.0,Soldier,sturgia,Cavalry,False
+mp_light_cavalry_sturgia_troop,,,,,special_or_unlinked,special_or_unlinked,Raider,15.0,Soldier,sturgia,Cavalry,False
+mp_light_cavalry_vlandia_hero,,,,,special_or_unlinked,special_or_unlinked,Vanguard,15.0,Soldier,vlandia,Cavalry,False
+mp_light_cavalry_vlandia_troop,,,,,special_or_unlinked,special_or_unlinked,Vanguard,15.0,Soldier,vlandia,Cavalry,False
+mp_light_infantry_aserai_hero,,,,,special_or_unlinked,special_or_unlinked,Tribal Warrior,15.0,Soldier,aserai,Infantry,False
+mp_light_infantry_aserai_troop,,,,,special_or_unlinked,special_or_unlinked,Tribal Warrior,15.0,Soldier,aserai,Infantry,False
+mp_light_infantry_battania_hero,,,,,special_or_unlinked,special_or_unlinked,Clan Warrior,10.0,Soldier,battania,Infantry,False
+mp_light_infantry_battania_troop,,,,,special_or_unlinked,special_or_unlinked,Clan Warrior,10.0,Soldier,battania,Infantry,False
+mp_light_infantry_khuzait_hero,,,,,special_or_unlinked,special_or_unlinked,Rabble,5.0,Soldier,khuzait,Infantry,False
+mp_light_infantry_khuzait_troop,,,,,special_or_unlinked,special_or_unlinked,Rabble,5.0,Soldier,khuzait,Infantry,False
+mp_light_infantry_sturgia_hero,,,,,special_or_unlinked,special_or_unlinked,Warrior,10.0,Soldier,sturgia,Infantry,False
+mp_light_infantry_sturgia_troop,,,,,special_or_unlinked,special_or_unlinked,Warrior,10.0,Soldier,sturgia,Infantry,False
+mp_light_infantry_vlandia_hero,,,,,special_or_unlinked,special_or_unlinked,Peasant Levy,5.0,Soldier,vlandia,Infantry,False
+mp_light_infantry_vlandia_troop,,,,,special_or_unlinked,special_or_unlinked,Peasant Levy,5.0,Soldier,vlandia,Infantry,False
+mp_light_ranged_aserai_hero,,,,,special_or_unlinked,special_or_unlinked,Archer,5.0,Soldier,aserai,Ranged,False
+mp_light_ranged_aserai_troop,,,,,special_or_unlinked,special_or_unlinked,Archer,5.0,Soldier,aserai,Ranged,False
+mp_light_ranged_battania_hero,,,,,special_or_unlinked,special_or_unlinked,Ranger,5.0,Soldier,battania,Ranged,False
+mp_light_ranged_battania_troop,,,,,special_or_unlinked,special_or_unlinked,Ranger,5.0,Soldier,battania,Ranged,False
+mp_light_ranged_empire_hero,,,,,special_or_unlinked,special_or_unlinked,Archer Militia,5.0,Soldier,empire,Ranged,False
+mp_light_ranged_empire_troop,,,,,special_or_unlinked,special_or_unlinked,Archer Militia,5.0,Soldier,empire,Ranged,False
+mp_light_ranged_khuzait_hero,,,,,special_or_unlinked,special_or_unlinked,Steppe Bow,5.0,Soldier,khuzait,Ranged,False
+mp_light_ranged_khuzait_troop,,,,,special_or_unlinked,special_or_unlinked,Steppe Bow,5.0,Soldier,khuzait,Ranged,False
+mp_light_ranged_sturgia_hero,,,,,special_or_unlinked,special_or_unlinked,Hunter,5.0,Soldier,sturgia,Ranged,False
+mp_light_ranged_sturgia_troop,,,,,special_or_unlinked,special_or_unlinked,Hunter,5.0,Soldier,sturgia,Ranged,False
+mp_light_ranged_vlandia_hero,,,,,special_or_unlinked,special_or_unlinked,Arbelist,5.0,Soldier,vlandia,Ranged,False
+mp_light_ranged_vlandia_troop,,,,,special_or_unlinked,special_or_unlinked,Arbelist,5.0,Soldier,vlandia,Ranged,False
+mp_shock_infantry_aserai_hero,,,,,special_or_unlinked,special_or_unlinked,Guard,25.0,Soldier,aserai,Infantry,False
+mp_shock_infantry_aserai_troop,,,,,special_or_unlinked,special_or_unlinked,Guard,25.0,Soldier,aserai,Infantry,False
+mp_shock_infantry_battania_hero,,,,,special_or_unlinked,special_or_unlinked,Savage,25.0,Soldier,battania,Infantry,False
+mp_shock_infantry_battania_troop,,,,,special_or_unlinked,special_or_unlinked,Savage,25.0,Soldier,battania,Infantry,False
+mp_shock_infantry_empire_hero,,,,,special_or_unlinked,special_or_unlinked,Menavlion Infantry,25.0,Soldier,empire,Infantry,False
+mp_shock_infantry_empire_troop,,,,,special_or_unlinked,special_or_unlinked,Menavlion Infantry,25.0,Soldier,empire,Infantry,False
+mp_shock_infantry_sturgia_hero,,,,,special_or_unlinked,special_or_unlinked,Berserker,25.0,Soldier,sturgia,Infantry,False
+mp_shock_infantry_sturgia_troop,,,,,special_or_unlinked,special_or_unlinked,Berserker,25.0,Soldier,sturgia,Infantry,False
+mp_shock_infantry_vlandia_hero,,,,,special_or_unlinked,special_or_unlinked,Voulgier,25.0,Soldier,vlandia,Infantry,False
+mp_shock_infantry_vlandia_troop,,,,,special_or_unlinked,special_or_unlinked,Voulgier,25.0,Soldier,vlandia,Infantry,False
+mp_skirmisher_aserai_hero,,,,,special_or_unlinked,special_or_unlinked,Skirmisher,10.0,Soldier,aserai,Infantry,False
+mp_skirmisher_aserai_troop,,,,,special_or_unlinked,special_or_unlinked,Skirmisher,10.0,Soldier,aserai,Infantry,False
+mp_skirmisher_battania_hero,,,,,special_or_unlinked,special_or_unlinked,Wildling,10.0,Soldier,battania,Infantry,False
+mp_skirmisher_battania_troop,,,,,special_or_unlinked,special_or_unlinked,Wildling,10.0,Soldier,battania,Infantry,False
+mp_skirmisher_empire_hero,,,,,special_or_unlinked,special_or_unlinked,Recruit,10.0,Soldier,empire,Infantry,False
+mp_skirmisher_empire_troop,,,,,special_or_unlinked,special_or_unlinked,Recruit,10.0,Soldier,empire,Infantry,False
+mp_skirmisher_sturgia_hero,,,,,special_or_unlinked,special_or_unlinked,Brigand,10.0,Soldier,sturgia,Infantry,False
+mp_skirmisher_sturgia_troop,,,,,special_or_unlinked,special_or_unlinked,Brigand,10.0,Soldier,sturgia,Infantry,False
+nord_militia_archer,,,,,special_or_unlinked,special_or_unlinked,Nord Militia Archer,11.0,Soldier,nord,Ranged,False
+nord_militia_spearman,,,,,special_or_unlinked,special_or_unlinked,Nord Militia Spearman,11.0,Soldier,nord,Infantry,False
+nord_militia_veteran_archer,,,,,special_or_unlinked,special_or_unlinked,Nord Militia Veteran Archer,16.0,Soldier,nord,Ranged,False
+nord_militia_veteran_spearman,,,,,special_or_unlinked,special_or_unlinked,Nord Militia Veteran Spearman,16.0,Soldier,nord,Infantry,False
+regular_fighter,,,,,special_or_unlinked,special_or_unlinked,Regular Fighter,11.0,Soldier,empire,Infantry,False
+sturgian_militia_archer,,,,,special_or_unlinked,special_or_unlinked,Sturgian Militia Archer,11.0,Soldier,sturgia,Ranged,False
+sturgian_militia_spearman,,,,,special_or_unlinked,special_or_unlinked,Sturgian Militia Spearman,11.0,Soldier,sturgia,Infantry,False
+sturgian_militia_veteran_archer,,,,,special_or_unlinked,special_or_unlinked,Sturgian Militia Veteran Archer,16.0,Soldier,sturgia,Ranged,False
+sturgian_militia_veteran_spearman,,,,,special_or_unlinked,special_or_unlinked,Sturgian Militia Veteran Spearman,16.0,Soldier,sturgia,Infantry,False
+sturgian_shock_troop,,,,,special_or_unlinked,special_or_unlinked,Sturgian Heavy Spearman,26.0,Soldier,sturgia,Infantry,False
+sturgian_veteran_warrior,,,,,special_or_unlinked,special_or_unlinked,Sturgian Heavy Axeman,26.0,Soldier,sturgia,Infantry,False
+sword_sister,,,,,special_or_unlinked,special_or_unlinked,Sword Sister,21.0,Soldier,empire,Infantry,False
+tutorial_npc_advanced_melee_easy,,,,,special_or_unlinked,special_or_unlinked,Training Master,15.0,Soldier,battania,Infantry,False
+tutorial_npc_advanced_melee_normal,,,,,special_or_unlinked,special_or_unlinked,Training Master,4.0,Soldier,battania,Infantry,False
+tutorial_npc_basic_melee,,,,,special_or_unlinked,special_or_unlinked,Training Master,10.0,Soldier,battania,Infantry,False
+tutorial_npc_mounted_ai,,,,,special_or_unlinked,special_or_unlinked,Training Master,4.0,Soldier,battania,Infantry,False
+tutorial_placeholder_volunteer,,,,,special_or_unlinked,special_or_unlinked,Headman's Troop,21.0,Soldier,empire,Cavalry,False
+veteran_fighter,,,,,special_or_unlinked,special_or_unlinked,Veteran Fighter,16.0,Soldier,empire,Infantry,False
+vlandian_militia_archer,,,,,special_or_unlinked,special_or_unlinked,Vlandian Militia Crossbowman,11.0,Soldier,vlandia,Ranged,False
+vlandian_militia_spearman,,,,,special_or_unlinked,special_or_unlinked,Vlandian Militia Spearman,11.0,Soldier,vlandia,Infantry,False
+vlandian_militia_veteran_archer,,,,,special_or_unlinked,special_or_unlinked,Vlandian Militia Veteran Crossbowman,16.0,Soldier,vlandia,Ranged,False
+vlandian_militia_veteran_spearman,,,,,special_or_unlinked,special_or_unlinked,Vlandian Militia Veteran Spearman,16.0,Soldier,vlandia,Infantry,False
+vlandian_sharpshooter,,,,,special_or_unlinked,special_or_unlinked,Vlandian Sharpshooter,26.0,Soldier,vlandia,Ranged,False

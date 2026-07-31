@@ -16,7 +16,7 @@ import sys
 from pathlib import Path
 
 TRACKS = ("nightmare_sails", "taom", "realm_of_thrones")
-EXPORT_ID = "export_20260729_025002"
+EXPORT_ID = "export_20260731_150800"
 SCORER = Path("scripts/scoring/generate_vanilla_role_scores.py")
 
 ROT_PRIORITY_ANCHORS = [

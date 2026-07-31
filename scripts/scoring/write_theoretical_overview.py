@@ -8,7 +8,7 @@ import re
 from pathlib import Path
 from typing import Any
 
-EXPORT_ID = "export_20260729_025002"
+EXPORT_ID = "export_20260731_150800"
 TRACKS = ("nightmare_sails", "taom", "realm_of_thrones")
 ROLE_COLS = [
     ("ranged_role_score", "Ranged"),
@@ -265,9 +265,11 @@ def write_index(repo: Path, package_sha: str) -> Path:
         "|---|---|---|",
         f"| `nightmare_sails` | [OVERVIEW.md](nightmare_sails/{EXPORT_ID}/OVERVIEW.md) | 9 battles; **7 reliable** rows (see combat batch analysis) |",
         f"| `realm_of_thrones` | [OVERVIEW.md](realm_of_thrones/{EXPORT_ID}/OVERVIEW.md) | Follow-up 2 battles; **below** 5/20 display gate |",
-        f"| `taom` | [OVERVIEW.md](taom/{EXPORT_ID}/OVERVIEW.md) | No field batch yet; item XML mostly absent in export |",
+        f"| `taom` | [OVERVIEW.md](taom/{EXPORT_ID}/OVERVIEW.md) | Item catalog fixed 2026-07-31 (Armory/Wargs); no field batch yet |",
         "",
         "Human blockers: [HUMAN_INPUT.md](HUMAN_INPUT.md).",
+        "",
+        f"Supersedes hollow-TAOM scores under `export_20260729_025002`.",
         "",
     ]
     path.write_text("\n".join(lines), encoding="utf-8")
@@ -364,17 +366,20 @@ def write_human_input(repo: Path) -> Path:
                 "",
                 "## Blockers",
                 "",
-                "1. **TAOM item XML export** — current zip has almost no TAOM `Item`/`CraftedItem`",
-                "   definitions, so melee/armor overview is hollow (2243 allowlisted IDs).",
-                "   Need a new export that includes TAOM item modules/files.",
-                "2. **RoT field empiria to display gate** — need ≥5 independent field battles",
+                "1. **RoT field empiria to display gate** — need ≥5 independent field battles",
                 "   and ≥20 deployed for the priority S-tier set (Ravens, Goldenheart, Myrish,",
                 "   Celtigar, Lyseni Enforcer, Mahout, Sarnori Spider, Hammerknight).",
                 "   Current follow-up is only 2 battles / 0 reliable rows.",
-                "3. **NS empiria expansion (optional)** — 7 reliable rows exist; more battles",
+                "2. **NS empiria expansion (optional)** — 7 reliable rows exist; more battles",
                 "   improve intervals and cover naval/marine lines if those are the goal.",
-                "4. **V4.4 / exact-item profiles** — dedicated model-change PR + profiles;",
+                "3. **V4.4 / exact-item profiles** — dedicated model-change PR + profiles;",
                 "   not required for role_scores_v1 overview.",
+                "",
+                "## Resolved (2026-07-31)",
+                "",
+                "- **TAOM item XML** — Armory/Wargs sourced from `TAOM_2_0_12.zip`; catalog",
+                "  ~3.5k mod items; allowlist down to 13 MP-test stubs. Rescored under",
+                f"  `{EXPORT_ID}` (prior `export_20260729_025002` TAOM scores obsolete).",
                 "",
                 "## Not blocked (agent can do)",
                 "",

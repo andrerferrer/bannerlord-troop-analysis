@@ -11,7 +11,7 @@ REPO = Path(__file__).resolve().parents[1]
 EQ = REPO / "data/realm_of_thrones/audit/realm_of_thrones_troop_equipment_audit.csv"
 SCORES = (
     REPO
-    / "analysis/theoretical/realm_of_thrones/export_20260729_025002"
+    / "analysis/theoretical/realm_of_thrones/export_20260731_150800"
     / "realm_of_thrones_troop_role_scores_v1.csv"
 )
 
