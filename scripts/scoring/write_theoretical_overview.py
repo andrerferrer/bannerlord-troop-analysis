@@ -50,6 +50,37 @@ ROLE_WHY_COLS: dict[str, list[str]] = {
 LATEST_REPORT_START = "<!-- latest-theoretical-report:start -->"
 LATEST_REPORT_END = "<!-- latest-theoretical-report:end -->"
 
+# Giants / mammoths sit outside normal troop scale — listed as S+ outliers, not S–D.
+_SPECTACLE_RE = re.compile(r"(?i)\bgiants?\b|\bmammoths?\b|(^|_)giant(_|$)|(^|_)mammoth(_|$)")
+
+
+def is_spectacle_outlier(troop_id: object, troop_name: object) -> bool:
+    blob = f"{troop_id or ''} {troop_name or ''}"
+    return bool(_SPECTACLE_RE.search(blob))
+
+
+def tier_letter_from_top_fraction(frac: float) -> str:
+    """Map 1.0=best … 0.0=worst within a role (non-outlier) list to S–D."""
+    if frac >= 0.90:
+        return "S"
+    if frac >= 0.70:
+        return "A"
+    if frac >= 0.40:
+        return "B"
+    if frac >= 0.20:
+        return "C"
+    return "D"
+
+
+def assign_tiers_by_scores(scores: list[float]) -> list[str]:
+    """Tier by score vs the best non-outlier in this role list (1.0 = leader)."""
+    if not scores:
+        return []
+    top = max(float(s) for s in scores)
+    if top <= 0:
+        return ["D"] * len(scores)
+    return [tier_letter_from_top_fraction(float(s) / top) for s in scores]
+
 
 def filter_mod_troops(df: Any, overrides: Any | None = None) -> Any:
     """Keep mod-added/overridden troops; drop untouched vanilla baseline only."""
@@ -63,12 +94,40 @@ def filter_mod_troops(df: Any, overrides: Any | None = None) -> Any:
     return out
 
 
-def rank_table(df: Any, col: str) -> Any:
+def split_spectacle_outliers(df: Any) -> tuple[Any, Any]:
+    """Return (standard troops, giant/mammoth outliers)."""
+    if df is None or len(df) == 0:
+        return df, df
+
+    def _flag(row: Any) -> bool:
+        if hasattr(row, "get"):
+            return is_spectacle_outlier(row.get("troop_id"), row.get("troop_name"))
+        return is_spectacle_outlier(row["troop_id"], row["troop_name"])
+
+    if hasattr(df, "apply"):
+        mask = df.apply(_flag, axis=1)
+        return df.loc[~mask].copy(), df.loc[mask].copy()
+    # List-backed test frame
+    standard_rows = [r for r in df._rows if not _flag(r)]
+    outlier_rows = [r for r in df._rows if _flag(r)]
+    return type(df)(standard_rows), type(df)(outlier_rows)
+
+
+def rank_table(df: Any, col: str, *, tier: str | None = None) -> Any:
     ranked = df.dropna(subset=[col]).sort_values(col, ascending=False).reset_index(drop=True)
     ranked.insert(0, "rank", range(1, len(ranked) + 1))
+    if tier is not None:
+        ranked.insert(1, "tier", [tier] * len(ranked))
+    else:
+        if hasattr(ranked, "_rows"):
+            scores = [float(r[col]) for r in ranked._rows]
+        else:
+            scores = [float(v) for v in list(ranked[col])]
+        ranked.insert(1, "tier", assign_tiers_by_scores(scores))
     why = [c for c in ROLE_WHY_COLS.get(col, []) if c in ranked.columns]
     cols = [
         "rank",
+        "tier",
         "troop_name",
         "troop_id",
         col,
@@ -122,6 +181,15 @@ def write_track_overview(repo: Path, track: str, package_sha: str) -> Path:
         f"- Rows scored: **{len(df)}**; after filters: **{len(filtered)}** "
         f"(excluded {excluded}: untouched vanilla `change_type=inalterado` only)",
         "",
+        "## Tiers",
+        "",
+        "- Main tables: `rank` + `tier` in **S / A / B / C / D** vs the best "
+        "non-outlier score in that role (~within 10% of the leader → S; then "
+        "A/B/C/D)",
+        "- **S+** = spectacle-scale outliers (giants / mammoths): listed in a "
+        "separate section and **excluded** from the main S–D ladder so they do "
+        "not crowd ordinary troop tiers",
+        "",
         "## Why columns",
         "",
         "- **Defensive:** `defense_score_base` (driver) + `armor_total` / `effective_armor` "
@@ -137,7 +205,7 @@ def write_track_overview(repo: Path, track: str, package_sha: str) -> Path:
         "",
         "- Drop `change_type=inalterado` from the track override report "
         "(vanilla baseline troops the mod did not add/override)",
-        "- No name filters (Greyjoy Kraken lines, giants, specials stay if mod-owned)",
+        "- No name filters on Greyjoy / specials; giants/mammoths → S+ outliers section",
         "- Full ranked lists below — filter locally as needed",
         "- Intra-track only; do not compare ranks across tracks",
         "",
@@ -161,12 +229,25 @@ def write_track_overview(repo: Path, track: str, package_sha: str) -> Path:
                     "",
                 ]
             )
+    standard, outliers = split_spectacle_outliers(filtered)
     for col, label in ROLE_COLS:
-        table = rank_table(filtered, col)
+        table = rank_table(standard, col)
         lines.append(f"## Ranked — {label} ({len(table)} troops)")
         lines.append("")
         lines.append(md_table(table))
         lines.append("")
+        outlier_table = rank_table(outliers, col, tier="S+")
+        if len(outlier_table) > 0:
+            lines.append(
+                f"## Outliers S+ — {label} ({len(outlier_table)} giants/mammoths)"
+            )
+            lines.append("")
+            lines.append(
+                "Spectacle-scale units; excluded from the S–D ladder above."
+            )
+            lines.append("")
+            lines.append(md_table(outlier_table))
+            lines.append("")
 
     path = out_dir / "OVERVIEW.md"
     path.write_text("\n".join(lines), encoding="utf-8")
