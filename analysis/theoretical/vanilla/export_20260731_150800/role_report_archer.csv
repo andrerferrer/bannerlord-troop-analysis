@@ -1,0 +1,39 @@
+rank,tier,troop_id,troop_name,culture,tree_tier,level,line_status_corrected,n_rosters,ranged_role_score,ranged_score_base,bow_damage,bow_item,Bow,arrow_stack,bow_speed,bow_accuracy,effective_armor,has_shield
+1,S,battanian_fian_champion,Battanian Fian Champion,battania,5.0,31.0,noble_line,3,92.35731526723131,87.104,67.0,woodland_longbow,220.0,64.0,88.0,94.0,54.400000000000006,False
+2,B,battanian_fian,Battanian Fian,battania,4.0,26.0,noble_line,3,63.32519384325639,87.104,67.0,woodland_longbow,160.0,64.0,88.0,94.0,38.45,False
+3,B,conspiracy_longbowman,Conspiracy Longbowman,battania,,26.0,special_or_unlinked,3,61.200113003596606,87.104,67.0,woodland_longbow,150.0,64.0,88.0,94.0,46.95000000000001,False
+4,B,nord_skathi,Nord Sky-Gods Chosen,nord,5.0,26.0,main_or_minor_line,3,56.20369549016844,81.984,65.0,woodland_longbow|woodland_yew_bow,140.0,32.0,90.0,92.66666666666669,44.9,True
+5,B,aserai_marine_t5,Aserai Bahriyyah,aserai,2.0,26.0,main_or_minor_line,3,54.8755181846176,84.64,74.0,nomad_bow,140.0,23.0,89.0,91.0,28.36666666666667,True
+6,B,aserai_master_archer,Aserai Master Archer,aserai,,26.0,special_or_unlinked,3,52.03778000629932,77.152,56.0,composite_steppe_bow,160.0,46.0,89.0,94.0,29.9,False
+7,B,conspiracy_hunt_leader,Conspiracy Hunt Leader,empire,,26.0,special_or_unlinked,3,49.81699481704961,74.496,57.0,steppe_war_bow,160.0,24.0,89.0,95.0,18.233333333333334,False
+8,B,imperial_palatine_guard,Imperial Palatine Guard,empire,5.0,26.0,main_or_minor_line,3,43.945163346833226,78.336,57.0,steppe_war_bow,140.0,48.0,89.0,95.0,33.400000000000006,False
+9,B,wolfskins_tier_3,Chosen Wolf,battania,3.0,21.0,main_or_minor_line,2,43.351279285974535,78.784,63.5,woodland_longbow|woodland_yew_bow,130.0,20.0,89.5,93.0,22.05,True
+10,B,sturgian_veteran_bowman,Sturgian Veteran Bowman,sturgia,5.0,26.0,main_or_minor_line,3,41.77353947286558,73.792,52.0,composite_bow,140.0,40.0,90.0,94.0,34.5,False
+11,B,khuzait_marksman,Khuzait Marksman,khuzait,5.0,26.0,main_or_minor_line,3,40.20872747168844,76.192,54.0,composite_steppe_bow,130.0,48.0,89.0,94.0,32.55,False
+12,B,battanian_hero,Battanian Hero,battania,3.0,21.0,noble_line,3,39.992962869232294,80.32,60.0,lowland_longbow,130.0,64.0,80.0,94.0,30.8,False
+13,B,aserai_marine_t4,Aserai Veteran Sailor,aserai,1.0,21.0,main_or_minor_line,3,38.30912431567871,91.936,67.66666666666667,longbow_recurve_desert_bow|tribal_bow,100.0,33.333333333333336,88.66666666666667,94.33333333333331,19.616666666666664,True
+14,C,guardians_tier_3,Veteran Guardian,empire,3.0,21.0,main_or_minor_line,2,32.951080860743026,85.44,70.0,lowland_yew_bow,100.0,40.0,90.0,94.0,40.65,False
+15,C,khuzait_archer,Khuzait Archer,khuzait,4.0,21.0,main_or_minor_line,3,32.4499904882464,75.328,54.0,steppe_heavy_bow,110.0,48.0,87.0,91.0,34.699999999999996,False
+16,C,forest_people_tier_3,Veteran Forester,vakken,3.0,21.0,main_or_minor_line,1,31.48894478514027,81.984,65.0,woodland_longbow,100.0,40.0,88.0,94.0,43.599999999999994,False
+17,C,brotherhood_of_woods_tier_3,Arboreal,vlandia,3.0,21.0,main_or_minor_line,1,30.315480335495153,85.44,70.0,lowland_yew_bow,100.0,40.0,90.0,94.0,21.65,False
+18,C,nord_marksman,Nord Marksman,nord,4.0,21.0,main_or_minor_line,3,28.83616271901029,80.15999999999998,62.0,woodland_yew_bow,100.0,40.0,91.0,92.0,37.0,False
+19,C,sturgian_archer,Sturgian Archer,sturgia,4.0,21.0,main_or_minor_line,3,25.413893249231965,73.792,52.0,composite_bow,100.0,40.0,90.0,94.0,30.916666666666668,False
+20,C,battanian_highborn_warrior,Battanian Highborn Warrior,battania,2.0,16.0,noble_line,3,22.32291202047292,75.2,58.0,lowland_longbow,100.0,40.0,80.0,94.0,17.85,False
+21,C,imperial_veteran_archer,Imperial Veteran Archer,empire,4.0,21.0,main_or_minor_line,3,20.534990127430376,70.592,52.0,composite_bow,100.0,20.0,90.0,94.0,20.266666666666666,False
+22,C,brotherhood_of_woods_tier_2,Sapling,vlandia,2.0,16.0,main_or_minor_line,2,19.911071737133323,76.8,57.0,lowland_longbow,90.0,54.0,80.0,94.0,10.35,False
+23,C,guardians_tier_2,Expert Guardian,empire,2.0,16.0,main_or_minor_line,2,19.77977416903592,75.392,51.0,composite_bow,90.0,54.0,90.0,94.0,13.75,False
+24,C,wolfskins_tier_2,Seasoned Wolf,battania,2.0,16.0,main_or_minor_line,2,18.781756086449036,72.0,58.0,lowland_longbow,80.0,20.0,80.0,94.0,16.550000000000004,True
+25,C,conspiracy_trained_huntsman,Conspiracy Trained Huntsman,empire,,16.0,special_or_unlinked,3,18.759204080069168,61.504,41.333333333333336,hunting_bow|mountain_hunting_bow,110.0,20.0,86.66666666666667,84.0,12.516666666666667,False
+26,D,conspiracy_trained_bowman,Conspiracy Trained Bowman,aserai,,16.0,special_or_unlinked,3,17.535935645615034,73.792,52.0,composite_bow,80.0,40.0,90.0,94.0,24.933333333333337,False
+27,D,forest_people_tier_2,Expert Forester,vakken,2.0,16.0,main_or_minor_line,1,16.26421834976984,71.68,46.0,nordic_shortbow,90.0,54.0,89.0,95.0,11.550000000000002,False
+28,D,sturgian_hunter,Sturgian Hunter,sturgia,3.0,16.0,main_or_minor_line,3,10.511025570837264,64.704,42.0,mountain_hunting_bow,80.0,40.0,86.0,82.0,13.716666666666669,False
+29,D,khuzait_hunter,Khuzait Hunter,khuzait,3.0,16.0,main_or_minor_line,3,9.760016427788484,71.872,53.0,composite_bow,70.0,24.0,90.0,94.0,13.800000000000002,False
+30,D,wolfskins_tier_1,Young Wolf,battania,1.0,11.0,main_or_minor_line,2,6.910898421718194,65.792,47.0,highland_ranger_bow,40.0,27.0,86.0,83.0,10.875000000000002,True
+31,D,nord_freeman_archer,Nord Freeman Archer,nord,3.0,16.0,main_or_minor_line,3,6.757897129723077,70.08,47.0,nordic_shortbow,60.0,40.0,89.0,95.0,24.4,False
+32,D,imperial_trained_archer,Imperial Trained Archer,empire,3.0,16.0,main_or_minor_line,2,5.37633636902003,61.504,42.0,mountain_hunting_bow,70.0,20.0,86.0,82.0,11.6,False
+33,D,battanian_highborn_youth,Battanian Highborn Youth,battania,1.0,11.0,noble_line,3,3.3450764971371645,68.512,48.0,highland_ranger_bow,60.0,40.0,86.0,83.0,8.4,False
+34,D,guardians_tier_1,Guardian Recruit,empire,1.0,11.0,main_or_minor_line,2,2.5665477789115916,73.248,51.0,glen_ranger_bow,40.0,54.0,85.0,88.0,3.4250000000000003,False
+35,D,forest_people_tier_1,Recruit Forester,vakken,1.0,11.0,main_or_minor_line,2,1.8111442382856855,66.304,41.0,mountain_hunting_bow,40.0,54.0,86.0,82.0,11.900000000000002,False
+36,D,nord_huntsman,Nord Huntsman,nord,2.0,11.0,main_or_minor_line,3,1.0321195272921009,64.704,42.0,mountain_hunting_bow,40.0,40.0,86.0,82.0,10.416666666666666,False
+37,D,brotherhood_of_woods_tier_1,Sprout,vlandia,1.0,11.0,main_or_minor_line,3,0.9426317770324256,65.984,40.0,hunting_bow,40.0,54.0,87.0,85.0,6.7,False
+38,D,imperial_archer,Imperial Archer,empire,2.0,11.0,main_or_minor_line,1,0.0,62.304,41.0,hunting_bow,40.0,27.0,87.0,85.0,9.8,False

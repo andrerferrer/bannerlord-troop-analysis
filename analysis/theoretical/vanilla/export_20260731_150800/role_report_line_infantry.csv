@@ -1,0 +1,91 @@
+rank,tier,troop_id,troop_name,culture,tree_tier,level,line_status_corrected,n_rosters,defensive_role_score,defense_score_base,effective_armor,armor_total,shield_hp,shield_armor,melee_template,OneHanded,Polearm
+1,S,vlandian_sergeant,Vlandian Sergeant,vlandia,5.0,26.0,main_or_minor_line,3,62.15783361952738,67.79375060746268,47.70000000000001,173.0,500.0,15.666666666666666,TwoHandedPolearm,130.0,130.0
+2,S,sturgian_shock_troop,Sturgian Heavy Spearman,sturgia,,26.0,special_or_unlinked,3,61.01478943307608,65.68207283683692,52.06666666666666,195.33333333333337,546.6666666666666,7.0,TwoHandedPolearm,140.0,140.0
+3,S,nord_huscarl,Nord Huscarl,nord,5.0,31.0,main_or_minor_line,3,58.45982589358782,63.07067106057023,49.13333333333335,143.33333333333334,633.3333333333334,5.0,TwoHandedPolearm,200.0,200.0
+4,S,aserai_veteran_infantry,Aserai Veteran Infantry,aserai,5.0,26.0,main_or_minor_line,3,56.85102077642676,60.566549483679665,56.3,181.0,360.0,1.0,TwoHandedPolearm,160.0,130.0
+5,A,nord_berserkr,Nord Berserkir,nord,5.0,26.0,main_or_minor_line,3,55.1205759683147,65.06727477118143,53.95000000000001,167.33333333333334,513.3333333333334,5.0,TwoHandedAxe,140.0,40.0
+6,A,imperial_conspiracy_boss,Conspiracy Commander,vlandia,,31.0,special_or_unlinked,2,54.538404985750915,31.758377483261537,30.475,110.0,200.0,0.5,OneHandedSword|TwoHandedPolearm,240.0,240.0
+7,A,imperial_legionary,Imperial Legionary,empire,,26.0,special_or_unlinked,3,54.05780686190207,59.68630169392684,51.5,194.0,530.0,1.0,TwoHandedPolearm,130.0,130.0
+8,A,battanian_oathsworn,Battanian Oathsworn,battania,5.0,26.0,main_or_minor_line,3,53.88894806163087,58.22380666824379,52.26666666666667,175.33333333333334,430.0,1.0,TwoHandedPolearm,130.0,130.0
+9,A,sturgian_veteran_warrior,Sturgian Heavy Axeman,sturgia,,26.0,special_or_unlinked,3,53.31768354695744,63.49291492221729,49.18333333333334,181.66666666666663,573.3333333333334,7.0,OneHandedAxe,130.0,80.0
+10,A,khuzait_darkhan,Khuzait Darkhan,khuzait,5.0,26.0,main_or_minor_line,3,52.47313196704915,57.976236977375805,54.06666666666667,180.66666666666663,340.0,1.0,TwoHandedPolearm,130.0,130.0
+11,A,nord_jarlsmann,Nord Hearthguard,nord,3.0,21.0,main_or_minor_line,3,50.73778306580038,54.63496307543907,44.866666666666674,146.66666666666666,436.6666666666667,5.0,TwoHandedPolearm,110.0,110.0
+12,A,nord_hirdmann,Nord Shield-Companion,nord,4.0,26.0,main_or_minor_line,3,48.113977092355384,53.09682175532413,41.516666666666666,122.0,513.3333333333334,5.0,TwoHandedPolearm,140.0,140.0
+13,A,conspiracy_veteran_fighter,Conspiracy Veteran Fighter,empire,,26.0,special_or_unlinked,3,47.94381937823593,49.94076665914789,42.650000000000006,174.0,371.6666666666667,3.6666666666666665,TwoHandedPolearm,130.0,130.0
+14,A,guard_battania,Guard,battania,,4.0,special_or_unlinked,2,46.93975897354631,37.194595278570915,34.75,99.0,260.0,0.5,TwoHandedPolearm,50.0,50.0
+15,A,conspiracy_guardian,Conspiracy Guardian,aserai,,26.0,special_or_unlinked,1,45.47848089427622,50.60186942624349,45.95,171.0,360.0,1.0,TwoHandedPolearm,70.0,150.0
+16,B,nord_boandi,Nord Shield Biters,nord,4.0,21.0,main_or_minor_line,3,43.46931874960099,52.97074459793765,43.1,146.66666666666666,438.3333333333333,5.0,OneHandedAxe,110.0,75.0
+17,B,huskarl_swordsman,Huscarl Swordsman,sturgia,,26.0,special_or_unlinked,2,42.65859747473103,40.21907166867473,30.800000000000004,98.5,320.0,7.0,OneHandedSword,,
+18,B,legion_of_the_betrayed_tier_3,Triarii,empire,3.0,21.0,main_or_minor_line,2,42.60138672042438,47.55538684139585,38.9,159.0,530.0,1.0,TwoHandedPolearm,100.0,100.0
+19,B,nord_thegn,Nord War-Proven,nord,2.0,16.0,main_or_minor_line,3,41.0011248593926,45.42537057515025,39.0,130.66666666666666,313.3333333333333,4.0,TwoHandedPolearm,60.0,60.0
+20,B,khuzait_spear_infantry,Khuzait Spear Infantry,khuzait,4.0,21.0,main_or_minor_line,3,39.32162925361813,39.75006464319706,31.25,107.0,510.0,1.0,TwoHandedPolearm,100.0,100.0
+21,B,anti_imperial_conspiracy_boss,Conspiracy Commander,sturgia,,31.0,special_or_unlinked,2,37.52808680775075,29.589391913823743,22.525,71.5,430.0,1.0,OneHandedAxe,240.0,240.0
+22,B,confident_contender_easy,Confident Contender,aserai,,16.0,special_or_unlinked,2,36.886165788167936,35.89141593358531,34.425,86.5,215.0,0.5,OneHandedAxe|TwoHandedPolearm,,
+23,B,confident_contender,Confident Contender,aserai,,16.0,special_or_unlinked,2,36.886165788167936,35.89141593358531,34.425,86.5,215.0,0.5,OneHandedAxe|TwoHandedPolearm,90.0,90.0
+24,B,confident_contender_normal,Confident Contender,aserai,,16.0,special_or_unlinked,2,36.886165788167936,35.89141593358531,34.425,86.5,215.0,0.5,OneHandedAxe|TwoHandedPolearm,,
+25,B,confident_contender_hard,Confident Contender,aserai,,16.0,special_or_unlinked,2,36.886165788167936,35.89141593358531,34.425,86.5,215.0,0.5,OneHandedAxe|TwoHandedPolearm,,
+26,B,confident_contender_very_hard,Confident Contender,aserai,,16.0,special_or_unlinked,2,36.886165788167936,35.89141593358531,34.425,86.5,215.0,0.5,OneHandedAxe|TwoHandedPolearm,,
+27,B,battanian_picked_warrior,Battanian Picked Warrior,battania,4.0,21.0,main_or_minor_line,3,36.425051372042695,39.619402861905634,33.400000000000006,118.0,410.0,1.0,TwoHandedPolearm,110.0,110.0
+28,B,aserai_infantry,Aserai Infantry,aserai,4.0,21.0,main_or_minor_line,3,36.094377481549934,38.972970891305906,34.1,114.0,350.0,1.0,TwoHandedPolearm,100.0,100.0
+29,B,sturgia_marine_t5,Sturgian Reaver,sturgia,3.0,26.0,main_or_minor_line,3,36.07330329772183,42.12948444987264,35.550000000000004,126.0,430.0,1.0,ThrowingAxe,60.0,60.0
+30,B,conspiracy_fighter,Conspiracy Fighter,empire,,16.0,special_or_unlinked,3,35.56987546407633,42.44719888648655,34.86666666666667,103.66666666666669,371.6666666666667,3.6666666666666665,OneHandedSword,90.0,40.0
+31,B,varyag,Varyag,sturgia,2.0,16.0,noble_line,3,34.01062810671656,37.00020722500051,31.75,114.66666666666669,273.3333333333333,3.3333333333333335,OneHandedAxe,100.0,30.0
+32,B,nord_spear_warrior,Nord Spear Warrior,nord,3.0,16.0,main_or_minor_line,3,32.182048970650754,30.644543105550884,23.8,82.0,306.6666666666667,4.0,TwoHandedPolearm,50.0,70.0
+33,B,hardy_contender,Hardy Contender,empire,,16.0,special_or_unlinked,2,31.59958642583072,27.74912387837176,24.825000000000003,86.5,265.0,0.5,OneHandedSword|TwoHandedPolearm,90.0,90.0
+34,B,hardy_contender_very_hard,Hardy Contender,empire,,16.0,special_or_unlinked,2,31.59958642583072,27.74912387837176,24.825000000000003,86.5,265.0,0.5,OneHandedSword|TwoHandedPolearm,,
+35,B,hardy_contender_normal,Hardy Contender,empire,,16.0,special_or_unlinked,2,31.59958642583072,27.74912387837176,24.825000000000003,86.5,265.0,0.5,OneHandedSword|TwoHandedPolearm,,
+36,B,hardy_contender_hard,Hardy Contender,empire,,16.0,special_or_unlinked,2,31.59958642583072,27.74912387837176,24.825000000000003,86.5,265.0,0.5,OneHandedSword|TwoHandedPolearm,,
+37,B,hardy_contender_easy,Hardy Contender,empire,,16.0,special_or_unlinked,2,31.59958642583072,27.74912387837176,24.825000000000003,86.5,265.0,0.5,OneHandedSword|TwoHandedPolearm,,
+38,B,vlandian_militia_veteran_spearman,Vlandian Militia Veteran Spearman,vlandia,,16.0,special_or_unlinked,4,31.33460800078975,23.07383903568855,13.0375,44.75,395.0,5.0,TwoHandedPolearm,,
+39,B,nord_militia_veteran_spearman,Nord Militia Veteran Spearman,nord,,16.0,special_or_unlinked,4,31.090412197320596,28.675447138369453,19.85,69.75,390.0,4.0,TwoHandedPolearm,,
+40,B,conspiracy_warmonger,Conspiracy Warmonger,battania,,26.0,special_or_unlinked,1,30.92960445869104,40.004511269922496,33.800000000000004,107.0,410.0,1.0,OneHandedAxe,150.0,90.0
+41,B,sturgian_militia_veteran_spearman,Sturgian Militia Veteran Spearman,sturgia,,16.0,special_or_unlinked,4,28.504274725474556,23.583763829518013,16.75,57.0,275.0,4.5,TwoHandedPolearm,,
+42,B,conspiracy_trained_spearman,Conspiracy Trained Spearman,vlandia,,16.0,special_or_unlinked,3,27.462545819186,28.64152092147273,19.483333333333334,69.0,520.0,1.0,TwoHandedPolearm,70.0,80.0
+43,B,vlandian_spearman,Vlandian Spearman,vlandia,3.0,16.0,main_or_minor_line,3,26.701382304117303,24.54240868804569,18.833333333333332,73.0,246.66666666666663,4.0,TwoHandedPolearm,70.0,70.0
+44,B,vlandian_swordsman,Vlandian Swordsman,vlandia,4.0,21.0,main_or_minor_line,3,26.599995229443685,33.979856996411165,26.350000000000005,108.33333333333331,346.6666666666667,4.0,Mace|OneHandedAxe|OneHandedSword,100.0,100.0
+45,B,khuzait_militia_veteran_spearman,Khuzait Militia Veteran Spearman,khuzait,,16.0,special_or_unlinked,4,26.046729724604287,25.452914995571255,16.400000000000002,69.5,510.0,1.0,TwoHandedPolearm,,
+46,B,dignified_contender_very_hard,Dignified Contender,vlandia,,16.0,special_or_unlinked,2,25.566131600755455,27.03392254919761,25.225,73.5,215.0,0.5,OneHandedSword|TwoHandedPolearm,,
+47,B,dignified_contender_easy,Dignified Contender,vlandia,,16.0,special_or_unlinked,2,25.566131600755455,27.03392254919761,25.225,73.5,215.0,0.5,OneHandedSword|TwoHandedPolearm,,
+48,B,dignified_contender_normal,Dignified Contender,vlandia,,16.0,special_or_unlinked,2,25.566131600755455,27.03392254919761,25.225,73.5,215.0,0.5,OneHandedSword|TwoHandedPolearm,,
+49,B,dignified_contender_hard,Dignified Contender,vlandia,,16.0,special_or_unlinked,2,25.566131600755455,27.03392254919761,25.225,73.5,215.0,0.5,OneHandedSword|TwoHandedPolearm,,
+50,B,dignified_contender,Dignified Contender,vlandia,,16.0,special_or_unlinked,2,25.566131600755455,27.03392254919761,25.225,73.5,215.0,0.5,OneHandedSword|TwoHandedPolearm,90.0,90.0
+51,B,bold_contender_easy,Bold Contender,sturgia,,16.0,special_or_unlinked,2,25.47520763137863,24.939895580605945,21.65,53.0,180.0,3.0,OneHandedSword|TwoHandedPolearm,,
+52,B,bold_contender_hard,Bold Contender,sturgia,,16.0,special_or_unlinked,2,25.47520763137863,24.939895580605945,21.65,53.0,180.0,3.0,OneHandedSword|TwoHandedPolearm,90.0,90.0
+53,B,bold_contender_normal,Bold Contender,sturgia,,16.0,special_or_unlinked,2,25.47520763137863,24.939895580605945,21.65,53.0,180.0,3.0,OneHandedSword|TwoHandedPolearm,90.0,90.0
+54,B,bold_contender_very_hard,Bold Contender,sturgia,,16.0,special_or_unlinked,2,25.47520763137863,24.939895580605945,21.65,53.0,180.0,3.0,OneHandedSword|TwoHandedPolearm,90.0,90.0
+55,B,bold_contender,Bold Contender,sturgia,,16.0,special_or_unlinked,2,25.47520763137863,24.939895580605945,21.65,53.0,180.0,3.0,OneHandedSword|TwoHandedPolearm,90.0,90.0
+56,B,vlandian_infantry,Vlandian Infantry,vlandia,1.0,16.0,main_or_minor_line,3,25.382984748153593,28.536991496439583,16.483333333333334,58.0,300.0,10.0,TwoHandedPolearm,70.0,70.0
+57,B,aserai_footman,Aserai Footman,aserai,3.0,16.0,main_or_minor_line,3,24.8842018304294,27.671872965573147,20.533333333333335,76.66666666666667,430.0,1.0,TwoHandedPolearm,70.0,70.0
+58,C,khuzait_spearman,Khuzait Spearman,khuzait,3.0,16.0,main_or_minor_line,3,24.533495091404568,28.42375128598701,22.8,72.0,365.0,1.0,TwoHandedPolearm,70.0,70.0
+59,C,nord_axe_warrior,Nord Axe Warrior,nord,3.0,16.0,main_or_minor_line,3,24.36099712814084,30.51846594816441,23.51666666666667,73.0,313.3333333333333,4.0,OneHandedAxe,80.0,50.0
+60,C,legion_of_the_betrayed_tier_2,Principes,empire,2.0,16.0,main_or_minor_line,2,23.94124892159116,28.375612734984905,21.950000000000003,83.0,400.0,1.0,OneHandedSword,70.0,30.0
+61,C,nord_militia_spearman,Nord Militia Spearman,nord,,11.0,special_or_unlinked,4,22.770868999342753,21.34635274829865,12.2375,42.25,390.0,4.0,TwoHandedPolearm,,
+62,C,skolderbrotva_tier_2,Skolder Warrior Broda,nord,2.0,16.0,main_or_minor_line,2,22.441753199913624,24.690262808980737,12.825,52.0,420.0,6.5,OneHandedSword,80.0,40.0
+63,C,battanian_trained_warrior,Battanian Trained Warrior,battania,3.0,16.0,main_or_minor_line,3,21.961645671889165,21.416153647251704,18.683333333333337,67.0,226.66666666666663,1.0,TwoHandedPolearm,70.0,70.0
+64,C,sturgian_warrior_son,Sturgian Otrok,sturgia,1.0,11.0,noble_line,3,21.358459050481382,26.550473958419303,18.76666666666667,54.333333333333336,276.6666666666667,5.666666666666667,OneHandedSword,60.0,20.0
+65,C,vlandian_militia_spearman,Vlandian Militia Spearman,vlandia,,11.0,special_or_unlinked,4,21.33297136934096,15.467947977355628,5.1375,21.5,395.0,5.0,TwoHandedPolearm,,
+66,C,sturgia_marine_t4,Sturgian Veteran Shipman,sturgia,2.0,21.0,main_or_minor_line,3,21.330631120196685,28.733213399571984,24.15,107.33333333333331,320.0,1.0,ThrowingAxe,60.0,45.0
+67,C,imperial_militia_veteran_spearman,Imperial Militia Veteran Spearman,empire,,16.0,special_or_unlinked,4,21.0199331319151,23.548003763059302,14.650000000000002,51.0,500.0,1.0,TwoHandedPolearm,,
+68,C,vlandian_footman,Vlandian Footman,vlandia,2.0,11.0,main_or_minor_line,3,20.88224826400165,24.04406006957625,11.816666666666668,39.333333333333336,300.0,10.0,TwoHandedPolearm,40.0,40.0
+69,C,aserai_militia_veteran_spearman,Aserai Militia Veteran Spearman,aserai,,16.0,special_or_unlinked,4,20.110693438147024,20.15423591741075,12.725,43.5,430.0,1.0,TwoHandedPolearm,,
+70,C,nord_ungmann,Nord Scion,nord,1.0,11.0,main_or_minor_line,3,18.770214346763243,21.532603094437757,13.116666666666667,38.333333333333336,360.0,4.0,TwoHandedPolearm,40.0,35.0
+71,C,sturgian_brigand,Sturgian Brigand,sturgia,3.0,16.0,main_or_minor_line,3,18.606059007397413,21.582117032611347,15.583333333333334,54.0,280.0,3.3333333333333335,OneHandedAxe|OneHandedSword,80.0,30.0
+72,C,imperial_vigla_recruit,Imperial Vigla Recruit,empire,1.0,11.0,noble_line,3,17.941507311586054,19.27742659558666,12.5,43.666666666666664,400.0,1.0,TwoHandedPolearm,60.0,40.0
+73,C,battanian_militia_veteran_spearman,Battanian Militia Veteran Spearman,battania,,16.0,special_or_unlinked,4,16.226941031909117,18.73758713077731,14.225,53.75,300.0,1.0,TwoHandedPolearm,,
+74,C,aserai_mameluke_soldier,Aserai Mamluke Soldier,aserai,2.0,11.0,main_or_minor_line,3,16.11003878556751,19.504365478882303,12.050000000000002,49.0,430.0,1.0,TwoHandedPolearm,40.0,50.0
+75,C,nord_drengr,Nord Warrior,nord,2.0,11.0,main_or_minor_line,3,15.360565495132974,17.31474910187218,8.05,26.333333333333332,390.0,4.0,TwoHandedPolearm,40.0,40.0
+76,C,battanian_clanwarrior,Battanian Clan Warrior,battania,2.0,11.0,main_or_minor_line,3,15.10606404258093,14.917449261967247,12.2,38.666666666666664,215.0,1.0,TwoHandedPolearm,40.0,40.0
+77,C,lakepike_tier_1,Lake Rat Recruit,sturgia,1.0,11.0,main_or_minor_line,4,14.662556564140464,14.480419988226688,10.6375,27.25,225.0,2.0,OneHandedAxe,60.0,60.0
+78,C,conspiracy_wilder,Conspiracy Wilder,sturgia,,16.0,special_or_unlinked,2,14.536563519524368,20.927891201373185,16.5,50.0,300.0,1.0,OneHandedSword,80.0,40.0
+79,C,aserai_tribesman,Aserai Tribesman,aserai,2.0,11.0,main_or_minor_line,3,13.271912027162887,16.338682672505644,14.933333333333335,51.333333333333336,160.0,1.0,TwoHandedPolearm,40.0,40.0
+80,C,sturgian_militia_spearman,Sturgian Militia Spearman,sturgia,,11.0,special_or_unlinked,4,13.057591242203271,13.323719377004627,8.4875,34.5,305.0,1.0,TwoHandedPolearm,,
+81,C,battanian_militia_spearman,Battanian Militia Spearman,battania,,11.0,special_or_unlinked,4,12.602971395319235,11.783285744937205,9.2875,35.0,200.0,1.0,TwoHandedPolearm,,
+82,D,conspiracy_guardsman,Conspiracy Guardsman,aserai,,16.0,special_or_unlinked,1,12.01846016361119,15.171895888692667,7.550000000000001,41.0,430.0,1.0,TwoHandedPolearm,70.0,80.0
+83,D,aserai_militia_spearman,Aserai Militia Spearman,aserai,,11.0,special_or_unlinked,4,10.355850437863864,11.738585661863818,5.8125,24.0,350.0,1.0,TwoHandedPolearm,,
+84,D,nord_youngling,Nord Youngling,nord,1.0,6.0,main_or_minor_line,4,9.956042551158117,13.214719943664145,6.9,21.0,292.5,3.0,OneHandedAxe,20.0,20.0
+85,D,skolderbrotva_tier_1,Skolder Recruit,nord,1.0,11.0,main_or_minor_line,2,9.849274037050224,12.874999312306416,4.65,19.0,260.0,6.0,TwoHandedPolearm,60.0,60.0
+86,D,sturgia_marine_t3,Sturgian Crewman,sturgia,1.0,16.0,main_or_minor_line,3,8.757145069232504,16.47851370160701,10.050000000000002,30.0,380.0,1.0,ThrowingAxe,30.0,40.0
+87,D,khuzait_footman,Khuzait Footman,khuzait,2.0,11.0,main_or_minor_line,3,8.29528247873068,14.816587536058073,8.666666666666666,34.666666666666664,365.0,1.0,Mace|OneHandedSword,40.0,40.0
+88,D,khuzait_militia_spearman,Khuzait Militia Spearman,khuzait,,11.0,special_or_unlinked,4,7.108565817263608,9.226784839932442,6.175000000000001,25.25,220.0,1.0,TwoHandedPolearm,,
+89,D,imperial_militia_spearman,Imperial Militia Spearman,empire,,11.0,special_or_unlinked,4,6.420141477696349,8.967180511313936,3.9625,17.5,305.0,1.0,TwoHandedPolearm,,
+90,D,veteran_borrowed_troop,Veteran Borrowed Troop,empire,2.0,11.0,main_or_minor_line,2,1.9565828993189789,7.992374853521266,2.95,10.0,305.0,1.0,OneHandedSword,50.0,50.0

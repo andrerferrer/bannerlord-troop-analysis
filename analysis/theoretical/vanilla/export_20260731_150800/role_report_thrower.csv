@@ -1,0 +1,22 @@
+rank,tier,troop_id,troop_name,culture,tree_tier,level,line_status_corrected,n_rosters,skirmisher_role_score,throw_score_base,throw_template,Throwing,melee_template,effective_armor,has_shield
+1,S,hidden_hand_tier_2,Hidden Soldati,empire,2.0,16.0,main_or_minor_line,3,81.99348073356325,100.0,,70.0,OneHandedSword,19.133333333333336,False
+2,B,battanian_wildling,Battanian Wildling,battania,,26.0,special_or_unlinked,3,56.39310376987175,30.46153846153846,Javelin,130.0,OneHandedSword,52.95000000000001,True
+3,B,battanian_marine_t5,Battanian Skipari,battania,2.0,26.0,main_or_minor_line,3,53.41976726911015,30.46153846153846,Javelin,140.0,OneHandedSword,29.9,True
+4,B,galloglass_tier_3,Redshank,battania,3.0,21.0,main_or_minor_line,3,49.9224917905581,30.46153846153846,Javelin,120.0,OneHandedAxe,49.45,True
+5,B,lakepike_tier_3,Lake Rat Wrecker ,sturgia,3.0,21.0,main_or_minor_line,4,47.67501344040747,30.46153846153846,Javelin,120.0,OneHandedAxe,37.0375,True
+6,B,hidden_hand_tier_3,Puppeteer,empire,3.0,21.0,main_or_minor_line,3,47.39857394010214,28.769230769230777,ThrowingKnife,100.0,OneHandedSword|TwoHandedPolearm,34.4,True
+7,B,empire_marine_t5,Imperial Naute,empire,3.0,26.0,main_or_minor_line,3,46.32594527608401,30.46153846153846,Javelin,130.0,OneHandedAxe,32.0,True
+8,B,skolderbrotva_tier_3,Skolder Veteran Broda,nord,3.0,21.0,main_or_minor_line,3,42.41472128580494,30.46153846153846,Javelin,100.0,OneHandedSword,29.100000000000005,True
+9,B,hidden_hand_tier_1,Hidden Pawn,empire,1.0,11.0,main_or_minor_line,3,38.84715447277968,70.76923076923077,,55.0,OneHandedSword,7.3,False
+10,B,battanian_marine_t4,Battanian River Raider,battania,1.0,21.0,main_or_minor_line,3,33.99354149911484,30.46153846153846,Javelin,100.0,OneHandedSword,20.5,True
+11,C,empire_marine_t4,Imperial Coast Guard,empire,2.0,21.0,main_or_minor_line,3,31.293771314285134,30.46153846153846,Javelin,100.0,OneHandedAxe,18.200000000000003,True
+12,C,conspiracy_kern,Conspiracy Kern,battania,,16.0,special_or_unlinked,3,30.868804405934583,30.46153846153846,Javelin,80.0,Mace|OneHandedSword,34.400000000000006,True
+13,C,galloglass_tier_2,Kern,battania,2.0,16.0,main_or_minor_line,3,24.647040620907536,30.46153846153846,Javelin,70.0,OneHandedAxe,29.133333333333336,True
+14,C,lakepike_tier_2,Lake Rat Veteran,sturgia,2.0,16.0,main_or_minor_line,3,18.14058273471426,30.46153846153846,Javelin,80.0,OneHandedAxe,14.55,False
+15,C,empire_marine_t3,Imperial Shipmate,empire,1.0,16.0,main_or_minor_line,3,16.645111207078585,30.46153846153846,Javelin,70.0,OneHandedAxe,12.483333333333334,True
+16,D,jawwal_tier_1,Jawwal Recruit,aserai,1.0,11.0,main_or_minor_line,5,15.091363996472822,30.46153846153846,Javelin,40.0,TwoHandedPolearm,3.69,True
+17,D,borrowed_troop,Borrowed Troop,empire,1.0,6.0,main_or_minor_line,3,12.737014597959243,57.53846153846155,,30.0,OneHandedAxe|TwoHandedPolearm,2.8333333333333335,False
+18,D,legion_of_the_betrayed_tier_1,Hastati,empire,1.0,11.0,main_or_minor_line,4,8.87870135574996,30.46153846153846,Javelin,40.0,OneHandedSword,10.15,True
+19,D,battanian_woodrunner,Battanian Wood Runner,battania,2.0,11.0,main_or_minor_line,4,5.6593640331665265,30.46153846153846,Javelin,40.0,OneHandedAxe|OneHandedSword,4.7,True
+20,D,galloglass_tier_1,Skene,battania,1.0,11.0,main_or_minor_line,1,4.284459891473912,30.46153846153846,Javelin,40.0,OneHandedAxe,15.200000000000005,True
+21,D,sturgian_woodsman,Sturgian Woodsman,sturgia,2.0,11.0,main_or_minor_line,3,0.5948822858164869,30.46153846153846,Javelin,40.0,OneHandedAxe,7.666666666666667,False

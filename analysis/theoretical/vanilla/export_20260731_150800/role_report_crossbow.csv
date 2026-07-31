@@ -1,0 +1,12 @@
+rank,tier,troop_id,troop_name,culture,tree_tier,level,line_status_corrected,n_rosters,ranged_role_score,ranged_score_base,xbow_damage,xbow_item,Crossbow,bolt_stack,xbow_speed,xbow_accuracy,effective_armor,has_shield
+1,S,conspiracy_warworn_crossbowman,Conspiracy Warworn Crossbowman,vlandia,,26.0,special_or_unlinked,1,75.6084965402364,98.4,102.0,crossbow_f,150.0,20.0,63.0,100.0,34.6,True
+2,A,vlandian_marine_t5,Vlandian Nauta,vlandia,2.0,26.0,main_or_minor_line,3,64.73472364736918,100.0,105.0,crossbow_f,130.0,18.0,63.0,100.0,25.96666666666667,True
+3,A,vlandian_sharpshooter,Vlandian Sharpshooter,vlandia,,26.0,special_or_unlinked,1,63.97456096956084,100.0,105.0,crossbow_f,130.0,18.0,63.0,100.0,31.6,True
+4,A,imperial_sergeant_crossbowman,Imperial Sergeant Crossbowman,empire,5.0,26.0,main_or_minor_line,3,55.25421384634956,93.472,96.0,crossbow_d,130.0,18.0,62.0,99.0,34.11666666666667,True
+5,B,company_of_the_boar_tier_3,Boar Champion,vlandia,3.0,21.0,main_or_minor_line,1,40.164314146188,93.15200000000002,95.0,crossbow_d,100.0,20.0,62.0,99.0,28.8,True
+6,B,vlandian_marine_t4,Vlandian Seasoned Seafarer,vlandia,1.0,21.0,main_or_minor_line,3,39.26019097654905,90.88,89.0,crossbow_g,100.0,18.0,80.0,90.0,21.066666666666663,True
+7,C,imperial_crossbowman,Imperial Crossbowman,empire,4.0,21.0,main_or_minor_line,3,27.677702075051023,81.92,78.0,crossbow_e,100.0,18.0,75.0,85.0,27.033333333333335,False
+8,C,conspiracy_trained_crossbowman,Conspiracy Trained Crossbowman,vlandia,,16.0,special_or_unlinked,3,22.29048659904412,84.96,84.0,crossbow_b,80.0,20.0,61.0,96.0,30.5,False
+9,C,company_of_the_boar_tier_2,Boar Veteran,vlandia,2.0,16.0,main_or_minor_line,1,21.704113163119224,84.96,84.0,crossbow_b,70.0,20.0,61.0,96.0,18.5,True
+10,D,company_of_the_boar_tier_1,Boar Novice,vlandia,1.0,11.0,main_or_minor_line,1,12.384697003107322,84.96,84.0,crossbow_b,40.0,20.0,61.0,96.0,13.2,True
+11,D,vlandian_levy_crossbowman,Vlandian Levy Crossbowman,vlandia,2.0,11.0,main_or_minor_line,3,7.14360917485344,84.96,84.0,crossbow_b,40.0,20.0,61.0,96.0,9.083333333333334,False

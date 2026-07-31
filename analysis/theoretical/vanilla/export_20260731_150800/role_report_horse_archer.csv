@@ -1,0 +1,20 @@
+rank,tier,troop_id,troop_name,culture,tree_tier,level,line_status_corrected,n_rosters,ranged_role_score,ranged_score_base,bow_damage,bow_item,Bow,arrow_stack,Riding,horse_speed,effective_armor,melee_template
+1,S,khuzait_khans_guard,Khuzait Khan's Guard,khuzait,5.0,31.0,noble_line,3,100.0,76.192,54.0,composite_steppe_bow,200.0,48.0,200.0,60.0,49.95000000000001,TwoHandedPolearm
+2,A,khuzait_kheshig,Khuzait Kheshig,khuzait,4.0,26.0,noble_line,3,73.65065009968733,73.856,55.333333333333336,composite_steppe_bow|steppe_war_bow,160.0,24.0,130.0,60.0,34.9,TwoHandedPolearm
+3,B,aserai_mameluke_heavy_cavalry,Aserai Mamluke Heavy Cavalry,aserai,5.0,26.0,main_or_minor_line,3,66.01101881645593,73.472,56.0,composite_steppe_bow,130.0,23.0,130.0,51.0,36.95,OneHandedSword
+4,B,bucellarii,Imperial Bucellarii,empire,5.0,26.0,main_or_minor_line,3,63.54425215695286,74.272,53.0,composite_steppe_bow,140.0,40.0,120.0,50.0,35.13333333333333,OneHandedSword
+5,B,khuzait_heavy_horse_archer,Khuzait Heavy Horse Archer,khuzait,5.0,26.0,main_or_minor_line,3,63.09762488650088,76.192,54.0,composite_steppe_bow,130.0,48.0,130.0,47.0,45.1,OneHandedSword
+6,B,conspiracy_mounted_master_archer,Conspiracy Mounted Master Archer,khuzait,,26.0,special_or_unlinked,3,57.27845430589044,76.192,54.0,composite_steppe_bow,120.0,48.0,130.0,47.0,32.61666666666667,OneHandedSword
+7,B,conspiracy_packmaster,Conspiracy Packmaster,empire,,16.0,special_or_unlinked,3,54.823409149192926,75.776,55.0,steppe_war_bow,120.0,40.0,130.0,50.0,28.383333333333336,Mace|OneHandedSword
+8,B,aserai_mameluke_cavalry,Aserai Mamluke Cavalry,aserai,4.0,21.0,main_or_minor_line,3,50.927553704559216,72.608,56.0,steppe_heavy_bow,100.0,23.0,110.0,54.0,34.050000000000004,OneHandedSword
+9,B,karakhuzaits_tier_3,Karakhergit Elder,khuzait,3.0,21.0,main_or_minor_line,2,48.23648451703224,73.056,54.0,steppe_war_bow,110.0,27.0,100.0,60.0,39.1,TwoHandedPolearm
+10,B,khuzait_horse_archer,Khuzait Horse Archer,khuzait,4.0,21.0,main_or_minor_line,3,45.86596106047293,75.328,54.0,steppe_heavy_bow,100.0,48.0,100.0,47.0,34.699999999999996,OneHandedSword
+11,B,khuzait_torguud,Khuzait Torguud,khuzait,3.0,21.0,noble_line,3,42.739808615655704,71.488,54.0,steppe_heavy_bow,100.0,24.0,100.0,47.0,28.983333333333334,TwoHandedPolearm
+12,C,karakhuzaits_tier_2,Karakhergit Rider,khuzait,2.0,16.0,main_or_minor_line,2,30.79637504049756,70.688,52.0,steppe_heavy_bow,80.0,27.0,60.0,47.0,25.55,TwoHandedPolearm
+13,C,khuzait_raider,Khuzait Raider,khuzait,3.0,16.0,main_or_minor_line,3,27.332642300168384,75.712,53.0,composite_bow,70.0,48.0,70.0,45.0,13.800000000000002,OneHandedSword
+14,C,khuzait_qanqli,Khuzait Qanqli,khuzait,2.0,16.0,noble_line,3,26.52344283406189,71.872,53.0,composite_bow,70.0,24.0,70.0,45.0,16.099999999999998,TwoHandedPolearm
+15,C,conspiracy_horse_archer,Conspiracy Horse Archer,khuzait,,16.0,special_or_unlinked,3,25.17216100391031,75.328,54.0,steppe_heavy_bow,60.0,48.0,80.0,45.0,25.683333333333337,Mace|OneHandedAxe|OneHandedSword
+16,C,conspiracy_mounted_huntsman,Conspiracy Mounted Hunstman,empire,,16.0,special_or_unlinked,3,20.406150676350425,64.384,41.0,hunting_bow,60.0,40.0,80.0,47.0,21.166666666666668,OneHandedSword
+17,D,karakhuzaits_tier_1,Karakhergit Nomad,khuzait,1.0,11.0,main_or_minor_line,4,15.378473237248178,61.856,41.0,steppe_bow,30.0,27.0,40.0,45.0,11.75,TwoHandedPolearm
+18,D,khuzait_noble_son,Khuzait Noble's Son,khuzait,1.0,11.0,noble_line,3,15.191867411128875,62.656,43.0,steppe_bow,40.0,24.0,40.0,45.0,6.783333333333334,OneHandedSword
+19,D,khuzait_tribal_warrior,Khuzait Tribal Warrior,khuzait,2.0,11.0,main_or_minor_line,3,15.1571884568493,62.656,43.0,steppe_bow,40.0,24.0,40.0,45.0,7.2,TwoHandedPolearm
