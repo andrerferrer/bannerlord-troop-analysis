@@ -5,12 +5,13 @@
 - `evidence_basis=xml_structural`, `empirical=false` (ADR-004)
 - Model: `role_scores_v1` conservative (crafted melee = proxy, not HTK)
 - Package digest: `afef4c8483d4d27a228f13c78ed84f89fd624f9e7103d2801b1cec065eee767f`
-- Rows scored: **1232**; after filters: **908** (excluded 324: `special_or_unlinked` and spectacle-name units)
+- Rows scored: **1232**; after filters: **726** (excluded 506: specials, spectacle names, and untouched vanilla `change_type=inalterado`)
 
 ## Filters
 
 - Drop `line_status=special_or_unlinked`
 - Drop troop names matching Giant / Mammoth / Dragon / Direwolf / Kraken
+- Drop `change_type=inalterado` from the track override report (vanilla baseline troops that the mod did not add/override)
 - Intra-track only; do not compare ranks across tracks
 
 ## Top 20 — Ranged
@@ -24,19 +25,19 @@
 | 5 | Goldenheart Warrior | summer_master_longbowman | 80.8 | Ranged Troops | summer | 31.0 |
 | 6 | Mormont Bowmaiden | mormont_bowmaiden | 75.6 | Ranged Troops | battania | 31.0 |
 | 7 | Greyjoy Sniper | greyjoy_sniper | 75.0 | Ranged Troops | sturgia | 31.0 |
-| 8 | Khuzait Khan's Guard | khuzait_khans_guard | 64.0 | Ranged Troops | khuzait | 31.0 |
-| 9 | Battanian Fian Champion | battanian_fian_champion | 58.6 | Ranged Troops | battania | 31.0 |
-| 10 | Triarch Guardian | triarch_guardian | 54.3 | Ranged Troops | volantine | 31.0 |
-| 11 | Night's Watch Protector of the Realm | nightswatch_protector | 52.1 | Ranged Troops | nightswatch | 31.0 |
-| 12 | Mormont Mounted Huntress | mormont_mounted_huntress | 48.3 | Ranged Troops | battania | 26.0 |
-| 13 | Khuzait Kheshig | khuzait_kheshig | 47.5 | Ranged Troops | khuzait | 26.0 |
-| 14 | Qartheen Pureborn Champion | qartheen_champion | 45.3 | Ranged Troops | qartheen | 26.0 |
-| 15 | Myrish Master Crossbowman | myrish_master_crossbowman | 44.5 | Ranged Troops | myrish | 26.0 |
-| 16 | Aserai Mamluke Heavy Cavalry | aserai_mameluke_heavy_cavalry | 42.6 | Ranged Troops | aserai | 26.0 |
-| 17 | Pentoshi Mounted Archer | pentoshi_mounted_archer | 42.6 | Ranged Troops | pentoshi | 26.0 |
-| 18 | Vlandian Nauta | vlandian_marine_t5 | 41.2 | Ranged Troops | vlandia | 26.0 |
-| 19 | Imperial Bucellarii | bucellarii | 41.2 | Ranged Troops | empire | 26.0 |
-| 20 | Gilded Bolt Rangers | golden_master_crossbowman | 40.7 | Ranged Troops | volantine | 26.0 |
+| 8 | Triarch Guardian | triarch_guardian | 54.3 | Ranged Troops | volantine | 31.0 |
+| 9 | Night's Watch Protector of the Realm | nightswatch_protector | 52.1 | Ranged Troops | nightswatch | 31.0 |
+| 10 | Mormont Mounted Huntress | mormont_mounted_huntress | 48.3 | Ranged Troops | battania | 26.0 |
+| 11 | Qartheen Pureborn Champion | qartheen_champion | 45.3 | Ranged Troops | qartheen | 26.0 |
+| 12 | Myrish Master Crossbowman | myrish_master_crossbowman | 44.5 | Ranged Troops | myrish | 26.0 |
+| 13 | Pentoshi Mounted Archer | pentoshi_mounted_archer | 42.6 | Ranged Troops | pentoshi | 26.0 |
+| 14 | Gilded Bolt Rangers | golden_master_crossbowman | 40.7 | Ranged Troops | volantine | 26.0 |
+| 15 | Qartheen Longbowman | qartheen_longbowman | 40.3 | Ranged Troops | qartheen | 26.0 |
+| 16 | Frey Sharpshooter | frey_sharpshooter | 39.6 | Ranged Troops | river | 26.0 |
+| 17 | Hightower Marksmen | hightower_marksman | 38.2 | Ranged Troops | reach | 26.0 |
+| 18 | Velaryon Marksman | velaryon_marksman | 38.1 | Ranged Troops | dragonstone | 26.0 |
+| 19 | Tarth Elite Crossbowman | tarth_elite_crossbowman | 37.5 | Ranged Troops | stormlands | 26.0 |
+| 20 | Casterly Rock Master Crossbowman | casterly_master_crossbowman | 36.7 | Ranged Troops | vlandia | 26.0 |
 
 
 ## Top 20 — Defensive
@@ -76,19 +77,19 @@
 | 5 | Golden Company Mahout | golden_elite_pikeman | 85.9 | Skirmishers | volantine | 31.0 |
 | 6 | Ghiscari Lockstep Legionnaire | ghiscari_unsullied_unbroken | 85.1 | Skirmishers | ghiscari | 31.0 |
 | 7 | Riverlands Admiral | river_admiral | 81.3 | Defensive Troops | river | 31.0 |
-| 8 | Imperial Elite Cataphract | imperial_elite_cataphract | 81.0 | Defensive Troops | empire | 31.0 |
-| 9 | Vlandian Banner Knight | vlandian_banner_knight | 80.6 | Defensive Troops | vlandia | 31.0 |
-| 10 | Arryn Winged Knight | arryn_moonknight | 80.5 | Defensive Troops | vale | 31.0 |
-| 11 | White Harbor Knight Commander | whiteharbor_knight_commander | 80.3 | Defensive Troops | battania | 31.0 |
-| 12 | Mallister Eagle Knight | mallister_knight | 77.6 | Defensive Troops | river | 31.0 |
-| 13 | Battanian Fian Champion | battanian_fian_champion | 77.2 | Ranged Troops | battania | 31.0 |
-| 14 | Dondarrion Boltknight | dondarion_boltknight | 77.1 | Defensive Troops | stormlands | 31.0 |
-| 15 | Lannister Prideknight | lannister_prideknight | 77.1 | Defensive Troops | vlandia | 31.0 |
-| 16 | Royce Heroine | royce_heroine | 76.7 | Defensive Troops | vale | 31.0 |
-| 17 | Knights of Starfall | dayne_starfall_knights | 76.6 | Skirmishers | aserai | 31.0 |
-| 18 | Water Gardens Sentinel | garden_sentinel | 75.9 | Skirmishers | aserai | 31.0 |
-| 19 | Boneway Guardian | boneway_guardian | 75.8 | Skirmishers | aserai | 31.0 |
-| 20 | Reach Flower Knight | reach_flower_knight | 73.4 | Defensive Troops | reach | 31.0 |
+| 8 | Arryn Winged Knight | arryn_moonknight | 80.5 | Defensive Troops | vale | 31.0 |
+| 9 | White Harbor Knight Commander | whiteharbor_knight_commander | 80.3 | Defensive Troops | battania | 31.0 |
+| 10 | Mallister Eagle Knight | mallister_knight | 77.6 | Defensive Troops | river | 31.0 |
+| 11 | Dondarrion Boltknight | dondarion_boltknight | 77.1 | Defensive Troops | stormlands | 31.0 |
+| 12 | Lannister Prideknight | lannister_prideknight | 77.1 | Defensive Troops | vlandia | 31.0 |
+| 13 | Royce Heroine | royce_heroine | 76.7 | Defensive Troops | vale | 31.0 |
+| 14 | Knights of Starfall | dayne_starfall_knights | 76.6 | Skirmishers | aserai | 31.0 |
+| 15 | Water Gardens Sentinel | garden_sentinel | 75.9 | Skirmishers | aserai | 31.0 |
+| 16 | Boneway Guardian | boneway_guardian | 75.8 | Skirmishers | aserai | 31.0 |
+| 17 | Reach Flower Knight | reach_flower_knight | 73.4 | Defensive Troops | reach | 31.0 |
+| 18 | Knight of the Vale | vale_knight_of | 73.2 | Defensive Troops | vale | 31.0 |
+| 19 | Realm Paladin | realm_paladin | 73.2 | Skirmishers | crownlands | 31.0 |
+| 20 | Tyrell Cavalier | tyrell_cavalier | 73.0 | Defensive Troops | reach | 31.0 |
 
 
 ## Top 20 — Skirmisher
@@ -108,11 +109,11 @@
 | 11 | Sarnori Spider | sarnor_spider | 83.4 | Skirmishers | sarnor | 31.0 |
 | 12 | Valyrian Cavalry | targaryen_dragonknight | 72.1 | Skirmishers | valyrian | 26.0 |
 | 13 | Ghiscari Lockstep Legionnaire | ghiscari_unsullied_unbroken | 71.0 | Skirmishers | ghiscari | 31.0 |
-| 14 | Aserai Vanguard Faris | aserai_vanguard_faris | 69.9 | Skirmishers | aserai | 31.0 |
-| 15 | Hidden Soldati | hidden_hand_tier_2 | 68.8 | Skirmishers | empire | 16.0 |
-| 16 | Tarly Vanguard | tarly_vanguard | 68.4 | Skirmishers | reach | 31.0 |
-| 17 | Realm Knight | realm_knight | 67.8 | Skirmishers | crownlands | 26.0 |
-| 18 | Celtigar Banneret | celtigar_banneret | 67.6 | Skirmishers | dragonstone | 31.0 |
-| 19 | Ibbenese Navigator | ibbenese_navigator | 66.7 | Skirmishers | ibbenese | 31.0 |
-| 20 | Greyjoy Horseman | greyjoy_horseman | 66.4 | Skirmishers | sturgia | 26.0 |
+| 14 | Tarly Vanguard | tarly_vanguard | 68.4 | Skirmishers | reach | 31.0 |
+| 15 | Realm Knight | realm_knight | 67.8 | Skirmishers | crownlands | 26.0 |
+| 16 | Celtigar Banneret | celtigar_banneret | 67.6 | Skirmishers | dragonstone | 31.0 |
+| 17 | Ibbenese Navigator | ibbenese_navigator | 66.7 | Skirmishers | ibbenese | 31.0 |
+| 18 | Greyjoy Horseman | greyjoy_horseman | 66.4 | Skirmishers | sturgia | 26.0 |
+| 19 | Glover Bushranger | glover_bushranger | 66.2 | Skirmishers | battania | 31.0 |
+| 20 | Skagosi Stoneborn | skagosi_stoneborn | 65.4 | Skirmishers | skagosi | 26.0 |
 

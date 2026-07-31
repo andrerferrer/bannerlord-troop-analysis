@@ -5,12 +5,13 @@
 - `evidence_basis=xml_structural`, `empirical=false` (ADR-004)
 - Model: `role_scores_v1` conservative (crafted melee = proxy, not HTK)
 - Package digest: `afef4c8483d4d27a228f13c78ed84f89fd624f9e7103d2801b1cec065eee767f`
-- Rows scored: **371**; after filters: **185** (excluded 186: `special_or_unlinked` and spectacle-name units)
+- Rows scored: **371**; after filters: **179** (excluded 192: specials, spectacle names, and untouched vanilla `change_type=inalterado`)
 
 ## Filters
 
 - Drop `line_status=special_or_unlinked`
 - Drop troop names matching Giant / Mammoth / Dragon / Direwolf / Kraken
+- Drop `change_type=inalterado` from the track override report (vanilla baseline troops that the mod did not add/override)
 - Intra-track only; do not compare ranks across tracks
 
 ## Field empiria (reliable rows only)
@@ -127,7 +128,7 @@ From `2026-07-28-to-29-nightmare-sails-field` — descriptive kills/deployed, no
 | 15 | Aserai Tribal Horseman | aserai_tribal_horseman | 57.1 | Skirmishers | aserai | 16.0 |
 | 16 | Skolder Veteran Broda | skolderbrotva_tier_3 | 51.7 | Skirmishers | nord | 26.0 |
 | 17 | Lake Rat Wrecker  | lakepike_tier_3 | 49.5 | Skirmishers | sturgia | 26.0 |
-| 18 | Redshank | galloglass_tier_3 | 49.1 | Skirmishers | battania | 21.0 |
-| 19 | Aserai Lieutenant | aserai_veteran_infantry | 49.0 | Skirmishers | aserai | 26.0 |
-| 20 | Beni Zilal Recruit | beni_zilal_tier_1 | 47.5 | Skirmishers | aserai | 16.0 |
+| 18 | Aserai Lieutenant | aserai_veteran_infantry | 49.0 | Skirmishers | aserai | 26.0 |
+| 19 | Beni Zilal Recruit | beni_zilal_tier_1 | 47.5 | Skirmishers | aserai | 16.0 |
+| 20 | Imperial Naute | empire_marine_t5 | 47.1 | Skirmishers | empire | 26.0 |
 

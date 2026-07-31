@@ -26,6 +26,10 @@ class TheoreticalOverviewTests(unittest.TestCase):
         self.assertNotIn("Mammoth Riding Giant", ranged)
         self.assertNotIn("Giant Archer", ranged)
         self.assertIn("Myrish Artisan of War", ranged)
+        self.assertNotIn("Khuzait Khan's Guard", ranged)
+        self.assertNotIn("Battanian Fian Champion", ranged)
+        self.assertIn("Ravens' Teeth", ranged)
+        self.assertIn("Goldenheart Warrior", ranged)
 
     def test_human_input_doc_exists(self) -> None:
         path = REPO / "analysis" / "theoretical" / "HUMAN_INPUT.md"

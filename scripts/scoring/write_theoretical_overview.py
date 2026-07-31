@@ -23,7 +23,7 @@ SPECTACLE_NAME = re.compile(
 )
 
 
-def filter_playable(df: pd.DataFrame) -> pd.DataFrame:
+def filter_playable(df: pd.DataFrame, overrides: pd.DataFrame | None = None) -> pd.DataFrame:
     out = df.copy()
     if "line_status" in out.columns:
         out = out[~out["line_status"].astype(str).eq("special_or_unlinked")]
@@ -31,6 +31,14 @@ def filter_playable(df: pd.DataFrame) -> pd.DataFrame:
         out = out[
             ~out["troop_name"].astype(str).map(lambda name: bool(SPECTACLE_NAME.search(name)))
         ]
+    # Mod-track overviews should not list untouched vanilla baseline troops
+    # (e.g. Khan's Guard / Fian on the RoT track).
+    if overrides is not None and not overrides.empty and "troop_id" in out.columns:
+        keep = overrides.loc[
+            ~overrides["change_type"].astype(str).eq("inalterado"),
+            "troop_id",
+        ]
+        out = out[out["troop_id"].isin(set(keep))]
     return out
 
 
@@ -65,7 +73,9 @@ def write_track_overview(repo: Path, track: str, package_sha: str) -> Path:
     out_dir = repo / "analysis" / "theoretical" / track / EXPORT_ID
     scores_path = out_dir / f"{track}_troop_role_scores_v1.csv"
     df = pd.read_csv(scores_path)
-    filtered = filter_playable(df)
+    override_path = repo / "data" / track / "audit" / f"{track}_override_report.csv"
+    overrides = pd.read_csv(override_path) if override_path.is_file() else None
+    filtered = filter_playable(df, overrides=overrides)
     excluded = len(df) - len(filtered)
 
     lines = [
@@ -77,12 +87,15 @@ def write_track_overview(repo: Path, track: str, package_sha: str) -> Path:
         "- Model: `role_scores_v1` conservative (crafted melee = proxy, not HTK)",
         f"- Package digest: `{package_sha}`",
         f"- Rows scored: **{len(df)}**; after filters: **{len(filtered)}** "
-        f"(excluded {excluded}: `special_or_unlinked` and spectacle-name units)",
+        f"(excluded {excluded}: specials, spectacle names, and untouched vanilla "
+        f"`change_type=inalterado`)",
         "",
         "## Filters",
         "",
         "- Drop `line_status=special_or_unlinked`",
         "- Drop troop names matching Giant / Mammoth / Dragon / Direwolf / Kraken",
+        "- Drop `change_type=inalterado` from the track override report "
+        "(vanilla baseline troops that the mod did not add/override)",
         "- Intra-track only; do not compare ranks across tracks",
         "",
     ]
