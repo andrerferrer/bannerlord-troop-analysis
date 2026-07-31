@@ -1,10 +1,9 @@
-"""Write filtered theoretical OVERVIEW.md files (no giants/specials noise)."""
+"""Write theoretical OVERVIEW.md files (mod troops only; no name/specials filters)."""
 
 from __future__ import annotations
 
 import argparse
 import json
-import re
 from pathlib import Path
 
 import pandas as pd
@@ -17,22 +16,11 @@ ROLE_COLS = [
     ("offensive_melee_role_score", "Offensive melee"),
     ("skirmisher_role_score", "Skirmisher"),
 ]
-SPECTACLE_NAME = re.compile(
-    r"(?:Giant|Mammoth|Dragon|Direwolf|Kraken)",
-    re.IGNORECASE,
-)
 
 
-def filter_playable(df: pd.DataFrame, overrides: pd.DataFrame | None = None) -> pd.DataFrame:
+def filter_mod_troops(df: pd.DataFrame, overrides: pd.DataFrame | None = None) -> pd.DataFrame:
+    """Keep mod-added/overridden troops; drop untouched vanilla baseline only."""
     out = df.copy()
-    if "line_status" in out.columns:
-        out = out[~out["line_status"].astype(str).eq("special_or_unlinked")]
-    if "troop_name" in out.columns:
-        out = out[
-            ~out["troop_name"].astype(str).map(lambda name: bool(SPECTACLE_NAME.search(name)))
-        ]
-    # Mod-track overviews should not list untouched vanilla baseline troops
-    # (e.g. Khan's Guard / Fian on the RoT track).
     if overrides is not None and not overrides.empty and "troop_id" in out.columns:
         keep = overrides.loc[
             ~overrides["change_type"].astype(str).eq("inalterado"),
@@ -42,11 +30,10 @@ def filter_playable(df: pd.DataFrame, overrides: pd.DataFrame | None = None) -> 
     return out
 
 
-def top_table(df: pd.DataFrame, col: str, n: int = 20) -> pd.DataFrame:
-    ranked = df.dropna(subset=[col]).sort_values(col, ascending=False).head(n)
-    ranked = ranked.reset_index(drop=True)
+def rank_table(df: pd.DataFrame, col: str) -> pd.DataFrame:
+    ranked = df.dropna(subset=[col]).sort_values(col, ascending=False).reset_index(drop=True)
     ranked.insert(0, "rank", range(1, len(ranked) + 1))
-    cols = ["rank", "troop_name", "troop_id", col, "primary_category", "culture", "level"]
+    cols = ["rank", "troop_name", "troop_id", col, "primary_category", "culture", "level", "line_status"]
     return ranked[[c for c in cols if c in ranked.columns]]
 
 
@@ -75,7 +62,7 @@ def write_track_overview(repo: Path, track: str, package_sha: str) -> Path:
     df = pd.read_csv(scores_path)
     override_path = repo / "data" / track / "audit" / f"{track}_override_report.csv"
     overrides = pd.read_csv(override_path) if override_path.is_file() else None
-    filtered = filter_playable(df, overrides=overrides)
+    filtered = filter_mod_troops(df, overrides=overrides)
     excluded = len(df) - len(filtered)
 
     lines = [
@@ -87,15 +74,14 @@ def write_track_overview(repo: Path, track: str, package_sha: str) -> Path:
         "- Model: `role_scores_v1` conservative (crafted melee = proxy, not HTK)",
         f"- Package digest: `{package_sha}`",
         f"- Rows scored: **{len(df)}**; after filters: **{len(filtered)}** "
-        f"(excluded {excluded}: specials, spectacle names, and untouched vanilla "
-        f"`change_type=inalterado`)",
+        f"(excluded {excluded}: untouched vanilla `change_type=inalterado` only)",
         "",
         "## Filters",
         "",
-        "- Drop `line_status=special_or_unlinked`",
-        "- Drop troop names matching Giant / Mammoth / Dragon / Direwolf / Kraken",
         "- Drop `change_type=inalterado` from the track override report "
-        "(vanilla baseline troops that the mod did not add/override)",
+        "(vanilla baseline troops the mod did not add/override)",
+        "- No name filters (Greyjoy Kraken lines, giants, specials stay if mod-owned)",
+        "- Full ranked lists below — filter locally as needed",
         "- Intra-track only; do not compare ranks across tracks",
         "",
     ]
@@ -119,9 +105,10 @@ def write_track_overview(repo: Path, track: str, package_sha: str) -> Path:
                 ]
             )
     for col, label in ROLE_COLS:
-        lines.append(f"## Top 20 — {label}")
+        table = rank_table(filtered, col)
+        lines.append(f"## Ranked — {label} ({len(table)} troops)")
         lines.append("")
-        lines.append(md_table(top_table(filtered, col, 20)))
+        lines.append(md_table(table))
         lines.append("")
 
     path = out_dir / "OVERVIEW.md"
