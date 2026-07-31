@@ -15,7 +15,10 @@ sys.path.insert(0, str(REPO / "scripts" / "scoring"))
 from write_theoretical_overview import (  # noqa: E402
     LATEST_REPORT_END,
     LATEST_REPORT_START,
+    assign_tiers_by_scores,
+    is_spectacle_outlier,
     rank_table,
+    tier_letter_from_top_fraction,
     update_root_readme_latest_report,
     update_theoretical_readme_latest_report,
 )
@@ -56,6 +59,30 @@ class _FakeFrame:
 
 
 class TheoreticalOverviewTests(unittest.TestCase):
+    def test_spectacle_outlier_detects_giants_not_dragonstone(self) -> None:
+        self.assertTrue(is_spectacle_outlier("giant_rider", "Mammoth Riding Giant"))
+        self.assertTrue(is_spectacle_outlier("elder_giant", "Elder Giant"))
+        self.assertFalse(
+            is_spectacle_outlier("dragonstone_elite_archer", "Dragonstone Elite Archer")
+        )
+        self.assertFalse(is_spectacle_outlier("greyjoy_sniper", "Greyjoy Sniper"))
+
+    def test_tier_ladder_from_position(self) -> None:
+        self.assertEqual(tier_letter_from_top_fraction(1.0), "S")
+        self.assertEqual(tier_letter_from_top_fraction(0.90), "S")
+        self.assertEqual(tier_letter_from_top_fraction(0.89), "A")
+        self.assertEqual(tier_letter_from_top_fraction(0.70), "A")
+        self.assertEqual(tier_letter_from_top_fraction(0.40), "B")
+        self.assertEqual(tier_letter_from_top_fraction(0.20), "C")
+        self.assertEqual(tier_letter_from_top_fraction(0.19), "D")
+        self.assertEqual(assign_tiers_by_scores([88.0]), ["S"])
+        self.assertEqual(assign_tiers_by_scores([88.0, 80.0])[0], "S")
+        # 80/88 ≈ 0.91 → still S; 75/88 ≈ 0.85 → A
+        self.assertEqual(assign_tiers_by_scores([88.0, 80.0])[1], "S")
+        self.assertEqual(assign_tiers_by_scores([88.0, 75.0])[1], "A")
+        # 50/88 ≈ 0.57 → B
+        self.assertEqual(assign_tiers_by_scores([88.0, 50.0])[1], "B")
+
     def test_rank_table_includes_why_columns_when_present(self) -> None:
         frame = _FakeFrame(
             [
@@ -79,6 +106,25 @@ class TheoreticalOverviewTests(unittest.TestCase):
         self.assertIn("armor_total", out.columns)
         self.assertIn("effective_armor", out.columns)
         self.assertIn("defense_score_base", out.columns)
+        self.assertIn("tier", out.columns)
+        self.assertEqual(out._rows[0]["tier"], "S")
+
+    def test_rank_table_forced_splus_tier(self) -> None:
+        frame = _FakeFrame(
+            [
+                {
+                    "troop_name": "Mammoth Riding Giant",
+                    "troop_id": "giant_rider",
+                    "ranged_role_score": 100.0,
+                    "primary_category": "Ranged Troops",
+                    "culture": "freefolk",
+                    "level": 31,
+                    "line_status": "main_or_minor_line",
+                }
+            ]
+        )
+        out = rank_table(frame, "ranged_role_score", tier="S+")
+        self.assertEqual(out._rows[0]["tier"], "S+")
 
     def test_rot_overview_keeps_mod_troops_drops_vanilla_baseline(self) -> None:
         path = (
@@ -91,14 +137,40 @@ class TheoreticalOverviewTests(unittest.TestCase):
         )
         self.assertTrue(path.is_file(), "run write_theoretical_overview.py first")
         text = path.read_text(encoding="utf-8")
-        ranged = text.split("## Ranked — Ranged", 1)[1].split("## Ranked —", 1)[0]
+        ranged_block = text.split("## Ranked — Ranged", 1)[1]
+        if "## Outliers S+ — Ranged" in ranged_block:
+            ranged = ranged_block.split("## Outliers S+ — Ranged", 1)[0]
+        else:
+            ranged = ranged_block.split("## Ranked —", 1)[0]
         self.assertIn("Myrish Artisan of War", ranged)
         self.assertIn("Ravens' Teeth", ranged)
         self.assertIn("Goldenheart Warrior", ranged)
+        self.assertNotIn("Mammoth Riding Giant", ranged)
         self.assertNotIn("Khuzait Khan's Guard", ranged)
         self.assertNotIn("Battanian Fian Champion", ranged)
         self.assertIn("change_type=inalterado", text)
         self.assertNotIn("Drop troop names matching", text)
+
+    def test_rot_overview_tiers_and_giant_outliers(self) -> None:
+        path = (
+            REPO
+            / "analysis"
+            / "theoretical"
+            / "realm_of_thrones"
+            / EXPORT_ID
+            / "OVERVIEW.md"
+        )
+        text = path.read_text(encoding="utf-8")
+        self.assertIn("## Tiers", text)
+        ranged_block = text.split("## Ranked — Ranged", 1)[1]
+        ranged_main = ranged_block.split("## Outliers S+ — Ranged", 1)[0]
+        self.assertIn("| rank | tier |", ranged_main)
+        self.assertIn("| S |", ranged_main)
+        outliers = ranged_block.split("## Outliers S+ — Ranged", 1)[1].split(
+            "## Ranked —", 1
+        )[0]
+        self.assertIn("Mammoth Riding Giant", outliers)
+        self.assertIn("| S+ |", outliers)
 
     def test_rot_overview_includes_why_columns(self) -> None:
         path = (
@@ -111,15 +183,25 @@ class TheoreticalOverviewTests(unittest.TestCase):
         )
         text = path.read_text(encoding="utf-8")
         self.assertIn("## Why columns", text)
-        defensive = text.split("## Ranked — Defensive", 1)[1].split("## Ranked —", 1)[0]
+        defensive_block = text.split("## Ranked — Defensive", 1)[1]
+        if "## Outliers S+ — Defensive" in defensive_block:
+            defensive = defensive_block.split("## Outliers S+ — Defensive", 1)[0]
+        else:
+            defensive = defensive_block.split("## Ranked —", 1)[0]
         self.assertIn("armor_total", defensive)
         self.assertIn("effective_armor", defensive)
         self.assertIn("defense_score_base", defensive)
-        ranged = text.split("## Ranked — Ranged", 1)[1].split("## Ranked —", 1)[0]
+        ranged_block = text.split("## Ranked — Ranged", 1)[1]
+        if "## Outliers S+ — Ranged" in ranged_block:
+            ranged = ranged_block.split("## Outliers S+ — Ranged", 1)[0]
+        else:
+            ranged = ranged_block.split("## Ranked —", 1)[0]
         self.assertIn("ranged_damage", ranged)
-        offensive = text.split("## Ranked — Offensive melee", 1)[1].split(
-            "## Ranked —", 1
-        )[0]
+        offensive_block = text.split("## Ranked — Offensive melee", 1)[1]
+        if "## Outliers S+ — Offensive" in offensive_block:
+            offensive = offensive_block.split("## Outliers S+ — Offensive", 1)[0]
+        else:
+            offensive = offensive_block.split("## Ranked —", 1)[0]
         self.assertIn("crafted_melee_template", offensive)
 
     def test_troop_scores_export_raw_why_fields(self) -> None:
