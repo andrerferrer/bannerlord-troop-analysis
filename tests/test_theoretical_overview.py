@@ -15,6 +15,7 @@ from write_theoretical_overview import (  # noqa: E402
     LATEST_REPORT_END,
     LATEST_REPORT_START,
     update_root_readme_latest_report,
+    update_theoretical_readme_latest_report,
 )
 
 
@@ -88,6 +89,44 @@ class TheoreticalOverviewTests(unittest.TestCase):
         self.assertIn(LATEST_REPORT_START, text)
         self.assertIn(LATEST_REPORT_END, text)
         self.assertIn("analysis/theoretical/OVERVIEW_INDEX.md", text)
+
+    def test_update_theoretical_readme_rewrites_latest_report_block(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            path = repo / "analysis" / "theoretical" / "README.md"
+            path.parent.mkdir(parents=True)
+            path.write_text(
+                "\n".join(
+                    [
+                        "# Theoretical outputs",
+                        "",
+                        "- layout note",
+                        "",
+                        LATEST_REPORT_START,
+                        "stale theoretical",
+                        LATEST_REPORT_END,
+                        "",
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            update_theoretical_readme_latest_report(repo, package_sha="abc123")
+            text = path.read_text(encoding="utf-8")
+            self.assertNotIn("stale theoretical", text)
+            self.assertIn("[`OVERVIEW_INDEX.md`](OVERVIEW_INDEX.md)", text)
+            self.assertIn(
+                f"[`OVERVIEW.md`](realm_of_thrones/{EXPORT_ID}/OVERVIEW.md)",
+                text,
+            )
+            self.assertNotIn("analysis/theoretical/OVERVIEW_INDEX.md", text)
+
+    def test_theoretical_readme_has_latest_report_markers(self) -> None:
+        text = (REPO / "analysis" / "theoretical" / "README.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn(LATEST_REPORT_START, text)
+        self.assertIn(LATEST_REPORT_END, text)
+        self.assertIn("[`OVERVIEW_INDEX.md`](OVERVIEW_INDEX.md)", text)
 
 
 if __name__ == "__main__":
