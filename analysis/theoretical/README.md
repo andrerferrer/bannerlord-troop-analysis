@@ -6,5 +6,9 @@ Outputs under this tree are **not** combat-batch analysis.
 - Outside `bannerlord-analysis-task:v1` — no protocol comment, no combat handoff.
 - Never join these rows into empirical rankings.
 - Layout: `analysis/theoretical/<track>/<export_id>/`.
-- Regenerator: `python3 scripts/scoring/run_theoretical_role_scores.py`
+- Filtered human overview: `OVERVIEW.md` per track · [OVERVIEW_INDEX.md](OVERVIEW_INDEX.md).
+- Regenerators:
+  - `python3 scripts/scoring/run_theoretical_role_scores.py`
+  - `python3 scripts/scoring/write_theoretical_overview.py`
 - Empiria/V4.4 status: see `BLOCKED_EMPIRIA_V44.md`.
+- Human blockers: [HUMAN_INPUT.md](HUMAN_INPUT.md).
