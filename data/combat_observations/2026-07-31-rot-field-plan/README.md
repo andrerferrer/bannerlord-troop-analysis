@@ -2,6 +2,14 @@
 
 > **Status: NO DATA CAPTURED YET.** This directory contains scaffolding only; it contains no battle observations, screenshots, normalized artifacts, or empirical results.
 
+Check the live, executable gate status instead of trusting a stale narrative:
+
+```bash
+python3 -m scripts.combat_observations gate-status --track realm_of_thrones
+```
+
+As of this plan's authoring, that command reports `realm_of_thrones :: GATE MET` overall, but only because `siege_attack` already cleared the gate (6 troops, from the already-merged `2026-07-27-normalized-only` batch) and `field` now clears it for exactly 2 troops (`mallister_houseguard`, `ravens_teeth`) once the two already-merged field batches (`2026-07-27-normalized-only` + `2026-07-27-rot-field-followup`, 6 combined independent field battles) are read together. **None of the eight RoT priority troops below except Ravens' Teeth has any confirmed-identity evidence yet**, and `siege_defense` has only 1 battle. This plan exists to capture those seven still-unobserved priority troops and to push `field`/`siege_defense` coverage further; see `analysis/theoretical/BLOCKED_EMPIRIA_V44.md` for the full breakdown.
+
 ## Workflow status
 
 | Phase | Status |
@@ -11,7 +19,7 @@
 | Phase 1 normalization | not started |
 | Structural validation | not started |
 | Phase 2 analysis | not started |
-| Final merge gate | blocked on capture, normalization, and analysis |
+| Final merge gate | blocked on capture, normalization, and analysis for *this batch's own* evidence (the track overall is no longer fully below gate, but 7 of 8 priority troops and the `siege_defense` context still are) |
 
 ## Planned coverage
 
@@ -69,3 +77,7 @@ Enemy composition, terrain, campaign modifiers, perks, and battle outcome remain
 ## Expected future shape
 
 The PC operator drops raw screenshots and capture CSVs under `source/` as specified in `docs/handoff/PC_BATTLE_CAPTURE_PROMPT.md`. Phase 1 later adds the root manifests, deterministic normalized bundle, review queue, validation report, and hashes. Phase 2 writes only under `review/` and `analysis/` and follows `handoff/ANALYSIS_PROMPT.md`.
+
+Screenshot naming, hashing, and the deterministic JSONL/CSV normalized format follow `docs/methodology/ADR-001-combat-image-normalization.md` (data format, null/uncertainty policy, canonical troop matching). Raw-source retention (whether screenshots stay out of Git history with only hashes committed, versus a versioned release asset) follows `docs/methodology/ADR-002-combat-evidence-storage.md`; the current convention across every merged batch is "not retained in repository, hashes recorded," and this batch should follow the same convention unless a dedicated storage decision changes it.
+
+After capture and after Phase 1/2 land, re-run `python3 -m scripts.combat_observations gate-status --track realm_of_thrones` and confirm the priority troops above moved from "no evidence" to a reported row, and that `field` and `siege_defense` gained independent battles.

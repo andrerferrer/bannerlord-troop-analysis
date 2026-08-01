@@ -15,6 +15,35 @@ Keep the sessions completely separate. Do not combine their screenshots or CSV r
 
 These are campaign observations, not custom battles and not causal experiments. Enemy composition, terrain, outcome, perks, and AI behavior are confounders that must be recorded rather than controlled away or guessed.
 
+## The gate, checked, not assumed
+
+The repository's minimum empirical display gate is fixed and non-negotiable (`README.md`, `AGENTS.md`): a troop/context/side estimate may only be displayed once it has **at least 5 independent battles AND at least 20 deployed troops**. The gate is evaluated separately for every (track, battle context, side) combination — field, siege attack, and siege defense never pool, and player-side never pools with enemy-side.
+
+Do not trust a written status paragraph over the executable check. Whoever has a repository checkout should run, before and after this capture:
+
+```bash
+python3 -m scripts.combat_observations gate-status
+# or scope to one track:
+python3 -m scripts.combat_observations gate-status --track nightmare_sails
+python3 -m scripts.combat_observations gate-status --track realm_of_thrones
+```
+
+It exits `0` only when every requested track already meets the gate, and prints, per track/context, how many independent battles and deployed troops each troop currently has and exactly how many more of each it still needs. `scripts/combat_observations/gate_status.py` is stdlib-only and reads only already-committed batch evidence; it never touches raw screenshots.
+
+As of 2026-07-31, running it reports:
+
+- `nightmare_sails`: **gate already met** in `field` (7 troops reliable; NS-FIELD-B01…B05 below deepen coverage, they do not unblock anything).
+- `realm_of_thrones`: gate met in `siege_attack` (6 troops) and, once the two already-merged field batches are combined, in `field` for exactly 2 troops (`ravens_teeth`, `mallister_houseguard`). `siege_defense` and all 7 of the 8 RoT priority troops below (everything except Ravens' Teeth) still have no confirmed-identity evidence at all. ROT-FIELD-B01…B05 below targets exactly that gap.
+
+## Priority troops, by track
+
+These shortlists come from each track's own theoretical role reports under `analysis/theoretical/<track>/export_20260731_150800/role_report_*.csv` (top scorers per role) and, for Realm of Thrones, the priority list already recorded in `analysis/theoretical/BLOCKED_EMPIRIA_V44.md`. The exact per-battle rosters are in the two roster tables below.
+
+| Track | Priority troops (this capture's roster) |
+|---|---|
+| `realm_of_thrones` | Ravens' Teeth, Goldenheart Warrior, Celtigar Banneret, Lyseni Enforcer, Myrish Artisan of War, Golden Company Mahout, Sarnori Spider, Baratheon Hammerknight |
+| `nightmare_sails` | Nord Huscarl, Battanian Wildling, Imperial Elite Cataphract, Khuzait Khan's Guard, Vlandian Marinier, Aserai Bahriyyah, Battanian Skipari, Imperial Naute, Sturgian Reaver |
+
 ## Before each session
 
 1. Start the intended module track and verify the track on screen before the first battle.
@@ -202,4 +231,4 @@ data/combat_observations/2026-07-31-ns-field-plan/source/
 
 If you are not working in a repository checkout, create two ZIP files named `2026-07-31-rot-field-plan-source.zip` and `2026-07-31-ns-field-plan-source.zip`, preserving each `source/` directory shape, and deliver them unchanged to the repository operator. Do not combine the two tracks in one archive.
 
-The later display gate is per troop, context, and side: **at least 5 independent battles AND at least 20 deployed troops**. Completing five battles does not guarantee the gate if a target did not actually deploy or its row was not captured.
+The later display gate is per troop, context, and side: **at least 5 independent battles AND at least 20 deployed troops**. Completing five battles does not guarantee the gate if a target did not actually deploy or its row was not captured. After Phase 1/2 land this batch, the repository operator confirms the new gate status with `python3 -m scripts.combat_observations gate-status --track realm_of_thrones --track nightmare_sails` rather than by re-reading old prose.

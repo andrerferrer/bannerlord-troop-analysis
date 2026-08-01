@@ -2,6 +2,14 @@
 
 > **Status: NO DATA CAPTURED YET.** This directory contains scaffolding only; it contains no battle observations, screenshots, normalized artifacts, or empirical results.
 
+**`nightmare_sails` already meets the repository's empirical display gate today**, from the already-merged `data/combat_observations/2026-07-28-to-29-nightmare-sails-field/` batch (9 independent field battles, 7 troops already at 5+ battles/20+ deployed). Verify the live number with:
+
+```bash
+python3 -m scripts.combat_observations gate-status --track nightmare_sails
+```
+
+This plan is **not** an unblocking prerequisite for Nightmare Sails. Its purpose is to **deepen** coverage: push the already-reliable rows to tighter bootstrap intervals and promote the four troops sitting just below the gate (Hired Valkyrja, Sturgian Druzhinnik Champion, Mountain Hedgeknight, Forest Lord) and the new marine-line targets below.
+
 ## Workflow status
 
 | Phase | Status |
@@ -11,7 +19,7 @@
 | Phase 1 normalization | not started |
 | Structural validation | not started |
 | Phase 2 analysis | not started |
-| Final merge gate | blocked on capture, normalization, and analysis |
+| Final merge gate | not required to unblock `nightmare_sails` (already gated elsewhere); blocked on capture, normalization, and analysis for *this batch's own* deepening evidence |
 
 ## Planned coverage
 
@@ -72,3 +80,7 @@ Enemy composition, terrain, campaign modifiers, perks, and battle outcome remain
 ## Expected future shape
 
 The PC operator drops raw screenshots and capture CSVs under `source/` as specified in `docs/handoff/PC_BATTLE_CAPTURE_PROMPT.md`. Phase 1 later adds the root manifests, deterministic normalized bundle, review queue, validation report, and hashes. Phase 2 writes only under `review/` and `analysis/` and follows `handoff/ANALYSIS_PROMPT.md`.
+
+Screenshot naming, hashing, and the deterministic JSONL/CSV normalized format follow `docs/methodology/ADR-001-combat-image-normalization.md` (data format, null/uncertainty policy, canonical troop matching). Raw-source retention (whether screenshots stay out of Git history with only hashes committed, versus a versioned release asset) follows `docs/methodology/ADR-002-combat-evidence-storage.md`; the current convention across every merged batch is "not retained in repository, hashes recorded," and this batch should follow the same convention unless a dedicated storage decision changes it.
+
+After capture and after Phase 1/2 land, re-run `python3 -m scripts.combat_observations gate-status --track nightmare_sails` and confirm the reliable-row count increased rather than merely re-confirming the existing 7.

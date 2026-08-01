@@ -115,6 +115,17 @@ python3 -m scripts.combat_observations calibration-decision \
 
 The comparison keeps v7.1 general and v7.3 burst separate. Missing model-universe coverage makes the report provisional. The calibration command defaults to no model change unless conservative coverage gates pass.
 
+## Empirical display-gate status
+
+Report, per track, whether the minimum display gate (5 independent battles and 20 deployed troops, per track/context/side/troop) is already met, from every already-committed batch under `data/combat_observations/`:
+
+```bash
+python3 -m scripts.combat_observations gate-status
+python3 -m scripts.combat_observations gate-status --track nightmare_sails --format json
+```
+
+Exit code `0` means every requested track (default: all four known tracks) already meets the gate; `1` means at least one does not. Field, siege attack, and siege defense are always reported separately, and never pooled into one score. See `scripts/combat_observations/gate_status.py` for the exact aggregation rules.
+
 ## Tests
 
 ```bash
