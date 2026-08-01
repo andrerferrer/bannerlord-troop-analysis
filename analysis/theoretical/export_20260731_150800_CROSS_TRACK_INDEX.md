@@ -90,6 +90,15 @@ Only the **archer, crossbow and horse-archer** ladders rest on real resolved ite
 crossbows and ammunition carry populated damage, accuracy, missile speed). Everything else in
 this run is proxy.
 
+Per-track quantification of the hole (troops affected, share of every role ladder, top-50
+dependency), reproducible with stdlib only:
+[`analysis/item_validation/CRAFTED_DAMAGE_COVERAGE_export_20260731_150800.md`](../item_validation/CRAFTED_DAMAGE_COVERAGE_export_20260731_150800.md)
+and `scripts/analysis/quantify_crafted_damage_coverage.py`. Real reconstruction is **blocked**
+on a PC export of `crafting_pieces*.xml` + `crafting_templates*.xml`, specified in
+[`docs/handoff/PC_CRAFTING_PIECES_EXPORT_PROMPT.md`](../../docs/handoff/PC_CRAFTING_PIECES_EXPORT_PROMPT.md);
+the consumer that will use it is `scripts/normalization/reconstruct_crafted_weapon_stats.py`,
+which exits non-zero rather than fabricating a number.
+
 ### 2.2 Armor is fixed — for armor only
 
 The Armory/Wargs fix held. TAOM shows **9,290 resolved armor rows across 870 troops, zero with a
