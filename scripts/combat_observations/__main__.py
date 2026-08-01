@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -22,6 +23,13 @@ from .bundle import (
 )
 from .canonical import build_canonical_dataset
 from .domain import raw_snapshot, read_jsonl, validate_occurrence
+from .gate_status import (
+    DEFAULT_DATA_ROOT as GATE_STATUS_DEFAULT_DATA_ROOT,
+    GateStatusError,
+    KNOWN_TRACKS,
+    build_report as build_gate_status_report,
+    render_text as render_gate_status_text,
+)
 from .model_assisted import MODES, prepare_extraction_queue
 from .review import triage_review_queue
 from .schema_validation import validate_jsonl_file
@@ -130,6 +138,14 @@ def build_parser() -> argparse.ArgumentParser:
     snapshot = subcommands.add_parser("snapshot-raw", help="Hash immutable first-pass source files.")
     snapshot.add_argument("--raw-root", type=Path, required=True)
     snapshot.add_argument("--output", type=Path, required=True)
+
+    gate_status = subcommands.add_parser(
+        "gate-status",
+        help="Report the empirical display-gate status of each track from committed evidence.",
+    )
+    gate_status.add_argument("--data-root", type=Path, default=GATE_STATUS_DEFAULT_DATA_ROOT)
+    gate_status.add_argument("--track", action="append", choices=KNOWN_TRACKS)
+    gate_status.add_argument("--format", choices=("text", "json"), default="text")
     return parser
 
 
@@ -297,6 +313,18 @@ def main() -> int:
                 },
             )
             return 0
+        if args.command == "gate-status":
+            tracks = args.track or list(KNOWN_TRACKS)
+            try:
+                report = build_gate_status_report(args.data_root, tracks)
+            except GateStatusError as error:
+                print(f"gate-status: {error}", file=sys.stderr)
+                return 2
+            if args.format == "json":
+                print(json.dumps(report, indent=2))
+            else:
+                print(render_gate_status_text(report))
+            return 0 if report["overall_gate_met"] else 1
         raise AssertionError(args.command)
     except BundleError as error:
         print(str(error), file=sys.stderr)

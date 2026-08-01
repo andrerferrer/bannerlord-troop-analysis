@@ -1,6 +1,63 @@
 # Empiria / V4.4 — execution status (plan v3.1 Fase C)
 
-Status: **field empiria available for Nightmare Sails; Realm of Thrones follow-up remains below display gate**. Theoretical Fase B remains independent.
+Status: **field empiria available for Nightmare Sails; the Realm of Thrones field follow-up batch remains below the display gate on its own, and 7 of its 8 priority troops still have zero confirmed-identity evidence in any context**. Theoretical Fase B remains independent.
+
+Do not read this file as the source of truth for the current gate. Run the executable check instead:
+
+```bash
+python3 -m scripts.combat_observations gate-status
+```
+
+It scans every committed batch under `data/combat_observations/`, sums independent battles and deployed troops per (track, battle context, side) — never pooling field with siege, or player with enemy — and exits `0` only when every track it was asked about already meets the gate. `--track <name>` scopes it to one track; `--format json` gives a machine-readable report. See `scripts/combat_observations/gate_status.py` for the exact aggregation rules and their documented caveats (identity confirmation, the player-side default, cross-batch combination).
+
+## Executable gate status (2026-07-31, as run for this update)
+
+Real output of `python3 -m scripts.combat_observations gate-status`, trimmed to the passing rows and the closest below-gate rows per context (the tool's own output lists every troop; run it locally for the full list):
+
+```text
+== nightmare_sails :: GATE MET ==
+  captured batches: data/combat_observations/2026-07-28-to-29-nightmare-sails-field
+  [field] independent battles captured: 9 -- gate met
+    7 troop(s) reaching the gate:
+      Battanian Wildling (battanian_wildling): 8 battles, 34 deployed
+      Imperial Elite Cataphract (imperial_elite_cataphract): 7 battles, 140 deployed
+      Khuzait Khan's Guard (khuzait_khans_guard): 7 battles, 112 deployed
+      Nord Huscarl (nord_huscarl): 6 battles, 25 deployed
+      Forest Reaper (forest_bandits_bossen): 6 battles, 24 deployed
+      Imperial Trained Infantryman (unresolved id): 5 battles, 41 deployed
+      Veteran Outrider (eastern_mounted_mercenary_t5): 5 battles, 39 deployed
+  [siege_attack] independent battles captured: 0 -- below gate (not observed)
+  [siege_defense] independent battles captured: 0 -- below gate (not observed)
+
+== realm_of_thrones :: GATE MET (siege_attack and field only; siege_defense still below) ==
+  captured batches: data/combat_observations/2026-07-27-normalized-only,
+                     data/combat_observations/2026-07-27-rot-field-followup
+  [field] independent battles captured: 6 (2026-07-27-normalized-only: 4 + rot-field-followup: 2) -- gate met
+    2 troop(s) reaching the gate:
+      Mallister House Guard (mallister_houseguard): 6 battles, 117 deployed
+      Ravens' Teeth (ravens_teeth): 5 battles, 86 deployed
+    closest below-gate: Riverlands Ranger (river_ranger) 4 battles/167 deployed;
+                         Mallister Elite Archer (mallister_elite_archer) 4 battles/135 deployed
+  [siege_attack] independent battles captured: 5 -- gate met
+    6 troop(s) reaching the gate:
+      Riverlands Ranger (river_ranger): 5 battles, 175 deployed
+      Mallister Elite Archer (mallister_elite_archer): 5 battles, 164 deployed
+      Blackwood House Guard (unresolved id): 5 battles, 98 deployed
+      Ravens' Teeth (ravens_teeth): 5 battles, 88 deployed
+      Mallister House Guard (mallister_houseguard): 5 battles, 68 deployed
+      Mallister Eagle Knight (mallister_knight): 5 battles, 67 deployed
+  [siege_defense] independent battles captured: 1 -- below gate
+    0 troop(s) reaching the gate; closest: Riverlands Ranger 1 battle/52 deployed (needs 4 more battles)
+
+== vanilla :: below gate (no batches captured) ==
+== taom :: below gate (no batches captured) ==
+
+Overall (all four tracks requested): at least one requested track is below the gate.
+```
+
+This is a genuinely new result versus the paragraph below it: **combining the two already-merged Realm of Thrones field batches** (`2026-07-27-normalized-only`, 4 field battles, and `2026-07-27-rot-field-followup`, 2 field battles — disjoint battle IDs, disjoint screenshot hashes, same versioned `data/realm_of_thrones/audit/realm_of_thrones_troops.csv` identity resolution) already clears the field gate for `ravens_teeth` (5 battles / 86 deployed) and `mallister_houseguard` (6 battles / 117 deployed). Neither is one of the 8 RoT priority troops except Ravens' Teeth. `siege_attack` was already gated by the older `2026-07-27-normalized-only` batch alone and was simply never called out as "gate met" in this file before. `siege_defense` and 7 of the 8 RoT priority troops (everything but Ravens' Teeth) still have **zero** confirmed-identity evidence in any context — that is what `2026-07-31-rot-field-plan/` targets.
+
+None of this changes `nightmare_sails`, which remains gated purely on the strength of its own single field batch (no cross-batch combination needed).
 
 ## Online empirical batches
 
@@ -9,7 +66,7 @@ Status: **field empiria available for Nightmare Sails; Realm of Thrones follow-u
 - Reviewed 2026-07-26/27 batch: `data/combat_observations/2026-07-27-normalized-only/`.
 - Field follow-up B01–B02: `data/combat_observations/2026-07-27-rot-field-followup/`.
 - Follow-up coverage: 2 independent field battles, 17 included ordinary-troop occurrences, 0 reliable rows.
-- The follow-up is valid evidence but is insufficient by itself for the 5-battle / 20-deployed display gate.
+- The follow-up is valid evidence but is insufficient **by itself** for the 5-battle / 20-deployed display gate. Combined with the older `2026-07-27-normalized-only` field battles it does cross the gate for 2 troops — see the "Executable gate status" section above.
 
 ### Nightmare Sails
 
