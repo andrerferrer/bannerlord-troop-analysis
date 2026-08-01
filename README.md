@@ -14,6 +14,7 @@ Data-driven troop analysis framework for Mount & Blade II: Bannerlord.
 - [`TODO.md`](TODO.md) — broader historical implementation checklist
 - [`docs/handoff/PROJECT_HANDOFF_SUPER_REPORT.md`](docs/handoff/PROJECT_HANDOFF_SUPER_REPORT.md)
 - [`docs/methodology/ADR-001-combat-image-normalization.md`](docs/methodology/ADR-001-combat-image-normalization.md)
+- [`docs/methodology/ADR-005-spectacle-outlier-definition.md`](docs/methodology/ADR-005-spectacle-outlier-definition.md) — the one S+ / spectacle-outlier definition (owner: `scripts/scoring/outliers.py`)
 
 Current authoritative frozen models:
 
