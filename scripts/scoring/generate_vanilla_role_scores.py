@@ -129,6 +129,11 @@ def build_roster_features(audit: pd.DataFrame, soldiers: set[str], depths: pd.Da
         shield_hp = max_numeric(shield, "hit_points")
         shield_armor = max_numeric(shield, "shield_armor")
         horse_speed = max_numeric(horse, "horse_speed")
+        # `horse_charge_damage` feeds `defense_raw` for every mounted roster. It is NOT
+        # a spectacle-outlier test here: this scorer never parks outsized units, it
+        # normalises over the whole population (elephants/mammoths set the ceiling).
+        # The one owner of the S+ / spectacle predicate is `scripts/scoring/outliers.py`
+        # (ADR-005); parking happens downstream in write_theoretical_overview.py.
         horse_charge = max_numeric(horse, "horse_charge_damage")
         horse_maneuver = max_numeric(horse, "horse_maneuver")
         harness_armor = max_numeric(harness, "body_armor")

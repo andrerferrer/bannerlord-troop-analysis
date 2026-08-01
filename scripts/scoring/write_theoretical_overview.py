@@ -3,10 +3,36 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import re
+import sys
 from pathlib import Path
-from typing import Any
+from typing import Any, Sequence
+
+try:  # `python3 scripts/scoring/write_theoretical_overview.py` puts this dir first
+    from outliers import (  # noqa: F401  (re-exported for callers/tests)
+        ALL_CRITERIA,
+        DEFAULT_CRITERIA,
+        SPECTACLE_OUTLIER_VERSION,
+        classify_row,
+        describe_criteria,
+        is_spectacle_outlier,
+        spectacle_reason,
+        split_spectacle_outliers,
+    )
+except ModuleNotFoundError:  # pragma: no cover - odd cwd / import styles
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from outliers import (  # noqa: F401
+        ALL_CRITERIA,
+        DEFAULT_CRITERIA,
+        SPECTACLE_OUTLIER_VERSION,
+        classify_row,
+        describe_criteria,
+        is_spectacle_outlier,
+        spectacle_reason,
+        split_spectacle_outliers,
+    )
 
 EXPORT_ID = "export_20260731_150800"
 TRACKS = ("nightmare_sails", "taom", "realm_of_thrones")
@@ -50,13 +76,65 @@ ROLE_WHY_COLS: dict[str, list[str]] = {
 LATEST_REPORT_START = "<!-- latest-theoretical-report:start -->"
 LATEST_REPORT_END = "<!-- latest-theoretical-report:end -->"
 
-# Giants / mammoths sit outside normal troop scale — listed as S+ outliers, not S–D.
-_SPECTACLE_RE = re.compile(r"(?i)\bgiants?\b|\bmammoths?\b|(^|_)giant(_|$)|(^|_)mammoth(_|$)")
+# Documented crafted-hollowness counts per track (analysis_pack audit, 2026-07-31).
+# Used as a fallback when the analysis_pack CSV is not present; the live count is
+# recomputed from the CSV whenever it is readable.
+HOLLOW_CRAFTED_COUNTS: dict[str, int] = {
+    "vanilla": 3619,
+    "nightmare_sails": 3723,
+    "realm_of_thrones": 9648,
+    "taom": 6663,
+}
 
 
-def is_spectacle_outlier(troop_id: object, troop_name: object) -> bool:
-    blob = f"{troop_id or ''} {troop_name or ''}"
-    return bool(_SPECTACLE_RE.search(blob))
+def count_hollow_crafted_rows(repo: Path, track: str) -> tuple[int, int]:
+    """Return `(crafted_rows, crafted_rows_without_swing_or_thrust_damage)`.
+
+    Stdlib `csv` on purpose: this must run in environments without pandas.
+    Falls back to the documented count when the analysis_pack CSV is absent.
+    """
+    path = (
+        repo / "analysis_pack" / track / f"{track}_troop_equipment_audit.csv"
+    )
+    if not path.is_file():
+        documented = HOLLOW_CRAFTED_COUNTS.get(track, 0)
+        return documented, documented
+    crafted = 0
+    hollow = 0
+    with path.open(newline="", encoding="utf-8") as handle:
+        for row in csv.DictReader(handle):
+            if (row.get("item_kind") or "").strip() != "CraftedItem":
+                continue
+            crafted += 1
+            swing = (row.get("swing_damage") or "").strip()
+            thrust = (row.get("thrust_damage") or "").strip()
+            if not swing and not thrust:
+                hollow += 1
+    return crafted, hollow
+
+
+def hollow_damage_banner(repo: Path, track: str) -> list[str]:
+    """Provenance/limitation banner: crafted melee+thrown damage is not reconstructed."""
+    crafted, hollow = count_hollow_crafted_rows(repo, track)
+    per_track = ", ".join(
+        f"{name} {count}" for name, count in HOLLOW_CRAFTED_COUNTS.items()
+    )
+    return [
+        "## Provenance limits — crafted damage is hollow",
+        "",
+        f"- Melee / thrown damage from `item_kind=CraftedItem` is **not reconstructed**: "
+        f"**{hollow} of {crafted}** crafted rows in "
+        f"`analysis_pack/{track}/{track}_troop_equipment_audit.csv` have blank "
+        "`swing_damage` **and** blank `thrust_damage` "
+        f"(all tracks, blank crafted rows: {per_track}).",
+        "- So every damage-derived column for crafted weapons "
+        "(`crafted_melee_*`, crafted-javelin `throw_*`) is a "
+        "**crafting-template-name proxy**, not weapon damage.",
+        "- Bow / crossbow / ammo rows and direct `Thrown` items do carry real "
+        "stats, so `ranged_damage` (and `throw_damage` when a direct `Thrown` "
+        "item exists) is measured rather than proxied.",
+        "",
+    ]
 
 
 def tier_letter_from_top_fraction(frac: float) -> str:
@@ -94,25 +172,6 @@ def filter_mod_troops(df: Any, overrides: Any | None = None) -> Any:
     return out
 
 
-def split_spectacle_outliers(df: Any) -> tuple[Any, Any]:
-    """Return (standard troops, giant/mammoth outliers)."""
-    if df is None or len(df) == 0:
-        return df, df
-
-    def _flag(row: Any) -> bool:
-        if hasattr(row, "get"):
-            return is_spectacle_outlier(row.get("troop_id"), row.get("troop_name"))
-        return is_spectacle_outlier(row["troop_id"], row["troop_name"])
-
-    if hasattr(df, "apply"):
-        mask = df.apply(_flag, axis=1)
-        return df.loc[~mask].copy(), df.loc[mask].copy()
-    # List-backed test frame
-    standard_rows = [r for r in df._rows if not _flag(r)]
-    outlier_rows = [r for r in df._rows if _flag(r)]
-    return type(df)(standard_rows), type(df)(outlier_rows)
-
-
 def rank_table(df: Any, col: str, *, tier: str | None = None) -> Any:
     ranked = df.dropna(subset=[col]).sort_values(col, ascending=False).reset_index(drop=True)
     ranked.insert(0, "rank", range(1, len(ranked) + 1))
@@ -131,6 +190,7 @@ def rank_table(df: Any, col: str, *, tier: str | None = None) -> Any:
         "troop_name",
         "troop_id",
         col,
+        "spectacle_reason",  # only present on the S+ outlier frames
         *why,
         "primary_category",
         "culture",
@@ -159,7 +219,12 @@ def md_table(frame: Any) -> str:
     return "\n".join(lines) + "\n"
 
 
-def write_track_overview(repo: Path, track: str, package_sha: str) -> Path:
+def write_track_overview(
+    repo: Path,
+    track: str,
+    package_sha: str,
+    criteria: Sequence[str] | None = None,
+) -> Path:
     import pandas as pd
 
     out_dir = repo / "analysis" / "theoretical" / track / EXPORT_ID
@@ -189,6 +254,11 @@ def write_track_overview(repo: Path, track: str, package_sha: str) -> Path:
         "- **S+** = spectacle-scale outliers (giants / mammoths): listed in a "
         "separate section and **excluded** from the main S–D ladder so they do "
         "not crowd ordinary troop tiers",
+        f"- S+ definition owner: `scripts/scoring/outliers.py` "
+        f"(`{SPECTACLE_OUTLIER_VERSION}`, ADR-005). Active criteria: "
+        + "; ".join(describe_criteria(criteria)),
+        "- Unrelated: the `S+` band in `scripts/melee_engine/kinetic_engine.py` "
+        "is a kinetic score-to-letter ladder, not a unit-scale flag",
         "",
         "## Why columns",
         "",
@@ -209,6 +279,7 @@ def write_track_overview(repo: Path, track: str, package_sha: str) -> Path:
         "- Full ranked lists below — filter locally as needed",
         "- Intra-track only; do not compare ranks across tracks",
         "",
+        *hollow_damage_banner(repo, track),
     ]
     if track == "nightmare_sails":
         empiria = (
@@ -229,7 +300,12 @@ def write_track_overview(repo: Path, track: str, package_sha: str) -> Path:
                     "",
                 ]
             )
-    standard, outliers = split_spectacle_outliers(filtered)
+    standard, outliers = split_spectacle_outliers(filtered, criteria)
+    if len(outliers) > 0 and hasattr(outliers, "apply"):
+        # Reportable per-troop reason (which criterion parked it), from ADR-005.
+        outliers["spectacle_reason"] = outliers.apply(
+            lambda row: classify_row(row, criteria).reason, axis=1
+        )
     for col, label in ROLE_COLS:
         table = rank_table(standard, col)
         lines.append(f"## Ranked — {label} ({len(table)} troops)")
@@ -239,11 +315,13 @@ def write_track_overview(repo: Path, track: str, package_sha: str) -> Path:
         outlier_table = rank_table(outliers, col, tier="S+")
         if len(outlier_table) > 0:
             lines.append(
-                f"## Outliers S+ — {label} ({len(outlier_table)} giants/mammoths)"
+                f"## Outliers S+ — {label} ({len(outlier_table)} spectacle-scale units)"
             )
             lines.append("")
             lines.append(
-                "Spectacle-scale units; excluded from the S–D ladder above."
+                "Spectacle-scale units; excluded from the S–D ladder above. "
+                "`spectacle_reason` names the criterion that parked each row "
+                f"(`scripts/scoring/outliers.py` {SPECTACLE_OUTLIER_VERSION}, ADR-005)."
             )
             lines.append("")
             lines.append(md_table(outlier_table))
@@ -397,6 +475,17 @@ def write_human_input(repo: Path) -> Path:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo", type=Path, default=Path(__file__).resolve().parents[2])
+    parser.add_argument(
+        "--spectacle-criteria",
+        nargs="+",
+        choices=list(ALL_CRITERIA),
+        default=None,
+        help=(
+            "S+ outlier criteria (ADR-005). Default (omitted) = "
+            f"{list(DEFAULT_CRITERIA)}, which reproduces published tiers. "
+            "Passing extra criteria changes tier bands — do it deliberately."
+        ),
+    )
     args = parser.parse_args()
     repo = args.repo.resolve()
     package = json.loads(
@@ -406,7 +495,9 @@ def main() -> None:
     )
     package_sha = package["expected_package_sha256"]
     for track in TRACKS:
-        path = write_track_overview(repo, track, package_sha)
+        path = write_track_overview(
+            repo, track, package_sha, criteria=args.spectacle_criteria
+        )
         print(f"wrote {path}")
     print(f"wrote {write_index(repo, package_sha)}")
     print(f"wrote {write_human_input(repo)}")

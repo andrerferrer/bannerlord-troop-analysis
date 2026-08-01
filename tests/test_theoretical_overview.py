@@ -12,10 +12,14 @@ REPO = Path(__file__).resolve().parents[1]
 EXPORT_ID = "export_20260731_150800"
 sys.path.insert(0, str(REPO / "scripts" / "scoring"))
 
+import write_theoretical_overview  # noqa: E402
 from write_theoretical_overview import (  # noqa: E402
+    HOLLOW_CRAFTED_COUNTS,
     LATEST_REPORT_END,
     LATEST_REPORT_START,
     assign_tiers_by_scores,
+    count_hollow_crafted_rows,
+    hollow_damage_banner,
     is_spectacle_outlier,
     rank_table,
     tier_letter_from_top_fraction,
@@ -66,6 +70,73 @@ class TheoreticalOverviewTests(unittest.TestCase):
             is_spectacle_outlier("dragonstone_elite_archer", "Dragonstone Elite Archer")
         )
         self.assertFalse(is_spectacle_outlier("greyjoy_sniper", "Greyjoy Sniper"))
+
+    def test_spectacle_predicate_comes_from_the_owner_module(self) -> None:
+        # ADR-005: zero duplicated regex left in the generator.
+        source = Path(write_theoretical_overview.__file__).read_text(encoding="utf-8")
+        self.assertNotIn("_SPECTACLE_RE", source)
+        self.assertNotIn(r"\bgiants?\b", source)  # the pattern itself lives in outliers.py
+        self.assertIn("from outliers import", source)
+        import outliers
+
+        self.assertIs(is_spectacle_outlier, outliers.is_spectacle_outlier)
+
+    def test_hollow_damage_banner_counts_crafted_rows(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            pack = repo / "analysis_pack" / "demo"
+            pack.mkdir(parents=True)
+            with (pack / "demo_troop_equipment_audit.csv").open(
+                "w", newline="", encoding="utf-8"
+            ) as handle:
+                writer = csv.DictWriter(
+                    handle,
+                    fieldnames=["item_kind", "swing_damage", "thrust_damage"],
+                )
+                writer.writeheader()
+                writer.writerow(
+                    {"item_kind": "CraftedItem", "swing_damage": "", "thrust_damage": ""}
+                )
+                writer.writerow(
+                    {"item_kind": "CraftedItem", "swing_damage": "", "thrust_damage": ""}
+                )
+                writer.writerow(
+                    {"item_kind": "CraftedItem", "swing_damage": "70", "thrust_damage": ""}
+                )
+                writer.writerow(
+                    {"item_kind": "Item", "swing_damage": "", "thrust_damage": "80"}
+                )
+            self.assertEqual(count_hollow_crafted_rows(repo, "demo"), (3, 2))
+            banner = "\n".join(hollow_damage_banner(repo, "demo"))
+            self.assertIn("Provenance limits", banner)
+            self.assertIn("**2 of 3**", banner)
+            self.assertIn("CraftedItem", banner)
+            self.assertIn("template-name proxy", banner)
+
+    def test_hollow_damage_banner_falls_back_to_documented_counts(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            self.assertEqual(
+                count_hollow_crafted_rows(repo, "taom"),
+                (HOLLOW_CRAFTED_COUNTS["taom"], HOLLOW_CRAFTED_COUNTS["taom"]),
+            )
+            banner = "\n".join(hollow_damage_banner(repo, "taom"))
+            for track, count in HOLLOW_CRAFTED_COUNTS.items():
+                self.assertIn(f"{track} {count}", banner)
+
+    def test_documented_hollow_counts_match_the_analysis_pack(self) -> None:
+        for track, expected in HOLLOW_CRAFTED_COUNTS.items():
+            path = (
+                REPO
+                / "analysis_pack"
+                / track
+                / f"{track}_troop_equipment_audit.csv"
+            )
+            if not path.is_file():
+                self.skipTest(f"analysis_pack missing for {track}")
+            crafted, hollow = count_hollow_crafted_rows(REPO, track)
+            self.assertEqual(crafted, expected, track)
+            self.assertEqual(hollow, expected, track)
 
     def test_tier_ladder_from_position(self) -> None:
         self.assertEqual(tier_letter_from_top_fraction(1.0), "S")
