@@ -1,0 +1,359 @@
+rank,tier,troop_name,troop_id,defensive_role_score,defense_score_base,armor_total,effective_armor,armor_audit_sum,shield_armor,shield_hp,OneHanded,Athletics,culture,level,n_rosters,line_status
+1,S,[Rivendell] Battlemaster of the First Age,battlemaster_of_the_first_age,69.22,69.26,350.6,81.26,248.0,9.0,600.0,345.0,195.0,rivendell,41.0,10,main_or_minor_line
+2,S,[Rivendell] Imladris Warden,imladris_warden,68.3,67.02,354.5,77.93,249.5,9.0,600.0,345.0,195.0,rivendell,41.0,6,main_or_minor_line
+3,S,[Rivendell] Imladris Nobleman,imladris_nobleman,66.62,65.88,337.63,76.23,238.8,9.0,600.0,305.0,175.0,rivendell,36.0,19,main_or_minor_line
+4,S,[Erebor] Royal Warden,erebor_noble_royal_warden,63.07,60.21,273.25,78.28,225.3,1.0,450.0,340.0,185.0,erebor,46.0,4,main_or_minor_line
+5,S,[Rhûn] Darkhûn Ironbound,darkhun_ironbound,62.8,59.85,229.0,62.0,166.0,15.0,600.0,270.0,145.0,khuzait,36.0,1,main_or_minor_line
+6,S,[Erebor] Gate Warden,erebor_noble_gate_warden,62.56,59.54,271.75,78.43,226.3,1.0,400.0,320.0,170.0,erebor,41.0,4,main_or_minor_line
+7,A,[Rivendell] Imladris Swordguard,imladris_swordguard,61.95,59.78,304.17,67.17,209.7,9.0,600.0,280.0,155.0,rivendell,31.0,23,main_or_minor_line
+8,A,[Dol Guldur] Khamûl's Shadow-Guard,dg_khamul_shadow_guard,61.91,60.67,253.67,67.52,182.0,14.0,450.0,345.0,187.0,dolguldur,46.0,3,main_or_minor_line
+9,A,[Rivendell] Imladris Guardsman,imladris_guardsman,61.59,58.28,275.25,64.94,228.3,9.0,600.0,305.0,175.0,rivendell,36.0,8,main_or_minor_line
+10,A,[Rhûn] Dragon-Wrath Obsidian Shieldmaster,dragon_wrath_obsidian_shieldmaster,60.9,57.38,232.0,60.55,167.7,13.3,566.7,345.0,180.0,khuzait,46.0,3,main_or_minor_line
+11,A,[Erebor] Royal Legionary,erebor_oathsworn_royal_legionary,60.32,56.62,253.5,72.95,212.8,1.0,450.0,340.0,185.0,erebor,46.0,4,main_or_minor_line
+12,A,[Rhûn] Loke-Rim Gilded Shieldguard,loke_rim_gilded_shieldguard,59.96,56.16,234.33,60.82,170.0,14.0,450.0,285.0,145.0,khuzait,36.0,3,main_or_minor_line
+13,A,[Iron Hills] Gate Warden,iron_hills_noble_gate_warden,59.85,56.0,254.0,67.0,173.0,1.0,670.0,325.0,170.0,erebor,41.0,1,main_or_minor_line
+14,A,[Erebor] Legionary,erebor_oathsworn_legionary,59.68,55.78,257.5,72.27,210.5,1.0,425.0,320.0,170.0,erebor,41.0,4,main_or_minor_line
+15,A,[Iron Hills] Shield-Guard,iron_hills_noble_shield_guard,59.64,55.73,263.0,70.25,171.0,1.0,510.0,300.0,150.0,erebor,36.0,1,main_or_minor_line
+16,A,[Ironpass] Veteran Axeman,ironpass_veteran_axeman,59.28,44.8,211.6,54.7,140.4,0.8,488.0,225.0,130.0,erebor,31.0,5,main_or_minor_line
+17,A,[Ironpass] Mountain Guard,ironpass_mountain_guard,59.26,44.79,211.0,54.72,140.8,0.8,486.0,280.0,150.0,erebor,36.0,5,main_or_minor_line
+18,A,[Erebor] Shield-Guard,erebor_noble_shield_guard,59.13,55.07,252.5,70.65,205.0,1.0,450.0,295.0,150.0,erebor,36.0,4,main_or_minor_line
+19,A,[Dale] Dalian Royal Swordsman,dale_running_river_warden,58.77,47.32,198.0,59.0,170.0,7.0,225.0,250.0,125.0,sturgia,31.0,2,main_or_minor_line
+20,A,[Erebor] Oathsworn,erebor_oathsworn,58.69,54.49,256.25,70.92,205.8,1.0,400.0,280.0,150.0,erebor,36.0,4,main_or_minor_line
+21,A,[Iron Hills] Guard,iron_hills_noble_guard,58.29,53.98,253.0,67.65,166.0,1.0,510.0,245.0,130.0,erebor,31.0,1,main_or_minor_line
+22,A,[Ironpass] Axeman,ironpass_axeman,58.08,43.55,205.6,52.88,137.4,0.8,486.0,170.0,110.0,erebor,26.0,5,main_or_minor_line
+23,A,[Dol Guldur] Khamûl's Veiled Guard,dg_khamul_veiled_guard,56.99,54.25,217.0,57.98,152.0,14.0,450.0,325.0,172.0,dolguldur,41.0,3,main_or_minor_line
+24,A,[Rhûn] Dragon-Wrath Infantry,dragon_wrath_infantry,56.95,52.22,206.5,54.98,148.0,14.0,450.0,270.0,145.0,khuzait,36.0,2,main_or_minor_line
+25,A,[Iron Hills] Royal Warden,iron_hills_noble_royal_warden,56.57,51.73,242.0,60.65,174.0,1.0,670.0,345.0,185.0,erebor,46.0,1,main_or_minor_line
+26,A,[Dale] Dalian Mariner,dale_dalian_mariner,56.5,51.64,197.0,57.75,165.0,7.0,560.0,180.0,105.0,sturgia,26.0,2,main_or_minor_line
+27,A,[Rhûn] Darkhûn Guard,darkhun_guard,56.43,51.55,212.0,56.35,152.0,10.0,500.0,230.0,125.0,khuzait,31.0,1,main_or_minor_line
+28,A,[Rhûn] Sagarûn Marine,sagarun_marine,56.11,50.47,217.5,58.38,158.0,9.0,380.0,230.0,125.0,khuzait,31.0,2,main_or_minor_line
+29,A,[Rhûn] Sagarûn Storm Forged Marine,sagarun_storm_forged_marine,56.01,50.74,219.5,58.77,160.0,9.0,380.0,270.0,145.0,khuzait,36.0,2,main_or_minor_line
+30,A,[Rivendell] Militia Veteran Spearman,rivendell_militia_veteran_spearman,55.49,48.35,242.0,51.74,168.1,8.4,557.1,145.0,130.0,rivendell,16.0,14,special_or_unlinked
+31,A,[Isengard] Uruk-Hai Pavise Guard,urukhai_pavise,55.42,50.23,226.0,63.45,184.0,1.0,450.0,240.0,130.0,isengard,31.0,1,main_or_minor_line
+32,A,[Ironpass] Infantry,ironpass_infantry,55.37,40.73,188.8,48.51,126.6,0.8,494.0,135.0,105.0,erebor,21.0,5,main_or_minor_line
+33,A,[Erebor] Guard,erebor_noble_guard,54.88,49.53,231.0,63.55,182.8,1.0,400.0,240.0,130.0,erebor,31.0,4,main_or_minor_line
+34,A,[Isengard] Orthanc Bodyguard,orthanc_bodyguard,54.85,50.53,237.0,63.9,195.0,1.0,450.0,332.0,178.0,isengard,41.0,1,main_or_minor_line
+35,A,[Isengard] Orthanc Warden,orthanc_warden,54.66,50.29,231.43,63.54,195.4,1.0,450.0,292.0,158.0,isengard,36.0,7,main_or_minor_line
+36,A,[Rivendell] Aegedhrim Elenath,rivendell_warden_gondolin,54.5,49.03,205.0,51.2,145.0,9.0,600.0,385.0,225.0,rivendell,51.0,32,main_or_minor_line
+37,A,[Mirkwood] Greenwood Wardens,mirkwood_wardens,54.2,48.65,205.0,61.1,170.0,1.0,450.0,350.0,205.0,mirkwood,41.0,1,main_or_minor_line
+38,A,[Mirkwood] Guardians of Felegoth,mirkwood_guardians,54.2,48.65,205.0,61.1,170.0,1.0,450.0,370.0,220.0,mirkwood,46.0,1,main_or_minor_line
+39,A,[Mirkwood] Palace Guard,mirkwood_palaceguard,54.2,48.65,205.0,61.1,170.0,1.0,450.0,390.0,235.0,mirkwood,51.0,1,main_or_minor_line
+40,A,[Rhûn] Loke-Rim Infantry,loke_rim_infantry,53.85,48.18,206.5,54.98,148.0,9.0,380.0,175.0,105.0,khuzait,26.0,2,main_or_minor_line
+41,A,[Gundabad] Bolg's Ironfang,gundabad_bolgs_ironfang,53.8,50.09,245.0,63.25,180.0,1.0,450.0,270.0,145.0,gundabad,36.0,1,main_or_minor_line
+42,A,[Rivendell] Megil-Aran Elenath,rivendell_gondolin_battlemaster,53.7,44.17,205.0,51.2,145.0,6.0,400.0,385.0,225.0,rivendell,51.0,48,main_or_minor_line
+43,A,[Gondor] Serelond Coastwarden,gondor_ser_coastwarden,53.3,47.47,197.0,57.75,165.0,1.0,520.0,280.0,145.0,gondor,36.0,1,main_or_minor_line
+44,A,[Rivendell] Imladris Infantry,imladris_infantry,53.26,48.45,204.21,50.34,169.2,9.0,600.0,210.0,135.0,rivendell,26.0,14,main_or_minor_line
+45,A,[Rhûn] Darkhûn Veteran Infantry,darkhun_veteran_infantry,52.98,47.06,205.0,53.3,146.0,9.0,380.0,175.0,105.0,khuzait,26.0,1,main_or_minor_line
+46,A,[Rohan] Meduseld Master Spearman,rohan_edoras_meduseld_master_spearman,52.61,46.58,161.8,52.13,134.8,9.0,400.0,215.0,115.0,vlandia,31.0,5,main_or_minor_line
+47,A,[Dale] Dalian Swordsman,dale_royal_guard,52.56,47.02,159.5,47.25,134.0,14.0,450.0,195.0,105.0,sturgia,26.0,2,main_or_minor_line
+48,A,[Gondor] Lossarnach Noble Captain,gondor_loss_noble_captain,52.04,47.27,191.0,57.45,159.0,1.0,520.0,290.0,145.0,gondor,36.0,1,main_or_minor_line
+49,A,[Dale] Dalian Shipman,dale_shipman,52.0,45.78,164.0,49.05,139.0,7.0,560.0,130.0,100.0,sturgia,21.0,2,main_or_minor_line
+50,B,[Isengard] Orthanc Chosen,orthanc_chosen,51.91,46.69,208.0,58.2,174.0,1.0,450.0,197.0,118.0,isengard,26.0,4,main_or_minor_line
+51,B,[Isengard] Orthanc Guard,orthanc_guard,51.91,46.69,208.0,58.2,174.0,1.0,450.0,252.0,138.0,isengard,31.0,4,main_or_minor_line
+52,B,[Rohan] Edoras Master Swordsman,rohan_edoras_master_swordsman,51.9,46.69,168.8,52.29,141.8,9.0,400.0,245.0,115.0,vlandia,31.0,5,main_or_minor_line
+53,B,[Isengard] Champions of the White Hand,urukhai_veteraninfantry,51.86,46.63,215.0,58.1,175.0,1.0,450.0,240.0,130.0,isengard,31.0,1,main_or_minor_line
+54,B,[Isengard] Uruk-Hai Veteran Spearman,urukhai_veteranspearman,51.44,45.04,195.0,55.75,155.0,1.0,450.0,170.0,110.0,isengard,26.0,1,main_or_minor_line
+55,B,[Dale] Dalian Riverman,dale_riverman,51.1,44.6,158.0,47.3,134.0,7.0,560.0,95.0,85.0,sturgia,16.0,2,main_or_minor_line
+56,B,[Erebor] Infantry,erebor_noble_infantry,50.65,44.02,194.75,55.38,149.8,1.0,400.0,185.0,110.0,erebor,26.0,4,main_or_minor_line
+57,B,Guard,guard_rivendell,50.62,45.02,220.0,45.25,150.0,9.0,600.0,80.0,50.0,rivendell,16.0,2,special_or_unlinked
+58,B,[Dol Guldur] Uruk Black Guard,dg_uruk_black_guard,50.44,45.72,210.0,56.75,165.0,1.0,450.0,245.0,132.0,dolguldur,31.0,1,main_or_minor_line
+59,B,[Iron Hills] Warrior,iron_hills_reg_warrior,50.28,36.25,168.0,43.82,117.8,0.8,408.0,245.0,130.0,erebor,31.0,5,main_or_minor_line
+60,B,[Rhûn] Far-Rhun Iron Legionary,far_rhun_iron_legionary,50.28,42.88,185.0,47.1,134.0,9.0,380.0,230.0,125.0,khuzait,31.0,1,main_or_minor_line
+61,B,[Rivendell] Megil Mallenloth,rivendell_knight_golden_flower,50.13,44.38,191.0,44.3,135.0,9.0,600.0,385.0,225.0,rivendell,51.0,16,main_or_minor_line
+62,B,[Rhûn] Wain Darkhan,wain_darkhan,50.07,41.57,209.0,55.85,154.0,1.0,220.0,270.0,145.0,khuzait,36.0,1,main_or_minor_line
+63,B,[Mordor] Black Uruk Barad-Dur Guard,mordor_uruk_baraddurguard,50.01,43.18,169.0,49.55,134.0,1.0,600.0,282.0,150.0,mordor,36.0,5,main_or_minor_line
+64,B,[Dol Guldur] Shadow Warden,dg_khamul_shadow_warden,49.95,45.08,173.33,44.37,124.3,14.0,450.0,285.0,152.0,dolguldur,36.0,3,main_or_minor_line
+65,B,[Dunland] Turch-lûth Huskarl,dunland_boar_warlord,49.92,41.38,168.0,51.9,147.0,1.0,380.0,235.0,140.0,empire,31.0,1,main_or_minor_line
+66,B,[Gundabad] Pale Uruk Mountain Guard,gundabad_chosen_of_tharzog,49.79,44.88,220.0,55.5,165.0,1.0,450.0,270.0,145.0,gundabad,36.0,1,main_or_minor_line
+67,B,[Mirkwood] Greenwood Guards,mirkwood_guards,49.69,43.8,206.0,53.9,159.0,1.0,450.0,350.0,205.0,mirkwood,41.0,1,main_or_minor_line
+68,B,[Mirkwood] Greenwood Swordsman,mirkwood_swordsman,49.69,43.8,206.0,53.9,159.0,1.0,450.0,385.0,220.0,mirkwood,46.0,1,main_or_minor_line
+69,B,[Gondor] Anfalas Veteran Infantry,gondor_anf_vet_infantry,49.53,42.55,165.0,50.45,139.0,1.0,520.0,240.0,125.0,gondor,31.0,1,main_or_minor_line
+70,B,[Gondor] Harondor Frontier Guard,gondor_har_frontier_guard,49.53,42.55,165.0,50.45,139.0,1.0,520.0,240.0,125.0,gondor,31.0,1,main_or_minor_line
+71,B,[Isengard] Uruk-Hai Infantry,urukhai_infantry,49.53,43.6,199.0,53.6,161.0,1.0,450.0,185.0,110.0,isengard,26.0,1,main_or_minor_line
+72,B,[Dunland] Blaidd-lûth Champion,dunland_wolf_champion,49.41,42.15,168.0,53.05,145.0,1.0,380.0,235.0,140.0,empire,31.0,1,main_or_minor_line
+73,B,[Dunland] Turch-lûth Ironhide,dunland_boar_boar_warrior,49.3,40.57,161.0,50.7,142.0,1.0,380.0,180.0,120.0,empire,26.0,1,main_or_minor_line
+74,B,[Gondor] Lebennin Sea Guard,gondor_leb_sea_guard,49.2,41.48,157.0,48.85,131.0,1.0,520.0,280.0,145.0,gondor,36.0,1,main_or_minor_line
+75,B,[Mordor] Black Uruk Shield Guard,mordor_uruk_shieldguard,49.15,42.07,163.0,47.9,128.0,1.0,600.0,257.0,130.0,mordor,31.0,5,main_or_minor_line
+76,B,[Rhûn] Far-Rhun Gate Guard,far_rhun_gate_guard,49.04,41.27,176.0,44.7,128.0,9.0,380.0,175.0,105.0,khuzait,26.0,1,main_or_minor_line
+77,B,[Gondor] Serelond Veteran Maceman,gondor_ser_vet_maceman,48.88,41.71,172.0,49.2,148.0,1.0,520.0,240.0,125.0,gondor,31.0,1,main_or_minor_line
+78,B,[Ironpass] Warrior,ironpass_warrior,48.78,33.86,141.2,38.3,89.8,0.8,494.0,100.0,90.0,erebor,16.0,5,main_or_minor_line
+79,B,[Gondor] Belfalas Coastguard,gondor_bel_coastguard,48.7,41.48,157.0,48.85,131.0,1.0,520.0,240.0,125.0,gondor,31.0,1,main_or_minor_line
+80,B,[Gondor] Linhir High Guard,gondor_lin_high_guard,48.7,41.48,157.0,48.85,131.0,1.0,520.0,280.0,145.0,gondor,36.0,1,main_or_minor_line
+81,B,[Gondor] Linhir Veteran Spearman,gondor_lin_vet_spearman,48.7,41.48,157.0,48.85,131.0,1.0,520.0,225.0,125.0,gondor,31.0,1,main_or_minor_line
+82,B,[Gondor] Methir Glaive Guard,gondor_met_glaive_guard,48.7,41.48,157.0,48.85,131.0,1.0,520.0,225.0,125.0,gondor,31.0,1,main_or_minor_line
+83,B,[Gondor] Methir Sun Knight,gondor_met_sun_knight,48.7,41.48,157.0,48.85,131.0,1.0,520.0,320.0,165.0,gondor,41.0,1,main_or_minor_line
+84,B,[Gondor] Methir Sun Warden,gondor_met_sun_warden,48.7,41.48,157.0,48.85,131.0,1.0,520.0,280.0,145.0,gondor,36.0,1,main_or_minor_line
+85,B,[Gondor] Pelargir Anchor Guard,gondor_pel_anchor_guard,48.7,41.48,157.0,48.85,131.0,1.0,520.0,320.0,165.0,gondor,41.0,1,main_or_minor_line
+86,B,[Gondor] Pelargir Infantry,gondor_pel_infantry,48.7,41.48,157.0,48.85,131.0,1.0,520.0,240.0,125.0,gondor,31.0,1,main_or_minor_line
+87,B,[Gondor] Pelargir Veteran Infantry,gondor_pel_vet_infantry,48.7,41.48,157.0,48.85,131.0,1.0,520.0,280.0,145.0,gondor,36.0,1,main_or_minor_line
+88,B,[Gondor] Ringlo Vale Spearman,gondor_ring_spearman,48.7,41.48,157.0,48.85,131.0,1.0,520.0,225.0,125.0,gondor,31.0,1,main_or_minor_line
+89,B,[Gondor] Ringlo Vale Warden,gondor_ring_warden,48.7,41.48,157.0,48.85,131.0,1.0,520.0,280.0,145.0,gondor,36.0,1,main_or_minor_line
+90,B,[Mordor] Black Uruk Captain,mordor_uruk_captain,48.68,41.68,185.0,50.75,150.0,1.0,450.0,282.0,150.0,mordor,36.0,5,main_or_minor_line
+91,B,[Gondor] Anfalas Infantry,gondor_anf_infantry,48.49,41.21,149.0,48.45,123.0,1.0,520.0,185.0,105.0,gondor,26.0,1,main_or_minor_line
+92,B,[Gondor] Belfalas Veteran Infantry,gondor_bel_vet_infantry,48.49,41.21,149.0,48.45,123.0,1.0,520.0,185.0,105.0,gondor,26.0,1,main_or_minor_line
+93,B,[Gondor] Harondor Infantry,gondor_har_infantry,48.42,41.11,160.0,48.3,136.0,1.0,520.0,185.0,105.0,gondor,26.0,1,main_or_minor_line
+94,B,[Iron Hills] Fighter,iron_hills_reg_fighter,48.37,34.26,158.4,40.87,112.8,0.8,408.0,190.0,110.0,erebor,26.0,5,main_or_minor_line
+95,B,[Gondor] Dol Amroth Foot Knight,gondor_da_foot_knight,48.29,39.94,157.0,48.85,131.0,1.0,420.0,280.0,145.0,gondor,36.0,3,main_or_minor_line
+96,B,[Gondor] Dol Amroth Swan Guard,gondor_da_swan_guard,48.29,39.94,157.0,48.85,131.0,1.0,420.0,320.0,165.0,gondor,41.0,3,main_or_minor_line
+97,B,[Dol Guldur] Uruk Fell Infantry,dg_uruk_fell_infantry,48.24,42.86,195.0,52.5,150.0,1.0,450.0,190.0,112.0,dolguldur,26.0,1,main_or_minor_line
+98,B,[Gondor] Lossarnach Noble Warden,gondor_loss_noble_warden,48.22,42.28,169.0,50.05,143.0,1.0,520.0,240.0,125.0,gondor,31.0,1,main_or_minor_line
+99,B,[Dunland] Blaidd-lûth Axeman,dunland_wolf_axeman,48.2,40.57,161.0,50.7,142.0,1.0,380.0,165.0,120.0,empire,26.0,1,main_or_minor_line
+100,B,[Gondor] Osgiliath Dome Guard,gondor_osg_dome_guard,48.1,40.03,163.0,49.45,137.0,1.0,400.0,280.0,145.0,gondor,36.0,1,main_or_minor_line
+101,B,[Rhûn] Darkhûn Infantry,darkhun_infantry,47.97,40.53,174.0,43.6,124.0,9.0,380.0,125.0,100.0,khuzait,21.0,1,main_or_minor_line
+102,B,[Iron Hills] Noble,iron_hills_noble,47.94,41.52,195.0,49.15,140.0,1.0,510.0,105.0,90.0,erebor,16.0,1,main_or_minor_line
+103,B,[Gondor] Serelond Maceman,gondor_ser_maceman,47.93,41.51,166.0,48.9,142.0,1.0,520.0,185.0,105.0,gondor,26.0,1,main_or_minor_line
+104,B,[Gondor] Lossarnach Noble Sergeant,gondor_loss_noble_sergeant,47.91,41.88,163.0,49.45,137.0,1.0,520.0,190.0,105.0,gondor,26.0,1,main_or_minor_line
+105,B,[Gondor] Arndir Foot-Knight,gondor_arn_foot_knight,47.9,41.48,157.0,48.85,131.0,1.0,520.0,280.0,145.0,gondor,36.0,1,main_or_minor_line
+106,B,[Gondor] Arndir Veteran Infantry,gondor_arn_vet_infantry,47.9,41.48,157.0,48.85,131.0,1.0,520.0,240.0,125.0,gondor,31.0,1,main_or_minor_line
+107,B,[Gondor] Cair Andros Warden,gondor_ca_warden,47.9,41.48,157.0,48.85,131.0,1.0,520.0,280.0,145.0,gondor,36.0,1,main_or_minor_line
+108,B,[Gundabad] Pale Uruk Infantry,gundabad_veteran_sword_warrior,47.84,41.4,193.33,50.33,146.7,1.0,450.0,245.0,125.0,gundabad,31.0,3,main_or_minor_line
+109,B,[Mordor] Black Uruk Vanguard,mordor_uruk_vanguard,47.78,40.82,180.0,49.47,145.0,1.0,450.0,242.0,130.0,mordor,31.0,8,main_or_minor_line
+110,B,[Isengard] Uruk-Hai Spearman,urukhai_spearman,47.75,40.23,176.0,48.6,138.0,1.0,450.0,120.0,105.0,isengard,21.0,1,main_or_minor_line
+111,B,[Gondor] Cair Andros Guard,gondor_ca_guard,47.7,41.21,149.0,48.45,123.0,1.0,520.0,240.0,125.0,gondor,31.0,1,main_or_minor_line
+112,B,[Gundabad] Pale Uruk Pike-Reaver,gundabad_veteran_spear_warrior,47.69,38.0,183.33,49.0,136.7,0.7,300.0,200.0,125.0,gundabad,31.0,3,main_or_minor_line
+113,B,[Rhûn] Dragon-Wrath Ash Shieldguard,dragon_wrath_ash_shieldguard,47.67,40.14,150.33,37.02,110.3,14.0,450.0,325.0,165.0,khuzait,41.0,3,main_or_minor_line
+114,B,[Rhûn] Loke-Rim Shieldguard,loke_rim_shieldguard,47.67,40.14,150.33,37.02,110.3,14.0,450.0,245.0,125.0,khuzait,31.0,3,main_or_minor_line
+115,B,[Gondor] Lossarnach Guard,gondor_loss_guard,47.6,41.48,157.0,48.85,131.0,1.0,520.0,185.0,105.0,gondor,26.0,6,main_or_minor_line
+116,B,[Gondor] Lossarnach Veteran Guard,gondor_loss_vet_guard,47.6,41.48,157.0,48.85,131.0,1.0,520.0,240.0,125.0,gondor,31.0,6,main_or_minor_line
+117,B,[Dale] Veteran Militia Spearman,dale_militia_veteran_spearman,47.53,39.96,122.0,36.75,103.0,14.0,450.0,115.0,100.0,sturgia,16.0,1,main_or_minor_line
+118,B,[Dunland] Uch-lûth Iron Wall,dunland_ox_iron_wall,47.5,42.82,173.0,54.05,150.0,1.0,380.0,235.0,140.0,empire,31.0,1,main_or_minor_line
+119,B,[Isengard] Uruk-Hai Swordman,urukhai_swordman,47.46,40.9,182.0,49.6,144.0,1.0,450.0,150.0,105.0,isengard,21.0,1,main_or_minor_line
+120,B,[Umbar] Naru n'Aru Royal Guard,umbar_elite_root0000,47.43,32.28,156.0,37.14,84.8,4.8,288.0,240.0,130.0,umbar,31.0,5,main_or_minor_line
+121,B,[Gondor] Linhir Spearman,gondor_lin_spearman,47.38,39.76,144.0,46.3,120.0,1.0,520.0,170.0,105.0,gondor,26.0,1,main_or_minor_line
+122,B,[Gondor] Methir Glaiveman,gondor_met_glaiveman,47.38,39.76,144.0,46.3,120.0,1.0,520.0,170.0,105.0,gondor,26.0,1,main_or_minor_line
+123,B,[Gondor] Pelargir Veteran,gondor_pel_veteran,47.38,39.76,144.0,46.3,120.0,1.0,520.0,185.0,105.0,gondor,26.0,1,main_or_minor_line
+124,B,[Iron Hills] Infantry,iron_hills_noble_infantry,47.37,39.74,192.0,46.5,141.0,1.0,510.0,190.0,110.0,erebor,26.0,1,main_or_minor_line
+125,B,[Dale] Dalian Guardsman,dale_guardsman,47.29,39.64,120.5,36.28,102.0,14.0,450.0,130.0,100.0,sturgia,21.0,2,main_or_minor_line
+126,B,[Dol Guldur] Uruk Swordsman,dg_uruk_swordsman,47.28,40.67,190.0,49.25,145.0,1.0,450.0,155.0,107.0,dolguldur,21.0,1,main_or_minor_line
+127,B,[Rhûn] Dragon-Wrath Disciple,dragon_wrath_disciple,47.26,39.6,162.5,42.23,114.0,9.0,380.0,230.0,125.0,khuzait,31.0,2,main_or_minor_line
+128,B,[Rhûn] Loke-Rim Footman,loke_rim_footman,47.26,39.6,162.5,42.23,114.0,9.0,380.0,125.0,100.0,khuzait,21.0,2,main_or_minor_line
+129,B,[Ironpass] Recruit,ironpass_recruit,47.17,32.17,133.4,35.8,85.4,0.8,494.0,70.0,58.0,erebor,11.0,5,main_or_minor_line
+130,B,[Gondor] Dol Amroth Veteran Infantry,gondor_da_vet_infantry,47.12,39.94,157.0,48.85,131.0,1.0,420.0,240.0,125.0,gondor,31.0,2,main_or_minor_line
+131,B,[Gundabad] Pale Uruk Ravager,gundabad_brute,47.11,40.84,185.0,49.5,140.0,1.0,450.0,175.0,105.0,gundabad,26.0,1,main_or_minor_line
+132,B,[Gondor] Fountain Guard,gondor_mt_fountain_guard,46.9,40.17,165.0,49.65,137.0,1.0,400.0,340.0,180.0,gondor,46.0,1,main_or_minor_line
+133,B,[Gondor] Ithil Guard Captain,gondor_ith_captain,46.9,35.67,165.0,49.65,137.0,0.3,133.3,320.0,165.0,gondor,41.0,3,main_or_minor_line
+134,B,[Gondor] Pinnath Gelin Spearwarden,gondor_pg_spearwarden,46.81,39.02,157.0,48.85,131.0,1.0,360.0,225.0,125.0,gondor,31.0,1,main_or_minor_line
+135,B,[Gondor] Pinnath Gelin Veteran Spearman,gondor_pg_vet_spearman,46.81,39.02,157.0,48.85,131.0,1.0,360.0,170.0,105.0,gondor,26.0,1,main_or_minor_line
+136,B,[Gondor] Arndir Infantry,gondor_arn_infantry,46.59,39.76,144.0,46.3,120.0,1.0,520.0,185.0,105.0,gondor,26.0,1,main_or_minor_line
+137,B,[Gondor] Calembel Swordsman,gondor_cal_swordsman,46.59,39.76,144.0,46.3,120.0,1.0,520.0,200.0,105.0,gondor,26.0,1,main_or_minor_line
+138,B,[Gondor] Citadel Guard Captain,gondor_mt_captain,46.59,39.77,159.0,49.05,131.0,1.0,400.0,320.0,165.0,gondor,41.0,1,main_or_minor_line
+139,B,[Gondor] Harondor Guardsman,gondor_har_guardsman,46.59,39.76,144.0,46.3,120.0,1.0,520.0,135.0,100.0,gondor,21.0,1,main_or_minor_line
+140,B,[Dale] Dalian Militia,dale_man_at_arms,46.44,39.05,117.5,35.4,99.5,14.0,450.0,95.0,85.0,sturgia,16.0,2,main_or_minor_line
+141,B,[Gondor] Citadel Guard Sergeant,gondor_mt_sergeant,46.38,39.5,151.0,48.65,123.0,1.0,400.0,280.0,145.0,gondor,36.0,1,main_or_minor_line
+142,B,[Gondor] Osgiliath Guard,gondor_osg_guard,46.28,39.36,149.0,48.45,123.0,1.0,400.0,240.0,125.0,gondor,31.0,1,main_or_minor_line
+143,B,[Mordor] Morannon Heavy Infantry,morannon_heavy_infantry,46.28,39.36,158.0,47.3,134.0,1.0,450.0,175.0,95.0,mordor,26.0,1,main_or_minor_line
+144,B,[Dol Guldur] Shadow Infantry,dg_khamul_shadow_infantry,46.13,40.1,163.33,42.97,114.3,9.0,380.0,245.0,132.0,dolguldur,31.0,3,main_or_minor_line
+145,B,[Dol Guldur] Shadow Disciple,dg_khamul_shadow_disciple,46.02,39.96,163.0,42.75,114.0,9.0,380.0,190.0,112.0,dolguldur,26.0,3,main_or_minor_line
+146,B,[Rohan] Meduseld Helmingas Spearman,rohan_edoras_meduseld_helmingas_spearman,46.0,37.96,129.0,39.33,109.8,9.0,400.0,160.0,95.0,vlandia,26.0,5,main_or_minor_line
+147,B,[Dunland] Uch-lûth Bodyguard,dunland_ox_guard,45.77,40.57,161.0,50.7,142.0,1.0,380.0,180.0,120.0,empire,26.0,1,main_or_minor_line
+148,B,[Iron Hills] Swordsman,iron_hills_noble_swordsman,45.64,38.53,185.0,44.7,137.0,1.0,510.0,155.0,105.0,erebor,21.0,1,main_or_minor_line
+149,B,[Rohan] Edoras Helmingas Swordsman,rohan_edoras_helmingas_swordsman,45.62,38.5,134.6,40.13,119.4,9.0,400.0,190.0,95.0,vlandia,26.0,5,main_or_minor_line
+150,B,[Rohan] Meduseld Veteran Spearman,rohan_edoras_meduseld_veteran_spearman,45.59,37.42,128.0,38.53,112.8,9.0,400.0,110.0,90.0,vlandia,21.0,5,main_or_minor_line
+151,B,[Dol Guldur] Orc Reaver,dg_orc_reaver,45.5,38.89,180.0,46.6,135.0,1.0,450.0,125.0,107.0,dolguldur,21.0,5,main_or_minor_line
+152,B,[Gondor] Dol Amroth Infantry,gondor_da_infantry,45.41,38.22,144.0,46.3,120.0,1.0,420.0,185.0,105.0,gondor,26.0,1,main_or_minor_line
+153,B,[Harad] Bronze Fang,harad_bronzefang,45.24,35.28,169.0,43.3,117.0,1.0,360.0,180.0,100.0,aserai,26.0,1,main_or_minor_line
+154,B,[Harad] Sunlance,harad_sunlance,45.24,35.28,169.0,43.3,117.0,1.0,360.0,165.0,100.0,aserai,26.0,1,main_or_minor_line
+155,B,[Harad] Warlance,harad_warlance,45.24,35.28,169.0,43.3,117.0,1.0,360.0,220.0,120.0,aserai,31.0,1,main_or_minor_line
+156,B,[Dunland] Turch-lûth Goreblade,dunland_boar_spearman,45.23,35.26,143.0,43.5,124.0,1.0,350.0,130.0,115.0,empire,21.0,1,main_or_minor_line
+157,B,[Umbar] Abrazanim Nardutarik,umbar_elite_root000,45.19,30.77,156.0,37.14,84.8,0.8,344.0,185.0,110.0,umbar,26.0,5,main_or_minor_line
+158,B,[Rohan] West Marches Veteran Spearman,rohan_westmarches_meduseld_spearman,45.16,36.86,116.0,37.7,99.0,9.0,400.0,160.0,95.0,vlandia,26.0,1,main_or_minor_line
+159,B,[Umbar] Rozadan Footmen,umbar_elite_root00,45.16,29.91,156.0,37.14,84.8,0.8,288.0,135.0,105.0,umbar,21.0,5,main_or_minor_line
+160,B,[Gondor] Anórien Veteran Infantry,gondor_ano_vet_infantry,45.14,36.83,143.0,41.95,121.0,1.0,520.0,240.0,125.0,gondor,31.0,1,main_or_minor_line
+161,B,[Goblin] Goblin Pike-Reaver,goblin_veteran_spear_warrior,45.11,34.29,138.0,43.5,116.0,0.7,300.0,192.0,110.0,goblin,31.0,3,main_or_minor_line
+162,B,[Misty Mountains] Orc Pike-Reaver,mistymountainorcs_veteran_spear_warrior,45.11,34.29,138.0,43.5,116.0,0.7,300.0,200.0,125.0,mistymountainorcs,31.0,3,main_or_minor_line
+163,B,[Rohan] Edoras Veteran Swordsman,rohan_edoras_veteran_swordsman,45.08,37.79,131.8,39.08,116.6,9.0,400.0,140.0,90.0,vlandia,21.0,5,main_or_minor_line
+164,B,[Gondor] Belfalas Infantry,gondor_bel_infantry,44.93,36.56,135.0,41.55,113.0,1.0,520.0,135.0,100.0,gondor,21.0,1,main_or_minor_line
+165,B,[Dol Guldur] Uruk Warrior,dg_uruk_veteran_warrior,44.7,37.3,170.0,44.25,125.0,1.0,450.0,105.0,92.0,dolguldur,16.0,1,main_or_minor_line
+166,B,[Mirkwood] Silvan Levy,mirkwood_recruit,44.55,37.1,176.0,43.95,126.0,1.0,450.0,310.0,185.0,mirkwood,36.0,1,main_or_minor_line
+167,B,[Rhûn] Balcoth Veteran Axeman,balcoth_veteran_axeman,44.55,35.41,146.0,36.0,107.0,9.0,380.0,160.0,105.0,khuzait,26.0,1,main_or_minor_line
+168,B,[Rhûn] Easterling Veteran Swordsman,easterling_veteran_swordsman_new,44.55,35.41,146.0,36.0,107.0,9.0,380.0,190.0,105.0,khuzait,26.0,1,main_or_minor_line
+169,B,Guard,guard_rhun,44.54,37.1,179.0,46.0,139.0,1.0,360.0,80.0,50.0,khuzait,16.0,2,special_or_unlinked
+170,B,[Rhûn] Wain Iron-Glaive,wain_iron_glaive,44.49,35.99,187.0,47.55,136.0,1.0,220.0,215.0,125.0,khuzait,31.0,1,main_or_minor_line
+171,B,[Rhûn] Easterling Veteran Halberdier,easterling_veteran_halberdier_new,44.36,35.82,150.0,36.6,110.0,9.0,380.0,160.0,105.0,khuzait,26.0,1,main_or_minor_line
+172,B,[Gondor] Lebennin Veteran Infantry,gondor_leb_vet_infantry,44.32,35.12,130.0,39.4,110.0,1.0,520.0,185.0,105.0,gondor,26.0,1,main_or_minor_line
+173,B,[Goblin] Goblin Infantry,goblin_veteran_sword_warrior,44.31,36.8,138.0,43.5,116.0,1.0,450.0,237.0,110.0,goblin,31.0,3,main_or_minor_line
+174,B,[Isengard] Orc Reaver,isengard_orc_reaver,44.31,36.8,138.0,43.5,116.0,1.0,450.0,120.0,105.0,isengard,21.0,1,main_or_minor_line
+175,B,[Misty Mountains] Orc Infantry,mistymountainorcs_veteran_sword_warrior,44.31,36.8,138.0,43.5,116.0,1.0,450.0,245.0,125.0,mistymountainorcs,31.0,3,main_or_minor_line
+176,B,[Mordor] Orc Infantry,mordor_orc_infantry,44.31,36.8,138.0,43.5,116.0,1.0,450.0,125.0,90.0,mordor,21.0,1,main_or_minor_line
+177,B,[Rohan] West-March Heavy Spearman,rohan_westmarches_veteran_spearman,44.31,35.75,101.0,36.05,87.0,9.0,400.0,110.0,90.0,vlandia,21.0,1,main_or_minor_line
+178,B,[Isengard] Uruk-Hai Warrior,urukhai_warrior,44.28,36.76,162.0,41.15,127.0,1.0,550.0,100.0,90.0,isengard,16.0,1,main_or_minor_line
+179,B,Guard,guard_rohan,44.26,36.03,130.0,36.47,114.0,9.0,400.0,,,vlandia,,3,special_or_unlinked
+180,B,[Gondor] Osgiliath Infantry,gondor_osg_infantry,44.13,36.56,135.0,41.55,113.0,1.0,520.0,185.0,105.0,gondor,26.0,1,main_or_minor_line
+181,B,[Erebor] Warrior,erebor_reg_warrior,44.03,30.09,137.2,38.96,99.6,0.8,220.0,240.0,130.0,erebor,31.0,5,main_or_minor_line
+182,B,[Gondor] Anórien Infantry,gondor_ano_infantry,44.03,35.38,138.0,39.8,118.0,1.0,520.0,185.0,105.0,gondor,26.0,1,main_or_minor_line
+183,B,[Mordor] Black Uruk Shieldbearer,mordor_uruk_shieldbearer,44.02,35.38,127.6,37.96,99.0,1.0,600.0,202.0,110.0,mordor,26.0,5,main_or_minor_line
+184,B,[Goblin] Goblin Ravager,goblin_brute,44.01,36.8,138.0,43.5,116.0,1.0,450.0,167.0,90.0,goblin,26.0,1,main_or_minor_line
+185,B,[Misty Mountains] Orc Ravager,mistymountainorcs_brute,44.01,36.8,138.0,43.5,116.0,1.0,450.0,175.0,105.0,mistymountainorcs,26.0,1,main_or_minor_line
+186,B,[Dunland] Blaidd-lûth Raider,dunland_wolf_raider,43.61,34.59,129.0,42.5,110.0,1.0,350.0,130.0,115.0,empire,21.0,1,main_or_minor_line
+187,B,[Goblin] Bolg's Ironfang,goblin_bolgs_ironfang,43.6,36.8,138.0,43.5,116.0,1.0,450.0,262.0,130.0,goblin,36.0,1,main_or_minor_line
+188,B,[Goblin] Goblin Mountain Guard,goblin_chosen_of_tharzog,43.6,36.8,138.0,43.5,116.0,1.0,450.0,262.0,130.0,goblin,36.0,1,main_or_minor_line
+189,B,[Misty Mountains] Bolg's Ironfang,mistymountainorcs_bolgs_ironfang,43.6,36.8,138.0,43.5,116.0,1.0,450.0,270.0,145.0,mistymountainorcs,36.0,1,main_or_minor_line
+190,B,[Misty Mountains] Orc Mountain Guard,mistymountainorcs_chosen_of_tharzog,43.6,36.8,138.0,43.5,116.0,1.0,450.0,270.0,145.0,mistymountainorcs,36.0,1,main_or_minor_line
+191,B,[Rohan] Westfold Veteran Axeman,rohan_westfold_veteran_axeman,43.21,35.75,101.0,36.05,87.0,9.0,400.0,110.0,90.0,vlandia,21.0,1,main_or_minor_line
+192,B,[Gondor] Ithil Guard Sergeant,gondor_ith_sergeant,43.13,30.76,143.0,42.35,119.0,0.3,133.3,280.0,145.0,gondor,36.0,3,main_or_minor_line
+193,B,[Dunland] Blaidd-lûth Warrior,dunland_clan_warrior,43.12,33.95,138.0,42.7,121.0,1.0,300.0,95.0,100.0,empire,16.0,1,main_or_minor_line
+194,B,[Dunland] Turch-lûth Tuskrunner,dunland_boar_warrior,43.12,33.95,138.0,42.7,121.0,1.0,300.0,95.0,100.0,empire,16.0,1,main_or_minor_line
+195,B,[Gondor] Pinnath Gelin Spearman,gondor_pg_spearman,43.04,34.1,135.0,41.55,113.0,1.0,360.0,120.0,100.0,gondor,21.0,1,main_or_minor_line
+196,B,[Gondor] Anfalas Guardsman,gondor_anf_guardsman,43.02,35.12,130.0,39.4,110.0,1.0,520.0,135.0,100.0,gondor,21.0,1,main_or_minor_line
+197,B,[Gondor] Cair Andros Infantry,gondor_ca_infantry,43.02,35.12,130.0,39.4,110.0,1.0,520.0,185.0,105.0,gondor,26.0,1,main_or_minor_line
+198,B,[Gondor] Osgiliath Skirmisher,gondor_osg_skirmisher,42.82,34.85,122.0,39.0,102.0,1.0,520.0,135.0,100.0,gondor,21.0,1,main_or_minor_line
+199,B,[Gondor] Lossarnach Veteran Axebearer,gondor_loss_vet_axebearer,42.72,35.12,130.0,39.4,110.0,1.0,520.0,120.0,100.0,gondor,21.0,6,main_or_minor_line
+200,B,[Harad] Champion,harad_champion,42.63,34.61,149.0,42.3,117.0,1.0,360.0,235.0,120.0,aserai,31.0,1,main_or_minor_line
+201,B,[Gondor] Linhir Footman,gondor_lin_footman,42.37,33.23,124.0,36.6,106.0,1.0,520.0,135.0,100.0,gondor,21.0,1,main_or_minor_line
+202,B,[Gondor] Pelargir Skirmisher,gondor_pel_skirmisher,42.37,33.23,124.0,36.6,106.0,1.0,520.0,135.0,100.0,gondor,21.0,1,main_or_minor_line
+203,B,[Gondor] Ringlo Vale Guardsman,gondor_ring_guardsman,42.37,33.23,124.0,36.6,106.0,1.0,520.0,135.0,100.0,gondor,21.0,1,main_or_minor_line
+204,B,[Gondor] Lebennin Infantry,gondor_leb_infantry,42.36,32.56,110.0,35.6,92.0,1.0,520.0,135.0,100.0,gondor,21.0,1,main_or_minor_line
+205,B,[Rohan] Westfold Helmingas Axeman,rohan_westfold_helmingas_axeman,42.3,34.57,109.0,33.15,92.0,9.0,450.0,160.0,95.0,vlandia,26.0,1,main_or_minor_line
+206,B,[Iron Hills] Company,iron_hills_reg_company,42.28,27.92,114.2,31.44,78.6,0.8,408.0,140.0,105.0,erebor,21.0,5,main_or_minor_line
+207,B,[Erebor] Fighter,erebor_reg_fighter,42.25,28.21,124.0,36.18,93.2,0.8,220.0,185.0,110.0,erebor,26.0,5,main_or_minor_line
+208,B,[Rohan] West-March Spearman,rohan_westmarches_spearman,41.96,32.69,100.0,31.5,83.0,9.0,400.0,75.0,75.0,vlandia,16.0,1,main_or_minor_line
+209,B,[Rivendell] Militia Spearman,rivendell_militia_spearman,41.91,28.62,108.17,24.49,58.2,7.5,500.0,145.0,130.0,rivendell,11.0,6,special_or_unlinked
+210,B,[Gondor] Lossarnach Noble Veteran,gondor_loss_noble_veteran,41.89,34.04,122.0,37.8,102.0,1.0,520.0,150.0,100.0,gondor,21.0,1,main_or_minor_line
+211,B,[Isengard] Uruk-Hai Fighter,urukhai_fighter,41.75,33.46,139.0,36.25,111.0,1.0,550.0,70.0,58.0,isengard,11.0,1,main_or_minor_line
+212,B,[Dunland] Wild-man Spearman,dunland_veteran_spearman,41.71,30.67,124.0,34.85,95.0,1.0,430.0,115.0,115.0,empire,21.0,1,main_or_minor_line
+213,B,[Mordor] Black Uruk Infantry,mordor_uruk_infantry,41.71,33.4,140.5,38.74,112.4,1.0,437.5,187.0,110.0,mordor,26.0,8,main_or_minor_line
+214,B,[Gondor] Anórien Guardsman,gondor_ano_guardsman,41.58,33.23,124.0,36.6,106.0,1.0,520.0,135.0,100.0,gondor,21.0,1,main_or_minor_line
+215,B,[Gondor] Arndir Noble,gondor_arn_noble_t4,41.58,33.23,124.0,36.6,106.0,1.0,520.0,135.0,100.0,gondor,21.0,1,main_or_minor_line
+216,B,[Gondor] Calembel Noble,gondor_cal_noble,41.58,33.23,124.0,36.6,106.0,1.0,520.0,135.0,100.0,gondor,21.0,1,main_or_minor_line
+217,B,[Gondor] Methir Noble,gondor_met_noble,41.58,33.23,124.0,36.6,106.0,1.0,520.0,135.0,100.0,gondor,21.0,1,main_or_minor_line
+218,B,[Rohan] Meduseld Spearman,rohan_edoras_meduseld_spearman,41.56,32.17,103.0,30.72,86.6,9.0,400.0,75.0,75.0,vlandia,16.0,5,main_or_minor_line
+219,B,[Gondor] Gondor Veteran Militia Spearman,gondor_militia_veteran_spearman,41.44,32.02,102.0,34.8,84.0,1.0,520.0,120.0,100.0,gondor,16.0,1,special_or_unlinked
+220,B,[Gondor] Cair Andros Veteran,gondor_ca_veteran,41.37,32.96,116.0,36.2,98.0,1.0,520.0,135.0,100.0,gondor,21.0,1,main_or_minor_line
+221,B,[Rohan] Edoras Swordsman,rohan_edoras_swordsman,41.31,32.89,110.8,31.79,93.8,9.0,400.0,105.0,75.0,vlandia,16.0,5,main_or_minor_line
+222,B,[Mirkwood] Militia Veteran Spearman,mirkwood_militia_veteran_spearman,41.25,27.49,134.5,32.46,96.5,0.8,337.5,150.0,140.0,mirkwood,16.0,4,special_or_unlinked
+223,B,[Gondor] Harondor Footman,gondor_har_footman,41.06,32.56,110.0,35.6,92.0,1.0,520.0,100.0,85.0,gondor,16.0,1,main_or_minor_line
+224,B,[Gondor] Linhir Noble,gondor_lin_noble,41.03,31.48,102.0,34.0,84.0,1.0,520.0,100.0,85.0,gondor,16.0,1,main_or_minor_line
+225,B,[Gondor] Ringlo Vale Footman,gondor_ring_footman,41.03,31.48,102.0,34.0,84.0,1.0,520.0,100.0,85.0,gondor,16.0,1,main_or_minor_line
+226,B,[Rohan] Westfolders,rohan_westfold_axeman,40.86,32.69,100.0,31.5,83.0,9.0,400.0,75.0,75.0,vlandia,16.0,1,main_or_minor_line
+227,B,[Dale] Militia Spearman,dale_militia_spearman,40.69,31.04,77.0,23.5,65.0,14.0,450.0,115.0,100.0,sturgia,6.0,1,main_or_minor_line
+228,B,[Gondor] Gondor Militia Spearman,gondor_militia_spearman,40.62,30.94,94.0,33.2,76.0,1.0,520.0,120.0,100.0,gondor,11.0,1,special_or_unlinked
+229,B,[Gondor] Ithil Guard Veteran,gondor_ith_veteran,40.52,26.12,120.0,34.55,103.0,0.3,173.3,240.0,125.0,gondor,31.0,3,main_or_minor_line
+230,B,[Gondor] Anórien Footman,gondor_ano_footman,40.44,31.75,110.0,34.4,92.0,1.0,520.0,100.0,85.0,gondor,16.0,1,main_or_minor_line
+231,B,[Gondor] Dol Amroth Footman,gondor_da_footman,40.4,31.69,124.0,36.6,106.0,1.0,420.0,135.0,100.0,gondor,21.0,1,main_or_minor_line
+232,B,[Dale] Dalian Levy,dale_squire,40.29,31.04,77.0,23.5,65.0,14.0,450.0,65.0,53.0,sturgia,11.0,2,main_or_minor_line
+233,B,[Dale] Lake-Town Militia,dale_militia,40.29,31.04,77.0,23.5,65.0,14.0,450.0,65.0,53.0,sturgia,11.0,2,main_or_minor_line
+234,B,[Gondor] Anfalas Footman,gondor_anf_footman,40.23,31.48,102.0,34.0,84.0,1.0,520.0,100.0,85.0,gondor,16.0,1,main_or_minor_line
+235,B,[Gondor] Arndir Noble,gondor_arn_noble,40.23,31.48,102.0,34.0,84.0,1.0,520.0,100.0,85.0,gondor,16.0,1,main_or_minor_line
+236,B,[Gondor] Harondor Militia,gondor_har_militia,40.23,31.48,102.0,34.0,84.0,1.0,520.0,70.0,53.0,gondor,11.0,1,main_or_minor_line
+237,B,[Erebor] Longbeard,erebor_noble_longbeard,40.03,31.62,126.5,36.95,95.9,1.0,400.0,135.0,105.0,erebor,21.0,4,main_or_minor_line
+238,B,[Rhûn] Easterling Halberdier,easterling_halberdier_new,40.02,30.16,140.0,35.7,101.0,1.0,360.0,110.0,100.0,khuzait,21.0,1,main_or_minor_line
+239,B,[Isengard] Orc Marauder,isengard_orc_marauder,39.92,31.08,116.0,35.0,98.0,1.0,450.0,100.0,90.0,isengard,16.0,1,main_or_minor_line
+240,B,[Mordor] Morannon Infantry,morannon_infantry,39.92,31.08,116.0,35.0,98.0,1.0,450.0,125.0,90.0,mordor,21.0,1,main_or_minor_line
+241,B,[Dunland] Wild-man Swordman,dunland_veteran_swordman,39.9,29.36,98.0,32.9,82.0,1.0,430.0,145.0,115.0,empire,21.0,1,main_or_minor_line
+242,B,[Dunland] Uch-lûth Pikeman,dunland_ox_pikeman,39.74,32.7,123.0,39.7,106.0,1.0,350.0,115.0,115.0,empire,21.0,1,main_or_minor_line
+243,B,[Rohan] Militia Veteran Spearman,rohan_militia_veteran_spearman,39.71,29.76,91.33,27.15,77.8,9.0,400.0,110.0,90.0,vlandia,16.0,3,special_or_unlinked
+244,B,[Goblin] Goblin Raider,goblin_fighter,39.62,31.08,116.0,35.0,98.0,1.0,450.0,117.0,85.0,goblin,21.0,1,main_or_minor_line
+245,B,[Misty Mountains] Orc Raider,mistymountainorcs_fighter,39.62,31.08,116.0,35.0,98.0,1.0,450.0,125.0,100.0,mistymountainorcs,21.0,1,main_or_minor_line
+246,B,[Iron Hills] Militia,iron_hills_reg_militia,39.51,25.03,99.6,27.15,68.8,0.8,408.0,105.0,90.0,erebor,16.0,5,main_or_minor_line
+247,B,[Erebor] Militia Veteran Spearman,erebor_militia_veteran_spearman,39.44,22.8,93.75,26.35,76.7,0.8,300.0,120.0,105.0,erebor,16.0,4,special_or_unlinked
+248,B,[Isengard] Orc Warrior,isengard_orc_warrior,39.43,30.43,96.0,31.75,81.0,1.0,550.0,70.0,58.0,isengard,11.0,1,main_or_minor_line
+249,B,[Gondor] Ithil Guard Watcher,gondor_ith_watcher,39.38,24.64,102.0,32.35,87.0,0.3,173.3,185.0,105.0,gondor,26.0,3,main_or_minor_line
+250,B,[Rhûn] Far-Rhun Infantry,far_rhun_infantry,39.38,30.37,146.0,36.0,107.0,1.0,360.0,125.0,100.0,khuzait,21.0,1,main_or_minor_line
+251,B,[Iron Hills] Recruit,iron_hills_reg_recruit,39.33,24.83,98.8,26.86,68.4,0.8,408.0,75.0,58.0,erebor,11.0,5,main_or_minor_line
+252,B,[Gondor] Pinnath Gelin Footman,gondor_pg_footman,39.14,29.02,102.0,34.0,84.0,1.0,360.0,100.0,85.0,gondor,16.0,1,main_or_minor_line
+253,B,[Gondor] Citadel Guard Veteran,gondor_mt_veteran,39.1,30.0,120.0,34.55,103.0,1.0,400.0,240.0,125.0,gondor,31.0,1,main_or_minor_line
+254,B,[Gondor] Belfalas Soldier,gondor_bel_soldier,39.07,29.97,96.0,31.75,81.0,1.0,520.0,100.0,85.0,gondor,16.0,1,main_or_minor_line
+255,B,[Gondor] Dol Amroth Noble,gondor_da_noble,39.05,29.94,102.0,34.0,84.0,1.0,420.0,100.0,85.0,gondor,16.0,1,main_or_minor_line
+256,B,[Mordor] Morannon Warrior,morannon_warrior,38.74,29.54,116.0,35.0,98.0,1.0,350.0,90.0,75.0,mordor,16.0,1,main_or_minor_line
+257,B,[Rhûn] Wain Glaiveman,wain_glaiveman,38.6,28.31,142.0,36.15,103.0,1.0,220.0,160.0,105.0,khuzait,26.0,1,main_or_minor_line
+258,B,[Gundabad] Pale Uruk Raider,gundabad_fighter,38.46,29.56,130.0,32.75,85.0,1.0,450.0,125.0,100.0,gundabad,21.0,1,main_or_minor_line
+259,B,[Mordor] Orc Warrior,mordor_orc_warrior,38.44,29.54,116.0,35.0,98.0,1.0,350.0,90.0,75.0,mordor,16.0,1,main_or_minor_line
+260,B,[Goblin] Militia Veteran Spearman,goblin_militia_veteran_spearman,38.38,24.86,90.5,28.55,79.0,0.8,337.5,102.0,85.0,goblin,16.0,4,special_or_unlinked
+261,B,[Misty Mountains] Militia Veteran Spearman,mistymountainorcs_militia_veteran_spearman,38.38,24.86,90.5,28.55,79.0,0.8,337.5,110.0,100.0,mistymountainorcs,16.0,4,special_or_unlinked
+262,B,[Dol Guldur] Shadow Initiate,dg_khamul_shadow_initiate,38.35,29.96,106.0,27.9,76.0,9.0,380.0,140.0,107.0,dolguldur,21.0,3,main_or_minor_line
+263,B,Guard,guard_mirkwood,38.27,27.88,145.0,30.25,110.0,1.0,450.0,80.0,50.0,mirkwood,16.0,2,special_or_unlinked
+264,B,[Mirkwood] Militia Spearman,mirkwood_militia_spearman,38.26,26.71,110.75,31.3,83.3,0.8,337.5,150.0,140.0,mirkwood,11.0,4,special_or_unlinked
+265,C,[Dunland] Blaidd-lûth Noble Son,dunland_noble_son,38.03,27.32,107.0,32.85,98.0,1.0,300.0,65.0,68.0,empire,11.0,1,main_or_minor_line
+266,C,[Dunland] Turch-lûth Noble Son,dunland_boar_noble_son,38.03,27.32,107.0,32.85,98.0,1.0,300.0,65.0,68.0,empire,11.0,1,main_or_minor_line
+267,C,Rhun Veteran Caravan Guard,veteran_caravan_guard_rhun,38.01,28.58,141.0,33.35,103.0,1.0,360.0,130.0,60.0,khuzait,21.0,1,special_or_unlinked
+268,C,[Gondor] Ringlo Vale Militia,gondor_ring_militia,37.93,27.44,86.0,28.0,76.0,1.0,520.0,70.0,53.0,gondor,11.0,1,main_or_minor_line
+269,C,[Harad] Footman,harad_footman,37.88,28.41,121.0,33.1,94.0,1.0,360.0,130.0,95.0,aserai,21.0,1,main_or_minor_line
+270,C,[Harad] Spear Guard,harad_spearguard,37.88,28.41,121.0,33.1,94.0,1.0,360.0,115.0,95.0,aserai,21.0,1,main_or_minor_line
+271,C,[Erebor] Noble,erebor_noble,37.87,28.79,114.0,32.75,89.0,1.0,400.0,100.0,90.0,erebor,16.0,4,main_or_minor_line
+272,C,Mordor Militia Veteran Spearman,mordor_militia_veteran_spearman,37.86,23.12,96.0,25.98,75.0,0.8,337.5,110.0,90.0,mordor,16.0,4,special_or_unlinked
+273,C,[Rhûn] Balcoth Axeman,balcoth_axeman,37.83,28.35,131.0,33.0,95.0,1.0,360.0,110.0,100.0,khuzait,21.0,1,main_or_minor_line
+274,C,[Rhûn] Easterling Swordsman,easterling_swordsman_new,37.83,28.35,131.0,33.0,95.0,1.0,360.0,140.0,100.0,khuzait,21.0,1,main_or_minor_line
+275,C,[Rhûn] Far-Rhun Footman,far_rhun_footman,37.83,28.35,131.0,33.0,95.0,1.0,360.0,90.0,85.0,khuzait,16.0,1,main_or_minor_line
+276,C,[Gondor] Citadel Guard Trainee,gondor_mt_trainee,37.76,28.25,98.0,31.95,81.0,1.0,400.0,185.0,105.0,gondor,26.0,1,main_or_minor_line
+277,C,Guard,guard_goblin,37.62,27.04,100.0,29.0,90.0,1.0,450.0,80.0,50.0,goblin,16.0,2,special_or_unlinked
+278,C,Guard,guard_mistymountainorcs,37.62,27.04,100.0,29.0,90.0,1.0,450.0,80.0,50.0,mistymountainorcs,16.0,2,special_or_unlinked
+279,C,[Erebor] Company,erebor_reg_company,37.62,23.39,95.6,29.01,76.6,0.8,220.0,135.0,105.0,erebor,21.0,5,main_or_minor_line
+280,C,[Rohan] Edoras Militia,rohan_edoras_militia,37.48,26.85,83.0,22.83,69.0,9.0,400.0,60.0,43.0,vlandia,11.0,5,main_or_minor_line
+281,C,[Rohan] West-March Guardsman,rohan_westmarches_guardsman,37.39,26.73,79.0,22.65,65.0,9.0,400.0,60.0,43.0,vlandia,11.0,1,main_or_minor_line
+282,C,[Gondor] Lossarnach Noble,gondor_loss_noble,37.35,28.11,100.0,29.0,90.0,1.0,520.0,110.0,85.0,gondor,16.0,1,main_or_minor_line
+283,C,[Rhûn] Sagarûn Watchman,sagarun_watchman,37.22,27.55,117.5,31.83,85.0,1.0,360.0,90.0,85.0,khuzait,16.0,2,main_or_minor_line
+284,C,[Gondor] Lossarnach Axebearer,gondor_loss_axebearer,36.83,27.44,86.0,28.0,76.0,1.0,520.0,85.0,85.0,gondor,16.0,6,main_or_minor_line
+285,C,Guard,guard_erebor,36.82,27.43,136.0,34.15,125.0,1.0,250.0,80.0,50.0,erebor,16.0,2,special_or_unlinked
+286,C,[Rohan] Edoras Recruit,rohan_edoras_recruit,36.65,25.78,64.4,21.23,50.4,9.0,400.0,28.0,28.0,vlandia,6.0,5,main_or_minor_line
+287,C,[Rohan] Westfold Militiaman,rohan_westfold_militiaman,36.28,26.73,79.0,22.65,65.0,9.0,400.0,60.0,43.0,vlandia,11.0,1,main_or_minor_line
+288,C,Rhun Caravan Guard,caravan_guard_rhun,36.2,26.23,137.0,29.85,110.0,1.0,360.0,100.0,50.0,khuzait,16.0,1,special_or_unlinked
+289,C,[Umbar] Auxiliary Recruit,aux_basic,36.02,21.21,68.6,22.19,59.0,5.6,192.0,38.0,43.0,umbar,6.0,5,special_or_unlinked
+290,C,[Gondor] Osgiliath Veteran,gondor_osg_veteran,36.0,25.96,86.0,25.8,78.0,1.0,520.0,100.0,85.0,gondor,16.0,1,main_or_minor_line
+291,C,[Dale] Lake-Town Peasant,dale_recruit,35.85,25.25,40.0,14.9,34.0,14.0,450.0,33.0,38.0,sturgia,6.0,2,main_or_minor_line
+292,C,[Harad] Spear Fighter,harad_spearfighter,35.79,25.69,111.0,29.05,86.0,1.0,360.0,80.0,80.0,aserai,16.0,1,main_or_minor_line
+293,C,[Harad] Sword Fighter,harad_swordfighter,35.79,25.69,111.0,29.05,86.0,1.0,360.0,110.0,80.0,aserai,16.0,2,main_or_minor_line
+294,C,[Rhûn] Dragon-Wrath Acolyte,dragon_wrath_acolyte,35.79,26.63,124.0,30.45,89.0,1.0,360.0,125.0,100.0,khuzait,21.0,1,main_or_minor_line
+295,C,[Rhûn] Loke-Rim Initiate,loke_rim_initiate,35.79,26.63,124.0,30.45,89.0,1.0,360.0,90.0,85.0,khuzait,16.0,1,main_or_minor_line
+296,C,[Gundabad] Militia Veteran Spearman,gundabad_militia_veteran_spearman,35.77,21.16,97.5,23.06,63.8,0.8,337.5,110.0,100.0,gundabad,16.0,4,special_or_unlinked
+297,C,[Mordor] Nurn Warg Rider,mordor_warg_rider,35.73,26.0,85.0,29.75,72.0,1.0,350.0,28.0,28.0,mordor,6.0,1,main_or_minor_line
+298,C,[Mordor] Black Uruk Fighter,mordor_uruk_fighter,35.59,25.43,110.0,28.9,88.0,1.0,350.0,102.0,90.0,mordor,16.0,1,main_or_minor_line
+299,C,[Mordor] Black Uruk Grunt,mordor_uruk_grunt,35.59,17.66,100.2,25.64,84.8,0.1,23.3,72.0,58.0,mordor,11.0,15,main_or_minor_line
+300,C,[Mordor] Black Uruk Warrior,mordor_uruk_warrior,35.3,25.05,108.18,29.11,92.2,1.0,315.9,137.0,105.0,mordor,21.0,11,main_or_minor_line
+301,C,[Dol Guldur] Orc Warrior,dg_orc_warrior,35.29,24.21,131.0,24.8,101.0,1.0,450.0,105.0,92.0,dolguldur,16.0,5,main_or_minor_line
+302,C,Dol Guldur Militia Veteran Spearman,dolguldur_militia_veteran_spearman,35.08,20.61,117.5,22.25,87.5,0.8,337.5,125.0,107.0,dolguldur,16.0,4,special_or_unlinked
+303,C,[Isengard] Militia Veteran Spearman,isengard_militia_veteran_spearman,34.93,16.95,82.0,18.45,58.0,0.5,275.0,120.0,105.0,isengard,16.0,2,main_or_minor_line
+304,C,Guard,guard_dolguldur,34.65,23.17,125.0,23.25,95.0,1.0,450.0,80.0,50.0,dolguldur,16.0,2,special_or_unlinked
+305,C,[Gondor] Belfalas Footman,gondor_bel_footman,34.53,24.04,74.0,22.95,69.0,1.0,520.0,70.0,53.0,gondor,11.0,1,main_or_minor_line
+306,C,Guard,guard_isengard,34.45,23.95,99.0,22.12,74.5,1.0,550.0,80.0,50.0,isengard,16.0,4,special_or_unlinked
+307,C,Isengard Veteran Caravan Guard,veteran_caravan_guard_isengard,34.4,23.88,98.0,22.02,73.5,1.0,550.0,130.0,60.0,isengard,21.0,2,special_or_unlinked
+308,C,[Rohan] Militia Spearman,rohan_militia_spearman,34.39,22.83,48.67,16.85,37.4,9.0,400.0,110.0,90.0,vlandia,11.0,3,special_or_unlinked
+309,C,[Isengard] Orc Brawler,isengard_orc_brawler,33.95,23.29,65.0,21.15,60.0,1.0,550.0,38.0,43.0,isengard,6.0,1,main_or_minor_line
+310,C,[Rhûn] Wain Footman,wain_footman,33.85,22.12,107.0,26.95,77.0,1.0,220.0,125.0,100.0,khuzait,21.0,1,main_or_minor_line
+311,C,Isengard Caravan Guard,caravan_guard_isengard,33.78,23.07,92.5,20.82,68.0,1.0,550.0,100.0,50.0,isengard,16.0,2,special_or_unlinked
+312,C,Guard,guard_gundabad,33.75,21.99,100.0,21.5,70.0,1.0,450.0,80.0,50.0,gundabad,16.0,2,special_or_unlinked
+313,C,[Rhûn] Militia Spearman,rhun_militia_spearman,33.67,21.88,91.0,23.4,69.0,1.0,360.0,110.0,100.0,khuzait,11.0,2,main_or_minor_line
+314,C,[Rhûn] Militia Veteran Spearman,rhun_militia_veteran_spearman,33.54,21.72,97.0,23.15,73.0,1.0,360.0,110.0,100.0,khuzait,16.0,1,main_or_minor_line
+315,C,Guard,guard_gondor,33.11,22.19,78.0,20.2,78.0,1.0,520.0,80.0,50.0,gondor,16.0,2,special_or_unlinked
+316,C,[Rhûn] Sagarûn Deckhand,sagarun_deckhand,32.91,21.93,92.5,23.48,69.0,1.0,360.0,60.0,53.0,khuzait,11.0,2,main_or_minor_line
+317,C,[Rhûn] Balcoth Volunteer,balcoth_volunteer,32.77,21.75,90.0,23.2,68.0,1.0,360.0,60.0,53.0,khuzait,11.0,1,main_or_minor_line
+318,C,[Rhûn] Easterling Militia,easterling_militia,32.77,21.75,90.0,23.2,68.0,1.0,360.0,60.0,53.0,khuzait,11.0,1,main_or_minor_line
+319,C,[Rhûn] Far-Rhun Levy,far_rhun_levy,32.59,21.51,96.0,22.85,71.0,1.0,360.0,60.0,53.0,khuzait,11.0,1,main_or_minor_line
+320,C,Guard,guard_mordor,32.57,21.49,97.0,21.9,82.0,1.0,400.0,80.0,50.0,mordor,16.0,4,special_or_unlinked
+321,C,[Rhûn] Balcoth Footman,balcoth_footman,32.53,21.45,95.0,22.75,71.0,1.0,360.0,90.0,85.0,khuzait,16.0,1,main_or_minor_line
+322,C,[Rhûn] Easterling Footman,easterling_footman_new,32.53,21.45,95.0,22.75,71.0,1.0,360.0,90.0,85.0,khuzait,16.0,1,main_or_minor_line
+323,C,[Mordor] Orc Fighter,mordor_orc_fighter,32.52,21.43,74.0,22.95,69.0,1.0,350.0,60.0,43.0,mordor,11.0,1,main_or_minor_line
+324,C,[Gondor] Lossarnach Woodsman,gondor_loss_woodsman,32.28,21.52,64.0,19.2,64.0,1.0,520.0,70.0,53.0,gondor,11.0,6,main_or_minor_line
+325,C,[Rohan] West-March Recruit,rohan_westmarches_recruit,32.14,19.9,31.0,12.5,28.0,9.0,400.0,28.0,28.0,vlandia,6.0,1,main_or_minor_line
+326,C,[Mordor] Morannon Fighter,morannon_fighter,31.59,20.21,65.0,21.15,60.0,1.0,350.0,60.0,43.0,mordor,11.0,1,main_or_minor_line
+327,C,[Mordor] Morannon Recruit,morannon_recruit,31.59,20.21,65.0,21.15,60.0,1.0,350.0,35.0,30.0,mordor,7.0,1,main_or_minor_line
+328,C,[Dunland] Militia Veteran Spearman,dunland_militia_veteran_spearman,31.54,19.12,68.33,19.52,55.7,1.0,350.0,115.0,115.0,empire,16.0,3,special_or_unlinked
+329,C,Dol Guldur Militia Spearman,dolguldur_militia_spearman,31.29,16.24,75.0,15.75,45.0,0.8,337.5,125.0,107.0,dolguldur,11.0,4,special_or_unlinked
+330,C,[Gondor] Harondor Conscript,gondor_har_conscript,31.25,19.77,47.0,16.6,47.0,1.0,520.0,38.0,38.0,gondor,6.0,1,main_or_minor_line
+331,C,[Rohan] Westfold Recruit,rohan_westfold_recruit,31.04,19.9,31.0,12.5,28.0,9.0,400.0,28.0,28.0,vlandia,6.0,1,main_or_minor_line
+332,C,[Isengard] Militia Spearman,isengard_militia_spearman,30.74,18.22,82.0,18.1,61.3,0.7,366.7,120.0,105.0,isengard,11.0,3,main_or_minor_line
+333,C,[Goblin] Militia Spearman,goblin_militia_spearman,30.7,15.8,39.5,15.1,39.5,0.8,337.5,102.0,85.0,goblin,11.0,4,special_or_unlinked
+334,C,[Gondor] Anórien Militia,gondor_ano_militia,30.7,19.06,64.0,19.2,64.0,1.0,360.0,70.0,53.0,gondor,11.0,1,main_or_minor_line
+335,C,[Misty Mountains] Militia Spearman,mistymountainorcs_militia_spearman,30.7,15.8,39.5,15.1,39.5,0.8,337.5,110.0,100.0,mistymountainorcs,11.0,4,special_or_unlinked
+336,C,[Harad] Militia Veteran Spearman,harad_militia_veteran_spearman,30.57,17.84,71.0,17.4,61.0,1.0,360.0,115.0,95.0,aserai,16.0,2,special_or_unlinked
+337,C,[Gondor] Ringlo Vale Peasant,gondor_ring_peasant,30.49,17.75,32.0,13.6,32.0,1.0,520.0,38.0,38.0,gondor,6.0,1,main_or_minor_line
+338,C,[Gundabad] Militia Spearman,gundabad_militia_spearman,30.26,15.23,67.5,14.25,37.5,0.8,337.5,110.0,100.0,gundabad,11.0,4,special_or_unlinked
+339,C,[Rhûn] Wain Youngblood,wain_youngblood,30.26,17.44,74.0,20.0,55.0,1.0,220.0,90.0,85.0,khuzait,16.0,1,main_or_minor_line
+340,C,[Erebor] Militia Spearman,erebor_militia_spearman,30.2,13.76,52.0,15.21,42.8,0.8,200.0,120.0,105.0,erebor,11.0,4,special_or_unlinked
+341,C,[Gondor] Lebennin Skirmisher,gondor_leb_skirmisher,30.11,18.29,40.0,14.4,40.0,1.0,520.0,100.0,85.0,gondor,16.0,1,main_or_minor_line
+342,C,[Harad] Militia Spearman,harad_militia_spearman,29.9,16.97,62.0,16.1,52.0,1.0,360.0,115.0,95.0,aserai,11.0,3,special_or_unlinked
+343,C,Guard,guard_harad,29.77,17.84,71.0,17.4,61.0,1.0,360.0,80.0,50.0,aserai,16.0,2,special_or_unlinked
+344,C,Harad Caravan Guard,caravan_guard_harad,29.77,17.84,71.0,17.4,61.0,1.0,360.0,100.0,50.0,aserai,16.0,1,special_or_unlinked
+345,C,Harad Veteran Caravan Guard,veteran_caravan_guard_harad,29.77,17.84,71.0,17.4,61.0,1.0,360.0,130.0,60.0,aserai,21.0,1,special_or_unlinked
+346,C,[Harad] Levy,harad_levy,29.77,17.84,71.0,17.4,61.0,1.0,360.0,33.0,33.0,aserai,6.0,1,main_or_minor_line
+347,C,[Harad] Militia,harad_militia,29.77,17.84,71.0,17.4,61.0,1.0,360.0,65.0,48.0,aserai,11.0,1,main_or_minor_line
+348,C,Mordor Militia Spearman,mordor_militia_spearman,29.7,14.48,57.5,14.85,47.5,0.8,262.5,110.0,90.0,mordor,11.0,4,special_or_unlinked
+349,C,[Erebor] Miner,erebor_reg_miner,29.52,13.93,58.8,16.74,49.2,0.6,150.0,70.0,58.0,erebor,11.0,5,main_or_minor_line
+350,C,[Erebor] Militia,erebor_reg_militia,29.48,14.89,58.4,16.84,48.8,0.8,200.0,100.0,90.0,erebor,16.0,5,main_or_minor_line
+351,C,[Gondor] Lossarnach Lumberman,gondor_loss_lumberman,29.39,17.75,32.0,13.6,32.0,1.0,520.0,38.0,38.0,gondor,6.0,6,main_or_minor_line
+352,C,[Mordor] Orc Lackey,mordor_orc_lackey,28.93,17.15,47.0,16.6,47.0,1.0,350.0,28.0,28.0,mordor,6.0,1,main_or_minor_line
+353,C,[Umbar] Adûnaim Recruits,umbar_elite,28.91,13.79,46.4,12.58,40.0,4.0,192.0,70.0,58.0,umbar,11.0,5,main_or_minor_line
+354,C,[Gondor] Anórien Peasant,gondor_ano_peasant,27.81,15.29,32.0,13.6,32.0,1.0,360.0,38.0,38.0,gondor,6.0,1,main_or_minor_line
+355,C,Guard,guard_dunland,27.44,15.2,57.0,14.85,47.0,1.0,300.0,80.0,50.0,empire,16.0,2,special_or_unlinked
+356,C,[Isengard] Uruk-Hai Recruit,urukhai_recruit,27.08,14.34,42.0,7.85,32.0,1.0,550.0,38.0,43.0,isengard,6.0,1,main_or_minor_line
+357,C,[Rhûn] Easterling Recruit,easterling_recruit,27.01,14.24,51.0,12.05,41.0,1.0,360.0,28.0,38.0,khuzait,6.0,1,main_or_minor_line
+358,C,[Dunland] Militia Spearman,dunland_militia_spearman,26.55,12.61,31.67,11.0,22.4,1.0,300.0,115.0,115.0,empire,11.0,3,special_or_unlinked

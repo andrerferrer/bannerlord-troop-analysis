@@ -1,0 +1,117 @@
+rank,tier,troop_name,troop_id,shock_cav_index,horse_charge,horse_speed,horse_maneuver,horse_hp,mount,has_lance,Polearm,Riding,armor_total,effective_armor,defensive_role_score,offensive_melee_role_score,culture,level,n_rosters,line_status
+1,S,[Rohan] West Emnet Heavy Shock Cavalry,rohan_westemnet_kings_own_rider,88.84,32.0,68.0,78.0,60.0,noble_horse_southern|t3_vlandia_horse,True,310.0,290.0,173.0,55.15,77.07,82.2,vlandia,36.0,1,main_or_minor_line
+2,S,[Gondor] Swan Knight,gondor_da_swan_knight,85.41,31.0,62.0,71.0,30.0,noble_horse_imperial,True,375.0,365.0,157.0,48.85,65.96,80.58,gondor,46.0,2,main_or_minor_line
+3,S,[Rivendell] Imladris Outrider,imladris_outrider,85.18,32.0,49.0,68.0,60.0,t3_vlandia_horse,True,380.0,350.0,259.0,62.5,81.3,83.12,rivendell,41.0,8,main_or_minor_line
+4,S,[Gondor] Dol Amroth Veteran Knight,gondor_da_vet_knight,84.04,31.0,62.0,71.0,30.0,noble_horse_imperial,True,345.0,325.0,157.0,48.85,65.41,80.48,gondor,41.0,1,main_or_minor_line
+5,S,[Rivendell] High Captain,rivendell_high_captain,82.25,24.0,68.0,78.0,30.0,noble_horse_southern,True,440.0,430.0,337.29,78.73,89.49,84.48,rivendell,51.0,7,main_or_minor_line
+6,S,[Rivendell] Rochannon Elenath,rivendell_glorfindel_guard,82.25,24.0,68.0,78.0,30.0,noble_horse_southern,True,440.0,430.0,205.0,51.2,80.48,82.98,rivendell,51.0,32,main_or_minor_line
+7,S,[Gondor] Dol Amroth Knight,gondor_da_knight,82.23,31.0,62.0,71.0,30.0,noble_horse_imperial,True,305.0,275.0,157.0,48.85,65.03,80.42,gondor,36.0,1,main_or_minor_line
+8,S,[Rivendell] Nõldorin Lancer,noldorin_lancer,81.57,24.0,68.0,78.0,30.0,noble_horse_southern,True,425.0,390.0,338.58,77.27,93.94,85.22,rivendell,46.0,12,main_or_minor_line
+9,S,[Rivendell] Royal Knight,rivendell_royal_knight,80.89,24.0,68.0,78.0,30.0,noble_horse_southern,True,410.0,390.0,338.67,72.38,86.21,83.94,rivendell,46.0,6,main_or_minor_line
+10,S,[Mirkwood] Mirkwood Béleglas,mirkwood_beleglas,80.43,24.0,68.0,78.0,30.0,noble_horse_southern,True,400.0,365.0,246.0,66.85,83.15,83.43,mirkwood,46.0,1,main_or_minor_line
+11,A,[Gondor] Dol Amroth Cavalry,gondor_da_cavalry,79.95,31.0,62.0,71.0,30.0,noble_horse_imperial,True,255.0,215.0,157.0,48.85,65.03,80.42,gondor,31.0,1,main_or_minor_line
+12,A,[Rivendell] Royal Guard,rivendell_royal_guard,79.52,24.0,68.0,78.0,30.0,noble_horse_southern,True,380.0,350.0,319.5,70.39,90.57,84.66,rivendell,41.0,8,main_or_minor_line
+13,A,[Mirkwood] Mirkwood Róchenlas,mirkwood_rochenlas,79.07,24.0,68.0,78.0,30.0,noble_horse_southern,True,370.0,325.0,246.0,66.85,83.15,83.43,mirkwood,41.0,1,main_or_minor_line
+14,A,[Rohan] King's Lancer,rohan_edoras_golden_hall_elite_rider,78.89,31.0,56.0,76.0,50.0,noble_horse_northern,True,220.0,180.0,139.6,40.93,63.72,69.24,vlandia,26.0,5,main_or_minor_line
+15,A,[Rohan] Riders of Rohan,rohan_edoras_golden_hall_supreme_rider,78.16,24.0,68.0,78.0,30.0,noble_horse_southern,True,350.0,340.0,201.4,55.94,76.65,82.14,vlandia,41.0,5,main_or_minor_line
+16,A,[Rivendell] Noble,rivendell_noble,77.7,24.0,68.0,78.0,30.0,noble_horse_southern,True,340.0,300.0,287.72,61.25,85.85,83.88,rivendell,36.0,25,main_or_minor_line
+17,A,[Gondor] Dol Amroth Squire,gondor_da_squire,77.45,31.0,62.0,71.0,30.0,noble_horse_imperial,True,200.0,165.0,144.0,46.3,63.16,62.51,gondor,26.0,1,main_or_minor_line
+18,A,[Rohan] East Emnet King's Lancer,rohan_eastemnet_kings_own_lancer,77.02,24.0,68.0,78.0,30.0,noble_horse_southern,True,325.0,290.0,165.0,49.95,72.26,81.62,vlandia,36.0,1,main_or_minor_line
+19,A,[Rohan] East Emnet Elite Lancer,rohan_eastemnet_elite_lancer,76.62,31.0,56.0,76.0,50.0,noble_horse_northern,True,170.0,140.0,106.0,37.05,61.72,52.31,vlandia,21.0,1,main_or_minor_line
+20,A,[Rohan] West Emnet Light Cavalry,rohan_westemnet_elite_rider,75.93,31.0,56.0,76.0,50.0,noble_horse_northern,True,155.0,140.0,106.0,37.05,61.72,47.33,vlandia,21.0,1,main_or_minor_line
+21,A,[Rohan] King's Horseman,rohan_edoras_golden_hall_veteran_rider,74.72,26.0,55.0,72.0,120.0,noble_horse_battania,True,155.0,140.0,130.8,39.42,62.92,47.53,vlandia,21.0,5,main_or_minor_line
+22,A,[Dunland] Caru-lûth Noble Lancer,dunland_stag_noble_lancer,74.31,28.0,59.0,66.0,20.0,t3_empire_horse,True,265.0,205.0,173.0,54.05,73.93,81.68,empire,31.0,1,main_or_minor_line
+23,A,[Rohan] King's Knight,rohan_edoras_golden_hall_eorlingas_rider,74.09,28.0,59.0,66.0,20.0,t3_empire_horse,True,260.0,230.0,175.4,53.31,71.01,81.2,vlandia,31.0,5,main_or_minor_line
+24,A,[Rohan] East Emnet Veteran Lancer,rohan_eastemnet_veteran_lancer,73.36,26.0,55.0,72.0,120.0,noble_horse_battania,True,125.0,115.0,100.0,31.5,58.24,36.79,vlandia,16.0,1,main_or_minor_line
+25,A,[Rohan] West Emnet Horseman,rohan_westemnet_veteran_rider,72.68,26.0,55.0,72.0,120.0,noble_horse_battania,True,110.0,115.0,100.0,31.5,58.24,31.8,vlandia,16.0,1,main_or_minor_line
+26,A,[Dol Guldur] Khamûl's Shadow-Knight,dg_khamul_shadow_knight,72.55,20.0,65.0,73.0,20.0,t3_aserai_horse,True,388.0,355.0,245.67,65.92,81.91,83.22,dolguldur,46.0,3,main_or_minor_line
+27,A,[Rhûn] Dragon-Wrath Obsidian Knight,dragon_wrath_obsidian_knight,72.41,20.0,65.0,73.0,20.0,t3_aserai_horse,True,385.0,378.0,234.33,60.82,79.28,82.79,khuzait,46.0,3,main_or_minor_line
+28,A,[Rohan] East Emnet Eorlingas Lancer,rohan_eastemnet_eorlingas_lancer,72.27,28.0,59.0,66.0,20.0,t3_empire_horse,True,220.0,180.0,129.0,40.3,62.99,69.12,vlandia,26.0,1,main_or_minor_line
+29,A,[Rohan] East Emnet Lance Rider,rohan_eastemnet_lance_rider,71.78,32.0,49.0,68.0,60.0,t3_vlandia_horse,True,85.0,85.0,81.0,23.05,54.28,22.84,vlandia,11.0,1,main_or_minor_line
+30,A,[Rohan] West Emnet Medium Cavalry,rohan_westemnet_eorlingas_rider,71.59,28.0,59.0,66.0,20.0,t3_empire_horse,True,205.0,180.0,122.0,35.75,61.94,63.75,vlandia,26.0,1,main_or_minor_line
+31,A,[Gondor] Arndir Hill-Knight,gondor_arn_hill_knight,71.22,26.0,50.0,60.0,10.0,t2_empire_horse,False,345.0,325.0,157.0,48.85,47.59,97.76,gondor,41.0,1,main_or_minor_line
+32,A,[Dol Guldur] Khamûl's Veiled Knight,dg_khamul_veiled_knight,71.18,20.0,65.0,73.0,20.0,t3_aserai_horse,True,358.0,315.0,208.33,56.25,74.27,81.96,dolguldur,41.0,3,main_or_minor_line
+33,A,[Rohan] West Emnet Rider,rohan_westemnet_rider,71.09,32.0,49.0,68.0,60.0,t3_vlandia_horse,True,70.0,85.0,81.0,23.05,54.28,17.86,vlandia,11.0,1,main_or_minor_line
+34,A,[Rhûn] Darkhûn Cultist Knight,darkhun_cultist_knight,71.05,20.0,65.0,73.0,20.0,t3_aserai_horse,True,355.0,338.0,214.0,57.4,77.51,82.49,khuzait,41.0,1,main_or_minor_line
+35,A,[Rhûn] Dragon-Wrath Ash Knight,dragon_wrath_ash_knight,71.05,20.0,65.0,73.0,20.0,t3_aserai_horse,True,355.0,338.0,150.33,37.02,66.98,80.75,khuzait,41.0,3,main_or_minor_line
+36,A,[Rhûn] Dragon-Wrath Lancer,dragon_wrath_lancer,69.91,20.0,65.0,73.0,20.0,t3_aserai_horse,True,330.0,288.0,206.5,54.98,73.61,81.85,khuzait,36.0,2,main_or_minor_line
+37,A,[Gondor] Arndir Veteran Knight,gondor_arn_vet_knight,69.4,26.0,50.0,60.0,10.0,t2_empire_horse,False,305.0,275.0,157.0,48.85,47.59,97.76,gondor,36.0,1,main_or_minor_line
+38,A,[Rhûn] Darkhûn Knight,darkhun_knight,69.23,20.0,65.0,73.0,20.0,t3_aserai_horse,True,315.0,288.0,189.0,49.05,73.2,81.78,khuzait,36.0,1,main_or_minor_line
+39,A,[Rhûn] Kharaghûl Ashkur Nokor,kharaghul_ashkur_nokor,69.23,20.0,65.0,73.0,20.0,t3_aserai_horse,True,315.0,288.0,185.0,47.1,70.36,81.31,khuzait,36.0,1,main_or_minor_line
+40,A,[Rhûn] Loke-Rim Gilded Kataphract,loke_rim_gilded_cataphract,69.23,20.0,65.0,73.0,20.0,t3_aserai_horse,True,315.0,288.0,234.33,60.82,79.28,82.79,khuzait,36.0,3,main_or_minor_line
+41,A,[Rohan] King's Royal Guard,rohan_edoras_golden_hall_kings_own_rider,69.0,20.0,65.0,73.0,20.0,t3_aserai_horse,True,310.0,290.0,193.8,57.29,72.51,81.45,vlandia,36.0,5,main_or_minor_line
+42,A,[Dunland] Caru-lûth Lancer,dunland_stag_lancer,68.89,30.0,46.0,58.0,40.0,t2_vlandia_horse,True,160.0,115.0,129.0,43.9,60.17,48.51,empire,21.0,1,main_or_minor_line
+43,A,[Rohan] East Emnet Royal Lancer,rohan_eastemnet_royal_lancer,67.41,20.0,65.0,73.0,20.0,t3_aserai_horse,True,275.0,230.0,169.0,52.15,68.55,81.01,vlandia,31.0,1,main_or_minor_line
+44,A,[Gondor] Anórien Knight,gondor_ano_mt_knight,67.13,26.0,50.0,60.0,10.0,t2_empire_horse,True,255.0,215.0,143.0,41.95,61.65,79.86,gondor,31.0,1,main_or_minor_line
+45,A,[Gondor] Arndir Knight,gondor_arn_knight,67.13,26.0,50.0,60.0,10.0,t2_empire_horse,False,255.0,215.0,157.0,48.85,47.59,97.76,gondor,31.0,1,main_or_minor_line
+46,A,[Gondor] Pinnath Gelin Veteran Horseman,gondor_pg_vet_cavalry,67.13,26.0,50.0,60.0,10.0,t2_empire_horse,True,255.0,215.0,152.0,46.7,63.52,79.95,gondor,31.0,1,main_or_minor_line
+47,A,[Rhûn] Darkhûn Veteran Cavalry,darkhun_veteran_cavalry,66.96,20.0,65.0,73.0,20.0,t3_aserai_horse,True,265.0,228.0,156.0,37.75,64.72,80.37,khuzait,31.0,1,main_or_minor_line
+48,A,[Rhûn] Far-Rhun Iron Kataphract,far_rhun_iron_cataphract,66.96,20.0,65.0,73.0,20.0,t3_aserai_horse,True,265.0,228.0,187.0,47.3,70.46,81.32,khuzait,31.0,1,main_or_minor_line
+49,A,[Rhûn] Kharaghûl Nokor,kharaghul_nokor,66.96,20.0,65.0,73.0,20.0,t3_aserai_horse,True,265.0,228.0,176.0,44.7,69.12,81.1,khuzait,31.0,1,main_or_minor_line
+50,A,[Rhûn] Loke-Rim Kataphract,loke_rim_cataphract,66.96,20.0,65.0,73.0,20.0,t3_aserai_horse,True,265.0,228.0,150.33,37.02,66.98,80.75,khuzait,31.0,3,main_or_minor_line
+51,A,[Rohan] West Emnet Shock Cavalry,rohan_westemnet_royal_rider,66.73,20.0,65.0,73.0,20.0,t3_aserai_horse,True,260.0,230.0,169.0,52.15,69.85,81.01,vlandia,31.0,1,main_or_minor_line
+52,B,[Rohan] King's Rider,rohan_edoras_golden_hall_rider,66.61,30.0,46.0,58.0,40.0,t2_vlandia_horse,True,110.0,115.0,115.2,31.8,58.94,31.92,vlandia,16.0,5,main_or_minor_line
+53,B,[Dunland] Avanc-lûth Noble Cavalry,dunland_lizard_noble_cavalry,66.18,22.0,45.0,66.0,70.0,t2_battania_horse,False,250.0,205.0,173.0,54.05,72.48,71.89,empire,31.0,1,main_or_minor_line
+54,B,[Umbar] Naru n'Aru Royal Knights,umbar_elite_root0001,65.51,20.8,44.0,57.6,96.0,noble_horse_battania,True,250.0,195.0,156.0,37.14,63.71,75.15,umbar,31.0,5,main_or_minor_line
+55,B,[Gondor] Anfalas Veteran Cavalry,gondor_anf_vet_cavalry,64.63,26.0,50.0,60.0,10.0,t2_empire_horse,True,200.0,165.0,135.0,41.55,60.89,62.13,gondor,26.0,1,main_or_minor_line
+56,B,[Gondor] Anórien Heavy Cavalry,gondor_ano_mt_heavy_cavalry,64.63,26.0,50.0,60.0,10.0,t2_empire_horse,True,200.0,165.0,138.0,39.8,60.54,62.08,gondor,26.0,1,main_or_minor_line
+57,B,[Gondor] Arndir Cavalry,gondor_arn_cavalry,64.63,26.0,50.0,60.0,10.0,t2_empire_horse,False,200.0,165.0,144.0,46.3,46.27,76.07,gondor,26.0,1,main_or_minor_line
+58,B,[Rhûn] Darkhûn Cavalry,darkhun_cavalry,64.46,20.0,65.0,73.0,20.0,t3_aserai_horse,True,210.0,178.0,120.0,28.5,59.94,65.3,khuzait,26.0,1,main_or_minor_line
+59,B,[Rhûn] Easterling Veteran Cavalry,easterling_veteran_cavalry,64.46,20.0,65.0,73.0,20.0,t3_aserai_horse,True,210.0,178.0,146.0,36.0,63.69,65.92,khuzait,26.0,1,main_or_minor_line
+60,B,[Rhûn] Far-Rhun Kataphract,far_rhun_cataphract,64.46,20.0,65.0,73.0,20.0,t3_aserai_horse,True,210.0,178.0,185.0,47.1,69.43,66.87,khuzait,26.0,1,main_or_minor_line
+61,B,[Rhûn] Kharaghûl Horse Master,kharaghul_horse_master,64.46,20.0,65.0,73.0,20.0,t3_aserai_horse,True,210.0,178.0,174.0,44.0,68.75,66.76,khuzait,26.0,1,main_or_minor_line
+62,B,[Rhûn] Loke-Rim Cavalry,loke_rim_cavalry,64.46,20.0,65.0,73.0,20.0,t3_aserai_horse,True,210.0,178.0,204.67,54.52,72.45,67.37,khuzait,26.0,3,main_or_minor_line
+63,B,[Dunland] Caru-lûth Rider,dunland_stag_rider,64.4,26.0,50.0,60.0,10.0,t2_empire_horse,True,195.0,155.0,147.0,49.7,71.71,62.05,empire,26.0,1,main_or_minor_line
+64,B,[Harad] Camel Lancer,harad_camel_lancer,64.31,24.0,48.0,67.0,30.0,war_camel,True,205.0,175.0,149.0,42.3,55.81,62.73,aserai,26.0,1,main_or_minor_line
+65,B,[Dale] Dalian King's Guard,dale_kings_guard,64.16,22.0,48.0,67.0,20.0,charger,True,275.0,200.0,193.0,58.5,78.66,82.68,sturgia,31.0,2,main_or_minor_line
+66,B,[Dunland] Avanc-lûth Outrider,dunland_lizard_outrider,63.68,22.0,45.0,66.0,70.0,t2_battania_horse,False,195.0,155.0,152.0,51.85,67.56,54.73,empire,26.0,1,main_or_minor_line
+67,B,[Gondor] Anfalas Cavalry,gondor_anf_cavalry,62.36,26.0,50.0,60.0,10.0,t2_empire_horse,True,150.0,125.0,130.0,39.4,59.78,45.34,gondor,21.0,1,main_or_minor_line
+68,B,[Harad] Fang of the King,harad_fangking,62.34,19.0,47.0,69.0,60.0,t2_khuzait_horse,True,245.0,225.0,169.0,43.3,62.97,77.21,aserai,31.0,1,main_or_minor_line
+69,B,[Rhûn] Darkhûn Horseman,darkhun_horseman,62.18,20.0,65.0,73.0,20.0,t3_aserai_horse,True,160.0,138.0,85.0,21.15,56.14,48.06,khuzait,21.0,1,main_or_minor_line
+70,B,[Rhûn] Easterling Cavalry,easterling_cavalry_new,62.18,20.0,65.0,73.0,20.0,t3_aserai_horse,True,160.0,138.0,139.0,34.75,59.45,48.4,khuzait,21.0,1,main_or_minor_line
+71,B,[Rhûn] Far-Rhun Cavalry,far_rhun_cavalry,62.18,20.0,65.0,73.0,20.0,t3_aserai_horse,True,160.0,138.0,150.0,36.6,60.41,48.55,khuzait,21.0,1,main_or_minor_line
+72,B,[Rhûn] Far-Rhun Horse Master,far_rhun_horse_master,62.18,20.0,65.0,73.0,20.0,t3_aserai_horse,True,160.0,138.0,150.0,36.6,60.41,48.55,khuzait,21.0,1,special_or_unlinked
+73,B,[Rhûn] Kharaghûl Raider,kharaghul_raider,62.18,20.0,65.0,73.0,20.0,t3_aserai_horse,True,160.0,138.0,131.0,33.0,58.55,48.25,khuzait,21.0,1,main_or_minor_line
+74,B,[Dale] Dalian Heavy Cavalry,dale_kinsman_of_eorl,61.66,22.0,48.0,67.0,20.0,charger,True,220.0,150.0,160.0,48.65,74.87,71.1,sturgia,26.0,2,main_or_minor_line
+75,B,[Dale] Dalian Veteran Northman Scout,dale_veteran_northman_scout,61.66,22.0,48.0,67.0,20.0,charger,True,220.0,150.0,197.0,57.75,79.57,71.88,sturgia,26.0,2,main_or_minor_line
+76,B,[Dunland] Avanc-lûth Horseman,dunland_lizard_horseman,61.41,22.0,45.0,66.0,70.0,t2_battania_horse,False,145.0,115.0,129.0,43.9,60.21,38.66,empire,21.0,1,main_or_minor_line
+77,B,[Harad] Camel Rider,harad_camelrider,61.36,24.0,48.0,67.0,30.0,war_camel,True,140.0,135.0,154.0,45.4,57.41,41.41,aserai,21.0,1,main_or_minor_line
+78,B,[Harad] Serpent Guard,harad_serpentguard,59.84,19.0,47.0,69.0,60.0,t2_khuzait_horse,True,190.0,175.0,183.0,46.75,64.75,59.24,aserai,26.0,1,main_or_minor_line
+79,B,[Dale] Dalian Cavalry,dale_royal_cavalier,59.39,22.0,48.0,67.0,20.0,charger,True,170.0,110.0,156.0,48.25,74.66,54.46,sturgia,21.0,2,main_or_minor_line
+80,B,[Dale] Dalian Northman Scout,dale_knight,59.39,22.0,48.0,67.0,20.0,charger,True,170.0,110.0,164.0,49.05,75.08,54.52,sturgia,21.0,2,main_or_minor_line
+81,B,[Rhûn] Wainrider Khan's Chosen,wainrider_khans_chosen,57.75,16.0,45.0,67.0,0.0,khuzait_horse,True,355.0,338.0,218.0,58.2,69.56,81.17,khuzait,41.0,1,main_or_minor_line
+82,B,[Harad] Warrior of the Gilded Fang,harad_gildedfang,57.56,19.0,47.0,69.0,60.0,t2_khuzait_horse,True,140.0,135.0,169.0,43.3,62.97,42.34,aserai,21.0,1,main_or_minor_line
+83,B,[Rhûn] Far-Rhun Horseman,far_rhun_horseman,56.43,19.0,47.0,69.0,60.0,t2_khuzait_horse,True,115.0,113.0,135.0,34.15,52.05,32.22,khuzait,16.0,1,main_or_minor_line
+84,B,[Rhûn] Kharaghûl Rider,kharaghul_rider,56.43,19.0,47.0,69.0,60.0,t2_khuzait_horse,True,115.0,113.0,106.0,25.55,47.61,31.49,khuzait,16.0,1,main_or_minor_line
+85,B,[Gondor] Pinnath Gelin Light Horseman,gondor_pg_cavalry,55.62,20.0,47.0,55.0,10.0,empire_horse,True,200.0,165.0,127.0,39.95,58.7,61.55,gondor,26.0,1,main_or_minor_line
+86,B,[Harad] Initiate of the Sand Blades,harad_sandblade,54.61,19.0,47.0,69.0,60.0,t2_khuzait_horse,True,75.0,30.0,169.0,43.3,62.97,32.37,aserai,16.0,1,main_or_minor_line
+87,B,[Rhûn] Kharaghûl Youth,kharaghul_youth,54.61,19.0,47.0,69.0,60.0,t2_khuzait_horse,False,75.0,83.0,90.0,23.2,45.66,16.33,khuzait,11.0,1,main_or_minor_line
+88,B,[Harad] Youngblood of the Serpent,harad_noble,53.7,19.0,47.0,69.0,60.0,t2_khuzait_horse,True,55.0,80.0,169.0,43.3,62.97,15.77,aserai,11.0,1,main_or_minor_line
+89,B,[Rhûn] Wainrider Cavalry,wainrider_cavalry,53.66,16.0,45.0,67.0,0.0,khuzait_horse,True,265.0,228.0,194.0,49.5,65.99,80.58,khuzait,31.0,1,main_or_minor_line
+90,B,[Gondor] Anórien Cavalry,gondor_ano_mt_cavalry,53.35,20.0,47.0,55.0,10.0,empire_horse,True,150.0,125.0,124.0,36.6,57.56,44.97,gondor,21.0,1,main_or_minor_line
+91,B,[Harad] Camel Scout,harad_camelscout,51.84,20.0,44.0,60.0,25.0,camel,True,95.0,110.0,96.0,32.5,50.71,25.36,aserai,16.0,1,main_or_minor_line
+92,B,[Rhûn] Wainrider Horseman,wainrider_horseman,51.16,16.0,45.0,67.0,0.0,khuzait_horse,True,210.0,178.0,149.0,38.1,51.74,63.93,khuzait,26.0,1,main_or_minor_line
+93,B,[Dale] Dalian Merchant Guard,dale_outrider,50.47,18.0,49.0,63.0,0.0,sturgia_horse,True,125.0,85.0,138.0,41.82,70.89,38.89,sturgia,16.0,2,main_or_minor_line
+94,B,Spider Rider,taom_spider_creature,50.4,20.0,40.0,80.0,0.0,spider_mount_a,False,80.0,100.0,60.0,12.75,20.55,21.65,dolguldur,20.0,3,special_or_unlinked
+95,C,[Rohan] East Emnet Recruit,rohan_eastemnet_recruit,46.3,20.0,45.0,50.0,0.0,steppe_war_horse,True,40.0,70.0,31.0,12.5,47.2,11.71,vlandia,6.0,1,main_or_minor_line
+96,C,[Rohan] West Emnet Recruit,rohan_westemnet_recruit,46.3,20.0,45.0,50.0,0.0,steppe_war_horse,True,40.0,70.0,31.0,12.5,47.2,11.71,vlandia,6.0,1,main_or_minor_line
+97,D,[Gundabad] Azog's Defiler,gundabad_dread_rider_of_the_tower,15.68,0.0,0.0,0.0,0.0,,True,345.0,315.0,235.83,60.29,60.18,79.62,gundabad,41.0,6,main_or_minor_line
+98,D,[Dol Guldur] Fell Ravager,dg_fell_warg_rider,14.45,0.0,0.0,0.0,0.0,,True,318.0,265.0,230.0,62.25,61.19,79.78,dolguldur,36.0,1,main_or_minor_line
+99,D,[Gundabad] Pale Uruk Fang Rider,gundabad_tracker,13.86,0.0,0.0,0.0,0.0,,True,305.0,265.0,185.0,45.0,52.28,78.31,gundabad,36.0,5,main_or_minor_line
+100,D,[Gundabad] Pale Uruk Wolf Rider,gundabad_warg_tamer,11.59,0.0,0.0,0.0,0.0,,True,255.0,205.0,146.0,36.35,47.81,77.56,gundabad,31.0,5,main_or_minor_line
+101,D,[Dol Guldur] Warg Ravager,dg_warg_skirmisher,9.68,0.0,0.0,0.0,0.0,,True,213.0,155.0,210.0,52.0,55.9,65.62,dolguldur,26.0,1,main_or_minor_line
+102,D,[Isengard] Orc Warg-Rider Lieutenant,orc_warg_lieutenant,9.55,0.0,0.0,0.0,0.0,,True,210.0,165.0,147.0,46.65,53.13,64.17,isengard,26.0,1,main_or_minor_line
+103,D,[Mordor] Nurn Beast Master,mordor_warg_beastmaster,8.64,0.0,0.0,0.0,0.0,,True,190.0,155.0,138.0,43.5,32.95,56.3,mordor,26.0,1,main_or_minor_line
+104,D,[Dol Guldur] Warg Rider,dg_warg_raider,7.41,0.0,0.0,0.0,0.0,,True,163.0,115.0,200.0,48.5,54.09,48.72,dolguldur,21.0,1,main_or_minor_line
+105,D,[Isengard] Orc Warg Ravager,isengard_orc_warg_ravager_v2,7.27,0.0,0.0,0.0,0.0,,True,160.0,125.0,138.0,43.5,51.51,47.29,isengard,21.0,1,main_or_minor_line
+106,D,[Isengard] Orc Warg-Rider Enforcer,orc_warg_enforcer,7.27,0.0,0.0,0.0,0.0,,True,160.0,125.0,146.0,46.55,53.08,47.55,isengard,21.0,1,main_or_minor_line
+107,D,[Dol Guldur] Warg Fang,dg_warg_red_fang,7.18,0.0,0.0,0.0,0.0,,True,158.0,250.0,217.0,58.15,59.07,60.17,dolguldur,31.0,1,main_or_minor_line
+108,D,[Mordor] Nurn Warg Ravager,mordor_warg_ravager,6.36,0.0,0.0,0.0,0.0,,True,140.0,115.0,138.0,43.5,32.95,39.69,mordor,21.0,1,main_or_minor_line
+109,D,[Dol Guldur] Warg Tracker,dg_warg_scout,5.36,0.0,0.0,0.0,0.0,,False,118.0,90.0,120.0,20.0,20.01,27.39,dolguldur,16.0,1,main_or_minor_line
+110,D,[Isengard] Orc Warg Raider,isengard_orc_warg_raider_v2,5.23,0.0,0.0,0.0,0.0,,True,115.0,100.0,114.0,34.8,47.01,31.6,isengard,16.0,1,main_or_minor_line
+111,D,[Isengard] Orc Warg-Rider Overseer,orc_warg_overseer,5.23,0.0,0.0,0.0,0.0,,True,115.0,100.0,129.0,41.55,51.68,32.38,isengard,16.0,1,main_or_minor_line
+112,D,[Mordor] Nurn Warg Reaver,mordor_warg_reaver,4.32,0.0,0.0,0.0,0.0,,True,95.0,90.0,114.0,34.8,28.46,24.0,mordor,16.0,1,main_or_minor_line
+113,D,[Isengard] Orc Warg Rider,isengard_orc_warg_rider_v2,3.41,0.0,0.0,0.0,0.0,,True,75.0,70.0,102.0,31.95,46.72,18.27,isengard,11.0,1,main_or_minor_line
+114,D,[Isengard] Orc Warg-Rider Scout,orc_warg_scout,3.41,0.0,0.0,0.0,0.0,,True,75.0,70.0,104.0,25.3,43.29,17.7,isengard,11.0,1,main_or_minor_line
+115,D,[Mordor] Nurn Warg Raider,mordor_warg_raider,2.5,0.0,0.0,0.0,0.0,,False,55.0,60.0,65.0,21.15,20.61,8.16,mordor,11.0,1,main_or_minor_line
+116,D,[Isengard] Orc Warg Scout,isengard_orc_warg_scout_v2,2.05,0.0,0.0,0.0,0.0,,True,45.0,55.0,55.0,17.4,39.2,10.38,isengard,6.0,1,main_or_minor_line

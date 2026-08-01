@@ -1,0 +1,159 @@
+rank,tier,troop_name,troop_id,ranged_role_score,ranged_score_base,ranged_damage,ranged_item,Bow,ranged_skill_factor,armor_total,has_shield,culture,level,n_rosters,line_status
+1,S,[Rivendell] Imladris Marchwarden,imladris_marchwarden,74.53,96.98,118.12,highelf_longbowc|highelf_longbowd,320.0,1.15,306.5,False,rivendell,41.0,8,main_or_minor_line
+2,S,[Rivendell] Imladris Marksman,imladris_marksman,73.64,96.33,117.6,highelf_longbowc|highelf_longbowd,285.0,1.15,315.0,False,rivendell,36.0,15,main_or_minor_line
+3,S,[Rivendell] Imladris Archer,imladris_archer,71.13,96.98,118.12,highelf_longbowc|highelf_longbowd,245.0,1.11,244.0,False,rivendell,31.0,8,main_or_minor_line
+4,S,[Mirkwood] Silvan Borderwarden,mirkwood_borderwardens,68.36,91.07,104.0,wm_mirkwood_bow_a01,350.0,1.15,246.0,False,mirkwood,46.0,1,main_or_minor_line
+5,S,[Mirkwood] Thingol's Heirs,mirkwood_thingolheir,68.36,91.07,104.0,wm_mirkwood_bow_a01,370.0,1.15,246.0,False,mirkwood,51.0,1,main_or_minor_line
+6,S,[Gondor] Lond-Galen Haven Guard,gondor_lg_haven_guard,68.03,88.25,102.0,wm_ithilien_bow_b,280.0,1.15,157.0,True,gondor,41.0,1,main_or_minor_line
+7,S,[Mirkwood] Silvan Sentinels,mirkwood_sentinels,67.82,91.07,104.0,wm_mirkwood_bow_a01,330.0,1.15,230.0,False,mirkwood,41.0,1,main_or_minor_line
+8,A,[Gondor] Citadel Guard Sharpshooter,gondor_mt_sharpshooter,64.72,88.25,102.0,wm_ithilien_bow_b,280.0,1.15,159.0,False,gondor,41.0,1,main_or_minor_line
+9,A,[Gondor] Blackroot Vale Shadowbow,gondor_brv_shadowbow,64.71,88.25,102.0,wm_ithilien_bow_b,280.0,1.15,157.0,False,gondor,41.0,1,main_or_minor_line
+10,A,[Gondor] Ithilien Ranger,gondor_ithilien_ranger,64.66,89.4,103.62,wm_ithilien_bow|wm_ithilien_bow_b|wm_ithilien_bow_c,320.0,1.15,93.25,False,gondor,51.0,8,special_or_unlinked
+11,A,[Gondor] Lond-Galen Pavise Guard,gondor_lg_pavise_guard,62.89,84.92,96.0,wm_ithilien_bow,245.0,1.11,157.0,True,gondor,36.0,1,main_or_minor_line
+12,A,[Rhûn] Dragon-Wrath Obsidian Warbow,dragon_wrath_obsidian_warbow,62.32,82.94,95.0,sm_rh_drag_longbow_a,290.0,1.15,236.5,False,khuzait,46.0,2,main_or_minor_line
+13,A,[Rhûn] Black Sun Chosen Marksman,black_sun_chosen_marksman,61.14,82.94,95.0,sm_rh_drag_longbow_a,270.0,1.15,176.0,False,khuzait,41.0,1,main_or_minor_line
+14,A,[Rhûn] Dragon-Wrath Ash Marksman,dragon_wrath_ash_marksman,60.73,82.94,95.0,sm_rh_drag_longbow_a,270.0,1.15,161.0,False,khuzait,41.0,2,main_or_minor_line
+15,A,[Rhûn] Loke-Rim Gilded Marksman,loke_rim_gilded_marksman,60.52,88.07,108.0,sm_rh_loke_longbow_a,235.0,1.07,215.5,False,khuzait,36.0,2,main_or_minor_line
+16,A,[Dol Guldur] Khamûl's Shadowbow,dg_khamul_shadow_bowman,60.04,83.2,97.0,sm_dg_khml_longbow_a,295.0,1.15,165.0,False,dolguldur,46.0,3,main_or_minor_line
+17,A,[Gondor] Blackroot Vale Ranger,gondor_brv_ranger,59.57,84.92,96.0,wm_ithilien_bow,245.0,1.11,157.0,False,gondor,36.0,1,main_or_minor_line
+18,A,[Gondor] Blackroot Vale Shadowhunter,gondor_brv_shadowhunter,59.57,84.92,96.0,wm_ithilien_bow,245.0,1.11,157.0,False,gondor,36.0,1,main_or_minor_line
+19,A,[Gondor] Methir Composite Archer,gondor_met_composite_archer,59.57,84.92,96.0,wm_ithilien_bow,245.0,1.11,157.0,False,gondor,36.0,1,main_or_minor_line
+20,A,[Gondor] Citadel Guard Longbowman,gondor_mt_longbowman,59.56,84.92,96.0,wm_ithilien_bow,245.0,1.11,151.0,False,gondor,36.0,1,main_or_minor_line
+21,A,[Rivendell] Imladris Bowman,imladris_bowman,59.16,96.83,118.0,highelf_longbowc|highelf_longbowd,210.0,0.95,210.0,False,rivendell,26.0,9,main_or_minor_line
+22,A,[Dol Guldur] Khamûl's Veiled Marksman,dg_khamul_veiled_marksman,57.41,80.36,90.0,wm_isengard_bow_a02,275.0,1.15,165.33,False,dolguldur,41.0,3,main_or_minor_line
+23,A,[Gondor] Moon Guard,gondor_ith_moon_guard,56.05,77.03,85.0,gondor_steel_bow,300.0,1.15,165.0,False,gondor,46.0,1,main_or_minor_line
+24,A,[Rhûn] Black Sun Marksman,black_sun_marksman,55.9,82.94,95.0,sm_rh_drag_longbow_a,235.0,1.07,166.0,False,khuzait,36.0,1,main_or_minor_line
+25,B,[Gondor] Ithil Guard Sharpshooter,gondor_ith_sharpshooter,55.76,77.03,85.0,gondor_steel_bow,280.0,1.15,165.0,False,gondor,41.0,1,main_or_minor_line
+26,B,[Dol Guldur] Shadow Marksman,dg_khamul_shadow_marksman,53.22,80.36,90.0,wm_isengard_bow_a02,240.0,1.09,124.33,False,dolguldur,36.0,3,main_or_minor_line
+27,B,[Gondor] Ithil Guard Longbowman,gondor_ith_longbowman,53.09,77.03,85.0,gondor_steel_bow,245.0,1.11,143.0,False,gondor,36.0,1,main_or_minor_line
+28,B,[Rhûn] Loke-Rim Marksman,loke_rim_marksman,47.72,88.07,108.0,sm_rh_loke_longbow_a,195.0,0.89,139.33,False,khuzait,31.0,3,main_or_minor_line
+29,B,[Erebor] Veteran Archer,erebor_noble_veteran_archer,47.26,79.19,95.0,sm_dwarf_erebor_bow_b,205.0,0.93,189.0,True,erebor,31.0,4,main_or_minor_line
+30,B,[Gondor] Osgiliath Longbowman,gondor_osg_longbowman,45.81,75.69,88.0,wm_gondor_bow,205.0,0.93,155.0,True,gondor,31.0,1,main_or_minor_line
+31,B,[Gondor] Blackroot Vale Veteran Archer,gondor_brv_vet_archer,45.26,79.75,88.0,wm_gondor_bow,205.0,0.93,157.0,False,gondor,31.0,1,main_or_minor_line
+32,B,[Gondor] Methir Veteran Archer,gondor_met_vet_archer,45.26,79.75,88.0,wm_gondor_bow,205.0,0.93,157.0,False,gondor,31.0,1,main_or_minor_line
+33,B,[Gondor] Lebennin Longbowman,gondor_leb_longbowman,44.84,79.75,88.0,wm_gondor_bow,205.0,0.93,140.0,False,gondor,31.0,1,main_or_minor_line
+34,B,[Dale] Dalian Barding,dale_black_arrow_marksman,44.79,69.14,79.0,dale_longbow_a,217.0,0.99,193.0,True,sturgia,31.0,2,main_or_minor_line
+35,B,[Dol Guldur] Uruk Black Sharpshooter,dg_uruk_black_sharpshooter,44.6,80.36,90.0,wm_isengard_bow_a02,200.0,0.91,220.0,False,dolguldur,31.0,1,main_or_minor_line
+36,B,[Rhûn] Black Sun Longbowman,black_sun_longbowman,44.56,82.94,95.0,sm_rh_drag_longbow_a,195.0,0.89,145.0,False,khuzait,31.0,1,main_or_minor_line
+37,B,[Umbar] Abrazanim Nardubawib,umbar_elite_root100,43.52,76.47,93.6,highelf_longbowc,170.0,0.77,156.0,False,umbar,26.0,5,main_or_minor_line
+38,B,[Rivendell] Militia Veteran Archer,rivendell_militia_veteran_archer,42.4,90.34,110.83,highelf_longbowa|highelf_longbowb,170.0,0.77,208.5,False,rivendell,16.0,12,special_or_unlinked
+39,B,[Mirkwood] Militia Archer,mirkwood_militia_archer,41.78,87.39,102.75,wm_mirkwood_bow_a01|wm_mirkwood_bow_a02,180.0,0.82,104.0,False,mirkwood,11.0,4,special_or_unlinked
+40,B,[Rhûn] Dragon-Wrath Longbowman,dragon_wrath_longbowman,41.03,62.13,57.0,steppe_war_bow,235.0,1.07,221.0,False,khuzait,36.0,2,main_or_minor_line
+41,C,[Dol Guldur] Shadow Archer,dg_khamul_shadow_archer,40.75,77.82,86.0,wm_isengard_bow_a01,200.0,0.91,89.0,False,dolguldur,31.0,3,main_or_minor_line
+42,C,[Mordor] Black Uruk Heavy Archer,mordor_uruk_heavy_archer,40.51,74.37,84.0,sm_uruk_bow_a,205.0,0.93,185.0,False,mordor,31.0,1,main_or_minor_line
+43,C,[Mirkwood] Militia Veteran Archer,mirkwood_militia_veteran_archer,39.43,83.15,96.25,wm_mirkwood_bow_a02|wm_mirkwood_bow_a03,180.0,0.82,127.25,False,mirkwood,16.0,4,special_or_unlinked
+44,C,[Goblin] Archer,goblin_archer,39.14,80.36,90.0,wm_isengard_bow_a02,185.0,0.84,134.0,False,goblin,26.0,4,main_or_minor_line
+45,C,[Dunland] Cigfran-lûth Master Ranger,dunland_raven_master_ranger,38.32,69.09,67.0,woodland_longbow,205.0,0.93,171.0,False,empire,31.0,1,main_or_minor_line
+46,C,[Erebor] Archer,erebor_noble_archer,37.94,77.66,92.0,sm_dwarf_erebor_bow_a,170.0,0.77,194.5,True,erebor,26.0,4,main_or_minor_line
+47,C,[Gondor] Osgiliath Archer,gondor_osg_archer,37.03,75.69,88.0,wm_gondor_bow,170.0,0.77,135.0,True,gondor,26.0,1,main_or_minor_line
+48,C,[Dale] Dalian Marksman,dale_royal_archer,36.6,70.47,81.0,dale_longbow_a,182.0,0.83,122.0,True,sturgia,26.0,2,main_or_minor_line
+49,C,[Gondor] Blackroot Vale Archer,gondor_brv_archer,36.14,79.75,88.0,wm_gondor_bow,170.0,0.77,144.0,False,gondor,26.0,1,main_or_minor_line
+50,C,[Gondor] Methir Archer,gondor_met_archer,36.14,79.75,88.0,wm_gondor_bow,170.0,0.77,144.0,False,gondor,26.0,1,main_or_minor_line
+51,C,[Isengard] Uruk-Hai Archer,urukhai_archer,35.85,79.09,89.0,wm_isengard_bow_a02,170.0,0.77,167.0,False,isengard,26.0,1,main_or_minor_line
+52,C,[Gondor] Anórien Archer,gondor_ano_archer,35.76,79.75,88.0,wm_gondor_bow,170.0,0.77,138.0,False,gondor,26.0,1,main_or_minor_line
+53,C,[Gondor] Lebennin Veteran Archer,gondor_leb_vet_archer,35.45,79.75,88.0,wm_gondor_bow,170.0,0.77,118.0,False,gondor,26.0,1,main_or_minor_line
+54,C,[Iron Hills] Bowman,iron_hills_reg_bowman,35.43,63.05,75.4,sm_dwarf_erebor_bow_a|sm_dwarf_erebor_bow_b,170.0,0.77,155.0,False,erebor,26.0,5,main_or_minor_line
+55,C,[Dol Guldur] Uruk Fell Archer,dg_uruk_fell_archer,35.38,80.36,90.0,wm_isengard_bow_a02,165.0,0.75,205.0,False,dolguldur,26.0,1,main_or_minor_line
+56,C,[Rivendell] Militia Archer,rivendell_militia_archer,35.34,79.78,95.5,highelf_longbow_starter|highelf_longbowa,170.0,0.77,76.75,False,rivendell,11.0,4,special_or_unlinked
+57,C,[Rhûn] Black Sun Archer,black_sun_archer,35.01,83.78,98.0,noble_long_bow,160.0,0.73,109.0,False,khuzait,26.0,1,main_or_minor_line
+58,C,[Erebor] Bowman,erebor_reg_bowman,34.1,63.35,76.0,sm_dwarf_erebor_bow_b,170.0,0.77,92.6,False,erebor,26.0,5,main_or_minor_line
+59,C,[Dol Guldur] Orc Archer,dg_orc_archer,33.99,77.82,86.0,wm_isengard_bow_a01,165.0,0.75,202.22,False,dolguldur,26.0,9,main_or_minor_line
+60,C,[Harad] Serpent Eyes,harad_serpent_eye,33.86,61.19,56.0,composite_steppe_bow,215.0,0.98,90.0,False,aserai,31.0,1,main_or_minor_line
+61,C,[Gundabad] Archer,gundabad_archer,33.72,80.36,90.0,wm_isengard_bow_a02,160.0,0.73,185.0,False,gundabad,26.0,4,main_or_minor_line
+62,C,[Dol Guldur] Goblin Fellbow,dg_goblin_fellbow,33.49,77.82,86.0,wm_isengard_bow_a01,165.0,0.75,174.33,False,dolguldur,26.0,3,main_or_minor_line
+63,C,[Misty Mountains] Archer,mistymountainorcs_archer,33.38,80.36,90.0,wm_isengard_bow_a02,160.0,0.73,134.0,False,mistymountainorcs,26.0,4,main_or_minor_line
+64,C,[Rhûn] Wainrider Wind-Arrow Sharpshooter,wainrider_wind_arrow_sharpshooter,32.38,62.13,57.0,steppe_war_bow,195.0,0.89,184.0,False,khuzait,31.0,1,main_or_minor_line
+65,C,[Rhûn] Dragon-Wrath Archer,dragon_wrath_archer,32.25,62.13,57.0,steppe_war_bow,195.0,0.89,178.5,False,khuzait,31.0,2,main_or_minor_line
+66,C,[Dunland] Cigfran-lûth Ranger,dunland_raven_ranger,30.38,69.09,67.0,woodland_longbow,170.0,0.77,156.0,False,empire,26.0,1,main_or_minor_line
+67,C,[Dale] Dalian Bowman,dale_longbowman,28.45,71.17,81.0,dale_longbow_a,142.0,0.65,144.0,True,sturgia,21.0,2,main_or_minor_line
+68,C,[Gondor] Belfalas Veteran Archer,gondor_bel_vet_archer,28.41,58.91,55.0,composite_steppe_bow,170.0,0.77,152.0,True,gondor,26.0,1,main_or_minor_line
+69,C,[Harad] Militia Veteran Archer,harad_militia_veteran_archer,27.56,80.74,98.0,noble_long_bow,140.0,0.64,63.5,False,aserai,16.0,2,special_or_unlinked
+70,C,[Goblin] Sentry,goblin_sentry,27.51,77.82,86.0,wm_isengard_bow_a01,145.0,0.66,114.0,False,goblin,21.0,1,main_or_minor_line
+71,C,[Erebor] Ranger,erebor_noble_ranger,27.24,77.66,92.0,sm_dwarf_erebor_bow_a,130.0,0.59,116.5,True,erebor,21.0,4,main_or_minor_line
+72,C,[Harad] Viper,harad_vipereye,26.91,61.19,56.0,composite_steppe_bow,180.0,0.82,90.0,False,aserai,26.0,1,main_or_minor_line
+73,C,[Rohan] Eastfold Veteran Bowman,rohan_eastfold_veteran_bowman,26.31,84.04,99.0,noble_long_bow,125.0,0.57,99.0,False,vlandia,21.0,1,main_or_minor_line
+74,D,[Gondor] Pinnath Gelin Veteran Archer,gondor_pg_vet_archer,25.85,60.1,57.0,steppe_war_bow,170.0,0.77,157.0,False,gondor,26.0,1,main_or_minor_line
+75,D,[Gondor] Gondor Veteran Militia Archer,gondor_militia_veteran_archer,25.83,83.02,95.0,noble_long_bow,130.0,0.59,67.0,False,gondor,16.0,1,special_or_unlinked
+76,D,[Isengard] Uruk-Hai Tracker,urukhai_tracker,25.55,79.09,89.0,wm_isengard_bow_a02,130.0,0.59,158.0,False,isengard,21.0,1,main_or_minor_line
+77,D,[Gondor] Anórien Bowman,gondor_ano_bowman,25.46,79.75,88.0,wm_gondor_bow,130.0,0.59,124.0,False,gondor,21.0,1,main_or_minor_line
+78,D,[Gondor] Blackroot Vale Scout,gondor_brv_scout,25.46,79.75,88.0,wm_gondor_bow,130.0,0.59,124.0,False,gondor,21.0,1,main_or_minor_line
+79,D,[Gondor] Lond-Galen Noble,gondor_lg_noble,25.46,79.75,88.0,wm_gondor_bow,130.0,0.59,124.0,False,gondor,21.0,1,main_or_minor_line
+80,D,[Gondor] Lebennin Archer,gondor_leb_archer,25.17,79.75,88.0,wm_gondor_bow,130.0,0.59,96.0,False,gondor,21.0,1,main_or_minor_line
+81,D,[Rhûn] Loke-Rim Archer,loke_rim_archer,24.95,60.94,55.0,composite_steppe_bow,160.0,0.73,196.0,False,khuzait,26.0,2,main_or_minor_line
+82,D,[Dol Guldur] Uruk Bowman,dg_uruk_bowman,24.88,80.36,90.0,wm_isengard_bow_a02,125.0,0.57,190.0,False,dolguldur,21.0,1,main_or_minor_line
+83,D,[Rhûn] Sagarûn Skirmisher,sagarun_skirmisher,24.81,60.94,55.0,composite_steppe_bow,160.0,0.73,181.5,False,khuzait,26.0,2,main_or_minor_line
+84,D,[Rohan] Militia Veteran Archer,rohan_militia_veteran_archer,24.57,80.74,98.0,noble_long_bow,125.0,0.57,91.67,False,vlandia,16.0,3,special_or_unlinked
+85,D,[Gondor] Anórien Archer Militia,gondor_ano_archer_militia,24.45,79.75,88.0,wm_gondor_bow,130.0,0.59,64.0,False,gondor,11.0,1,main_or_minor_line
+86,D,[Dale] Veteran Militia Archer,dale_militia_veteran_archer,24.41,71.68,81.0,dale_longbow_a,142.0,0.65,122.0,False,sturgia,16.0,1,main_or_minor_line
+87,D,[Iron Hills] Skirmisher,iron_hills_reg_skirmisher,24.39,62.13,73.6,sm_dwarf_erebor_bow_a,130.0,0.59,113.8,False,erebor,21.0,5,main_or_minor_line
+88,D,[Rhûn] Easterling Veteran Archer,easterling_veteran_archer_new,24.07,60.94,55.0,composite_steppe_bow,160.0,0.73,150.0,False,khuzait,26.0,1,main_or_minor_line
+89,D,[Rhûn] Wainrider Veteran Archer,wainrider_veteran_archer,24.07,60.94,55.0,composite_steppe_bow,160.0,0.73,150.0,False,khuzait,26.0,1,main_or_minor_line
+90,D,[Rhûn] Black Sun Scout,black_sun_scout,24.01,83.78,98.0,noble_long_bow,120.0,0.55,89.0,False,khuzait,21.0,1,main_or_minor_line
+91,D,[Erebor] Militia Veteran Archer,erebor_militia_veteran_archer,23.9,58.63,69.75,sm_dwarf_erebor_bow_a|sm_dwarf_erebor_bow_b,130.0,0.59,85.25,False,erebor,16.0,4,special_or_unlinked
+92,D,[Erebor] Skirmisher,erebor_reg_skirmisher,23.82,62.13,73.6,sm_dwarf_erebor_bow_a,130.0,0.59,92.0,False,erebor,21.0,5,main_or_minor_line
+93,D,[Dol Guldur] Goblin Archer,dg_goblin_archer,23.77,77.82,86.0,wm_isengard_bow_a01,125.0,0.57,180.0,False,dolguldur,21.0,6,main_or_minor_line
+94,D,[Dol Guldur] Orc Scout,dg_orc_scout,23.75,77.82,86.0,wm_isengard_bow_a01,125.0,0.57,180.0,False,dolguldur,21.0,5,main_or_minor_line
+95,D,[Rhûn] Militia Veteran Archer,rhun_militia_veteran_archer,23.41,81.75,98.0,noble_long_bow,120.0,0.55,103.0,False,khuzait,16.0,1,main_or_minor_line
+96,D,Mordor Militia Veteran Archer,mordor_militia_veteran_archer,23.23,59.7,71.25,noble_long_bow,125.0,0.57,89.25,False,mordor,16.0,4,special_or_unlinked
+97,D,[Erebor] Militia Archer,erebor_militia_archer,23.17,58.63,69.75,sm_dwarf_erebor_bow_a|sm_dwarf_erebor_bow_b,130.0,0.59,52.0,False,erebor,11.0,4,special_or_unlinked
+98,D,[Misty Mountains] Sentry,mistymountainorcs_sentry,21.87,77.82,86.0,wm_isengard_bow_a01,120.0,0.55,114.0,False,mistymountainorcs,21.0,1,main_or_minor_line
+99,D,[Gundabad] Sentry,gundabad_sentry,21.85,77.82,86.0,wm_isengard_bow_a01,120.0,0.55,150.0,False,gundabad,21.0,1,main_or_minor_line
+100,D,Dol Guldur Militia Veteran Archer,dolguldur_militia_veteran_archer,21.62,56.74,65.25,wm_isengard_bow_a01|wm_isengard_bow_a02,125.0,0.57,117.5,False,dolguldur,16.0,4,special_or_unlinked
+101,D,[Mordor] Black Uruk Archer,mordor_uruk_archer,20.94,53.88,47.0,mountain_hunting_bow|sm_uruk_bow_a,170.0,0.77,94.75,False,mordor,26.0,8,main_or_minor_line
+102,D,[Gondor] Belfalas Archer,gondor_bel_archer,20.51,58.91,55.0,composite_steppe_bow,130.0,0.59,130.0,True,gondor,21.0,1,main_or_minor_line
+103,D,Dol Guldur Militia Archer,dolguldur_militia_archer,20.22,54.73,63.0,sm_uruk_bow_a,125.0,0.57,76.25,False,dolguldur,11.0,4,special_or_unlinked
+104,D,[Dale] Militia Archer,dale_militia_archer,19.56,62.28,62.0,dale_recurve_bow_a,142.0,0.65,77.0,False,sturgia,6.0,1,main_or_minor_line
+105,D,[Harad] Marksman,harad_marksman,19.51,60.25,55.0,steppe_heavy_bow,140.0,0.64,121.0,False,aserai,21.0,1,main_or_minor_line
+106,D,[Dunland] Cigfran-lûth Archer,dunland_raven_archer,18.75,63.71,60.0,lowland_longbow,130.0,0.59,109.0,False,empire,21.0,1,main_or_minor_line
+107,D,[Mordor] Black Uruk Skirmisher,mordor_uruk_skirmisher,18.75,64.72,77.0,sm_uruk_bow_starter,130.0,0.59,132.0,False,mordor,21.0,1,main_or_minor_line
+108,D,[Harad] Militia Archer,harad_militia_archer,17.96,59.14,58.33,hunting_bow|noble_long_bow,140.0,0.64,53.0,False,aserai,11.0,3,special_or_unlinked
+109,D,[Umbar] Rozadan Bowmen,umbar_elite_root10,17.78,49.34,45.6,lowland_longbow,130.0,0.59,104.8,False,umbar,21.0,5,main_or_minor_line
+110,D,[Gondor] Pinnath Gelin Archer,gondor_pg_archer,17.2,58.91,55.0,composite_steppe_bow,130.0,0.59,130.0,False,gondor,21.0,1,main_or_minor_line
+111,D,[Rhûn] Loke-Rim Bowman,loke_rim_bowman,16.44,60.94,55.0,composite_steppe_bow,120.0,0.55,151.0,False,khuzait,21.0,2,main_or_minor_line
+112,D,[Goblin] Lurker,goblin_lurker,16.18,75.63,84.0,sm_uruk_bow_a,100.0,0.45,115.33,False,goblin,16.0,3,main_or_minor_line
+113,D,[Rhûn] Balcoth Archer,balcoth_archer,16.12,60.94,55.0,composite_steppe_bow,120.0,0.55,135.5,False,khuzait,21.0,2,main_or_minor_line
+114,D,[Rhûn] Easterling Archer,easterling_archer_new,16.04,60.94,55.0,composite_steppe_bow,120.0,0.55,131.0,False,khuzait,21.0,1,main_or_minor_line
+115,D,[Mordor] Orc Archer,mordor_orc_archer,15.9,58.53,54.0,composite_bow,125.0,0.57,134.0,False,mordor,21.0,1,main_or_minor_line
+116,D,[Mordor] Morannon Archer,morannon_archer,15.42,58.53,54.0,composite_bow,125.0,0.57,114.0,False,mordor,21.0,1,main_or_minor_line
+117,D,[Rohan] Militia Archer,rohan_militia_archer,15.25,59.14,58.33,hunting_bow|noble_long_bow,125.0,0.57,39.67,False,vlandia,11.0,3,special_or_unlinked
+118,D,[Dunland] Militia Veteran Archer,dunland_militia_veteran_archer,15.06,57.11,58.0,lowland_longbow,130.0,0.59,65.33,False,empire,16.0,3,special_or_unlinked
+119,D,[Goblin] Militia Veteran Archer,goblin_militia_veteran_archer,14.31,48.91,40.0,hunting_bow,145.0,0.66,84.5,False,goblin,16.0,4,special_or_unlinked
+120,D,[Gondor] Anorien Skirmisher,gondor_ano_skirmisher,14.15,79.75,88.0,wm_gondor_bow,85.0,0.39,102.0,False,gondor,16.0,1,main_or_minor_line
+121,D,[Gondor] Blackroot Vale Bowman,gondor_brv_bowman,14.15,79.75,88.0,wm_gondor_bow,85.0,0.39,102.0,False,gondor,16.0,1,main_or_minor_line
+122,D,[Isengard] Uruk-Hai Scout,urukhai_scout,13.81,77.56,86.0,wm_isengard_bow_a01,85.0,0.39,143.0,False,isengard,16.0,1,main_or_minor_line
+123,D,[Goblin] Militia Archer,goblin_militia_archer,13.6,48.91,40.0,hunting_bow,145.0,0.66,39.5,False,goblin,11.0,4,special_or_unlinked
+124,D,[Dunland] Militia Archer,dunland_militia_archer,13.28,53.95,50.33,highland_ranger_bow|lowland_longbow,130.0,0.59,29.0,False,empire,11.0,3,special_or_unlinked
+125,D,[Gondor] Gondor Militia Archer,gondor_militia_archer,13.05,52.34,40.0,hunting_bow,130.0,0.59,32.0,False,gondor,11.0,1,special_or_unlinked
+126,D,[Dol Guldur] Uruk Skirmisher,dg_uruk_skirmisher,12.29,80.36,90.0,wm_isengard_bow_a02,80.0,0.36,105.0,False,dolguldur,16.0,1,main_or_minor_line
+127,D,[Dale] Dalian Yeoman,dale_bowman,10.97,62.28,62.0,dale_recurve_bow_a,97.0,0.44,77.0,False,sturgia,16.0,2,main_or_minor_line
+128,D,[Rhûn] Militia Archer,rhun_militia_archer,10.94,48.91,40.0,hunting_bow,120.0,0.55,91.0,False,khuzait,11.0,2,main_or_minor_line
+129,D,Mordor Militia Archer,mordor_militia_archer,10.77,36.68,30.0,hunting_bow,125.0,0.57,52.0,False,mordor,11.0,4,special_or_unlinked
+130,D,[Harad] Desert Archer,harad_archer,10.76,60.25,55.0,steppe_heavy_bow,95.0,0.43,111.0,False,aserai,16.0,1,main_or_minor_line
+131,D,[Misty Mountains] Militia Veteran Archer,mistymountainorcs_militia_veteran_archer,10.76,48.91,40.0,hunting_bow,120.0,0.55,84.5,False,mistymountainorcs,16.0,4,special_or_unlinked
+132,D,[Misty Mountains] Lurker,mistymountainorcs_lurker,10.59,75.63,84.0,sm_uruk_bow_a,75.0,0.34,115.33,False,mistymountainorcs,16.0,3,main_or_minor_line
+133,D,[Gundabad] Lurker,gundabad_lurker,10.49,75.63,84.0,sm_uruk_bow_a,75.0,0.34,138.33,False,gundabad,16.0,3,main_or_minor_line
+134,D,[Gundabad] Militia Veteran Archer,gundabad_militia_veteran_archer,10.44,48.91,40.0,hunting_bow,120.0,0.55,91.25,False,gundabad,16.0,4,special_or_unlinked
+135,D,[Rohan] East-Fold Bowman,rohan_eastfold_bowman,10.11,68.07,67.0,woodland_longbow,80.0,0.36,100.0,False,vlandia,16.0,1,main_or_minor_line
+136,D,[Misty Mountains] Militia Archer,mistymountainorcs_militia_archer,10.05,48.91,40.0,hunting_bow,120.0,0.55,39.5,False,mistymountainorcs,11.0,4,special_or_unlinked
+137,D,[Gundabad] Militia Archer,gundabad_militia_archer,10.0,48.91,40.0,hunting_bow,120.0,0.55,67.5,False,gundabad,11.0,4,special_or_unlinked
+138,D,[Rivendell] Imladris Recruit,imladris_recruit,9.91,27.6,34.07,highelf_longbowc|highelf_longbowd,55.0,0.25,218.43,False,rivendell,21.0,14,main_or_minor_line
+139,D,[Gondor] Belfalas Bowman,gondor_bel_bowman,9.72,62.97,55.0,composite_steppe_bow,85.0,0.39,102.0,False,gondor,16.0,1,main_or_minor_line
+140,D,[Goblin] Hunter,goblin_hunter,8.85,75.89,83.0,sm_uruk_bow_a,70.0,0.32,70.6,False,goblin,11.0,10,main_or_minor_line
+141,D,[Umbar] Adûnaim Bowmen,umbar_elite_root1,8.39,48.45,40.8,composite_bow,85.0,0.39,68.8,False,umbar,16.0,5,main_or_minor_line
+142,D,[Dunland] Cigfran-lûth Skirmisher,dunland_raven_warrior,8.31,59.64,58.0,lowland_longbow,85.0,0.39,85.0,False,empire,16.0,1,main_or_minor_line
+143,D,[Dunland] Tribal Skirmisher,dunland_skirmisher,8.19,59.64,58.0,lowland_longbow,85.0,0.39,81.0,False,empire,16.0,1,main_or_minor_line
+144,D,[Rhûn] Easterling Skirmisher,easterling_skirmisher_new,6.78,60.25,55.0,steppe_heavy_bow,75.0,0.34,105.0,False,khuzait,16.0,1,main_or_minor_line
+145,D,[Gundabad] Hunter,gundabad_hunter,5.59,75.89,83.0,sm_uruk_bow_a,45.0,0.25,111.0,False,gundabad,11.0,10,main_or_minor_line
+146,D,[Misty Mountains] Hunter,mistymountainorcs_hunter,5.44,75.89,83.0,sm_uruk_bow_a,45.0,0.25,70.6,False,mistymountainorcs,11.0,10,main_or_minor_line
+147,D,[Mordor] Morannon Scout,morannon_scout,4.95,48.53,41.0,hunting_bow,80.0,0.36,114.0,False,mordor,16.0,1,main_or_minor_line
+148,D,[Dol Guldur] Goblin Hunter,dg_goblin_hunter,4.91,75.89,83.0,sm_uruk_bow_a,50.0,0.25,81.25,False,dolguldur,11.0,4,main_or_minor_line
+149,D,[Mordor] Orc Scout,mordor_orc_scout,4.79,48.53,41.0,hunting_bow,80.0,0.36,102.0,False,mordor,16.0,1,main_or_minor_line
+150,D,[Harad] Skirmisher,harad_skirmisher,4.41,60.56,54.0,composite_bow,65.0,0.3,71.0,False,aserai,11.0,1,main_or_minor_line
+151,D,[Rohan] Eastfold Yeoman Archer,rohan_eastfold_skirmisher,3.7,65.36,62.0,woodland_yew_bow,50.0,0.25,79.0,False,vlandia,11.0,1,main_or_minor_line
+152,D,[Gondor] Belfalas Hunter,gondor_bel_hunter,2.93,62.97,55.0,composite_steppe_bow,55.0,0.25,64.0,False,gondor,11.0,1,main_or_minor_line
+153,D,[Rhûn] Easterling Bowman,easterling_bowman,2.89,60.56,54.0,composite_bow,45.0,0.25,90.0,False,khuzait,11.0,1,main_or_minor_line
+154,D,[Dunland] Tribal Hunter,dunland_hunter,1.53,55.61,47.0,highland_ranger_bow,55.0,0.25,56.0,False,empire,11.0,1,main_or_minor_line
+155,D,[Dunland] Cigfran-lûth Hunter,dunland_raven_noble_son,1.51,54.34,48.0,highland_ranger_bow,10.0,0.25,55.0,False,empire,11.0,1,main_or_minor_line
+156,D,[Rohan] Eastfold Freeman,rohan_eastfold_recruit,1.16,54.29,52.0,glen_ranger_bow,25.0,0.25,31.0,False,vlandia,6.0,1,main_or_minor_line
+157,D,[Mordor] Morannon Skirmisher,morannon_skirmisher,0.47,48.53,41.0,hunting_bow,50.0,0.25,65.0,False,mordor,11.0,1,main_or_minor_line
+158,D,[Mordor] Orc Hunter,mordor_orc_hunter,0.35,48.53,41.0,hunting_bow,50.0,0.25,64.0,False,mordor,11.0,1,main_or_minor_line
