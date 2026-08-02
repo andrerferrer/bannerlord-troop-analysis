@@ -23,6 +23,12 @@ population rules, assumptions, and confidence.
   hypothesis.
 - Spectacle-scale units remain in normalization, by explicit operator decision,
   while `spectacle_reason` preserves the ADR-005 classification for audit.
+- The `infantry` artifact lane is operationally unmounted and therefore also
+  contains ranged foot troops; its population rule is horse-based, not a melee
+  role filter.
+- Incomplete mount/harness evidence is written to an explicit review queue and
+  excluded from score normalization and rankings instead of being treated as
+  zero. The current TAOM queue contains 22 affected warg troops.
 
 ## Review anchors
 
@@ -52,6 +58,7 @@ Each track contains:
 
 - per-roster defensive features;
 - complete troop-level scores;
+- a track-specific evidence review queue (empty when all score inputs resolve);
 - infantry protection and utility rankings;
 - cavalry protection and utility rankings;
 - input hashes, formula weights, population counts, and status in `meta.json`.

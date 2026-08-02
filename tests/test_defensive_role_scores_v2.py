@@ -300,6 +300,75 @@ class DefensiveRoleScoresV2Tests(unittest.TestCase):
         self.assertEqual(row["roster_count"], 1)
         self.assertEqual(row["armor_total_mean"], 50)
 
+    def test_incomplete_mount_evidence_is_queued_instead_of_scored(self) -> None:
+        troops = [
+            troop("resolved_rider", default_group="Cavalry"),
+            troop("warg_rider", default_group="Cavalry"),
+        ]
+        audit = [
+            body("resolved_rider", 0, body_armor=50),
+            horse(
+                "resolved_rider",
+                0,
+                horse_extra_health=20,
+                horse_speed=50,
+                horse_maneuver=60,
+            ),
+            harness("resolved_rider", 0, armor=20),
+            body("warg_rider", 0, body_armor=100),
+            item(
+                "warg_rider",
+                0,
+                "Horse",
+                item_id="warg_brown",
+                type="",
+                horse_extra_health="",
+                horse_speed="",
+                horse_maneuver="",
+            ),
+            item(
+                "warg_rider",
+                0,
+                "HorseHarness",
+                item_id="warg_saddle",
+                type="",
+                body_armor="",
+            ),
+        ]
+
+        rows = by_id(build_candidate_scores(troops, audit))
+
+        self.assertEqual(rows["resolved_rider"]["protection_rank_v2"], 1)
+        self.assertEqual(
+            rows["warg_rider"]["score_status"],
+            "review_required_mount_evidence",
+        )
+        self.assertNotIn("protection_score_v2", rows["warg_rider"])
+        self.assertIn(
+            "warg_brown:type,horse_speed,horse_maneuver",
+            rows["warg_rider"]["unresolved_mount_evidence"],
+        )
+        self.assertIn(
+            "warg_saddle:type,body_armor",
+            rows["warg_rider"]["unresolved_mount_evidence"],
+        )
+
+    def test_taom_warg_gaps_are_written_to_an_explicit_review_queue(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            output = Path(temporary_directory)
+            generated = write_track(REPO, output, "taom")
+            queue_path = output / "taom" / "taom_defensive_review_queue_v2.csv"
+
+            self.assertIn(queue_path, generated)
+            queue = read_csv_rows(queue_path)
+
+        self.assertEqual(len(queue), 22)
+        self.assertTrue(all(not row["protection_score_v2"] for row in queue))
+        self.assertTrue(
+            all(row["score_status"] == "review_required_mount_evidence" for row in queue)
+        )
+        self.assertTrue(any("warg_brown" in row["unresolved_mount_evidence"] for row in queue))
+
     def test_eligible_troop_without_audit_roster_fails_closed(self) -> None:
         with self.assertRaisesRegex(
             ValueError,
@@ -405,7 +474,7 @@ class DefensiveRoleScoresV2Tests(unittest.TestCase):
             write_manifest(output, vanilla_outputs)
 
             paths = read_manifest_paths(output / "artifact_hashes.csv")
-            self.assertEqual(len(paths), 28)
+            self.assertEqual(len(paths), 32)
             self.assertTrue(any(path.startswith("taom/") for path in paths))
 
     def test_committed_outputs_rebuild_byte_for_byte(self) -> None:
@@ -433,6 +502,13 @@ def read_manifest_paths(path: Path) -> list[str]:
 
     with path.open(newline="", encoding="utf-8") as handle:
         return [row["path"] for row in csv.DictReader(handle)]
+
+
+def read_csv_rows(path: Path) -> list[dict[str, str]]:
+    import csv
+
+    with path.open(newline="", encoding="utf-8") as handle:
+        return list(csv.DictReader(handle))
 
 
 if __name__ == "__main__":

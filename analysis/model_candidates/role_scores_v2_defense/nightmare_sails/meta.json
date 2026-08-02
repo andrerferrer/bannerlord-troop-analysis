@@ -3,7 +3,9 @@
   "counts": {
     "cavalry": 64,
     "infantry": 202,
+    "review_required": 0,
     "rosters": 780,
+    "scored_troops": 266,
     "troops": 266
   },
   "empirical": false,
@@ -15,7 +17,7 @@
     "data/nightmare_sails/audit/nightmare_sails_troops.csv": "8d73376d0371c61ac917cab6fa9654ebf7240753f1a8326dd5eada3cd0c5ed69"
   },
   "model": "defensive_role_scores_v2_candidate",
-  "normalization": "per_track_per_lane_minmax_including_outliers",
+  "normalization": "per_track_per_lane_minmax_including_outliers_excluding_review_required",
   "roster_aggregation": "arithmetic_mean_across_rosters_and_within_slot_alternatives",
   "track": "nightmare_sails",
   "weights": {

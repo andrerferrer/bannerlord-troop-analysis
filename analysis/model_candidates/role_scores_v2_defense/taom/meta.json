@@ -3,7 +3,9 @@
   "counts": {
     "cavalry": 142,
     "infantry": 728,
+    "review_required": 22,
     "rosters": 2111,
+    "scored_troops": 848,
     "troops": 870
   },
   "empirical": false,
@@ -15,7 +17,7 @@
     "data/taom/audit/taom_troops.csv": "48fb68bda82fb0260f99d1de38c47656f521441885bf13f67cab6d3f8bfc84bf"
   },
   "model": "defensive_role_scores_v2_candidate",
-  "normalization": "per_track_per_lane_minmax_including_outliers",
+  "normalization": "per_track_per_lane_minmax_including_outliers_excluding_review_required",
   "roster_aggregation": "arithmetic_mean_across_rosters_and_within_slot_alternatives",
   "track": "taom",
   "weights": {

@@ -24,9 +24,14 @@ EXPORT_ID = "export_20260731_150800"
 TRACKS = ("vanilla", "nightmare_sails", "realm_of_thrones", "taom")
 BASE_TRACK = "vanilla"
 PUBLISHED_SCORE_DECIMALS = 6
+REVIEW_REQUIRED_STATUS = "review_required_mount_evidence"
 
 ARMOR_SLOTS = {"Head", "Body", "Gloves", "Leg", "Cape"}
 MELEE_SKILLS = ("OneHanded", "TwoHanded", "Polearm")
+MOUNT_REQUIRED_FIELDS = {
+    "Horse": ("horse_speed", "horse_maneuver"),
+    "HorseHarness": ("body_armor",),
+}
 
 INFANTRY_PROTECTION_WEIGHTS = {
     "armor_component_v2": 0.70,
@@ -65,6 +70,8 @@ ROSTER_FIELDS = (
     "horse_item_ids_audit_only",
     "shield_probability",
     "horse_probability",
+    "mount_evidence_status",
+    "unresolved_mount_evidence",
 )
 
 TROOP_FIELDS = (
@@ -88,6 +95,8 @@ TROOP_FIELDS = (
     "horse_charge_damage_audit_only_mean",
     "horse_charge_damage_max_audit_only",
     "mount_ids_audit_only",
+    "mount_evidence_status",
+    "unresolved_mount_evidence",
     "spectacle_reason",
     "athletics",
     "riding",
@@ -240,6 +249,31 @@ def shield_probability(
     return 1.0 - no_shield_probability
 
 
+def unresolved_mount_evidence(
+    rows: Sequence[Mapping[str, object]],
+) -> list[str]:
+    unresolved = []
+    for row in rows:
+        slot = str(row.get("slot", ""))
+        required_fields = MOUNT_REQUIRED_FIELDS.get(slot)
+        if required_fields is None:
+            continue
+        missing = []
+        if not truthy(row.get("item_found", "True")):
+            missing.append("item_found")
+        if row.get("type") != slot:
+            missing.append("type")
+        missing.extend(
+            field
+            for field in required_fields
+            if not str(row.get(field, "")).strip()
+        )
+        if missing:
+            item_id = str(row.get("item_id", "")) or slot
+            unresolved.append(f"{item_id}:{','.join(missing)}")
+    return sorted(set(unresolved))
+
+
 def roster_features(
     troop: Mapping[str, object],
     roster_index: str,
@@ -253,6 +287,7 @@ def roster_features(
     ]
     horses = slots.get("Horse", [])
     harnesses = slots.get("HorseHarness", [])
+    unresolved_mount = unresolved_mount_evidence(rows)
     probability_of_shield = shield_probability(item_slots)
     horse_ids = sorted(
         {
@@ -307,6 +342,10 @@ def roster_features(
         "horse_item_ids_audit_only": "|".join(horse_ids),
         "shield_probability": probability_of_shield,
         "horse_probability": float(bool(horses)),
+        "mount_evidence_status": (
+            REVIEW_REQUIRED_STATUS if unresolved_mount else "resolved"
+        ),
+        "unresolved_mount_evidence": "|".join(unresolved_mount),
     }
 
 
@@ -364,6 +403,14 @@ def aggregate_rosters(
             ),
             default=0.0,
         )
+        unresolved_mount = sorted(
+            {
+                evidence
+                for row in loadouts
+                for evidence in str(row["unresolved_mount_evidence"]).split("|")
+                if evidence
+            }
+        )
         melee_skill = max(number(troop.get(skill)) for skill in MELEE_SKILLS)
         troop_name = str(troop.get("name") or troop.get("name_raw") or "")
         aggregated.append(
@@ -405,6 +452,10 @@ def aggregate_rosters(
                 ),
                 "horse_charge_damage_max_audit_only": max_mount_charge,
                 "mount_ids_audit_only": "|".join(mount_ids),
+                "mount_evidence_status": (
+                    REVIEW_REQUIRED_STATUS if unresolved_mount else "resolved"
+                ),
+                "unresolved_mount_evidence": "|".join(unresolved_mount),
                 "spectacle_reason": spectacle_reason(
                     troop_id,
                     troop_name,
@@ -479,11 +530,6 @@ def add_lane_scores(lane: list[dict[str, object]], lane_name: str) -> None:
         row["evidence_basis"] = "xml_structural"
         row["empirical"] = False
         row["score_status"] = MODEL_VERSION
-        for field in (
-            "harness_component_v2",
-            "mount_health_component_v2",
-        ):
-            row.setdefault(field, 0.0)
     add_ranks(lane, "protection_score_v2", "protection_rank_v2")
     add_ranks(
         lane,
@@ -519,8 +565,21 @@ def build_candidate_model(
     rosters, troop_by_id = build_roster_features(troops, audit, overrides)
     scores = aggregate_rosters(rosters, troop_by_id)
     for lane_name in ("infantry", "cavalry"):
-        lane = [row for row in scores if row["defensive_lane"] == lane_name]
+        lane = [
+            row
+            for row in scores
+            if row["defensive_lane"] == lane_name
+            and row["mount_evidence_status"] == "resolved"
+        ]
         add_lane_scores(lane, lane_name)
+    for row in scores:
+        if row["mount_evidence_status"] != "resolved":
+            row["roster_aggregation"] = (
+                "arithmetic_mean_across_rosters_and_within_slot_alternatives"
+            )
+            row["evidence_basis"] = "xml_structural"
+            row["empirical"] = False
+            row["score_status"] = REVIEW_REQUIRED_STATUS
     return rosters, scores
 
 
@@ -579,7 +638,12 @@ def ranked(
     score_field: str,
 ) -> list[Mapping[str, object]]:
     return sorted(
-        (row for row in rows if row["defensive_lane"] == lane),
+        (
+            row
+            for row in rows
+            if row["defensive_lane"] == lane
+            and row.get("score_status") == MODEL_VERSION
+        ),
         key=lambda row: (-published_score(row[score_field]), str(row["troop_id"])),
     )
 
@@ -606,6 +670,17 @@ def write_track(
     write_csv(roster_path, rosters, ROSTER_FIELDS)
     write_csv(score_path, sorted(scores, key=lambda row: str(row["troop_id"])), TROOP_FIELDS)
     outputs.extend((roster_path, score_path))
+    review_queue_path = track_dir / f"{track}_defensive_review_queue_v2.csv"
+    review_queue = sorted(
+        (
+            row
+            for row in scores
+            if row.get("score_status") == REVIEW_REQUIRED_STATUS
+        ),
+        key=lambda row: str(row["troop_id"]),
+    )
+    write_csv(review_queue_path, review_queue, TROOP_FIELDS)
+    outputs.append(review_queue_path)
     for lane in ("infantry", "cavalry"):
         for score_field, label in (
             ("protection_score_v2", "protection"),
@@ -622,7 +697,10 @@ def write_track(
         "track": track,
         "evidence_basis": "xml_structural",
         "empirical": False,
-        "normalization": "per_track_per_lane_minmax_including_outliers",
+        "normalization": (
+            "per_track_per_lane_minmax_including_outliers_"
+            "excluding_review_required"
+        ),
         "roster_aggregation": (
             "arithmetic_mean_across_rosters_and_within_slot_alternatives"
         ),
@@ -638,6 +716,10 @@ def write_track(
         "counts": {
             "rosters": len(rosters),
             "troops": len(scores),
+            "scored_troops": sum(
+                row.get("score_status") == MODEL_VERSION for row in scores
+            ),
+            "review_required": len(review_queue),
             "infantry": sum(row["defensive_lane"] == "infantry" for row in scores),
             "cavalry": sum(row["defensive_lane"] == "cavalry" for row in scores),
         },

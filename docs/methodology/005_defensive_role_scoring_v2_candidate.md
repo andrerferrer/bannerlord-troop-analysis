@@ -33,7 +33,15 @@ spectacle-scale units in the normalization population.
   of falling back to a vanilla-only population when that report is missing.
 - A troop is assigned to the cavalry lane when at least half of its alternative
   equipment rosters contain a horse. Every other troop enters the infantry
-  lane. The lanes are mutually exclusive.
+  lane. The lanes are mutually exclusive. Operationally, `infantry` means
+  unmounted here: ranged troops without horses share this normalization
+  population. The existing label is retained for the candidate artifact
+  contract, not as a claim that every row is melee infantry.
+- A horse or harness row with a missing type or required movement/armor field is
+  preserved in `*_defensive_review_queue_v2.csv`. Its troop remains visible in
+  the complete troop output, but score and rank fields stay blank and it does
+  not enter lane normalization. This prevents incomplete mount evidence from
+  being guessed as a real zero.
 - Every troop in a lane participates in that lane's min-max normalization.
   Giants, mammoths, elephants, trolls, and chariots are not removed. This is an
   explicit operator decision for v2, not an omission.
@@ -136,7 +144,7 @@ not fitted.
 
 | Element | Confidence | Reason |
 |---|---|---|
-| Armor, shield, harness inputs | High | Direct, versioned XML audit values |
+| Armor, shield, harness inputs | High when complete | Direct, versioned XML audit values; incomplete mount evidence is queued instead of scored |
 | Alternative-loadout mean | High | Averages mutually exclusive choices within slots, then alternative rosters |
 | Infantry/cavalry split | Medium | Deterministic majority-horse rule; mixed rosters remain visible through `horse_share` |
 | Mount extra-health and mobility components | Medium | Direct XML fields, but not a complete engine durability/movement simulation |

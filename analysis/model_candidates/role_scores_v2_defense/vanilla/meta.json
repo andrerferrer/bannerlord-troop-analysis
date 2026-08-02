@@ -3,7 +3,9 @@
   "counts": {
     "cavalry": 64,
     "infantry": 215,
+    "review_required": 0,
     "rosters": 776,
+    "scored_troops": 279,
     "troops": 279
   },
   "empirical": false,
@@ -14,7 +16,7 @@
     "data/vanilla/audit/vanilla_troops.csv": "edaad2f7c33f3e761b2f2b1d4d924c8b3f43e26f8313e94ff44d4733bba60402"
   },
   "model": "defensive_role_scores_v2_candidate",
-  "normalization": "per_track_per_lane_minmax_including_outliers",
+  "normalization": "per_track_per_lane_minmax_including_outliers_excluding_review_required",
   "roster_aggregation": "arithmetic_mean_across_rosters_and_within_slot_alternatives",
   "track": "vanilla",
   "weights": {

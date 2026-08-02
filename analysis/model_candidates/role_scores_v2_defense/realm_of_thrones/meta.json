@@ -3,7 +3,9 @@
   "counts": {
     "cavalry": 166,
     "infantry": 699,
+    "review_required": 0,
     "rosters": 1151,
+    "scored_troops": 865,
     "troops": 865
   },
   "empirical": false,
@@ -15,7 +17,7 @@
     "data/realm_of_thrones/audit/realm_of_thrones_troops.csv": "63ea983998e25aa0e6f8c0747bf42e44440f695bbe1fec717074e7ba64e42810"
   },
   "model": "defensive_role_scores_v2_candidate",
-  "normalization": "per_track_per_lane_minmax_including_outliers",
+  "normalization": "per_track_per_lane_minmax_including_outliers_excluding_review_required",
   "roster_aggregation": "arithmetic_mean_across_rosters_and_within_slot_alternatives",
   "track": "realm_of_thrones",
   "weights": {
