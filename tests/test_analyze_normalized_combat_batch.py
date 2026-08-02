@@ -303,6 +303,30 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
 
         self.assertEqual(errors, [])
 
+    def test_uncertain_non_hero_can_enter_review_queue(self) -> None:
+        uncertain = {
+            "observation_id": "obs-review",
+            "battle_id": "b1",
+            "battle_context": "field",
+            "side": "attacker",
+            "row_type": "troop",
+            "analysis_status": "unresolved",
+            "needs_review": True,
+            "uncertain_fields": ["kills"],
+            "source_image_sha256": "a" * 64,
+        }
+
+        errors, _ = MODULE.validate_normalized(
+            [{"battle_id": "b1", "battle_context": "field", "player_side": "attacker"}],
+            [uncertain],
+            [],
+            [],
+            [{"image_sha256": "a" * 64}],
+            [{"observation_id": "obs-review", "reason": "kills unreadable"}],
+        )
+
+        self.assertEqual(errors, [])
+
 
 if __name__ == "__main__":
     unittest.main()

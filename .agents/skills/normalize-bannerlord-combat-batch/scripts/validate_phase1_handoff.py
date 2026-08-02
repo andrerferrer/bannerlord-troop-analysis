@@ -338,6 +338,13 @@ def validate_counts(files: dict[str, bytes], summary: dict[str, object], report:
         require(row.get("battle_context") == battle.get("battle_context"), f"occurrence context mismatch: {observation_id}")
         require(row.get("side") in SIDES, f"invalid occurrence side: {observation_id}")
         require(row.get("source_image_sha256") in image_hashes, f"unknown source image hash: {observation_id}")
+        game = row.get("game") if isinstance(row.get("game"), dict) else {}
+        for observed_track in (row.get("game_track"), game.get("track")):
+            if observed_track is not None:
+                require(observed_track == game_track, f"occurrence game track mismatch: {observation_id}")
+        for observed_version in (row.get("game_version"), game.get("version")):
+            if observed_version is not None:
+                require(observed_version == game_version, f"occurrence game version mismatch: {observation_id}")
     primary_ids: set[str] = set()
     for row in primary:
         observation_id = str(row["observation_id"])
@@ -386,10 +393,18 @@ def validate_counts(files: dict[str, bytes], summary: dict[str, object], report:
             require(row.get(field) == derived[key][field], f"consolidated {field} differs from primary rows: {'|'.join(key)}")
     require(consolidated_keys == set(derived), "consolidated rows do not exactly cover primary troop groups")
 
+    queued_ids: set[str] = set()
     for queued in review_queue:
         observation_id = queued.get("observation_id", "")
+        require(bool(observation_id) and observation_id not in queued_ids, f"invalid or duplicate review item: {observation_id}")
+        queued_ids.add(observation_id)
         require(observation_id in occurrence_by_id, f"review item lacks source observation: {observation_id}")
         require(observation_id not in primary_ids, f"review item leaked into primary rows: {observation_id}")
+    expected_review_ids = {
+        observation_id for observation_id, row in occurrence_by_id.items()
+        if bool(row.get("needs_review")) or bool(row.get("uncertain_fields"))
+    }
+    require(expected_review_ids.issubset(queued_ids), f"review-needed occurrences are absent from review_queue.csv: {sorted(expected_review_ids - queued_ids)}")
     actual_counts = {
         "screenshots": len(screenshots),
         "battles": len(battles),

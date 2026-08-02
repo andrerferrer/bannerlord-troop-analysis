@@ -396,8 +396,15 @@ def validate_normalized(
         source = occurrence_by_id.get(observation_id)
         if not source:
             errors.append(f"review item missing source observation: {observation_id}")
-        elif source.get("row_type") != "hero" or source.get("analysis_status") != "excluded_hero":
-            errors.append(f"review item is not an excluded hero: {observation_id}")
+        elif not (
+            source.get("needs_review")
+            or source.get("uncertain_fields")
+            or (
+                source.get("row_type") == "hero"
+                and source.get("analysis_status") == "excluded_hero"
+            )
+        ):
+            errors.append(f"review item has no review reason: {observation_id}")
         if observation_id in primary_ids:
             errors.append(f"review item leaked into primary rows: {observation_id}")
 

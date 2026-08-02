@@ -431,6 +431,38 @@ class Phase1HandoffValidatorTests(unittest.TestCase):
         self.assertEqual(completed.returncode, 2)
         self.assertIn("mixed or missing game track", completed.stderr)
 
+    def test_rejects_occurrence_track_contradiction(self) -> None:
+        contradictory = jsonl_bytes(occurrence_record(game_track="nightmare_sails"))
+        normalization_commit, _ = self.write_fixture(
+            extra_archive_files={
+                "troop_occurrences.jsonl": contradictory,
+                "primary_troop_occurrences.jsonl": contradictory,
+            }
+        )
+
+        completed = self.validate(normalization_commit)
+
+        self.assertEqual(completed.returncode, 2)
+        self.assertIn("occurrence game track mismatch", completed.stderr)
+
+    def test_rejects_unqueued_uncertain_occurrence(self) -> None:
+        uncertain = occurrence_record(
+            observation_id="obs-2",
+            analysis_status="unresolved",
+            needs_review=True,
+            uncertain_fields=["kills"],
+        )
+        all_occurrences = jsonl_bytes(occurrence_record()) + jsonl_bytes(uncertain)
+        normalization_commit, _ = self.write_fixture(
+            extra_archive_files={"troop_occurrences.jsonl": all_occurrences},
+            declared_observations=2,
+        )
+
+        completed = self.validate(normalization_commit)
+
+        self.assertEqual(completed.returncode, 2)
+        self.assertIn("review-needed occurrences are absent", completed.stderr)
+
     def test_accepts_routed_as_separate_from_deployed_arithmetic(self) -> None:
         occurrence = occurrence_record(routed=2)
         normalization_commit, _ = self.write_fixture(
