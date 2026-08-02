@@ -10,7 +10,7 @@ import tempfile
 from pathlib import Path
 
 
-SKILL_NAME = "analyze-bannerlord-combat-zip"
+SKILL_NAME = Path(__file__).resolve().parents[1].name
 
 
 class InstallError(RuntimeError):

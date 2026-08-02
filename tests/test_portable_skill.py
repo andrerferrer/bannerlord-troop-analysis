@@ -69,6 +69,22 @@ class PortableSkillTests(unittest.TestCase):
 
         normalizer_text = (NORMALIZER_SKILL / "SKILL.md").read_text(encoding="utf-8")
         analyzer_text = (ANALYZER_SKILL / "SKILL.md").read_text(encoding="utf-8")
+        normalizer_description = next(
+            line.removeprefix("description: ")
+            for line in normalizer_text.splitlines()
+            if line.startswith("description: ")
+        ).casefold()
+        analyzer_description = next(
+            line.removeprefix("description: ")
+            for line in analyzer_text.splitlines()
+            if line.startswith("description: ")
+        ).casefold()
+        self.assertIn("raw bannerlord", normalizer_description)
+        self.assertIn("unpublished", normalizer_description)
+        self.assertIn("do not use for existing pending analysis tasks", normalizer_description)
+        self.assertIn("existing committed", analyzer_description)
+        self.assertIn("unpublished normalized packages", analyzer_description)
+        self.assertIn("do not use for raw screenshots", analyzer_description)
         self.assertIn("Never continue into Phase 2 in the same agent run", normalizer_text)
         self.assertIn("Reject raw screenshots and raw screenshot ZIPs", analyzer_text)
         self.assertLess(len(normalizer_text.splitlines()), 500)
@@ -134,6 +150,7 @@ class PortableSkillTests(unittest.TestCase):
         )
         self.assertEqual(analyzer_preview.returncode, 0, analyzer_preview.stderr)
         self.assertIn("analyze-bannerlord-combat-zip", analyzer_preview.stdout)
+        self.assertEqual(INSTALL.read_bytes(), ANALYZER_INSTALL.read_bytes())
 
     def test_screenshot_directory_preflight_and_resume(self) -> None:
         images = self.root / "images"
@@ -158,6 +175,18 @@ class PortableSkillTests(unittest.TestCase):
         second = self.run_script(INVOKE, *arguments)
         self.assertEqual(second.returncode, 0, second.stderr)
         self.assertEqual(first_state, (output / "batch_state.json").read_bytes())
+
+        legacy_state = json.loads(first_state)
+        legacy_state.pop("skill_runner_version")
+        (output / "batch_state.json").write_text(
+            json.dumps(legacy_state, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        migrated = self.run_script(INVOKE, *arguments)
+        self.assertEqual(migrated.returncode, 0, migrated.stderr)
+        migrated_state = json.loads((output / "batch_state.json").read_text(encoding="utf-8"))
+        self.assertEqual(migrated_state["skill_runner_version"], "0.3.0-phase1")
+
         (images / "different.png").write_bytes(PNG_FIXTURE + b"different")
         incompatible = self.run_script(INVOKE, *arguments)
         self.assertEqual(incompatible.returncode, 2)

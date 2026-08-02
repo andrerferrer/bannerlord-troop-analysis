@@ -8,4 +8,4 @@ Use this skill only on a host that can access the repository checkout, run its v
 
 Project discovery paths follow the Agent Skills standard (`.agents/skills/` and host-specific adapters). The explicit invocations are `$analyze-bannerlord-combat-zip`, `/analyze-bannerlord-combat-zip`, or the host's skill selector.
 
-Preview project adapter installation with `python3 scripts/install_adapters.py --target all --scope project --mode symlink --project-root /path/to/project --dry-run`. Remove `--dry-run` only with authorization for the target directories.
+Preview project adapter installation with `python3 .agents/skills/analyze-bannerlord-combat-zip/scripts/install_adapters.py --target all --scope project --mode symlink --project-root /path/to/project --dry-run`. Remove `--dry-run` only with authorization for the target directories.

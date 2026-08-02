@@ -34,6 +34,10 @@ def json_bytes(value: object) -> bytes:
     return (json.dumps(value, indent=2, sort_keys=True) + "\n").encode("utf-8")
 
 
+def jsonl_bytes(value: object) -> bytes:
+    return (json.dumps(value, sort_keys=True, separators=(",", ":")) + "\n").encode("utf-8")
+
+
 def sha256(value: bytes) -> str:
     return hashlib.sha256(value).hexdigest()
 
@@ -45,12 +49,13 @@ class Phase1HandoffValidatorTests(unittest.TestCase):
         self.branch = "agent/test-phase1"
         self.batch_relative = "data/combat_observations/2026-08-02-test"
         self.batch = self.repo / self.batch_relative
-        self.git("init", "-b", self.branch)
+        self.git("init", "-b", "main")
         self.git("config", "user.name", "Test Agent")
         self.git("config", "user.email", "test@example.com")
         (self.repo / "AGENTS.md").write_text("# Test repository\n", encoding="utf-8")
         self.git("add", "AGENTS.md")
         self.git("commit", "-m", "initial")
+        self.git("switch", "-c", self.branch)
 
     def tearDown(self) -> None:
         self.temporary.cleanup()
@@ -65,13 +70,13 @@ class Phase1HandoffValidatorTests(unittest.TestCase):
         )
         return completed.stdout.strip()
 
-    def make_archive(self, files: dict[str, bytes]) -> bytes:
+    def make_archive(self, files: dict[str, bytes], *, mtime: int = 0) -> bytes:
         buffer = io.BytesIO()
         with tarfile.open(fileobj=buffer, mode="w:xz", format=tarfile.PAX_FORMAT) as archive:
             for relative, contents in sorted(files.items()):
                 info = tarfile.TarInfo(f"normalized-test/{relative}")
                 info.size = len(contents)
-                info.mtime = 0
+                info.mtime = mtime
                 info.mode = 0o644
                 archive.addfile(info, io.BytesIO(contents))
         return buffer.getvalue()
@@ -79,13 +84,18 @@ class Phase1HandoffValidatorTests(unittest.TestCase):
     def write_fixture(
         self,
         mutate_task: Callable[[dict[str, object]], None] | None = None,
+        *,
+        extra_archive_files: dict[str, bytes] | None = None,
+        declared_observations: int = 1,
+        base64_newline: bool = False,
+        documented_archive_hash: str | None = None,
     ) -> tuple[str, dict[str, object]]:
         source_hash = "a" * 64
         summary = {
             "source_zip_sha256": source_hash,
             "screenshots": 1,
             "battles": 1,
-            "observations": 1,
+            "observations": declared_observations,
             "primary_troop_occurrences": 1,
             "review_queue": 0,
         }
@@ -96,21 +106,36 @@ class Phase1HandoffValidatorTests(unittest.TestCase):
             "source_zip_size_bytes": 123,
             "image_count": 1,
             "battle_count": 1,
-            "observation_count": 1,
+            "observation_count": declared_observations,
             "primary_troop_occurrences": 1,
             "review_queue_count": 0,
         }
         files = {
             "README.md": b"# Normalized test batch\n",
             "screenshots_manifest.csv": b"image_file,image_sha256\nbattle.png," + b"b" * 64 + b"\n",
-            "battles.jsonl": b'{"battle_id":"battle-1"}\n',
-            "troop_occurrences.jsonl": b'{"observation_id":"obs-1"}\n',
-            "primary_troop_occurrences.jsonl": b'{"observation_id":"obs-1"}\n',
-            "troop_battle_consolidated.jsonl": b'{"battle_id":"battle-1"}\n',
+            "battles.jsonl": jsonl_bytes({"battle_id": "battle-1", "battle_context": "field", "player_side": "attacker"}),
+            "troop_occurrences.jsonl": jsonl_bytes({
+                "observation_id": "obs-1", "battle_id": "battle-1", "battle_context": "field",
+                "side": "attacker", "row_type": "troop", "analysis_status": "included_primary",
+                "needs_review": False, "source_image_sha256": "b" * 64,
+                "deployed": 10, "survivors": 8, "kills": 5, "deaths": 1, "wounded": 1, "routed": 0,
+            }),
+            "primary_troop_occurrences.jsonl": jsonl_bytes({
+                "observation_id": "obs-1", "battle_id": "battle-1", "battle_context": "field",
+                "side": "attacker", "row_type": "troop", "analysis_status": "included_primary",
+                "needs_review": False, "source_image_sha256": "b" * 64,
+                "deployed": 10, "survivors": 8, "kills": 5, "deaths": 1, "wounded": 1, "routed": 0,
+            }),
+            "troop_battle_consolidated.jsonl": jsonl_bytes({
+                "battle_id": "battle-1", "battle_context": "field", "display_name_normalized": "test troop",
+                "needs_review": False, "deployed": 10, "survivors": 8, "kills": 5,
+                "deaths": 1, "wounded": 1, "routed": 0,
+            }),
             "review_queue.csv": b"observation_id,reason\n",
             "normalization_summary.json": json_bytes(summary),
             "validation_report.json": json_bytes(report),
         }
+        files.update(extra_archive_files or {})
         manifest = io.StringIO()
         writer = csv.DictWriter(manifest, fieldnames=["file", "sha256", "size_bytes"], lineterminator="\n")
         writer.writeheader()
@@ -136,10 +161,12 @@ class Phase1HandoffValidatorTests(unittest.TestCase):
         )
         (self.batch / "bundle").mkdir(parents=True)
         (self.batch / "bundle/README.md").write_text(
-            f"archive_sha256: {sha256(archive)}\n", encoding="utf-8"
+            f"archive_sha256: {documented_archive_hash or sha256(archive)}\n",
+            encoding="utf-8",
         )
+        encoded_archive = base64.b64encode(archive) + (b"\n" if base64_newline else b"")
         (self.batch / "bundle/normalized-test.tar.xz.base64.part-00").write_bytes(
-            base64.b64encode(archive)
+            encoded_archive
         )
         (self.batch / "handoff").mkdir(parents=True)
         (self.batch / "handoff/ANALYSIS_PROMPT.md").write_text(
@@ -201,6 +228,22 @@ class Phase1HandoffValidatorTests(unittest.TestCase):
         self.assertEqual(result["task_id"], task["task_id"])
         self.assertEqual(result["manifest_entries"], 9)
 
+    def test_accepts_established_analysis_action_alias_and_base64_whitespace(self) -> None:
+        def use_established_action(task: dict[str, object]) -> None:
+            actions = list(task["required_actions"])
+            actions.remove("generate_analysis_outputs")
+            actions.append("generate_reliable_and_complete_rankings")
+            task["required_actions"] = actions
+
+        normalization_commit, _ = self.write_fixture(
+            use_established_action,
+            base64_newline=True,
+        )
+
+        completed = self.validate(normalization_commit)
+
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+
     def test_rejects_missing_core_required_action(self) -> None:
         def omit_action(task: dict[str, object]) -> None:
             task["required_actions"] = REQUIRED_ACTIONS[:-1]
@@ -222,6 +265,14 @@ class Phase1HandoffValidatorTests(unittest.TestCase):
 
         self.assertEqual(completed.returncode, 2)
         self.assertIn("normalized archive hash is incorrect", completed.stderr)
+
+    def test_rejects_documented_archive_hash_mismatch(self) -> None:
+        normalization_commit, _ = self.write_fixture(documented_archive_hash="0" * 64)
+
+        completed = self.validate(normalization_commit)
+
+        self.assertEqual(completed.returncode, 2)
+        self.assertIn("expected archive hash is incorrect", completed.stderr)
 
     def test_rejects_source_identity_mismatch(self) -> None:
         def corrupt_source(task: dict[str, object]) -> None:
@@ -245,6 +296,83 @@ class Phase1HandoffValidatorTests(unittest.TestCase):
 
         self.assertEqual(completed.returncode, 2)
         self.assertIn("Phase 2 directory is forbidden", completed.stderr)
+
+    def test_rejects_phase2_output_inside_normalized_archive(self) -> None:
+        normalization_commit, _ = self.write_fixture(
+            extra_archive_files={"analysis/ranking_complete.csv": b"troop_id,score\nfoo,1\n"}
+        )
+
+        completed = self.validate(normalization_commit)
+
+        self.assertEqual(completed.returncode, 2)
+        self.assertIn("Phase 2 artifacts are forbidden", completed.stderr)
+
+    def test_rejects_declared_counts_that_do_not_match_records(self) -> None:
+        normalization_commit, _ = self.write_fixture(declared_observations=2)
+
+        completed = self.validate(normalization_commit)
+
+        self.assertEqual(completed.returncode, 2)
+        self.assertIn("declared count differs from archive records", completed.stderr)
+
+    def test_rejects_player_enemy_boundary_violation(self) -> None:
+        invalid_primary = jsonl_bytes({
+            "observation_id": "obs-1", "battle_id": "battle-1", "battle_context": "field",
+            "side": "defender", "row_type": "troop", "analysis_status": "included_primary",
+            "needs_review": False, "source_image_sha256": "b" * 64,
+            "deployed": 10, "survivors": 8, "kills": 5, "deaths": 1,
+            "wounded": 1, "routed": 0,
+        })
+        normalization_commit, _ = self.write_fixture(
+            extra_archive_files={"primary_troop_occurrences.jsonl": invalid_primary}
+        )
+
+        completed = self.validate(normalization_commit)
+
+        self.assertEqual(completed.returncode, 2)
+        self.assertIn("player/enemy side boundary violation", completed.stderr)
+
+    def test_rejects_archive_replacement_after_normalization_commit(self) -> None:
+        normalization_commit, _ = self.write_fixture()
+        part = self.batch / "bundle/normalized-test.tar.xz.base64.part-00"
+        original_archive = base64.b64decode(part.read_bytes(), validate=True)
+        files: dict[str, bytes] = {}
+        with tarfile.open(fileobj=io.BytesIO(original_archive), mode="r:xz") as archive:
+            for member in archive:
+                if member.isfile():
+                    extracted = archive.extractfile(member)
+                    self.assertIsNotNone(extracted)
+                    files["/".join(member.name.split("/")[1:])] = extracted.read()
+        replacement = self.make_archive(files, mtime=1)
+        self.assertNotEqual(sha256(original_archive), sha256(replacement))
+        part.write_bytes(base64.b64encode(replacement))
+        (self.batch / "bundle/README.md").write_text(
+            f"archive_sha256: {sha256(replacement)}\n", encoding="utf-8"
+        )
+        task_path = self.batch / "handoff/ANALYSIS_TASK_V1.json"
+        task = json.loads(task_path.read_text(encoding="utf-8"))
+        task["normalized_archive_sha256"] = sha256(replacement)
+        task_path.write_bytes(json_bytes(task))
+        self.git("add", self.batch_relative)
+        self.git("commit", "-m", "normalize: replace archive after handoff")
+
+        completed = self.validate(normalization_commit)
+
+        self.assertEqual(completed.returncode, 2)
+        self.assertIn("immutable Phase 1 files changed", completed.stderr)
+
+    def test_rejects_frozen_model_change_anywhere_on_batch_branch(self) -> None:
+        model = self.repo / "analysis/model_versions/forbidden.json"
+        model.parent.mkdir(parents=True)
+        model.write_text("{}\n", encoding="utf-8")
+        self.git("add", "analysis/model_versions/forbidden.json")
+        self.git("commit", "-m", "model: forbidden batch-branch change")
+        normalization_commit, _ = self.write_fixture()
+
+        completed = self.validate(normalization_commit)
+
+        self.assertEqual(completed.returncode, 2)
+        self.assertIn("frozen model files changed", completed.stderr)
 
 
 if __name__ == "__main__":

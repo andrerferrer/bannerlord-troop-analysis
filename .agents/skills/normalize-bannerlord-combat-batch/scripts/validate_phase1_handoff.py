@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import binascii
 import csv
 import hashlib
 import io
@@ -50,10 +51,23 @@ REQUIRED_ACTIONS = {
     "preserve_normalized_inputs",
     "complete_review_layer",
     "resolve_canonical_identities",
-    "generate_analysis_outputs",
     "confirm_frozen_models_unchanged",
     "validate_and_merge",
 }
+ANALYSIS_ACTION_ALIASES = {
+    "generate_analysis_outputs",
+    "generate_reliable_and_complete_rankings",
+}
+FORBIDDEN_ARCHIVE_PREFIXES = ("analysis/", "review/", "canonical/")
+FORBIDDEN_ARCHIVE_NAMES = {
+    "canonical_identity_audit.csv",
+    "historical_troop_aggregates.jsonl",
+    "model_comparison.csv",
+    "ranking_complete.csv",
+    "ranking_reliable.csv",
+}
+CONTEXTS = {"field", "siege_attack", "siege_defense"}
+COUNT_FIELDS = ("deployed", "survivors", "kills", "deaths", "wounded", "routed")
 MIRRORED_ARCHIVE_FILES = (
     "screenshots_manifest.csv",
     "normalization_summary.json",
@@ -117,10 +131,10 @@ def ordered_bundle_parts(bundle_dir: Path) -> list[Path]:
 def decode_archive(parts: list[Path]) -> bytes:
     encoded_size = sum(part.stat().st_size for part in parts)
     require(encoded_size <= MAX_BASE64_BYTES, f"Base64 bundle exceeds size limit: {encoded_size}")
-    encoded = b"".join(part.read_bytes() for part in parts)
+    encoded = b"".join(b"".join(part.read_bytes().split()) for part in parts)
     try:
         return base64.b64decode(encoded, validate=True)
-    except ValueError as error:
+    except (binascii.Error, ValueError) as error:
         raise HandoffError(f"invalid Base64 bundle: {error}") from error
 
 
@@ -158,6 +172,14 @@ def archive_files(archive: bytes) -> dict[str, bytes]:
     except (tarfile.TarError, OSError) as error:
         raise HandoffError(f"invalid normalized tar.xz archive: {error}") from error
     require(len(roots) == 1, f"archive must contain one top-level directory, found {sorted(roots)}")
+    forbidden = sorted(
+        path
+        for path in result
+        if path.startswith(FORBIDDEN_ARCHIVE_PREFIXES)
+        or PurePosixPath(path).name in FORBIDDEN_ARCHIVE_NAMES
+        or PurePosixPath(path).name.startswith("ranking_")
+    )
+    require(not forbidden, f"Phase 2 artifacts are forbidden in the normalized archive: {forbidden}")
     return result
 
 
@@ -197,6 +219,44 @@ def load_archive_json(files: dict[str, bytes], path: str) -> dict[str, object]:
     return value
 
 
+def load_archive_jsonl(
+    files: dict[str, bytes],
+    path: str,
+    identity_key: str | None,
+) -> list[dict[str, object]]:
+    try:
+        text = files[path].decode("utf-8")
+    except UnicodeDecodeError as error:
+        raise HandoffError(f"invalid archive JSONL encoding {path}: {error}") from error
+    records: list[dict[str, object]] = []
+    identities: set[str] = set()
+    for line_number, line in enumerate(text.splitlines(), start=1):
+        require(bool(line.strip()), f"blank JSONL line in {path}:{line_number}")
+        try:
+            record = json.loads(line)
+        except ValueError as error:
+            raise HandoffError(f"invalid archive JSONL {path}:{line_number}: {error}") from error
+        require(isinstance(record, dict), f"JSONL record must be an object: {path}:{line_number}")
+        if identity_key is not None:
+            identity = record.get(identity_key)
+            require(isinstance(identity, str) and bool(identity), f"{path}:{line_number} lacks {identity_key}")
+            require(identity not in identities, f"duplicate {identity_key} in {path}: {identity}")
+            identities.add(identity)
+        records.append(record)
+    return records
+
+
+def load_archive_csv(files: dict[str, bytes], path: str) -> tuple[list[str], list[dict[str, str]]]:
+    try:
+        reader = csv.DictReader(io.StringIO(files[path].decode("utf-8")))
+        rows = list(reader)
+    except (UnicodeDecodeError, csv.Error) as error:
+        raise HandoffError(f"invalid archive CSV {path}: {error}") from error
+    fields = reader.fieldnames or []
+    require(bool(fields), f"archive CSV lacks a header: {path}")
+    return fields, rows
+
+
 def validate_source_identity(summary: dict[str, object], report: dict[str, object], task: dict[str, object]) -> None:
     source_hash = summary.get("source_zip_sha256")
     require(isinstance(source_hash, str) and SHA256_RE.fullmatch(source_hash) is not None, "normalization_summary.json lacks a valid source_zip_sha256")
@@ -209,18 +269,95 @@ def validate_source_identity(summary: dict[str, object], report: dict[str, objec
     require(isinstance(errors, list) and not errors, "Phase 1 validation_report.json contains errors")
 
 
-def validate_counts(summary: dict[str, object], report: dict[str, object]) -> None:
-    pairs = (
-        ("screenshots", "image_count"),
-        ("battles", "battle_count"),
-        ("observations", "observation_count"),
-        ("primary_troop_occurrences", "primary_troop_occurrences"),
-        ("review_queue", "review_queue_count"),
-    )
-    for summary_key, report_key in pairs:
+def validate_counts(files: dict[str, bytes], summary: dict[str, object], report: dict[str, object]) -> None:
+    screenshot_fields, screenshots = load_archive_csv(files, "screenshots_manifest.csv")
+    require({"image_file", "image_sha256"}.issubset(screenshot_fields), "screenshots_manifest.csv lacks identity/hash columns")
+    screenshot_names: set[str] = set()
+    for row in screenshots:
+        name = row.get("image_file", "")
+        digest = row.get("image_sha256", "")
+        require(bool(name) and name not in screenshot_names, f"invalid or duplicate screenshot manifest row: {name!r}")
+        require(SHA256_RE.fullmatch(digest) is not None, f"invalid screenshot SHA-256: {name}")
+        screenshot_names.add(name)
+
+    battles = load_archive_jsonl(files, "battles.jsonl", "battle_id")
+    observations = load_archive_jsonl(files, "troop_occurrences.jsonl", "observation_id")
+    primary = load_archive_jsonl(files, "primary_troop_occurrences.jsonl", "observation_id")
+    consolidated = load_archive_jsonl(files, "troop_battle_consolidated.jsonl", None)
+    _, review_queue = load_archive_csv(files, "review_queue.csv")
+    battle_by_id = {str(row["battle_id"]): row for row in battles}
+    occurrence_by_id = {str(row["observation_id"]): row for row in observations}
+    image_hashes = {row["image_sha256"] for row in screenshots}
+    primary_ids: set[str] = set()
+    for row in primary:
+        observation_id = str(row["observation_id"])
+        primary_ids.add(observation_id)
+        require(observation_id in occurrence_by_id, f"primary row is absent from troop_occurrences.jsonl: {observation_id}")
+        battle = battle_by_id.get(str(row.get("battle_id")))
+        require(battle is not None, f"primary row has unknown battle: {observation_id}")
+        require(row.get("row_type") == "troop", f"non-troop row entered primary input: {observation_id}")
+        require(row.get("analysis_status") == "included_primary", f"non-primary status entered primary input: {observation_id}")
+        require(not row.get("needs_review"), f"review-needed row entered primary input: {observation_id}")
+        require(row.get("side") == battle.get("player_side"), f"player/enemy side boundary violation: {observation_id}")
+        require(row.get("battle_context") == battle.get("battle_context"), f"battle context mismatch: {observation_id}")
+        require(row.get("source_image_sha256") in image_hashes, f"unknown source image hash: {observation_id}")
+        validate_count_fields(row, f"primary row {observation_id}")
+
+    consolidated_keys: set[tuple[str, str, str]] = set()
+    for row in consolidated:
+        key = (
+            str(row.get("battle_id")),
+            str(row.get("battle_context")),
+            str(row.get("display_name_normalized")),
+        )
+        require(key not in consolidated_keys, f"duplicate consolidated key: {'|'.join(key)}")
+        consolidated_keys.add(key)
+        require(key[0] in battle_by_id, f"consolidated row has unknown battle: {'|'.join(key)}")
+        require(key[1] in CONTEXTS, f"unknown consolidated context: {'|'.join(key)}")
+        require(not row.get("needs_review"), f"review-needed row entered consolidated input: {'|'.join(key)}")
+        validate_count_fields(row, f"consolidated row {'|'.join(key)}")
+
+    for queued in review_queue:
+        observation_id = queued.get("observation_id", "")
+        require(observation_id in occurrence_by_id, f"review item lacks source observation: {observation_id}")
+        require(observation_id not in primary_ids, f"review item leaked into primary rows: {observation_id}")
+    actual_counts = {
+        "screenshots": len(screenshots),
+        "battles": len(battles),
+        "observations": len(observations),
+        "primary_troop_occurrences": len(primary),
+        "review_queue": len(review_queue),
+    }
+    report_keys = {
+        "screenshots": "image_count",
+        "battles": "battle_count",
+        "observations": "observation_count",
+        "primary_troop_occurrences": "primary_troop_occurrences",
+        "review_queue": "review_queue_count",
+    }
+    for summary_key, actual in actual_counts.items():
+        report_key = report_keys[summary_key]
         require(summary_key in summary, f"normalization_summary.json lacks {summary_key}")
         require(report_key in report, f"validation_report.json lacks {report_key}")
+        require(
+            isinstance(summary[summary_key], int) and not isinstance(summary[summary_key], bool) and summary[summary_key] >= 0,
+            f"normalization_summary.json {summary_key} must be a non-negative integer",
+        )
+        require(
+            isinstance(report[report_key], int) and not isinstance(report[report_key], bool) and report[report_key] >= 0,
+            f"validation_report.json {report_key} must be a non-negative integer",
+        )
         require(summary[summary_key] == report[report_key], f"count mismatch: {summary_key} != {report_key}")
+        require(summary[summary_key] == actual, f"declared count differs from archive records: {summary_key}")
+
+
+def validate_count_fields(row: dict[str, object], label: str) -> None:
+    for field in COUNT_FIELDS:
+        value = row.get(field)
+        require(isinstance(value, int) and not isinstance(value, bool) and value >= 0, f"invalid {field}: {label}")
+    require(int(row["deployed"]) > 0, f"non-positive deployed count: {label}")
+    accounted = sum(int(row[field]) for field in ("survivors", "deaths", "wounded", "routed"))
+    require(accounted == int(row["deployed"]), f"troop arithmetic mismatch: {label}")
 
 
 def validate_task(
@@ -243,6 +380,10 @@ def validate_task(
     require(isinstance(actions, list) and all(isinstance(item, str) for item in actions), "analysis task required_actions must be a string list")
     missing_actions = sorted(REQUIRED_ACTIONS.difference(actions))
     require(not missing_actions, f"analysis task omits required actions: {', '.join(missing_actions)}")
+    require(
+        bool(ANALYSIS_ACTION_ALIASES.intersection(actions)),
+        "analysis task omits an analysis-output action",
+    )
     completion = task.get("completion")
     require(isinstance(completion, dict), "analysis task lacks completion object")
     require(completion.get("action") == "merge", "analysis task completion.action must be merge")
@@ -255,6 +396,7 @@ def validate_git_state(
     batch_relative: str,
     branch: str,
     normalization_commit: str,
+    base_ref: str,
 ) -> None:
     require(COMMIT_RE.fullmatch(normalization_commit) is not None, "normalization commit must be a full 40-character SHA")
     current_branch = git(repo, "branch", "--show-current").stdout.strip()
@@ -263,7 +405,6 @@ def validate_git_state(
     require(git(repo, "merge-base", "--is-ancestor", normalization_commit, "HEAD", check=False).returncode == 0, "normalization_commit is not an ancestor of HEAD")
     dirty = git(repo, "status", "--porcelain", "--", batch_relative).stdout.strip()
     require(not dirty, f"batch has uncommitted changes: {dirty}")
-    immutable = [path for path in REQUIRED_BATCH_FILES if path != "handoff/ANALYSIS_TASK_V1.json"]
     changed = git(
         repo,
         "diff",
@@ -271,11 +412,27 @@ def validate_git_state(
         normalization_commit,
         "HEAD",
         "--",
-        *[f"{batch_relative}/{path}" for path in immutable],
-    ).stdout.strip()
-    require(not changed, f"immutable Phase 1 files changed after normalization commit: {changed}")
-    model_changed = git(repo, "diff", "--name-only", f"{normalization_commit}^", "HEAD", "--", "analysis/model_versions").stdout.strip()
+        batch_relative,
+    ).stdout.splitlines()
+    task_mirror = f"{batch_relative}/handoff/ANALYSIS_TASK_V1.json"
+    immutable_changes = [path for path in changed if path != task_mirror]
+    require(not immutable_changes, f"immutable Phase 1 files changed after normalization commit: {immutable_changes}")
+    require(git(repo, "rev-parse", "--verify", f"{base_ref}^{{commit}}", check=False).returncode == 0, f"base ref is not a commit: {base_ref}")
+    merge_base = git(repo, "merge-base", base_ref, "HEAD").stdout.strip()
+    model_changed = git(repo, "diff", "--name-only", merge_base, "HEAD", "--", "analysis/model_versions").stdout.strip()
     require(not model_changed, f"frozen model files changed: {model_changed}")
+
+
+def validate_documented_hashes(batch: Path, source_sha256: str, archive_sha256: str) -> None:
+    source_text = (batch / "source/README.md").read_text(encoding="utf-8").casefold()
+    require(source_sha256 in source_text, "source/README.md does not record the verified source SHA-256")
+    bundle_text = (batch / "bundle/README.md").read_text(encoding="utf-8").casefold()
+    documented = re.findall(
+        r"(?:archive[_ -]sha-?256\s*:|#\s*expected\s*:)\s*`?([0-9a-f]{64})",
+        bundle_text,
+    )
+    require(len(documented) == 1, "bundle/README.md must record exactly one expected archive SHA-256")
+    require(documented[0] == archive_sha256, "bundle/README.md expected archive hash is incorrect")
 
 
 def parser() -> argparse.ArgumentParser:
@@ -284,6 +441,7 @@ def parser() -> argparse.ArgumentParser:
     value.add_argument("--batch-dir", type=Path, required=True)
     value.add_argument("--branch", required=True)
     value.add_argument("--normalization-commit", required=True)
+    value.add_argument("--base-ref", default="main")
     return value
 
 
@@ -316,7 +474,8 @@ def main() -> int:
     summary = load_archive_json(files, "normalization_summary.json")
     report = load_archive_json(files, "validation_report.json")
     validate_source_identity(summary, report, task)
-    validate_counts(summary, report)
+    validate_counts(files, summary, report)
+    validate_documented_hashes(batch, str(task["source_sha256"]), archive_sha256)
 
     expected_handoff = f"{batch_relative}/handoff/ANALYSIS_PROMPT.md"
     validate_task(
@@ -326,7 +485,7 @@ def main() -> int:
         expected_handoff_path=expected_handoff,
         archive_sha256=archive_sha256,
     )
-    validate_git_state(repo, batch_relative, args.branch, args.normalization_commit)
+    validate_git_state(repo, batch_relative, args.branch, args.normalization_commit, args.base_ref)
 
     result = {
         "status": "passed",

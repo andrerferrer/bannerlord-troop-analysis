@@ -1,6 +1,6 @@
 ---
 name: analyze-bannerlord-combat-zip
-description: Complete Phase 2 review and analysis for an existing normalized Bannerlord combat-evidence batch or a valid pending bannerlord-analysis-task:v1 pull-request task. Use when given a committed handoff/ANALYSIS_PROMPT.md, a verified normalized bundle, an existing analysis-queue PR, the operator command "Fecha as análises", or a request to canonicalize, rank, compare, or resume analysis after normalization. Do not use for raw screenshots, raw screenshot ZIP normalization, creation of a new evidence-batch branch or pull request, or publication of a pending Phase 1 task.
+description: Complete Phase 2 review and analysis for an existing committed Bannerlord combat-evidence handoff or a valid pending bannerlord-analysis-task:v1 pull-request task. Use when given a committed handoff/ANALYSIS_PROMPT.md, an existing analysis-queue PR, the operator command "Fecha as análises", or a request to canonicalize, rank, compare, or resume a published batch after normalization. Do not use for raw screenshots, raw screenshot ZIP normalization, unpublished normalized packages, creation of a new evidence-batch branch or pull request, or publication of a pending Phase 1 task.
 ---
 
 # Analyze Bannerlord Combat ZIP
@@ -13,8 +13,7 @@ Consume the immutable Phase 1 handoff. Never act as the normalization agent.
 2. For `Fecha as análises`, run `python scripts/analysis/discover_analysis_tasks.py --json` and process every actionable task exactly as `AGENTS.md` requires.
 3. Otherwise require one of:
    - an open pull request whose newest valid protocol comment is `pending`, `in_progress`, or retryable `blocked`;
-   - a committed batch-specific `handoff/ANALYSIS_PROMPT.md` plus its normalized bundle;
-   - verified normalized artifacts for an explicitly requested offline reanalysis.
+   - a committed batch-specific `handoff/ANALYSIS_PROMPT.md` plus its normalized bundle.
 4. Reject raw screenshots and raw screenshot ZIPs. Route those to `$normalize-bannerlord-combat-batch` in a separate agent run.
 
 ## Execute Phase 2

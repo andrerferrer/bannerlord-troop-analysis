@@ -30,10 +30,6 @@ python scripts/analysis/discover_analysis_tasks.py --json
 
 Use the commands committed in each task's `handoff/ANALYSIS_PROMPT.md`. The repository contains batch-specific Phase 2 tooling such as `scripts/analysis/analyze_normalized_combat_batch.py`; do not substitute the portable Phase 1 runner.
 
-## Direct normalized-input path
-
-For explicit offline reanalysis outside the queue, require the same verified archive, artifact manifest, track audit, and immutable-input guarantees. Do not create or imply a Phase 1 pull request. If the requested output belongs in the repository, require an existing batch handoff or create a separately authorized analysis task rather than impersonating the normalizer.
-
 ## Stop conditions
 
 Publish `blocked` rather than continuing when:
@@ -46,3 +42,4 @@ Publish `blocked` rather than continuing when:
 - normalized evidence changed after handoff;
 - frozen model files changed;
 - side, track, or battle-context boundaries cannot be preserved.
+- the normalized package is unpublished and has no committed Phase 1 handoff.

@@ -18,7 +18,7 @@ Reject requests whose starting point is an existing valid `bannerlord-analysis-t
 Read [references/workflow.md](references/workflow.md), then prepare or resume raw extraction with:
 
 ```bash
-python3 scripts/invoke_pipeline.py \
+python3 .agents/skills/normalize-bannerlord-combat-batch/scripts/invoke_pipeline.py \
   --input "/absolute/path/to/input" \
   --output "/absolute/path/to/output" \
   --mode host-vision \
@@ -38,7 +38,8 @@ python3 .agents/skills/normalize-bannerlord-combat-batch/scripts/validate_phase1
   --repo-root "/absolute/path/to/bannerlord-troop-analysis" \
   --batch-dir "/absolute/path/to/bannerlord-troop-analysis/data/combat_observations/<batch>" \
   --branch "<exact-head-branch>" \
-  --normalization-commit "<full-phase1-commit-sha>"
+  --normalization-commit "<full-phase1-commit-sha>" \
+  --base-ref main
 ```
 
 Publication is allowed only when this command exits zero. A host without a repository checkout and executable validation may prepare artifacts, but it must report publication as blocked and must not post a `pending` comment.

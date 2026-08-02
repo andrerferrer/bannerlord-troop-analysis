@@ -242,6 +242,17 @@ def main() -> int:
     }
     if state_path.exists():
         existing = json.loads(state_path.read_text(encoding="utf-8"))
+        if "skill_runner_version" not in existing:
+            legacy_phases = existing.get("phase_statuses", {})
+            if not isinstance(legacy_phases, dict) or any(
+                legacy_phases.get(phase) in {"complete", "complete_with_warnings"}
+                for phase in ("canonical", "model_comparison")
+            ):
+                raise InvocationError(
+                    "refusing legacy resume that already entered Phase 2; continue it with the "
+                    "analysis handoff instead"
+                )
+            existing["skill_runner_version"] = SKILL_RUNNER_VERSION
         for field in (
             "input_sha256",
             "pipeline_version",

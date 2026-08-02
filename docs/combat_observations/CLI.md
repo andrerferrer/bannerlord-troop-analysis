@@ -153,6 +153,8 @@ python3 .agents/skills/normalize-bannerlord-combat-batch/scripts/invoke_pipeline
   --repo "$PWD"
 ```
 
+Saved Phase 2 invocations that used `--troop-registry`, `--corrections`, `--aliases`, `--general-model`, or `--burst-model` must now follow the committed handoff and `$analyze-bannerlord-combat-zip`; those flags no longer belong to the Phase 1 runner. Legacy pre-canonical extraction state can resume at the new path, while state that already entered canonicalization must continue as Phase 2.
+
 Before publishing a Phase 1 branch, draft PR, or pending task comment, run:
 
 ```bash
@@ -160,7 +162,8 @@ python3 .agents/skills/normalize-bannerlord-combat-batch/scripts/validate_phase1
   --repo-root "$PWD" \
   --batch-dir "$PWD/data/combat_observations/<batch>" \
   --branch "<head-branch>" \
-  --normalization-commit "<full-sha>"
+  --normalization-commit "<full-sha>" \
+  --base-ref main
 ```
 
 Phase 2 starts only from the existing handoff or analysis queue and follows `$analyze-bannerlord-combat-zip` plus the batch-specific `handoff/ANALYSIS_PROMPT.md`.
