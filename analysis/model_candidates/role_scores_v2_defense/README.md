@@ -29,10 +29,11 @@ population rules, assumptions, and confidence.
 - Incomplete mount/harness evidence is written to an explicit review queue and
   excluded from score normalization and rankings instead of being treated as
   zero. The current TAOM queue contains 22 affected warg troops.
-- Other `item_found=false` equipment retains the documented zero contribution,
-  while `unresolved_item_evidence` identifies the exact source item and slot in
-  every published row. Nine scored Realm of Thrones troops currently carry
-  this audit marker.
+- Other `item_found=false` equipment and armor items whose stat fields are all
+  blank retain the documented zero contribution, while
+  `unresolved_item_evidence` identifies the exact source item, slot, and gap in
+  every published row. The outputs expose 36 scored troops with blank armor
+  evidence and nine Realm of Thrones troops with unresolved item identities.
 
 ## Review anchors
 

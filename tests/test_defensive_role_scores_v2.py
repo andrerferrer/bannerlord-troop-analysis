@@ -301,7 +301,32 @@ class DefensiveRoleScoresV2Tests(unittest.TestCase):
         self.assertEqual(row["armor_total_mean"], 50)
         self.assertEqual(
             row["unresolved_item_evidence"],
-            "guard_Head_0:Head",
+            "guard_Head_0:Head:item_found",
+        )
+
+    def test_found_armor_without_stats_remains_auditable(self) -> None:
+        troops = [troop("guard")]
+        audit = [
+            body("guard", 0, body_armor=50),
+            item(
+                "guard",
+                0,
+                "Head",
+                item_id="statless_helmet",
+                type="",
+                head_armor="",
+                body_armor="",
+                arm_armor="",
+                leg_armor="",
+            ),
+        ]
+
+        row = by_id(build_candidate_scores(troops, audit))["guard"]
+
+        self.assertEqual(row["armor_total_mean"], 50)
+        self.assertEqual(
+            row["unresolved_item_evidence"],
+            "statless_helmet:Head:armor_stats",
         )
 
     def test_realm_of_thrones_unresolved_items_remain_auditable(self) -> None:
@@ -315,8 +340,12 @@ class DefensiveRoleScoresV2Tests(unittest.TestCase):
             )
 
         unresolved = [row for row in rows if row["unresolved_item_evidence"]]
-        self.assertEqual(len(unresolved), 9)
+        self.assertEqual(len(unresolved), 11)
         self.assertIn("qohorik_goat_devout", {row["troop_id"] for row in unresolved})
+        self.assertIn(
+            "ibbenese_militia_veteran_archer",
+            {row["troop_id"] for row in unresolved},
+        )
 
     def test_incomplete_mount_evidence_is_queued_instead_of_scored(self) -> None:
         troops = [

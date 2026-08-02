@@ -27,6 +27,7 @@ PUBLISHED_SCORE_DECIMALS = 6
 REVIEW_REQUIRED_STATUS = "review_required_mount_evidence"
 
 ARMOR_SLOTS = {"Head", "Body", "Gloves", "Leg", "Cape"}
+ARMOR_FIELDS = ("head_armor", "body_armor", "arm_armor", "leg_armor")
 MELEE_SKILLS = ("OneHanded", "TwoHanded", "Polearm")
 MOUNT_REQUIRED_FIELDS = {
     "Horse": ("horse_speed", "horse_maneuver"),
@@ -279,14 +280,17 @@ def unresolved_mount_evidence(
 def unresolved_item_evidence(
     rows: Sequence[Mapping[str, object]],
 ) -> list[str]:
-    return sorted(
-        {
-            f"{str(row.get('item_id', '')) or str(row.get('slot', ''))}:"
-            f"{str(row.get('slot', ''))}"
-            for row in rows
-            if not truthy(row.get("item_found", "True"))
-        }
-    )
+    unresolved = []
+    for row in rows:
+        slot = str(row.get("slot", ""))
+        item_id = str(row.get("item_id", "")) or slot
+        if not truthy(row.get("item_found", "True")):
+            unresolved.append(f"{item_id}:{slot}:item_found")
+        elif slot in ARMOR_SLOTS and not any(
+            str(row.get(field, "")).strip() for field in ARMOR_FIELDS
+        ):
+            unresolved.append(f"{item_id}:{slot}:armor_stats")
+    return sorted(set(unresolved))
 
 
 def roster_features(

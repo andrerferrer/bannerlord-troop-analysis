@@ -24,11 +24,12 @@ spectacle-scale units in the normalization population.
 - Heroes and `mp_*` troops are excluded.
 - Mod tracks keep added or overridden soldiers and exclude untouched vanilla
   rows (`change_type=inalterado`).
-- Audit rows whose item could not be resolved (`item_found != true`) do not
-  contribute item attributes. Their roster still exists, so the unresolved
-  slot contributes zero instead of borrowing values from another loadout. The
-  exact item and slot remain visible in `unresolved_item_evidence`, so this
-  proxy zero cannot be mistaken for complete source evidence.
+- Audit rows whose item could not be resolved (`item_found != true`), and armor
+  rows whose four armor-stat fields are all blank, do not contribute item
+  attributes. Their roster still exists, so the unresolved slot contributes
+  zero instead of borrowing values from another loadout. The exact item, slot,
+  and missing-evidence class remain visible in `unresolved_item_evidence`, so
+  this proxy zero cannot be mistaken for complete source evidence.
 - Every eligible troop must have at least one audit roster. Generation stops
   instead of silently dropping a troop when that evidence is missing.
 - Mod tracks require their versioned override report. Generation stops instead
@@ -57,6 +58,9 @@ computes the arithmetic mean of the alternatives within each slot, then the
 arithmetic mean across all roster indices. A missing shield, horse, or harness
 contributes zero for that roster. An unresolved alternative contributes zero
 within its slot instead of allowing the other alternative to stand in for it.
+Shield HP and shield armor each use the maximum slot-level expected value across
+the roster's `Item*` slots before the cross-roster mean; those two maxima are
+selected independently.
 
 For example, a 600-HP shield present in one of two rosters contributes mean
 shield HP 300 and `shield_share=0.5`. It does not give the troop permanent
