@@ -1,6 +1,6 @@
 ---
 name: analyze-bannerlord-combat-zip
-description: Safely normalize, review, validate, and analyze Bannerlord battle-result screenshot ZIPs, uploaded ZIPs exposed as local files, screenshot directories, or existing normalized combat-observation bundles. Use when asked to process Bannerlord combat screenshots, build canonical empirical rankings, review uncertain extraction rows, verify or regenerate a combat batch, compare empirical results with frozen models, or resume an interrupted batch. Do not use for generic ZIP extraction, unrelated image analysis, ordinary gameplay questions without evidence files, general repository coding, or scoring-formula changes without a screenshot dataset.
+description: Safely normalize, review, validate, and analyze Bannerlord battle-result screenshot ZIPs, uploaded ZIPs exposed as local files, screenshot directories, or existing normalized combat-observation bundles. In bannerlord-troop-analysis, also use this skill to publish a completed Phase 1 normalization batch as one branch and one draft pull request with the required handoff and bannerlord-analysis-task:v1 comment. Use when asked to process Bannerlord combat screenshots, build canonical empirical rankings, review uncertain extraction rows, verify or regenerate a combat batch, compare empirical results with frozen models, resume an interrupted batch, or normalize evidence and open its repository PR. Do not use for generic ZIP extraction, unrelated image analysis, ordinary gameplay questions without evidence files, general repository coding, or scoring-formula changes without a screenshot dataset.
 ---
 
 # Analyze Bannerlord Combat ZIP
@@ -41,6 +41,21 @@ Pass `--troop-registry`, `--corrections`, `--aliases`, `--general-model`, and `-
 
 The invocation script must discover a compatible repository/package or fail with an exact dependency instruction. Do not clone a repository or run remote code without authorization.
 
+## Publish a Phase 1 repository batch
+
+When the user asks to normalize evidence and upload, commit, push, or open a PR in `bannerlord-troop-analysis`, read [references/repository-pr-workflow.md](references/repository-pr-workflow.md) and execute it after deterministic normalization and validation.
+
+Repository publication is part of the requested operation, not a follow-up suggestion. When write access is available:
+
+1. read the current repository `AGENTS.md`, ADR-001, ADR-002, and `docs/protocols/analysis-task-v1.md`;
+2. create one new branch from current `main` for exactly one evidence batch;
+3. commit the repository-addressable Phase 1 artifacts and batch-specific `handoff/ANALYSIS_PROMPT.md`;
+4. open one **draft** pull request;
+5. publish one append-only `bannerlord-analysis-task:v1` comment with status `pending`, the exact PR head branch, and the full normalization commit SHA;
+6. stop before analytical outputs, rankings, recommendations, ready-for-review, or merge.
+
+Do not mix skill/infrastructure edits, unrelated files, multiple batches, or Phase 2 analysis into an evidence-batch PR. If repository write access is unavailable, leave a complete local branch/commit when possible and report the exact blocked write step; never claim a PR was opened.
+
 ## Respect gates
 
 - Require one verified immutable analysis input: the original ZIP when processing raw screenshots, or a deterministic normalized bundle with per-artifact SHA-256 manifests for offline reanalysis. Raw ZIP retention is optional after the normalized bundle passes integrity and validation gates; record its provenance and absence as a limitation.
@@ -72,6 +87,7 @@ Read [references/output-contract.md](references/output-contract.md). Report:
 - mode and extractor/reviewer provenance;
 - validation status and evidence grades;
 - paths to canonical data, rankings, model comparison, outliers, summary, and state;
+- repository branch, commit, draft PR, and pending task-comment status when Phase 1 was published;
 - limitations and the exact resume command when incomplete.
 
 Structured artifacts are the product. Prose is a concise evidence-backed summary, not a replacement tier list.
