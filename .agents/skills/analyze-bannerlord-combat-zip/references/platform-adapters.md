@@ -18,6 +18,16 @@
 
 The open Agent Skills specification defines skill contents, not discovery paths. Each host owns its paths and invocation UI.
 
+## Repository writes
+
+The skill may publish a Phase 1 evidence branch and draft PR only when the user requested repository publication and the current host has authenticated write access.
+
+- **Codex, Claude Code, Cursor:** use the repository checkout plus authenticated `git`/`gh` or the host's GitHub integration. Honor `AGENTS.md`; do not force-push or bypass hooks.
+- **ChatGPT with a connected GitHub tool:** use the connector to read current repository rules, create the branch and commits, open the draft PR, and add the pending protocol comment. Verify every write response before claiming success.
+- **ChatGPT or another host without GitHub write access:** produce and validate the local Phase 1 artifacts, then report the exact blocked write operation. Do not substitute a fabricated PR URL.
+
+The protocol comment is a separate top-level PR comment created only after the final normalization commit SHA is known. It must not be embedded only in the PR body.
+
 ## Installer
 
 Always preview first:
