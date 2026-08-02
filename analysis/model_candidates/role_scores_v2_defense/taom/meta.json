@@ -1,0 +1,40 @@
+{
+  "canonical": false,
+  "counts": {
+    "cavalry": 142,
+    "infantry": 728,
+    "rosters": 2111,
+    "troops": 870
+  },
+  "empirical": false,
+  "evidence_basis": "xml_structural",
+  "export_id": "export_20260731_150800",
+  "inputs": {
+    "data/taom/audit/taom_override_report.csv": "7d5e8a8806e369a8d5486421ba56b43f32aec4bdef4dc877b116e211da3c3e3b",
+    "data/taom/audit/taom_troop_equipment_audit.csv": "61181cfa637886783a0807ca631fab7cbbb7a7e3cff8ac0782be1c299021c993",
+    "data/taom/audit/taom_troops.csv": "48fb68bda82fb0260f99d1de38c47656f521441885bf13f67cab6d3f8bfc84bf"
+  },
+  "model": "defensive_role_scores_v2_candidate",
+  "normalization": "per_track_per_lane_minmax_including_outliers",
+  "roster_aggregation": "arithmetic_mean_including_absent_slots_as_zero",
+  "track": "taom",
+  "weights": {
+    "cavalry_protection": {
+      "armor_component_v2": 0.5,
+      "harness_component_v2": 0.2,
+      "mount_health_component_v2": 0.1,
+      "shield_armor_component_v2": 0.05,
+      "shield_hp_component_v2": 0.15
+    },
+    "defensive_utility": {
+      "counterpressure_component_v2": 0.1,
+      "mobility_component_v2": 0.1,
+      "protection_score_v2": 0.8
+    },
+    "infantry_protection": {
+      "armor_component_v2": 0.7,
+      "shield_armor_component_v2": 0.1,
+      "shield_hp_component_v2": 0.2
+    }
+  }
+}

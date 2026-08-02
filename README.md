@@ -25,6 +25,12 @@ v7.3 — tooltip-validated throwing burst score
 
 Files under `analysis/model_versions/` remain frozen until empirical evidence passes the documented recalibration gates.
 
+Candidate model under review:
+
+- [`defensive_role_scores_v2_candidate`](analysis/model_candidates/role_scores_v2_defense/README.md)
+  — separates infantry/cavalry protection from defensive utility; does not
+  replace the frozen models.
+
 <!-- latest-theoretical-report:start -->
 ## Latest theoretical report
 

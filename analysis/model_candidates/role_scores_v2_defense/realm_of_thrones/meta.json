@@ -1,0 +1,40 @@
+{
+  "canonical": false,
+  "counts": {
+    "cavalry": 166,
+    "infantry": 699,
+    "rosters": 1151,
+    "troops": 865
+  },
+  "empirical": false,
+  "evidence_basis": "xml_structural",
+  "export_id": "export_20260731_150800",
+  "inputs": {
+    "data/realm_of_thrones/audit/realm_of_thrones_override_report.csv": "8d69270251ca83c05bcfbd2d1e800ea4c1df2bde6c5203122009474e0fba6a62",
+    "data/realm_of_thrones/audit/realm_of_thrones_troop_equipment_audit.csv": "e08edca636e27df34fbb00fb7d6fc6f83f974846374fb286740460aa540a678f",
+    "data/realm_of_thrones/audit/realm_of_thrones_troops.csv": "63ea983998e25aa0e6f8c0747bf42e44440f695bbe1fec717074e7ba64e42810"
+  },
+  "model": "defensive_role_scores_v2_candidate",
+  "normalization": "per_track_per_lane_minmax_including_outliers",
+  "roster_aggregation": "arithmetic_mean_including_absent_slots_as_zero",
+  "track": "realm_of_thrones",
+  "weights": {
+    "cavalry_protection": {
+      "armor_component_v2": 0.5,
+      "harness_component_v2": 0.2,
+      "mount_health_component_v2": 0.1,
+      "shield_armor_component_v2": 0.05,
+      "shield_hp_component_v2": 0.15
+    },
+    "defensive_utility": {
+      "counterpressure_component_v2": 0.1,
+      "mobility_component_v2": 0.1,
+      "protection_score_v2": 0.8
+    },
+    "infantry_protection": {
+      "armor_component_v2": 0.7,
+      "shield_armor_component_v2": 0.1,
+      "shield_hp_component_v2": 0.2
+    }
+  }
+}
