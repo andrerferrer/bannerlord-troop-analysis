@@ -15,7 +15,7 @@
   },
   "model": "defensive_role_scores_v2_candidate",
   "normalization": "per_track_per_lane_minmax_including_outliers",
-  "roster_aggregation": "arithmetic_mean_including_absent_slots_as_zero",
+  "roster_aggregation": "arithmetic_mean_across_rosters_and_within_slot_alternatives",
   "track": "vanilla",
   "weights": {
     "cavalry_protection": {

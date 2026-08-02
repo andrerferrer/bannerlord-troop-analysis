@@ -16,14 +16,20 @@ population rules, assumptions, and confidence.
 - Charge damage is audit-only and cannot affect protection or defensive
   utility.
 - Infantry and cavalry have separate normalization and rankings.
-- Alternative loadouts use arithmetic means; absent equipment contributes zero.
+- Alternative choices within an equipment slot are averaged first, then
+  alternative rosters are averaged; absent or unresolved equipment contributes
+  zero.
 - Defensive utility is a separate 80/10/10 protection/mobility/melee-skill
   hypothesis.
-- Spectacle-scale units remain in normalization, by explicit operator decision.
+- Spectacle-scale units remain in normalization, by explicit operator decision,
+  while `spectacle_reason` preserves the ADR-005 classification for audit.
 
 ## Review anchors
 
-The new lanes remove the concrete anomalies that triggered this review:
+The new lanes remove the concrete anomalies that triggered this review. Every
+v1 rank below comes from the `Defensive Troops` table in that track's
+`analysis/theoretical/<track>/export_20260731_150800/OVERVIEW.md`; the v2 rank
+comes from the matching lane-specific `*_protection_v2.csv` file:
 
 - Nightmare Sails `sturgian_veteran_warrior`: v1 broad defensive rank 28;
   v2 infantry protection rank 2.
@@ -50,7 +56,9 @@ Each track contains:
 - cavalry protection and utility rankings;
 - input hashes, formula weights, population counts, and status in `meta.json`.
 
-`artifact_hashes.csv` pins every generated file. Regenerate with:
+`artifact_hashes.csv` pins every generated CSV and JSON already present under
+this output root, including untouched tracks during a partial `--tracks` run.
+Regenerate with:
 
 ```bash
 python3 scripts/scoring/generate_defensive_role_scores_v2.py

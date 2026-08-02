@@ -12,7 +12,9 @@ sys.path.insert(0, str(REPO / "scripts" / "scoring"))
 
 from generate_defensive_role_scores_v2 import (  # noqa: E402
     TRACKS,
+    add_ranks,
     build_candidate_scores,
+    serialized,
     survivability_armor_v71,
     write_manifest,
     write_track,
@@ -123,6 +125,36 @@ class DefensiveRoleScoresV2Tests(unittest.TestCase):
         self.assertEqual(rows["shield_guard"]["shield_hp_mean"], 300)
         self.assertEqual(rows["shield_guard"]["shield_armor_mean"], 5)
 
+    def test_same_slot_alternatives_are_averaged_before_roster_aggregation(self) -> None:
+        troops = [troop("mounted_guard", default_group="Cavalry")]
+        audit = [
+            item("mounted_guard", 0, "Head", head_armor=20),
+            item("mounted_guard", 0, "Head", head_armor=40),
+            horse(
+                "mounted_guard",
+                0,
+                item_id="slow_durable_horse",
+                horse_extra_health=60,
+                horse_speed=48,
+                horse_maneuver=60,
+            ),
+            horse(
+                "mounted_guard",
+                0,
+                item_id="fast_fragile_horse",
+                horse_extra_health=20,
+                horse_speed=68,
+                horse_maneuver=80,
+            ),
+        ]
+
+        row = by_id(build_candidate_scores(troops, audit))["mounted_guard"]
+
+        self.assertEqual(row["armor_total_mean"], 30)
+        self.assertEqual(row["horse_extra_health_mean"], 40)
+        self.assertEqual(row["horse_speed_mean"], 58)
+        self.assertEqual(row["horse_maneuver_mean"], 70)
+
     def test_mount_charge_does_not_change_either_defensive_score(self) -> None:
         troops = [
             troop("calm_mount", default_group="Cavalry", Riding=100),
@@ -211,6 +243,70 @@ class DefensiveRoleScoresV2Tests(unittest.TestCase):
         self.assertEqual(rows["foot"]["defensive_lane"], "infantry")
         self.assertEqual(rows["mounted"]["defensive_lane"], "cavalry")
 
+    def test_lane_boundary_uses_at_least_half_horsed_rosters(self) -> None:
+        troops = [troop("half_horsed"), troop("third_horsed")]
+        audit = [
+            body("half_horsed", 0, body_armor=10),
+            horse("half_horsed", 0),
+            body("half_horsed", 1, body_armor=10),
+            body("third_horsed", 0, body_armor=10),
+            horse("third_horsed", 0),
+            body("third_horsed", 1, body_armor=10),
+            body("third_horsed", 2, body_armor=10),
+        ]
+
+        rows = by_id(build_candidate_scores(troops, audit))
+
+        self.assertEqual(rows["half_horsed"]["horse_share"], 0.5)
+        self.assertEqual(rows["half_horsed"]["defensive_lane"], "cavalry")
+        self.assertAlmostEqual(rows["third_horsed"]["horse_share"], 1 / 3)
+        self.assertEqual(rows["third_horsed"]["defensive_lane"], "infantry")
+
+    def test_population_filters_heroes_multiplayer_and_untouched_mod_rows(self) -> None:
+        troops = [
+            troop("kept"),
+            troop("hero", is_hero=True),
+            troop("mp_guard"),
+            troop("untouched"),
+        ]
+        overrides = [
+            {"troop_id": "kept", "change_type": "novo"},
+            {"troop_id": "untouched", "change_type": "inalterado"},
+        ]
+
+        rows = build_candidate_scores(
+            troops,
+            [body("kept", 0, body_armor=10)],
+            overrides,
+        )
+
+        self.assertEqual([row["troop_id"] for row in rows], ["kept"])
+
+    def test_unresolved_item_contributes_zero_without_dropping_roster(self) -> None:
+        troops = [troop("guard")]
+        audit = [
+            body("guard", 0, body_armor=50),
+            item(
+                "guard",
+                0,
+                "Head",
+                item_found=False,
+                head_armor=500,
+            ),
+        ]
+
+        row = by_id(build_candidate_scores(troops, audit))["guard"]
+
+        self.assertEqual(row["roster_count"], 1)
+        self.assertEqual(row["armor_total_mean"], 50)
+
+    def test_eligible_troop_without_audit_roster_fails_closed(self) -> None:
+        with self.assertRaisesRegex(
+            ValueError,
+            "eligible troops missing equipment audit rosters: missing",
+        ):
+            build_candidate_scores([troop("missing")], [])
+
     def test_outlier_remains_in_the_normalization_population(self) -> None:
         troops = [
             troop("ordinary_low", default_group="Cavalry"),
@@ -235,6 +331,17 @@ class DefensiveRoleScoresV2Tests(unittest.TestCase):
         self.assertEqual(rows["outlier"]["mount_health_component_v2"], 100)
         self.assertEqual(rows["ordinary_high"]["mount_health_component_v2"], 10)
         self.assertTrue(rows["ordinary_high"]["normalization_includes_outliers"])
+
+    def test_spectacle_reason_is_exposed_without_removing_outlier(self) -> None:
+        row = by_id(
+            build_candidate_scores(
+                [troop("cave_troll")],
+                [body("cave_troll", 0, body_armor=100)],
+            )
+        )["cave_troll"]
+
+        self.assertEqual(row["spectacle_reason"], "outsized foot unit")
+        self.assertTrue(row["normalization_includes_outliers"])
 
     def test_weapon_template_does_not_affect_defensive_scores(self) -> None:
         troops = [troop("sword"), troop("axe")]
@@ -263,6 +370,43 @@ class DefensiveRoleScoresV2Tests(unittest.TestCase):
             rows["sword"]["defensive_utility_score_v2"],
             rows["axe"]["defensive_utility_score_v2"],
         )
+
+    def test_equal_published_scores_share_a_rank(self) -> None:
+        rows = [
+            {"troop_id": "alpha", "score": 7.9530524},
+            {"troop_id": "bravo", "score": 7.9530523},
+        ]
+
+        add_ranks(rows, "score", "rank")
+
+        self.assertEqual(serialized(rows[0]["score"]), serialized(rows[1]["score"]))
+        self.assertEqual(rows[0]["rank"], rows[1]["rank"])
+
+    def test_mod_track_requires_its_override_report(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            with self.assertRaises(FileNotFoundError) as raised:
+                write_track(root, root / "output", "taom")
+
+        self.assertEqual(
+            Path(raised.exception.filename).name,
+            "taom_override_report.csv",
+        )
+
+    def test_partial_track_rerun_keeps_existing_artifacts_in_manifest(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            output = Path(temporary_directory)
+            generated = []
+            for track_name in TRACKS:
+                generated.extend(write_track(REPO, output, track_name))
+            write_manifest(output, generated)
+
+            vanilla_outputs = write_track(REPO, output, "vanilla")
+            write_manifest(output, vanilla_outputs)
+
+            paths = read_manifest_paths(output / "artifact_hashes.csv")
+            self.assertEqual(len(paths), 28)
+            self.assertTrue(any(path.startswith("taom/") for path in paths))
 
     def test_committed_outputs_rebuild_byte_for_byte(self) -> None:
         committed = REPO / "analysis/model_candidates/role_scores_v2_defense"

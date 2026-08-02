@@ -17,9 +17,13 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Iterable, Mapping, Sequence
 
+from outliers import ALL_CRITERIA, spectacle_reason
+
 MODEL_VERSION = "defensive_role_scores_v2_candidate"
 EXPORT_ID = "export_20260731_150800"
 TRACKS = ("vanilla", "nightmare_sails", "realm_of_thrones", "taom")
+BASE_TRACK = "vanilla"
+PUBLISHED_SCORE_DECIMALS = 6
 
 ARMOR_SLOTS = {"Head", "Body", "Gloves", "Leg", "Cape"}
 MELEE_SKILLS = ("OneHanded", "TwoHanded", "Polearm")
@@ -57,6 +61,10 @@ ROSTER_FIELDS = (
     "horse_speed",
     "horse_maneuver",
     "horse_charge_damage_audit_only",
+    "horse_charge_damage_max_audit_only",
+    "horse_item_ids_audit_only",
+    "shield_probability",
+    "horse_probability",
 )
 
 TROOP_FIELDS = (
@@ -78,6 +86,9 @@ TROOP_FIELDS = (
     "horse_speed_mean",
     "horse_maneuver_mean",
     "horse_charge_damage_audit_only_mean",
+    "horse_charge_damage_max_audit_only",
+    "mount_ids_audit_only",
+    "spectacle_reason",
     "athletics",
     "riding",
     "melee_skill",
@@ -137,6 +148,10 @@ def max_value(rows: Sequence[Mapping[str, object]], field: str) -> float:
     return max((number(row.get(field)) for row in rows), default=0.0)
 
 
+def published_score(value: object) -> float:
+    return float(f"{number(value):.{PUBLISHED_SCORE_DECIMALS}f}")
+
+
 def minmax(values: Sequence[float]) -> list[float]:
     if not values:
         return []
@@ -172,12 +187,57 @@ def eligible_troops(
     return eligible
 
 
+def rows_by_slot(
+    rows: Sequence[Mapping[str, object]],
+) -> dict[str, list[Mapping[str, object]]]:
+    grouped: dict[str, list[Mapping[str, object]]] = defaultdict(list)
+    for row in rows:
+        grouped[str(row.get("slot", ""))].append(row)
+    return grouped
+
+
+def expected_value(
+    rows: Sequence[Mapping[str, object]],
+    field: str,
+    *,
+    required_type: str | None = None,
+) -> float:
+    def value(row: Mapping[str, object]) -> float:
+        if not truthy(row.get("item_found", "True")):
+            return 0.0
+        if required_type is not None and row.get("type") != required_type:
+            return 0.0
+        return number(row.get(field))
+
+    return mean(value(row) for row in rows)
+
+
 def armor_totals(rows: Sequence[Mapping[str, object]]) -> tuple[float, ...]:
-    armor_rows = [row for row in rows if row.get("slot") in ARMOR_SLOTS]
+    armor_slots = [
+        alternatives
+        for slot, alternatives in rows_by_slot(rows).items()
+        if slot in ARMOR_SLOTS
+    ]
     return tuple(
-        sum(number(row.get(field)) for row in armor_rows)
+        sum(expected_value(alternatives, field) for alternatives in armor_slots)
         for field in ("head_armor", "body_armor", "arm_armor", "leg_armor")
     )
+
+
+def shield_probability(
+    item_slots: Sequence[Sequence[Mapping[str, object]]],
+) -> float:
+    no_shield_probability = 1.0
+    for alternatives in item_slots:
+        slot_probability = mean(
+            float(
+                truthy(row.get("item_found", "True"))
+                and row.get("type") == "Shield"
+            )
+            for row in alternatives
+        )
+        no_shield_probability *= 1.0 - slot_probability
+    return 1.0 - no_shield_probability
 
 
 def roster_features(
@@ -185,33 +245,68 @@ def roster_features(
     roster_index: str,
     rows: Sequence[Mapping[str, object]],
 ) -> dict[str, object]:
-    resolved = [row for row in rows if truthy(row.get("item_found", "True"))]
-    shields = [
-        row
-        for row in resolved
-        if str(row.get("slot", "")).startswith("Item")
-        and row.get("type") == "Shield"
+    slots = rows_by_slot(rows)
+    item_slots = [
+        alternatives
+        for slot, alternatives in slots.items()
+        if slot.startswith("Item")
     ]
-    horses = [row for row in resolved if row.get("slot") == "Horse"]
-    harnesses = [row for row in resolved if row.get("slot") == "HorseHarness"]
-    head, body, arm, leg = armor_totals(resolved)
+    horses = slots.get("Horse", [])
+    harnesses = slots.get("HorseHarness", [])
+    probability_of_shield = shield_probability(item_slots)
+    horse_ids = sorted(
+        {
+            str(row.get("item_id", ""))
+            for row in horses
+            if str(row.get("item_id", ""))
+        }
+    )
+    head, body, arm, leg = armor_totals(rows)
     return {
         "troop_id": str(troop.get("troop_id", "")),
         "troop_name": str(troop.get("name") or troop.get("name_raw") or ""),
         "roster_index": roster_index,
         "armor_total": head + body + arm + leg,
         "survivability_armor_v71": survivability_armor_v71(head, body, arm, leg),
-        "shield_hp": max_value(shields, "hit_points"),
-        "shield_armor": max_value(shields, "shield_armor"),
-        "has_shield": bool(shields),
-        "has_horse": bool(horses),
-        "harness_armor": max_value(harnesses, "body_armor"),
-        "horse_extra_health": max_value(horses, "horse_extra_health"),
-        "horse_speed": max_value(horses, "horse_speed"),
-        "horse_maneuver": max_value(horses, "horse_maneuver"),
-        "horse_charge_damage_audit_only": max_value(
-            horses, "horse_charge_damage"
+        "shield_hp": max(
+            (
+                expected_value(
+                    alternatives,
+                    "hit_points",
+                    required_type="Shield",
+                )
+                for alternatives in item_slots
+            ),
+            default=0.0,
         ),
+        "shield_armor": max(
+            (
+                expected_value(
+                    alternatives,
+                    "shield_armor",
+                    required_type="Shield",
+                )
+                for alternatives in item_slots
+            ),
+            default=0.0,
+        ),
+        "has_shield": probability_of_shield > 0,
+        "has_horse": bool(horses),
+        "harness_armor": expected_value(harnesses, "body_armor"),
+        "horse_extra_health": expected_value(horses, "horse_extra_health"),
+        "horse_speed": expected_value(horses, "horse_speed"),
+        "horse_maneuver": expected_value(horses, "horse_maneuver"),
+        "horse_charge_damage_audit_only": expected_value(
+            horses,
+            "horse_charge_damage",
+        ),
+        "horse_charge_damage_max_audit_only": max_value(
+            [row for row in horses if truthy(row.get("item_found", "True"))],
+            "horse_charge_damage",
+        ),
+        "horse_item_ids_audit_only": "|".join(horse_ids),
+        "shield_probability": probability_of_shield,
+        "horse_probability": float(bool(horses)),
     }
 
 
@@ -227,6 +322,13 @@ def build_roster_features(
         troop_id = str(row.get("troop_id", ""))
         if troop_id in troop_by_id:
             grouped[(troop_id, str(row.get("roster_index", "0")))].append(row)
+    troops_with_rosters = {troop_id for troop_id, _ in grouped}
+    missing = sorted(set(troop_by_id) - troops_with_rosters)
+    if missing:
+        raise ValueError(
+            "eligible troops missing equipment audit rosters: "
+            + ", ".join(missing)
+        )
     rosters = [
         roster_features(troop_by_id[troop_id], roster_index, rows)
         for (troop_id, roster_index), rows in sorted(grouped.items())
@@ -246,18 +348,36 @@ def aggregate_rosters(
         loadouts = grouped.get(troop_id, [])
         if not loadouts:
             continue
-        horse_share = mean(float(bool(row["has_horse"])) for row in loadouts)
+        horse_share = mean(number(row["horse_probability"]) for row in loadouts)
+        mount_ids = sorted(
+            {
+                mount_id
+                for row in loadouts
+                for mount_id in str(row["horse_item_ids_audit_only"]).split("|")
+                if mount_id
+            }
+        )
+        max_mount_charge = max(
+            (
+                number(row["horse_charge_damage_max_audit_only"])
+                for row in loadouts
+            ),
+            default=0.0,
+        )
         melee_skill = max(number(troop.get(skill)) for skill in MELEE_SKILLS)
+        troop_name = str(troop.get("name") or troop.get("name_raw") or "")
         aggregated.append(
             {
                 "troop_id": troop_id,
-                "troop_name": str(troop.get("name") or troop.get("name_raw") or ""),
+                "troop_name": troop_name,
                 "culture": str(troop.get("culture", "")),
                 "level": number(troop.get("level")),
                 "default_group": str(troop.get("default_group", "")),
                 "defensive_lane": "cavalry" if horse_share >= 0.5 else "infantry",
                 "roster_count": len(loadouts),
-                "shield_share": mean(float(bool(row["has_shield"])) for row in loadouts),
+                "shield_share": mean(
+                    number(row["shield_probability"]) for row in loadouts
+                ),
                 "horse_share": horse_share,
                 "armor_total_mean": mean(number(row["armor_total"]) for row in loadouts),
                 "survivability_armor_v71_mean": mean(
@@ -283,6 +403,16 @@ def aggregate_rosters(
                     number(row["horse_charge_damage_audit_only"])
                     for row in loadouts
                 ),
+                "horse_charge_damage_max_audit_only": max_mount_charge,
+                "mount_ids_audit_only": "|".join(mount_ids),
+                "spectacle_reason": spectacle_reason(
+                    troop_id,
+                    troop_name,
+                    mount_ids=mount_ids,
+                    mount_charge_damage=max_mount_charge,
+                    criteria=ALL_CRITERIA,
+                )
+                or "",
                 "athletics": number(troop.get("Athletics")),
                 "riding": number(troop.get("Riding")),
                 "melee_skill": melee_skill,
@@ -336,10 +466,16 @@ def add_lane_scores(lane: list[dict[str, object]], lane_name: str) -> None:
             row["mobility_component_v2"] = number(
                 row["athletics_component_v2"]
             )
-        row["protection_score_v2"] = weighted_score(row, protection_weights)
-        row["defensive_utility_score_v2"] = weighted_score(row, UTILITY_WEIGHTS)
+        row["protection_score_v2"] = published_score(
+            weighted_score(row, protection_weights)
+        )
+        row["defensive_utility_score_v2"] = published_score(
+            weighted_score(row, UTILITY_WEIGHTS)
+        )
         row["normalization_includes_outliers"] = True
-        row["roster_aggregation"] = "arithmetic_mean_including_absent_slots_as_zero"
+        row["roster_aggregation"] = (
+            "arithmetic_mean_across_rosters_and_within_slot_alternatives"
+        )
         row["evidence_basis"] = "xml_structural"
         row["empirical"] = False
         row["score_status"] = MODEL_VERSION
@@ -363,12 +499,12 @@ def add_ranks(
 ) -> None:
     ordered = sorted(
         rows,
-        key=lambda row: (-number(row[score_field]), str(row["troop_id"])),
+        key=lambda row: (-published_score(row[score_field]), str(row["troop_id"])),
     )
     previous_score: float | None = None
     previous_rank = 0
     for position, row in enumerate(ordered, 1):
-        score = number(row[score_field])
+        score = published_score(row[score_field])
         if previous_score is None or score != previous_score:
             previous_rank = position
             previous_score = score
@@ -407,7 +543,7 @@ def serialized(value: object) -> object:
     if isinstance(value, bool):
         return str(value).lower()
     if isinstance(value, float):
-        return f"{value:.6f}"
+        return f"{value:.{PUBLISHED_SCORE_DECIMALS}f}"
     return value
 
 
@@ -444,7 +580,7 @@ def ranked(
 ) -> list[Mapping[str, object]]:
     return sorted(
         (row for row in rows if row["defensive_lane"] == lane),
-        key=lambda row: (-number(row[score_field]), str(row["troop_id"])),
+        key=lambda row: (-published_score(row[score_field]), str(row["troop_id"])),
     )
 
 
@@ -457,11 +593,7 @@ def write_track(
     audit_path = audit_dir / f"{track}_troop_equipment_audit.csv"
     troops_path = audit_dir / f"{track}_troops.csv"
     override_path = audit_dir / f"{track}_override_report.csv"
-    overrides = (
-        read_csv(override_path)
-        if track != "vanilla" and override_path.is_file()
-        else None
-    )
+    overrides = None if track == BASE_TRACK else read_csv(override_path)
     rosters, scores = build_candidate_model(
         read_csv(troops_path),
         read_csv(audit_path),
@@ -491,7 +623,9 @@ def write_track(
         "evidence_basis": "xml_structural",
         "empirical": False,
         "normalization": "per_track_per_lane_minmax_including_outliers",
-        "roster_aggregation": "arithmetic_mean_including_absent_slots_as_zero",
+        "roster_aggregation": (
+            "arithmetic_mean_across_rosters_and_within_slot_alternatives"
+        ),
         "inputs": {
             audit_path.relative_to(repo).as_posix(): sha256_file(audit_path),
             troops_path.relative_to(repo).as_posix(): sha256_file(troops_path),
@@ -519,13 +653,20 @@ def write_track(
 
 
 def write_manifest(output_root: Path, paths: Sequence[Path]) -> None:
+    existing_artifacts = {
+        path
+        for path in output_root.rglob("*")
+        if path.is_file()
+        and path.name != "artifact_hashes.csv"
+        and path.suffix in {".csv", ".json"}
+    }
     rows = [
         {
             "path": path.relative_to(output_root).as_posix(),
             "bytes": path.stat().st_size,
             "sha256": sha256_file(path),
         }
-        for path in sorted(paths)
+        for path in sorted(set(paths) | existing_artifacts)
     ]
     write_csv(output_root / "artifact_hashes.csv", rows, ("path", "bytes", "sha256"))
 

@@ -27,6 +27,10 @@ spectacle-scale units in the normalization population.
 - Audit rows whose item could not be resolved (`item_found != true`) do not
   contribute item attributes. Their roster still exists, so the unresolved
   slot contributes zero instead of borrowing values from another loadout.
+- Every eligible troop must have at least one audit roster. Generation stops
+  instead of silently dropping a troop when that evidence is missing.
+- Mod tracks require their versioned override report. Generation stops instead
+  of falling back to a vanilla-only population when that report is missing.
 - A troop is assigned to the cavalry lane when at least half of its alternative
   equipment rosters contain a horse. Every other troop enters the infantry
   lane. The lanes are mutually exclusive.
@@ -37,13 +41,29 @@ spectacle-scale units in the normalization population.
 
 ## Alternative roster aggregation
 
-Equipment rosters are alternative spawn kits. For every feature, v2 computes
-the arithmetic mean across all roster indices. A missing shield, horse, or
-harness contributes zero for that roster.
+Equipment rosters are alternative spawn kits. A roster can also contain
+multiple alternatives for the same equipment slot. For every feature, v2 first
+computes the arithmetic mean of the alternatives within each slot, then the
+arithmetic mean across all roster indices. A missing shield, horse, or harness
+contributes zero for that roster. An unresolved alternative contributes zero
+within its slot instead of allowing the other alternative to stand in for it.
 
 For example, a 600-HP shield present in one of two rosters contributes mean
 shield HP 300 and `shield_share=0.5`. It does not give the troop permanent
 credit for the best loadout.
+
+## Ranking precision
+
+Scores are serialized to six decimal places. Ranking and tie detection use
+that same published precision, so two visibly equal scores always share a
+rank. Unrounded floating-point residue cannot break a published tie.
+
+## Spectacle audit
+
+The output classifies spectacle-scale rows with the versioned criteria from
+[ADR-005](ADR-005-spectacle-outlier-definition.md) and exposes the result in
+`spectacle_reason`. Classification is audit-only for this candidate: those
+rows remain in their lane's normalization and ranking.
 
 ## Armor proxy
 
@@ -117,7 +137,7 @@ not fitted.
 | Element | Confidence | Reason |
 |---|---|---|
 | Armor, shield, harness inputs | High | Direct, versioned XML audit values |
-| Alternative-roster mean | High | Matches the documented random-loadout interpretation |
+| Alternative-loadout mean | High | Averages mutually exclusive choices within slots, then alternative rosters |
 | Infantry/cavalry split | Medium | Deterministic majority-horse rule; mixed rosters remain visible through `horse_share` |
 | Mount extra-health and mobility components | Medium | Direct XML fields, but not a complete engine durability/movement simulation |
 | Component weights | Low | Editorial and not empirically fitted |
@@ -131,4 +151,6 @@ python3 -m unittest -v tests.test_defensive_role_scores_v2
 ```
 
 Generated artifacts and their SHA-256 hashes are stored under
-`analysis/model_candidates/role_scores_v2_defense/`.
+`analysis/model_candidates/role_scores_v2_defense/`. A partial `--tracks`
+rerun refreshes the requested tracks without removing untouched generated
+files from the manifest.
