@@ -1,0 +1,49 @@
+{
+  "canonical": false,
+  "counts": {
+    "cavalry": 64,
+    "infantry": 202,
+    "review_required": 0,
+    "rosters": 780,
+    "scored_troops": 266,
+    "troops": 266
+  },
+  "empirical": false,
+  "evidence_basis": "xml_structural",
+  "export_id": "export_20260731_150800",
+  "inputs": {
+    "data/nightmare_sails/audit/nightmare_sails_override_report.csv": "6a35611b1c77e73764873af8e5c35689e0f9b4d12c807d3f067e568e1c7bd8a7",
+    "data/nightmare_sails/audit/nightmare_sails_troop_equipment_audit.csv": "f6f100af43b2756713dd6d373fa8387ce041e8c27f9dbf17969121952817adb4",
+    "data/nightmare_sails/audit/nightmare_sails_troops.csv": "8d73376d0371c61ac917cab6fa9654ebf7240753f1a8326dd5eada3cd0c5ed69"
+  },
+  "model": "defensive_role_scores_v2_candidate",
+  "normalization": "per_track_per_lane_minmax_including_outliers_excluding_review_required",
+  "roster_aggregation": "arithmetic_mean_across_rosters_and_within_slot_alternatives",
+  "spectacle_criteria": [
+    "giant_mammoth_name",
+    "outsized_mount_charge",
+    "outsized_mount_id",
+    "outsized_foot_id"
+  ],
+  "spectacle_outlier_version": "v2",
+  "track": "nightmare_sails",
+  "weights": {
+    "cavalry_protection": {
+      "armor_component_v2": 0.5,
+      "harness_component_v2": 0.2,
+      "mount_health_component_v2": 0.1,
+      "shield_armor_component_v2": 0.05,
+      "shield_hp_component_v2": 0.15
+    },
+    "defensive_utility": {
+      "counterpressure_component_v2": 0.1,
+      "mobility_component_v2": 0.1,
+      "protection_score_v2": 0.8
+    },
+    "infantry_protection": {
+      "armor_component_v2": 0.7,
+      "shield_armor_component_v2": 0.1,
+      "shield_hp_component_v2": 0.2
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "canonical": false,
+  "counts": {
+    "cavalry": 64,
+    "infantry": 215,
+    "review_required": 0,
+    "rosters": 776,
+    "scored_troops": 279,
+    "troops": 279
+  },
+  "empirical": false,
+  "evidence_basis": "xml_structural",
+  "export_id": "export_20260731_150800",
+  "inputs": {
+    "data/vanilla/audit/vanilla_troop_equipment_audit.csv": "9483c1f2f25192709f3886619d0c092a443c760e8871fe687047a913b58ab813",
+    "data/vanilla/audit/vanilla_troops.csv": "edaad2f7c33f3e761b2f2b1d4d924c8b3f43e26f8313e94ff44d4733bba60402"
+  },
+  "model": "defensive_role_scores_v2_candidate",
+  "normalization": "per_track_per_lane_minmax_including_outliers_excluding_review_required",
+  "roster_aggregation": "arithmetic_mean_across_rosters_and_within_slot_alternatives",
+  "spectacle_criteria": [
+    "giant_mammoth_name",
+    "outsized_mount_charge",
+    "outsized_mount_id",
+    "outsized_foot_id"
+  ],
+  "spectacle_outlier_version": "v2",
+  "track": "vanilla",
+  "weights": {
+    "cavalry_protection": {
+      "armor_component_v2": 0.5,
+      "harness_component_v2": 0.2,
+      "mount_health_component_v2": 0.1,
+      "shield_armor_component_v2": 0.05,
+      "shield_hp_component_v2": 0.15
+    },
+    "defensive_utility": {
+      "counterpressure_component_v2": 0.1,
+      "mobility_component_v2": 0.1,
+      "protection_score_v2": 0.8
+    },
+    "infantry_protection": {
+      "armor_component_v2": 0.7,
+      "shield_armor_component_v2": 0.1,
+      "shield_hp_component_v2": 0.2
+    }
+  }
+}
