@@ -13,11 +13,13 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "scripts" / "scoring"))
 
 from generate_defensive_role_scores_v2 import (  # noqa: E402
+    ALL_CRITERIA,
     TRACKS,
     add_ranks,
     build_candidate_scores,
     serialized,
     survivability_armor_v71,
+    unresolved_mount_evidence,
     write_manifest,
     write_track,
 )
@@ -361,6 +363,26 @@ class DefensiveRoleScoresV2Tests(unittest.TestCase):
             "<missing-item-id>:Head:item_found",
         )
 
+    def test_missing_mount_item_id_uses_the_same_explicit_sentinel(self) -> None:
+        unresolved = unresolved_mount_evidence(
+            [
+                item(
+                    "rider",
+                    0,
+                    "Horse",
+                    item_id="",
+                    type="",
+                    horse_speed="",
+                    horse_maneuver="",
+                ),
+            ]
+        )
+
+        self.assertEqual(
+            unresolved,
+            ["<missing-item-id>:type,horse_speed,horse_maneuver"],
+        )
+
     def test_realm_of_thrones_unresolved_items_remain_auditable(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             output = Path(temporary_directory)
@@ -453,6 +475,7 @@ class DefensiveRoleScoresV2Tests(unittest.TestCase):
         )
         self.assertTrue(any("warg_brown" in row["unresolved_mount_evidence"] for row in queue))
         self.assertEqual(meta["spectacle_outlier_version"], "v2")
+        self.assertEqual(meta["spectacle_criteria"], list(ALL_CRITERIA))
 
     def test_eligible_troop_without_audit_roster_fails_closed(self) -> None:
         with self.assertRaisesRegex(

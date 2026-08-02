@@ -19,6 +19,12 @@
   "model": "defensive_role_scores_v2_candidate",
   "normalization": "per_track_per_lane_minmax_including_outliers_excluding_review_required",
   "roster_aggregation": "arithmetic_mean_across_rosters_and_within_slot_alternatives",
+  "spectacle_criteria": [
+    "giant_mammoth_name",
+    "outsized_mount_charge",
+    "outsized_mount_id",
+    "outsized_foot_id"
+  ],
   "spectacle_outlier_version": "v2",
   "track": "realm_of_thrones",
   "weights": {

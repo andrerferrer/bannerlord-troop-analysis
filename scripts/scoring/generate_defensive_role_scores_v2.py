@@ -286,7 +286,7 @@ def unresolved_mount_evidence(
             if not str(row.get(field, "")).strip()
         )
         if missing:
-            item_id = str(row.get("item_id", "")) or slot
+            item_id = str(row.get("item_id", "")) or MISSING_ITEM_ID
             unresolved.append(f"{item_id}:{','.join(missing)}")
     return sorted(set(unresolved))
 
@@ -741,6 +741,7 @@ def write_track(
         "export_id": EXPORT_ID,
         "track": track,
         "spectacle_outlier_version": SPECTACLE_OUTLIER_VERSION,
+        "spectacle_criteria": list(ALL_CRITERIA),
         "evidence_basis": "xml_structural",
         "empirical": False,
         "normalization": (

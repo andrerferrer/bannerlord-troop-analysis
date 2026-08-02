@@ -80,7 +80,8 @@ The output classifies spectacle-scale rows with the versioned criteria from
 [ADR-005](ADR-005-spectacle-outlier-definition.md) and exposes the result in
 `spectacle_reason`. Classification is audit-only for this candidate: those
 rows remain in their lane's normalization and ranking. Each track's `meta.json`
-pins the criteria version used to produce the classification.
+pins both the criteria version and the complete active criteria list used to
+produce the classification.
 
 ## Armor proxy
 
