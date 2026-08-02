@@ -13,11 +13,24 @@ import csv
 import hashlib
 import json
 import math
+import sys
 from collections import defaultdict
 from pathlib import Path
 from typing import Iterable, Mapping, Sequence
 
-from outliers import ALL_CRITERIA, spectacle_reason
+try:  # Direct execution puts the script directory first.
+    from outliers import (
+        ALL_CRITERIA,
+        SPECTACLE_OUTLIER_VERSION,
+        spectacle_reason,
+    )
+except ModuleNotFoundError:  # pragma: no cover - package-style imports
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from outliers import (
+        ALL_CRITERIA,
+        SPECTACLE_OUTLIER_VERSION,
+        spectacle_reason,
+    )
 
 MODEL_VERSION = "defensive_role_scores_v2_candidate"
 EXPORT_ID = "export_20260731_150800"
@@ -28,6 +41,7 @@ REVIEW_REQUIRED_STATUS = "review_required_mount_evidence"
 
 ARMOR_SLOTS = {"Head", "Body", "Gloves", "Leg", "Cape"}
 ARMOR_FIELDS = ("head_armor", "body_armor", "arm_armor", "leg_armor")
+MISSING_ITEM_ID = "<missing-item-id>"
 MELEE_SKILLS = ("OneHanded", "TwoHanded", "Polearm")
 MOUNT_REQUIRED_FIELDS = {
     "Horse": ("horse_speed", "horse_maneuver"),
@@ -283,7 +297,7 @@ def unresolved_item_evidence(
     unresolved = []
     for row in rows:
         slot = str(row.get("slot", ""))
-        item_id = str(row.get("item_id", "")) or slot
+        item_id = str(row.get("item_id", "")) or MISSING_ITEM_ID
         if not truthy(row.get("item_found", "True")):
             unresolved.append(f"{item_id}:{slot}:item_found")
         elif slot in ARMOR_SLOTS and not any(
@@ -604,6 +618,7 @@ def build_candidate_model(
         add_lane_scores(lane, lane_name)
     for row in scores:
         if row["mount_evidence_status"] != "resolved":
+            row["normalization_includes_outliers"] = False
             row["roster_aggregation"] = (
                 "arithmetic_mean_across_rosters_and_within_slot_alternatives"
             )
@@ -725,6 +740,7 @@ def write_track(
         "canonical": False,
         "export_id": EXPORT_ID,
         "track": track,
+        "spectacle_outlier_version": SPECTACLE_OUTLIER_VERSION,
         "evidence_basis": "xml_structural",
         "empirical": False,
         "normalization": (

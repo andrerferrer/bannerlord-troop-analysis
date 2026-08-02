@@ -32,8 +32,9 @@ population rules, assumptions, and confidence.
 - Other `item_found=false` equipment and armor items whose stat fields are all
   blank retain the documented zero contribution, while
   `unresolved_item_evidence` identifies the exact source item, slot, and gap in
-  every published row. The outputs expose 36 scored troops with blank armor
-  evidence and nine Realm of Thrones troops with unresolved item identities.
+  every published row; `<missing-item-id>` explicitly marks absent source
+  identities. The outputs expose 36 scored troops with blank armor evidence and
+  nine Realm of Thrones troops with unresolved item identities.
 
 ## Review anchors
 

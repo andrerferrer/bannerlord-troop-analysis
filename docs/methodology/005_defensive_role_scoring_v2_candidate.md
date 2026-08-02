@@ -29,7 +29,9 @@ spectacle-scale units in the normalization population.
   attributes. Their roster still exists, so the unresolved slot contributes
   zero instead of borrowing values from another loadout. The exact item, slot,
   and missing-evidence class remain visible in `unresolved_item_evidence`, so
-  this proxy zero cannot be mistaken for complete source evidence.
+  this proxy zero cannot be mistaken for complete source evidence. When the
+  source itself omits the item identity, `<missing-item-id>` makes that gap
+  explicit instead of substituting the slot name.
 - Every eligible troop must have at least one audit roster. Generation stops
   instead of silently dropping a troop when that evidence is missing.
 - Mod tracks require their versioned override report. Generation stops instead
@@ -77,7 +79,8 @@ rank. Unrounded floating-point residue cannot break a published tie.
 The output classifies spectacle-scale rows with the versioned criteria from
 [ADR-005](ADR-005-spectacle-outlier-definition.md) and exposes the result in
 `spectacle_reason`. Classification is audit-only for this candidate: those
-rows remain in their lane's normalization and ranking.
+rows remain in their lane's normalization and ranking. Each track's `meta.json`
+pins the criteria version used to produce the classification.
 
 ## Armor proxy
 

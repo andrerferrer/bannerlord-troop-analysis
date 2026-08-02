@@ -1,5 +1,5 @@
 troop_id,troop_name,roster_index,armor_total,survivability_armor_v71,shield_hp,shield_armor,has_shield,has_horse,harness_armor,horse_extra_health,horse_speed,horse_maneuver,horse_charge_damage_audit_only,horse_charge_damage_max_audit_only,horse_item_ids_audit_only,shield_probability,horse_probability,mount_evidence_status,unresolved_mount_evidence,unresolved_item_evidence
-angry_wight,Angry Wight,0,14.000000,0.700000,0.000000,0.000000,false,false,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,,0.000000,0.000000,resolved,,Body:Body:item_found|Head:Head:item_found
+angry_wight,Angry Wight,0,14.000000,0.700000,0.000000,0.000000,false,false,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,,0.000000,0.000000,resolved,,<missing-item-id>:Body:item_found|<missing-item-id>:Head:item_found
 arryn_archer,Arryn Archer,0,99.000000,27.950000,0.000000,0.000000,false,false,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,,0.000000,0.000000,resolved,,
 arryn_footman,Arryn Footman,0,80.000000,21.300000,305.000000,1.000000,true,false,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,,1.000000,0.000000,resolved,,
 arryn_horseman,Arryn Horseman,0,125.000000,41.350000,370.000000,1.000000,true,true,45.000000,10.000000,53.000000,55.000000,20.000000,20.000000,empire_horse,1.000000,1.000000,resolved,,

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import json
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -105,6 +107,17 @@ def by_id(rows: list[dict[str, object]]) -> dict[str, dict[str, object]]:
 
 
 class DefensiveRoleScoresV2Tests(unittest.TestCase):
+    def test_generator_supports_package_style_imports(self) -> None:
+        completed = subprocess.run(
+            [sys.executable, "-c", "import scripts.scoring.generate_defensive_role_scores_v2"],
+            cwd=REPO,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+
     def test_survivability_armor_uses_v71_head_weighting(self) -> None:
         self.assertAlmostEqual(survivability_armor_v71(100, 100, 100, 100), 100)
         self.assertAlmostEqual(survivability_armor_v71(100, 0, 0, 0), 35)
@@ -329,6 +342,25 @@ class DefensiveRoleScoresV2Tests(unittest.TestCase):
             "statless_helmet:Head:armor_stats",
         )
 
+    def test_missing_item_id_uses_an_explicit_sentinel(self) -> None:
+        troops = [troop("guard")]
+        audit = [
+            item(
+                "guard",
+                0,
+                "Head",
+                item_id="",
+                item_found=False,
+            ),
+        ]
+
+        row = by_id(build_candidate_scores(troops, audit))["guard"]
+
+        self.assertEqual(
+            row["unresolved_item_evidence"],
+            "<missing-item-id>:Head:item_found",
+        )
+
     def test_realm_of_thrones_unresolved_items_remain_auditable(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             output = Path(temporary_directory)
@@ -405,16 +437,22 @@ class DefensiveRoleScoresV2Tests(unittest.TestCase):
             output = Path(temporary_directory)
             generated = write_track(REPO, output, "taom")
             queue_path = output / "taom" / "taom_defensive_review_queue_v2.csv"
+            meta_path = output / "taom" / "meta.json"
 
             self.assertIn(queue_path, generated)
             queue = read_csv_rows(queue_path)
+            meta = json.loads(meta_path.read_text(encoding="utf-8"))
 
         self.assertEqual(len(queue), 22)
         self.assertTrue(all(not row["protection_score_v2"] for row in queue))
         self.assertTrue(
             all(row["score_status"] == "review_required_mount_evidence" for row in queue)
         )
+        self.assertTrue(
+            all(row["normalization_includes_outliers"] == "false" for row in queue)
+        )
         self.assertTrue(any("warg_brown" in row["unresolved_mount_evidence"] for row in queue))
+        self.assertEqual(meta["spectacle_outlier_version"], "v2")
 
     def test_eligible_troop_without_audit_roster_fails_closed(self) -> None:
         with self.assertRaisesRegex(
