@@ -46,6 +46,28 @@ preflight and SHA-256
 
 Do not advance ranking-critical unresolved values into the primary dataset. Preserve partial hierarchy evidence.
 
+## Repository Phase 1 publication
+
+When the requested output is a new evidence PR, stop the pipeline at the normalization handoff rather than continuing into analytical rankings.
+
+```text
+preflight and SHA-256
+→ deterministic normalized records
+→ review queue
+→ structural validation
+→ reconstructible normalized archive
+→ artifact hashes
+→ batch-specific ANALYSIS_PROMPT.md
+→ one normalization branch
+→ one draft PR
+→ one pending bannerlord-analysis-task:v1 comment
+→ stop for the separate local analysis agent
+```
+
+Read [repository-pr-workflow.md](repository-pr-workflow.md). The repository's current `AGENTS.md` and protocol documents override stale examples in this skill.
+
+Do not publish a Phase 1 PR from an extraction queue alone. The normalized evidence, bundle, hashes, validation, and handoff must be complete enough for the local analysis agent to verify and start.
+
 ## Common commands
 
 Prepare or resume:
@@ -74,3 +96,5 @@ python3 scripts/invoke_pipeline.py \
 ```
 
 When incomplete, return the state path and the same command with the missing verified argument added.
+
+For a repository evidence batch, copy only the validated Phase 1 artifacts into the batch directory, generate the batch handoff, validate hashes, and then execute the repository publication workflow. Do not use analytical outputs from an `offline-existing` continuation in that Phase 1 commit.
