@@ -1,17 +1,37 @@
 {
-  "trigger": [
-    "Analyze this Bannerlord combat screenshot ZIP.",
-    "Process these Bannerlord battle-result screenshots.",
-    "Normalize a new Bannerlord combat screenshot batch.",
-    "Build canonical empirical rankings from this Bannerlord ZIP.",
-    "Review the uncertain rows from my Bannerlord screenshot dataset.",
-    "Validate or regenerate a Bannerlord combat-observation batch."
+  "normalizer": {
+    "trigger": [
+      "Normalize this Bannerlord combat screenshot ZIP and open its draft PR.",
+      "Process these raw Bannerlord battle-result screenshots into a Phase 1 handoff.",
+      "Publish this already-normalized unpublished Bannerlord batch as a pending task."
+    ],
+    "non_trigger": [
+      "Fecha as análises.",
+      "Analyze this normalized Bannerlord handoff.",
+      "Continue the pending Bannerlord analysis task from PR 55."
+    ]
+  },
+  "analyzer": {
+    "trigger": [
+      "Fecha as análises.",
+      "Analyze this normalized Bannerlord combat handoff.",
+      "Continue PR 55 from its pending bannerlord-analysis-task:v1 comment.",
+      "Build canonical empirical rankings from this normalized Bannerlord batch."
+    ],
+    "non_trigger": [
+      "Normalize this raw Bannerlord combat screenshot ZIP.",
+      "Open a draft PR for these Bannerlord battle-result screenshots.",
+      "Publish this unpublished normalized Bannerlord batch as a pending task."
+    ]
+  },
+  "mixed": [
+    "Normalize these raw Bannerlord screenshots and then rank them."
   ],
-  "non_trigger": [
+  "neither": [
     "Extract this generic ZIP file.",
     "Analyze these unrelated vacation photos.",
     "What is the best Bannerlord infantry troop?",
     "Refactor this Python repository.",
-    "Change the v7.1 model formula without using screenshots."
+    "Change the v7.1 model formula without using combat evidence."
   ]
 }

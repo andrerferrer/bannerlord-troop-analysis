@@ -13,6 +13,7 @@ from pathlib import Path
 
 
 PIPELINE_VERSION = "0.2.0"
+SKILL_RUNNER_VERSION = "0.3.0-phase1"
 SCHEMA_VERSION = "2.0.0"
 BUNDLE_PART_PREFIX = "bannerlord_normalized_v1.tar.xz.base64.part-"
 
@@ -49,10 +50,6 @@ def input_hash(path: Path) -> str:
         digest.update(sha256_file(child).encode("ascii"))
         digest.update(b"\n")
     return digest.hexdigest()
-
-
-def jsonl_count(path: Path) -> int:
-    return sum(1 for line in path.read_text(encoding="utf-8").splitlines() if line.strip())
 
 
 def atomic_json(path: Path, value: object) -> None:
@@ -159,11 +156,6 @@ def parser() -> argparse.ArgumentParser:
     value.add_argument("--mode", choices=("offline-existing", "host-vision", "api-batch"), required=True)
     value.add_argument("--repo", type=Path)
     value.add_argument("--config", type=Path)
-    value.add_argument("--troop-registry", type=Path)
-    value.add_argument("--corrections", type=Path)
-    value.add_argument("--aliases", type=Path)
-    value.add_argument("--general-model", type=Path)
-    value.add_argument("--burst-model", type=Path)
     value.add_argument("--authorize-paid-api", action="store_true")
     value.add_argument("--estimated-cost-per-image", type=float)
     return value
@@ -195,10 +187,9 @@ def main() -> int:
             f"expected {PIPELINE_VERSION}, observed {declared_pipeline_version}"
         )
     archive_config = config.get("archive_limits", {})
-    matching_config = config.get("matching", {})
     extraction_config = config.get("extraction", {})
-    if not isinstance(archive_config, dict) or not isinstance(matching_config, dict):
-        raise InvocationError("archive_limits and matching configuration sections must be objects")
+    if not isinstance(archive_config, dict):
+        raise InvocationError("archive_limits configuration section must be an object")
     if not isinstance(extraction_config, dict):
         raise InvocationError("extraction configuration section must be an object")
     max_members = int(positive_config_number(archive_config, "max_members", 10_000))
@@ -212,14 +203,6 @@ def main() -> int:
     max_ratio = float(
         positive_config_number(archive_config, "max_compression_ratio", 1_000.0)
     )
-    fuzzy_threshold = float(
-        positive_config_number(matching_config, "fuzzy_threshold", 0.94)
-    )
-    fuzzy_margin = float(
-        positive_config_number(matching_config, "fuzzy_margin", 0.05)
-    )
-    if fuzzy_threshold > 1 or fuzzy_margin > 1:
-        raise InvocationError("matching thresholds must not exceed 1")
     pipeline_environment = os.environ.copy()
     extraction_environment = {
         "prompt_version": ("COMBAT_PROMPT_VERSION", "combat-v2"),
@@ -232,11 +215,6 @@ def main() -> int:
     configuration = {
         "mode": args.mode,
         "config": option_hash(args.config, "configuration"),
-        "troop_registry": option_hash(args.troop_registry, "troop registry"),
-        "corrections": option_hash(args.corrections, "corrections"),
-        "aliases": option_hash(args.aliases, "aliases"),
-        "general_model": option_hash(args.general_model, "general model"),
-        "burst_model": option_hash(args.burst_model, "burst model"),
     }
     configuration_hash = hashlib.sha256(stable_json(configuration).encode("utf-8")).hexdigest()
     state_path = output / "batch_state.json"
@@ -246,6 +224,7 @@ def main() -> int:
         "input_kind": input_kind,
         "input_sha256": digest,
         "pipeline_version": PIPELINE_VERSION,
+        "skill_runner_version": SKILL_RUNNER_VERSION,
         "schema_version": SCHEMA_VERSION,
         "configuration_hash": configuration_hash,
         "mode": args.mode,
@@ -263,7 +242,14 @@ def main() -> int:
     }
     if state_path.exists():
         existing = json.loads(state_path.read_text(encoding="utf-8"))
-        for field in ("input_sha256", "pipeline_version", "schema_version", "configuration_hash", "mode"):
+        for field in (
+            "input_sha256",
+            "pipeline_version",
+            "skill_runner_version",
+            "schema_version",
+            "configuration_hash",
+            "mode",
+        ):
             if existing.get(field) != state[field]:
                 raise InvocationError(f"refusing incompatible resume: {field} changed")
         state = existing
@@ -362,88 +348,20 @@ def main() -> int:
         print(f"partial batch ready; resume state: {state_path}")
         return 0
 
-    if not args.troop_registry:
-        state["phase_statuses"]["raw_verification"] = "complete"
-        state["phase_statuses"]["canonical"] = "blocked"
-        state["next_action"] = "rerun with --troop-registry pointing to the verified 1.4.x + War Sails registry"
-        state["status"] = "partial"
-        atomic_json(state_path, state)
-        print(f"normalized input found; canonical build blocked: {state['next_action']}")
-        return 0
-
-    canonical_args = [
-        "build-canonical-dataset",
-        "--raw-occurrences", str(normalized),
-        "--troop-registry", str(args.troop_registry),
-        "--schemas-dir", str(repo / "data/combat_observations/schemas/v2"),
-        "--fuzzy-threshold", str(fuzzy_threshold),
-        "--fuzzy-margin", str(fuzzy_margin),
-        "--output-dir", str(output),
-    ]
-    if args.corrections:
-        canonical_args.extend(["--corrections", str(args.corrections)])
-    if args.aliases:
-        canonical_args.extend(["--aliases", str(args.aliases)])
-    run(repo, canonical_args, environment=pipeline_environment)
-    run(
-        repo,
-        [
-            "validate-canonical-dataset",
-            "--canonical-dir", str(output / "canonical"),
-            "--schemas-dir", str(repo / "data/combat_observations/schemas/v2"),
-            "--report", str(output / "reports/canonical_validation_rerun.json"),
-        ],
-        environment=pipeline_environment,
-    )
-    if args.general_model and args.burst_model:
-        run(
-            repo,
-            [
-                "compare-models",
-                "--aggregates", str(output / "canonical/canonical_historical_aggregates.jsonl"),
-                "--general-model", str(args.general_model),
-                "--burst-model", str(args.burst_model),
-                "--output-dir", str(output / "analysis"),
-            ],
-            environment=pipeline_environment,
-        )
-        state["phase_statuses"]["model_comparison"] = "complete"
-    else:
-        state["phase_statuses"]["model_comparison"] = "not_requested"
-    validation = json.loads((output / "reports/canonical_validation_rerun.json").read_text(encoding="utf-8"))
-    builder_validation = json.loads(
-        (output / "reports/canonical_validation_report.json").read_text(encoding="utf-8")
-    )
-    state["processed_images"] = jsonl_count(
-        output / "canonical/canonical_screenshots.jsonl"
-    )
+    state["phase_statuses"]["raw_verification"] = "complete"
+    state["phase_statuses"]["phase1_packaging"] = "pending"
+    state["phase_statuses"]["canonical"] = "not_permitted_in_phase1"
+    state["phase_statuses"]["model_comparison"] = "not_permitted_in_phase1"
     state["pending_images"] = 0
-    state["counts"] = {
-        "images": state["processed_images"],
-        "battles": jsonl_count(output / "canonical/canonical_battles.jsonl"),
-        **builder_validation["counts"],
-    }
-    state["generated_artifacts"] = [
-        str(path.relative_to(output))
-        for path in sorted(item for item in output.rglob("*") if item.is_file() and item != state_path)
-    ]
-    state["review_queue_size"] = len(
-        (output / "reports/unresolved_rows.csv").read_text(encoding="utf-8").splitlines()[1:]
-    )
-    fully_valid = (
-        validation["status"] == "passed"
-        and builder_validation["status"] == "passed"
-        and state["review_queue_size"] == 0
-    )
-    state["phase_statuses"]["canonical"] = (
-        "complete" if fully_valid else "complete_with_warnings"
-    )
-    state["status"] = "complete" if fully_valid else "partial"
+    state["generated_artifacts"] = [str(normalized.relative_to(source))]
+    state["status"] = "partial"
     state["next_action"] = (
-        "complete" if fully_valid else "inspect validation and unresolved reports"
+        "assemble the repository Phase 1 bundle and handoff, then run "
+        ".agents/skills/normalize-bannerlord-combat-batch/scripts/"
+        "validate_phase1_handoff.py before publication"
     )
     atomic_json(state_path, state)
-    print(f"batch state: {state_path}")
+    print(f"normalized Phase 1 input found; analysis intentionally not run: {state_path}")
     return 0
 
 

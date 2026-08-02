@@ -36,6 +36,15 @@ Phase 1 ends only when all of the following exist in the repository:
 
 At that point, normalized artifacts become immutable inputs to Phase 2.
 
+## Skill ownership
+
+The repository exposes separate operational skills for the two agents:
+
+- `normalize-bannerlord-combat-batch` accepts raw evidence, produces the repository-addressable Phase 1 handoff, validates it, opens the draft PR, publishes `pending`, and stops;
+- `analyze-bannerlord-combat-zip` accepts only an existing normalized handoff or actionable protocol task and performs Phase 2.
+
+Their trigger descriptions are mutually exclusive. Even when an operator requests the complete workflow, one agent run may not execute both skills across the handoff. Phase 1 publication requires the repository's executable handoff validator; hosts that cannot run it cannot publish an actionable `pending` task.
+
 ## Evidence-storage policy
 
 The deterministic normalized package is the required repository-addressable input for downstream analysis. It must include a manifest, reconstruction commands, per-artifact hashes, and the expected reconstructed archive hash.

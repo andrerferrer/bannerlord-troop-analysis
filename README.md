@@ -53,6 +53,13 @@ normalization agent
 → complete comment, validation, and merge
 ```
 
+Repository skills enforce that ownership boundary:
+
+- `$normalize-bannerlord-combat-batch` handles raw evidence through the validated Phase 1 `pending` handoff and then stops;
+- `$analyze-bannerlord-combat-zip` consumes an existing normalized handoff and performs Phase 2 only.
+
+A request that spans ingestion through conclusions requires two separate agent runs. Phase 1 publication must pass `.agents/skills/normalize-bannerlord-combat-batch/scripts/validate_phase1_handoff.py`; a connector-only host that cannot execute it may not queue the task as `pending`.
+
 Normalization and analysis must remain separate layers even when delivered in one PR. Phase 1 normalized artifacts become immutable at handoff. Corrections are additive reviewed records, never silent replacements.
 
 The deterministic normalized evidence and generated work required for downstream analysis must be repository-addressable. Raw screenshots are optional after normalization passes its integrity and structural-validation gates; when retained, use Git LFS or a reconstructible chunked archive. Always document known raw-source provenance and any visual re-review limitation.

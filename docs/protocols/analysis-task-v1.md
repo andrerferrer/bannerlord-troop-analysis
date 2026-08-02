@@ -37,8 +37,11 @@ Task state lives in append-only pull-request comments.
   "normalization_commit": "full-git-commit-sha",
   "required_actions": [
     "verify_handoff_hashes",
+    "preserve_normalized_inputs",
     "complete_review_layer",
+    "resolve_canonical_identities",
     "generate_analysis_outputs",
+    "confirm_frozen_models_unchanged",
     "validate_and_merge"
   ],
   "completion": {
@@ -58,7 +61,7 @@ Required fields:
 - `branch`: PR head branch that the local agent must check out;
 - `handoff_path`: committed prompt containing the batch-specific work contract;
 - `normalization_commit`: immutable Phase 1 handoff commit;
-- `required_actions`: complete machine-readable action list;
+- `required_actions`: complete machine-readable action list. Pending Phase 1 handoffs must include every core action shown above and may add batch-specific actions; later full-state comments repeat the complete list;
 - `completion.action`: normally `merge`;
 - `completion.merge_method`: `squash`, `merge`, or `rebase`;
 - `blockers`: current blockers, empty when none.
