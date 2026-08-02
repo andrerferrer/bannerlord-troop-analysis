@@ -26,7 +26,9 @@ spectacle-scale units in the normalization population.
   rows (`change_type=inalterado`).
 - Audit rows whose item could not be resolved (`item_found != true`) do not
   contribute item attributes. Their roster still exists, so the unresolved
-  slot contributes zero instead of borrowing values from another loadout.
+  slot contributes zero instead of borrowing values from another loadout. The
+  exact item and slot remain visible in `unresolved_item_evidence`, so this
+  proxy zero cannot be mistaken for complete source evidence.
 - Every eligible troop must have at least one audit roster. Generation stops
   instead of silently dropping a troop when that evidence is missing.
 - Mod tracks require their versioned override report. Generation stops instead

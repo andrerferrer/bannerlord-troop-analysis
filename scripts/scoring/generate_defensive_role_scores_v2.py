@@ -72,6 +72,7 @@ ROSTER_FIELDS = (
     "horse_probability",
     "mount_evidence_status",
     "unresolved_mount_evidence",
+    "unresolved_item_evidence",
 )
 
 TROOP_FIELDS = (
@@ -97,6 +98,7 @@ TROOP_FIELDS = (
     "mount_ids_audit_only",
     "mount_evidence_status",
     "unresolved_mount_evidence",
+    "unresolved_item_evidence",
     "spectacle_reason",
     "athletics",
     "riding",
@@ -274,6 +276,19 @@ def unresolved_mount_evidence(
     return sorted(set(unresolved))
 
 
+def unresolved_item_evidence(
+    rows: Sequence[Mapping[str, object]],
+) -> list[str]:
+    return sorted(
+        {
+            f"{str(row.get('item_id', '')) or str(row.get('slot', ''))}:"
+            f"{str(row.get('slot', ''))}"
+            for row in rows
+            if not truthy(row.get("item_found", "True"))
+        }
+    )
+
+
 def roster_features(
     troop: Mapping[str, object],
     roster_index: str,
@@ -288,6 +303,7 @@ def roster_features(
     horses = slots.get("Horse", [])
     harnesses = slots.get("HorseHarness", [])
     unresolved_mount = unresolved_mount_evidence(rows)
+    unresolved_items = unresolved_item_evidence(rows)
     probability_of_shield = shield_probability(item_slots)
     horse_ids = sorted(
         {
@@ -346,6 +362,7 @@ def roster_features(
             REVIEW_REQUIRED_STATUS if unresolved_mount else "resolved"
         ),
         "unresolved_mount_evidence": "|".join(unresolved_mount),
+        "unresolved_item_evidence": "|".join(unresolved_items),
     }
 
 
@@ -411,6 +428,14 @@ def aggregate_rosters(
                 if evidence
             }
         )
+        unresolved_items = sorted(
+            {
+                evidence
+                for row in loadouts
+                for evidence in str(row["unresolved_item_evidence"]).split("|")
+                if evidence
+            }
+        )
         melee_skill = max(number(troop.get(skill)) for skill in MELEE_SKILLS)
         troop_name = str(troop.get("name") or troop.get("name_raw") or "")
         aggregated.append(
@@ -456,6 +481,7 @@ def aggregate_rosters(
                     REVIEW_REQUIRED_STATUS if unresolved_mount else "resolved"
                 ),
                 "unresolved_mount_evidence": "|".join(unresolved_mount),
+                "unresolved_item_evidence": "|".join(unresolved_items),
                 "spectacle_reason": spectacle_reason(
                     troop_id,
                     troop_name,

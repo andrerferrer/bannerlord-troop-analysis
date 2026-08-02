@@ -29,11 +29,15 @@ population rules, assumptions, and confidence.
 - Incomplete mount/harness evidence is written to an explicit review queue and
   excluded from score normalization and rankings instead of being treated as
   zero. The current TAOM queue contains 22 affected warg troops.
+- Other `item_found=false` equipment retains the documented zero contribution,
+  while `unresolved_item_evidence` identifies the exact source item and slot in
+  every published row. Nine scored Realm of Thrones troops currently carry
+  this audit marker.
 
 ## Review anchors
 
 The new lanes remove the concrete anomalies that triggered this review. Every
-v1 rank below comes from the `Defensive Troops` table in that track's
+v1 rank below comes from the `Ranked — Defensive` table in that track's
 `analysis/theoretical/<track>/export_20260731_150800/OVERVIEW.md`; the v2 rank
 comes from the matching lane-specific `*_protection_v2.csv` file:
 

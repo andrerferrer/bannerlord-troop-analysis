@@ -299,6 +299,24 @@ class DefensiveRoleScoresV2Tests(unittest.TestCase):
 
         self.assertEqual(row["roster_count"], 1)
         self.assertEqual(row["armor_total_mean"], 50)
+        self.assertEqual(
+            row["unresolved_item_evidence"],
+            "guard_Head_0:Head",
+        )
+
+    def test_realm_of_thrones_unresolved_items_remain_auditable(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            output = Path(temporary_directory)
+            write_track(REPO, output, "realm_of_thrones")
+            rows = read_csv_rows(
+                output
+                / "realm_of_thrones"
+                / "realm_of_thrones_defensive_troop_scores_v2.csv"
+            )
+
+        unresolved = [row for row in rows if row["unresolved_item_evidence"]]
+        self.assertEqual(len(unresolved), 9)
+        self.assertIn("qohorik_goat_devout", {row["troop_id"] for row in unresolved})
 
     def test_incomplete_mount_evidence_is_queued_instead_of_scored(self) -> None:
         troops = [
