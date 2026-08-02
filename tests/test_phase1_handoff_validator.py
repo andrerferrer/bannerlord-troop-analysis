@@ -125,6 +125,7 @@ class Phase1HandoffValidatorTests(unittest.TestCase):
         base64_newline: bool = False,
         documented_archive_hash: str | None = None,
         generic_source_identity: bool = False,
+        declared_review_queue: int = 0,
     ) -> tuple[str, dict[str, object]]:
         source_hash = "a" * 64
         summary = {
@@ -135,7 +136,7 @@ class Phase1HandoffValidatorTests(unittest.TestCase):
             "battles": 1,
             "observations": declared_observations,
             "primary_troop_occurrences": 1,
-            "review_queue": 0,
+            "review_queue": declared_review_queue,
         }
         report = {
             "status": "passed",
@@ -146,7 +147,7 @@ class Phase1HandoffValidatorTests(unittest.TestCase):
             "battle_count": 1,
             "observation_count": declared_observations,
             "primary_troop_occurrences": 1,
-            "review_queue_count": 0,
+            "review_queue_count": declared_review_queue,
         }
         files = {
             "README.md": b"# Normalized test batch\n",
@@ -462,6 +463,26 @@ class Phase1HandoffValidatorTests(unittest.TestCase):
 
         self.assertEqual(completed.returncode, 2)
         self.assertIn("review-needed occurrences are absent", completed.stderr)
+
+    def test_rejects_review_item_without_review_reason(self) -> None:
+        non_primary = occurrence_record(
+            observation_id="obs-2",
+            analysis_status="supporting_only",
+        )
+        all_occurrences = jsonl_bytes(occurrence_record()) + jsonl_bytes(non_primary)
+        normalization_commit, _ = self.write_fixture(
+            extra_archive_files={
+                "troop_occurrences.jsonl": all_occurrences,
+                "review_queue.csv": b"observation_id,reason\nobs-2,none\n",
+            },
+            declared_observations=2,
+            declared_review_queue=1,
+        )
+
+        completed = self.validate(normalization_commit)
+
+        self.assertEqual(completed.returncode, 2)
+        self.assertIn("review item has no review reason", completed.stderr)
 
     def test_accepts_routed_as_separate_from_deployed_arithmetic(self) -> None:
         occurrence = occurrence_record(routed=2)

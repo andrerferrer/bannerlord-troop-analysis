@@ -398,8 +398,18 @@ def validate_counts(files: dict[str, bytes], summary: dict[str, object], report:
         observation_id = queued.get("observation_id", "")
         require(bool(observation_id) and observation_id not in queued_ids, f"invalid or duplicate review item: {observation_id}")
         queued_ids.add(observation_id)
-        require(observation_id in occurrence_by_id, f"review item lacks source observation: {observation_id}")
+        source = occurrence_by_id.get(observation_id)
+        require(source is not None, f"review item lacks source observation: {observation_id}")
         require(observation_id not in primary_ids, f"review item leaked into primary rows: {observation_id}")
+        require(
+            bool(source.get("needs_review"))
+            or bool(source.get("uncertain_fields"))
+            or (
+                source.get("row_type") == "hero"
+                and source.get("analysis_status") == "excluded_hero"
+            ),
+            f"review item has no review reason: {observation_id}",
+        )
     expected_review_ids = {
         observation_id for observation_id, row in occurrence_by_id.items()
         if bool(row.get("needs_review")) or bool(row.get("uncertain_fields"))
