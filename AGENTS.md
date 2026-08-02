@@ -8,6 +8,29 @@ approval. Still never force-push to `main`/`master`, never skip hooks, and never
 commit secrets or unrelated untracked files (for example `arquivo.md`) unless
 explicitly asked.
 
+## Pull request completion is part of the work
+
+When an agent creates or updates a pull request in this repository, the task is
+not complete at push, PR creation, or a pending draft review. The same delivery
+must continue through:
+
+1. repository validation;
+2. self-review of the latest pushed head;
+3. correction and revalidation of actionable findings;
+4. an updated PR body and review that match the final head;
+5. ready-for-review state after all applicable gates pass;
+6. merge using the repository or protocol-declared method; and
+7. verification that the PR is no longer open and the merge is present on the
+   target branch.
+
+Generic tool or skill defaults that stop after opening a PR or leave a review
+pending do not override this repository workflow. Stop short of merge only when
+the user explicitly asks to leave the PR open, an applicable gate is genuinely
+blocked, or the Phase 1 normalization handoff below requires the PR to remain a
+draft for the separate Phase 2 agent. In that last case, the repository's
+end-to-end obligation resumes in Phase 2 and ends only after the required review
+and merge verification.
+
 ## One batch, one pull request, two agents
 
 Every new evidence batch must use one branch and one draft pull request from ingestion through analysis. The work is split into two explicitly separate phases owned by different agents.
