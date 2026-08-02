@@ -42,6 +42,41 @@ def sha256(value: bytes) -> str:
     return hashlib.sha256(value).hexdigest()
 
 
+def occurrence_record(**overrides: object) -> dict[str, object]:
+    value: dict[str, object] = {
+        "observation_id": "obs-1",
+        "battle_id": "battle-1",
+        "battle_context": "field",
+        "side": "attacker",
+        "row_type": "troop",
+        "analysis_status": "included_primary",
+        "display_name_normalized": "test_troop",
+        "needs_review": False,
+        "source_image_sha256": "b" * 64,
+        "deployed": 10,
+        "survivors": 8,
+        "kills": 5,
+        "deaths": 1,
+        "wounded": 1,
+        "routed": 0,
+    }
+    value.update(overrides)
+    return value
+
+
+def consolidated_record(**overrides: object) -> dict[str, object]:
+    source = occurrence_record()
+    value: dict[str, object] = {
+        "battle_id": source["battle_id"],
+        "battle_context": source["battle_context"],
+        "display_name_normalized": source["display_name_normalized"],
+        "needs_review": False,
+        **{field: source[field] for field in ("deployed", "survivors", "kills", "deaths", "wounded", "routed")},
+    }
+    value.update(overrides)
+    return value
+
+
 class Phase1HandoffValidatorTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temporary = tempfile.TemporaryDirectory()
@@ -89,10 +124,13 @@ class Phase1HandoffValidatorTests(unittest.TestCase):
         declared_observations: int = 1,
         base64_newline: bool = False,
         documented_archive_hash: str | None = None,
+        generic_source_identity: bool = False,
     ) -> tuple[str, dict[str, object]]:
         source_hash = "a" * 64
         summary = {
-            "source_zip_sha256": source_hash,
+            ("source_sha256" if generic_source_identity else "source_zip_sha256"): source_hash,
+            "game_track": "realm_of_thrones",
+            "game_version": "1.4.x",
             "screenshots": 1,
             "battles": 1,
             "observations": declared_observations,
@@ -102,8 +140,8 @@ class Phase1HandoffValidatorTests(unittest.TestCase):
         report = {
             "status": "passed",
             "validation_errors": [],
-            "source_zip_sha256": source_hash,
-            "source_zip_size_bytes": 123,
+            ("source_sha256" if generic_source_identity else "source_zip_sha256"): source_hash,
+            ("source_size_bytes" if generic_source_identity else "source_zip_size_bytes"): 123,
             "image_count": 1,
             "battle_count": 1,
             "observation_count": declared_observations,
@@ -113,24 +151,13 @@ class Phase1HandoffValidatorTests(unittest.TestCase):
         files = {
             "README.md": b"# Normalized test batch\n",
             "screenshots_manifest.csv": b"image_file,image_sha256\nbattle.png," + b"b" * 64 + b"\n",
-            "battles.jsonl": jsonl_bytes({"battle_id": "battle-1", "battle_context": "field", "player_side": "attacker"}),
-            "troop_occurrences.jsonl": jsonl_bytes({
-                "observation_id": "obs-1", "battle_id": "battle-1", "battle_context": "field",
-                "side": "attacker", "row_type": "troop", "analysis_status": "included_primary",
-                "needs_review": False, "source_image_sha256": "b" * 64,
-                "deployed": 10, "survivors": 8, "kills": 5, "deaths": 1, "wounded": 1, "routed": 0,
+            "battles.jsonl": jsonl_bytes({
+                "battle_id": "battle-1", "battle_context": "field", "player_side": "attacker",
+                "game_track": "realm_of_thrones", "game_version": "1.4.x",
             }),
-            "primary_troop_occurrences.jsonl": jsonl_bytes({
-                "observation_id": "obs-1", "battle_id": "battle-1", "battle_context": "field",
-                "side": "attacker", "row_type": "troop", "analysis_status": "included_primary",
-                "needs_review": False, "source_image_sha256": "b" * 64,
-                "deployed": 10, "survivors": 8, "kills": 5, "deaths": 1, "wounded": 1, "routed": 0,
-            }),
-            "troop_battle_consolidated.jsonl": jsonl_bytes({
-                "battle_id": "battle-1", "battle_context": "field", "display_name_normalized": "test troop",
-                "needs_review": False, "deployed": 10, "survivors": 8, "kills": 5,
-                "deaths": 1, "wounded": 1, "routed": 0,
-            }),
+            "troop_occurrences.jsonl": jsonl_bytes(occurrence_record()),
+            "primary_troop_occurrences.jsonl": jsonl_bytes(occurrence_record()),
+            "troop_battle_consolidated.jsonl": jsonl_bytes(consolidated_record()),
             "review_queue.csv": b"observation_id,reason\n",
             "normalization_summary.json": json_bytes(summary),
             "validation_report.json": json_bytes(report),
@@ -244,6 +271,13 @@ class Phase1HandoffValidatorTests(unittest.TestCase):
 
         self.assertEqual(completed.returncode, 0, completed.stderr)
 
+    def test_accepts_generic_source_identity_for_screenshot_directory(self) -> None:
+        normalization_commit, _ = self.write_fixture(generic_source_identity=True)
+
+        completed = self.validate(normalization_commit)
+
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+
     def test_rejects_missing_core_required_action(self) -> None:
         def omit_action(task: dict[str, object]) -> None:
             task["required_actions"] = REQUIRED_ACTIONS[:-1]
@@ -295,7 +329,7 @@ class Phase1HandoffValidatorTests(unittest.TestCase):
         completed = self.validate(normalization_commit)
 
         self.assertEqual(completed.returncode, 2)
-        self.assertIn("Phase 2 directory is forbidden", completed.stderr)
+        self.assertIn("non-Phase-1 files are forbidden", completed.stderr)
 
     def test_rejects_phase2_output_inside_normalized_archive(self) -> None:
         normalization_commit, _ = self.write_fixture(
@@ -316,21 +350,114 @@ class Phase1HandoffValidatorTests(unittest.TestCase):
         self.assertIn("declared count differs from archive records", completed.stderr)
 
     def test_rejects_player_enemy_boundary_violation(self) -> None:
-        invalid_primary = jsonl_bytes({
-            "observation_id": "obs-1", "battle_id": "battle-1", "battle_context": "field",
-            "side": "defender", "row_type": "troop", "analysis_status": "included_primary",
-            "needs_review": False, "source_image_sha256": "b" * 64,
-            "deployed": 10, "survivors": 8, "kills": 5, "deaths": 1,
-            "wounded": 1, "routed": 0,
-        })
+        invalid_primary = jsonl_bytes(occurrence_record(side="defender"))
         normalization_commit, _ = self.write_fixture(
-            extra_archive_files={"primary_troop_occurrences.jsonl": invalid_primary}
+            extra_archive_files={
+                "troop_occurrences.jsonl": invalid_primary,
+                "primary_troop_occurrences.jsonl": invalid_primary,
+            }
         )
 
         completed = self.validate(normalization_commit)
 
         self.assertEqual(completed.returncode, 2)
         self.assertIn("player/enemy side boundary violation", completed.stderr)
+
+    def test_rejects_primary_value_tampering(self) -> None:
+        normalization_commit, _ = self.write_fixture(
+            extra_archive_files={
+                "primary_troop_occurrences.jsonl": jsonl_bytes(occurrence_record(kills=999))
+            }
+        )
+
+        completed = self.validate(normalization_commit)
+
+        self.assertEqual(completed.returncode, 2)
+        self.assertIn("primary row differs from source occurrence", completed.stderr)
+
+    def test_rejects_consolidated_context_tampering(self) -> None:
+        normalization_commit, _ = self.write_fixture(
+            extra_archive_files={
+                "troop_battle_consolidated.jsonl": jsonl_bytes(
+                    consolidated_record(battle_context="siege_attack")
+                )
+            }
+        )
+
+        completed = self.validate(normalization_commit)
+
+        self.assertEqual(completed.returncode, 2)
+        self.assertIn("consolidated context mismatch", completed.stderr)
+
+    def test_rejects_consolidated_value_tampering(self) -> None:
+        normalization_commit, _ = self.write_fixture(
+            extra_archive_files={
+                "troop_battle_consolidated.jsonl": jsonl_bytes(
+                    consolidated_record(kills=999)
+                )
+            }
+        )
+
+        completed = self.validate(normalization_commit)
+
+        self.assertEqual(completed.returncode, 2)
+        self.assertIn("consolidated kills differs from primary rows", completed.stderr)
+
+    def test_rejects_unknown_battle_context(self) -> None:
+        invalid_battle = jsonl_bytes({
+            "battle_id": "battle-1", "battle_context": "naval", "player_side": "attacker",
+            "game_track": "realm_of_thrones", "game_version": "1.4.x",
+        })
+        normalization_commit, _ = self.write_fixture(
+            extra_archive_files={"battles.jsonl": invalid_battle}
+        )
+
+        completed = self.validate(normalization_commit)
+
+        self.assertEqual(completed.returncode, 2)
+        self.assertIn("unknown battle context", completed.stderr)
+
+    def test_rejects_mixed_game_track(self) -> None:
+        invalid_battle = jsonl_bytes({
+            "battle_id": "battle-1", "battle_context": "field", "player_side": "attacker",
+            "game_track": "nightmare_sails", "game_version": "1.4.x",
+        })
+        normalization_commit, _ = self.write_fixture(
+            extra_archive_files={"battles.jsonl": invalid_battle}
+        )
+
+        completed = self.validate(normalization_commit)
+
+        self.assertEqual(completed.returncode, 2)
+        self.assertIn("mixed or missing game track", completed.stderr)
+
+    def test_accepts_routed_as_separate_from_deployed_arithmetic(self) -> None:
+        occurrence = occurrence_record(routed=2)
+        normalization_commit, _ = self.write_fixture(
+            extra_archive_files={
+                "troop_occurrences.jsonl": jsonl_bytes(occurrence),
+                "primary_troop_occurrences.jsonl": jsonl_bytes(occurrence),
+                "troop_battle_consolidated.jsonl": jsonl_bytes(consolidated_record(routed=2)),
+            }
+        )
+
+        completed = self.validate(normalization_commit)
+
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+
+    def test_rejects_root_phase2_artifacts(self) -> None:
+        normalization_commit, _ = self.write_fixture()
+        (self.batch / "reports").mkdir()
+        (self.batch / "reports/empirical_residual_rankings.csv").write_text(
+            "troop,score\nfoo,1\n", encoding="utf-8"
+        )
+        self.git("add", f"{self.batch_relative}/reports")
+        self.git("commit", "-m", "analysis: hide output in phase1 root")
+
+        completed = self.validate(normalization_commit)
+
+        self.assertEqual(completed.returncode, 2)
+        self.assertIn("non-Phase-1 files are forbidden", completed.stderr)
 
     def test_rejects_archive_replacement_after_normalization_commit(self) -> None:
         normalization_commit, _ = self.write_fixture()

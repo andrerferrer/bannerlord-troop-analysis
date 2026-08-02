@@ -11,9 +11,7 @@ Consume the immutable Phase 1 handoff. Never act as the normalization agent.
 
 1. Read the repository `AGENTS.md` and `docs/protocols/analysis-task-v1.md`.
 2. For `Fecha as análises`, run `python scripts/analysis/discover_analysis_tasks.py --json` and process every actionable task exactly as `AGENTS.md` requires.
-3. Otherwise require one of:
-   - an open pull request whose newest valid protocol comment is `pending`, `in_progress`, or retryable `blocked`;
-   - a committed batch-specific `handoff/ANALYSIS_PROMPT.md` plus its normalized bundle.
+3. Otherwise require an open pull request whose newest valid protocol comment is `pending`, `in_progress`, or retryable `blocked`. A supplied committed `handoff/ANALYSIS_PROMPT.md` is only a locator: resolve it to that existing PR and authoritative comment before starting work.
 4. Reject raw screenshots and raw screenshot ZIPs. Route those to `$normalize-bannerlord-combat-batch` in a separate agent run.
 
 ## Execute Phase 2

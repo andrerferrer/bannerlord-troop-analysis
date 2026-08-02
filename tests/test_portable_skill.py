@@ -1,8 +1,12 @@
 from __future__ import annotations
 
+import base64
+import hashlib
+import io
 import json
 import subprocess
 import sys
+import tarfile
 import tempfile
 import unittest
 import zipfile
@@ -87,6 +91,8 @@ class PortableSkillTests(unittest.TestCase):
         self.assertIn("do not use for raw screenshots", analyzer_description)
         self.assertIn("Never continue into Phase 2 in the same agent run", normalizer_text)
         self.assertIn("Reject raw screenshots and raw screenshot ZIPs", analyzer_text)
+        self.assertIn("require an open pull request", analyzer_text)
+        self.assertIn("is only a locator", analyzer_text)
         self.assertLess(len(normalizer_text.splitlines()), 500)
         self.assertLess(len(analyzer_text.splitlines()), 500)
 
@@ -178,6 +184,23 @@ class PortableSkillTests(unittest.TestCase):
 
         legacy_state = json.loads(first_state)
         legacy_state.pop("skill_runner_version")
+        legacy_configuration = {
+            "mode": "host-vision",
+            "config": None,
+            "troop_registry": None,
+            "corrections": None,
+            "aliases": None,
+            "general_model": None,
+            "burst_model": None,
+        }
+        legacy_state["configuration_hash"] = hashlib.sha256(
+            json.dumps(
+                legacy_configuration,
+                sort_keys=True,
+                separators=(",", ":"),
+                ensure_ascii=False,
+            ).encode("utf-8")
+        ).hexdigest()
         (output / "batch_state.json").write_text(
             json.dumps(legacy_state, indent=2, sort_keys=True) + "\n",
             encoding="utf-8",
@@ -347,6 +370,35 @@ class PortableSkillTests(unittest.TestCase):
         zipped_state = json.loads((zip_output / "batch_state.json").read_text(encoding="utf-8"))
         self.assertEqual(zipped_state["phase_statuses"]["canonical"], "not_permitted_in_phase1")
         self.assertFalse((zip_output / "canonical").exists())
+
+    def test_generic_single_part_phase1_bundle_is_staged(self) -> None:
+        source = self.root / "bundle-input"
+        source.mkdir()
+        archive_buffer = io.BytesIO()
+        with tarfile.open(fileobj=archive_buffer, mode="w:xz") as archive:
+            payload = b'{"observation_id":"obs-1"}\n'
+            info = tarfile.TarInfo("normalized/troop_occurrences.jsonl")
+            info.size = len(payload)
+            info.mtime = 0
+            archive.addfile(info, io.BytesIO(payload))
+        (source / "custom-normalized.tar.xz.base64.part-00").write_bytes(
+            base64.b64encode(archive_buffer.getvalue()) + b"\n"
+        )
+        output = self.root / "bundle-output"
+
+        completed = self.run_script(
+            INVOKE,
+            "--input", str(source),
+            "--output", str(output),
+            "--mode", "offline-existing",
+            "--repo", str(REPO),
+        )
+
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        state = json.loads((output / "batch_state.json").read_text(encoding="utf-8"))
+        self.assertEqual(state["phase_statuses"]["bundle_verification"], "complete")
+        self.assertEqual(state["phase_statuses"]["canonical"], "not_permitted_in_phase1")
+        self.assertTrue((output / "normalized/troop_occurrences.jsonl").is_file())
 
 
 if __name__ == "__main__":

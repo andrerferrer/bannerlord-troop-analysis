@@ -162,8 +162,7 @@ python3 .agents/skills/normalize-bannerlord-combat-batch/scripts/validate_phase1
   --repo-root "$PWD" \
   --batch-dir "$PWD/data/combat_observations/<batch>" \
   --branch "<head-branch>" \
-  --normalization-commit "<full-sha>" \
-  --base-ref main
+  --normalization-commit "<full-sha>"
 ```
 
 Phase 2 starts only from the existing handoff or analysis queue and follows `$analyze-bannerlord-combat-zip` plus the batch-specific `handoff/ANALYSIS_PROMPT.md`.

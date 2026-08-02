@@ -25,7 +25,7 @@ python3 .agents/skills/normalize-bannerlord-combat-batch/scripts/invoke_pipeline
   --repo "/absolute/path/to/bannerlord-troop-analysis"
 ```
 
-The portable runner performs safe staging and extraction preparation only. It must not build canonical identities, rankings, or model comparisons. Complete host-vision review and deterministic normalization using the repository rules and nearest compatible merged batch as the layout precedent.
+The portable runner performs safe staging and extraction preparation only. It must not build canonical identities, rankings, or model comparisons. Complete host-vision review and deterministic normalization using the validator-defined layout in [references/repository-pr-workflow.md](references/repository-pr-workflow.md); use a compatible merged batch only for track-specific additions.
 
 Preserve player/enemy, track, and field/siege-attack/siege-defense boundaries. Leave unreadable values null and route them to the review queue. Exclude off-screen inference. Generate the repository-addressable normalized bundle, artifact hashes, structural validation, and batch-specific `handoff/ANALYSIS_PROMPT.md`.
 
@@ -38,8 +38,7 @@ python3 .agents/skills/normalize-bannerlord-combat-batch/scripts/validate_phase1
   --repo-root "/absolute/path/to/bannerlord-troop-analysis" \
   --batch-dir "/absolute/path/to/bannerlord-troop-analysis/data/combat_observations/<batch>" \
   --branch "<exact-head-branch>" \
-  --normalization-commit "<full-phase1-commit-sha>" \
-  --base-ref main
+  --normalization-commit "<full-phase1-commit-sha>"
 ```
 
 Publication is allowed only when this command exits zero. A host without a repository checkout and executable validation may prepare artifacts, but it must report publication as blocked and must not post a `pending` comment.

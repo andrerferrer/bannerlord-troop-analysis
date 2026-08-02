@@ -3,8 +3,10 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.util
 import json
 import os
+import re
 import shlex
 import subprocess
 import sys
@@ -15,7 +17,7 @@ from pathlib import Path
 PIPELINE_VERSION = "0.2.0"
 SKILL_RUNNER_VERSION = "0.3.0-phase1"
 SCHEMA_VERSION = "2.0.0"
-BUNDLE_PART_PREFIX = "bannerlord_normalized_v1.tar.xz.base64.part-"
+BUNDLE_PART_RE = re.compile(r".+\.base64\.part-\d+")
 
 
 class InvocationError(RuntimeError):
@@ -57,6 +59,55 @@ def atomic_json(path: Path, value: object) -> None:
     temporary = path.with_name(f".{path.name}.tmp")
     temporary.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     os.replace(temporary, path)
+
+
+def atomic_bytes(path: Path, value: bytes) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(f".{path.name}.tmp")
+    try:
+        temporary.write_bytes(value)
+        os.replace(temporary, path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def discover_bundle_dir(root: Path) -> Path | None:
+    parts = sorted(root.rglob("*.base64.part-*"))
+    if not parts:
+        return None
+    directories = {part.parent for part in parts}
+    if len(directories) != 1:
+        raise InvocationError(f"ambiguous normalized bundle: found parts in {len(directories)} directories")
+    if any(BUNDLE_PART_RE.fullmatch(part.name) is None for part in parts):
+        raise InvocationError("normalized bundle contains an invalid part filename")
+    return directories.pop()
+
+
+def stage_phase1_bundle(bundle_dir: Path, destination: Path) -> Path:
+    validator_path = Path(__file__).with_name("validate_phase1_handoff.py")
+    spec = importlib.util.spec_from_file_location("phase1_handoff_validator", validator_path)
+    if spec is None or spec.loader is None:
+        raise InvocationError(f"cannot load Phase 1 bundle validator: {validator_path}")
+    validator = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(validator)
+    try:
+        parts = validator.ordered_bundle_parts(bundle_dir)
+        files = validator.archive_files(validator.decode_archive(parts))
+    except (OSError, RuntimeError, ValueError) as error:
+        raise InvocationError(f"invalid normalized Phase 1 bundle: {error}") from error
+    if "troop_occurrences.jsonl" not in files:
+        raise InvocationError("normalized Phase 1 bundle lacks troop_occurrences.jsonl")
+    if destination.exists():
+        existing = {
+            path.relative_to(destination).as_posix(): path.read_bytes()
+            for path in destination.rglob("*")
+            if path.is_file()
+        }
+        if existing and existing != files:
+            raise InvocationError(f"refusing divergent existing normalized staging: {destination}")
+    for relative, contents in files.items():
+        atomic_bytes(destination / relative, contents)
+    return destination
 
 
 def is_repo(path: Path) -> bool:
@@ -217,6 +268,16 @@ def main() -> int:
         "config": option_hash(args.config, "configuration"),
     }
     configuration_hash = hashlib.sha256(stable_json(configuration).encode("utf-8")).hexdigest()
+    legacy_configuration_hash = hashlib.sha256(
+        stable_json({
+            **configuration,
+            "troop_registry": None,
+            "corrections": None,
+            "aliases": None,
+            "general_model": None,
+            "burst_model": None,
+        }).encode("utf-8")
+    ).hexdigest()
     state_path = output / "batch_state.json"
     state = {
         "batch_id": f"batch_{digest[:20]}",
@@ -252,7 +313,14 @@ def main() -> int:
                     "refusing legacy resume that already entered Phase 2; continue it with the "
                     "analysis handoff instead"
                 )
+            if existing.get("configuration_hash") == legacy_configuration_hash:
+                existing["configuration_hash"] = configuration_hash
+            elif existing.get("configuration_hash") != configuration_hash:
+                raise InvocationError(
+                    "refusing legacy resume whose removed Phase 2 options cannot be reproduced"
+                )
             existing["skill_runner_version"] = SKILL_RUNNER_VERSION
+            existing["resume_command"] = state["resume_command"]
         for field in (
             "input_sha256",
             "pipeline_version",
@@ -271,7 +339,7 @@ def main() -> int:
         with zipfile.ZipFile(source) as archive:
             basenames = {Path(name).name for name in archive.namelist()}
         if "troop_occurrences.jsonl" in basenames or any(
-            name.startswith(BUNDLE_PART_PREFIX) for name in basenames
+            BUNDLE_PART_RE.fullmatch(name) is not None for name in basenames
         ):
             staged = output / "normalized-staging"
             run(
@@ -290,23 +358,9 @@ def main() -> int:
             source = staged
             state["phase_statuses"]["normalized_zip_preflight"] = "complete"
             atomic_json(state_path, state)
-    bundle_parts = list(source.rglob(f"{BUNDLE_PART_PREFIX}*")) if source.is_dir() else []
-    if len(bundle_parts) == 11:
-        bundle_dir = bundle_parts[0].parent
-        reports = output / "reports"
-        run(
-            repo,
-            [
-                "reconstruct-bundle",
-                "--bundle-dir", str(bundle_dir),
-                "--archive", str(output / "normalized.tar.xz"),
-                "--extract-dir", str(output / "normalized"),
-                "--report", str(reports / "p0_verification_report.json"),
-                "--forensic-report", str(reports / "p0_bundle_forensics.json"),
-            ],
-            environment=pipeline_environment,
-        )
-        source = output / "normalized"
+    bundle_dir = discover_bundle_dir(source) if source.is_dir() else None
+    if bundle_dir is not None:
+        source = stage_phase1_bundle(bundle_dir, output / "normalized")
         state["phase_statuses"]["bundle_verification"] = "complete"
         atomic_json(state_path, state)
 
