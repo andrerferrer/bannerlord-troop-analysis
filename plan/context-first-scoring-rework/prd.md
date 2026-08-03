@@ -41,8 +41,8 @@ Replace the repository's universal/composite-first scoring path with a candidate
 4. Defense uses worn armor only. Shields are not armor. The first replacement candidate may reuse the existing, tested `survivability_armor_v71` aggregation (`0.35 × head + 0.55 × body + 0.05 × arm + 0.05 × leg`) but must declare it as candidate-specific, not universal.
 5. Melee attack uses direct or tooltip-validated reconstructed attack-row damage. For the first candidate, item output is the maximum valid swing/thrust damage authorized by the item's attack rows. Blank or incomplete values remain blank.
 6. A `CraftedItem` is eligible for attack/general output only when reconstruction provenance is complete and the required tooltip-validation gate passed. Template-name proxies are prohibited. Missing catalogs, incomplete reconstruction, absent attack rows, or failed tooltip validation produce no score and an explicit review-queue row.
-7. Bow/crossbow per-shot output uses declared weapon attack-row damage plus the declared compatible arrow/bolt projectile contribution. Each published row names the exact weapon and projectile records used.
-8. Outside siege defense, finite ranged capacity is `per_shot_damage × total_usable_ammunition_count`. Only compatible same-roster stacks are summed; bow pairs with arrows and crossbow pairs with bolts. Alternative weapons remain separate pairings and are not treated as simultaneously fired.
+7. The initial bow/crossbow per-shot output uses only declared bow/crossbow attack-row damage. Compatible arrow/bolt records determine family and usable stack count and remain published for provenance, but their damage fields do not enter candidate v1. A later candidate may include projectile contribution only through a new explicit declaration and test.
+8. Outside siege defense, finite ranged capacity is `weapon_per_shot_damage × total_usable_ammunition_count`. Only compatible same-roster stacks are summed; audit literal `Bow` pairs with `Arrow` and `Crossbow` with `Bolt`. Alternative weapons remain separate pairings and are not treated as simultaneously fired.
 9. In siege defense, ranged output records `ammunition_policy=unlimited`, compares per-shot output, ignores stack count, and never emits numeric infinity.
 10. Alternative choices within a slot and alternative equipment rosters use arithmetic means unless a future candidate supplies evidenced roster probabilities. Every intermediate pairing remains published.
 11. Siege-defense cavalry is always transformed to `mount_state=dismounted`. Riding, horse speed, maneuver, charge, mount health, and harness armor are excluded from both drivers and normalization.
@@ -61,11 +61,11 @@ Replace the repository's universal/composite-first scoring path with a candidate
 
 **FR-3 — Armor evidence lane.** The system shall resolve worn armor per roster, expose head/body/arm/leg inputs and provenance, apply only the declaration's armor aggregation, and queue incomplete armor evidence without shield or mount substitution.
 
-**FR-4 — Weapon evidence lane.** The system shall publish every weapon attack row, selected direct damage, source record, reconstruction status, tooltip-validation status, and rejection reason used by melee or ranged scoring.
+**FR-4 — Weapon evidence lane.** The system shall first normalize component-level weapon attack rows with source provenance, because the current equipment audit retains only one scalar swing/thrust pair per item occurrence. It shall then publish every normalized attack row, selected direct damage, source record, reconstruction status, tooltip-validation status, and rejection reason used by melee or ranged scoring.
 
 **FR-5 — CraftedItem fail-closed gate.** The system shall reject template proxies and unvalidated reconstructed `CraftedItem` values from attack and general-capability results while retaining affected troops and items in a review queue.
 
-**FR-6 — Ranged ammunition policies.** The system shall build explicit compatible bow/arrow and crossbow/bolt pairings, calculate finite capacity outside siege defense, and calculate per-shot unlimited-ammunition output in siege defense.
+**FR-6 — Ranged ammunition policies.** The system shall build explicit compatible `Bow`/`Arrow` and `Crossbow`/`Bolt` pairings from the real audit vocabulary, calculate finite capacity from weapon damage and compatible stack count outside siege defense, and calculate per-shot unlimited-ammunition output in siege defense. Candidate v1 shall not add projectile damage to the weapon value.
 
 **FR-7 — Context engine.** The system shall derive the effective scoring context from the declaration and force siege-defense cavalry to dismounted behavior before driver selection.
 
@@ -93,7 +93,7 @@ Replace the repository's universal/composite-first scoring path with a candidate
 
 **NFR-3 — Traceability.** Every published component and rank shall be reconstructible from fields in the same candidate package, with source paths and SHA-256 hashes.
 
-**NFR-4 — Immutability.** Implementation and regeneration shall not alter existing files under `analysis/model_candidates/role_scores_v2_defense/` or `analysis/model_versions/`.
+**NFR-4 — Immutability.** Implementation and regeneration shall not alter existing files under audited historical candidate packages, committed `analysis/theoretical/**/export_20260731_150800/` role-score outputs, audited historical scoring/reconstruction scripts, or pre-existing `analysis/model_versions/` paths. D10 may add one new version directory only after the exact-hash promotion gate passes.
 
 **NFR-5 — Separation of concerns.** Contract validation, evidence resolution, context policy, scoring, and report rendering shall have focused interfaces and tests. Shared semantics shall have one implementation.
 
@@ -186,7 +186,7 @@ Replace the repository's universal/composite-first scoring path with a candidate
 
 ### AC-7 — Finite ammunition
 
-**Given** a bow with two compatible arrow stacks and an unrelated bolt stack in one roster, **when** field ranged attack is scored, **then** only the arrow stacks are summed and capacity equals declared per-shot damage times that sum.
+**Given** a bow with two compatible `Arrow` stacks and an unrelated `Bolt` stack in one roster, **when** field ranged attack is scored, **then** only the arrow stacks are summed and capacity equals declared bow damage times that sum; projectile damage fields cannot change candidate-v1 output.
 
 ### AC-8 — Alternative ranged weapons
 
@@ -243,11 +243,11 @@ Replace the repository's universal/composite-first scoring path with a candidate
 - **Verify:** `python3 -m unittest -v tests.test_context_first_armor`; expected: armor-only, uncertainty, roster-mean, and no-shield/no-mount substitution tests pass.
 - **Dependencies:** D2.
 
-### D4 — Weapon evidence and CraftedItem fail-closed handling
+### D4 — Weapon normalization, evidence, and CraftedItem fail-closed handling
 
-- **Scope:** Resolve direct attack rows and validated reconstructed crafted stats, reject template proxies, publish provenance, and emit review reasons for FR-4 and FR-5.
-- **Targets:** extend `scripts/scoring/context_first_equipment.py`; add `tests/test_context_first_weapon_evidence.py`; consume, without weakening, `scripts/normalization/reconstruct_crafted_weapon_stats.py`.
-- **Verify:** `python3 -m unittest -v tests.test_context_first_weapon_evidence tests.test_reconstruct_crafted_weapon_stats`; expected: direct evidence passes and every incomplete/unvalidated crafted path remains blank and queued.
+- **Scope:** Add deterministic component-level attack-row normalization and a machine-readable crafted-tooltip validation receipt producer; resolve those artifacts plus validated reconstructed crafted stats; reject template proxies; publish provenance; and emit review reasons for FR-4 and FR-5.
+- **Targets:** add `scripts/normalization/extract_weapon_attack_rows.py`, `scripts/normalization/build_crafted_weapon_validation_receipt.py`, `tests/test_extract_weapon_attack_rows.py`, and `tests/test_crafted_weapon_validation_receipt.py`; extend `scripts/scoring/context_first_equipment.py`; add `tests/test_context_first_weapon_evidence.py`; consume, without weakening, `scripts/normalization/reconstruct_crafted_weapon_stats.py`.
+- **Verify:** `python3 -m unittest -v tests.test_extract_weapon_attack_rows tests.test_crafted_weapon_validation_receipt tests.test_context_first_weapon_evidence tests.test_reconstruct_crafted_weapon_stats`; expected: component rows and their source provenance reproduce deterministically, a receipt is emitted only from hash-matched per-item tooltip comparisons, direct evidence passes, and every incomplete/unvalidated crafted path remains blank and queued.
 - **Dependencies:** D2. May run in parallel with D3.
 
 ### D5 — Ranged finite/unlimited ammunition
@@ -267,14 +267,14 @@ Replace the repository's universal/composite-first scoring path with a candidate
 ### D7 — Simple defense, attack, and general outputs
 
 - **Scope:** Build complete, rankable, and review artifacts; defense ranks armor, attack ranks weapon output, and general publishes side-by-side components without an undeclared blend.
-- **Targets:** `scripts/scoring/generate_context_first_scores.py`, `tests/test_context_first_scores.py`, and generated CSV/JSON under `analysis/model_candidates/context_first_scores_v1/<track>/<context>/<question>/<attack_mode>/`.
+- **Targets:** `scripts/scoring/generate_context_first_scores.py`, `tests/test_context_first_scores.py`, and scratch/generated-schema fixtures under `tests/fixtures/context_first/generated/`. D7 does not publish the committed candidate root before the D8 renderer/transaction exists.
 - **Verify:** `python3 -m unittest -v tests.test_context_first_scores`; expected: FR-8 through FR-11 and AC-11/AC-12 pass.
 - **Dependencies:** D6.
 
 ### D8 — Reproducible reports and Realm of Thrones top 10s
 
 - **Scope:** Add one-command report generation, metadata, input/output manifests, review summaries, and evidence-eligible RoT top-10 tables for FR-12 and FR-13.
-- **Targets:** `scripts/scoring/write_context_first_reports.py`, `tests/test_context_first_reports.py`, `analysis/model_candidates/context_first_scores_v1/README.md`, `artifact_hashes.csv`, and `realm_of_thrones/TOP10.md`.
+- **Targets:** `scripts/scoring/write_context_first_reports.py`, `tests/test_context_first_reports.py`, `analysis/model_candidates/context_first_scores_v1/README.md`, `candidate_manifest.csv`, `artifact_hashes.csv`, and `realm_of_thrones/TOP10.md`. The promotion gate later pins `candidate_manifest.csv`; the outer artifact manifest must not participate in a hash cycle.
 - **Verify:** `python3 -m unittest -v tests.test_context_first_reports && python3 scripts/scoring/generate_context_first_scores.py && python3 scripts/scoring/write_context_first_reports.py`; expected: two isolated regenerations are byte-identical and blocked RoT lanes explain their evidence gaps.
 - **Dependencies:** D7.
 
@@ -287,10 +287,10 @@ Replace the repository's universal/composite-first scoring path with a candidate
 
 ### D10 — Dedicated promotion, final cutover, and cleanup
 
-- **Scope:** Only after D9 reports `pass`, open a dedicated model-change slice that copies the approved package into a new immutable version, routes new scoring/report documentation and entry points to that version, removes only superseded scaffolding introduced by D1-D9, preserves every historical candidate and prior frozen version, runs full validation, and completes the PR lifecycle in Settled Decision 17.
+- **Scope:** Only after D9 reports `passed` for the exact `candidate_manifest.csv` hash, open a dedicated model-change slice that copies the approved package into a new immutable version, routes new scoring/report documentation and entry points to that version, removes only superseded scaffolding introduced by D1-D9, preserves every historical candidate and prior frozen version, runs full validation, and completes the PR lifecycle in Settled Decision 17.
 - **Targets:** a new version directory under `analysis/model_versions/`, `README.md`, `docs/research/EXECUTION_TRACKER.md`, relevant new context-first modules/tests, and explicit pre/post hashes for every pre-existing frozen artifact.
 - **Verify:** `python3 -m unittest discover -v`; regenerate the D8 package twice; compare candidate-to-promoted and historical/frozen manifests; self-review the latest pushed head; expected: all tests pass, regenerated bytes match, the promoted package matches the approved candidate, all pre-existing historical/frozen bytes are unchanged, the PR targets `main`, is squash-merged, is no longer open, and its merge commit is present on `main`.
-- **Dependencies:** D9 with a machine-readable `pass` verdict. A blocked verdict is a hard stop, not a completion state.
+- **Dependencies:** D9 with `promotion_gate.status=passed`, `promotion_allowed=true`, and an exact candidate-manifest match. A blocked verdict is a hard stop, not a completion state.
 
 ## Dependency map and execution order
 

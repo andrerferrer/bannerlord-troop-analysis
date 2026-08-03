@@ -114,7 +114,7 @@
         <span>Auditar</span><i>→</i><span>Declarar</span><i>→</i><span>Resolver evidência</span><i>→</i><span>Aplicar contexto</span><i>→</i><span>Gerar</span><i>→</i><span>Validar</span><i>→</i><span>Promover</span>
       </div>
       <div class="warning danger">
-        <strong>“Candidato gerado” não significa “rework terminado”.</strong> O passo 9 para se faltarem catálogos/tooltip de <code>CraftedItem</code>, IDs canônicos ou batalhas elegíveis. O passo 10 só roda com um verdict machine-readable <code>pass</code> amarrado aos hashes exatos.
+        <strong>“Candidato gerado” não significa “rework terminado”.</strong> O passo 4 para se faltarem XMLs brutos verificáveis, catálogos ou observações de tooltip; o passo 9 para sem IDs canônicos ou batalhas elegíveis. O passo 10 só roda com <code>status=passed</code>, <code>promotion_allowed=true</code> e o hash exato do candidate manifest.
       </div>
       <h3>Estado de evidência conhecido ao planejar</h3>
       <p>40 batalhas registradas; 24 elegíveis no agregado, 17 de campo, 2 de ataque de cerco e 0 de defesa de cerco. No RoT, 9.414 linhas não-multiplayer de <code>CraftedItem</code> ainda não têm a tupla completa de dano/velocidade/classe. Esses números serão recalculados no passo 9.</p>
@@ -223,7 +223,7 @@ git diff --check</pre>
       <div class="step"><div class="step-number">1</div><div><h3>Auditar os modelos atuais</h3><p>Classificar misturas, proxies e defaults errados; congelar hashes históricos. Gate: nenhuma mutação.</p></div></div>
       <div class="step"><div class="step-number">2</div><div><h3>Contrato de declaração</h3><p>Schema versionado e validação de track/context/question/mode/mount/ammo/drivers antes do scoring.</p></div></div>
       <div class="step"><div class="step-number">3</div><div><h3>Lane de armadura</h3><p>Armor regional, agregação declarada, médias de roster, proveniência e review queue.</p></div></div>
-      <div class="step"><div class="step-number">4</div><div><h3>Lane de arma e CraftedItem</h3><p>Attack rows diretos e reconstrução validada; template proxy é rejeitado.</p></div></div>
+      <div class="step"><div class="step-number">4</div><div><h3>Normalização e lane de arma</h3><p>Extrair todos os attack rows de XML verificado, produzir receipt de tooltip e rejeitar template proxy.</p></div></div>
       <div class="step"><div class="step-number">5</div><div><h3>Munição finite/unlimited</h3><p>Pairings explícitos, stacks compatíveis e ressuprimento infinito sem infinity.</p></div></div>
       <div class="step"><div class="step-number">6</div><div><h3>Engine de contexto</h3><p>Aplicar contexto antes dos drivers e desmontar cavalaria em defesa de cerco.</p></div></div>
       <div class="step"><div class="step-number">7</div><div><h3>Outputs simples</h3><p>Complete, rankable e review; defense/attack/general sem score universal.</p></div></div>
