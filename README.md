@@ -15,6 +15,7 @@ Data-driven troop analysis framework for Mount & Blade II: Bannerlord.
 - [`docs/handoff/PROJECT_HANDOFF_SUPER_REPORT.md`](docs/handoff/PROJECT_HANDOFF_SUPER_REPORT.md)
 - [`docs/methodology/ADR-001-combat-image-normalization.md`](docs/methodology/ADR-001-combat-image-normalization.md)
 - [`docs/methodology/ADR-005-spectacle-outlier-definition.md`](docs/methodology/ADR-005-spectacle-outlier-definition.md) — the one S+ / spectacle-outlier definition (owner: `scripts/scoring/outliers.py`)
+- [`docs/methodology/006_context_first_scoring_rules.md`](docs/methodology/006_context_first_scoring_rules.md) — standing operator rules for choosing simple, question-specific scoring drivers
 
 Current authoritative frozen models:
 
@@ -29,7 +30,9 @@ Candidate model under review:
 
 - [`defensive_role_scores_v2_candidate`](analysis/model_candidates/role_scores_v2_defense/README.md)
   — separates infantry/cavalry protection from defensive utility; does not
-  replace the frozen models.
+  replace the frozen models. It is a reproducible historical candidate, not the
+  pattern for new scoring work, which must follow the
+  [`context-first scoring rules`](docs/methodology/006_context_first_scoring_rules.md).
 
 <!-- latest-theoretical-report:start -->
 ## Latest theoretical report
@@ -121,6 +124,8 @@ The current rankings are exploratory campaign-performance evidence, not a univer
 - Apply corrections and exclusions in separate reviewed layers with provenance.
 - Resolve troop identities against the selected module track before explanatory modeling.
 - Keep field, siege attack, and siege defense separate.
+- Choose scoring inputs from the question and context before writing a formula;
+  follow the context-first scoring rules instead of extending a universal score.
 - Use the battle as the independent sampling unit.
 - Require at least **5 independent battles and 20 deployed troops** before displaying a troop/context estimate.
 - Display uncertainty beside point estimates.

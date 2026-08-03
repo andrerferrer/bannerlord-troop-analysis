@@ -7,6 +7,11 @@ does not replace the frozen v7.1 general model, the frozen v7.3 burst model, or
 the published `role_scores_v1` outputs. Promotion requires the repository's
 empirical and model-change gates.
 
+This document preserves that historical candidate. New scoring work must start
+from the standing
+[`context-first scoring rules`](006_context_first_scoring_rules.md), including
+their question-first drivers and siege-defense overrides.
+
 The candidate implements the approved defensive-model review while retaining
 spectacle-scale units in the normalization population.
 
