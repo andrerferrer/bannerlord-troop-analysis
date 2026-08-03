@@ -173,15 +173,16 @@ git diff --check origin/main...HEAD
 
 **Actions:**
 
-1. Verify raw XML bodies against each track's committed raw-XML manifest/source-package hashes; never treat the scalar equipment-audit damage cells as component provenance.
-2. Normalize one deterministic row per XML weapon attack component, including source file hash and locator.
-3. Build a per-item tooltip-validation receipt from the reconstructed CSV and repository-addressable tooltip observations; verify both hashes and reject empty/duplicate observations.
-4. Resolve every normalized direct weapon attack row and publish its provenance.
+1. Verify raw XML bodies and module load order against each track's committed `manifest.csv`, `manifest_modules.csv`, and source-package hashes; never treat the scalar equipment-audit damage cells as component provenance.
+2. Normalize one deterministic row per XML weapon attack component, including source file hash and locator; for duplicate item IDs select only the highest-load-order module definition and fail closed on ambiguity inside the winner.
+3. Build a per-item tooltip-validation receipt from the reconstructed CSV and repository-addressable tooltip observations; verify both hashes, reject empty/duplicate observations, and emit validated crafted swing/thrust values into the shared attack-row schema with reconstructed and receipt hashes.
+4. Union direct and receipt-validated crafted attack rows, resolve the winning item definition, and publish every scoring row's provenance.
 5. Select the declared maximum valid swing/thrust damage for the initial melee candidate.
 6. Consume reconstructed crafted stats without weakening their completeness rules or changing the historical reconstruction producer.
 7. Require PC piece/template catalogs plus the hash-pinned per-item tooltip receipt for crafted items.
 8. Reject template-name proxies, incomplete reconstruction, missing attack rows, non-finite values, and failed validation.
 9. Keep affected troop/item rows visible with blank results and stable review reasons.
+10. If D4 ingests a new raw/source package, use the `AGENTS.md` evidence-batch protocol on this same branch and PR: a normalization agent owns the deterministic normalized artifacts and handoff, then a distinct local analysis agent consumes them as immutable input. A code-only slice over already repository-addressable inputs does not invent a new batch, and scoring code must never silently rewrite normalized evidence.
 
 **Verify:**
 
@@ -192,7 +193,7 @@ git diff --check origin/main...HEAD
 
 **Hard stop:** if the exact source XML package/PC root, crafting catalogs, or tooltip observations are absent, emit a hash-specific acquisition request and stop at D4. Do not reconstruct component rows from lossy audit scalars and do not issue an empty passing receipt.
 
-**Exit gate:** component-level direct evidence reconstructs output; receipt production is deterministic; no crafted proxy or zero can enter a rank; remaining RoT gaps are quantified rather than hidden; PR is merged and verified.
+**Exit gate:** component-level direct evidence and receipt-validated crafted evidence reconstruct output; module overrides resolve deterministically; receipt production is deterministic; no crafted proxy or zero can enter a rank; remaining RoT gaps are quantified rather than hidden; any new evidence batch has separate normalization and analysis ownership; PR is merged and verified.
 
 ## Step 5 — Implement finite and unlimited ranged semantics
 
@@ -209,11 +210,12 @@ git diff --check origin/main...HEAD
 **Actions:**
 
 1. Pair audit literal `Bow` only with `Arrow` and `Crossbow` only with `Bolt` from the same roster; fixtures include real audit vocabulary.
-2. Publish weapon damage, inert observed projectile fields, per-shot output, stack identities, and usable ammunition count. Candidate v1 declares `projectile_contribution=not_included`.
-3. Outside siege defense, calculate `per_shot_output * total_compatible_ammunition`.
-4. Keep alternative weapons as separate pairings and average alternatives only after publishing intermediates.
-5. In siege defense, force `ammunition_policy=unlimited`, compare per-shot output, ignore stack count, and emit no infinity.
-6. Fail closed on missing compatibility or damage evidence.
+2. Enumerate deterministic loadouts by selecting one alternative per equipment slot; different slots are carried together, while same-slot alternatives are never summed.
+3. Publish weapon damage, inert observed projectile fields, per-shot output, loadout/stack identities, and usable ammunition count. Candidate v1 declares `projectile_contribution=not_included`.
+4. Outside siege defense, calculate `per_shot_output * total_compatible_ammunition` using only stacks selected in distinct slots of the same loadout.
+5. Keep alternative weapons and loadouts as separate pairings and average alternatives only after publishing intermediates.
+6. In siege defense, force `ammunition_policy=unlimited`, compare per-shot output, ignore stack count, and emit no infinity.
+7. Fail closed on missing compatibility or damage evidence.
 
 **Verify:**
 
@@ -222,7 +224,7 @@ python3 -m unittest -v tests.test_context_first_ranged
 git diff --check origin/main...HEAD
 ```
 
-**Exit gate:** compatible stacks sum once, alternative weapons do not double-use ammunition, unlimited results are stack-invariant, and PR is merged and verified.
+**Exit gate:** compatible stacks in distinct slots sum once, same-slot alternatives are averaged as separate loadouts, alternative weapons do not double-use ammunition, unlimited results are stack-invariant, and PR is merged and verified.
 
 ## Step 6 — Apply context before selecting drivers
 
@@ -292,6 +294,8 @@ git diff --check origin/main...HEAD
 
 **Primary files:**
 
+- `scripts/scoring/build_context_first_candidate.py`
+- `scripts/scoring/context_first_publication.py`
 - `scripts/scoring/write_context_first_reports.py`
 - `tests/test_context_first_reports.py`
 - `analysis/model_candidates/context_first_scores_v1/README.md`
@@ -306,17 +310,16 @@ git diff --check origin/main...HEAD
 3. Produce separate RoT top-10 tables for each rankable defense/attack tuple.
 4. Show general armor/weapon components side by side, not a synthetic top-10 blend.
 5. If fewer than ten rows are rankable, publish the actual rows plus exact evidence reasons.
-6. Build in a staging directory, verify hashes, and replace only the candidate-owned generated subtree atomically.
-7. Document the exact single-command regeneration path.
+6. Keep core generation and report rendering independent; let `build_context_first_candidate.py` orchestrate both and let `context_first_publication.py` alone own lock/staging/journal primitives.
+7. Build in a staging directory, verify hashes, and replace only the candidate-owned generated subtree atomically.
+8. Document the exact single-command regeneration path.
 
 **Verify:**
 
 ```bash
 python3 -m unittest -v tests.test_context_first_reports
-python3 scripts/scoring/generate_context_first_scores.py
-python3 scripts/scoring/write_context_first_reports.py
-python3 scripts/scoring/generate_context_first_scores.py
-python3 scripts/scoring/write_context_first_reports.py
+python3 scripts/scoring/build_context_first_candidate.py
+python3 scripts/scoring/build_context_first_candidate.py
 git diff --exit-code -- analysis/model_candidates/context_first_scores_v1
 git diff --check origin/main...HEAD
 ```
@@ -335,6 +338,7 @@ git diff --check origin/main...HEAD
 - `tests/test_context_first_validation.py`
 - `analysis/model_candidates/context_first_scores_v1/VALIDATION_REPORT.md`
 - `analysis/model_candidates/context_first_scores_v1/promotion_gate.json`
+- `analysis/model_candidates/context_first_scores_v1/validation_input_hashes.csv`
 - repository-owned evidence/audit files needed to close declared gaps
 
 **Actions:**
@@ -345,8 +349,9 @@ git diff --check origin/main...HEAD
 4. Join theoretical rows only through verified canonical IDs and preserve track, context, and side.
 5. Enforce five independent battles and 20 deployed troops for display.
 6. Compute uncertainty at battle level and use grouped-by-battle out-of-sample comparisons.
-7. Run controlled-evidence checks, reproducibility checks, limitation review, and candidate-to-manifest verification.
-8. Emit a machine-readable `passed` or `blocked` verdict with exact failed gates and pin the exact `candidate_manifest.csv` SHA-256; regenerate the outer artifact manifest after validation outputs are staged.
+7. Hash every canonical-map, empirical, grouped-out-of-sample, controlled-evidence, and limitations-review input into sorted `validation_input_hashes.csv`; every gate evidence path must occur exactly once in it.
+8. Run controlled-evidence checks, reproducibility checks, limitation review, and candidate-to-manifest verification.
+9. Emit a machine-readable `passed` or `blocked` verdict with exact failed gates and pin both the exact `candidate_manifest.csv` SHA-256 and `validation_input_hashes.csv` SHA-256; regenerate the outer artifact manifest after validation outputs are staged.
 
 **Verify:**
 
@@ -358,7 +363,7 @@ git diff --check origin/main...HEAD
 
 **Hard stop:** if RoT crafted melee evidence, canonical IDs, siege-defense battles, or another declared input is still insufficient, merge the honest validation/reporting slice if it is useful, set `resume.md` to `blocked_at: D9`, update issue #58 with the acquisition request, and stop. Do not start Step 10 and do not call the rework complete.
 
-**Exit gate:** `promotion_gate.status=passed`, `promotion_allowed=true`, and the evaluated candidate-manifest hash matches; every input is repository-addressable, boundary and uncertainty checks pass, and the validation PR is merged and verified.
+**Exit gate:** `promotion_gate.status=passed`, `promotion_allowed=true`, and both the evaluated candidate-manifest hash and validation-input-manifest hash plus all referenced input bytes match; every input is repository-addressable, boundary and uncertainty checks pass, and the validation PR is merged and verified.
 
 ## Step 10 — Promote a new immutable version and cut over
 
@@ -375,7 +380,7 @@ git diff --check origin/main...HEAD
 
 **Actions:**
 
-1. Reconfirm that the latest machine-readable Step 9 verdict has `status=passed`, `promotion_allowed=true`, and an exact `candidate_manifest.csv` hash match.
+1. Reconfirm that the latest machine-readable Step 9 verdict has `status=passed`, `promotion_allowed=true`, exact `candidate_manifest.csv` and `validation_input_hashes.csv` hash matches, and no referenced validation input changed.
 2. Record SHA-256 hashes of every pre-existing historical candidate and frozen model artifact.
 3. Copy the approved candidate into a new versioned immutable package; do not edit any existing version.
 4. Point new scoring/report entry points and documentation to the promoted version while keeping historical commands available.
@@ -388,15 +393,14 @@ git diff --check origin/main...HEAD
 
 ```bash
 python3 -m unittest discover -v
-python3 scripts/scoring/generate_context_first_scores.py
-python3 scripts/scoring/write_context_first_reports.py
+python3 scripts/scoring/build_context_first_candidate.py
 python3 scripts/scoring/validate_context_first_candidate.py
 git diff --check origin/main...HEAD
 ```
 
 **Exit gate / definition of done:**
 
-- promotion verdict is `passed`, `promotion_allowed=true`, and matches the promoted bytes;
+- promotion verdict is `passed`, `promotion_allowed=true`, and its candidate and validation-input manifests plus every referenced input match the promoted bytes;
 - a new immutable model version exists;
 - all previous model/candidate bytes are unchanged;
 - defense, attack, general, ranged, and siege-defense rules have feature coverage;
@@ -423,4 +427,4 @@ The escalation must include the current commit, exact failing command, relevant 
 
 ## Operator handoff prompt
 
-> Execute `plan/context-first-scoring-rework/execution-plan.md` from the first incomplete step. Read `AGENTS.md`, `plan/context-first-scoring-rework/resume.md`, the PRD, design, and test plan before editing. Apply `@execute-locked-plan`; do not re-plan. Deliver one numbered step per PR to `main`, with meaningful tests, exact-head self-review, fixes, squash merge, post-merge verification, and resume/issue updates. Stop on drift. At Steps 4 and 9, never fabricate missing source or empirical evidence; record an exact blocked acquisition request. Do not start Step 10 until `promotion_gate.status=passed`, `promotion_allowed=true`, and the exact candidate-manifest hash matches. Continue until the definition of done is fully true or a documented hard stop requires operator evidence.
+> Execute `plan/context-first-scoring-rework/execution-plan.md` from the first incomplete step. Read `AGENTS.md`, `plan/context-first-scoring-rework/resume.md`, the PRD, design, and test plan before editing. Apply `@execute-locked-plan`; do not re-plan. Deliver one numbered step per PR to `main`, with meaningful tests, exact-head self-review, fixes, squash merge, post-merge verification, and resume/issue updates. Stop on drift. At Steps 4 and 9, never fabricate missing source or empirical evidence; record an exact blocked acquisition request. If Step 4 ingests a new evidence batch, use distinct normalization and analysis agents on the same branch/PR. Do not start Step 10 until `promotion_gate.status=passed`, `promotion_allowed=true`, and the candidate- and validation-input-manifest hashes plus every referenced input match. Continue until the definition of done is fully true or a documented hard stop requires operator evidence.

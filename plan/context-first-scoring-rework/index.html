@@ -114,7 +114,7 @@
         <span>Auditar</span><i>→</i><span>Declarar</span><i>→</i><span>Resolver evidência</span><i>→</i><span>Aplicar contexto</span><i>→</i><span>Gerar</span><i>→</i><span>Validar</span><i>→</i><span>Promover</span>
       </div>
       <div class="warning danger">
-        <strong>“Candidato gerado” não significa “rework terminado”.</strong> O passo 4 para se faltarem XMLs brutos verificáveis, catálogos ou observações de tooltip; o passo 9 para sem IDs canônicos ou batalhas elegíveis. O passo 10 só roda com <code>status=passed</code>, <code>promotion_allowed=true</code> e o hash exato do candidate manifest.
+        <strong>“Candidato gerado” não significa “rework terminado”.</strong> O passo 4 para se faltarem XMLs brutos verificáveis, catálogos ou observações de tooltip; o passo 9 para sem IDs canônicos ou batalhas elegíveis. O passo 10 só roda com <code>status=passed</code>, <code>promotion_allowed=true</code> e hashes exatos dos manifests do candidato e dos inputs de validação.
       </div>
       <h3>Estado de evidência conhecido ao planejar</h3>
       <p>40 batalhas registradas; 24 elegíveis no agregado, 17 de campo, 2 de ataque de cerco e 0 de defesa de cerco. No RoT, 9.414 linhas não-multiplayer de <code>CraftedItem</code> ainda não têm a tupla completa de dano/velocidade/classe. Esses números serão recalculados no passo 9.</p>
@@ -127,7 +127,7 @@
         <tbody>
           <tr><td>Defesa</td><td>Armadura vestida; agregação declarada; alternativas por média.</td><td>Escudo ou montaria preenchendo lacunas.</td></tr>
           <tr><td>Ataque melee</td><td>Maior swing/thrust válido autorizado pela declaração, com linha-fonte.</td><td>Proxy pelo nome do template; missing como zero.</td></tr>
-          <tr><td>Ataque ranged finito</td><td>Dano por tiro × munição compatível do mesmo roster.</td><td>Somar bolts num bow; disparar armas alternativas simultaneamente.</td></tr>
+          <tr><td>Ataque ranged finito</td><td>Dano por tiro × munição compatível em slots distintos do mesmo loadout.</td><td>Somar bolts num bow, alternativas do mesmo slot ou armas alternativas simultaneamente.</td></tr>
           <tr><td>Ranged em defesa de cerco</td><td>Munição ilimitada; comparar dano por tiro; ignorar stack.</td><td>Infinity numérico ou multiplicador de munição.</td></tr>
           <tr><td>Geral</td><td>Armadura e arma lado a lado, com ranks separados.</td><td>Blend/peso padrão escondido.</td></tr>
           <tr><td>Cavalaria em defesa de cerco</td><td>Transformar para desmontado antes de escolher drivers.</td><td>Riding, cavalo, harness, charge ou mobilidade montada.</td></tr>
@@ -171,7 +171,9 @@ context_first_ranged
        generate_context_first_scores
                     ↑
         ┌───────────┴───────────┐
-write_context_first_reports   validate_context_first_candidate</pre>
+write_context_first_reports   validate_context_first_candidate
+             ↑
+ build_context_first_candidate → context_first_publication</pre>
       <table>
         <thead><tr><th>Módulo</th><th>Responsabilidade única</th><th>Não faz</th></tr></thead>
         <tbody>
@@ -179,8 +181,10 @@ write_context_first_reports   validate_context_first_candidate</pre>
           <tr><td><code>context_first_equipment.py</code></td><td>Evidência de armor/weapon e proveniência.</td><td>Rank ou render.</td></tr>
           <tr><td><code>context_first_ranged.py</code></td><td>Pairing e políticas finite/unlimited.</td><td>Ler arquivos.</td></tr>
           <tr><td><code>context_first_engine.py</code></td><td>Transformar contexto e compor componentes.</td><td>Publicar artefatos.</td></tr>
-          <tr><td><code>generate_context_first_scores.py</code></td><td>Adapter, população, serialização e ranks.</td><td>Inventar evidência.</td></tr>
-          <tr><td><code>write_context_first_reports.py</code></td><td>Manifestos, top 10 e publicação atômica.</td><td>Recalcular fórmulas.</td></tr>
+          <tr><td><code>generate_context_first_scores.py</code></td><td>Core em scratch, população, serialização e ranks.</td><td>Publicar a raiz committed ou importar renderer.</td></tr>
+          <tr><td><code>write_context_first_reports.py</code></td><td>Manifestos, top 10 e Markdown.</td><td>Recalcular fórmulas.</td></tr>
+          <tr><td><code>build_context_first_candidate.py</code></td><td>Orquestrar core + reports numa transação.</td><td>Executar validação D9.</td></tr>
+          <tr><td><code>context_first_publication.py</code></td><td>Lock, staging, journal e swap atômico.</td><td>Conhecer fórmulas.</td></tr>
           <tr><td><code>validate_context_first_candidate.py</code></td><td>Join canônico, incerteza e promotion gate.</td><td>Alterar candidato.</td></tr>
         </tbody>
       </table>
@@ -198,24 +202,23 @@ write_context_first_reports   validate_context_first_candidate</pre>
         <article class="card"><h3>Boundary fixtures</h3><p>Dois tracks, três contextos, dois lados e repetições dentro da batalha expõem pooling indevido.</p></article>
         <article class="card"><h3>Two-run bytes</h3><p>Duas raízes isoladas produzem mesmos arquivos, bytes e manifestos; falha intermediária é atômica.</p></article>
         <article class="card"><h3>Historical hashes</h3><p>Antes/depois de cada E2E, todos os arquivos históricos e versões existentes mantêm SHA-256.</p></article>
-        <article class="card"><h3>Promotion state machine</h3><p>Blocked não promove; pass com hash divergente não promove; só pass exato adiciona uma versão.</p></article>
+        <article class="card"><h3>Promotion state machine</h3><p><code>status=blocked</code> não promove; <code>status=passed</code> com qualquer hash divergente não promove; só <code>promotion_allowed=true</code> com candidate manifest, validation-input manifest e inputs exatos adiciona uma versão.</p></article>
       </div>
       <h3>Cenários mínimos</h3>
       <ol>
         <li>Siege defense: cavalry/infantry com armor igual empatam apesar dos distratores montados.</li>
-        <li>Field ranged: bow soma arrows compatíveis e ignora bolts.</li>
+        <li>Field ranged: bow soma arrows compatíveis em slots distintos, separa alternativas do mesmo slot e ignora bolts.</li>
         <li>Siege ranged: quantidade de munição não muda o resultado.</li>
         <li>General: componentes existem, blend continua vazio.</li>
         <li>Crafted proxy: ataque não ranqueia até receipt validado.</li>
         <li>Threshold: 4/100 e 5/19 falham; 5/20 passa.</li>
         <li>Atomic publication: mismatch preserva o pacote anterior byte a byte.</li>
-        <li>Promotion: verdict e candidate manifest precisam ser idênticos.</li>
+        <li>Promotion: verdict, candidate manifest, validation-input manifest e todos os inputs precisam ser idênticos.</li>
       </ol>
       <pre>python3 -m unittest discover -v
-python3 scripts/scoring/generate_context_first_scores.py
-python3 scripts/scoring/write_context_first_reports.py
+python3 scripts/scoring/build_context_first_candidate.py
 python3 scripts/scoring/validate_context_first_candidate.py
-git diff --check</pre>
+git diff --check origin/main...HEAD</pre>
     </section>
 
     <section class="tab-panel" id="deliverables" role="tabpanel" aria-labelledby="tab-deliverables" hidden>
@@ -223,13 +226,13 @@ git diff --check</pre>
       <div class="step"><div class="step-number">1</div><div><h3>Auditar os modelos atuais</h3><p>Classificar misturas, proxies e defaults errados; congelar hashes históricos. Gate: nenhuma mutação.</p></div></div>
       <div class="step"><div class="step-number">2</div><div><h3>Contrato de declaração</h3><p>Schema versionado e validação de track/context/question/mode/mount/ammo/drivers antes do scoring.</p></div></div>
       <div class="step"><div class="step-number">3</div><div><h3>Lane de armadura</h3><p>Armor regional, agregação declarada, médias de roster, proveniência e review queue.</p></div></div>
-      <div class="step"><div class="step-number">4</div><div><h3>Normalização e lane de arma</h3><p>Extrair todos os attack rows de XML verificado, produzir receipt de tooltip e rejeitar template proxy.</p></div></div>
-      <div class="step"><div class="step-number">5</div><div><h3>Munição finite/unlimited</h3><p>Pairings explícitos, stacks compatíveis e ressuprimento infinito sem infinity.</p></div></div>
+      <div class="step"><div class="step-number">4</div><div><h3>Normalização e lane de arma</h3><p>Resolver overrides por load order, extrair attack rows de XML verificado, converter crafted validado ao mesmo contrato e rejeitar template proxy. Novo lote de evidência usa dois agentes.</p></div></div>
+      <div class="step"><div class="step-number">5</div><div><h3>Munição finite/unlimited</h3><p>Loadouts/pairings explícitos, soma apenas entre slots distintos e ressuprimento infinito sem infinity.</p></div></div>
       <div class="step"><div class="step-number">6</div><div><h3>Engine de contexto</h3><p>Aplicar contexto antes dos drivers e desmontar cavalaria em defesa de cerco.</p></div></div>
       <div class="step"><div class="step-number">7</div><div><h3>Outputs simples</h3><p>Complete, rankable e review; defense/attack/general sem score universal.</p></div></div>
       <div class="step"><div class="step-number">8</div><div><h3>Relatórios e top 10 RoT</h3><p>Uma geração offline, manifestos, publicação atômica e tabelas honestas.</p></div></div>
-      <div class="step"><div class="step-number">9</div><div><h3>Fechar evidência e validar</h3><p>IDs canônicos, ≥5/20, incerteza por batalha, OOS agrupado e controlled evidence. <strong>Hard stop se blocked.</strong></p></div></div>
-      <div class="step"><div class="step-number">10</div><div><h3>Promover e fazer cutover</h3><p>Com pass exato, criar nova versão imutável, apontar consumidores, rodar full suite e fechar issue #58.</p></div></div>
+      <div class="step"><div class="step-number">9</div><div><h3>Fechar evidência e validar</h3><p>IDs canônicos, ≥5/20, incerteza por batalha, OOS agrupado e controlled evidence, tudo preso em manifest SHA-256. <strong>Hard stop se blocked.</strong></p></div></div>
+      <div class="step"><div class="step-number">10</div><div><h3>Promover e fazer cutover</h3><p>Com <code>status=passed</code>, <code>promotion_allowed=true</code> e os dois manifests exatos, criar nova versão imutável, apontar consumidores, rodar full suite e fechar issue #58.</p></div></div>
       <h3>Contrato de PR de cada passo</h3>
       <p><code>preflight → teste falhando → implementação mínima → testes → push → review do latest head → correções → ready → squash merge → verificar main → atualizar resume/issue</code></p>
       <p>Detalhes operacionais: <a href="execution-plan.md">execution-plan.md</a>. Estado de retomada: <a href="resume.md">resume.md</a>.</p>
@@ -247,7 +250,9 @@ git diff --check</pre>
       tabs.forEach(item => item.setAttribute('aria-selected', String(item === tab)));
       panels.forEach(panel => { panel.hidden = panel.id !== tab.getAttribute('aria-controls'); });
       if (focus) tab.focus();
-      history.replaceState(null, '', '#' + tab.getAttribute('aria-controls'));
+      if (location.protocol !== 'file:') {
+        history.replaceState(null, '', '#' + tab.getAttribute('aria-controls'));
+      }
     }
     tabs.forEach((tab, index) => {
       tab.addEventListener('click', () => activate(tab, false));

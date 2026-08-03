@@ -115,6 +115,9 @@ context_first_ranged |
               +--------+---------+
               |                  |
 write_context_first_reports  validate_context_first_candidate
+              ^
+              |
+ build_context_first_candidate ---> context_first_publication
 ```
 
 Rules:
@@ -123,8 +126,8 @@ Rules:
 2. `context_first_equipment.py` depends on declaration/domain contracts and resolves direct evidence. It does not rank or render.
 3. `context_first_ranged.py` depends on typed weapon evidence and ammunition policy. It does not read files.
 4. `context_first_engine.py` applies context policy first, calls resolvers, aggregates, and returns typed results. It does not publish files.
-5. CLI modules are adapters. They read pinned inputs, invoke policy, serialize outputs, and publish transactionally.
-6. Reporting reads the generated typed artifact contract; it does not recalculate armor or weapon formulas.
+5. CLI modules are adapters. They read pinned inputs and invoke policy; only the D8 build adapter publishes the committed candidate root transactionally.
+6. Reporting reads the generated typed artifact contract; it does not recalculate armor or weapon formulas. `build_context_first_candidate.py` orchestrates core generation then rendering, while both adapters share publication primitives from `context_first_publication.py`; core generation never imports the renderer.
 7. Validation reads candidate artifacts and canonical empirical artifacts; it cannot mutate candidate scores or frozen models.
 
 This follows SRP by separating declaration, evidence, context, scoring, rendering, and validation. It follows DIP by keeping policy independent of path and serialization details. Shared parsing, decimal publication, ranking, reason vocabulary, and hashing each have one implementation. No plugin framework or class hierarchy is introduced; that would be unnecessary generality for one versioned candidate.
@@ -323,6 +326,7 @@ class ProjectileStack:
 @dataclass(frozen=True)
 class RangedPairing:
     pairing_id: str
+    loadout_id: str
     troop_id: str
     roster_index: str
     weapon_item_id: str
@@ -343,6 +347,7 @@ class RangedPairing:
 class RangedWeaponOutput:
     troop_id: str
     roster_index: str
+    loadout_id: str
     weapon_item_id: str
     output: Decimal | None
     pairings: tuple[RangedPairing, ...]
@@ -353,7 +358,7 @@ def build_ranged_pairings(...) -> tuple[RangedPairing, ...]: ...
 def aggregate_ranged_weapon(...) -> RangedWeaponOutput: ...
 ```
 
-`stack_count` is the validated domain value parsed from the equipment-audit column `stack_amount`; there is no input column named `stack_count`. The adapter accepts only finite, non-negative integral numeric values (for example `35.0 -> 35`) and otherwise emits `RANGED_AMMO_COUNT_INVALID`.
+`stack_count` is the validated domain value parsed from the equipment-audit column `stack_amount`; there is no input column named `stack_count`. The adapter preserves finite, non-negative integral numeric values (for example `35.0 -> 35`) and otherwise emits `RANGED_AMMO_COUNT_INVALID`. Zero is preserved only so unlimited mode can ignore it; finite mode rejects zero with `RANGED_AMMO_COUNT_INVALID` before multiplication, so missing ammunition never becomes a legitimate numeric output of zero.
 
 ### 4.4 Engine contracts
 
@@ -456,17 +461,18 @@ Validation rejects unknown keys and applies these cross-field rules before openi
 2. `track` must be one of `vanilla`, `nightmare_sails`, `realm_of_thrones`, or `taom`.
 3. `secondary_drivers` must be empty in v1.
 4. Defense requires `primary_drivers=["worn_armor"]`, armor fields/aggregation above, `ammunition_policy=not_applicable`, empty weapon fields, `projectile_contribution=not_applicable`, and `combination_rule=not_applicable`.
-5. Melee attack requires `primary_drivers=["weapon_output"]`, `weapon_damage_source_fields=["swing_damage","thrust_damage"]`, no armor aggregation, `ammunition_policy=not_applicable`, no projectile contribution, and `combination_rule=not_applicable`.
+5. Melee attack requires `primary_drivers=["weapon_output"]`, `weapon_damage_source_fields=["swing_damage","thrust_damage"]`, no armor aggregation, `ammunition_policy=not_applicable`, `projectile_contribution=not_applicable`, and `combination_rule=not_applicable`.
 6. Ranged attack requires `primary_drivers=["weapon_output"]`, the same weapon fields, `projectile_contribution=not_included`, and `combination_rule=not_applicable`.
-7. General melee requires `primary_drivers=["worn_armor","weapon_output"]`, both armor and weapon contracts, `ammunition_policy=not_applicable`, and `combination_rule=none`.
+7. General melee requires `primary_drivers=["worn_armor","weapon_output"]`, both armor and weapon contracts, `ammunition_policy=not_applicable`, `projectile_contribution=not_applicable`, and `combination_rule=none`.
 8. General ranged requires both drivers, `projectile_contribution=not_included`, and `combination_rule=none`.
 9. Ranged field/siege attack requires `ammunition_policy=finite`.
 10. Ranged siege defense requires `ammunition_policy=unlimited`.
 11. Siege defense requires `mount_state=dismounted`; a mounted declaration is invalid rather than silently accepted.
 12. Non-ranged declarations cannot use finite or unlimited ammunition.
 13. `roster_aggregation` must equal `arithmetic_mean`.
-14. `combination_rule=not_applicable` means a single-component question has nothing to combine; `combination_rule=none` means a general question intentionally publishes two components without combining them. No other value is valid in schema v1.
-14. No numeric value may be non-finite.
+14. `projectile_contribution` accepts only `not_applicable` when no projectile exists and `not_included` for ranged candidate v1, where a projectile exists but its damage is inert.
+15. `combination_rule=not_applicable` means a single-component question has nothing to combine; `combination_rule=none` means a general question intentionally publishes two components without combining them. No other value is valid in schema v1.
+16. No numeric value may be non-finite.
 
 Declaration errors are sorted by `(field, code, message)`, printed one per line, and cause exit 2 before any scoring input is read.
 
@@ -521,11 +527,11 @@ For the selected attack mode, consider only:
 - melee: resolved non-shield, non-projectile weapon items with an authorized swing and/or thrust damage row;
 - ranged: resolved `Bow` and `Crossbow` items.
 
-For every considered equipment occurrence, join by track/item/source identity to the D4 component-level attack-row artifact. The scalar damage cells in the equipment audit are classification/debug context only and must not be promoted into `WeaponAttackRow` evidence.
+For every considered equipment occurrence, join by track and `item_id` to the winning D4 attack-row definition. The extractor resolves duplicate definitions using the verified module order from `raw_xml/manifest_modules.csv`: the highest `load_order_index` wins, superseded definitions are retained only in the normalization audit, and duplicate definitions inside the same winning module fail closed. Equipment `equipment_source` is roster provenance and must never be treated as an item-definition module. The scalar damage cells in the equipment audit are classification/debug context only and must not be promoted into `WeaponAttackRow` evidence.
 
 For every normalized attack-row occurrence:
 
-1. Publish one `WeaponAttackRow` for each non-blank `swing_damage` and `thrust_damage` cell.
+1. Publish exactly one `WeaponAttackRow` for each normalized component record, using its `attack_kind`, `damage`, and source provenance. Never re-derive rows from the equipment audit's scalar swing/thrust cells.
 2. Reject blank, malformed, negative, or non-finite damage. Numeric zero is valid only when explicitly present in the source; it cannot be created from a blank.
 3. Select the maximum valid damage for the item. Tie-break by `attack_kind` in lexical order, then source row number.
 4. Preserve selected attack kind and `SourceRef`.
@@ -544,11 +550,12 @@ An item whose `item_kind=CraftedItem` is eligible only when all conditions hold:
 5. `formula_version=piece_composition_v1`;
 6. reconstructed swing and thrust cells are finite and non-blank;
 7. a tooltip receipt pins the exact reconstructed output SHA-256;
-8. the receipt has `status=passed`, the item is in `passed_items`, and it is absent from `failed_items`.
+8. the receipt has `status=passed`, the item is in `passed_items`, and it is absent from `failed_items`;
+9. D4 converted the receipt-validated reconstructed swing and thrust cells into the shared attack-row schema, with `evidence_kind=reconstructed_crafted` and both the reconstructed-output and receipt SHA-256 values pinned.
 
-The crafting template name is never read as damage evidence. Missing catalogs, missing reconstruction, incomplete composition, absent attack rows, missing receipt, hash mismatch, or failed tooltip validation leaves the item blank and queues it.
+The crafting template name is never read as damage evidence. Missing catalogs, missing reconstruction, incomplete composition, absent validated crafted attack rows, missing receipt, hash mismatch, or failed tooltip validation leaves the item blank and queues it.
 
-The reconstruction script remains an unchanged normalization producer. D4 does not change its arithmetic, CLI behavior, or historical tests. D4 adds `build_crafted_weapon_validation_receipt.py`, which consumes the reconstructed output and a repository-addressable per-item tooltip-comparison CSV, verifies both hashes, rejects duplicate/missing item verdicts, and writes the receipt atomically. Missing tooltip observations keep the gate blocked; the producer never manufactures them.
+The reconstruction script remains an unchanged normalization producer. D4 does not change its arithmetic, CLI behavior, or historical tests. D4 adds `build_crafted_weapon_validation_receipt.py`, which consumes the reconstructed output and a repository-addressable per-item tooltip-comparison CSV, verifies both hashes, rejects duplicate/missing item verdicts, and atomically writes both the receipt and `data/<track>/audit/<track>_crafted_weapon_attack_rows.csv`. That CSV emits at most one swing and one thrust row per passed item and points back to the reconstructed CSV, its source catalogs, and the validation receipt. Direct XML rows and validated crafted rows are then unioned under the shared `WeaponAttackRow` contract; neither is inferred from equipment-audit scalars. Missing tooltip observations keep the gate blocked; the producer never manufactures them.
 
 ### 8.3 Roster and troop melee output
 
@@ -564,25 +571,26 @@ Compatibility is intentionally narrow and auditable:
 
 For every selected roster:
 
-1. Resolve each bow/crossbow as a separate weapon choice.
-2. Resolve each compatible ammunition audit row as a separate projectile stack. Candidate v1 may publish observed projectile damage for audit context, but `projectile_contribution=not_included` makes it inert.
-3. Build one pairing for every compatible `(weapon occurrence, projectile stack occurrence)`, with:
+1. Group relevant equipment rows by slot and enumerate deterministic loadouts that select exactly one alternative from each occupied slot. Rows from distinct slots are simultaneously carried; alternatives from the same slot never are.
+2. Within each loadout, resolve each selected bow/crossbow as a separate weapon choice.
+3. Resolve each selected compatible ammunition row as a separate projectile stack. Candidate v1 may publish observed projectile damage for audit context, but `projectile_contribution=not_included` makes it inert.
+4. Build one pairing for every compatible `(loadout, weapon occurrence, projectile stack occurrence)`, with:
 
 ```text
 per_shot_output = weapon_damage
 ```
 
-4. In field or siege attack (`finite`):
+5. In field or siege attack (`finite`):
 
 ```text
-usable_ammunition_count = sum(stack_count for compatible stacks)
+usable_ammunition_count = sum(stack_count for compatible stacks selected in distinct slots of this loadout)
 finite_stack_capacity = per_shot_output * stack_count  # published per pairing
 weapon_output = per_shot_output * usable_ammunition_count
 ```
 
-This exactly implements bow/crossbow damage times compatible usable ammunition. Projectile damage cannot change candidate-v1 output. The same ammunition stack may appear in each alternative weapon's published pairings, but alternative weapon outputs are averaged; they are never summed as simultaneous fire.
+This exactly implements bow/crossbow damage times compatible usable ammunition. Projectile damage cannot change candidate-v1 output. The same ammunition stack may appear in each selected weapon's published pairings, but weapon outputs are averaged within a loadout; they are never summed as simultaneous fire. Same-slot projectile alternatives produce separate loadouts and therefore are averaged rather than summed.
 
-5. In siege defense (`unlimited`), ignore `stack_count` and leave `usable_ammunition_count` and `finite_stack_capacity` blank:
+6. In siege defense (`unlimited`), ignore `stack_count` and leave `usable_ammunition_count` and `finite_stack_capacity` blank:
 
 ```text
 weapon_output = weapon_damage
@@ -590,11 +598,11 @@ weapon_output = weapon_damage
 
 No numeric infinity is serialized.
 
-6. A weapon with no compatible projectile row is blank and queued.
-7. Finite mode requires a positive integer `stack_count` for every compatible stack. Blank, malformed, fractional, negative, or zero counts are unrankable.
-8. Unlimited mode does not validate or use stack count.
-9. Projectile stacks and weapon alternatives remain separate published pairings even though projectile damage is inert in v1.
-10. Roster ranged output is the arithmetic mean of alternative weapon outputs. Troop output is the arithmetic mean across selected rosters. Any relevant blank choice/roster makes the containing aggregate blank.
+7. A weapon with no compatible projectile row is blank and queued.
+8. Finite mode requires a positive integer `stack_count` for every compatible stack. Blank, malformed, fractional, negative, or zero counts are unrankable.
+9. Unlimited mode does not validate or use stack count.
+10. Projectile stacks, loadouts, and weapon alternatives remain separate published pairings even though projectile damage is inert in v1.
+11. A loadout output is the arithmetic mean of its alternative weapon outputs. Roster ranged output is the arithmetic mean across enumerated loadouts, and troop output is the arithmetic mean across selected rosters. Any relevant blank choice/loadout/roster makes the containing aggregate blank.
 
 ## 10. Score and rank behavior
 
@@ -698,25 +706,28 @@ python3 scripts/normalization/extract_weapon_attack_rows.py \
   --track <track> \
   --xml-root <verified-reconstructed-or-PC-module-root> \
   --raw-manifest data/<track>/raw_xml/manifest.csv \
+  --module-manifest data/<track>/raw_xml/manifest_modules.csv \
   --output data/<track>/audit/<track>_weapon_attack_rows.csv
 
 python3 scripts/normalization/build_crafted_weapon_validation_receipt.py \
   --reconstructed data/<track>/audit/<track>_crafted_weapon_stats.csv \
   --tooltip-observations <repository-addressable-tooltip-observations.csv> \
   --tolerance 1.0 \
-  --output data/<track>/audit/<track>_crafted_weapon_tooltip_validation_receipt.json
+  --receipt-output data/<track>/audit/<track>_crafted_weapon_tooltip_validation_receipt.json \
+  --attack-row-output data/<track>/audit/<track>_crafted_weapon_attack_rows.csv
 ```
 
 The attack-row CSV schema is:
 
 ```text
-track,item_id,component_index,attack_index,attack_kind,damage,damage_type,
-source_module,source_relative_path,source_file_sha256,source_locator
+track,item_id,evidence_kind,component_index,attack_index,attack_kind,damage,damage_type,
+source_module,source_relative_path,source_file_sha256,source_locator,definition_status,
+reconstructed_stats_sha256,tooltip_receipt_sha256
 ```
 
-Rows are ordered by `(track,item_id,component_index,attack_index,attack_kind,source_relative_path,source_locator)`. The extractor rejects any XML file whose hash does not match the raw manifest. Exit 0 publishes atomically; exit 2 publishes nothing and names the missing/mismatched source.
+Rows are ordered by `(track,item_id,evidence_kind,component_index,attack_index,attack_kind,source_relative_path,source_locator)`. The extractor rejects any XML file whose hash does not match the raw manifest or any module list whose order differs from `manifest_modules.csv`. For duplicate item IDs it marks lower-load-order rows `superseded`, emits only the highest-load-order definition as scoring input, and rejects ambiguous duplicates within that winning module. Exit 0 publishes atomically; exit 2 publishes nothing and names the missing/mismatched source.
 
-The tooltip observations reuse the existing columns `item_id,observed_swing_damage,observed_thrust_damage`. The receipt adds reconstructed/observation SHA-256 values, tolerance, per-item compared stats, `passed_items`, `failed_items`, and top-level `status=passed|failed`. Duplicate items, an item with both observations blank, or an input-hash mismatch exits 2 without a receipt. Missing operator observations are a D4 evidence blocker, not permission to emit an empty passing receipt.
+The tooltip observations reuse the existing columns `item_id,observed_swing_damage,observed_thrust_damage`. The receipt adds reconstructed/observation SHA-256 values, tolerance, per-item compared stats, `passed_items`, `failed_items`, and top-level `status=passed|failed`. The companion crafted attack-row CSV uses the same shared schema, sets `evidence_kind=reconstructed_crafted`, emits validated swing/thrust rows only for passed items, and pins the reconstructed file and receipt hashes. Duplicate items, an item with both observations blank, or an input-hash mismatch exits 2 without either output. Missing operator observations are a D4 evidence blocker, not permission to emit an empty passing receipt.
 
 ### 12.1 Audit
 
@@ -745,14 +756,25 @@ Exit 0: valid. Exit 2: deterministic field/rule errors.
 python3 scripts/scoring/generate_context_first_scores.py \
   --repo . \
   --declarations-dir analysis/model_candidates/context_first_scores_v1/declarations \
+  --scratch-output <outside-committed-root>
+```
+
+Optional filters are `--track <track>` and `--declaration <path>`; this core adapter requires `--scratch-output <outside committed root>`. Passing the committed candidate root is rejected. The D8 build command below always regenerates every declaration so its manifest cannot mix generations.
+
+This core-generation command does not import the report renderer, publication adapter, or D9 validator. D8's build command below is the FR-12 one-command candidate reproduction path.
+
+Exit 0 means the scratch core package is structurally valid even when rows are unrankable. Exit 2 means declaration/input/integrity failure and no complete scratch package was produced. After D9 exists, validation remains the explicit next command below.
+
+### 12.3a One-command candidate build
+
+```bash
+python3 scripts/scoring/build_context_first_candidate.py \
+  --repo . \
+  --declarations-dir analysis/model_candidates/context_first_scores_v1/declarations \
   --output-root analysis/model_candidates/context_first_scores_v1
 ```
 
-Optional filters are `--track <track>` and `--declaration <path>`; partial generation is allowed only with `--scratch-output <outside committed root>`. The committed output root always regenerates every declaration so its manifest cannot mix generations.
-
-By default this command also invokes report rendering through its Python API, making it the D8/FR-12 one-command candidate reproduction path. It does not import or invoke the D9 validator. `--core-only` is test-only and is rejected when `--output-root` is the committed root.
-
-Exit 0 means the candidate package is structurally valid and published even when rows are unrankable. Exit 2 means declaration/input/integrity/publication failure and no new package was published. After D9 exists, validation remains the explicit next command below.
+The D8 build adapter creates a sibling staging root, invokes the core generator's Python API, invokes the report renderer's Python API, validates the whole package, and commits it through `context_first_publication.py`. It does not invoke D9 validation. Neither the core generator nor renderer imports the other; the build adapter owns orchestration and the shared publication module owns lock/staging/journal primitives.
 
 ### 12.4 Reports
 
@@ -799,6 +821,7 @@ analysis/model_candidates/context_first_scores_v1/
     TOP10.md
   VALIDATION_REPORT.md
   promotion_gate.json
+  validation_input_hashes.csv
   input_hashes.csv
   candidate_manifest.csv
   artifact_hashes.csv
@@ -829,7 +852,7 @@ candidate_id,track,context,question,attack_mode,declared_mount_state,effective_m
 `ranged_pairings.csv`:
 
 ```text
-candidate_id,track,context,question,attack_mode,declared_mount_state,effective_mount_state,pairing_id,troop_id,troop_name,roster_index,weapon_item_id,projectile_item_id,weapon_family,projectile_family,weapon_damage,projectile_damage,per_shot_output,usable_ammunition_count,finite_stack_capacity,ammunition_policy,weapon_source_path,weapon_source_sha256,weapon_source_row_number,projectile_source_path,projectile_source_sha256,projectile_source_row_number,evidence_status,reason_codes
+candidate_id,track,context,question,attack_mode,declared_mount_state,effective_mount_state,pairing_id,loadout_id,troop_id,troop_name,roster_index,weapon_item_id,projectile_item_id,weapon_family,projectile_family,weapon_damage,projectile_damage,per_shot_output,usable_ammunition_count,finite_stack_capacity,ammunition_policy,weapon_source_path,weapon_source_sha256,weapon_source_row_number,projectile_source_path,projectile_source_sha256,projectile_source_row_number,evidence_status,reason_codes
 ```
 
 ### 13.2 Score CSV schemas
@@ -879,9 +902,11 @@ path,bytes,sha256,purpose
 path,bytes,sha256
 ```
 
-This immutable promotion identity covers declarations, pinned inputs, normalized evidence, tuple evidence/scores/metadata, candidate README, audit, and reports. It excludes `VALIDATION_REPORT.md`, `promotion_gate.json`, `artifact_hashes.csv`, locks, journals, and backups. `promotion_gate.json.evaluated_candidate_manifest_sha256` hashes this file, so validation outputs can never change the identity being evaluated.
+This immutable promotion identity covers declarations, pinned candidate inputs, normalized evidence, tuple evidence/scores/metadata, candidate README, audit, and reports. It excludes `VALIDATION_REPORT.md`, `promotion_gate.json`, `validation_input_hashes.csv`, `artifact_hashes.csv`, locks, journals, and backups. `promotion_gate.json.evaluated_candidate_manifest_sha256` hashes this file, so validation outputs can never change the identity being evaluated.
 
-`artifact_hashes.csv` has the same columns and is the outer package-integrity manifest. It excludes itself but includes `candidate_manifest.csv` and, after D9, validation outputs. D9 regenerates it after writing validation artifacts. Because the promotion gate pins only `candidate_manifest.csv`, there is no hash cycle. All manifest paths are POSIX-relative to candidate root and sorted bytewise.
+`validation_input_hashes.csv` has columns `path,bytes,sha256,purpose` and covers every D9 empirical, canonical-map, grouped-out-of-sample, controlled-evidence, and limitations-review input. It excludes itself and all generated validation outputs. `promotion_gate.json.validation_input_manifest_sha256` hashes this file, and D10 must verify both the manifest hash and every referenced input before promotion.
+
+`artifact_hashes.csv` has the same columns as `candidate_manifest.csv` and is the outer package-integrity manifest. It excludes itself but includes `candidate_manifest.csv` and, after D9, `validation_input_hashes.csv` plus the other validation outputs. D9 regenerates it after writing validation artifacts. Because the promotion gate pins the candidate and validation-input manifests while neither manifest contains generated gate outputs, there is no hash cycle. All manifest paths are POSIX-relative to candidate root and sorted bytewise.
 
 ## 14. Determinism, serialization, hashing, and publication
 
@@ -890,14 +915,14 @@ This immutable promotion identity covers declarations, pinned inputs, normalized
 3. Use UTF-8 without BOM, LF endings, `csv.DictWriter(..., lineterminator="\n")`, fixed field lists, and no platform-dependent timestamps.
 4. Serialize JSON with `indent=2`, `sort_keys=True`, `ensure_ascii=False`, separators implied by the standard pretty format, plus one trailing newline.
 5. Sort every source group and output using explicit keys. Never rely on dict/set iteration or filesystem glob order.
-6. `pairing_id` is `sha256(candidate_id|track|context|question|attack_mode|effective_mount_state|troop_id|roster_index|weapon_source_row|projectile_source_row)[:20]`.
+6. `loadout_id` is the first 20 hex characters of a SHA-256 over the sorted selected `(slot, alternative_index, item_id, source_row)` tuples; `pairing_id` is `sha256(candidate_id|track|context|question|attack_mode|effective_mount_state|troop_id|roster_index|loadout_id|weapon_source_row|projectile_source_row)[:20]`.
 7. Hash input bytes before parsing and verify they are unchanged immediately before publication.
 8. Snapshot immutable historical/frozen paths before generation and compare after staging and after publication.
 
-Publication uses an exclusive lock file adjacent to the candidate root and a recoverable directory transaction:
+The D8 build adapter publishes through `context_first_publication.py` using an exclusive lock file adjacent to the candidate root and a recoverable directory transaction:
 
 1. Refuse a second writer while the lock is held.
-2. Build the entire candidate tree in a sibling staging directory. Copy through `CURRENT_CANDIDATE_AUDIT.md`, `historical_baseline_hashes.csv`, and `declarations/` byte for byte from their reviewed D1/D2 sources and verify their expected hashes before adding generated tuple outputs, reports, manifests, and—when invoked by D9—validation outputs. The generator never authors or overwrites those source-owned paths.
+2. Build the entire candidate tree in a sibling staging directory. Copy through `CURRENT_CANDIDATE_AUDIT.md`, `historical_baseline_hashes.csv`, and `declarations/` byte for byte from their reviewed D1/D2 sources and verify their expected hashes before adding generated tuple outputs, reports, manifests, and—when invoked by D9—validation outputs. The core generator never authors or overwrites those source-owned paths or the committed candidate root.
 3. Validate schemas, row counts, manifests, source hashes, and historical hashes in staging.
 4. Write and fsync a transaction journal naming `old`, `staging`, and `target`.
 5. Rename the current target to a sibling backup, then rename staging to target.
@@ -960,6 +985,8 @@ Rules:
   "candidate_generation_status": "complete",
   "status": "blocked",
   "evaluated_candidate_manifest_sha256": "<sha256>",
+  "validation_input_manifest_path": "validation_input_hashes.csv",
+  "validation_input_manifest_sha256": "<sha256>",
   "gates": [
     {
       "gate": "canonical_join",
@@ -976,7 +1003,7 @@ Rules:
 }
 ```
 
-Top-level and per-gate `status` values are exactly `passed` or `blocked`. `promotion_allowed` is derived and may be `true` only when the top-level status and every gate status are `passed`, the evaluated `candidate_manifest.csv` hash matches the current package, and no blocked reason remains. D10 requires all three checks; no alias such as `pass` is accepted.
+Every `evidence_paths` entry must occur exactly once in the sorted `validation_input_hashes.csv`; a missing, extra, duplicate, or hash-mismatched input makes evaluation invalid. Top-level and per-gate `status` values are exactly `passed` or `blocked`. `promotion_allowed` is derived and may be `true` only when the top-level status and every gate status are `passed`, the evaluated `candidate_manifest.csv` hash matches the current package, the validation-input manifest and every referenced byte match, and no blocked reason remains. D10 requires all checks; no alias such as `pass` is accepted.
 
 Gate order is:
 
@@ -1015,8 +1042,8 @@ Required test modules:
 - `tests/test_audit_context_first_candidates.py`: expected audit findings, source hashes, no historical writes;
 - `tests/test_context_first_contract.py`: complete enum/cross-field/error ordering matrix and validation-before-I/O;
 - `tests/test_context_first_armor.py`: shield/mount/skill inertness, blank-vs-zero, slot alternatives, roster means, incomplete roster propagation;
-- `tests/test_context_first_weapon_evidence.py`: attack-row publication/tie-break, direct damage, every CraftedItem failure path, receipt hash pinning;
-- `tests/test_context_first_ranged.py`: compatibility, multiple stacks, different projectile values, alternative weapons, finite/unlimited behavior, no infinity;
+- `tests/test_context_first_weapon_evidence.py`: attack-row publication/tie-break, module-override winner selection, direct damage, receipt-validated CraftedItem conversion, every CraftedItem failure path, receipt hash pinning;
+- `tests/test_context_first_ranged.py`: compatibility, distinct-slot stack summation, same-slot alternative loadouts, different projectile values, alternative weapons, finite/unlimited behavior, no infinity;
 - `tests/test_context_first_engine.py`: population filters, mount-state roster selection, siege dismount transformation, context isolation;
 - `tests/test_context_first_scores.py`: complete/rankable/review contracts, component ranks, tie behavior, general blank blend, cross-track isolation;
 - `tests/test_context_first_reports.py`: exact schemas, RoT sections, blocked tables, manifests, two-run byte equality, interrupted-transaction recovery;
@@ -1035,18 +1062,20 @@ tuples_published=<count>
 complete_rows=<count>
 rankable_rows=<count>
 review_rows=<count>
-promotion_status=<passed|blocked>
+promotion_status=<not_run|passed|blocked>
 output=<repo-relative-path>
 ```
 
 Fatal errors go to stderr as `error_code=<CODE> field=<field> detail=<message>` and exit 2. Metadata carries per-code counts; reports surface them. No network, clock time, random UUID, or paid inference is used.
 
+At D8, before a gate exists, the build adapter emits `promotion_status=not_run`. Once D9 has published a gate, the build adapter may report its verified status by reading the gate as data; it must not import or invoke the validator. The D9 validator has its own deterministic stdout and is the only command that changes the verdict.
+
 Repository acceptance command:
 
 ```bash
 python3 -m unittest discover -v
-python3 scripts/scoring/generate_context_first_scores.py --repo .
-python3 scripts/scoring/generate_context_first_scores.py --repo .
+python3 scripts/scoring/build_context_first_candidate.py --repo .
+python3 scripts/scoring/build_context_first_candidate.py --repo .
 ```
 
 The second generation must leave `git diff --exit-code -- analysis/model_candidates/context_first_scores_v1` clean and all historical/frozen hash checks green.
@@ -1093,7 +1122,7 @@ Owns the armor types/functions in:
 
 - `scripts/scoring/context_first_equipment.py`
 - `tests/test_context_first_armor.py`
-- `tests/fixtures/context_first/armor_*`
+- `tests/fixtures/context_first/armor/`
 
 It must not add weapon formulas.
 
@@ -1107,7 +1136,7 @@ Owns:
 - `tests/test_crafted_weapon_validation_receipt.py`
 - `scripts/scoring/context_first_equipment.py`
 - `tests/test_context_first_weapon_evidence.py`
-- `tests/fixtures/context_first/weapon_*`
+- `tests/fixtures/context_first/weapons/`
 
 It must not edit `scripts/normalization/reconstruct_crafted_weapon_stats.py`, change reconstruction arithmetic, accept unverified XML, infer source attack components from scalar audit cells, manufacture tooltip observations, or accept template proxies.
 
@@ -1117,7 +1146,7 @@ Owns:
 
 - `scripts/scoring/context_first_ranged.py`
 - `tests/test_context_first_ranged.py`
-- `tests/fixtures/context_first/ranged_*`
+- `tests/fixtures/context_first/ranged/`
 
 It supports only bows/arrows and crossbows/bolts.
 
@@ -1145,12 +1174,14 @@ It owns competition ranking and complete/rankable/review serialization in tempor
 Owns:
 
 - `scripts/scoring/write_context_first_reports.py`
+- `scripts/scoring/build_context_first_candidate.py`
+- `scripts/scoring/context_first_publication.py`
 - `tests/test_context_first_reports.py`
 - `analysis/model_candidates/context_first_scores_v1/README.md`
 - `analysis/model_candidates/context_first_scores_v1/realm_of_thrones/TOP10.md`
 - all committed tuple outputs under `analysis/model_candidates/context_first_scores_v1/<track>/<context>/<question>/<attack_mode>/<mount_state>/`
 - `input_hashes.csv`, `candidate_manifest.csv`, the pre-validation `artifact_hashes.csv`, and tuple `metadata.json`
-- shared transaction helpers kept private in `write_context_first_reports.py`
+- shared lock/staging/journal helpers in `context_first_publication.py`
 
 It renders existing score contracts and owns package publication.
 
@@ -1162,6 +1193,7 @@ Owns:
 - `tests/test_context_first_validation.py`
 - `analysis/model_candidates/context_first_scores_v1/VALIDATION_REPORT.md`
 - `analysis/model_candidates/context_first_scores_v1/promotion_gate.json`
+- `analysis/model_candidates/context_first_scores_v1/validation_input_hashes.csv`
 - regeneration of the outer `artifact_hashes.csv` after validation outputs are staged
 
 It reads empirical evidence without modifying it.
@@ -1238,7 +1270,7 @@ D1 -> D2 -> D3 -> D4 -> D5 -> D6 -> D7 -> D8 -> D9 -> D10
 | Crafted reconstruction says reconstructed but tooltip proof is only console text | Require a separate hash-pinned per-item validation receipt. |
 | Alternative rosters/items have unknown probabilities | Use declared arithmetic means and publish every intermediate; never select the best. |
 | One incomplete alternative biases a known mean | Blank the containing roster/troop component and queue the exact source gap. |
-| Multiple projectile types make one per-shot value ambiguous | Publish stack-level pairings; finite output sums each stack's exact capacity; unlimited uses an explicit arithmetic mean with count ignored. |
+| Projectile fields tempt a future implementation to re-enter v1 output | Publish projectile damage for provenance only; v1 per-shot output remains weapon damage, same-slot alternatives remain separate loadouts, and any later projectile contribution requires a new declaration and tests. |
 | Mounted declarations accidentally introduce mount stats | Mount state selects rosters only; scorer contracts contain no mount numeric fields; siege strips mount rows before resolution. |
 | General output gains an implicit blend during reporting | Combined fields are structurally `None`; reports have no combined sort path. |
 | Partial regeneration mixes old/new tracks | Committed-root generation always processes every declaration and publishes a validated staged tree transactionally. |
@@ -1251,16 +1283,25 @@ D1 -> D2 -> D3 -> D4 -> D5 -> D6 -> D7 -> D8 -> D9 -> D10
 
 ## 23. Acceptance mapping
 
-- FR/AC 1: D1 audit and immutable baseline.
-- FR/AC 2: D2 strict declaration before I/O.
-- FR/AC 3, 8, armor portions of 10: D3, D6, D7.
-- FR/AC 4 and 5: D4.
-- FR/AC 6: D5.
-- FR/AC 7 and population boundaries: D6.
-- FR/AC 9 through 12: D7.
-- FR/AC 12 and 13: D8.
-- FR/AC 14 and promotion portion of 15: D9.
-- Cutover and complete PR lifecycle: D10 plus the per-deliverable delivery rule.
+Functional requirements:
+
+- FR-1: D1.
+- FR-2: D2.
+- FR-3: D3.
+- FR-4 and FR-5: D4.
+- FR-6: D5.
+- FR-7: D6.
+- FR-8 through FR-11: D7, with D6 supplying context/population selection.
+- FR-12 and FR-13: D8.
+- FR-14: D9.
+- FR-15: D9 owns the promotion verdict and D10 owns immutable cutover.
+
+Acceptance criteria:
+
+- AC-1: D1; AC-2: D2; AC-3 and AC-4: D3; AC-5 and AC-6: D4.
+- AC-7 through AC-9: D5; AC-10: D6; AC-11: D7.
+- AC-12: D7 owns theoretical track/context/hero/population isolation and D9 owns empirical player/enemy side proof.
+- AC-13: D8; AC-14: D9; AC-15: D10 plus the per-deliverable delivery rule.
 - NFR determinism, traceability, immutability, testability, offline behavior, and safe reruns: D1-D10 integration tests and D8 transaction/manifest ownership.
 
 ## 24. Explicitly out of scope

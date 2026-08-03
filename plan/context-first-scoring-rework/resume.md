@@ -54,13 +54,13 @@ If any source conflicts, `AGENTS.md` wins for repository workflow, the PRD wins 
 | D1 | Current-candidate audit | pending | — | — |
 | D2 | Declaration contract | pending | D1 | — |
 | D3 | Armor evidence lane | pending | D2 | — |
-| D4 | Weapon-row normalization, evidence, and crafted fail-closed gate | pending | D2 | may require exact raw XML/source package and operator tooltip observations |
-| D5 | Finite/unlimited ranged semantics | pending | D4 | D3 must also be merged before D6 |
+| D4 | Weapon-row normalization, override resolution, and crafted fail-closed gate | pending | D2 | may require exact raw XML/source package and operator tooltip observations; new evidence batches require two agents |
+| D5 | Finite/unlimited ranged semantics with explicit loadouts | pending | D4 | D3 must also be merged before D6 |
 | D6 | Context engine and dismounted siege cavalry | pending | D3, D4, D5 | — |
 | D7 | Defense/attack/general candidate outputs | pending | D6 | — |
 | D8 | Deterministic reports and RoT top 10s | pending | D7 | — |
-| D9 | Evidence closure and empirical promotion gate | pending | D8 | hard stop on blocked verdict |
-| D10 | New immutable version, cutover, cleanup | pending | D9 status=`passed`, promotion_allowed=`true`, exact manifest match | final completion |
+| D9 | Evidence closure and hash-pinned empirical promotion gate | pending | D8 | hard stop on blocked verdict |
+| D10 | New immutable version, cutover, cleanup | pending | D9 status=`passed`, promotion_allowed=`true`, exact candidate and validation-input manifests | final completion |
 
 Allowed deliverable states are `pending`, `in_progress`, `ready_to_merge`, `merged`, and `blocked`. Record PR URL, exact reviewed head, validation command, and limitations before merge. The next slice backfills the previous squash SHA; D10 uses the issue closure comment as its final post-merge receipt.
 
@@ -79,7 +79,7 @@ Allowed deliverable states are `pending`, `in_progress`, `ready_to_merge`, `merg
 | AC-9 | Siege-defense unlimited output is stack-invariant | D5 | pending |
 | AC-10 | Siege cavalry is dismounted and mounted fields are inert | D6 | pending |
 | AC-11 | Defense/attack/general outputs stay simple | D7 | pending |
-| AC-12 | Track/context/side/population boundaries hold | D7 | pending |
+| AC-12 | Track/context/side/population boundaries hold | D7 theoretical boundaries + D9 player/enemy side proof | pending |
 | AC-13 | Regeneration and RoT views are deterministic | D8 | pending |
 | AC-14 | Empirical minimums and battle-level uncertainty hold | D9 | pending |
 | AC-15 | Promotion, cutover, and full PR lifecycle pass | D10 | pending |
@@ -92,8 +92,11 @@ No AC may be marked complete from code inspection alone. Record the exact passin
 - Realm of Thrones has 9,414 non-multiplayer `CraftedItem` equipment rows without a complete damage/speed/class tuple in the current export.
 - Trustworthy crafted melee output requires PC crafting piece/template catalogs plus tooltip validation.
 - Current equipment-audit scalar damage cells do not preserve every XML `<Weapon>` component. D4 requires raw XML reconstructed from the committed source-package identity or an exact PC module root that verifies against the raw manifest.
+- Duplicate item definitions must resolve through committed `manifest_modules.csv` load order; equipment roster provenance is not a module-winner signal.
+- A passed crafted receipt must also produce shared-schema crafted attack rows; reconstructed values never bypass the attack-row contract.
 - Canonical empirical identity coverage remains incomplete for some labels.
 - Missing raw XML/catalog/tooltip inputs may block D4. Empirical coverage may block D9 and therefore D10. Earlier merged slices remain valid when a later evidence gate blocks.
+- D9 must pin every empirical, canonical, grouped-OOS, controlled, and limitations input in `validation_input_hashes.csv`; D10 re-verifies that manifest and every referenced byte.
 
 Recompute these facts at D9. Do not treat the planning-time counts as live truth.
 
@@ -136,6 +139,7 @@ state: blocked
 blocked_at: D9
 blocking_gate: <stable gate/reason code>
 candidate_sha256: <hash>
+validation_input_manifest_sha256: <hash-or-not_run>
 failing_command: <exact command>
 required_evidence: <exact repository-addressable inputs needed>
 acquisition_method: <normalization/analysis path>
@@ -143,13 +147,13 @@ safe_completed_scope: <merged steps that remain valid>
 next_action_after_unblock: <single exact action>
 ```
 
-Do not mark `state: complete_on_verified_merge` while `promotion_gate` is `blocked`, `not_run`, or tied to different candidate hashes. D10 may commit `complete_on_verified_merge` only after its exact head is reviewed and ready; completion becomes true only after the issue #58 receipt verifies the squash on `main`.
+Do not mark `state: complete_on_verified_merge` while `promotion_gate` is `blocked`, `not_run`, or tied to different candidate or validation-input hashes. D10 may commit `complete_on_verified_merge` only after its exact head is reviewed and ready; completion becomes true only after the issue #58 receipt verifies the squash on `main`.
 
 ## Final completion checklist
 
 - [ ] D1 through D10 are merged and verified on `main`.
 - [ ] AC-1 through AC-15 cite passing proof.
-- [ ] `promotion_gate.status=passed`, `promotion_allowed=true`, and the evaluated candidate-manifest hash matches the promoted candidate.
+- [ ] `promotion_gate.status=passed`, `promotion_allowed=true`, and the evaluated candidate- plus validation-input-manifest hashes and all referenced bytes match the promoted candidate.
 - [ ] A new immutable model version is repository-addressable.
 - [ ] Every pre-existing model/candidate hash is unchanged.
 - [ ] Context-first entry points and documentation target the promoted version.
@@ -161,4 +165,4 @@ Do not mark `state: complete_on_verified_merge` while `promotion_gate` is `block
 
 ## Continuation prompt
 
-Execute the first incomplete deliverable in `plan/context-first-scoring-rework/execution-plan.md`. Read all sources in “Read first,” run the pre-flight, and apply `@execute-locked-plan`. Make no scope changes. Use one PR per numbered step, target `main`, add meaningful tests first, validate, push, self-review the exact latest head, fix findings, mark ready, squash-merge, verify on `main`, and update this resume plus issue #58 using the documented backfill rule. Stop on drift. Never fabricate raw XML, tooltip, or empirical evidence or skip a blocked D4/D9 gate. Continue through D10 only when `promotion_gate.status=passed`, `promotion_allowed=true`, and the exact candidate-manifest hash matches.
+Execute the first incomplete deliverable in `plan/context-first-scoring-rework/execution-plan.md`. Read all sources in “Read first,” run the pre-flight, and apply `@execute-locked-plan`. Make no scope changes. Use one PR per numbered step, target `main`, add meaningful tests first, validate, push, self-review the exact latest head, fix findings, mark ready, squash-merge, verify on `main`, and update this resume plus issue #58 using the documented backfill rule. Stop on drift. Never fabricate raw XML, tooltip, or empirical evidence or skip a blocked D4/D9 gate. If D4 ingests a new evidence batch, use distinct normalization and analysis agents on the same branch/PR as required by `AGENTS.md`. Continue through D10 only when `promotion_gate.status=passed`, `promotion_allowed=true`, and the exact candidate- and validation-input-manifest hashes plus all referenced bytes match.

@@ -52,7 +52,7 @@ Generate twice from identical pinned inputs, compare every output byte and manif
 | AC-4 | Incomplete armor yields blank complete row plus review reason | `tests.test_context_first_armor` | missing-as-zero ranking |
 | AC-5 | Published source attack row reconstructs selected damage | `tests.test_context_first_weapon_evidence` | opaque weapon score |
 | AC-6 | Template-only/incomplete/unvalidated crafted item is unrankable | weapon evidence + reconstruction tests | crafted proxy rankings |
-| AC-7 | Bow uses arrows only and sums compatible stacks exactly once | `tests.test_context_first_ranged` | incompatible/double ammunition |
+| AC-7 | Bow uses arrows only; sums distinct-slot stacks once; separates same-slot alternatives | `tests.test_context_first_ranged` | incompatible/double/alternative ammunition |
 | AC-8 | Alternative bows publish separate pairings | `tests.test_context_first_ranged` | simultaneous-fire inflation |
 | AC-9 | Siege-defense output is invariant to stack count and has no infinity | ranged + feature test | finite ammo leakage |
 | AC-10 | Cavalry is dismounted and all mounted distractors are inert | `tests.test_context_first_engine` | Riding/mount defense bias |
@@ -93,13 +93,14 @@ Expected: only direct and fully validated crafted evidence can contribute; selec
 ### Ranged fixture
 
 - two alternative bows;
+- two alternative Arrow rows in one slot plus another Arrow stack in a distinct slot;
 - two arrow stacks;
 - one bolt stack;
 - one crossbow and compatible bolts;
 - incompatible/missing projectile records;
 - identical rosters with different ammunition counts.
 
-Expected: explicit pairings, hand-calculable finite capacity, separate alternatives, and stack-invariant siege-defense output.
+Expected: explicit loadout/pairings, hand-calculable finite capacity, distinct-slot stack summation, same-slot alternatives averaged instead of summed, separate weapon alternatives, and stack-invariant siege-defense output.
 
 ### Boundary fixture
 
@@ -132,6 +133,10 @@ Given valid armor and weapon evidence, when `general` runs, complete/rankable ou
 ### F5 — Crafted melee fail-closed
 
 Given a RoT-style `CraftedItem` with only a template proxy, when attack/general runs, defense may still rank from complete armor but melee output remains blank and the review queue names the missing catalog/reconstruction/tooltip gate. Adding only a plausible numeric proxy must not change the result.
+
+Given a reconstructed crafted item with a matching passed tooltip receipt, D4 must deterministically emit swing/thrust rows in the shared attack-row schema with both reconstructed-output and receipt hashes; attack scoring must rank from those rows end to end. Changing either pinned byte makes the crafted lane blank or invalid rather than silently reusing a stale pass.
+
+Given the same `item_id` in two modules, the component extractor must choose the highest verified `load_order_index`, retain the lower definition only as superseded audit evidence, and prove that no attack row from the overridden definition enters scoring. Two definitions in the winning module are an explicit ambiguity unless their source contract proves a unique winner.
 
 ### F6 — Boundary preservation
 
@@ -179,6 +184,8 @@ D10 may add paths only inside the newly declared version. Any modification/delet
 - no player-side evidence is pooled with enemy-side evidence;
 - reports distinguish insufficient evidence from a negative result;
 - controlled evidence and known limitations are included in the machine-readable verdict.
+- every validation input is listed exactly once with bytes and SHA-256 in `validation_input_hashes.csv`; stale, missing, duplicate, extra, or hash-mismatched evidence invalidates the verdict;
+- D10 re-verifies the candidate manifest, validation-input manifest, and every validation input byte before promotion.
 
 ## Step verification commands
 
@@ -186,15 +193,14 @@ Run the focused command from each execution-plan step. Before merging every slic
 
 ```bash
 python3 -m unittest discover -v
-python3 scripts/scoring/generate_context_first_scores.py
-python3 scripts/scoring/write_context_first_reports.py
+python3 scripts/scoring/build_context_first_candidate.py
 python3 scripts/scoring/validate_context_first_candidate.py
 git diff --check origin/main...HEAD
 ```
 
 If a command is intentionally unavailable before its owning step, the executor must not substitute a fake no-op. The earlier step uses its focused suite; the final command set becomes mandatory once all entry points exist.
 
-At D4, the focused set must additionally run `tests.test_extract_weapon_attack_rows` and `tests.test_crafted_weapon_validation_receipt`. At D8, the default generator must finish without importing the D9 validator; the explicit validator command becomes mandatory only after D9 implements it.
+At D4, the focused set must additionally run `tests.test_extract_weapon_attack_rows` and `tests.test_crafted_weapon_validation_receipt`, including module-override and validated-crafted-output fixtures. At D8, the build adapter must finish without importing the D9 validator and emit `promotion_status=not_run` when no gate exists; the explicit validator command becomes mandatory only after D9 implements it. An import-graph test proves the core generator and renderer do not import one another; only `build_context_first_candidate.py` orchestrates them.
 
 ## PR review assertions
 
