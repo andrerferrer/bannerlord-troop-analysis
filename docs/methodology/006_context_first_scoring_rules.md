@@ -169,7 +169,7 @@ question: infantry_defense
 attack_mode: melee
 mount_state: dismounted
 primary_drivers: worn_armor
-ammunition_policy: unlimited
+ammunition_policy: not_applicable
 secondary_drivers: none
 armor_source_fields: declared by candidate
 armor_aggregation: declared by candidate

@@ -119,9 +119,9 @@ Protocol specification:
 - Heroes are excluded from ordinary troop rankings.
 - New scoring work must follow
   [`docs/methodology/006_context_first_scoring_rules.md`](docs/methodology/006_context_first_scoring_rules.md):
-  select track, battle context, troop question, and combat mode before choosing
-  the smallest direct driver set. Do not infer a universal score from chat
-  examples or from the newest candidate.
+  select track, battle context, troop question, attack mode, and mount state
+  before choosing the smallest direct driver set. Do not infer a universal score
+  from chat examples or from the newest candidate.
 - `analysis/model_versions/` is frozen unless a dedicated model-change pull request passes the documented gates.
 
 ## Merge gate
