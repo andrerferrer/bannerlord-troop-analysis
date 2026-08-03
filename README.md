@@ -30,7 +30,9 @@ Candidate model under review:
 
 - [`defensive_role_scores_v2_candidate`](analysis/model_candidates/role_scores_v2_defense/README.md)
   — separates infantry/cavalry protection from defensive utility; does not
-  replace the frozen models.
+  replace the frozen models. It is a reproducible historical candidate, not the
+  pattern for new scoring work, which must follow the
+  [`context-first scoring rules`](docs/methodology/006_context_first_scoring_rules.md).
 
 <!-- latest-theoretical-report:start -->
 ## Latest theoretical report
