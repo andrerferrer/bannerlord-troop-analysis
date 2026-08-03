@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Context-first scoring rework — plano de execução</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0d1514;
+      --panel: #14201e;
+      --panel-2: #1a2926;
+      --text: #edf5f1;
+      --muted: #a9bbb4;
+      --line: #31443f;
+      --accent: #71e0b3;
+      --accent-2: #ffc86b;
+      --danger: #ff8e83;
+      --ok: #7fe3a5;
+      --code: #0a1110;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 16px/1.55 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at 10% 0%, #1c332c 0, var(--bg) 34rem);
+    }
+    a { color: var(--accent); }
+    header, main, footer { width: min(1180px, calc(100% - 32px)); margin-inline: auto; }
+    header { padding: 48px 0 24px; }
+    .eyebrow { color: var(--accent); font-weight: 750; letter-spacing: .08em; text-transform: uppercase; font-size: .78rem; }
+    h1 { max-width: 850px; margin: 8px 0 10px; font-size: clamp(2rem, 5vw, 4.4rem); line-height: 1.03; letter-spacing: -.04em; }
+    h2 { margin-top: 0; font-size: 1.7rem; }
+    h3 { margin: 28px 0 8px; color: var(--accent-2); }
+    p { max-width: 78ch; }
+    .lead { color: var(--muted); font-size: 1.12rem; }
+    .status-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .pill { border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 7px 12px; font-size: .9rem; }
+    .pill strong { color: var(--accent); }
+    .tabs { position: sticky; top: 0; z-index: 5; display: flex; gap: 6px; overflow-x: auto; padding: 10px; border: 1px solid var(--line); border-radius: 14px; background: color-mix(in srgb, var(--panel) 92%, transparent); backdrop-filter: blur(14px); }
+    .tabs button { white-space: nowrap; border: 0; border-radius: 9px; padding: 10px 13px; color: var(--muted); background: transparent; cursor: pointer; font: inherit; font-weight: 700; }
+    .tabs button[aria-selected="true"] { color: #07110d; background: var(--accent); }
+    .tab-panel { padding: 32px 0 56px; }
+    .tab-panel[hidden] { display: none; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+    .card { padding: 20px; border: 1px solid var(--line); border-radius: 14px; background: linear-gradient(145deg, var(--panel), var(--panel-2)); }
+    .card h3 { margin-top: 0; }
+    .metric { font-size: 2.2rem; line-height: 1; font-weight: 800; color: var(--accent); }
+    .muted { color: var(--muted); }
+    .warning { border-left: 4px solid var(--accent-2); padding: 14px 18px; background: #2a2418; border-radius: 8px; }
+    .danger { border-left-color: var(--danger); background: #2a1919; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0 28px; font-size: .94rem; }
+    th, td { padding: 11px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+    th { color: var(--accent); background: var(--panel); position: sticky; top: 64px; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { color: #bdeedb; }
+    pre { overflow-x: auto; padding: 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--code); color: #cbe4da; }
+    .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 20px 0; }
+    .flow span { padding: 9px 12px; border: 1px solid var(--line); border-radius: 9px; background: var(--panel); }
+    .flow i { color: var(--accent); font-style: normal; }
+    .step { display: grid; grid-template-columns: 56px 1fr; gap: 14px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+    .step-number { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: var(--accent); color: #07110d; font-weight: 900; }
+    .step h3 { margin: 0 0 5px; }
+    ul, ol { padding-left: 22px; }
+    li + li { margin-top: 6px; }
+    footer { padding: 20px 0 50px; color: var(--muted); border-top: 1px solid var(--line); }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    @media (max-width: 700px) {
+      header { padding-top: 30px; }
+      th { position: static; }
+      table { display: block; overflow-x: auto; }
+      .step { grid-template-columns: 44px 1fr; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .tab-panel { animation: reveal .18s ease-out; }
+      @keyframes reveal { from { opacity: 0; transform: translateY(4px); } }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">Bannerlord troop analysis · Issue #58</div>
+    <h1>Um modelo simples, escolhido pela pergunta.</h1>
+    <p class="lead">Plano travado em 10 entregas para substituir o score composto por defesa baseada em armadura, ataque baseado em arma e capacidade geral com os dois componentes visíveis — sem pesos escondidos.</p>
+    <div class="status-row" aria-label="Estado do plano">
+      <span class="pill"><strong>Estado</strong> pronto para execução</span>
+      <span class="pill"><strong>Base</strong> main</span>
+      <span class="pill"><strong>Entrega</strong> 10 PRs</span>
+      <span class="pill"><strong>Promoção</strong> só após gates</span>
+    </div>
+  </header>
+
+  <main>
+    <nav class="tabs" role="tablist" aria-label="Seções do plano">
+      <button role="tab" id="tab-overview" aria-controls="overview" aria-selected="true">Visão geral</button>
+      <button role="tab" id="tab-requirements" aria-controls="requirements" aria-selected="false">Requisitos</button>
+      <button role="tab" id="tab-usecases" aria-controls="usecases" aria-selected="false">Casos de uso</button>
+      <button role="tab" id="tab-design" aria-controls="design" aria-selected="false">Design</button>
+      <button role="tab" id="tab-tests" aria-controls="tests" aria-selected="false">Testes</button>
+      <button role="tab" id="tab-deliverables" aria-controls="deliverables" aria-selected="false">10 entregas</button>
+    </nav>
+
+    <section class="tab-panel" id="overview" role="tabpanel" aria-labelledby="tab-overview">
+      <h2>Resultado esperado</h2>
+      <div class="grid">
+        <article class="card"><div class="metric">Armor</div><h3>Defesa</h3><p>Usa apenas armadura vestida declarada. Escudo, montaria, skill e mobilidade não alteram o resultado.</p></article>
+        <article class="card"><div class="metric">Weapon</div><h3>Ataque</h3><p>Usa dano direto ou reconstruído e validado. Evidência incompleta fica em branco e vai para revisão.</p></article>
+        <article class="card"><div class="metric">A + W</div><h3>Geral</h3><p>Mostra armadura e arma lado a lado, com ranks independentes. Não inventa um score combinado.</p></article>
+        <article class="card"><div class="metric">10</div><h3>PRs fechados</h3><p>Cada etapa inclui teste, push, review do último SHA, correção, squash merge e verificação em <code>main</code>.</p></article>
+      </div>
+      <h3>Sequência</h3>
+      <div class="flow" aria-label="Fluxo resumido">
+        <span>Auditar</span><i>→</i><span>Declarar</span><i>→</i><span>Resolver evidência</span><i>→</i><span>Aplicar contexto</span><i>→</i><span>Gerar</span><i>→</i><span>Validar</span><i>→</i><span>Promover</span>
+      </div>
+      <div class="warning danger">
+        <strong>“Candidato gerado” não significa “rework terminado”.</strong> O passo 4 para se faltarem XMLs brutos verificáveis, catálogos ou observações de tooltip; o passo 9 para sem IDs canônicos ou batalhas elegíveis. O passo 10 só roda com <code>status=passed</code>, <code>promotion_allowed=true</code> e hashes exatos dos manifests do candidato e dos inputs de validação.
+      </div>
+      <h3>Estado de evidência conhecido ao planejar</h3>
+      <p>40 batalhas registradas; 24 elegíveis no agregado, 17 de campo, 2 de ataque de cerco e 0 de defesa de cerco. No RoT, 9.414 linhas não-multiplayer de <code>CraftedItem</code> ainda não têm a tupla completa de dano/velocidade/classe. Esses números serão recalculados no passo 9.</p>
+    </section>
+
+    <section class="tab-panel" id="requirements" role="tabpanel" aria-labelledby="tab-requirements" hidden>
+      <h2>Regras que não podem mudar durante a execução</h2>
+      <table>
+        <thead><tr><th>Pergunta/contexto</th><th>Regra</th><th>Proibido</th></tr></thead>
+        <tbody>
+          <tr><td>Defesa</td><td>Armadura vestida; agregação declarada; alternativas por média.</td><td>Escudo ou montaria preenchendo lacunas.</td></tr>
+          <tr><td>Ataque melee</td><td>Maior swing/thrust válido autorizado pela declaração, com linha-fonte.</td><td>Proxy pelo nome do template; missing como zero.</td></tr>
+          <tr><td>Ataque ranged finito</td><td>Dano por tiro × munição compatível em slots distintos do mesmo loadout.</td><td>Somar bolts num bow, alternativas do mesmo slot ou armas alternativas simultaneamente.</td></tr>
+          <tr><td>Ranged em defesa de cerco</td><td>Munição ilimitada; comparar dano por tiro; ignorar stack.</td><td>Infinity numérico ou multiplicador de munição.</td></tr>
+          <tr><td>Geral</td><td>Armadura e arma lado a lado, com ranks separados.</td><td>Blend/peso padrão escondido.</td></tr>
+          <tr><td>Cavalaria em defesa de cerco</td><td>Transformar para desmontado antes de escolher drivers.</td><td>Riding, cavalo, harness, charge ou mobilidade montada.</td></tr>
+        </tbody>
+      </table>
+      <h3>Fronteiras analíticas</h3>
+      <ul>
+        <li>Track, contexto e lado nunca são agrupados silenciosamente.</li>
+        <li>A unidade independente é a batalha.</li>
+        <li>Exibição empírica exige ≥5 batalhas independentes e ≥20 tropas deployed.</li>
+        <li>Heróis e tropas multiplayer não entram nos rankings comuns.</li>
+        <li>IDs provisórios não são IDs XML canônicos.</li>
+        <li>Todo valor publicado tem caminho-fonte, hash e intermediários suficientes para reconstrução.</li>
+      </ul>
+      <h3>Não objetivos</h3>
+      <p>Não adicionar speed, skill, reach, tipo de dano, perks, confiabilidade ou novas famílias ranged; não criar score universal; não reescrever candidatos históricos; não alterar uma versão já congelada.</p>
+    </section>
+
+    <section class="tab-panel" id="usecases" role="tabpanel" aria-labelledby="tab-usecases" hidden>
+      <h2>Casos de uso que definem o comportamento</h2>
+      <div class="grid">
+        <article class="card"><h3>Segurar a muralha</h3><p>Uma declaração <code>siege_defense + defense</code> desmonta cavalaria e ranqueia armadura. Diferenças em shield, Riding e montaria são inertes.</p></article>
+        <article class="card"><h3>Ataque ranged no campo</h3><p>Cada bow/arrow ou crossbow/bolt forma um pairing explícito. Stacks compatíveis somam uma vez; alternativas continuam separadas.</p></article>
+        <article class="card"><h3>Atirar defendendo cerco</h3><p>A política muda para <code>unlimited</code>. Dois rosters com stacks diferentes têm o mesmo resultado por tiro.</p></article>
+        <article class="card"><h3>Capacidade geral</h3><p>O analista vê armor, armor rank, weapon output e weapon rank. Combined score/rank permanece vazio.</p></article>
+        <article class="card"><h3>Arma crafted incompleta</h3><p>A tropa pode ranquear defesa se armor estiver completo, mas ataque fica em branco com reason code até reconstrução e tooltip passarem.</p></article>
+        <article class="card"><h3>Promoção</h3><p>Somente evidência canônica, boundary-safe, agrupada por batalha e reproduzível permite criar uma nova versão imutável.</p></article>
+      </div>
+    </section>
+
+    <section class="tab-panel" id="design" role="tabpanel" aria-labelledby="tab-design" hidden>
+      <h2>Arquitetura</h2>
+      <pre>context_first_contract
+        ↑
+context_first_equipment ← crafted reconstruction + tooltip receipt
+        ↑          ↑
+context_first_ranged
+        ↑          │
+        └── context_first_engine
+                    ↑
+       generate_context_first_scores
+                    ↑
+        ┌───────────┴───────────┐
+write_context_first_reports   validate_context_first_candidate
+             ↑
+ build_context_first_candidate → context_first_publication</pre>
+      <table>
+        <thead><tr><th>Módulo</th><th>Responsabilidade única</th><th>Não faz</th></tr></thead>
+        <tbody>
+          <tr><td><code>context_first_contract.py</code></td><td>Tipos, parser, enums e regras cross-field.</td><td>I/O de CSV ou score.</td></tr>
+          <tr><td><code>context_first_equipment.py</code></td><td>Evidência de armor/weapon e proveniência.</td><td>Rank ou render.</td></tr>
+          <tr><td><code>context_first_ranged.py</code></td><td>Pairing e políticas finite/unlimited.</td><td>Ler arquivos.</td></tr>
+          <tr><td><code>context_first_engine.py</code></td><td>Transformar contexto e compor componentes.</td><td>Publicar artefatos.</td></tr>
+          <tr><td><code>generate_context_first_scores.py</code></td><td>Core em scratch, população, serialização e ranks.</td><td>Publicar a raiz committed ou importar renderer.</td></tr>
+          <tr><td><code>write_context_first_reports.py</code></td><td>Manifestos, top 10 e Markdown.</td><td>Recalcular fórmulas.</td></tr>
+          <tr><td><code>build_context_first_candidate.py</code></td><td>Orquestrar core + reports numa transação.</td><td>Executar validação D9.</td></tr>
+          <tr><td><code>context_first_publication.py</code></td><td>Lock, staging, journal e swap atômico.</td><td>Conhecer fórmulas.</td></tr>
+          <tr><td><code>validate_context_first_candidate.py</code></td><td>Join canônico, incerteza e promotion gate.</td><td>Alterar candidato.</td></tr>
+        </tbody>
+      </table>
+      <h3>Determinismo e integridade</h3>
+      <p>UTF-8/LF, campos e ordenação explícitos, decimalização estável, JSON com chaves ordenadas e SHA-256. A geração ocorre em staging; só substitui a árvore própria do candidato depois de validar todos os hashes. D1 congela hashes históricos. D10 pode adicionar uma versão, nunca modificar uma antiga.</p>
+      <h3>Reason codes</h3>
+      <p>Erros de declaração interrompem antes do I/O. Lacunas de evidência deixam o componente unrankable e aparecem em review queue. Violações de fronteira ou evidência malformada invalidam a validação. Falta externa legítima produz gate <code>blocked</code>.</p>
+    </section>
+
+    <section class="tab-panel" id="tests" role="tabpanel" aria-labelledby="tab-tests" hidden>
+      <h2>Estratégia de prova</h2>
+      <div class="grid">
+        <article class="card"><h3>Excluded-field inertness</h3><p>Fixtures variam shield, weapon, skill, Riding e mount para provar que não alteram defesa.</p></article>
+        <article class="card"><h3>Blank, não zero</h3><p>Itens ausentes ou não validados mantêm a tropa no complete output e criam reason code.</p></article>
+        <article class="card"><h3>Boundary fixtures</h3><p>Dois tracks, três contextos, dois lados e repetições dentro da batalha expõem pooling indevido.</p></article>
+        <article class="card"><h3>Two-run bytes</h3><p>Duas raízes isoladas produzem mesmos arquivos, bytes e manifestos; falha intermediária é atômica.</p></article>
+        <article class="card"><h3>Historical hashes</h3><p>Antes/depois de cada E2E, todos os arquivos históricos e versões existentes mantêm SHA-256.</p></article>
+        <article class="card"><h3>Promotion state machine</h3><p><code>status=blocked</code> não promove; <code>status=passed</code> com qualquer hash divergente não promove; só <code>promotion_allowed=true</code> com candidate manifest, validation-input manifest e inputs exatos adiciona uma versão.</p></article>
+      </div>
+      <h3>Cenários mínimos</h3>
+      <ol>
+        <li>Siege defense: cavalry/infantry com armor igual empatam apesar dos distratores montados.</li>
+        <li>Field ranged: bow soma arrows compatíveis em slots distintos, separa alternativas do mesmo slot e ignora bolts.</li>
+        <li>Siege ranged: quantidade de munição não muda o resultado.</li>
+        <li>General: componentes existem, blend continua vazio.</li>
+        <li>Crafted proxy: ataque não ranqueia até receipt validado.</li>
+        <li>Threshold: 4/100 e 5/19 falham; 5/20 passa.</li>
+        <li>Atomic publication: mismatch preserva o pacote anterior byte a byte.</li>
+        <li>Promotion: verdict, candidate manifest, validation-input manifest e todos os inputs precisam ser idênticos.</li>
+      </ol>
+      <pre>python3 -m unittest discover -v
+python3 scripts/scoring/build_context_first_candidate.py
+python3 scripts/scoring/validate_context_first_candidate.py
+git diff --check origin/main...HEAD</pre>
+    </section>
+
+    <section class="tab-panel" id="deliverables" role="tabpanel" aria-labelledby="tab-deliverables" hidden>
+      <h2>Plano travado: 10 PRs</h2>
+      <div class="step"><div class="step-number">1</div><div><h3>Auditar os modelos atuais</h3><p>Classificar misturas, proxies e defaults errados; congelar hashes históricos. Gate: nenhuma mutação.</p></div></div>
+      <div class="step"><div class="step-number">2</div><div><h3>Contrato de declaração</h3><p>Schema versionado e validação de track/context/question/mode/mount/ammo/drivers antes do scoring.</p></div></div>
+      <div class="step"><div class="step-number">3</div><div><h3>Lane de armadura</h3><p>Armor regional, agregação declarada, médias de roster, proveniência e review queue.</p></div></div>
+      <div class="step"><div class="step-number">4</div><div><h3>Normalização e lane de arma</h3><p>Resolver overrides por load order, extrair attack rows de XML verificado, converter crafted validado ao mesmo contrato e rejeitar template proxy. Novo lote de evidência usa dois agentes.</p></div></div>
+      <div class="step"><div class="step-number">5</div><div><h3>Munição finite/unlimited</h3><p>Loadouts/pairings explícitos, soma apenas entre slots distintos e ressuprimento infinito sem infinity.</p></div></div>
+      <div class="step"><div class="step-number">6</div><div><h3>Engine de contexto</h3><p>Aplicar contexto antes dos drivers e desmontar cavalaria em defesa de cerco.</p></div></div>
+      <div class="step"><div class="step-number">7</div><div><h3>Outputs simples</h3><p>Complete, rankable e review; defense/attack/general sem score universal.</p></div></div>
+      <div class="step"><div class="step-number">8</div><div><h3>Relatórios e top 10 RoT</h3><p>Uma geração offline, manifestos, publicação atômica e tabelas honestas.</p></div></div>
+      <div class="step"><div class="step-number">9</div><div><h3>Fechar evidência e validar</h3><p>IDs canônicos, ≥5/20, incerteza por batalha, OOS agrupado e controlled evidence, tudo preso em manifest SHA-256. <strong>Hard stop se blocked.</strong></p></div></div>
+      <div class="step"><div class="step-number">10</div><div><h3>Promover e fazer cutover</h3><p>Com <code>status=passed</code>, <code>promotion_allowed=true</code> e os dois manifests exatos, criar nova versão imutável, apontar consumidores, rodar full suite e fechar issue #58.</p></div></div>
+      <h3>Contrato de PR de cada passo</h3>
+      <p><code>preflight → teste falhando → implementação mínima → testes → push → review do latest head → correções → ready → squash merge → verificar main → atualizar resume/issue</code></p>
+      <p>Detalhes operacionais: <a href="execution-plan.md">execution-plan.md</a>. Estado de retomada: <a href="resume.md">resume.md</a>.</p>
+    </section>
+  </main>
+
+  <footer>
+    Documento autocontido e offline. Fonte de produto: <a href="prd.md">PRD</a> · Fonte técnica: <a href="design.md">Design</a> · Provas: <a href="test-plan.md">Test plan</a>
+  </footer>
+
+  <script>
+    const tabs = [...document.querySelectorAll('[role="tab"]')];
+    const panels = [...document.querySelectorAll('[role="tabpanel"]')];
+    function activate(tab, focus = true) {
+      tabs.forEach(item => item.setAttribute('aria-selected', String(item === tab)));
+      panels.forEach(panel => { panel.hidden = panel.id !== tab.getAttribute('aria-controls'); });
+      if (focus) tab.focus();
+      if (location.protocol !== 'file:') {
+        history.replaceState(null, '', '#' + tab.getAttribute('aria-controls'));
+      }
+    }
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => activate(tab, false));
+      tab.addEventListener('keydown', event => {
+        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        let next = index;
+        if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+        if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+        if (event.key === 'Home') next = 0;
+        if (event.key === 'End') next = tabs.length - 1;
+        activate(tabs[next]);
+      });
+    });
+    const initial = location.hash.slice(1);
+    const initialTab = tabs.find(tab => tab.getAttribute('aria-controls') === initial);
+    if (initialTab) activate(initialTab, false);
+  </script>
+</body>
+</html>
