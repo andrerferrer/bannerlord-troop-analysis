@@ -16,6 +16,7 @@ Data-driven troop analysis framework for Mount & Blade II: Bannerlord.
 - [`docs/methodology/ADR-001-combat-image-normalization.md`](docs/methodology/ADR-001-combat-image-normalization.md)
 - [`docs/methodology/ADR-005-spectacle-outlier-definition.md`](docs/methodology/ADR-005-spectacle-outlier-definition.md) — the one S+ / spectacle-outlier definition (owner: `scripts/scoring/outliers.py`)
 - [`docs/methodology/006_context_first_scoring_rules.md`](docs/methodology/006_context_first_scoring_rules.md) — standing operator rules for choosing simple, question-specific scoring drivers
+- [`plan/context-first-scoring-rework/index.html`](plan/context-first-scoring-rework/index.html) — locked 10-deliverable execution plan for the context-first scoring rework ([resume](plan/context-first-scoring-rework/resume.md))
 
 Current authoritative frozen models:
 

@@ -1,0 +1,401 @@
+# Locked execution plan: context-first scoring rework
+
+Status: **ready for execution after this planning PR merges**  
+Tracking issue: [#58](https://github.com/andrerferrer/bannerlord-troop-analysis/issues/58)  
+Source decision: `docs/methodology/006_context_first_scoring_rules.md`  
+Product contract: `plan/context-first-scoring-rework/prd.md`  
+Technical contract: `plan/context-first-scoring-rework/design.md`  
+Verification contract: `plan/context-first-scoring-rework/test-plan.md`
+
+## Objective
+
+Replace the composite-first scoring path with the smallest context-appropriate model:
+
+- defense: worn armor;
+- attack: validated weapon output;
+- general capability: armor and weapon output side by side, with no hidden blend;
+- finite bow/crossbow contexts: per-shot output multiplied by compatible usable ammunition;
+- siege defense: unlimited ammunition represented as per-shot output, never numeric infinity;
+- siege-defense cavalry: dismounted before driver selection.
+
+The rework is complete only when the approved candidate has passed the evidence and promotion gates, a new immutable model version has been published, consumers have been cut over, every implementation PR has been reviewed and squash-merged, and issue #58 can be closed. A blocked promotion verdict is an honest stopping point, not completion.
+
+## Executor contract
+
+Read `AGENTS.md`, then use `@execute-locked-plan`. Do not redesign while executing. Before every slice:
+
+1. fetch `origin/main` and create a fresh branch/worktree from it;
+2. confirm the worktree is clean and the step's assumptions still match the repository;
+3. run the step's baseline verification before editing;
+4. stop and report drift if the baseline, paths, schemas, or evidence differ materially;
+5. add the meaningful failing test first, implement only the step, and run focused plus regression tests;
+6. commit and push only the slice's files;
+7. open a draft PR targeting `main` and link issue #58;
+8. self-review the exact latest pushed head, fix every actionable finding, push, and repeat the latest-head review if the SHA changes;
+9. update the PR body, mark ready, squash-merge, and verify the PR is closed and the squash commit is present on `main`;
+10. update `resume.md` and issue #58 after the merge before beginning the next slice.
+
+Never force-push `main`, skip hooks, mix unrelated files, fabricate evidence, convert missing values to zero, or edit historical candidate/frozen bytes. Until Step 10, all generated candidate artifacts belong under `analysis/model_candidates/context_first_scores_v1/`.
+
+## Global invariants
+
+- Keep Realm of Thrones, vanilla/War Sails, Nightmare Sails, and TAOM separate.
+- Keep field, siege attack, and siege defense separate.
+- Keep player and enemy observations separate.
+- Treat a battle, not a troop row, as the independent empirical sample.
+- Require at least five independent battles and 20 deployed troops for displayed empirical evidence.
+- Exclude heroes and multiplayer troops from ordinary rankings.
+- Resolve identities only through versioned canonical track audits.
+- Leave incomplete values blank with stable review reason codes.
+- Publish raw inputs and provenance before ranks.
+- Preserve byte identity of existing historical candidates and frozen model versions.
+- Require deterministic, offline regeneration from pinned repository inputs.
+
+## Delivery sequence
+
+```text
+Step 1 -> Step 2 -> Step 3 -> Step 4 -> Step 5 -> Step 6
+                                              -> Step 7 -> Step 8 -> Step 9 -> Step 10
+```
+
+Steps 3 and 4 have independent code ownership after Step 2, but the default single-agent execution is sequential. Do not begin Step 5 until both are merged. Each numbered step is one independently reviewable PR.
+
+## Step 1 — Audit the current scoring paths
+
+**Purpose:** establish a reproducible baseline and identify exactly where current candidates answer the wrong question.
+
+**Branch:** `agent/context-first-01-audit`  
+**Primary files:**
+
+- `scripts/scoring/audit_context_first_candidates.py`
+- `tests/test_audit_context_first_candidates.py`
+- `analysis/model_candidates/context_first_scores_v1/CURRENT_CANDIDATE_AUDIT.md`
+
+**Actions:**
+
+1. Hash the existing `role_scores_v1`, `role_scores_v2_defense`, v7.1, v7.2, and v7.3 inputs/artifacts.
+2. Classify every formula input against context, question, attack mode, mount state, and ammunition policy.
+3. Flag mixed defense/offense, undeclared blends, shields-as-armor, mount/mobility/skill leakage, crafted-template proxies, missing-as-zero behavior, and finite-ammunition misuse.
+4. Emit file/field evidence and stable classifications; do not publish new rankings.
+5. Prove the audit changes no historical artifact.
+
+**Verify:**
+
+```bash
+python3 -m unittest -v tests.test_audit_context_first_candidates
+git diff --check
+```
+
+**Exit gate:** deterministic audit is committed; before/after historical hashes match; PR is reviewed, squash-merged, and verified on `main`.
+
+## Step 2 — Lock the declaration contract
+
+**Purpose:** make model intent explicit and reject invalid combinations before evidence is read.
+
+**Branch:** `agent/context-first-02-contract`  
+**Primary files:**
+
+- `scripts/scoring/context_first_contract.py`
+- `tests/test_context_first_contract.py`
+- `docs/methodology/007_context_first_scoring_candidate.md`
+- `analysis/model_candidates/context_first_scores_v1/declarations/`
+
+**Actions:**
+
+1. Implement the versioned declaration types and parser from the design.
+2. Validate candidate ID, track, context, question, attack mode, mount state, driver set, ammunition policy, source fields, aggregation, and combination rule.
+3. Reject `siege_defense + finite`, hidden secondary drivers, undeclared blends, and mounted siege-defense inputs.
+4. Add one declaration per intended candidate tuple, with pinned input hashes.
+5. Publish stable field-specific error codes.
+
+**Verify:**
+
+```bash
+python3 -m unittest -v tests.test_context_first_contract
+git diff --check
+```
+
+**Exit gate:** every valid tuple parses; every forbidden/missing combination fails before scoring; declarations and documentation agree; PR is merged and verified.
+
+## Step 3 — Implement the armor evidence lane
+
+**Purpose:** answer defense with worn armor only and preserve uncertainty.
+
+**Branch:** `agent/context-first-03-armor`  
+**Primary files:**
+
+- `scripts/scoring/context_first_equipment.py`
+- `tests/test_context_first_armor.py`
+- `tests/fixtures/context_first/armor/`
+
+**Actions:**
+
+1. Resolve assigned worn items per troop roster with source provenance.
+2. Publish head, body, arm, and leg values before aggregation.
+3. Apply only the declaration's armor aggregation; the initial candidate may declare the tested v7.1 weighted aggregation.
+4. Average alternative roster outcomes arithmetically while retaining every intermediate.
+5. Keep shields, weapons, mounts, harnesses, skills, and mobility out of this lane.
+6. Retain incomplete troops in complete output and queue them with stable blank-not-zero reasons.
+
+**Verify:**
+
+```bash
+python3 -m unittest -v tests.test_context_first_armor
+python3 -m unittest -v tests.test_defensive_role_scores_v2
+git diff --check
+```
+
+**Exit gate:** equal worn armor produces equal defense regardless of shield/weapon/skill/mount; incomplete evidence is blank and queued; PR is merged and verified.
+
+## Step 4 — Implement weapon evidence and fail-closed crafted stats
+
+**Purpose:** allow attack output only from direct or fully reconstructed, tooltip-validated weapon evidence.
+
+**Branch:** `agent/context-first-04-weapons`  
+**Primary files:**
+
+- `scripts/scoring/context_first_equipment.py`
+- `tests/test_context_first_weapon_evidence.py`
+- `scripts/normalization/reconstruct_crafted_weapon_stats.py` only if a compatible extension is required
+- `tests/fixtures/context_first/weapons/`
+
+**Actions:**
+
+1. Resolve every direct weapon attack row and publish its record/path provenance.
+2. Select the declared maximum valid swing/thrust damage for the initial melee candidate.
+3. Consume reconstructed crafted stats without weakening their completeness rules.
+4. Require PC piece/template catalogs plus the declared tooltip-validation result for crafted items.
+5. Reject template-name proxies, incomplete reconstruction, missing attack rows, non-finite values, and failed validation.
+6. Keep affected troop/item rows visible with blank results and stable review reasons.
+
+**Verify:**
+
+```bash
+python3 -m unittest -v tests.test_context_first_weapon_evidence tests.test_reconstruct_crafted_weapon_stats
+git diff --check
+```
+
+**Exit gate:** direct evidence reconstructs output; no crafted proxy or zero can enter a rank; current RoT gaps are quantified rather than hidden; PR is merged and verified.
+
+## Step 5 — Implement finite and unlimited ranged semantics
+
+**Purpose:** answer ranged attack using explicit compatible weapon/projectile pairings.
+
+**Branch:** `agent/context-first-05-ranged`  
+**Primary files:**
+
+- `scripts/scoring/context_first_ranged.py`
+- `tests/test_context_first_ranged.py`
+- `tests/fixtures/context_first/ranged/`
+
+**Actions:**
+
+1. Pair bows only with arrows and crossbows only with bolts from the same roster.
+2. Publish weapon damage, projectile contribution, per-shot output, stack identities, and usable ammunition count.
+3. Outside siege defense, calculate `per_shot_output * total_compatible_ammunition`.
+4. Keep alternative weapons as separate pairings and average alternatives only after publishing intermediates.
+5. In siege defense, force `ammunition_policy=unlimited`, compare per-shot output, ignore stack count, and emit no infinity.
+6. Fail closed on missing compatibility or damage evidence.
+
+**Verify:**
+
+```bash
+python3 -m unittest -v tests.test_context_first_ranged
+git diff --check
+```
+
+**Exit gate:** compatible stacks sum once, alternative weapons do not double-use ammunition, unlimited results are stack-invariant, and PR is merged and verified.
+
+## Step 6 — Apply context before selecting drivers
+
+**Purpose:** centralize question/context policy, including dismounted siege cavalry.
+
+**Branch:** `agent/context-first-06-engine`  
+**Primary files:**
+
+- `scripts/scoring/context_first_engine.py`
+- `tests/test_context_first_engine.py`
+
+**Actions:**
+
+1. Transform declaration plus troop metadata into an effective scoring context.
+2. Force every siege-defense cavalry roster to `dismounted` before evidence selection.
+3. Remove Riding, mount, harness, charge, horse speed/maneuver/health, and mounted normalization inputs.
+4. Select armor for defense, weapon output for attack, and both independent components for general capability.
+5. Preserve the original track, context, question, attack mode, and transformation provenance.
+6. Reject any attempt to inject an undeclared secondary driver.
+
+**Verify:**
+
+```bash
+python3 -m unittest -v tests.test_context_first_engine
+git diff --check
+```
+
+**Exit gate:** cavalry and infantry with equal worn armor/weapon evidence score equally in siege defense; all valid tuples select only declared drivers; PR is merged and verified.
+
+## Step 7 — Generate simple candidate outputs
+
+**Purpose:** create complete, rankable, and review artifacts without a universal score.
+
+**Branch:** `agent/context-first-07-outputs`  
+**Primary files:**
+
+- `scripts/scoring/generate_context_first_scores.py`
+- `tests/test_context_first_scores.py`
+- `analysis/model_candidates/context_first_scores_v1/<track>/<context>/<question>/<attack_mode>/`
+
+**Actions:**
+
+1. Compose the contract, evidence resolvers, ranged policy, and context engine.
+2. Emit complete rows, rankable rows, and review queues per declaration.
+3. Rank defense by armor and attack by weapon output within one track/context population.
+4. For general capability, show armor and weapon components/ranks side by side and leave combined score/rank blank.
+5. Exclude heroes and multiplayer troops from ordinary ranks without erasing audit rows.
+6. Use stable ordering, decimal serialization, reason codes, and source references.
+
+**Verify:**
+
+```bash
+python3 -m unittest -v tests.test_context_first_scores
+git diff --check
+```
+
+**Exit gate:** AC-3 through AC-12 pass; no cross-track/context population exists; all rank inputs are reconstructible; PR is merged and verified.
+
+## Step 8 — Publish deterministic reports and RoT top 10s
+
+**Purpose:** make the candidate inspectable and reproducible with one offline command.
+
+**Branch:** `agent/context-first-08-reports`  
+**Primary files:**
+
+- `scripts/scoring/write_context_first_reports.py`
+- `tests/test_context_first_reports.py`
+- `analysis/model_candidates/context_first_scores_v1/README.md`
+- `analysis/model_candidates/context_first_scores_v1/artifact_hashes.csv`
+- `analysis/model_candidates/context_first_scores_v1/realm_of_thrones/TOP10.md`
+
+**Actions:**
+
+1. Generate metadata plus input/output SHA-256 manifests.
+2. Publish direct evidence tables before rankings and summarize review queues.
+3. Produce separate RoT top-10 tables for each rankable defense/attack tuple.
+4. Show general armor/weapon components side by side, not a synthetic top-10 blend.
+5. If fewer than ten rows are rankable, publish the actual rows plus exact evidence reasons.
+6. Build in a staging directory, verify hashes, and replace only the candidate-owned generated subtree atomically.
+7. Document the exact single-command regeneration path.
+
+**Verify:**
+
+```bash
+python3 -m unittest -v tests.test_context_first_reports
+python3 scripts/scoring/generate_context_first_scores.py
+python3 scripts/scoring/write_context_first_reports.py
+python3 scripts/scoring/generate_context_first_scores.py
+python3 scripts/scoring/write_context_first_reports.py
+git diff --exit-code -- analysis/model_candidates/context_first_scores_v1
+git diff --check
+```
+
+**Exit gate:** isolated reruns are byte-identical; manifests verify; RoT tables are honest about blocked lanes; PR is merged and verified.
+
+## Step 9 — Close evidence gaps and pass the empirical promotion gate
+
+**Purpose:** prove the candidate is reproducible and empirically eligible without pooling or leakage.
+
+**Branch:** `agent/context-first-09-validation`  
+**Primary files:**
+
+- `scripts/scoring/validate_context_first_candidate.py`
+- `tests/test_context_first_validation.py`
+- `analysis/model_candidates/context_first_scores_v1/VALIDATION_REPORT.md`
+- `analysis/model_candidates/context_first_scores_v1/promotion_gate.json`
+- repository-owned evidence/audit files needed to close declared gaps
+
+**Actions:**
+
+1. Inventory unresolved canonical IDs, required crafting catalogs/tooltip checks, and missing battle-context coverage.
+2. Generate exact acquisition requests for evidence not present in the repository. Do not infer or synthesize it.
+3. Ingest new evidence through the repository's normalization/analysis protocol when it arrives.
+4. Join theoretical rows only through verified canonical IDs and preserve track, context, and side.
+5. Enforce five independent battles and 20 deployed troops for display.
+6. Compute uncertainty at battle level and use grouped-by-battle out-of-sample comparisons.
+7. Run controlled-evidence checks, reproducibility checks, limitation review, and candidate-to-manifest verification.
+8. Emit a machine-readable `pass` or `blocked` verdict with exact failed gates.
+
+**Verify:**
+
+```bash
+python3 -m unittest -v tests.test_context_first_validation tests.test_gate_status
+python3 scripts/scoring/validate_context_first_candidate.py
+git diff --check
+```
+
+**Hard stop:** if RoT crafted melee evidence, canonical IDs, siege-defense battles, or another declared input is still insufficient, merge the honest validation/reporting slice if it is useful, set `resume.md` to `blocked_at: D9`, update issue #58 with the acquisition request, and stop. Do not start Step 10 and do not call the rework complete.
+
+**Exit gate:** `promotion_gate.json` is `pass`, every input is repository-addressable, boundary and uncertainty checks pass, the validation PR is merged and verified.
+
+## Step 10 — Promote a new immutable version and cut over
+
+**Purpose:** complete the rework only after Step 9 passes.
+
+**Branch:** `agent/context-first-10-promote`  
+**Primary files:**
+
+- one new directory under `analysis/model_versions/`
+- `README.md`
+- `docs/research/EXECUTION_TRACKER.md`
+- context-first entry-point documentation and tests
+
+**Actions:**
+
+1. Reconfirm that the latest machine-readable Step 9 verdict is `pass` and its hashes match the candidate head.
+2. Record SHA-256 hashes of every pre-existing historical candidate and frozen model artifact.
+3. Copy the approved candidate into a new versioned immutable package; do not edit any existing version.
+4. Point new scoring/report entry points and documentation to the promoted version while keeping historical commands available.
+5. Regenerate the candidate twice and prove it matches the promoted package.
+6. Run the full suite and verify every pre-existing hash remains unchanged.
+7. Complete the latest-head self-review, squash merge, and post-merge verification.
+8. Update and close issue #58 only after verifying `main`; mark `resume.md` complete and remove `plan/.active-plan` in a final documentation-only commit/PR if required by repository policy.
+
+**Verify:**
+
+```bash
+python3 -m unittest discover -v
+python3 scripts/scoring/generate_context_first_scores.py
+python3 scripts/scoring/write_context_first_reports.py
+python3 scripts/scoring/validate_context_first_candidate.py
+git diff --check
+```
+
+**Exit gate / definition of done:**
+
+- promotion verdict is `pass` and matches the promoted bytes;
+- a new immutable model version exists;
+- all previous model/candidate bytes are unchanged;
+- defense, attack, general, ranged, and siege-defense rules have feature coverage;
+- deterministic regeneration succeeds twice;
+- RoT top-10 views expose evidence-backed results or documented population limits;
+- all ten PRs are reviewed, squash-merged, and verified on `main`;
+- issue #58 is closed with links to the version, validation report, and final PR;
+- no active blocker or unchecked acceptance criterion remains.
+
+## Stop and escalation conditions
+
+Stop at the current step and update `resume.md` when any of these occurs:
+
+- repository reality contradicts the PRD/design/test contract;
+- a required change would modify a historical candidate or existing frozen version;
+- a proposed score needs an undeclared driver or blend;
+- required weapon, armor, canonical identity, or battle evidence is absent;
+- a focused or regression test fails outside the step's authorized scope;
+- deterministic reruns differ;
+- latest-head review finds an issue the step cannot fix without scope expansion;
+- GitHub prevents review, readying, merge, or verification.
+
+The escalation must include the current commit, exact failing command, relevant artifact/reason code, smallest proposed plan correction, and whether prior merged slices remain valid.
+
+## Operator handoff prompt
+
+> Execute `plan/context-first-scoring-rework/execution-plan.md` from the first incomplete step. Read `AGENTS.md`, `plan/context-first-scoring-rework/resume.md`, the PRD, design, and test plan before editing. Apply `@execute-locked-plan`; do not re-plan. Deliver one numbered step per PR to `main`, with meaningful tests, exact-head self-review, fixes, squash merge, post-merge verification, and resume/issue updates. Stop on drift. At Step 9, never fabricate missing evidence; record an exact blocked acquisition request. Do not start Step 10 until `promotion_gate.json` says `pass` for the exact candidate hashes. Continue until the definition of done is fully true or a documented hard stop requires operator evidence.
