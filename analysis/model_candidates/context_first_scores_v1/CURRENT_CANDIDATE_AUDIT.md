@@ -7,24 +7,24 @@ scoring sources, and frozen model versions are read and hashed but never modifie
 
 ## Scope
 
-- Findings: 58
-- Protected files: 120
-- Baseline manifest SHA-256: `2128641036518bab061e390a8db0d35846a37f91d34f8e41f67c812c1ac5d113`
-- Explicit absent artifacts: 4
+- Findings: 77
+- Protected files: 121
+- Baseline manifest SHA-256: `7ae42d15a19bffa2bb323c88352c625a4da54f109964b00e3f4681bd5487c274`
+- Explicit absent artifacts: 9
 
 ## Departure counts
 
 | Departure code | Count |
 |---|---:|
-| `AMMUNITION_POLICY_UNDECLARED` | 4 |
-| `ATTACK_MODE_UNDECLARED` | 4 |
-| `CONTEXT_UNDECLARED` | 4 |
-| `IRRELEVANT_DRIVER_INCLUDED` | 18 |
-| `MISSING_VALUE_ZERO_FILLED` | 5 |
-| `MOUNTED_INPUT_NON_APPLICABLE` | 4 |
-| `MOUNT_STATE_UNDECLARED` | 4 |
-| `QUESTION_MIXED` | 7 |
-| `SOURCE_ARTIFACT_ABSENT` | 4 |
+| `AMMUNITION_POLICY_UNDECLARED` | 5 |
+| `ATTACK_MODE_UNDECLARED` | 5 |
+| `CONTEXT_UNDECLARED` | 5 |
+| `IRRELEVANT_DRIVER_INCLUDED` | 22 |
+| `MISSING_VALUE_ZERO_FILLED` | 6 |
+| `MOUNTED_INPUT_NON_APPLICABLE` | 5 |
+| `MOUNT_STATE_UNDECLARED` | 5 |
+| `QUESTION_MIXED` | 11 |
+| `SOURCE_ARTIFACT_ABSENT` | 9 |
 | `TEMPLATE_PROXY_USED` | 4 |
 
 ## Finding inventory
@@ -78,6 +78,25 @@ v7.2,scripts/build_v72_burst_score.py,96e1273aa0a0cc00dab6e5fdcebf5cf6cc427f7f7b
 v7.2,scripts/build_v72_burst_score.py,96e1273aa0a0cc00dab6e5fdcebf5cf6cc427f7f7b572a2afa5a70034bbc5e9c,false,false,false,false,MOUNT_STATE_UNDECLARED,mounted_throw_bonus,Mounted state is inferred from input rather than declared before scoring.
 v7.2,scripts/build_v72_burst_score.py,96e1273aa0a0cc00dab6e5fdcebf5cf6cc427f7f7b572a2afa5a70034bbc5e9c,false,false,false,false,QUESTION_MIXED,burst_score_v72,Burst offense is blended with reliability and v7.1 defense.
 v7.2,analysis/model_versions/v7.2_burst_score/bannerlord_v72_burst_model_all_official_troops.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,full burst model CSV,"The v7.2 builder publishes this full model output, but its bytes are not present in the checkout."
+v7.2_context_scores,analysis/model/v7_2_context_scoring/build_v72_context_scores.py,b44af24f0dc86fdb6630e1fa3bead8c83724b020ae2053d4f6f2b184336fba8d,false,false,false,false,AMMUNITION_POLICY_UNDECLARED,throw_ammo/ranged_ammo/ranged_siege,Finite ammunition and capacity affect burst and siege-defense output without an explicit context policy.
+v7.2_context_scores,analysis/model/v7_2_context_scoring/build_v72_context_scores.py,b44af24f0dc86fdb6630e1fa3bead8c83724b020ae2053d4f6f2b184336fba8d,false,false,false,false,ATTACK_MODE_UNDECLARED,"burst_core=max(throw,ranged,melee,charge)","Throwing, ranged, melee, and charge families compete inside one burst output."
+v7.2_context_scores,analysis/model/v7_2_context_scoring/build_v72_context_scores.py,b44af24f0dc86fdb6630e1fa3bead8c83724b020ae2053d4f6f2b184336fba8d,false,false,false,false,CONTEXT_UNDECLARED,context score declaration,"One input produces burst, short-engagement, and siege-defense outputs without a validated track/context tuple."
+v7.2_context_scores,analysis/model/v7_2_context_scoring/build_v72_context_scores.py,b44af24f0dc86fdb6630e1fa3bead8c83724b020ae2053d4f6f2b184336fba8d,false,false,false,false,IRRELEVANT_DRIVER_INCLUDED,formation_floor and composite carryover,"Category plus offense, defense, reliability, and v7.1 total composites affect context outputs."
+v7.2_context_scores,analysis/model/v7_2_context_scoring/build_v72_context_scores.py,b44af24f0dc86fdb6630e1fa3bead8c83724b020ae2053d4f6f2b184336fba8d,false,false,false,false,IRRELEVANT_DRIVER_INCLUDED,melee_shock,"Melee KPM, damage, reach, class, shield state, and damage type enter output."
+v7.2_context_scores,analysis/model/v7_2_context_scoring/build_v72_context_scores.py,b44af24f0dc86fdb6630e1fa3bead8c83724b020ae2053d4f6f2b184336fba8d,false,false,false,false,IRRELEVANT_DRIVER_INCLUDED,ranged_burst,"Ranged KPM, damage, ammo, expected capacity, class bonuses, and reliability enter output."
+v7.2_context_scores,analysis/model/v7_2_context_scoring/build_v72_context_scores.py,b44af24f0dc86fdb6630e1fa3bead8c83724b020ae2053d4f6f2b184336fba8d,false,false,false,false,IRRELEVANT_DRIVER_INCLUDED,throw_burst,"Throwing composites, three ammunition proxies, damage, damage type, skill, and mounted state enter output."
+v7.2_context_scores,analysis/model/v7_2_context_scoring/build_v72_context_scores.py,b44af24f0dc86fdb6630e1fa3bead8c83724b020ae2053d4f6f2b184336fba8d,false,false,false,false,MISSING_VALUE_ZERO_FILLED,"num(series, default=0.0)",Missing and non-numeric inputs are coerced and filled with zero throughout the builder.
+v7.2_context_scores,analysis/model/v7_2_context_scoring/build_v72_context_scores.py,b44af24f0dc86fdb6630e1fa3bead8c83724b020ae2053d4f6f2b184336fba8d,false,false,false,false,MOUNTED_INPUT_NON_APPLICABLE,throw_mounted_bonus and charge,Mounted bonuses can enter outputs without a siege-defense dismount boundary.
+v7.2_context_scores,analysis/model/v7_2_context_scoring/build_v72_context_scores.py,b44af24f0dc86fdb6630e1fa3bead8c83724b020ae2053d4f6f2b184336fba8d,false,false,false,false,MOUNT_STATE_UNDECLARED,throw_mounted_bonus and charge,Mounted state is inferred from source columns instead of declared before scoring.
+v7.2_context_scores,analysis/model/v7_2_context_scoring/build_v72_context_scores.py,b44af24f0dc86fdb6630e1fa3bead8c83724b020ae2053d4f6f2b184336fba8d,false,false,false,false,QUESTION_MIXED,burst_score_v72,Burst attack is blended with reliability and v7.1 defense.
+v7.2_context_scores,analysis/model/v7_2_context_scoring/build_v72_context_scores.py,b44af24f0dc86fdb6630e1fa3bead8c83724b020ae2053d4f6f2b184336fba8d,false,false,false,false,QUESTION_MIXED,general_score_v72,A pre-existing total composite is carried forward as a general answer.
+v7.2_context_scores,analysis/model/v7_2_context_scoring/build_v72_context_scores.py,b44af24f0dc86fdb6630e1fa3bead8c83724b020ae2053d4f6f2b184336fba8d,false,false,false,false,QUESTION_MIXED,short_engagement_score_v72,"Burst, offense, reliability, and defense are blended into one answer."
+v7.2_context_scores,analysis/model/v7_2_context_scoring/build_v72_context_scores.py,b44af24f0dc86fdb6630e1fa3bead8c83724b020ae2053d4f6f2b184336fba8d,false,false,false,false,QUESTION_MIXED,siege_defense_score_v72,"Ranged/throwing offense, defense, reliability, ammunition, and a formation floor are blended for siege defense."
+v7.2_context_scores,analysis/model/v7_2_context_scoring/bannerlord_v72_context_scores_all_official_troops.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,bannerlord_v72_context_scores_all_official_troops.csv,"The context-score builder declares this output filename, but no repository-addressable artifact is present in the checkout."
+v7.2_context_scores,analysis/model/v7_2_context_scoring/bannerlord_v72_top40_burst_regular.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,bannerlord_v72_top40_burst_regular.csv,"The context-score builder declares this output filename, but no repository-addressable artifact is present in the checkout."
+v7.2_context_scores,analysis/model/v7_2_context_scoring/bannerlord_v72_top40_short_engagement_regular.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,bannerlord_v72_top40_short_engagement_regular.csv,"The context-score builder declares this output filename, but no repository-addressable artifact is present in the checkout."
+v7.2_context_scores,analysis/model/v7_2_context_scoring/bannerlord_v72_top40_siege_defense_regular.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,bannerlord_v72_top40_siege_defense_regular.csv,"The context-score builder declares this output filename, but no repository-addressable artifact is present in the checkout."
+v7.2_context_scores,analysis/model/v7_2_context_scoring/bannerlord_v72_top40_throwing_burst_regular.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,bannerlord_v72_top40_throwing_burst_regular.csv,"The context-score builder declares this output filename, but no repository-addressable artifact is present in the checkout."
 v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c486a15febe9c37f9d4ec6cd044645dd,false,false,false,false,AMMUNITION_POLICY_UNDECLARED,throw_ammo_factor_v73,Finite ammunition is used without a field/siege policy.
 v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c486a15febe9c37f9d4ec6cd044645dd,false,false,false,false,ATTACK_MODE_UNDECLARED,burst_source_v73,"Throw, ranged, charge, and melee sources compete inside one output."
 v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c486a15febe9c37f9d4ec6cd044645dd,false,false,false,false,CONTEXT_UNDECLARED,burst_score_v73,The burst label does not declare track and battle context as a validated tuple.

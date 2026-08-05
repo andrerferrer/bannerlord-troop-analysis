@@ -38,6 +38,7 @@ AUDIT_FIELDS = (
 BASELINE_FIELDS = ("path", "bytes", "sha256", "immutability_class")
 
 AUDITED_SOURCES = (
+    "analysis/model/v7_2_context_scoring/build_v72_context_scores.py",
     "scripts/scoring/generate_vanilla_role_scores.py",
     "scripts/scoring/run_theoretical_role_scores.py",
     "scripts/scoring/generate_defensive_role_scores_v2.py",
@@ -64,6 +65,14 @@ EXPECTED_V73_MODEL = (
 EXPECTED_V721_TOOLTIP_MODEL = (
     "analysis/model_versions/v7.2.1_tooltip_throw_validation/"
     "bannerlord_v721_tooltip_throw_model_all_official_troops.csv"
+)
+
+EXPECTED_V72_CONTEXT_OUTPUTS = (
+    "analysis/model/v7_2_context_scoring/bannerlord_v72_context_scores_all_official_troops.csv",
+    "analysis/model/v7_2_context_scoring/bannerlord_v72_top40_burst_regular.csv",
+    "analysis/model/v7_2_context_scoring/bannerlord_v72_top40_short_engagement_regular.csv",
+    "analysis/model/v7_2_context_scoring/bannerlord_v72_top40_siege_defense_regular.csv",
+    "analysis/model/v7_2_context_scoring/bannerlord_v72_top40_throwing_burst_regular.csv",
 )
 
 
@@ -123,7 +132,8 @@ def _specs() -> tuple[FindingSpec, ...]:
     v2 = "scripts/scoring/generate_defensive_role_scores_v2.py"
     v72 = "scripts/build_v72_burst_score.py"
     v73 = "scripts/build_v73_tooltip_damage_burst.py"
-    return (
+    v72_context = "analysis/model/v7_2_context_scoring/build_v72_context_scores.py"
+    findings = (
         FindingSpec("role_scores_v1", v1, False, False, False, False, "CONTEXT_UNDECLARED", "candidate declaration", "No track/battle-context declaration is validated before formulas run."),
         FindingSpec("role_scores_v1", v1, False, False, False, False, "ATTACK_MODE_UNDECLARED", "candidate declaration", "Melee, ranged, throwing, and defense paths are built together."),
         FindingSpec("role_scores_v1", v1, False, False, False, False, "MOUNT_STATE_UNDECLARED", "candidate declaration", "Roster horse presence changes formulas without a declared mount-state question."),
@@ -182,7 +192,36 @@ def _specs() -> tuple[FindingSpec, ...]:
         FindingSpec("v7.3", v73, False, False, False, False, "MISSING_VALUE_ZERO_FILLED", "burst inputs", "Missing damage/ammunition/reliability/defense values are filled with zero."),
         FindingSpec("v7.3", v73, False, False, False, False, "AMMUNITION_POLICY_UNDECLARED", "throw_ammo_factor_v73", "Finite ammunition is used without a field/siege policy."),
         FindingSpec("v7.3", v73, False, False, False, False, "MOUNTED_INPUT_NON_APPLICABLE", "mounted_throw_bonus_v73", "The mounted bonus has no siege-defense dismount boundary."),
+        FindingSpec("v7.2_context_scores", v72_context, False, False, False, False, "CONTEXT_UNDECLARED", "context score declaration", "One input produces burst, short-engagement, and siege-defense outputs without a validated track/context tuple."),
+        FindingSpec("v7.2_context_scores", v72_context, False, False, False, False, "ATTACK_MODE_UNDECLARED", "burst_core=max(throw,ranged,melee,charge)", "Throwing, ranged, melee, and charge families compete inside one burst output."),
+        FindingSpec("v7.2_context_scores", v72_context, False, False, False, False, "MOUNT_STATE_UNDECLARED", "throw_mounted_bonus and charge", "Mounted state is inferred from source columns instead of declared before scoring."),
+        FindingSpec("v7.2_context_scores", v72_context, False, False, False, False, "QUESTION_MIXED", "general_score_v72", "A pre-existing total composite is carried forward as a general answer."),
+        FindingSpec("v7.2_context_scores", v72_context, False, False, False, False, "QUESTION_MIXED", "burst_score_v72", "Burst attack is blended with reliability and v7.1 defense."),
+        FindingSpec("v7.2_context_scores", v72_context, False, False, False, False, "QUESTION_MIXED", "short_engagement_score_v72", "Burst, offense, reliability, and defense are blended into one answer."),
+        FindingSpec("v7.2_context_scores", v72_context, False, False, False, False, "QUESTION_MIXED", "siege_defense_score_v72", "Ranged/throwing offense, defense, reliability, ammunition, and a formation floor are blended for siege defense."),
+        FindingSpec("v7.2_context_scores", v72_context, False, False, False, False, "IRRELEVANT_DRIVER_INCLUDED", "throw_burst", "Throwing composites, three ammunition proxies, damage, damage type, skill, and mounted state enter output."),
+        FindingSpec("v7.2_context_scores", v72_context, False, False, False, False, "IRRELEVANT_DRIVER_INCLUDED", "ranged_burst", "Ranged KPM, damage, ammo, expected capacity, class bonuses, and reliability enter output."),
+        FindingSpec("v7.2_context_scores", v72_context, False, False, False, False, "IRRELEVANT_DRIVER_INCLUDED", "melee_shock", "Melee KPM, damage, reach, class, shield state, and damage type enter output."),
+        FindingSpec("v7.2_context_scores", v72_context, False, False, False, False, "IRRELEVANT_DRIVER_INCLUDED", "formation_floor and composite carryover", "Category plus offense, defense, reliability, and v7.1 total composites affect context outputs."),
+        FindingSpec("v7.2_context_scores", v72_context, False, False, False, False, "MISSING_VALUE_ZERO_FILLED", "num(series, default=0.0)", "Missing and non-numeric inputs are coerced and filled with zero throughout the builder."),
+        FindingSpec("v7.2_context_scores", v72_context, False, False, False, False, "AMMUNITION_POLICY_UNDECLARED", "throw_ammo/ranged_ammo/ranged_siege", "Finite ammunition and capacity affect burst and siege-defense output without an explicit context policy."),
+        FindingSpec("v7.2_context_scores", v72_context, False, False, False, False, "MOUNTED_INPUT_NON_APPLICABLE", "throw_mounted_bonus and charge", "Mounted bonuses can enter outputs without a siege-defense dismount boundary."),
     )
+    absent_outputs = tuple(
+        FindingSpec(
+            "v7.2_context_scores",
+            path,
+            False,
+            False,
+            False,
+            False,
+            "SOURCE_ARTIFACT_ABSENT",
+            Path(path).name,
+            "The context-score builder declares this output filename, but no repository-addressable artifact is present in the checkout.",
+        )
+        for path in EXPECTED_V72_CONTEXT_OUTPUTS
+    )
+    return findings + absent_outputs
 
 
 def build_findings(repo: Path) -> tuple[AuditFinding, ...]:
@@ -335,6 +374,11 @@ def build_working_tree_baseline(repo: Path) -> tuple[BaselineRow, ...]:
         if _historical_output(relative):
             parts = relative.split("/")
             roots[repo / "/".join(parts[:4])] = "historical_output"
+    theoretical_root = repo / "analysis/theoretical"
+    if theoretical_root.exists():
+        for export_root in theoretical_root.rglob("export_20260731_150800"):
+            if export_root.is_dir() or export_root.is_symlink():
+                roots[export_root] = "historical_output"
 
     for root, classification in sorted(
         roots.items(), key=lambda item: item[0].as_posix()
@@ -405,6 +449,16 @@ def verify_historical_baseline(
 
     extras = sorted(set(current) - set(committed))
     allowed_prefix = _allowed_version_prefix(allowed_new_version)
+    reserved_namespaces = {
+        Path(spec.source_path).parts[2]
+        for spec in _specs()
+        if spec.departure_code == "SOURCE_ARTIFACT_ABSENT"
+        and spec.source_path.startswith("analysis/model_versions/")
+    }
+    if allowed_new_version in reserved_namespaces:
+        raise AuditError(
+            f"allowed new model version is a reserved historical namespace: {allowed_new_version}"
+        )
     if allowed_prefix is not None and any(
         path.startswith(allowed_prefix) for path in committed
     ):

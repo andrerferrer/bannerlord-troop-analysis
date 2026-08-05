@@ -76,6 +76,11 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             ),
             ("v7.1", "SOURCE_ARTIFACT_ABSENT", "general model CSV"),
             ("v7.2", "SOURCE_ARTIFACT_ABSENT", "full burst model CSV"),
+            (
+                "v7.2_context_scores",
+                "QUESTION_MIXED",
+                "siege_defense_score_v72",
+            ),
             ("v7.2", "QUESTION_MIXED", "burst_score_v72"),
             (
                 "v7.2",
@@ -103,6 +108,11 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
                 "analysis/model_versions/v7.2_burst_score/bannerlord_v72_burst_model_all_official_troops.csv",
                 "analysis/model_versions/v7.2.1_tooltip_throw_validation/bannerlord_v721_tooltip_throw_model_all_official_troops.csv",
                 "analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_tooltip_damage_burst_model_all_official_troops.csv",
+                "analysis/model/v7_2_context_scoring/bannerlord_v72_context_scores_all_official_troops.csv",
+                "analysis/model/v7_2_context_scoring/bannerlord_v72_top40_burst_regular.csv",
+                "analysis/model/v7_2_context_scoring/bannerlord_v72_top40_short_engagement_regular.csv",
+                "analysis/model/v7_2_context_scoring/bannerlord_v72_top40_siege_defense_regular.csv",
+                "analysis/model/v7_2_context_scoring/bannerlord_v72_top40_throwing_burst_regular.csv",
             },
             absent_paths,
         )
@@ -159,6 +169,10 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
         )
         self.assertIn("scripts/scoring/generate_vanilla_role_scores.py", paths)
         self.assertIn("scripts/build_v73_tooltip_damage_burst.py", paths)
+        self.assertIn(
+            "analysis/model/v7_2_context_scoring/build_v72_context_scores.py",
+            paths,
+        )
         self.assertIn(
             "data/vanilla/role_scores/vanilla_sanity_role_scores_v1.csv", paths
         )
@@ -236,12 +250,24 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
 
         with mock.patch.object(
             audit, "build_historical_baseline", return_value=rows + (promoted,)
-        ), self.assertRaisesRegex(audit.AuditError, "already exists"):
+        ), self.assertRaisesRegex(
+            audit.AuditError, "already exists|historical namespace"
+        ):
             audit.verify_historical_baseline(
                 REPO_ROOT,
                 committed,
                 allowed_new_version="v7.3_tooltip_damage_burst",
             )
+
+        for reserved_version in ("v7.1", "v7.2.1_tooltip_throw_validation"):
+            with mock.patch.object(
+                audit, "build_historical_baseline", return_value=rows
+            ), self.assertRaisesRegex(audit.AuditError, "historical namespace"):
+                audit.verify_historical_baseline(
+                    REPO_ROOT,
+                    committed,
+                    allowed_new_version=reserved_version,
+                )
 
     def test_untracked_protected_additions_are_visible_to_promotion_verification(
         self,
@@ -250,59 +276,84 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             REPO_ROOT
             / "analysis/model_candidates/context_first_scores_v1/historical_baseline_hashes.csv"
         )
-        version_name = "D10_TEST_UNTRACKED_MUST_NOT_PERSIST"
-        version_dir = REPO_ROOT / "analysis/model_versions" / version_name
-        addition = version_dir / "model.csv"
-        version_dir.mkdir()
-        self.addCleanup(version_dir.rmdir)
-        addition.write_bytes(b"new model\n")
-        self.addCleanup(addition.unlink)
-
-        with self.assertRaisesRegex(audit.AuditError, "unexpected protected path"):
-            audit.verify_historical_baseline(REPO_ROOT, committed)
-
-        verified = audit.verify_historical_baseline(
-            REPO_ROOT,
-            committed,
-            allowed_new_version=version_name,
-        )
-        self.assertIn(
-            addition.relative_to(REPO_ROOT).as_posix(),
-            {row.path for row in verified},
-        )
-
         with tempfile.TemporaryDirectory() as temp_dir:
-            report = Path(temp_dir) / "audit.md"
-            findings, published_rows = audit.write_audit(
-                REPO_ROOT,
-                report,
-                committed,
-                allowed_new_version=version_name,
+            temp_repo = Path(temp_dir)
+            candidate_root = (
+                temp_repo / "analysis/model_candidates/context_first_scores_v1"
             )
-            self.assertEqual(58, len(findings))
-            self.assertEqual(verified, published_rows)
-            self.assertEqual(
-                (
-                    REPO_ROOT
-                    / "analysis/model_candidates/context_first_scores_v1/"
-                    "CURRENT_CANDIDATE_AUDIT.md"
-                ).read_bytes(),
-                report.read_bytes(),
+            candidate_root.mkdir(parents=True)
+            temp_baseline = candidate_root / "historical_baseline_hashes.csv"
+            temp_baseline.write_bytes(committed.read_bytes())
+            rows = audit._parse_baseline(committed.read_bytes())
+            findings = audit.build_findings(REPO_ROOT)
+            version_name = "v8_context_first"
+            addition = (
+                temp_repo
+                / "analysis/model_versions"
+                / version_name
+                / "model.csv"
             )
+            addition.parent.mkdir(parents=True)
+            addition.write_bytes(b"new model\n")
 
-        existing_addition = (
+            with mock.patch.object(
+                audit, "build_historical_baseline", return_value=rows
+            ), mock.patch.object(audit, "_tracked_files", return_value=()):
+                with self.assertRaisesRegex(
+                    audit.AuditError, "unexpected protected path"
+                ):
+                    audit.verify_historical_baseline(temp_repo, temp_baseline)
+
+                verified = audit.verify_historical_baseline(
+                    temp_repo,
+                    temp_baseline,
+                    allowed_new_version=version_name,
+                )
+                self.assertIn(
+                    addition.relative_to(temp_repo).as_posix(),
+                    {row.path for row in verified},
+                )
+
+                with mock.patch.object(
+                    audit, "build_findings", return_value=findings
+                ):
+                    report = candidate_root / "CURRENT_CANDIDATE_AUDIT.md"
+                    _, published_rows = audit.write_audit(
+                        temp_repo,
+                        report,
+                        temp_baseline,
+                        allowed_new_version=version_name,
+                    )
+                self.assertEqual(verified, published_rows)
+
+    def test_entirely_untracked_theoretical_export_root_is_rejected(self) -> None:
+        committed = (
             REPO_ROOT
-            / "analysis/model_versions/v7.3_tooltip_damage_burst/"
-            "D10_TEST_MUST_NOT_EXTEND.csv"
+            / "analysis/model_candidates/context_first_scores_v1/historical_baseline_hashes.csv"
         )
-        existing_addition.write_bytes(b"forbidden\n")
-        self.addCleanup(existing_addition.unlink)
-        with self.assertRaisesRegex(audit.AuditError, "already exists"):
-            audit.verify_historical_baseline(
-                REPO_ROOT,
-                committed,
-                allowed_new_version="v7.3_tooltip_damage_burst",
+        rows = audit._parse_baseline(committed.read_bytes())
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_repo = Path(temp_dir)
+            temp_baseline = (
+                temp_repo
+                / "analysis/model_candidates/context_first_scores_v1/"
+                "historical_baseline_hashes.csv"
             )
+            temp_baseline.parent.mkdir(parents=True)
+            temp_baseline.write_bytes(committed.read_bytes())
+            addition = (
+                temp_repo
+                / "analysis/theoretical/new_track/export_20260731_150800/"
+                "untracked.csv"
+            )
+            addition.parent.mkdir(parents=True)
+            addition.write_bytes(b"historical output\n")
+            with mock.patch.object(
+                audit, "build_historical_baseline", return_value=rows
+            ), mock.patch.object(
+                audit, "_tracked_files", return_value=()
+            ), self.assertRaisesRegex(audit.AuditError, "unexpected protected path"):
+                audit.verify_historical_baseline(temp_repo, temp_baseline)
 
     def test_generation_is_deterministic_and_does_not_mutate_history(self) -> None:
         protected_before = {
