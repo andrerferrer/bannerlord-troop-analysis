@@ -7,10 +7,10 @@ scoring sources, and frozen model versions are read and hashed but never modifie
 
 ## Scope
 
-- Findings: 77
+- Findings: 78
 - Protected files: 121
 - Baseline manifest SHA-256: `7ae42d15a19bffa2bb323c88352c625a4da54f109964b00e3f4681bd5487c274`
-- Explicit absent artifacts: 9
+- Explicit absent artifacts: 10
 
 ## Departure counts
 
@@ -24,7 +24,7 @@ scoring sources, and frozen model versions are read and hashed but never modifie
 | `MOUNTED_INPUT_NON_APPLICABLE` | 5 |
 | `MOUNT_STATE_UNDECLARED` | 5 |
 | `QUESTION_MIXED` | 11 |
-| `SOURCE_ARTIFACT_ABSENT` | 9 |
+| `SOURCE_ARTIFACT_ABSENT` | 10 |
 | `TEMPLATE_PROXY_USED` | 4 |
 
 ## Finding inventory
@@ -97,6 +97,7 @@ v7.2_context_scores,analysis/model/v7_2_context_scoring/bannerlord_v72_top40_bur
 v7.2_context_scores,analysis/model/v7_2_context_scoring/bannerlord_v72_top40_short_engagement_regular.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,bannerlord_v72_top40_short_engagement_regular.csv,"The context-score builder declares this output filename, but no repository-addressable artifact is present in the checkout."
 v7.2_context_scores,analysis/model/v7_2_context_scoring/bannerlord_v72_top40_siege_defense_regular.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,bannerlord_v72_top40_siege_defense_regular.csv,"The context-score builder declares this output filename, but no repository-addressable artifact is present in the checkout."
 v7.2_context_scores,analysis/model/v7_2_context_scoring/bannerlord_v72_top40_throwing_burst_regular.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,bannerlord_v72_top40_throwing_burst_regular.csv,"The context-score builder declares this output filename, but no repository-addressable artifact is present in the checkout."
+v7.2_context_scores,analysis/model/v7_2_context_scoring/empirical_v72_context_validation.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,empirical_v72_context_validation.csv,"The context-score builder declares this output filename, but no repository-addressable artifact is present in the checkout."
 v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c486a15febe9c37f9d4ec6cd044645dd,false,false,false,false,AMMUNITION_POLICY_UNDECLARED,throw_ammo_factor_v73,Finite ammunition is used without a field/siege policy.
 v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c486a15febe9c37f9d4ec6cd044645dd,false,false,false,false,ATTACK_MODE_UNDECLARED,burst_source_v73,"Throw, ranged, charge, and melee sources compete inside one output."
 v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c486a15febe9c37f9d4ec6cd044645dd,false,false,false,false,CONTEXT_UNDECLARED,burst_score_v73,The burst label does not declare track and battle context as a validated tuple.

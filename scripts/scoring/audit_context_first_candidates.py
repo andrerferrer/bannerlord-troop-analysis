@@ -73,6 +73,7 @@ EXPECTED_V72_CONTEXT_OUTPUTS = (
     "analysis/model/v7_2_context_scoring/bannerlord_v72_top40_short_engagement_regular.csv",
     "analysis/model/v7_2_context_scoring/bannerlord_v72_top40_siege_defense_regular.csv",
     "analysis/model/v7_2_context_scoring/bannerlord_v72_top40_throwing_burst_regular.csv",
+    "analysis/model/v7_2_context_scoring/empirical_v72_context_validation.csv",
 )
 
 
@@ -368,6 +369,7 @@ def build_working_tree_baseline(repo: Path) -> tuple[BaselineRow, ...]:
     roots: dict[Path, str] = {
         repo / "data/vanilla/role_scores": "historical_candidate",
         repo / "analysis/model_candidates/role_scores_v2_defense": "historical_candidate",
+        repo / "analysis/model/v7_2_context_scoring": "historical_output",
         repo / "analysis/model_versions": "frozen_model",
     }
     for relative in _tracked_files(repo):
@@ -376,9 +378,17 @@ def build_working_tree_baseline(repo: Path) -> tuple[BaselineRow, ...]:
             roots[repo / "/".join(parts[:4])] = "historical_output"
     theoretical_root = repo / "analysis/theoretical"
     if theoretical_root.exists():
-        for export_root in theoretical_root.rglob("export_20260731_150800"):
-            if export_root.is_dir() or export_root.is_symlink():
-                roots[export_root] = "historical_output"
+        if theoretical_root.is_symlink():
+            raise AuditError("protected root is a symlink: analysis/theoretical")
+        for candidate in theoretical_root.rglob("*"):
+            relative = candidate.relative_to(repo).as_posix()
+            if candidate.is_symlink():
+                raise AuditError(f"protected path is a symlink: {relative}")
+            if (
+                candidate.name == "export_20260731_150800"
+                and candidate.is_dir()
+            ):
+                roots[candidate] = "historical_output"
 
     for root, classification in sorted(
         roots.items(), key=lambda item: item[0].as_posix()
@@ -435,7 +445,7 @@ def verify_historical_baseline(
     ).resolve()
     if not baseline_path.is_file():
         raise AuditError(f"historical baseline missing: {baseline_path}")
-    committed_rows = _parse_baseline(baseline_path.read_bytes())
+    _, committed_rows = _read_canonical_baseline(baseline_path)
     current_rows = build_working_tree_baseline(repo)
     committed = {row.path: row for row in committed_rows}
     current = {row.path: row for row in current_rows}
@@ -500,6 +510,14 @@ def _parse_baseline(content: bytes) -> tuple[BaselineRow, ...]:
     if not rows or paths != sorted(paths) or len(paths) != len(set(paths)):
         raise AuditError("historical baseline paths must be non-empty, unique, and sorted")
     return tuple(rows)
+
+
+def _read_canonical_baseline(path: Path) -> tuple[bytes, tuple[BaselineRow, ...]]:
+    content = path.read_bytes()
+    rows = _parse_baseline(content)
+    if content != _baseline_bytes(rows):
+        raise AuditError("historical baseline is not in canonical CSV form")
+    return content, rows
 
 
 def _allowed_version_prefix(version: str | None) -> str | None:
@@ -571,15 +589,24 @@ def _report_bytes(
 
 
 def verify_committed_report(
-    repo: Path, report_path: Path, baseline_path: Path
+    repo: Path,
+    report_path: Path,
+    baseline_path: Path,
+    *,
+    allowed_new_version: str | None = None,
 ) -> None:
     repo = repo.resolve()
     report_path = report_path if report_path.is_absolute() else repo / report_path
     baseline_path = baseline_path if baseline_path.is_absolute() else repo / baseline_path
     if not report_path.is_file():
         raise AuditError(f"audit report missing: {report_path}")
-    rows = verify_historical_baseline(repo, baseline_path)
-    expected = _report_bytes(build_findings(repo), rows, _baseline_bytes(rows))
+    baseline, baseline_rows = _read_canonical_baseline(baseline_path)
+    verify_historical_baseline(
+        repo,
+        baseline_path,
+        allowed_new_version=allowed_new_version,
+    )
+    expected = _report_bytes(build_findings(repo), baseline_rows, baseline)
     if report_path.read_bytes() != expected:
         raise AuditError("committed audit report differs from deterministic output")
 
@@ -601,12 +628,12 @@ def _atomic_write(path: Path, content: bytes) -> None:
 def _publish_transaction(
     outputs: Sequence[tuple[Path, bytes]], integrity_check: Callable[[], None]
 ) -> None:
-    snapshots = {
-        path: (path.exists(), path.read_bytes() if path.exists() else b"")
-        for path, _ in outputs
-    }
+    snapshots: dict[Path, tuple[bool, bytes]] = {}
     staged: list[tuple[Path, Path]] = []
     try:
+        for path, _ in outputs:
+            existed = path.exists()
+            snapshots[path] = (existed, path.read_bytes() if existed else b"")
         for path, content in outputs:
             path.parent.mkdir(parents=True, exist_ok=True)
             descriptor, temporary_name = tempfile.mkstemp(
@@ -621,16 +648,36 @@ def _publish_transaction(
         for path, temporary in staged:
             os.replace(temporary, path)
         integrity_check()
-    except BaseException:
+    except BaseException as error:
+        rollback_errors: list[OSError] = []
         for path, (existed, content) in snapshots.items():
-            if existed:
-                _atomic_write(path, content)
-            else:
-                path.unlink(missing_ok=True)
+            try:
+                if existed:
+                    _atomic_write(path, content)
+                else:
+                    path.unlink(missing_ok=True)
+            except OSError as rollback_error:
+                rollback_errors.append(rollback_error)
+        if rollback_errors:
+            detail = "; ".join(str(item) for item in rollback_errors)
+            raise AuditError(
+                f"publication failed ({type(error).__name__}: {error}); "
+                f"rollback also failed: {detail}"
+            ) from error
+        if isinstance(error, OSError):
+            raise AuditError(f"publication filesystem failure: {error}") from error
         raise
     finally:
+        cleanup_error: OSError | None = None
         for _, temporary in staged:
-            temporary.unlink(missing_ok=True)
+            try:
+                temporary.unlink(missing_ok=True)
+            except OSError as error:
+                cleanup_error = cleanup_error or error
+        if cleanup_error is not None and sys.exc_info()[0] is None:
+            raise AuditError(
+                f"cannot remove staged audit output: {cleanup_error}"
+            ) from cleanup_error
 
 
 def _validate_output_paths(
@@ -643,6 +690,7 @@ def _validate_output_paths(
 
     protected_roots = {
         (repo / "analysis/model_candidates/role_scores_v2_defense").resolve(),
+        (repo / "analysis/model/v7_2_context_scoring").resolve(),
         (repo / "analysis/model_versions").resolve(),
     }
     for relative in _tracked_files(repo):
@@ -671,6 +719,15 @@ def _validate_output_paths(
             raise AuditError(f"{label} is a protected output destination: {target}")
         if target.is_relative_to(repo) and target != owned_outputs[label]:
             raise AuditError(f"{label} is not a D1-owned output: {target}")
+        if target.exists() and not target.is_file():
+            raise AuditError(f"{label} output is not a regular file: {target}")
+        ancestor = target.parent
+        while not ancestor.exists() and ancestor != ancestor.parent:
+            ancestor = ancestor.parent
+        if not ancestor.is_dir():
+            raise AuditError(
+                f"{label} output parent is not a directory: {ancestor}"
+            )
     return report, baseline
 
 
@@ -706,8 +763,7 @@ def write_audit(
     else:
         if not baseline_output.is_file():
             raise AuditError("historical baseline missing; use --initialize-baseline once")
-        baseline = baseline_output.read_bytes()
-        baseline_rows = _parse_baseline(baseline)
+        baseline, baseline_rows = _read_canonical_baseline(baseline_output)
         current_rows = verify_historical_baseline(
             repo,
             baseline_output,
@@ -716,8 +772,12 @@ def write_audit(
     report = _report_bytes(findings, baseline_rows, baseline)
 
     def history_is_unchanged() -> None:
+        if build_findings(repo) != findings:
+            raise AuditError("audited evidence changed while publishing the audit")
         if build_working_tree_baseline(repo) != current_rows:
             raise AuditError("protected bytes changed while publishing the audit")
+        if baseline_output.exists() and baseline_output.read_bytes() != baseline:
+            raise AuditError("historical baseline changed while publishing the audit")
 
     outputs = [(report_output, report)]
     if initialize_baseline:
@@ -774,7 +834,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             initialize_baseline=args.initialize_baseline,
             allowed_new_version=args.allowed_new_version,
         )
-    except AuditError as error:
+    except (AuditError, OSError) as error:
         print(f"error_code=AUDIT_INTEGRITY_FAILURE detail={error}", file=sys.stderr)
         return 2
     print("candidate=context_first_scores_v1")

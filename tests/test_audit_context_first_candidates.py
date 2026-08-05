@@ -113,6 +113,7 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
                 "analysis/model/v7_2_context_scoring/bannerlord_v72_top40_short_engagement_regular.csv",
                 "analysis/model/v7_2_context_scoring/bannerlord_v72_top40_siege_defense_regular.csv",
                 "analysis/model/v7_2_context_scoring/bannerlord_v72_top40_throwing_burst_regular.csv",
+                "analysis/model/v7_2_context_scoring/empirical_v72_context_validation.csv",
             },
             absent_paths,
         )
@@ -355,6 +356,67 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             ), self.assertRaisesRegex(audit.AuditError, "unexpected protected path"):
                 audit.verify_historical_baseline(temp_repo, temp_baseline)
 
+    def test_untracked_v72_context_output_is_rejected(self) -> None:
+        committed = (
+            REPO_ROOT
+            / "analysis/model_candidates/context_first_scores_v1/historical_baseline_hashes.csv"
+        )
+        rows = audit._parse_baseline(committed.read_bytes())
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_repo = Path(temp_dir)
+            temp_baseline = (
+                temp_repo
+                / "analysis/model_candidates/context_first_scores_v1/"
+                "historical_baseline_hashes.csv"
+            )
+            temp_baseline.parent.mkdir(parents=True)
+            temp_baseline.write_bytes(committed.read_bytes())
+            addition = (
+                temp_repo
+                / "analysis/model/v7_2_context_scoring/"
+                "bannerlord_v72_context_scores_all_official_troops.csv"
+            )
+            addition.parent.mkdir(parents=True)
+            addition.write_bytes(b"historical output\n")
+            with mock.patch.object(
+                audit, "build_historical_baseline", return_value=rows
+            ), mock.patch.object(
+                audit, "_tracked_files", return_value=()
+            ), self.assertRaisesRegex(audit.AuditError, "unexpected protected path"):
+                audit.verify_historical_baseline(temp_repo, temp_baseline)
+
+    def test_symlinked_theoretical_track_is_rejected(self) -> None:
+        committed = (
+            REPO_ROOT
+            / "analysis/model_candidates/context_first_scores_v1/historical_baseline_hashes.csv"
+        )
+        rows = audit._parse_baseline(committed.read_bytes())
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            temp_repo = temp / "repo"
+            temp_baseline = (
+                temp_repo
+                / "analysis/model_candidates/context_first_scores_v1/"
+                "historical_baseline_hashes.csv"
+            )
+            temp_baseline.parent.mkdir(parents=True)
+            temp_baseline.write_bytes(committed.read_bytes())
+            hidden = temp / "hidden/export_20260731_150800"
+            hidden.mkdir(parents=True)
+            (hidden / "untracked.csv").write_bytes(b"historical output\n")
+            theoretical = temp_repo / "analysis/theoretical"
+            theoretical.mkdir(parents=True)
+            (theoretical / "new_track").symlink_to(
+                hidden.parent, target_is_directory=True
+            )
+
+            with mock.patch.object(
+                audit, "build_historical_baseline", return_value=rows
+            ), mock.patch.object(
+                audit, "_tracked_files", return_value=()
+            ), self.assertRaisesRegex(audit.AuditError, "symlink"):
+                audit.verify_historical_baseline(temp_repo, temp_baseline)
+
     def test_generation_is_deterministic_and_does_not_mutate_history(self) -> None:
         protected_before = {
             row.path: row.sha256
@@ -469,6 +531,103 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             self.assertEqual(b"previous report\n", report.read_bytes())
             self.assertEqual(audit._baseline_bytes(rows), baseline.read_bytes())
 
+    def test_concurrent_finding_drift_restores_previous_publication(self) -> None:
+        findings = audit.build_findings(REPO_ROOT)
+        committed = (
+            REPO_ROOT
+            / "analysis/model_candidates/context_first_scores_v1/historical_baseline_hashes.csv"
+        )
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            report = temp / "CURRENT_CANDIDATE_AUDIT.md"
+            baseline = temp / "historical_baseline_hashes.csv"
+            report.write_bytes(b"previous report\n")
+            baseline.write_bytes(committed.read_bytes())
+
+            with mock.patch.object(
+                audit,
+                "build_findings",
+                side_effect=(findings, findings[:-1]),
+            ), self.assertRaisesRegex(audit.AuditError, "evidence changed"):
+                audit.write_audit(REPO_ROOT, report, baseline)
+
+            self.assertEqual(b"previous report\n", report.read_bytes())
+            self.assertEqual(committed.read_bytes(), baseline.read_bytes())
+
+    def test_noncanonical_baseline_is_rejected_before_publication(self) -> None:
+        committed = (
+            REPO_ROOT
+            / "analysis/model_candidates/context_first_scores_v1/historical_baseline_hashes.csv"
+        )
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            report = temp / "CURRENT_CANDIDATE_AUDIT.md"
+            baseline = temp / "historical_baseline_hashes.csv"
+            baseline.write_bytes(committed.read_bytes().replace(b"\n", b"\r\n"))
+
+            with self.assertRaisesRegex(audit.AuditError, "canonical"):
+                audit.write_audit(REPO_ROOT, report, baseline)
+
+            self.assertFalse(report.exists())
+
+    def test_committed_report_verification_allows_declared_new_version(self) -> None:
+        committed = (
+            REPO_ROOT
+            / "analysis/model_candidates/context_first_scores_v1/historical_baseline_hashes.csv"
+        )
+        baseline = committed.read_bytes()
+        rows = audit._parse_baseline(baseline)
+        promoted = audit.BaselineRow(
+            path="analysis/model_versions/v8_context_first/model.csv",
+            bytes=3,
+            sha256=hashlib.sha256(b"new").hexdigest(),
+            immutability_class="frozen_model",
+        )
+        findings = audit.build_findings(REPO_ROOT)
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            report = Path(temp_dir) / "CURRENT_CANDIDATE_AUDIT.md"
+            report.write_bytes(audit._report_bytes(findings, rows, baseline))
+            with mock.patch.object(
+                audit,
+                "build_working_tree_baseline",
+                return_value=tuple(sorted(rows + (promoted,), key=lambda row: row.path)),
+            ):
+                audit.verify_committed_report(
+                    REPO_ROOT,
+                    report,
+                    committed,
+                    allowed_new_version="v8_context_first",
+                )
+
+    def test_cli_normalizes_filesystem_failures(self) -> None:
+        committed = (
+            REPO_ROOT
+            / "analysis/model_candidates/context_first_scores_v1/historical_baseline_hashes.csv"
+        )
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            parent_file = temp / "not-a-directory"
+            parent_file.write_bytes(b"occupied\n")
+            stdout = io.StringIO()
+            stderr = io.StringIO()
+            with redirect_stdout(stdout), redirect_stderr(stderr):
+                exit_code = audit.main(
+                    [
+                        "--repo",
+                        str(REPO_ROOT),
+                        "--output",
+                        str(parent_file / "report.md"),
+                        "--baseline-output",
+                        str(committed),
+                    ]
+                )
+
+            self.assertEqual(2, exit_code)
+            self.assertEqual("", stdout.getvalue())
+            self.assertIn("error_code=AUDIT_INTEGRITY_FAILURE", stderr.getvalue())
+
     def test_interrupt_between_output_swaps_restores_both_snapshots(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
@@ -496,6 +655,22 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
 
             self.assertEqual(b"old report\n", report.read_bytes())
             self.assertEqual(b"old baseline\n", baseline.read_bytes())
+
+    def test_publication_reports_original_and_rollback_filesystem_failures(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            parent_file = Path(temp_dir) / "not-a-directory"
+            parent_file.write_bytes(b"occupied\n")
+            output = parent_file / "report.md"
+
+            with self.assertRaisesRegex(
+                audit.AuditError,
+                "publication failed.*rollback also failed",
+            ) as raised:
+                audit._publish_transaction([(output, b"report\n")], lambda: None)
+
+            self.assertIsInstance(raised.exception.__cause__, FileExistsError)
 
     def test_baseline_initialization_is_explicit_and_one_time(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
