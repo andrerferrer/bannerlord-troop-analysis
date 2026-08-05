@@ -111,6 +111,15 @@ class ContextFirstContractTests(unittest.TestCase):
             with self.subTest(field=field):
                 self.assert_issue(value, contract.DECL_INVALID_ENUM, field)
 
+    def test_invalid_question_does_not_emit_misleading_cross_contract_errors(self) -> None:
+        value = valid_declaration()
+        value["question"] = "mobility"
+        issues = contract.validate_declaration(value)
+        self.assertEqual(
+            [(contract.DECL_INVALID_ENUM, "question")],
+            [(issue.code, issue.field) for issue in issues],
+        )
+
     def test_secondary_or_hidden_drivers_are_rejected(self) -> None:
         value = valid_declaration()
         value["secondary_drivers"] = ["shield_hp"]
