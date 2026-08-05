@@ -825,18 +825,15 @@ def _file_validation_state(status: os.stat_result) -> tuple[int, ...]:
 
 
 def _close_descriptor_resilient(descriptor: int) -> tuple[BaseException, ...]:
-    failures: list[BaseException] = []
-    for _ in range(2):
-        try:
-            os.close(descriptor)
+    try:
+        os.close(descriptor)
+    except OSError as error:
+        if error.errno == errno.EBADF:
             return ()
-        except OSError as error:
-            if error.errno == errno.EBADF:
-                return ()
-            failures.append(error)
-        except BaseException as error:
-            failures.append(error)
-    return tuple(failures)
+        return (error,)
+    except BaseException as error:
+        return (error,)
+    return ()
 
 
 def _read_identity_bytes(path: Path, identity: tuple[int, int]) -> bytes:

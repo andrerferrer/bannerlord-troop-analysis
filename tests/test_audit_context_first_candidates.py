@@ -1352,16 +1352,31 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
 
     def test_descriptor_close_interrupts_are_contained(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
-            descriptor = audit.os.open(Path(temp_dir), audit.os.O_RDONLY)
+            temp = Path(temp_dir)
+            original = temp / "original.txt"
+            replacement = temp / "replacement.txt"
+            original.write_bytes(b"original\n")
+            replacement.write_bytes(b"replacement\n")
+            descriptor = audit.os.open(original, audit.os.O_RDONLY)
+            real_close = audit.os.close
+            reused: list[int] = []
+
+            def close_reuse_then_interrupt(value: int) -> None:
+                real_close(value)
+                reused.append(audit.os.open(replacement, audit.os.O_RDONLY))
+                raise KeyboardInterrupt
+
             with mock.patch.object(
                 audit.os,
                 "close",
-                side_effect=(KeyboardInterrupt(), KeyboardInterrupt()),
+                side_effect=close_reuse_then_interrupt,
             ):
                 failures = audit._close_descriptor_resilient(descriptor)
 
-            self.assertEqual(2, len(failures))
-            audit.os.close(descriptor)
+            self.assertEqual(1, len(failures))
+            self.assertEqual([descriptor], reused)
+            self.assertEqual(replacement.stat().st_ino, audit.os.fstat(reused[0]).st_ino)
+            audit.os.close(reused[0])
 
     def test_cli_serializes_notes_from_chained_cause(self) -> None:
         cause = PermissionError("publication denied")
