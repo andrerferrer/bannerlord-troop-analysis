@@ -14,6 +14,7 @@ import csv
 import hashlib
 import io
 import os
+import stat
 import subprocess
 import sys
 import tempfile
@@ -299,6 +300,39 @@ def _historical_output(relative: str) -> bool:
     )
 
 
+def _lstat_repository_path(
+    repo: Path,
+    path: Path,
+    *,
+    leaf_label: str = "path",
+) -> os.stat_result | None:
+    try:
+        relative = path.relative_to(repo)
+    except ValueError as error:
+        raise AuditError(f"protected path is outside repository: {path}") from error
+
+    current = repo
+    for part in relative.parts:
+        current /= part
+        try:
+            status = os.lstat(current)
+        except FileNotFoundError:
+            return None
+        except OSError as error:
+            raise AuditError(
+                f"cannot scan protected path: {current}: {error}"
+            ) from error
+        current_relative = current.relative_to(repo).as_posix()
+        if stat.S_ISLNK(status.st_mode):
+            label = f"protected {leaf_label}" if current == path else "protected ancestor"
+            raise AuditError(f"{label} is a symlink: {current_relative}")
+        if current != path and not stat.S_ISDIR(status.st_mode):
+            raise AuditError(
+                f"protected ancestor is not a directory: {current_relative}"
+            )
+    return status
+
+
 def _protected_paths(repo: Path) -> Iterable[tuple[Path, str]]:
     v1_candidate_prefix = "data/vanilla/role_scores/"
     candidate_prefix = "analysis/model_candidates/role_scores_v2_defense/"
@@ -324,9 +358,8 @@ def _protected_paths(repo: Path) -> Iterable[tuple[Path, str]]:
             continue
 
         path = repo / relative
-        if path.is_symlink():
-            raise AuditError(f"protected path is a symlink: {relative}")
-        if not path.is_file():
+        status = _lstat_repository_path(repo, path)
+        if status is None or not stat.S_ISREG(status.st_mode):
             raise AuditError(f"tracked protected file missing: {relative}")
         observed_classes.add(classification)
         yield path, classification
@@ -363,13 +396,10 @@ def build_historical_baseline(repo: Path) -> tuple[BaselineRow, ...]:
 
 
 def _scan_tree_fail_closed(repo: Path, root: Path) -> tuple[Path, ...]:
-    if root.is_symlink():
-        raise AuditError(
-            f"protected root is a symlink: {root.relative_to(repo).as_posix()}"
-        )
-    if not root.exists():
+    root_status = _lstat_repository_path(repo, root, leaf_label="root")
+    if root_status is None:
         return ()
-    if not root.is_dir():
+    if not stat.S_ISDIR(root_status.st_mode):
         raise AuditError(
             f"protected root is not a directory: {root.relative_to(repo).as_posix()}"
         )
@@ -391,8 +421,8 @@ def _scan_tree_fail_closed(repo: Path, root: Path) -> tuple[Path, ...]:
         for name in (*directory_names, *file_names):
             candidate = current_path / name
             relative = candidate.relative_to(repo).as_posix()
-            if candidate.is_symlink():
-                raise AuditError(f"protected path is a symlink: {relative}")
+            if _lstat_repository_path(repo, candidate) is None:
+                raise AuditError(f"protected path disappeared while scanning: {relative}")
             observed.append(candidate)
     return tuple(sorted(observed, key=lambda path: path.as_posix()))
 
@@ -413,10 +443,13 @@ def build_working_tree_baseline(repo: Path) -> tuple[BaselineRow, ...]:
             roots[repo / "/".join(parts[:4])] = "historical_output"
     theoretical_root = repo / "analysis/theoretical"
     for candidate in _scan_tree_fail_closed(repo, theoretical_root):
-        if (
-            candidate.name == "export_20260731_150800"
-            and candidate.is_dir()
-        ):
+        if candidate.name == "export_20260731_150800":
+            status = _lstat_repository_path(repo, candidate)
+            if status is None or not stat.S_ISDIR(status.st_mode):
+                raise AuditError(
+                    "reserved historical export path is not a directory: "
+                    f"{candidate.relative_to(repo).as_posix()}"
+                )
             roots[candidate] = "historical_output"
 
     for root, classification in sorted(
@@ -424,9 +457,12 @@ def build_working_tree_baseline(repo: Path) -> tuple[BaselineRow, ...]:
     ):
         for path in _scan_tree_fail_closed(repo, root):
             relative = path.relative_to(repo).as_posix()
-            if path.is_dir() or relative in rows:
+            status = _lstat_repository_path(repo, path)
+            if status is None:
+                raise AuditError(f"protected path disappeared while scanning: {relative}")
+            if stat.S_ISDIR(status.st_mode) or relative in rows:
                 continue
-            if not path.is_file():
+            if not stat.S_ISREG(status.st_mode):
                 raise AuditError(f"protected path is not a regular file: {relative}")
             content = path.read_bytes()
             rows[relative] = BaselineRow(

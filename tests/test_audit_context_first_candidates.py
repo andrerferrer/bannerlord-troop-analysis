@@ -451,6 +451,67 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             finally:
                 unreadable.chmod(0o700)
 
+    def test_protected_root_ancestor_symlink_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            temp_repo = temp / "repo"
+            temp_repo.mkdir()
+            outside = temp / "outside/model/v7_2_context_scoring"
+            outside.mkdir(parents=True)
+            (outside / "hidden.csv").write_bytes(b"external bytes\n")
+            (temp_repo / "analysis").symlink_to(
+                outside.parents[1], target_is_directory=True
+            )
+
+            with self.assertRaisesRegex(audit.AuditError, "ancestor.*symlink"):
+                audit._scan_tree_fail_closed(
+                    temp_repo,
+                    temp_repo / "analysis/model/v7_2_context_scoring",
+                )
+
+    def test_unstatable_protected_root_is_not_treated_as_absent(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_repo = Path(temp_dir)
+            root = temp_repo / "analysis/model_versions"
+            root.mkdir(parents=True)
+            (root / "hidden.csv").write_bytes(b"historical output\n")
+            unreadable = root.parent
+            unreadable.chmod(0)
+            try:
+                with self.assertRaisesRegex(audit.AuditError, "cannot scan"):
+                    audit._scan_tree_fail_closed(temp_repo, root)
+            finally:
+                unreadable.chmod(0o700)
+
+    def test_reserved_theoretical_export_name_must_be_directory(self) -> None:
+        committed = (
+            REPO_ROOT
+            / "analysis/model_candidates/context_first_scores_v1/historical_baseline_hashes.csv"
+        )
+        rows = audit._parse_baseline(committed.read_bytes())
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_repo = Path(temp_dir)
+            temp_baseline = (
+                temp_repo
+                / "analysis/model_candidates/context_first_scores_v1/"
+                "historical_baseline_hashes.csv"
+            )
+            temp_baseline.parent.mkdir(parents=True)
+            temp_baseline.write_bytes(committed.read_bytes())
+            reserved = (
+                temp_repo
+                / "analysis/theoretical/new_track/export_20260731_150800"
+            )
+            reserved.parent.mkdir(parents=True)
+            audit.os.mkfifo(reserved)
+
+            with mock.patch.object(
+                audit, "build_historical_baseline", return_value=rows
+            ), mock.patch.object(
+                audit, "_tracked_files", return_value=()
+            ), self.assertRaisesRegex(audit.AuditError, "reserved.*not a directory"):
+                audit.verify_historical_baseline(temp_repo, temp_baseline)
+
     def test_generation_is_deterministic_and_does_not_mutate_history(self) -> None:
         protected_before = {
             row.path: row.sha256
