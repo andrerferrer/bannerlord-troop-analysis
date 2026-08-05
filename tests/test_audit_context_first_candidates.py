@@ -1060,6 +1060,114 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             self.assertEqual([], list(temp.glob(".*.tmp")))
             self.assertEqual([b"old\n", b"old\n"], [path.read_bytes() for path in outputs])
 
+    def test_consumed_stage_is_rolled_back_when_destination_cannot_be_statted(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output = Path(temp_dir) / "report.md"
+            output.write_bytes(b"old report\n")
+            real_replace = audit.os.replace
+            real_lstat = audit.os.lstat
+            replacement_committed = False
+            destination_failure_injected = False
+            replace_count = 0
+
+            def replace_then_interrupt(source: Path, destination: Path) -> None:
+                nonlocal replace_count, replacement_committed
+                replace_count += 1
+                real_replace(source, destination)
+                if replace_count == 1:
+                    replacement_committed = True
+                    raise KeyboardInterrupt
+
+            def fail_destination_lstat_once(path: Path) -> object:
+                nonlocal destination_failure_injected
+                if (
+                    replacement_committed
+                    and not destination_failure_injected
+                    and Path(path) == output
+                ):
+                    destination_failure_injected = True
+                    raise PermissionError("destination hidden")
+                return real_lstat(path)
+
+            with mock.patch.object(
+                audit.os, "replace", side_effect=replace_then_interrupt
+            ), mock.patch.object(
+                audit.os, "lstat", side_effect=fail_destination_lstat_once
+            ), self.assertRaises(KeyboardInterrupt):
+                audit._publish_transaction(
+                    [(output, b"new report\n")], lambda: None
+                )
+
+            self.assertTrue(destination_failure_injected)
+            self.assertEqual(b"old report\n", output.read_bytes())
+
+    def test_staged_path_substitution_fails_and_restores_target(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output = Path(temp_dir) / "report.md"
+            output.write_bytes(b"old report\n")
+            real_replace = audit.os.replace
+            replace_count = 0
+
+            def substitute_first_stage(source: Path, destination: Path) -> None:
+                nonlocal replace_count
+                replace_count += 1
+                if replace_count == 1:
+                    source.unlink()
+                    source.write_bytes(b"substituted bytes\n")
+                real_replace(source, destination)
+
+            with mock.patch.object(
+                audit.os, "replace", side_effect=substitute_first_stage
+            ), self.assertRaisesRegex(
+                audit.AuditError, "staged|identity|replacement"
+            ):
+                audit._publish_transaction(
+                    [(output, b"requested bytes\n")], lambda: None
+                )
+
+            self.assertEqual(b"old report\n", output.read_bytes())
+
+    def test_atomic_write_accepts_interrupt_after_committed_replace(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output = Path(temp_dir) / "report.md"
+            output.write_bytes(b"old report\n")
+            real_replace = audit.os.replace
+
+            def replace_then_interrupt(source: Path, destination: Path) -> None:
+                real_replace(source, destination)
+                raise KeyboardInterrupt
+
+            with mock.patch.object(
+                audit.os, "replace", side_effect=replace_then_interrupt
+            ):
+                audit._atomic_write(output, b"restored report\n")
+
+            self.assertEqual(b"restored report\n", output.read_bytes())
+
+    def test_persistent_cleanup_failure_is_noted_on_primary_error(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output = Path(temp_dir) / "report.md"
+            output.write_bytes(b"old report\n")
+
+            def primary_failure() -> None:
+                raise ValueError("primary integrity failure")
+
+            with mock.patch.object(
+                audit.Path,
+                "unlink",
+                side_effect=PermissionError("cleanup denied"),
+            ), self.assertRaisesRegex(
+                ValueError, "primary integrity failure"
+            ) as raised:
+                audit._publish_transaction(
+                    [(output, b"new report\n")], primary_failure
+                )
+
+            notes = getattr(raised.exception, "__notes__", [])
+            self.assertTrue(any("cleanup denied" in note for note in notes), notes)
+
     def test_publication_does_not_report_already_absent_target_as_rollback_failure(
         self,
     ) -> None:

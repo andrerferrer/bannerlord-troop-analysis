@@ -808,17 +808,97 @@ def verify_committed_report(
         raise AuditError("committed audit report differs from deterministic output")
 
 
+def _file_identity(status: os.stat_result) -> tuple[int, int]:
+    return status.st_dev, status.st_ino
+
+
+def _validate_staged_source(
+    temporary: Path, identity: tuple[int, int]
+) -> None:
+    try:
+        observed = os.lstat(temporary)
+    except BaseException as error:
+        raise AuditError(
+            f"cannot validate staged audit output: {temporary}: "
+            f"{type(error).__name__}: {error}"
+        ) from error
+    if _file_identity(observed) != identity:
+        raise AuditError(f"staged audit output identity changed: {temporary}")
+
+
+def _replacement_state(
+    temporary: Path, path: Path, identity: tuple[int, int]
+) -> tuple[bool, tuple[AuditError, ...]]:
+    errors: list[AuditError] = []
+    source_absent = False
+    source_matches = False
+    try:
+        source = os.lstat(temporary)
+    except FileNotFoundError:
+        source_absent = True
+    except BaseException as error:
+        errors.append(
+            AuditError(
+                f"cannot inspect staged audit output: {temporary}: "
+                f"{type(error).__name__}: {error}"
+            )
+        )
+    else:
+        source_matches = _file_identity(source) == identity
+        if not source_matches:
+            errors.append(AuditError(f"staged audit output identity changed: {temporary}"))
+
+    destination_matches = False
+    try:
+        destination = os.lstat(path)
+    except BaseException as error:
+        if source_absent:
+            errors.append(
+                AuditError(
+                    f"cannot inspect consumed audit destination: {path}: "
+                    f"{type(error).__name__}: {error}"
+                )
+            )
+    else:
+        destination_matches = _file_identity(destination) == identity
+
+    consumed = source_absent or destination_matches
+    if consumed and not destination_matches:
+        errors.append(AuditError(f"published audit output identity differs: {path}"))
+    if not consumed and not source_matches and not errors:
+        errors.append(AuditError(f"audit replacement state is unknown: {path}"))
+    return consumed, tuple(errors)
+
+
 def _atomic_write(path: Path, content: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     descriptor, temporary_name = tempfile.mkstemp(
         prefix=f".{path.name}.", suffix=".tmp", dir=path.parent
     )
     temporary: Path | None = Path(temporary_name)
+    identity = _file_identity(os.fstat(descriptor))
     try:
         with os.fdopen(descriptor, "wb") as handle:
             handle.write(content)
-        os.replace(temporary, path)
-        temporary = None
+        _validate_staged_source(temporary, identity)
+        try:
+            os.replace(temporary, path)
+        except BaseException as error:
+            consumed, state_errors = _replacement_state(temporary, path, identity)
+            if consumed:
+                temporary = None
+            if consumed and not state_errors:
+                return
+            if state_errors:
+                detail = "; ".join(str(item) for item in state_errors)
+                raise AuditError(f"atomic replacement state invalid: {detail}") from error
+            raise
+        consumed, state_errors = _replacement_state(temporary, path, identity)
+        if consumed:
+            temporary = None
+        if not consumed or state_errors:
+            detail = "; ".join(str(item) for item in state_errors)
+            raise AuditError(f"atomic replacement state invalid: {detail}")
     finally:
         if temporary is not None:
             temporary.unlink(missing_ok=True)
@@ -832,17 +912,19 @@ def _publish_transaction(
     pending_temporaries: set[Path] = set()
     swapped: list[Path] = []
 
-    def reconcile_consumed_temporaries() -> None:
+    def reconcile_consumed_temporaries() -> tuple[AuditError, ...]:
+        reconciliation_errors: list[AuditError] = []
         for path, temporary, identity in staged:
             if path in swapped:
                 continue
-            try:
-                destination = os.lstat(path)
-            except OSError:
-                continue
-            if (destination.st_dev, destination.st_ino) == identity:
+            consumed, state_errors = _replacement_state(
+                temporary, path, identity
+            )
+            if consumed:
                 pending_temporaries.discard(temporary)
                 swapped.append(path)
+            reconciliation_errors.extend(state_errors)
+        return tuple(reconciliation_errors)
 
     try:
         for path, _ in outputs:
@@ -862,17 +944,20 @@ def _publish_transaction(
                 (
                     path,
                     temporary,
-                    (temporary_status.st_dev, temporary_status.st_ino),
+                    _file_identity(temporary_status),
                 )
             )
 
         integrity_check()
-        for path, temporary, _ in staged:
+        for path, temporary, identity in staged:
+            _validate_staged_source(temporary, identity)
             os.replace(temporary, path)
-            reconcile_consumed_temporaries()
+            state_errors = reconcile_consumed_temporaries()
+            if state_errors:
+                raise state_errors[0]
         integrity_check()
     except BaseException as error:
-        reconcile_consumed_temporaries()
+        reconciliation_errors = reconcile_consumed_temporaries()
         rollback_errors: list[BaseException] = []
         for path in reversed(swapped):
             existed, content = snapshots[path]
@@ -886,6 +971,9 @@ def _publish_transaction(
                         pass
             except BaseException as rollback_error:
                 rollback_errors.append(rollback_error)
+        if reconciliation_errors and hasattr(error, "add_note"):
+            detail = "; ".join(str(item) for item in reconciliation_errors)
+            error.add_note(f"audit replacement reconciliation: {detail}")
         if rollback_errors:
             detail = "; ".join(
                 f"{type(item).__name__}: {item}" for item in rollback_errors
@@ -898,7 +986,7 @@ def _publish_transaction(
             raise AuditError(f"publication filesystem failure: {error}") from error
         raise
     finally:
-        primary_error_active = sys.exc_info()[0] is not None
+        primary_exception = sys.exc_info()[1]
         remaining = sorted(pending_temporaries)
         cleanup_errors: list[BaseException] = []
         for _ in range(2):
@@ -913,13 +1001,16 @@ def _publish_transaction(
             remaining = retry
             if not remaining:
                 break
-        if cleanup_errors and not primary_error_active:
+        if cleanup_errors:
             detail = "; ".join(
                 f"{type(item).__name__}: {item}" for item in cleanup_errors
             )
-            raise AuditError(
-                f"cannot remove staged audit output: {detail}"
-            ) from cleanup_errors[0]
+            if primary_exception is not None and hasattr(primary_exception, "add_note"):
+                primary_exception.add_note(f"staged audit cleanup failed: {detail}")
+            else:
+                raise AuditError(
+                    f"cannot remove staged audit output: {detail}"
+                ) from cleanup_errors[0]
 
 
 def _validate_output_paths(
