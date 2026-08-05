@@ -597,6 +597,27 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             with self.assertRaisesRegex(audit.AuditError, "symlink|regular file"):
                 audit._read_repository_file(repo, link)
 
+    def test_repository_file_reader_rejects_fifo_swap_without_blocking(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            repo = Path(temp_dir)
+            protected = repo / "protected.csv"
+            protected.write_bytes(b"regular\n")
+            real_open = audit.os.open
+
+            def swap_leaf_before_open(
+                path: object, flags: int, *args: object, **kwargs: object
+            ) -> int:
+                if path == protected.name and kwargs.get("dir_fd") is not None:
+                    self.assertTrue(flags & audit.os.O_NONBLOCK)
+                    protected.unlink()
+                    audit.os.mkfifo(protected)
+                return real_open(path, flags, *args, **kwargs)
+
+            with mock.patch.object(
+                audit.os, "open", side_effect=swap_leaf_before_open
+            ), self.assertRaisesRegex(audit.AuditError, "not a regular file"):
+                audit._read_repository_file(repo, protected)
+
     def test_reserved_theoretical_export_name_must_be_directory(self) -> None:
         committed = (
             REPO_ROOT
@@ -896,6 +917,93 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             self.assertEqual(b"old report\n", report.read_bytes())
             self.assertEqual(b"old baseline\n", baseline.read_bytes())
 
+    def test_staging_write_failure_removes_partial_temporary(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            output = temp / "report.md"
+            output.write_bytes(b"old report\n")
+            real_fdopen = audit.os.fdopen
+
+            class FailingWrite:
+                def __init__(self, descriptor: int) -> None:
+                    self.handle = real_fdopen(descriptor, "wb")
+
+                def __enter__(self) -> "FailingWrite":
+                    return self
+
+                def write(self, content: bytes) -> int:
+                    raise OSError("disk full")
+
+                def __exit__(self, *args: object) -> None:
+                    self.handle.close()
+
+            with mock.patch.object(
+                audit.os,
+                "fdopen",
+                side_effect=lambda descriptor, mode: FailingWrite(descriptor),
+            ), self.assertRaisesRegex(audit.AuditError, "disk full"):
+                audit._publish_transaction(
+                    [(output, b"new report\n")], lambda: None
+                )
+
+            self.assertEqual(b"old report\n", output.read_bytes())
+            self.assertEqual([], list(temp.glob(".report.md.*.tmp")))
+
+    def test_prepublication_failure_does_not_restore_untouched_target(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output = Path(temp_dir) / "report.md"
+            output.write_bytes(b"old report\n")
+
+            def concurrent_update_then_fail() -> None:
+                output.write_bytes(b"concurrent report\n")
+                raise OSError("prepublication failure")
+
+            with self.assertRaisesRegex(
+                audit.AuditError, "prepublication failure"
+            ):
+                audit._publish_transaction(
+                    [(output, b"new report\n")], concurrent_update_then_fail
+                )
+
+            self.assertEqual(b"concurrent report\n", output.read_bytes())
+
+    def test_rollback_continues_after_second_interrupt(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            outputs = [temp / f"output-{index}.txt" for index in range(3)]
+            for index, output in enumerate(outputs):
+                output.write_bytes(f"old-{index}\n".encode("utf-8"))
+            real_replace = audit.os.replace
+            replace_count = 0
+
+            def interrupt_publication_and_first_restore(
+                source: Path, destination: Path
+            ) -> None:
+                nonlocal replace_count
+                replace_count += 1
+                if replace_count in {3, 4}:
+                    raise KeyboardInterrupt
+                real_replace(source, destination)
+
+            with mock.patch.object(
+                audit.os,
+                "replace",
+                side_effect=interrupt_publication_and_first_restore,
+            ), self.assertRaisesRegex(
+                audit.AuditError, "rollback also failed.*KeyboardInterrupt"
+            ):
+                audit._publish_transaction(
+                    [
+                        (output, f"new-{index}\n".encode("utf-8"))
+                        for index, output in enumerate(outputs)
+                    ],
+                    lambda: None,
+                )
+
+            self.assertEqual(b"old-0\n", outputs[0].read_bytes())
+            self.assertEqual(b"new-1\n", outputs[1].read_bytes())
+            self.assertEqual(b"old-2\n", outputs[2].read_bytes())
+
     def test_publication_does_not_report_already_absent_target_as_rollback_failure(
         self,
     ) -> None:
@@ -917,8 +1025,13 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             output = Path(temp_dir) / "report.md"
             output.write_bytes(b"old report\n")
 
-            def publication_failure() -> None:
-                raise FileExistsError("publication failed")
+            integrity_checks = 0
+
+            def postpublication_failure() -> None:
+                nonlocal integrity_checks
+                integrity_checks += 1
+                if integrity_checks == 2:
+                    raise FileExistsError("publication failed")
 
             with mock.patch.object(
                 audit,
@@ -929,7 +1042,7 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
                 "publication failed.*rollback also failed.*restore denied",
             ) as raised:
                 audit._publish_transaction(
-                    [(output, b"new report\n")], publication_failure
+                    [(output, b"new report\n")], postpublication_failure
                 )
 
             self.assertIsInstance(raised.exception.__cause__, FileExistsError)

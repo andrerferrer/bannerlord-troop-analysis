@@ -392,7 +392,11 @@ def _read_repository_file(repo: Path, path: Path) -> bytes:
         raise AuditError(f"protected path is not a regular file: {relative.as_posix()}")
 
     directory_flags = os.O_RDONLY | os.O_DIRECTORY | getattr(os, "O_CLOEXEC", 0)
-    file_flags = os.O_RDONLY | getattr(os, "O_CLOEXEC", 0)
+    file_flags = (
+        os.O_RDONLY
+        | getattr(os, "O_CLOEXEC", 0)
+        | getattr(os, "O_NONBLOCK", 0)
+    )
     if hasattr(os, "O_NOFOLLOW"):
         directory_flags |= os.O_NOFOLLOW
         file_flags |= os.O_NOFOLLOW
@@ -826,6 +830,7 @@ def _publish_transaction(
     snapshots: dict[Path, tuple[bool, bytes]] = {}
     staged: list[tuple[Path, Path]] = []
     pending_temporaries: set[Path] = set()
+    swapped: list[Path] = []
     try:
         for path, _ in outputs:
             existed = path.exists()
@@ -836,19 +841,21 @@ def _publish_transaction(
                 prefix=f".{path.name}.", suffix=".tmp", dir=path.parent
             )
             temporary = Path(temporary_name)
+            pending_temporaries.add(temporary)
             with os.fdopen(descriptor, "wb") as handle:
                 handle.write(content)
             staged.append((path, temporary))
-            pending_temporaries.add(temporary)
 
         integrity_check()
         for path, temporary in staged:
             os.replace(temporary, path)
             pending_temporaries.remove(temporary)
+            swapped.append(path)
         integrity_check()
     except BaseException as error:
-        rollback_errors: list[OSError] = []
-        for path, (existed, content) in snapshots.items():
+        rollback_errors: list[BaseException] = []
+        for path in reversed(swapped):
+            existed, content = snapshots[path]
             try:
                 if existed:
                     _atomic_write(path, content)
@@ -857,10 +864,12 @@ def _publish_transaction(
                         path.unlink(missing_ok=True)
                     except NotADirectoryError:
                         pass
-            except OSError as rollback_error:
+            except BaseException as rollback_error:
                 rollback_errors.append(rollback_error)
         if rollback_errors:
-            detail = "; ".join(str(item) for item in rollback_errors)
+            detail = "; ".join(
+                f"{type(item).__name__}: {item}" for item in rollback_errors
+            )
             raise AuditError(
                 f"publication failed ({type(error).__name__}: {error}); "
                 f"rollback also failed: {detail}"
