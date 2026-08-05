@@ -828,9 +828,22 @@ def _publish_transaction(
     outputs: Sequence[tuple[Path, bytes]], integrity_check: Callable[[], None]
 ) -> None:
     snapshots: dict[Path, tuple[bool, bytes]] = {}
-    staged: list[tuple[Path, Path]] = []
+    staged: list[tuple[Path, Path, tuple[int, int]]] = []
     pending_temporaries: set[Path] = set()
     swapped: list[Path] = []
+
+    def reconcile_consumed_temporaries() -> None:
+        for path, temporary, identity in staged:
+            if path in swapped:
+                continue
+            try:
+                destination = os.lstat(path)
+            except OSError:
+                continue
+            if (destination.st_dev, destination.st_ino) == identity:
+                pending_temporaries.discard(temporary)
+                swapped.append(path)
+
     try:
         for path, _ in outputs:
             existed = path.exists()
@@ -841,18 +854,25 @@ def _publish_transaction(
                 prefix=f".{path.name}.", suffix=".tmp", dir=path.parent
             )
             temporary = Path(temporary_name)
+            temporary_status = os.fstat(descriptor)
             pending_temporaries.add(temporary)
             with os.fdopen(descriptor, "wb") as handle:
                 handle.write(content)
-            staged.append((path, temporary))
+            staged.append(
+                (
+                    path,
+                    temporary,
+                    (temporary_status.st_dev, temporary_status.st_ino),
+                )
+            )
 
         integrity_check()
-        for path, temporary in staged:
+        for path, temporary, _ in staged:
             os.replace(temporary, path)
-            pending_temporaries.remove(temporary)
-            swapped.append(path)
+            reconcile_consumed_temporaries()
         integrity_check()
     except BaseException as error:
+        reconcile_consumed_temporaries()
         rollback_errors: list[BaseException] = []
         for path in reversed(swapped):
             existed, content = snapshots[path]
@@ -878,16 +898,28 @@ def _publish_transaction(
             raise AuditError(f"publication filesystem failure: {error}") from error
         raise
     finally:
-        cleanup_error: OSError | None = None
-        for temporary in pending_temporaries:
-            try:
-                temporary.unlink(missing_ok=True)
-            except OSError as error:
-                cleanup_error = cleanup_error or error
-        if cleanup_error is not None and sys.exc_info()[0] is None:
+        primary_error_active = sys.exc_info()[0] is not None
+        remaining = sorted(pending_temporaries)
+        cleanup_errors: list[BaseException] = []
+        for _ in range(2):
+            retry: list[Path] = []
+            cleanup_errors = []
+            for temporary in remaining:
+                try:
+                    temporary.unlink(missing_ok=True)
+                except BaseException as error:
+                    retry.append(temporary)
+                    cleanup_errors.append(error)
+            remaining = retry
+            if not remaining:
+                break
+        if cleanup_errors and not primary_error_active:
+            detail = "; ".join(
+                f"{type(item).__name__}: {item}" for item in cleanup_errors
+            )
             raise AuditError(
-                f"cannot remove staged audit output: {cleanup_error}"
-            ) from cleanup_error
+                f"cannot remove staged audit output: {detail}"
+            ) from cleanup_errors[0]
 
 
 def _validate_output_paths(

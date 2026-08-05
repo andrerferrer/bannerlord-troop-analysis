@@ -1004,6 +1004,62 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             self.assertEqual(b"new-1\n", outputs[1].read_bytes())
             self.assertEqual(b"old-2\n", outputs[2].read_bytes())
 
+    def test_replace_then_interrupt_is_reconciled_and_rolled_back(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output = Path(temp_dir) / "report.md"
+            output.write_bytes(b"old report\n")
+            real_replace = audit.os.replace
+            replace_count = 0
+
+            def replace_then_interrupt(source: Path, destination: Path) -> None:
+                nonlocal replace_count
+                replace_count += 1
+                real_replace(source, destination)
+                if replace_count == 1:
+                    raise KeyboardInterrupt
+
+            with mock.patch.object(
+                audit.os, "replace", side_effect=replace_then_interrupt
+            ), self.assertRaises(KeyboardInterrupt):
+                audit._publish_transaction(
+                    [(output, b"new report\n")], lambda: None
+                )
+
+            self.assertEqual(2, replace_count)
+            self.assertEqual(b"old report\n", output.read_bytes())
+
+    def test_cleanup_interrupt_preserves_primary_error_and_continues(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            outputs = [temp / "report.md", temp / "baseline.csv"]
+            for output in outputs:
+                output.write_bytes(b"old\n")
+            real_unlink = audit.Path.unlink
+            unlink_count = 0
+
+            def interrupt_first_cleanup(
+                path: Path, missing_ok: bool = False
+            ) -> None:
+                nonlocal unlink_count
+                unlink_count += 1
+                if unlink_count == 1:
+                    raise KeyboardInterrupt
+                real_unlink(path, missing_ok=missing_ok)
+
+            def primary_failure() -> None:
+                raise ValueError("primary integrity failure")
+
+            with mock.patch.object(
+                audit.Path, "unlink", autospec=True, side_effect=interrupt_first_cleanup
+            ), self.assertRaisesRegex(ValueError, "primary integrity failure"):
+                audit._publish_transaction(
+                    [(output, b"new\n") for output in outputs], primary_failure
+                )
+
+            self.assertEqual(3, unlink_count)
+            self.assertEqual([], list(temp.glob(".*.tmp")))
+            self.assertEqual([b"old\n", b"old\n"], [path.read_bytes() for path in outputs])
+
     def test_publication_does_not_report_already_absent_target_as_rollback_failure(
         self,
     ) -> None:
