@@ -9,6 +9,7 @@ import tempfile
 import unittest
 from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
+from unittest import mock
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -50,7 +51,7 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             ),
             (
                 "role_scores_v1",
-                "ALTERNATIVE_POLICY_UNDECLARED",
+                "IRRELEVANT_DRIVER_INCLUDED",
                 "best item and roster aggregation",
             ),
             (
@@ -67,6 +68,11 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
                 "defensive_role_scores_v2_candidate",
                 "IRRELEVANT_DRIVER_INCLUDED",
                 "mobility_component_v2",
+            ),
+            (
+                "defensive_role_scores_v2_candidate",
+                "MISSING_VALUE_ZERO_FILLED",
+                "unresolved non-mount item evidence",
             ),
             ("v7.1", "SOURCE_ARTIFACT_ABSENT", "general model CSV"),
             ("v7.2", "QUESTION_MIXED", "burst_score_v72"),
@@ -93,9 +99,27 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
         self.assertEqual(
             {
                 "analysis/model_versions/v7.1/bannerlord_v71_head_weighted_model_all_official_troops.csv",
+                "analysis/model_versions/v7.2.1_tooltip_throw_validation/bannerlord_v721_tooltip_throw_model_all_official_troops.csv",
                 "analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_tooltip_damage_burst_model_all_official_troops.csv",
             },
             absent_paths,
+        )
+
+        allowed_codes = {
+            "SOURCE_ARTIFACT_ABSENT",
+            "CONTEXT_UNDECLARED",
+            "QUESTION_MIXED",
+            "ATTACK_MODE_UNDECLARED",
+            "MOUNT_STATE_UNDECLARED",
+            "IRRELEVANT_DRIVER_INCLUDED",
+            "TEMPLATE_PROXY_USED",
+            "MISSING_VALUE_ZERO_FILLED",
+            "AMMUNITION_POLICY_UNDECLARED",
+            "MOUNTED_INPUT_NON_APPLICABLE",
+        }
+        self.assertEqual(
+            set(),
+            {finding.departure_code for finding in findings} - allowed_codes,
         )
 
         defensive_v2 = [
@@ -158,6 +182,51 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
         verified = audit.verify_historical_baseline(REPO_ROOT, committed)
         self.assertEqual(rows, verified)
 
+    def test_baseline_verification_allows_only_one_declared_new_model_version(
+        self,
+    ) -> None:
+        committed = (
+            REPO_ROOT
+            / "analysis/model_candidates/context_first_scores_v1/historical_baseline_hashes.csv"
+        )
+        rows = audit.build_historical_baseline(REPO_ROOT)
+        promoted = audit.BaselineRow(
+            path="analysis/model_versions/v8_context_first/model.csv",
+            bytes=3,
+            sha256=hashlib.sha256(b"new").hexdigest(),
+            immutability_class="frozen_model",
+        )
+        unrelated = audit.BaselineRow(
+            path="analysis/model_candidates/role_scores_v2_defense/changed.csv",
+            bytes=3,
+            sha256=hashlib.sha256(b"new").hexdigest(),
+            immutability_class="historical_candidate",
+        )
+
+        with mock.patch.object(
+            audit, "build_historical_baseline", return_value=rows + (promoted,)
+        ):
+            verified = audit.verify_historical_baseline(
+                REPO_ROOT,
+                committed,
+                allowed_new_version="v8_context_first",
+            )
+        self.assertEqual(rows + (promoted,), verified)
+
+        with mock.patch.object(
+            audit, "build_historical_baseline", return_value=rows + (promoted,)
+        ), self.assertRaisesRegex(audit.AuditError, "unexpected protected path"):
+            audit.verify_historical_baseline(REPO_ROOT, committed)
+
+        with mock.patch.object(
+            audit, "build_historical_baseline", return_value=rows + (unrelated,)
+        ), self.assertRaisesRegex(audit.AuditError, "unexpected protected path"):
+            audit.verify_historical_baseline(
+                REPO_ROOT,
+                committed,
+                allowed_new_version="v8_context_first",
+            )
+
     def test_generation_is_deterministic_and_does_not_mutate_history(self) -> None:
         protected_before = {
             row.path: row.sha256
@@ -182,6 +251,18 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             self.assertEqual(first_report, report.read_bytes())
             self.assertEqual(first_baseline, baseline.read_bytes())
             self.assertIn(b"No rankings are published by this audit", first_report)
+
+            committed_report = (
+                REPO_ROOT
+                / "analysis/model_candidates/context_first_scores_v1/CURRENT_CANDIDATE_AUDIT.md"
+            )
+            self.assertEqual(first_report, committed_report.read_bytes())
+            audit.verify_committed_report(REPO_ROOT, committed_report, baseline)
+
+            stale_report = temp / "stale-report.md"
+            stale_report.write_text("stale\n", encoding="utf-8")
+            with self.assertRaisesRegex(audit.AuditError, "audit report differs"):
+                audit.verify_committed_report(REPO_ROOT, stale_report, baseline)
 
             with baseline.open(newline="", encoding="utf-8") as handle:
                 rows = list(csv.DictReader(handle))
@@ -232,6 +313,35 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             self.assertEqual(2, exit_code)
             self.assertEqual("", stdout.getvalue())
             self.assertIn("error_code=AUDIT_INTEGRITY_FAILURE", stderr.getvalue())
+
+    def test_concurrent_history_drift_restores_previous_publication(self) -> None:
+        rows = audit.build_historical_baseline(REPO_ROOT)
+        changed = audit.BaselineRow(
+            path=rows[0].path,
+            bytes=rows[0].bytes,
+            sha256="0" * 64,
+            immutability_class=rows[0].immutability_class,
+        )
+        drifted = (changed,) + rows[1:]
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            report = temp / "CURRENT_CANDIDATE_AUDIT.md"
+            baseline = temp / "historical_baseline_hashes.csv"
+            report.write_bytes(b"previous report\n")
+            baseline.write_bytes(audit._baseline_bytes(rows))
+
+            with mock.patch.object(
+                audit,
+                "build_historical_baseline",
+                side_effect=(rows, rows, drifted),
+            ), self.assertRaisesRegex(
+                audit.AuditError, "changed while publishing"
+            ):
+                audit.write_audit(REPO_ROOT, report, baseline)
+
+            self.assertEqual(b"previous report\n", report.read_bytes())
+            self.assertEqual(audit._baseline_bytes(rows), baseline.read_bytes())
 
     def test_baseline_initialization_is_explicit_and_one_time(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

@@ -7,25 +7,24 @@ scoring sources, and frozen model versions are read and hashed but never modifie
 
 ## Scope
 
-- Findings: 55
+- Findings: 57
 - Protected files: 119
 - Baseline manifest SHA-256: `b603b548d42c5599bdac109bbb94339b4e990c90652096cc10d98894f4dc34f4`
-- Explicit absent artifacts: 2
+- Explicit absent artifacts: 3
 
 ## Departure counts
 
 | Departure code | Count |
 |---|---:|
-| `ALTERNATIVE_POLICY_UNDECLARED` | 1 |
 | `AMMUNITION_POLICY_UNDECLARED` | 4 |
 | `ATTACK_MODE_UNDECLARED` | 4 |
 | `CONTEXT_UNDECLARED` | 4 |
-| `IRRELEVANT_DRIVER_INCLUDED` | 17 |
-| `MISSING_VALUE_ZERO_FILLED` | 4 |
+| `IRRELEVANT_DRIVER_INCLUDED` | 18 |
+| `MISSING_VALUE_ZERO_FILLED` | 5 |
 | `MOUNTED_INPUT_NON_APPLICABLE` | 4 |
 | `MOUNT_STATE_UNDECLARED` | 4 |
 | `QUESTION_MIXED` | 7 |
-| `SOURCE_ARTIFACT_ABSENT` | 2 |
+| `SOURCE_ARTIFACT_ABSENT` | 3 |
 | `TEMPLATE_PROXY_USED` | 4 |
 
 ## Finding inventory
@@ -43,14 +42,15 @@ defensive_role_scores_v2_candidate,scripts/scoring/generate_defensive_role_score
 defensive_role_scores_v2_candidate,scripts/scoring/generate_defensive_role_scores_v2.py,5acbb9e94929e10df67ab3ef03993f4b207126e108233b5301f54e1836eb8aa0,false,false,false,false,IRRELEVANT_DRIVER_INCLUDED,shield_armor_component_v2,Shield armor is included without an explicit shield-endurance question.
 defensive_role_scores_v2_candidate,scripts/scoring/generate_defensive_role_scores_v2.py,5acbb9e94929e10df67ab3ef03993f4b207126e108233b5301f54e1836eb8aa0,false,false,false,false,IRRELEVANT_DRIVER_INCLUDED,shield_hp_component_v2,Shield endurance is treated as physical protection rather than a separate blocking question.
 defensive_role_scores_v2_candidate,scripts/scoring/generate_defensive_role_scores_v2.py,5acbb9e94929e10df67ab3ef03993f4b207126e108233b5301f54e1836eb8aa0,false,false,false,false,MISSING_VALUE_ZERO_FILLED,"number(value, default=0.0)",Missing/non-finite values are converted to a numeric default in historical feature helpers.
+defensive_role_scores_v2_candidate,scripts/scoring/generate_defensive_role_scores_v2.py,5acbb9e94929e10df67ab3ef03993f4b207126e108233b5301f54e1836eb8aa0,false,false,false,false,MISSING_VALUE_ZERO_FILLED,unresolved non-mount item evidence,"Unresolved armor, shield, or melee item evidence contributes zero while the roster remains scoreable."
 defensive_role_scores_v2_candidate,scripts/scoring/generate_defensive_role_scores_v2.py,5acbb9e94929e10df67ab3ef03993f4b207126e108233b5301f54e1836eb8aa0,false,false,false,false,MOUNTED_INPUT_NON_APPLICABLE,cavalry protection/utility lanes,Mount and harness inputs cannot answer siege-defense defense after dismounting.
 defensive_role_scores_v2_candidate,scripts/scoring/generate_defensive_role_scores_v2.py,5acbb9e94929e10df67ab3ef03993f4b207126e108233b5301f54e1836eb8aa0,false,false,false,false,MOUNT_STATE_UNDECLARED,defensive_lane,Mounted/unmounted lanes replace an explicit context and mount-state declaration.
 defensive_role_scores_v2_candidate,scripts/scoring/generate_defensive_role_scores_v2.py,5acbb9e94929e10df67ab3ef03993f4b207126e108233b5301f54e1836eb8aa0,false,false,false,false,QUESTION_MIXED,protection_score_v2 and defensive_utility_score_v2,Protection and utility answer separate questions and utility blends mobility/melee skill.
-role_scores_v1,scripts/scoring/generate_vanilla_role_scores.py,0bada51e5fb830b1f2efcc5f31b0c1ca0844df2ad0363010bc312244fe3d90b3,false,false,false,false,ALTERNATIVE_POLICY_UNDECLARED,best item and roster aggregation,Favorable item and roster outputs are selected with max instead of a declared alternative-equipment mean.
 role_scores_v1,scripts/scoring/generate_vanilla_role_scores.py,0bada51e5fb830b1f2efcc5f31b0c1ca0844df2ad0363010bc312244fe3d90b3,false,false,false,false,AMMUNITION_POLICY_UNDECLARED,direct_throw_raw,Throwing stack amount enters output without a battle-context ammunition policy.
 role_scores_v1,scripts/scoring/generate_vanilla_role_scores.py,0bada51e5fb830b1f2efcc5f31b0c1ca0844df2ad0363010bc312244fe3d90b3,false,false,false,false,AMMUNITION_POLICY_UNDECLARED,ranged_raw,Finite stack count is used without a battle-context ammunition policy.
 role_scores_v1,scripts/scoring/generate_vanilla_role_scores.py,0bada51e5fb830b1f2efcc5f31b0c1ca0844df2ad0363010bc312244fe3d90b3,false,false,false,false,ATTACK_MODE_UNDECLARED,candidate declaration,"Melee, ranged, throwing, and defense paths are built together."
 role_scores_v1,scripts/scoring/generate_vanilla_role_scores.py,0bada51e5fb830b1f2efcc5f31b0c1ca0844df2ad0363010bc312244fe3d90b3,false,false,false,false,CONTEXT_UNDECLARED,candidate declaration,No track/battle-context declaration is validated before formulas run.
+role_scores_v1,scripts/scoring/generate_vanilla_role_scores.py,0bada51e5fb830b1f2efcc5f31b0c1ca0844df2ad0363010bc312244fe3d90b3,false,false,false,false,IRRELEVANT_DRIVER_INCLUDED,best item and roster aggregation,Favorable item and roster outputs are selected with max instead of the context-first alternative-equipment mean.
 role_scores_v1,scripts/scoring/generate_vanilla_role_scores.py,0bada51e5fb830b1f2efcc5f31b0c1ca0844df2ad0363010bc312244fe3d90b3,false,false,false,false,IRRELEVANT_DRIVER_INCLUDED,defense_raw,"Shield HP/armor, harness armor, charge, horse speed, and maneuver enter defense."
 role_scores_v1,scripts/scoring/generate_vanilla_role_scores.py,0bada51e5fb830b1f2efcc5f31b0c1ca0844df2ad0363010bc312244fe3d90b3,false,false,false,false,IRRELEVANT_DRIVER_INCLUDED,direct_throw_raw,Direct throwing blends swing/thrust damage with speed rating and stack amount.
 role_scores_v1,scripts/scoring/generate_vanilla_role_scores.py,0bada51e5fb830b1f2efcc5f31b0c1ca0844df2ad0363010bc312244fe3d90b3,false,false,false,false,IRRELEVANT_DRIVER_INCLUDED,ranged_raw,"Ammunition thrust damage, weapon speed, accuracy, missile speed, and a capped stack bonus enter ranged output."
@@ -89,6 +89,7 @@ v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c
 v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c486a15febe9c37f9d4ec6cd044645dd,false,false,false,false,MOUNT_STATE_UNDECLARED,mounted_throw_bonus_v73,Mounted state is inferred rather than declared before scoring.
 v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c486a15febe9c37f9d4ec6cd044645dd,false,false,false,false,QUESTION_MIXED,burst_score_v73,Burst offense is blended with reliability and v7.1 defense.
 v7.3,analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_tooltip_damage_burst_model_all_official_troops.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,full tooltip-damage burst model CSV,"The v7.3 builder and documentation reference this full model output, but its bytes are not present in the checkout."
+v7.3,analysis/model_versions/v7.2.1_tooltip_throw_validation/bannerlord_v721_tooltip_throw_model_all_official_troops.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,v7.2.1 tooltip-throw input model CSV,"The v7.3 builder declares this model CSV as its required input, but its bytes are not present in the checkout."
 v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c486a15febe9c37f9d4ec6cd044645dd,false,false,false,false,TEMPLATE_PROXY_USED,throw_damage_source_v73=model_proxy,Missing tooltip damage falls back to primary model proxy damage.
 ```
 

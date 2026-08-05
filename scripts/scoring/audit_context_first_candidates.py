@@ -16,9 +16,10 @@ import io
 import os
 import subprocess
 import sys
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable, Sequence
+from typing import Callable, Iterable, Sequence
 
 
 AUDIT_FIELDS = (
@@ -53,6 +54,11 @@ EXPECTED_V71_MODEL = (
 EXPECTED_V73_MODEL = (
     "analysis/model_versions/v7.3_tooltip_damage_burst/"
     "bannerlord_v73_tooltip_damage_burst_model_all_official_troops.csv"
+)
+
+EXPECTED_V721_TOOLTIP_MODEL = (
+    "analysis/model_versions/v7.2.1_tooltip_throw_validation/"
+    "bannerlord_v721_tooltip_throw_model_all_official_troops.csv"
 )
 
 
@@ -131,7 +137,7 @@ def _specs() -> tuple[FindingSpec, ...]:
         FindingSpec("role_scores_v1", v1, False, False, False, False, "AMMUNITION_POLICY_UNDECLARED", "direct_throw_raw", "Throwing stack amount enters output without a battle-context ammunition policy."),
         FindingSpec("role_scores_v1", v1, False, False, False, False, "IRRELEVANT_DRIVER_INCLUDED", "direct_throw_raw", "Direct throwing blends swing/thrust damage with speed rating and stack amount."),
         FindingSpec("role_scores_v1", v1, False, False, False, False, "IRRELEVANT_DRIVER_INCLUDED", "role eligibility and primary_category", "Shield, horse, and normalized defense fields decide whether and where troops rank."),
-        FindingSpec("role_scores_v1", v1, False, False, False, False, "ALTERNATIVE_POLICY_UNDECLARED", "best item and roster aggregation", "Favorable item and roster outputs are selected with max instead of a declared alternative-equipment mean."),
+        FindingSpec("role_scores_v1", v1, False, False, False, False, "IRRELEVANT_DRIVER_INCLUDED", "best item and roster aggregation", "Favorable item and roster outputs are selected with max instead of the context-first alternative-equipment mean."),
         FindingSpec("role_scores_v1", v1, False, False, False, False, "MOUNTED_INPUT_NON_APPLICABLE", "has_horse and mobility_factor", "Mounted bonuses can enter outputs that are not scoped away from siege defense."),
         FindingSpec("defensive_role_scores_v2_candidate", v2, False, False, False, False, "CONTEXT_UNDECLARED", "candidate declaration", "The candidate is defensive but does not select field, siege attack, or siege defense."),
         FindingSpec("defensive_role_scores_v2_candidate", v2, False, False, False, False, "ATTACK_MODE_UNDECLARED", "candidate declaration", "Melee counterpressure is read without a declared attack mode."),
@@ -143,8 +149,10 @@ def _specs() -> tuple[FindingSpec, ...]:
         FindingSpec("defensive_role_scores_v2_candidate", v2, False, False, False, False, "IRRELEVANT_DRIVER_INCLUDED", "mobility_component_v2", "Horse speed/maneuver or Athletics enter defensive utility."),
         FindingSpec("defensive_role_scores_v2_candidate", v2, False, False, False, False, "IRRELEVANT_DRIVER_INCLUDED", "counterpressure_component_v2", "Maximum melee skill enters defensive utility."),
         FindingSpec("defensive_role_scores_v2_candidate", v2, False, False, False, False, "MISSING_VALUE_ZERO_FILLED", "number(value, default=0.0)", "Missing/non-finite values are converted to a numeric default in historical feature helpers."),
+        FindingSpec("defensive_role_scores_v2_candidate", v2, False, False, False, False, "MISSING_VALUE_ZERO_FILLED", "unresolved non-mount item evidence", "Unresolved armor, shield, or melee item evidence contributes zero while the roster remains scoreable."),
         FindingSpec("defensive_role_scores_v2_candidate", v2, False, False, False, False, "MOUNTED_INPUT_NON_APPLICABLE", "cavalry protection/utility lanes", "Mount and harness inputs cannot answer siege-defense defense after dismounting."),
         FindingSpec("v7.1", EXPECTED_V71_MODEL, False, False, False, False, "SOURCE_ARTIFACT_ABSENT", "general model CSV", "The repository references this v7.1 input, but its bytes are not present in the checkout."),
+        FindingSpec("v7.3", EXPECTED_V721_TOOLTIP_MODEL, False, False, False, False, "SOURCE_ARTIFACT_ABSENT", "v7.2.1 tooltip-throw input model CSV", "The v7.3 builder declares this model CSV as its required input, but its bytes are not present in the checkout."),
         FindingSpec("v7.3", EXPECTED_V73_MODEL, False, False, False, False, "SOURCE_ARTIFACT_ABSENT", "full tooltip-damage burst model CSV", "The v7.3 builder and documentation reference this full model output, but its bytes are not present in the checkout."),
         FindingSpec("v7.2", v72, False, False, False, False, "CONTEXT_UNDECLARED", "burst_score_v72", "The burst label does not declare track and battle context as a validated tuple."),
         FindingSpec("v7.2", v72, False, False, False, False, "ATTACK_MODE_UNDECLARED", "burst_raw=max(throw,ranged,charge,melee)", "Four attack families compete inside one output."),
@@ -322,7 +330,10 @@ def _baseline_bytes(rows: Sequence[BaselineRow]) -> bytes:
 
 
 def verify_historical_baseline(
-    repo: Path, baseline_path: Path
+    repo: Path,
+    baseline_path: Path,
+    *,
+    allowed_new_version: str | None = None,
 ) -> tuple[BaselineRow, ...]:
     repo = repo.resolve()
     baseline_path = (
@@ -330,14 +341,65 @@ def verify_historical_baseline(
         if baseline_path.is_absolute()
         else repo / baseline_path
     ).resolve()
-    rows = build_historical_baseline(repo)
     if not baseline_path.is_file():
         raise AuditError(f"historical baseline missing: {baseline_path}")
-    if baseline_path.read_bytes() != _baseline_bytes(rows):
-        raise AuditError(
-            "existing historical baseline differs from current protected bytes"
-        )
-    return rows
+    committed_rows = _parse_baseline(baseline_path.read_bytes())
+    current_rows = build_historical_baseline(repo)
+    committed = {row.path: row for row in committed_rows}
+    current = {row.path: row for row in current_rows}
+
+    for path, expected in committed.items():
+        observed = current.get(path)
+        if observed != expected:
+            raise AuditError(
+                f"existing historical baseline differs from current protected bytes: {path}"
+            )
+
+    extras = sorted(set(current) - set(committed))
+    allowed_prefix = _allowed_version_prefix(allowed_new_version)
+    forbidden = [
+        path
+        for path in extras
+        if allowed_prefix is None or not path.startswith(allowed_prefix)
+    ]
+    if forbidden:
+        raise AuditError(f"unexpected protected path: {forbidden[0]}")
+    return current_rows
+
+
+def _parse_baseline(content: bytes) -> tuple[BaselineRow, ...]:
+    try:
+        text = content.decode("utf-8")
+    except UnicodeDecodeError as error:
+        raise AuditError("historical baseline is not valid UTF-8") from error
+    reader = csv.DictReader(io.StringIO(text, newline=""))
+    if reader.fieldnames != list(BASELINE_FIELDS):
+        raise AuditError("historical baseline has an invalid header")
+    rows: list[BaselineRow] = []
+    try:
+        for value in reader:
+            rows.append(
+                BaselineRow(
+                    path=value["path"],
+                    bytes=int(value["bytes"]),
+                    sha256=value["sha256"],
+                    immutability_class=value["immutability_class"],
+                )
+            )
+    except (KeyError, TypeError, ValueError) as error:
+        raise AuditError("historical baseline has an invalid row") from error
+    paths = [row.path for row in rows]
+    if not rows or paths != sorted(paths) or len(paths) != len(set(paths)):
+        raise AuditError("historical baseline paths must be non-empty, unique, and sorted")
+    return tuple(rows)
+
+
+def _allowed_version_prefix(version: str | None) -> str | None:
+    if version is None:
+        return None
+    if not version or Path(version).name != version or version in {".", ".."}:
+        raise AuditError("allowed new model version must be one directory name")
+    return f"analysis/model_versions/{version}/"
 
 
 def _audit_csv(findings: Sequence[AuditFinding]) -> str:
@@ -400,11 +462,67 @@ def _report_bytes(
     return "\n".join(lines).encode("utf-8")
 
 
+def verify_committed_report(
+    repo: Path, report_path: Path, baseline_path: Path
+) -> None:
+    repo = repo.resolve()
+    report_path = report_path if report_path.is_absolute() else repo / report_path
+    baseline_path = baseline_path if baseline_path.is_absolute() else repo / baseline_path
+    if not report_path.is_file():
+        raise AuditError(f"audit report missing: {report_path}")
+    rows = verify_historical_baseline(repo, baseline_path)
+    expected = _report_bytes(build_findings(repo), rows, _baseline_bytes(rows))
+    if report_path.read_bytes() != expected:
+        raise AuditError("committed audit report differs from deterministic output")
+
+
 def _atomic_write(path: Path, content: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_name(f".{path.name}.tmp")
-    temporary.write_bytes(content)
-    os.replace(temporary, path)
+    descriptor, temporary_name = tempfile.mkstemp(
+        prefix=f".{path.name}.", suffix=".tmp", dir=path.parent
+    )
+    temporary = Path(temporary_name)
+    try:
+        with os.fdopen(descriptor, "wb") as handle:
+            handle.write(content)
+        os.replace(temporary, path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def _publish_transaction(
+    outputs: Sequence[tuple[Path, bytes]], integrity_check: Callable[[], None]
+) -> None:
+    snapshots = {
+        path: (path.exists(), path.read_bytes() if path.exists() else b"")
+        for path, _ in outputs
+    }
+    staged: list[tuple[Path, Path]] = []
+    try:
+        for path, content in outputs:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            descriptor, temporary_name = tempfile.mkstemp(
+                prefix=f".{path.name}.", suffix=".tmp", dir=path.parent
+            )
+            temporary = Path(temporary_name)
+            with os.fdopen(descriptor, "wb") as handle:
+                handle.write(content)
+            staged.append((path, temporary))
+
+        integrity_check()
+        for path, temporary in staged:
+            os.replace(temporary, path)
+        integrity_check()
+    except Exception:
+        for path, (existed, content) in snapshots.items():
+            if existed:
+                _atomic_write(path, content)
+            else:
+                path.unlink(missing_ok=True)
+        raise
+    finally:
+        for _, temporary in staged:
+            temporary.unlink(missing_ok=True)
 
 
 def _validate_output_paths(
@@ -475,12 +593,14 @@ def write_audit(
                 "existing historical baseline differs from current protected bytes; refusing to rewrite it"
             )
 
-    _atomic_write(report_output, report)
-    if initialize_baseline:
-        _atomic_write(baseline_output, baseline)
+    def history_is_unchanged() -> None:
+        if build_historical_baseline(repo) != baseline_rows:
+            raise AuditError("protected bytes changed while publishing the audit")
 
-    if build_historical_baseline(repo) != baseline_rows:
-        raise AuditError("protected bytes changed while publishing the audit")
+    outputs = [(report_output, report)]
+    if initialize_baseline:
+        outputs.append((baseline_output, baseline))
+    _publish_transaction(outputs, history_is_unchanged)
     return findings, baseline_rows
 
 
