@@ -483,6 +483,40 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             finally:
                 unreadable.chmod(0o700)
 
+    def test_lstat_helper_rejects_repository_root(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_repo = Path(temp_dir)
+            with self.assertRaisesRegex(audit.AuditError, "repository root"):
+                audit._lstat_repository_path(temp_repo, temp_repo)
+
+    def test_seeded_historical_rows_are_revalidated_after_discovery(self) -> None:
+        committed = (
+            REPO_ROOT
+            / "analysis/model_candidates/context_first_scores_v1/historical_baseline_hashes.csv"
+        )
+        rows = audit._parse_baseline(committed.read_bytes())
+        changed = audit.BaselineRow(
+            path=rows[0].path,
+            bytes=rows[0].bytes,
+            sha256="0" * 64,
+            immutability_class=rows[0].immutability_class,
+        )
+        changed_rows = (changed,) + rows[1:]
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_repo = Path(temp_dir)
+            for second_snapshot in (changed_rows, rows[1:]):
+                with self.subTest(second_snapshot_size=len(second_snapshot)), mock.patch.object(
+                    audit,
+                    "build_historical_baseline",
+                    side_effect=(rows, second_snapshot),
+                ), mock.patch.object(
+                    audit, "_tracked_files", return_value=()
+                ), self.assertRaisesRegex(
+                    audit.AuditError, "changed during working-tree scan"
+                ):
+                    audit.build_working_tree_baseline(temp_repo)
+
     def test_reserved_theoretical_export_name_must_be_directory(self) -> None:
         committed = (
             REPO_ROOT
@@ -617,7 +651,7 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             with mock.patch.object(
                 audit,
                 "build_historical_baseline",
-                side_effect=(rows, rows, drifted),
+                side_effect=(rows, rows, drifted, drifted),
             ), self.assertRaisesRegex(
                 audit.AuditError, "changed while publishing"
             ):

@@ -310,6 +310,8 @@ def _lstat_repository_path(
         relative = path.relative_to(repo)
     except ValueError as error:
         raise AuditError(f"protected path is outside repository: {path}") from error
+    if not relative.parts:
+        raise AuditError(f"protected path is the repository root: {repo}")
 
     current = repo
     for part in relative.parts:
@@ -430,7 +432,8 @@ def _scan_tree_fail_closed(repo: Path, root: Path) -> tuple[Path, ...]:
 def build_working_tree_baseline(repo: Path) -> tuple[BaselineRow, ...]:
     """Include untracked files inside protected roots for promotion checks."""
     repo = repo.resolve()
-    rows = {row.path: row for row in build_historical_baseline(repo)}
+    historical_rows = build_historical_baseline(repo)
+    rows = {row.path: row for row in historical_rows}
     roots: dict[Path, str] = {
         repo / "data/vanilla/role_scores": "historical_candidate",
         repo / "analysis/model_candidates/role_scores_v2_defense": "historical_candidate",
@@ -471,6 +474,8 @@ def build_working_tree_baseline(repo: Path) -> tuple[BaselineRow, ...]:
                 sha256=_sha256_bytes(content),
                 immutability_class=classification,
             )
+    if build_historical_baseline(repo) != historical_rows:
+        raise AuditError("protected bytes changed during working-tree scan")
     return tuple(rows[path] for path in sorted(rows))
 
 
