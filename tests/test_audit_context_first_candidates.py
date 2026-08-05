@@ -75,6 +75,7 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
                 "unresolved non-mount item evidence",
             ),
             ("v7.1", "SOURCE_ARTIFACT_ABSENT", "general model CSV"),
+            ("v7.2", "SOURCE_ARTIFACT_ABSENT", "full burst model CSV"),
             ("v7.2", "QUESTION_MIXED", "burst_score_v72"),
             (
                 "v7.2",
@@ -99,6 +100,7 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
         self.assertEqual(
             {
                 "analysis/model_versions/v7.1/bannerlord_v71_head_weighted_model_all_official_troops.csv",
+                "analysis/model_versions/v7.2_burst_score/bannerlord_v72_burst_model_all_official_troops.csv",
                 "analysis/model_versions/v7.2.1_tooltip_throw_validation/bannerlord_v721_tooltip_throw_model_all_official_troops.csv",
                 "analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_tooltip_damage_burst_model_all_official_troops.csv",
             },
@@ -157,6 +159,9 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
         )
         self.assertIn("scripts/scoring/generate_vanilla_role_scores.py", paths)
         self.assertIn("scripts/build_v73_tooltip_damage_burst.py", paths)
+        self.assertIn(
+            "data/vanilla/role_scores/vanilla_sanity_role_scores_v1.csv", paths
+        )
 
         tracked = set(
             subprocess.run(
@@ -211,7 +216,9 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
                 committed,
                 allowed_new_version="v8_context_first",
             )
-        self.assertEqual(rows + (promoted,), verified)
+        self.assertEqual(
+            tuple(sorted(rows + (promoted,), key=lambda row: row.path)), verified
+        )
 
         with mock.patch.object(
             audit, "build_historical_baseline", return_value=rows + (promoted,)
@@ -225,6 +232,76 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
                 REPO_ROOT,
                 committed,
                 allowed_new_version="v8_context_first",
+            )
+
+        with mock.patch.object(
+            audit, "build_historical_baseline", return_value=rows + (promoted,)
+        ), self.assertRaisesRegex(audit.AuditError, "already exists"):
+            audit.verify_historical_baseline(
+                REPO_ROOT,
+                committed,
+                allowed_new_version="v7.3_tooltip_damage_burst",
+            )
+
+    def test_untracked_protected_additions_are_visible_to_promotion_verification(
+        self,
+    ) -> None:
+        committed = (
+            REPO_ROOT
+            / "analysis/model_candidates/context_first_scores_v1/historical_baseline_hashes.csv"
+        )
+        version_name = "D10_TEST_UNTRACKED_MUST_NOT_PERSIST"
+        version_dir = REPO_ROOT / "analysis/model_versions" / version_name
+        addition = version_dir / "model.csv"
+        version_dir.mkdir()
+        self.addCleanup(version_dir.rmdir)
+        addition.write_bytes(b"new model\n")
+        self.addCleanup(addition.unlink)
+
+        with self.assertRaisesRegex(audit.AuditError, "unexpected protected path"):
+            audit.verify_historical_baseline(REPO_ROOT, committed)
+
+        verified = audit.verify_historical_baseline(
+            REPO_ROOT,
+            committed,
+            allowed_new_version=version_name,
+        )
+        self.assertIn(
+            addition.relative_to(REPO_ROOT).as_posix(),
+            {row.path for row in verified},
+        )
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            report = Path(temp_dir) / "audit.md"
+            findings, published_rows = audit.write_audit(
+                REPO_ROOT,
+                report,
+                committed,
+                allowed_new_version=version_name,
+            )
+            self.assertEqual(58, len(findings))
+            self.assertEqual(verified, published_rows)
+            self.assertEqual(
+                (
+                    REPO_ROOT
+                    / "analysis/model_candidates/context_first_scores_v1/"
+                    "CURRENT_CANDIDATE_AUDIT.md"
+                ).read_bytes(),
+                report.read_bytes(),
+            )
+
+        existing_addition = (
+            REPO_ROOT
+            / "analysis/model_versions/v7.3_tooltip_damage_burst/"
+            "D10_TEST_MUST_NOT_EXTEND.csv"
+        )
+        existing_addition.write_bytes(b"forbidden\n")
+        self.addCleanup(existing_addition.unlink)
+        with self.assertRaisesRegex(audit.AuditError, "already exists"):
+            audit.verify_historical_baseline(
+                REPO_ROOT,
+                committed,
+                allowed_new_version="v7.3_tooltip_damage_burst",
             )
 
     def test_generation_is_deterministic_and_does_not_mutate_history(self) -> None:
@@ -288,9 +365,7 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
                 encoding="utf-8",
             )
 
-            with self.assertRaisesRegex(
-                audit.AuditError, "refusing to rewrite"
-            ):
+            with self.assertRaisesRegex(audit.AuditError, "differs"):
                 audit.write_audit(REPO_ROOT, report, baseline)
 
             self.assertFalse(report.exists())
@@ -342,6 +417,34 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
 
             self.assertEqual(b"previous report\n", report.read_bytes())
             self.assertEqual(audit._baseline_bytes(rows), baseline.read_bytes())
+
+    def test_interrupt_between_output_swaps_restores_both_snapshots(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            report = temp / "report.md"
+            baseline = temp / "baseline.csv"
+            report.write_bytes(b"old report\n")
+            baseline.write_bytes(b"old baseline\n")
+            real_replace = audit.os.replace
+            replace_count = 0
+
+            def interrupt_second_replace(source: Path, destination: Path) -> None:
+                nonlocal replace_count
+                replace_count += 1
+                if replace_count == 2:
+                    raise KeyboardInterrupt
+                real_replace(source, destination)
+
+            with mock.patch.object(
+                audit.os, "replace", side_effect=interrupt_second_replace
+            ), self.assertRaises(KeyboardInterrupt):
+                audit._publish_transaction(
+                    [(report, b"new report\n"), (baseline, b"new baseline\n")],
+                    lambda: None,
+                )
+
+            self.assertEqual(b"old report\n", report.read_bytes())
+            self.assertEqual(b"old baseline\n", baseline.read_bytes())
 
     def test_baseline_initialization_is_explicit_and_one_time(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

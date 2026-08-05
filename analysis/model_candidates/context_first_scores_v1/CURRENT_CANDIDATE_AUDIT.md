@@ -7,10 +7,10 @@ scoring sources, and frozen model versions are read and hashed but never modifie
 
 ## Scope
 
-- Findings: 57
-- Protected files: 119
-- Baseline manifest SHA-256: `b603b548d42c5599bdac109bbb94339b4e990c90652096cc10d98894f4dc34f4`
-- Explicit absent artifacts: 3
+- Findings: 58
+- Protected files: 120
+- Baseline manifest SHA-256: `2128641036518bab061e390a8db0d35846a37f91d34f8e41f67c812c1ac5d113`
+- Explicit absent artifacts: 4
 
 ## Departure counts
 
@@ -24,7 +24,7 @@ scoring sources, and frozen model versions are read and hashed but never modifie
 | `MOUNTED_INPUT_NON_APPLICABLE` | 4 |
 | `MOUNT_STATE_UNDECLARED` | 4 |
 | `QUESTION_MIXED` | 7 |
-| `SOURCE_ARTIFACT_ABSENT` | 3 |
+| `SOURCE_ARTIFACT_ABSENT` | 4 |
 | `TEMPLATE_PROXY_USED` | 4 |
 
 ## Finding inventory
@@ -77,6 +77,7 @@ v7.2,scripts/build_v72_burst_score.py,96e1273aa0a0cc00dab6e5fdcebf5cf6cc427f7f7b
 v7.2,scripts/build_v72_burst_score.py,96e1273aa0a0cc00dab6e5fdcebf5cf6cc427f7f7b572a2afa5a70034bbc5e9c,false,false,false,false,MOUNTED_INPUT_NON_APPLICABLE,mounted_throw_bonus,The mounted bonus has no siege-defense dismount boundary.
 v7.2,scripts/build_v72_burst_score.py,96e1273aa0a0cc00dab6e5fdcebf5cf6cc427f7f7b572a2afa5a70034bbc5e9c,false,false,false,false,MOUNT_STATE_UNDECLARED,mounted_throw_bonus,Mounted state is inferred from input rather than declared before scoring.
 v7.2,scripts/build_v72_burst_score.py,96e1273aa0a0cc00dab6e5fdcebf5cf6cc427f7f7b572a2afa5a70034bbc5e9c,false,false,false,false,QUESTION_MIXED,burst_score_v72,Burst offense is blended with reliability and v7.1 defense.
+v7.2,analysis/model_versions/v7.2_burst_score/bannerlord_v72_burst_model_all_official_troops.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,full burst model CSV,"The v7.2 builder publishes this full model output, but its bytes are not present in the checkout."
 v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c486a15febe9c37f9d4ec6cd044645dd,false,false,false,false,AMMUNITION_POLICY_UNDECLARED,throw_ammo_factor_v73,Finite ammunition is used without a field/siege policy.
 v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c486a15febe9c37f9d4ec6cd044645dd,false,false,false,false,ATTACK_MODE_UNDECLARED,burst_source_v73,"Throw, ranged, charge, and melee sources compete inside one output."
 v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c486a15febe9c37f9d4ec6cd044645dd,false,false,false,false,CONTEXT_UNDECLARED,burst_score_v73,The burst label does not declare track and battle context as a validated tuple.
@@ -88,7 +89,7 @@ v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c
 v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c486a15febe9c37f9d4ec6cd044645dd,false,false,false,false,MOUNTED_INPUT_NON_APPLICABLE,mounted_throw_bonus_v73,The mounted bonus has no siege-defense dismount boundary.
 v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c486a15febe9c37f9d4ec6cd044645dd,false,false,false,false,MOUNT_STATE_UNDECLARED,mounted_throw_bonus_v73,Mounted state is inferred rather than declared before scoring.
 v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c486a15febe9c37f9d4ec6cd044645dd,false,false,false,false,QUESTION_MIXED,burst_score_v73,Burst offense is blended with reliability and v7.1 defense.
-v7.3,analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_tooltip_damage_burst_model_all_official_troops.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,full tooltip-damage burst model CSV,"The v7.3 builder and documentation reference this full model output, but its bytes are not present in the checkout."
+v7.3,analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_tooltip_damage_burst_model_all_official_troops.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,full tooltip-damage burst model CSV,"The v7.3 builder publishes this full model output, but its bytes are not present in the checkout."
 v7.3,analysis/model_versions/v7.2.1_tooltip_throw_validation/bannerlord_v721_tooltip_throw_model_all_official_troops.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,v7.2.1 tooltip-throw input model CSV,"The v7.3 builder declares this model CSV as its required input, but its bytes are not present in the checkout."
 v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c486a15febe9c37f9d4ec6cd044645dd,false,false,false,false,TEMPLATE_PROXY_USED,throw_damage_source_v73=model_proxy,Missing tooltip damage falls back to primary model proxy damage.
 ```

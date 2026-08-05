@@ -51,6 +51,11 @@ EXPECTED_V71_MODEL = (
     "bannerlord_v71_head_weighted_model_all_official_troops.csv"
 )
 
+EXPECTED_V72_MODEL = (
+    "analysis/model_versions/v7.2_burst_score/"
+    "bannerlord_v72_burst_model_all_official_troops.csv"
+)
+
 EXPECTED_V73_MODEL = (
     "analysis/model_versions/v7.3_tooltip_damage_burst/"
     "bannerlord_v73_tooltip_damage_burst_model_all_official_troops.csv"
@@ -152,8 +157,9 @@ def _specs() -> tuple[FindingSpec, ...]:
         FindingSpec("defensive_role_scores_v2_candidate", v2, False, False, False, False, "MISSING_VALUE_ZERO_FILLED", "unresolved non-mount item evidence", "Unresolved armor, shield, or melee item evidence contributes zero while the roster remains scoreable."),
         FindingSpec("defensive_role_scores_v2_candidate", v2, False, False, False, False, "MOUNTED_INPUT_NON_APPLICABLE", "cavalry protection/utility lanes", "Mount and harness inputs cannot answer siege-defense defense after dismounting."),
         FindingSpec("v7.1", EXPECTED_V71_MODEL, False, False, False, False, "SOURCE_ARTIFACT_ABSENT", "general model CSV", "The repository references this v7.1 input, but its bytes are not present in the checkout."),
+        FindingSpec("v7.2", EXPECTED_V72_MODEL, False, False, False, False, "SOURCE_ARTIFACT_ABSENT", "full burst model CSV", "The v7.2 builder publishes this full model output, but its bytes are not present in the checkout."),
         FindingSpec("v7.3", EXPECTED_V721_TOOLTIP_MODEL, False, False, False, False, "SOURCE_ARTIFACT_ABSENT", "v7.2.1 tooltip-throw input model CSV", "The v7.3 builder declares this model CSV as its required input, but its bytes are not present in the checkout."),
-        FindingSpec("v7.3", EXPECTED_V73_MODEL, False, False, False, False, "SOURCE_ARTIFACT_ABSENT", "full tooltip-damage burst model CSV", "The v7.3 builder and documentation reference this full model output, but its bytes are not present in the checkout."),
+        FindingSpec("v7.3", EXPECTED_V73_MODEL, False, False, False, False, "SOURCE_ARTIFACT_ABSENT", "full tooltip-damage burst model CSV", "The v7.3 builder publishes this full model output, but its bytes are not present in the checkout."),
         FindingSpec("v7.2", v72, False, False, False, False, "CONTEXT_UNDECLARED", "burst_score_v72", "The burst label does not declare track and battle context as a validated tuple."),
         FindingSpec("v7.2", v72, False, False, False, False, "ATTACK_MODE_UNDECLARED", "burst_raw=max(throw,ranged,charge,melee)", "Four attack families compete inside one output."),
         FindingSpec("v7.2", v72, False, False, False, False, "MOUNT_STATE_UNDECLARED", "mounted_throw_bonus", "Mounted state is inferred from input rather than declared before scoring."),
@@ -254,6 +260,7 @@ def _historical_output(relative: str) -> bool:
 
 
 def _protected_paths(repo: Path) -> Iterable[tuple[Path, str]]:
+    v1_candidate_prefix = "data/vanilla/role_scores/"
     candidate_prefix = "analysis/model_candidates/role_scores_v2_defense/"
     model_prefix = "analysis/model_versions/"
     audited = set(AUDITED_SOURCES)
@@ -262,7 +269,9 @@ def _protected_paths(repo: Path) -> Iterable[tuple[Path, str]]:
 
     for relative in _tracked_files(repo):
         classification = ""
-        if relative.startswith(candidate_prefix):
+        if relative.startswith(v1_candidate_prefix):
+            classification = "historical_candidate"
+        elif relative.startswith(candidate_prefix):
             classification = "historical_candidate"
         elif relative.startswith(model_prefix):
             classification = "frozen_model"
@@ -313,6 +322,45 @@ def build_historical_baseline(repo: Path) -> tuple[BaselineRow, ...]:
     return tuple(rows[path] for path in sorted(rows))
 
 
+def build_working_tree_baseline(repo: Path) -> tuple[BaselineRow, ...]:
+    """Include untracked files inside protected roots for promotion checks."""
+    repo = repo.resolve()
+    rows = {row.path: row for row in build_historical_baseline(repo)}
+    roots: dict[Path, str] = {
+        repo / "data/vanilla/role_scores": "historical_candidate",
+        repo / "analysis/model_candidates/role_scores_v2_defense": "historical_candidate",
+        repo / "analysis/model_versions": "frozen_model",
+    }
+    for relative in _tracked_files(repo):
+        if _historical_output(relative):
+            parts = relative.split("/")
+            roots[repo / "/".join(parts[:4])] = "historical_output"
+
+    for root, classification in sorted(
+        roots.items(), key=lambda item: item[0].as_posix()
+    ):
+        if not root.exists():
+            continue
+        if root.is_symlink():
+            raise AuditError(
+                f"protected root is a symlink: {root.relative_to(repo).as_posix()}"
+            )
+        for path in sorted(root.rglob("*"), key=lambda item: item.as_posix()):
+            relative = path.relative_to(repo).as_posix()
+            if path.is_symlink():
+                raise AuditError(f"protected path is a symlink: {relative}")
+            if not path.is_file() or relative in rows:
+                continue
+            content = path.read_bytes()
+            rows[relative] = BaselineRow(
+                path=relative,
+                bytes=len(content),
+                sha256=_sha256_bytes(content),
+                immutability_class=classification,
+            )
+    return tuple(rows[path] for path in sorted(rows))
+
+
 def _baseline_bytes(rows: Sequence[BaselineRow]) -> bytes:
     stream = io.StringIO(newline="")
     writer = csv.DictWriter(stream, fieldnames=BASELINE_FIELDS, lineterminator="\n")
@@ -344,7 +392,7 @@ def verify_historical_baseline(
     if not baseline_path.is_file():
         raise AuditError(f"historical baseline missing: {baseline_path}")
     committed_rows = _parse_baseline(baseline_path.read_bytes())
-    current_rows = build_historical_baseline(repo)
+    current_rows = build_working_tree_baseline(repo)
     committed = {row.path: row for row in committed_rows}
     current = {row.path: row for row in current_rows}
 
@@ -357,6 +405,12 @@ def verify_historical_baseline(
 
     extras = sorted(set(current) - set(committed))
     allowed_prefix = _allowed_version_prefix(allowed_new_version)
+    if allowed_prefix is not None and any(
+        path.startswith(allowed_prefix) for path in committed
+    ):
+        raise AuditError(
+            f"allowed new model version already exists in historical baseline: {allowed_new_version}"
+        )
     forbidden = [
         path
         for path in extras
@@ -513,7 +567,7 @@ def _publish_transaction(
         for path, temporary in staged:
             os.replace(temporary, path)
         integrity_check()
-    except Exception:
+    except BaseException:
         for path, (existed, content) in snapshots.items():
             if existed:
                 _atomic_write(path, content)
@@ -572,36 +626,50 @@ def write_audit(
     baseline_output: Path,
     *,
     initialize_baseline: bool = False,
+    allowed_new_version: str | None = None,
 ) -> tuple[tuple[AuditFinding, ...], tuple[BaselineRow, ...]]:
     repo = repo.resolve()
     report_output, baseline_output = _validate_output_paths(
         repo, report_output, baseline_output
     )
     findings = build_findings(repo)
-    baseline_rows = build_historical_baseline(repo)
-    baseline = _baseline_bytes(baseline_rows)
-    report = _report_bytes(findings, baseline_rows, baseline)
-
     if initialize_baseline:
+        if allowed_new_version is not None:
+            raise AuditError("baseline initialization cannot allow a new model version")
         if baseline_output.exists():
             raise AuditError("historical baseline already exists; refusing initialization")
+        baseline_rows = build_historical_baseline(repo)
+        current_rows = build_working_tree_baseline(repo)
+        if current_rows != baseline_rows:
+            extra = sorted(
+                {row.path for row in current_rows}
+                - {row.path for row in baseline_rows}
+            )
+            if extra:
+                raise AuditError(f"unexpected protected path: {extra[0]}")
+            raise AuditError("protected bytes changed during baseline initialization")
+        baseline = _baseline_bytes(baseline_rows)
     else:
         if not baseline_output.is_file():
             raise AuditError("historical baseline missing; use --initialize-baseline once")
-        if baseline_output.read_bytes() != baseline:
-            raise AuditError(
-                "existing historical baseline differs from current protected bytes; refusing to rewrite it"
-            )
+        baseline = baseline_output.read_bytes()
+        baseline_rows = _parse_baseline(baseline)
+        current_rows = verify_historical_baseline(
+            repo,
+            baseline_output,
+            allowed_new_version=allowed_new_version,
+        )
+    report = _report_bytes(findings, baseline_rows, baseline)
 
     def history_is_unchanged() -> None:
-        if build_historical_baseline(repo) != baseline_rows:
+        if build_working_tree_baseline(repo) != current_rows:
             raise AuditError("protected bytes changed while publishing the audit")
 
     outputs = [(report_output, report)]
     if initialize_baseline:
         outputs.append((baseline_output, baseline))
     _publish_transaction(outputs, history_is_unchanged)
-    return findings, baseline_rows
+    return findings, current_rows
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -628,6 +696,10 @@ def _parser() -> argparse.ArgumentParser:
         action="store_true",
         help="create the D1 historical baseline once; normal runs require it",
     )
+    parser.add_argument(
+        "--allowed-new-version",
+        help="D10 only: permit additions inside one genuinely new model-version directory",
+    )
     return parser
 
 
@@ -646,6 +718,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             report,
             baseline,
             initialize_baseline=args.initialize_baseline,
+            allowed_new_version=args.allowed_new_version,
         )
     except AuditError as error:
         print(f"error_code=AUDIT_INTEGRITY_FAILURE detail={error}", file=sys.stderr)
