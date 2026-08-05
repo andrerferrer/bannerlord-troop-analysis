@@ -1168,6 +1168,128 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             notes = getattr(raised.exception, "__notes__", [])
             self.assertTrue(any("cleanup denied" in note for note in notes), notes)
 
+    def test_in_place_staged_content_substitution_fails_and_restores(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output = Path(temp_dir) / "report.md"
+            output.write_bytes(b"old report\n")
+            real_replace = audit.os.replace
+            replace_count = 0
+
+            def overwrite_first_stage(source: Path, destination: Path) -> None:
+                nonlocal replace_count
+                replace_count += 1
+                if replace_count == 1:
+                    source.write_bytes(b"same inode, different bytes\n")
+                real_replace(source, destination)
+
+            with mock.patch.object(
+                audit.os, "replace", side_effect=overwrite_first_stage
+            ), self.assertRaisesRegex(
+                audit.AuditError, "content|hash|replacement"
+            ):
+                audit._publish_transaction(
+                    [(output, b"requested bytes\n")], lambda: None
+                )
+
+            self.assertEqual(b"old report\n", output.read_bytes())
+
+    def test_hard_link_alias_is_not_accepted_as_consumed(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            source = temp / "stage.tmp"
+            destination = temp / "report.md"
+            source.write_bytes(b"requested bytes\n")
+            destination.hardlink_to(source)
+            identity = audit._file_identity(audit.os.lstat(source))
+
+            consumed, errors = audit._replacement_state(
+                source,
+                destination,
+                identity,
+                hashlib.sha256(b"requested bytes\n").hexdigest(),
+                len(b"requested bytes\n"),
+                replacement_attempted=True,
+            )
+
+            self.assertFalse(consumed)
+            self.assertTrue(any("source" in str(error) for error in errors), errors)
+
+    def test_fstat_interrupt_closes_descriptor_and_removes_temporary(self) -> None:
+        for operation in ("transaction", "atomic"):
+            with self.subTest(operation=operation), tempfile.TemporaryDirectory() as temp_dir:
+                temp = Path(temp_dir)
+                output = temp / "report.md"
+                output.write_bytes(b"old report\n")
+                real_mkstemp = audit.tempfile.mkstemp
+                descriptors: list[int] = []
+
+                def recording_mkstemp(*args: object, **kwargs: object) -> tuple[int, str]:
+                    descriptor, name = real_mkstemp(*args, **kwargs)
+                    descriptors.append(descriptor)
+                    return descriptor, name
+
+                with mock.patch.object(
+                    audit.tempfile, "mkstemp", side_effect=recording_mkstemp
+                ), mock.patch.object(
+                    audit.os, "fstat", side_effect=KeyboardInterrupt
+                ), self.assertRaises(KeyboardInterrupt):
+                    if operation == "transaction":
+                        audit._publish_transaction(
+                            [(output, b"new report\n")], lambda: None
+                        )
+                    else:
+                        audit._atomic_write(output, b"new report\n")
+
+                self.assertEqual(1, len(descriptors))
+                with self.assertRaises(OSError):
+                    audit.os.close(descriptors[0])
+                self.assertEqual([], list(temp.glob(".report.md.*.tmp")))
+                self.assertEqual(b"old report\n", output.read_bytes())
+
+    def test_cli_serializes_exception_notes(self) -> None:
+        failure = audit.AuditError("primary failure")
+        failure.add_note("staged audit cleanup failed: PermissionError: cleanup denied")
+        stdout = io.StringIO()
+        stderr = io.StringIO()
+
+        with mock.patch.object(
+            audit, "write_audit", side_effect=failure
+        ), redirect_stdout(stdout), redirect_stderr(stderr):
+            exit_code = audit.main(["--repo", str(REPO_ROOT)])
+
+        self.assertEqual(2, exit_code)
+        self.assertEqual("", stdout.getvalue())
+        self.assertIn("primary failure", stderr.getvalue())
+        self.assertIn("cleanup denied", stderr.getvalue())
+
+    def test_stage_loss_before_replace_does_not_restore_untouched_target(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output = Path(temp_dir) / "report.md"
+            output.write_bytes(b"old report\n")
+
+            def remove_stage_before_attempt(
+                temporary: Path, *args: object, **kwargs: object
+            ) -> None:
+                temporary.unlink()
+                output.write_bytes(b"concurrent report\n")
+                raise audit.AuditError("stage disappeared before replace")
+
+            with mock.patch.object(
+                audit,
+                "_validate_staged_source",
+                side_effect=remove_stage_before_attempt,
+            ), mock.patch.object(
+                audit, "_atomic_write", wraps=audit._atomic_write
+            ) as restore, self.assertRaisesRegex(
+                audit.AuditError, "stage disappeared"
+            ):
+                audit._publish_transaction(
+                    [(output, b"new report\n")], lambda: None
+                )
+
+            restore.assert_not_called()
+            self.assertEqual(b"concurrent report\n", output.read_bytes())
+
     def test_publication_does_not_report_already_absent_target_as_rollback_failure(
         self,
     ) -> None:

@@ -812,22 +812,75 @@ def _file_identity(status: os.stat_result) -> tuple[int, int]:
     return status.st_dev, status.st_ino
 
 
-def _validate_staged_source(
-    temporary: Path, identity: tuple[int, int]
-) -> None:
+def _file_validation_state(status: os.stat_result) -> tuple[int, ...]:
+    return (
+        status.st_dev,
+        status.st_ino,
+        status.st_mode,
+        status.st_size,
+        status.st_mtime_ns,
+        status.st_ctime_ns,
+    )
+
+
+def _read_identity_bytes(path: Path, identity: tuple[int, int]) -> bytes:
+    descriptor: int | None = None
+    flags = (
+        os.O_RDONLY
+        | getattr(os, "O_CLOEXEC", 0)
+        | getattr(os, "O_NONBLOCK", 0)
+        | getattr(os, "O_NOFOLLOW", 0)
+    )
     try:
-        observed = os.lstat(temporary)
+        descriptor = os.open(path, flags)
+        before = os.fstat(descriptor)
+        if not stat.S_ISREG(before.st_mode) or _file_identity(before) != identity:
+            raise AuditError(f"audit output identity changed: {path}")
+        chunks: list[bytes] = []
+        while True:
+            chunk = os.read(descriptor, 1024 * 1024)
+            if not chunk:
+                break
+            chunks.append(chunk)
+        content = b"".join(chunks)
+        after = os.fstat(descriptor)
+        if _file_validation_state(before) != _file_validation_state(after):
+            raise AuditError(f"audit output changed while validating: {path}")
+        return content
+    except AuditError:
+        raise
     except BaseException as error:
         raise AuditError(
-            f"cannot validate staged audit output: {temporary}: "
+            f"cannot validate audit output bytes: {path}: "
             f"{type(error).__name__}: {error}"
         ) from error
-    if _file_identity(observed) != identity:
-        raise AuditError(f"staged audit output identity changed: {temporary}")
+    finally:
+        if descriptor is not None:
+            try:
+                os.close(descriptor)
+            except OSError:
+                pass
+
+
+def _validate_staged_source(
+    temporary: Path,
+    identity: tuple[int, int],
+    expected_sha256: str,
+    expected_bytes: int,
+) -> None:
+    content = _read_identity_bytes(temporary, identity)
+    if len(content) != expected_bytes or _sha256_bytes(content) != expected_sha256:
+        raise AuditError(f"staged audit output content changed: {temporary}")
 
 
 def _replacement_state(
-    temporary: Path, path: Path, identity: tuple[int, int]
+    temporary: Path,
+    path: Path,
+    identity: tuple[int, int],
+    expected_sha256: str,
+    expected_bytes: int,
+    *,
+    replacement_attempted: bool,
 ) -> tuple[bool, tuple[AuditError, ...]]:
     errors: list[AuditError] = []
     source_absent = False
@@ -847,6 +900,13 @@ def _replacement_state(
         source_matches = _file_identity(source) == identity
         if not source_matches:
             errors.append(AuditError(f"staged audit output identity changed: {temporary}"))
+        else:
+            try:
+                _validate_staged_source(
+                    temporary, identity, expected_sha256, expected_bytes
+                )
+            except AuditError as error:
+                errors.append(error)
 
     destination_matches = False
     try:
@@ -862,9 +922,30 @@ def _replacement_state(
     else:
         destination_matches = _file_identity(destination) == identity
 
-    consumed = source_absent or destination_matches
+    consumed = replacement_attempted and source_absent
+    if destination_matches and not source_absent:
+        errors.append(
+            AuditError(
+                f"staged source still exists beside audit destination: {temporary}"
+            )
+        )
     if consumed and not destination_matches:
         errors.append(AuditError(f"published audit output identity differs: {path}"))
+    if consumed and destination_matches:
+        try:
+            published = _read_identity_bytes(path, identity)
+        except AuditError as error:
+            errors.append(error)
+        else:
+            if (
+                len(published) != expected_bytes
+                or _sha256_bytes(published) != expected_sha256
+            ):
+                errors.append(AuditError(f"published audit output content differs: {path}"))
+    if source_absent and not replacement_attempted:
+        errors.append(
+            AuditError(f"staged audit output disappeared before replacement: {temporary}")
+        )
     if not consumed and not source_matches and not errors:
         errors.append(AuditError(f"audit replacement state is unknown: {path}"))
     return consumed, tuple(errors)
@@ -876,15 +957,29 @@ def _atomic_write(path: Path, content: bytes) -> None:
         prefix=f".{path.name}.", suffix=".tmp", dir=path.parent
     )
     temporary: Path | None = Path(temporary_name)
-    identity = _file_identity(os.fstat(descriptor))
+    descriptor_open = True
+    identity: tuple[int, int] | None = None
+    expected_sha256 = _sha256_bytes(content)
     try:
-        with os.fdopen(descriptor, "wb") as handle:
+        identity = _file_identity(os.fstat(descriptor))
+        handle = os.fdopen(descriptor, "wb")
+        descriptor_open = False
+        with handle:
             handle.write(content)
-        _validate_staged_source(temporary, identity)
+        _validate_staged_source(
+            temporary, identity, expected_sha256, len(content)
+        )
         try:
             os.replace(temporary, path)
         except BaseException as error:
-            consumed, state_errors = _replacement_state(temporary, path, identity)
+            consumed, state_errors = _replacement_state(
+                temporary,
+                path,
+                identity,
+                expected_sha256,
+                len(content),
+                replacement_attempted=True,
+            )
             if consumed:
                 temporary = None
             if consumed and not state_errors:
@@ -893,13 +988,25 @@ def _atomic_write(path: Path, content: bytes) -> None:
                 detail = "; ".join(str(item) for item in state_errors)
                 raise AuditError(f"atomic replacement state invalid: {detail}") from error
             raise
-        consumed, state_errors = _replacement_state(temporary, path, identity)
+        consumed, state_errors = _replacement_state(
+            temporary,
+            path,
+            identity,
+            expected_sha256,
+            len(content),
+            replacement_attempted=True,
+        )
         if consumed:
             temporary = None
         if not consumed or state_errors:
             detail = "; ".join(str(item) for item in state_errors)
             raise AuditError(f"atomic replacement state invalid: {detail}")
     finally:
+        if descriptor_open:
+            try:
+                os.close(descriptor)
+            except OSError:
+                pass
         if temporary is not None:
             temporary.unlink(missing_ok=True)
 
@@ -908,17 +1015,23 @@ def _publish_transaction(
     outputs: Sequence[tuple[Path, bytes]], integrity_check: Callable[[], None]
 ) -> None:
     snapshots: dict[Path, tuple[bool, bytes]] = {}
-    staged: list[tuple[Path, Path, tuple[int, int]]] = []
+    staged: list[tuple[Path, Path, tuple[int, int], str, int]] = []
     pending_temporaries: set[Path] = set()
     swapped: list[Path] = []
+    attempted: set[Path] = set()
 
     def reconcile_consumed_temporaries() -> tuple[AuditError, ...]:
         reconciliation_errors: list[AuditError] = []
-        for path, temporary, identity in staged:
+        for path, temporary, identity, expected_sha256, expected_bytes in staged:
             if path in swapped:
                 continue
             consumed, state_errors = _replacement_state(
-                temporary, path, identity
+                temporary,
+                path,
+                identity,
+                expected_sha256,
+                expected_bytes,
+                replacement_attempted=path in attempted,
             )
             if consumed:
                 pending_temporaries.discard(temporary)
@@ -936,21 +1049,36 @@ def _publish_transaction(
                 prefix=f".{path.name}.", suffix=".tmp", dir=path.parent
             )
             temporary = Path(temporary_name)
-            temporary_status = os.fstat(descriptor)
             pending_temporaries.add(temporary)
-            with os.fdopen(descriptor, "wb") as handle:
-                handle.write(content)
+            descriptor_open = True
+            try:
+                temporary_status = os.fstat(descriptor)
+                handle = os.fdopen(descriptor, "wb")
+                descriptor_open = False
+                with handle:
+                    handle.write(content)
+            finally:
+                if descriptor_open:
+                    try:
+                        os.close(descriptor)
+                    except OSError:
+                        pass
             staged.append(
                 (
                     path,
                     temporary,
                     _file_identity(temporary_status),
+                    _sha256_bytes(content),
+                    len(content),
                 )
             )
 
         integrity_check()
-        for path, temporary, identity in staged:
-            _validate_staged_source(temporary, identity)
+        for path, temporary, identity, expected_sha256, expected_bytes in staged:
+            _validate_staged_source(
+                temporary, identity, expected_sha256, expected_bytes
+            )
+            attempted.add(path)
             os.replace(temporary, path)
             state_errors = reconcile_consumed_temporaries()
             if state_errors:
@@ -1168,7 +1296,12 @@ def main(argv: Sequence[str] | None = None) -> int:
             allowed_new_version=args.allowed_new_version,
         )
     except (AuditError, OSError) as error:
-        print(f"error_code=AUDIT_INTEGRITY_FAILURE detail={error}", file=sys.stderr)
+        notes = getattr(error, "__notes__", ())
+        note_detail = "" if not notes else f" notes={' | '.join(notes)}"
+        print(
+            f"error_code=AUDIT_INTEGRITY_FAILURE detail={error}{note_detail}",
+            file=sys.stderr,
+        )
         return 2
     print("candidate=context_first_scores_v1")
     print(f"audit_findings={len(findings)}")
