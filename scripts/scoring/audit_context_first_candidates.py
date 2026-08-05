@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import errno
 import hashlib
 import io
 import os
@@ -823,6 +824,21 @@ def _file_validation_state(status: os.stat_result) -> tuple[int, ...]:
     )
 
 
+def _close_descriptor_resilient(descriptor: int) -> tuple[BaseException, ...]:
+    failures: list[BaseException] = []
+    for _ in range(2):
+        try:
+            os.close(descriptor)
+            return ()
+        except OSError as error:
+            if error.errno == errno.EBADF:
+                return ()
+            failures.append(error)
+        except BaseException as error:
+            failures.append(error)
+    return tuple(failures)
+
+
 def _read_identity_bytes(path: Path, identity: tuple[int, int]) -> bytes:
     descriptor: int | None = None
     flags = (
@@ -856,10 +872,7 @@ def _read_identity_bytes(path: Path, identity: tuple[int, int]) -> bytes:
         ) from error
     finally:
         if descriptor is not None:
-            try:
-                os.close(descriptor)
-            except OSError:
-                pass
+            _close_descriptor_resilient(descriptor)
 
 
 def _validate_staged_source(
@@ -881,7 +894,8 @@ def _replacement_state(
     expected_bytes: int,
     *,
     replacement_attempted: bool,
-) -> tuple[bool, tuple[AuditError, ...]]:
+    replacement_returned: bool,
+) -> tuple[bool, bool, tuple[AuditError, ...]]:
     errors: list[AuditError] = []
     source_absent = False
     source_matches = False
@@ -922,16 +936,19 @@ def _replacement_state(
     else:
         destination_matches = _file_identity(destination) == identity
 
-    consumed = replacement_attempted and source_absent
+    rollback_owned = replacement_attempted and (
+        replacement_returned or destination_matches
+    )
+    source_consumed = source_absent
     if destination_matches and not source_absent:
         errors.append(
             AuditError(
                 f"staged source still exists beside audit destination: {temporary}"
             )
         )
-    if consumed and not destination_matches:
+    if rollback_owned and not destination_matches:
         errors.append(AuditError(f"published audit output identity differs: {path}"))
-    if consumed and destination_matches:
+    if rollback_owned and destination_matches:
         try:
             published = _read_identity_bytes(path, identity)
         except AuditError as error:
@@ -946,9 +963,9 @@ def _replacement_state(
         errors.append(
             AuditError(f"staged audit output disappeared before replacement: {temporary}")
         )
-    if not consumed and not source_matches and not errors:
+    if not rollback_owned and not source_matches and not errors:
         errors.append(AuditError(f"audit replacement state is unknown: {path}"))
-    return consumed, tuple(errors)
+    return rollback_owned, source_consumed, tuple(errors)
 
 
 def _atomic_write(path: Path, content: bytes) -> None:
@@ -969,44 +986,45 @@ def _atomic_write(path: Path, content: bytes) -> None:
         _validate_staged_source(
             temporary, identity, expected_sha256, len(content)
         )
+        replacement_returned = False
         try:
             os.replace(temporary, path)
         except BaseException as error:
-            consumed, state_errors = _replacement_state(
+            committed, source_consumed, state_errors = _replacement_state(
                 temporary,
                 path,
                 identity,
                 expected_sha256,
                 len(content),
                 replacement_attempted=True,
+                replacement_returned=False,
             )
-            if consumed:
+            if source_consumed:
                 temporary = None
-            if consumed and not state_errors:
+            if committed and not state_errors:
                 return
             if state_errors:
                 detail = "; ".join(str(item) for item in state_errors)
                 raise AuditError(f"atomic replacement state invalid: {detail}") from error
             raise
-        consumed, state_errors = _replacement_state(
+        replacement_returned = True
+        committed, source_consumed, state_errors = _replacement_state(
             temporary,
             path,
             identity,
             expected_sha256,
             len(content),
             replacement_attempted=True,
+            replacement_returned=replacement_returned,
         )
-        if consumed:
+        if source_consumed:
             temporary = None
-        if not consumed or state_errors:
+        if not committed or state_errors:
             detail = "; ".join(str(item) for item in state_errors)
             raise AuditError(f"atomic replacement state invalid: {detail}")
     finally:
         if descriptor_open:
-            try:
-                os.close(descriptor)
-            except OSError:
-                pass
+            _close_descriptor_resilient(descriptor)
         if temporary is not None:
             temporary.unlink(missing_ok=True)
 
@@ -1019,22 +1037,25 @@ def _publish_transaction(
     pending_temporaries: set[Path] = set()
     swapped: list[Path] = []
     attempted: set[Path] = set()
+    completed: set[Path] = set()
 
     def reconcile_consumed_temporaries() -> tuple[AuditError, ...]:
         reconciliation_errors: list[AuditError] = []
         for path, temporary, identity, expected_sha256, expected_bytes in staged:
             if path in swapped:
                 continue
-            consumed, state_errors = _replacement_state(
+            rollback_owned, source_consumed, state_errors = _replacement_state(
                 temporary,
                 path,
                 identity,
                 expected_sha256,
                 expected_bytes,
                 replacement_attempted=path in attempted,
+                replacement_returned=path in completed,
             )
-            if consumed:
+            if source_consumed:
                 pending_temporaries.discard(temporary)
+            if rollback_owned:
                 swapped.append(path)
             reconciliation_errors.extend(state_errors)
         return tuple(reconciliation_errors)
@@ -1059,10 +1080,7 @@ def _publish_transaction(
                     handle.write(content)
             finally:
                 if descriptor_open:
-                    try:
-                        os.close(descriptor)
-                    except OSError:
-                        pass
+                    _close_descriptor_resilient(descriptor)
             staged.append(
                 (
                     path,
@@ -1080,6 +1098,7 @@ def _publish_transaction(
             )
             attempted.add(path)
             os.replace(temporary, path)
+            completed.add(path)
             state_errors = reconcile_consumed_temporaries()
             if state_errors:
                 raise state_errors[0]
@@ -1296,7 +1315,13 @@ def main(argv: Sequence[str] | None = None) -> int:
             allowed_new_version=args.allowed_new_version,
         )
     except (AuditError, OSError) as error:
-        notes = getattr(error, "__notes__", ())
+        notes: list[str] = []
+        observed: set[int] = set()
+        current: BaseException | None = error
+        while current is not None and id(current) not in observed:
+            observed.add(id(current))
+            notes.extend(getattr(current, "__notes__", ()))
+            current = current.__cause__
         note_detail = "" if not notes else f" notes={' | '.join(notes)}"
         print(
             f"error_code=AUDIT_INTEGRITY_FAILURE detail={error}{note_detail}",

@@ -1060,7 +1060,7 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             self.assertEqual([], list(temp.glob(".*.tmp")))
             self.assertEqual([b"old\n", b"old\n"], [path.read_bytes() for path in outputs])
 
-    def test_consumed_stage_is_rolled_back_when_destination_cannot_be_statted(
+    def test_unstatable_destination_is_not_restored_without_identity_proof(
         self,
     ) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -1095,13 +1095,15 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
                 audit.os, "replace", side_effect=replace_then_interrupt
             ), mock.patch.object(
                 audit.os, "lstat", side_effect=fail_destination_lstat_once
-            ), self.assertRaises(KeyboardInterrupt):
+            ), self.assertRaises(KeyboardInterrupt) as raised:
                 audit._publish_transaction(
                     [(output, b"new report\n")], lambda: None
                 )
 
             self.assertTrue(destination_failure_injected)
-            self.assertEqual(b"old report\n", output.read_bytes())
+            notes = getattr(raised.exception, "__notes__", [])
+            self.assertTrue(any("destination hidden" in note for note in notes), notes)
+            self.assertEqual(b"new report\n", output.read_bytes())
 
     def test_staged_path_substitution_fails_and_restores_target(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -1202,16 +1204,18 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             destination.hardlink_to(source)
             identity = audit._file_identity(audit.os.lstat(source))
 
-            consumed, errors = audit._replacement_state(
+            rollback_owned, source_consumed, errors = audit._replacement_state(
                 source,
                 destination,
                 identity,
                 hashlib.sha256(b"requested bytes\n").hexdigest(),
                 len(b"requested bytes\n"),
                 replacement_attempted=True,
+                replacement_returned=False,
             )
 
-            self.assertFalse(consumed)
+            self.assertTrue(rollback_owned)
+            self.assertFalse(source_consumed)
             self.assertTrue(any("source" in str(error) for error in errors), errors)
 
     def test_fstat_interrupt_closes_descriptor_and_removes_temporary(self) -> None:
@@ -1289,6 +1293,92 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
 
             restore.assert_not_called()
             self.assertEqual(b"concurrent report\n", output.read_bytes())
+
+    def test_stage_loss_inside_failed_replace_preserves_concurrent_target(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output = Path(temp_dir) / "report.md"
+            output.write_bytes(b"old report\n")
+
+            def lose_stage_without_rename(source: Path, destination: Path) -> None:
+                source.unlink()
+                destination.write_bytes(b"concurrent report\n")
+                raise OSError("replace did not run")
+
+            with mock.patch.object(
+                audit.os, "replace", side_effect=lose_stage_without_rename
+            ), mock.patch.object(
+                audit, "_atomic_write", wraps=audit._atomic_write
+            ) as restore, self.assertRaisesRegex(
+                audit.AuditError, "replace did not run"
+            ):
+                audit._publish_transaction(
+                    [(output, b"new report\n")], lambda: None
+                )
+
+            restore.assert_not_called()
+            self.assertEqual(b"concurrent report\n", output.read_bytes())
+
+    def test_recreated_stage_alias_does_not_hide_rollback_ownership(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            output = temp / "report.md"
+            output.write_bytes(b"old report\n")
+            real_replace = audit.os.replace
+            replace_count = 0
+
+            def replace_recreate_alias_then_interrupt(
+                source: Path, destination: Path
+            ) -> None:
+                nonlocal replace_count
+                replace_count += 1
+                real_replace(source, destination)
+                if replace_count == 1:
+                    source.hardlink_to(destination)
+                    raise KeyboardInterrupt
+
+            with mock.patch.object(
+                audit.os,
+                "replace",
+                side_effect=replace_recreate_alias_then_interrupt,
+            ), self.assertRaises(KeyboardInterrupt):
+                audit._publish_transaction(
+                    [(output, b"new report\n")], lambda: None
+                )
+
+            self.assertEqual(b"old report\n", output.read_bytes())
+            self.assertEqual([], list(temp.glob(".report.md.*.tmp")))
+
+    def test_descriptor_close_interrupts_are_contained(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            descriptor = audit.os.open(Path(temp_dir), audit.os.O_RDONLY)
+            with mock.patch.object(
+                audit.os,
+                "close",
+                side_effect=(KeyboardInterrupt(), KeyboardInterrupt()),
+            ):
+                failures = audit._close_descriptor_resilient(descriptor)
+
+            self.assertEqual(2, len(failures))
+            audit.os.close(descriptor)
+
+    def test_cli_serializes_notes_from_chained_cause(self) -> None:
+        cause = PermissionError("publication denied")
+        cause.add_note("audit replacement reconciliation: stage lost")
+        failure = audit.AuditError("publication filesystem failure")
+        failure.__cause__ = cause
+        stdout = io.StringIO()
+        stderr = io.StringIO()
+
+        with mock.patch.object(
+            audit, "write_audit", side_effect=failure
+        ), redirect_stdout(stdout), redirect_stderr(stderr):
+            exit_code = audit.main(["--repo", str(REPO_ROOT)])
+
+        self.assertEqual(2, exit_code)
+        self.assertEqual("", stdout.getvalue())
+        self.assertIn("stage lost", stderr.getvalue())
 
     def test_publication_does_not_report_already_absent_target_as_rollback_failure(
         self,
