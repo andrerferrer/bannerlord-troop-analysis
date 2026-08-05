@@ -129,6 +129,9 @@ class ContextFirstContractTests(unittest.TestCase):
 
     def test_attack_rejects_armor_and_requires_exact_weapon_fields(self) -> None:
         value = valid_declaration(question="attack")
+        value["armor_source_fields"] = list(contract.ARMOR_FIELDS)
+        self.assert_issue(value, contract.DECL_INVALID_ARMOR_CONTRACT, "armor_source_fields")
+        value = valid_declaration(question="attack")
         value["armor_aggregation"] = copy.deepcopy(valid_declaration()["armor_aggregation"])
         self.assert_issue(value, contract.DECL_INVALID_ARMOR_CONTRACT, "armor_aggregation")
         value = valid_declaration(question="attack")
@@ -198,6 +201,42 @@ class ContextFirstContractTests(unittest.TestCase):
             with self.assertRaises(contract.DeclarationError) as raised:
                 contract.load_declaration(path)
         self.assertIn(contract.DECL_NONFINITE_NUMBER, {issue.code for issue in raised.exception.issues})
+
+    def test_load_rejects_duplicate_top_level_and_nested_keys(self) -> None:
+        valid = json.dumps(valid_declaration(), separators=(",", ":"))
+        duplicate_top = valid.replace(
+            '"track":"realm_of_thrones"',
+            '"track":"other","track":"realm_of_thrones"',
+        )
+        duplicate_nested = valid.replace(
+            '"head_armor":"0.35"',
+            '"head_armor":"99","head_armor":"0.35"',
+        )
+        with tempfile.TemporaryDirectory() as temp_dir:
+            for name, payload, field in (
+                ("top.json", duplicate_top, "track"),
+                ("nested.json", duplicate_nested, "head_armor"),
+            ):
+                path = Path(temp_dir) / name
+                path.write_text(payload, encoding="utf-8")
+                with self.subTest(name=name), self.assertRaises(contract.DeclarationError) as raised:
+                    contract.load_declaration(path)
+                self.assertEqual(
+                    [(contract.DECL_INVALID_ENUM, field)],
+                    [(issue.code, issue.field) for issue in raised.exception.issues],
+                )
+
+    def test_cli_normalizes_invalid_utf8_to_exit_two_without_traceback(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            path = Path(temp_dir) / "invalid-utf8.json"
+            path.write_bytes(b"{\xff}")
+            result = subprocess.run(
+                [sys.executable, str(REPO_ROOT / "scripts/scoring/context_first_contract.py"), str(path)],
+                check=False, capture_output=True, text=True,
+            )
+        self.assertEqual(2, result.returncode)
+        self.assertIn("error_code=DECL_INVALID_ENUM field=$", result.stderr)
+        self.assertNotIn("Traceback", result.stderr)
 
     def test_cli_returns_two_and_prints_field_specific_errors(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

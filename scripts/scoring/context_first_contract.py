@@ -166,6 +166,12 @@ class DeclarationError(ValueError):
         super().__init__("\n".join(_format_issue(issue) for issue in self.issues))
 
 
+class _DuplicateKeyError(ValueError):
+    def __init__(self, key: str):
+        self.key = key
+        super().__init__(f"duplicate JSON key: {key}")
+
+
 TOP_LEVEL_FIELDS = {
     "schema_version", "candidate_id", "track", "context", "question", "attack_mode",
     "mount_state", "primary_drivers", "ammunition_policy", "secondary_drivers",
@@ -186,6 +192,15 @@ def _issue(code: str, field: str, message: str) -> ContractIssue:
 
 def _format_issue(issue: ContractIssue) -> str:
     return f"error_code={issue.code} field={issue.field} detail={issue.message}"
+
+
+def _reject_duplicate_pairs(pairs: list[tuple[str, object]]) -> dict[str, object]:
+    result: dict[str, object] = {}
+    for key, value in pairs:
+        if key in result:
+            raise _DuplicateKeyError(key)
+        result[key] = value
+    return result
 
 
 def _string_list(value: object) -> tuple[str, ...] | None:
@@ -310,13 +325,16 @@ def validate_declaration(value: Mapping[str, object]) -> tuple[ContractIssue, ..
             issues.append(_issue(DECL_INVALID_ARMOR_CONTRACT, "armor_source_fields", f"must equal {list(ARMOR_FIELDS)}"))
         if aggregation is None or aggregation_id != "survivability_armor_v71" or parsed_weights != ARMOR_WEIGHTS:
             issues.append(_issue(DECL_INVALID_ARMOR_CONTRACT, "armor_aggregation", "must equal the survivability_armor_v71 weighted armor contract"))
-    elif armor_fields not in (None, ()) or aggregation is not None:
-        issues.append(_issue(DECL_INVALID_ARMOR_CONTRACT, "armor_aggregation", "attack declarations cannot include armor inputs"))
+    elif question == "attack":
+        if armor_fields not in (None, ()):
+            issues.append(_issue(DECL_INVALID_ARMOR_CONTRACT, "armor_source_fields", "attack declarations cannot include armor source fields"))
+        if aggregation is not None:
+            issues.append(_issue(DECL_INVALID_ARMOR_CONTRACT, "armor_aggregation", "attack declarations cannot include armor aggregation"))
 
     if needs_weapon:
         if weapon_fields != WEAPON_FIELDS:
             issues.append(_issue(DECL_INVALID_WEAPON_CONTRACT, "weapon_damage_source_fields", f"must equal {list(WEAPON_FIELDS)}"))
-    elif weapon_fields not in (None, ()):
+    elif question == "defense" and weapon_fields not in (None, ()):
         issues.append(_issue(DECL_INVALID_WEAPON_CONTRACT, "weapon_damage_source_fields", "defense declarations cannot include weapon inputs"))
 
     expected_combination = "none" if question == "general" else "not_applicable"
@@ -371,8 +389,16 @@ def parse_declaration(value: Mapping[str, object]) -> ScoringDeclaration:
 
 def load_declaration(path: Path) -> ScoringDeclaration:
     try:
-        value = json.loads(path.read_text(encoding="utf-8"), parse_constant=lambda token: Decimal(token))
-    except (OSError, json.JSONDecodeError) as error:
+        value = json.loads(
+            path.read_text(encoding="utf-8"),
+            object_pairs_hook=_reject_duplicate_pairs,
+            parse_constant=lambda token: Decimal(token),
+        )
+    except _DuplicateKeyError as error:
+        raise DeclarationError(
+            (_issue(DECL_INVALID_ENUM, error.key, "duplicate JSON key is forbidden"),)
+        ) from error
+    except (OSError, UnicodeError, json.JSONDecodeError) as error:
         raise DeclarationError((_issue(DECL_INVALID_ENUM, "$", f"cannot load declaration: {error}"),)) from error
     return parse_declaration(value)
 
