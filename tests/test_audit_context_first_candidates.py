@@ -106,8 +106,19 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             {
                 "analysis/model_versions/v7.1/bannerlord_v71_head_weighted_model_all_official_troops.csv",
                 "analysis/model_versions/v7.2_burst_score/bannerlord_v72_burst_model_all_official_troops.csv",
+                "analysis/model_versions/v7.2_burst_score/bannerlord_v72_top_burst_units_regular_combined.csv",
+                "analysis/model_versions/v7.2_burst_score/bannerlord_v72_top40_burst_units_regular_combined.csv",
+                "analysis/model_versions/v7.2_burst_score/vanilla_v72_top_burst_units_regular.csv",
+                "analysis/model_versions/v7.2_burst_score/warsails_v72_top_burst_units_regular.csv",
                 "analysis/model_versions/v7.2.1_tooltip_throw_validation/bannerlord_v721_tooltip_throw_model_all_official_troops.csv",
                 "analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_tooltip_damage_burst_model_all_official_troops.csv",
+                "analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_top_burst_units_regular_combined.csv",
+                "analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_top40_burst_units_regular_combined.csv",
+                "analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_top20_burst_units_regular_combined.csv",
+                "analysis/model_versions/v7.3_tooltip_damage_burst/vanilla_v73_top_burst_units_regular.csv",
+                "analysis/model_versions/v7.3_tooltip_damage_burst/warsails_v73_top_burst_units_regular.csv",
+                "analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_key_burst_cases.csv",
+                "analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_comparison_v72_vs_v73_burst_regular.csv",
                 "analysis/model/v7_2_context_scoring/bannerlord_v72_context_scores_all_official_troops.csv",
                 "analysis/model/v7_2_context_scoring/bannerlord_v72_top40_burst_regular.csv",
                 "analysis/model/v7_2_context_scoring/bannerlord_v72_top40_short_engagement_regular.csv",
@@ -517,6 +528,75 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
                 ):
                     audit.build_working_tree_baseline(temp_repo)
 
+    def test_complete_working_tree_snapshot_is_revalidated(self) -> None:
+        rows = audit.build_historical_baseline(REPO_ROOT)
+        promoted = audit.BaselineRow(
+            path="analysis/model_versions/v8_context_first/model.csv",
+            bytes=3,
+            sha256=hashlib.sha256(b"new").hexdigest(),
+            immutability_class="frozen_model",
+        )
+        changed = rows + (promoted,)
+
+        with mock.patch.object(
+            audit,
+            "_build_working_tree_snapshot",
+            side_effect=(rows, changed),
+        ), self.assertRaisesRegex(
+            audit.AuditError, "protected tree changed during working-tree scan"
+        ):
+            audit.build_working_tree_baseline(REPO_ROOT)
+
+    def test_untracked_file_mutated_between_complete_snapshots_is_rejected(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_repo = Path(temp_dir)
+            promoted = (
+                temp_repo
+                / "analysis/model_versions/v8_context_first/model.csv"
+            )
+            promoted.parent.mkdir(parents=True)
+            promoted.write_bytes(b"old")
+            real_snapshot = audit._build_working_tree_snapshot
+            snapshot_count = 0
+
+            def snapshot_then_mutate(repo: Path) -> tuple[audit.BaselineRow, ...]:
+                nonlocal snapshot_count
+                result = real_snapshot(repo)
+                snapshot_count += 1
+                if snapshot_count == 1:
+                    promoted.write_bytes(b"new")
+                return result
+
+            with mock.patch.object(
+                audit, "build_historical_baseline", return_value=()
+            ), mock.patch.object(
+                audit, "_tracked_files", return_value=()
+            ), mock.patch.object(
+                audit,
+                "_build_working_tree_snapshot",
+                side_effect=snapshot_then_mutate,
+            ), self.assertRaisesRegex(
+                audit.AuditError, "protected tree changed during working-tree scan"
+            ):
+                audit.build_working_tree_baseline(temp_repo)
+
+            self.assertEqual(2, snapshot_count)
+
+    def test_repository_file_reader_rejects_symlink_leaf(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            repo = temp / "repo"
+            repo.mkdir()
+            outside = temp / "outside.csv"
+            outside.write_bytes(b"outside\n")
+            link = repo / "protected.csv"
+            link.symlink_to(outside)
+
+            with self.assertRaisesRegex(audit.AuditError, "symlink|regular file"):
+                audit._read_repository_file(repo, link)
+
     def test_reserved_theoretical_export_name_must_be_directory(self) -> None:
         committed = (
             REPO_ROOT
@@ -651,14 +731,45 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             with mock.patch.object(
                 audit,
                 "build_historical_baseline",
-                side_effect=(rows, rows, drifted, drifted),
-            ), self.assertRaisesRegex(
+                side_effect=(rows, rows, rows, rows, drifted, drifted),
+            ) as snapshots, self.assertRaisesRegex(
                 audit.AuditError, "changed while publishing"
             ):
                 audit.write_audit(REPO_ROOT, report, baseline)
 
+            self.assertEqual(6, snapshots.call_count)
             self.assertEqual(b"previous report\n", report.read_bytes())
             self.assertEqual(audit._baseline_bytes(rows), baseline.read_bytes())
+
+    def test_malformed_csv_error_is_normalized(self) -> None:
+        oversized = "x" * 140_000
+        content = (
+            "path,bytes,sha256,immutability_class\n"
+            f'"{oversized}",1,{"0" * 64},frozen_model\n'
+        ).encode("utf-8")
+
+        with self.assertRaisesRegex(audit.AuditError, "invalid row"):
+            audit._parse_baseline(content)
+
+    def test_consumed_temporary_names_are_not_cleaned_up(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            atomic_output = temp / "atomic.md"
+            transaction_output = temp / "transaction.md"
+
+            with mock.patch.object(
+                audit.Path,
+                "unlink",
+                side_effect=PermissionError("directory search denied"),
+            ) as unlink:
+                audit._atomic_write(atomic_output, b"published\n")
+                audit._publish_transaction(
+                    [(transaction_output, b"published\n")], lambda: None
+                )
+
+            unlink.assert_not_called()
+            self.assertEqual(b"published\n", atomic_output.read_bytes())
+            self.assertEqual(b"published\n", transaction_output.read_bytes())
 
     def test_concurrent_finding_drift_restores_previous_publication(self) -> None:
         findings = audit.build_findings(REPO_ROOT)

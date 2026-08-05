@@ -7,10 +7,10 @@ scoring sources, and frozen model versions are read and hashed but never modifie
 
 ## Scope
 
-- Findings: 78
+- Findings: 89
 - Protected files: 121
 - Baseline manifest SHA-256: `7ae42d15a19bffa2bb323c88352c625a4da54f109964b00e3f4681bd5487c274`
-- Explicit absent artifacts: 10
+- Explicit absent artifacts: 21
 
 ## Departure counts
 
@@ -24,7 +24,7 @@ scoring sources, and frozen model versions are read and hashed but never modifie
 | `MOUNTED_INPUT_NON_APPLICABLE` | 5 |
 | `MOUNT_STATE_UNDECLARED` | 5 |
 | `QUESTION_MIXED` | 11 |
-| `SOURCE_ARTIFACT_ABSENT` | 10 |
+| `SOURCE_ARTIFACT_ABSENT` | 21 |
 | `TEMPLATE_PROXY_USED` | 4 |
 
 ## Finding inventory
@@ -77,7 +77,11 @@ v7.2,scripts/build_v72_burst_score.py,96e1273aa0a0cc00dab6e5fdcebf5cf6cc427f7f7b
 v7.2,scripts/build_v72_burst_score.py,96e1273aa0a0cc00dab6e5fdcebf5cf6cc427f7f7b572a2afa5a70034bbc5e9c,false,false,false,false,MOUNTED_INPUT_NON_APPLICABLE,mounted_throw_bonus,The mounted bonus has no siege-defense dismount boundary.
 v7.2,scripts/build_v72_burst_score.py,96e1273aa0a0cc00dab6e5fdcebf5cf6cc427f7f7b572a2afa5a70034bbc5e9c,false,false,false,false,MOUNT_STATE_UNDECLARED,mounted_throw_bonus,Mounted state is inferred from input rather than declared before scoring.
 v7.2,scripts/build_v72_burst_score.py,96e1273aa0a0cc00dab6e5fdcebf5cf6cc427f7f7b572a2afa5a70034bbc5e9c,false,false,false,false,QUESTION_MIXED,burst_score_v72,Burst offense is blended with reliability and v7.1 defense.
+v7.2,analysis/model_versions/v7.2_burst_score/bannerlord_v72_top40_burst_units_regular_combined.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,bannerlord_v72_top40_burst_units_regular_combined.csv,"The v7.2 builder declares this output filename, but no repository-addressable artifact is present in the checkout."
+v7.2,analysis/model_versions/v7.2_burst_score/bannerlord_v72_top_burst_units_regular_combined.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,bannerlord_v72_top_burst_units_regular_combined.csv,"The v7.2 builder declares this output filename, but no repository-addressable artifact is present in the checkout."
 v7.2,analysis/model_versions/v7.2_burst_score/bannerlord_v72_burst_model_all_official_troops.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,full burst model CSV,"The v7.2 builder publishes this full model output, but its bytes are not present in the checkout."
+v7.2,analysis/model_versions/v7.2_burst_score/vanilla_v72_top_burst_units_regular.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,vanilla_v72_top_burst_units_regular.csv,"The v7.2 builder declares this output filename, but no repository-addressable artifact is present in the checkout."
+v7.2,analysis/model_versions/v7.2_burst_score/warsails_v72_top_burst_units_regular.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,warsails_v72_top_burst_units_regular.csv,"The v7.2 builder declares this output filename, but no repository-addressable artifact is present in the checkout."
 v7.2_context_scores,analysis/model/v7_2_context_scoring/build_v72_context_scores.py,b44af24f0dc86fdb6630e1fa3bead8c83724b020ae2053d4f6f2b184336fba8d,false,false,false,false,AMMUNITION_POLICY_UNDECLARED,throw_ammo/ranged_ammo/ranged_siege,Finite ammunition and capacity affect burst and siege-defense output without an explicit context policy.
 v7.2_context_scores,analysis/model/v7_2_context_scoring/build_v72_context_scores.py,b44af24f0dc86fdb6630e1fa3bead8c83724b020ae2053d4f6f2b184336fba8d,false,false,false,false,ATTACK_MODE_UNDECLARED,"burst_core=max(throw,ranged,melee,charge)","Throwing, ranged, melee, and charge families compete inside one burst output."
 v7.2_context_scores,analysis/model/v7_2_context_scoring/build_v72_context_scores.py,b44af24f0dc86fdb6630e1fa3bead8c83724b020ae2053d4f6f2b184336fba8d,false,false,false,false,CONTEXT_UNDECLARED,context score declaration,"One input produces burst, short-engagement, and siege-defense outputs without a validated track/context tuple."
@@ -109,8 +113,15 @@ v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c
 v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c486a15febe9c37f9d4ec6cd044645dd,false,false,false,false,MOUNTED_INPUT_NON_APPLICABLE,mounted_throw_bonus_v73,The mounted bonus has no siege-defense dismount boundary.
 v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c486a15febe9c37f9d4ec6cd044645dd,false,false,false,false,MOUNT_STATE_UNDECLARED,mounted_throw_bonus_v73,Mounted state is inferred rather than declared before scoring.
 v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c486a15febe9c37f9d4ec6cd044645dd,false,false,false,false,QUESTION_MIXED,burst_score_v73,Burst offense is blended with reliability and v7.1 defense.
+v7.3,analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_comparison_v72_vs_v73_burst_regular.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,bannerlord_v73_comparison_v72_vs_v73_burst_regular.csv,"The v7.3 builder declares this output filename, but no repository-addressable artifact is present in the checkout."
+v7.3,analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_key_burst_cases.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,bannerlord_v73_key_burst_cases.csv,"The v7.3 builder declares this output filename, but no repository-addressable artifact is present in the checkout."
+v7.3,analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_top20_burst_units_regular_combined.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,bannerlord_v73_top20_burst_units_regular_combined.csv,"The v7.3 builder declares this output filename, but no repository-addressable artifact is present in the checkout."
+v7.3,analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_top40_burst_units_regular_combined.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,bannerlord_v73_top40_burst_units_regular_combined.csv,"The v7.3 builder declares this output filename, but no repository-addressable artifact is present in the checkout."
+v7.3,analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_top_burst_units_regular_combined.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,bannerlord_v73_top_burst_units_regular_combined.csv,"The v7.3 builder declares this output filename, but no repository-addressable artifact is present in the checkout."
 v7.3,analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_tooltip_damage_burst_model_all_official_troops.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,full tooltip-damage burst model CSV,"The v7.3 builder publishes this full model output, but its bytes are not present in the checkout."
 v7.3,analysis/model_versions/v7.2.1_tooltip_throw_validation/bannerlord_v721_tooltip_throw_model_all_official_troops.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,v7.2.1 tooltip-throw input model CSV,"The v7.3 builder declares this model CSV as its required input, but its bytes are not present in the checkout."
+v7.3,analysis/model_versions/v7.3_tooltip_damage_burst/vanilla_v73_top_burst_units_regular.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,vanilla_v73_top_burst_units_regular.csv,"The v7.3 builder declares this output filename, but no repository-addressable artifact is present in the checkout."
+v7.3,analysis/model_versions/v7.3_tooltip_damage_burst/warsails_v73_top_burst_units_regular.csv,,false,false,false,false,SOURCE_ARTIFACT_ABSENT,warsails_v73_top_burst_units_regular.csv,"The v7.3 builder declares this output filename, but no repository-addressable artifact is present in the checkout."
 v7.3,scripts/build_v73_tooltip_damage_burst.py,5e271377113963f2bfce019d326bb1e4c486a15febe9c37f9d4ec6cd044645dd,false,false,false,false,TEMPLATE_PROXY_USED,throw_damage_source_v73=model_proxy,Missing tooltip damage falls back to primary model proxy damage.
 ```
 

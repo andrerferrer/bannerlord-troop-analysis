@@ -58,9 +58,28 @@ EXPECTED_V72_MODEL = (
     "bannerlord_v72_burst_model_all_official_troops.csv"
 )
 
+EXPECTED_ABSENT_V72_BURST_OUTPUTS = (
+    EXPECTED_V72_MODEL,
+    "analysis/model_versions/v7.2_burst_score/bannerlord_v72_top_burst_units_regular_combined.csv",
+    "analysis/model_versions/v7.2_burst_score/bannerlord_v72_top40_burst_units_regular_combined.csv",
+    "analysis/model_versions/v7.2_burst_score/vanilla_v72_top_burst_units_regular.csv",
+    "analysis/model_versions/v7.2_burst_score/warsails_v72_top_burst_units_regular.csv",
+)
+
 EXPECTED_V73_MODEL = (
     "analysis/model_versions/v7.3_tooltip_damage_burst/"
     "bannerlord_v73_tooltip_damage_burst_model_all_official_troops.csv"
+)
+
+EXPECTED_ABSENT_V73_BURST_OUTPUTS = (
+    EXPECTED_V73_MODEL,
+    "analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_top_burst_units_regular_combined.csv",
+    "analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_top40_burst_units_regular_combined.csv",
+    "analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_top20_burst_units_regular_combined.csv",
+    "analysis/model_versions/v7.3_tooltip_damage_burst/vanilla_v73_top_burst_units_regular.csv",
+    "analysis/model_versions/v7.3_tooltip_damage_burst/warsails_v73_top_burst_units_regular.csv",
+    "analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_key_burst_cases.csv",
+    "analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_comparison_v72_vs_v73_burst_regular.csv",
 )
 
 EXPECTED_V721_TOOLTIP_MODEL = (
@@ -223,7 +242,25 @@ def _specs() -> tuple[FindingSpec, ...]:
         )
         for path in EXPECTED_V72_CONTEXT_OUTPUTS
     )
-    return findings + absent_outputs
+    historical_builder_outputs = tuple(
+        FindingSpec(
+            model,
+            path,
+            False,
+            False,
+            False,
+            False,
+            "SOURCE_ARTIFACT_ABSENT",
+            Path(path).name,
+            f"The {model} builder declares this output filename, but no repository-addressable artifact is present in the checkout.",
+        )
+        for model, paths in (
+            ("v7.2", EXPECTED_ABSENT_V72_BURST_OUTPUTS[1:]),
+            ("v7.3", EXPECTED_ABSENT_V73_BURST_OUTPUTS[1:]),
+        )
+        for path in paths
+    )
+    return findings + absent_outputs + historical_builder_outputs
 
 
 def build_findings(repo: Path) -> tuple[AuditFinding, ...]:
@@ -335,6 +372,93 @@ def _lstat_repository_path(
     return status
 
 
+def _read_repository_file(repo: Path, path: Path) -> bytes:
+    """Read a regular repository file without following symlink components."""
+    try:
+        relative = path.relative_to(repo)
+    except ValueError as error:
+        raise AuditError(f"protected path is outside repository: {path}") from error
+    repo = repo.resolve()
+    path = repo / relative
+    if not relative.parts:
+        raise AuditError(f"protected path is the repository root: {repo}")
+
+    initial = _lstat_repository_path(repo, path, leaf_label="file")
+    if initial is None:
+        raise AuditError(
+            f"protected file disappeared before reading: {relative.as_posix()}"
+        )
+    if not stat.S_ISREG(initial.st_mode):
+        raise AuditError(f"protected path is not a regular file: {relative.as_posix()}")
+
+    directory_flags = os.O_RDONLY | os.O_DIRECTORY | getattr(os, "O_CLOEXEC", 0)
+    file_flags = os.O_RDONLY | getattr(os, "O_CLOEXEC", 0)
+    if hasattr(os, "O_NOFOLLOW"):
+        directory_flags |= os.O_NOFOLLOW
+        file_flags |= os.O_NOFOLLOW
+
+    descriptors: list[int] = []
+    try:
+        directory_fd = os.open(repo, directory_flags)
+        descriptors.append(directory_fd)
+        for component in relative.parts[:-1]:
+            directory_fd = os.open(
+                component,
+                directory_flags,
+                dir_fd=directory_fd,
+            )
+            descriptors.append(directory_fd)
+        file_fd = os.open(relative.parts[-1], file_flags, dir_fd=directory_fd)
+        descriptors.append(file_fd)
+
+        before = os.fstat(file_fd)
+        if not stat.S_ISREG(before.st_mode):
+            raise AuditError(
+                f"protected path is not a regular file: {relative.as_posix()}"
+            )
+        chunks: list[bytes] = []
+        while True:
+            try:
+                chunk = os.read(file_fd, 1024 * 1024)
+            except InterruptedError:
+                continue
+            if not chunk:
+                break
+            chunks.append(chunk)
+        content = b"".join(chunks)
+        after = os.fstat(file_fd)
+        identity = lambda value: (
+            value.st_dev,
+            value.st_ino,
+            value.st_mode,
+            value.st_size,
+            value.st_mtime_ns,
+            value.st_ctime_ns,
+        )
+        if identity(before) != identity(after) or len(content) != after.st_size:
+            raise AuditError(
+                f"protected file changed while reading: {relative.as_posix()}"
+            )
+        current = _lstat_repository_path(repo, path, leaf_label="file")
+        if current is None or identity(current) != identity(after):
+            raise AuditError(
+                f"protected file changed while reading: {relative.as_posix()}"
+            )
+        return content
+    except AuditError:
+        raise
+    except OSError as error:
+        raise AuditError(
+            f"cannot read protected file: {relative.as_posix()}: {error}"
+        ) from error
+    finally:
+        for descriptor in reversed(descriptors):
+            try:
+                os.close(descriptor)
+            except OSError:
+                pass
+
+
 def _protected_paths(repo: Path) -> Iterable[tuple[Path, str]]:
     v1_candidate_prefix = "data/vanilla/role_scores/"
     candidate_prefix = "analysis/model_candidates/role_scores_v2_defense/"
@@ -387,7 +511,7 @@ def build_historical_baseline(repo: Path) -> tuple[BaselineRow, ...]:
         relative = path.relative_to(repo).as_posix()
         if relative in rows:
             raise AuditError(f"protected path classified twice: {relative}")
-        content = path.read_bytes()
+        content = _read_repository_file(repo, path)
         rows[relative] = BaselineRow(
             path=relative,
             bytes=len(content),
@@ -429,11 +553,8 @@ def _scan_tree_fail_closed(repo: Path, root: Path) -> tuple[Path, ...]:
     return tuple(sorted(observed, key=lambda path: path.as_posix()))
 
 
-def build_working_tree_baseline(repo: Path) -> tuple[BaselineRow, ...]:
-    """Include untracked files inside protected roots for promotion checks."""
-    repo = repo.resolve()
-    historical_rows = build_historical_baseline(repo)
-    rows = {row.path: row for row in historical_rows}
+def _build_working_tree_snapshot(repo: Path) -> tuple[BaselineRow, ...]:
+    rows = {row.path: row for row in build_historical_baseline(repo)}
     roots: dict[Path, str] = {
         repo / "data/vanilla/role_scores": "historical_candidate",
         repo / "analysis/model_candidates/role_scores_v2_defense": "historical_candidate",
@@ -467,16 +588,24 @@ def build_working_tree_baseline(repo: Path) -> tuple[BaselineRow, ...]:
                 continue
             if not stat.S_ISREG(status.st_mode):
                 raise AuditError(f"protected path is not a regular file: {relative}")
-            content = path.read_bytes()
+            content = _read_repository_file(repo, path)
             rows[relative] = BaselineRow(
                 path=relative,
                 bytes=len(content),
                 sha256=_sha256_bytes(content),
                 immutability_class=classification,
             )
-    if build_historical_baseline(repo) != historical_rows:
-        raise AuditError("protected bytes changed during working-tree scan")
     return tuple(rows[path] for path in sorted(rows))
+
+
+def build_working_tree_baseline(repo: Path) -> tuple[BaselineRow, ...]:
+    """Include untracked files and require two equal protected-tree snapshots."""
+    repo = repo.resolve()
+    first = _build_working_tree_snapshot(repo)
+    second = _build_working_tree_snapshot(repo)
+    if second != first:
+        raise AuditError("protected tree changed during working-tree scan")
+    return first
 
 
 def _baseline_bytes(rows: Sequence[BaselineRow]) -> bytes:
@@ -554,11 +683,11 @@ def _parse_baseline(content: bytes) -> tuple[BaselineRow, ...]:
         text = content.decode("utf-8")
     except UnicodeDecodeError as error:
         raise AuditError("historical baseline is not valid UTF-8") from error
-    reader = csv.DictReader(io.StringIO(text, newline=""))
-    if reader.fieldnames != list(BASELINE_FIELDS):
-        raise AuditError("historical baseline has an invalid header")
     rows: list[BaselineRow] = []
     try:
+        reader = csv.DictReader(io.StringIO(text, newline=""))
+        if reader.fieldnames != list(BASELINE_FIELDS):
+            raise AuditError("historical baseline has an invalid header")
         for value in reader:
             rows.append(
                 BaselineRow(
@@ -568,7 +697,7 @@ def _parse_baseline(content: bytes) -> tuple[BaselineRow, ...]:
                     immutability_class=value["immutability_class"],
                 )
             )
-    except (KeyError, TypeError, ValueError) as error:
+    except (KeyError, TypeError, ValueError, csv.Error) as error:
         raise AuditError("historical baseline has an invalid row") from error
     paths = [row.path for row in rows]
     if not rows or paths != sorted(paths) or len(paths) != len(set(paths)):
@@ -680,13 +809,15 @@ def _atomic_write(path: Path, content: bytes) -> None:
     descriptor, temporary_name = tempfile.mkstemp(
         prefix=f".{path.name}.", suffix=".tmp", dir=path.parent
     )
-    temporary = Path(temporary_name)
+    temporary: Path | None = Path(temporary_name)
     try:
         with os.fdopen(descriptor, "wb") as handle:
             handle.write(content)
         os.replace(temporary, path)
+        temporary = None
     finally:
-        temporary.unlink(missing_ok=True)
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
 
 
 def _publish_transaction(
@@ -694,6 +825,7 @@ def _publish_transaction(
 ) -> None:
     snapshots: dict[Path, tuple[bool, bytes]] = {}
     staged: list[tuple[Path, Path]] = []
+    pending_temporaries: set[Path] = set()
     try:
         for path, _ in outputs:
             existed = path.exists()
@@ -707,10 +839,12 @@ def _publish_transaction(
             with os.fdopen(descriptor, "wb") as handle:
                 handle.write(content)
             staged.append((path, temporary))
+            pending_temporaries.add(temporary)
 
         integrity_check()
         for path, temporary in staged:
             os.replace(temporary, path)
+            pending_temporaries.remove(temporary)
         integrity_check()
     except BaseException as error:
         rollback_errors: list[OSError] = []
@@ -736,7 +870,7 @@ def _publish_transaction(
         raise
     finally:
         cleanup_error: OSError | None = None
-        for _, temporary in staged:
+        for temporary in pending_temporaries:
             try:
                 temporary.unlink(missing_ok=True)
             except OSError as error:
