@@ -417,6 +417,40 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             ), self.assertRaisesRegex(audit.AuditError, "symlink"):
                 audit.verify_historical_baseline(temp_repo, temp_baseline)
 
+    def test_unreadable_theoretical_subtree_is_rejected(self) -> None:
+        committed = (
+            REPO_ROOT
+            / "analysis/model_candidates/context_first_scores_v1/historical_baseline_hashes.csv"
+        )
+        rows = audit._parse_baseline(committed.read_bytes())
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_repo = Path(temp_dir)
+            temp_baseline = (
+                temp_repo
+                / "analysis/model_candidates/context_first_scores_v1/"
+                "historical_baseline_hashes.csv"
+            )
+            temp_baseline.parent.mkdir(parents=True)
+            temp_baseline.write_bytes(committed.read_bytes())
+            hidden = (
+                temp_repo
+                / "analysis/theoretical/new_track/private/"
+                "export_20260731_150800"
+            )
+            hidden.mkdir(parents=True)
+            (hidden / "untracked.csv").write_bytes(b"historical output\n")
+            unreadable = hidden.parent
+            unreadable.chmod(0)
+            try:
+                with mock.patch.object(
+                    audit, "build_historical_baseline", return_value=rows
+                ), mock.patch.object(
+                    audit, "_tracked_files", return_value=()
+                ), self.assertRaisesRegex(audit.AuditError, "cannot scan"):
+                    audit.verify_historical_baseline(temp_repo, temp_baseline)
+            finally:
+                unreadable.chmod(0o700)
+
     def test_generation_is_deterministic_and_does_not_mutate_history(self) -> None:
         protected_before = {
             row.path: row.sha256
@@ -656,7 +690,7 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             self.assertEqual(b"old report\n", report.read_bytes())
             self.assertEqual(b"old baseline\n", baseline.read_bytes())
 
-    def test_publication_reports_original_and_rollback_filesystem_failures(
+    def test_publication_does_not_report_already_absent_target_as_rollback_failure(
         self,
     ) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -665,10 +699,32 @@ class ContextFirstCandidateAuditTests(unittest.TestCase):
             output = parent_file / "report.md"
 
             with self.assertRaisesRegex(
-                audit.AuditError,
-                "publication failed.*rollback also failed",
+                audit.AuditError, "publication filesystem failure"
             ) as raised:
                 audit._publish_transaction([(output, b"report\n")], lambda: None)
+
+            self.assertIsInstance(raised.exception.__cause__, FileExistsError)
+            self.assertNotIn("rollback also failed", str(raised.exception))
+
+    def test_publication_reports_genuine_rollback_failure(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output = Path(temp_dir) / "report.md"
+            output.write_bytes(b"old report\n")
+
+            def publication_failure() -> None:
+                raise FileExistsError("publication failed")
+
+            with mock.patch.object(
+                audit,
+                "_atomic_write",
+                side_effect=PermissionError("restore denied"),
+            ), self.assertRaisesRegex(
+                audit.AuditError,
+                "publication failed.*rollback also failed.*restore denied",
+            ) as raised:
+                audit._publish_transaction(
+                    [(output, b"new report\n")], publication_failure
+                )
 
             self.assertIsInstance(raised.exception.__cause__, FileExistsError)
 

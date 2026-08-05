@@ -362,6 +362,41 @@ def build_historical_baseline(repo: Path) -> tuple[BaselineRow, ...]:
     return tuple(rows[path] for path in sorted(rows))
 
 
+def _scan_tree_fail_closed(repo: Path, root: Path) -> tuple[Path, ...]:
+    if root.is_symlink():
+        raise AuditError(
+            f"protected root is a symlink: {root.relative_to(repo).as_posix()}"
+        )
+    if not root.exists():
+        return ()
+    if not root.is_dir():
+        raise AuditError(
+            f"protected root is not a directory: {root.relative_to(repo).as_posix()}"
+        )
+
+    def scan_failed(error: OSError) -> None:
+        location = error.filename or str(root)
+        raise AuditError(f"cannot scan protected path: {location}: {error}") from error
+
+    observed: list[Path] = []
+    for current, directory_names, file_names in os.walk(
+        root,
+        topdown=True,
+        onerror=scan_failed,
+        followlinks=False,
+    ):
+        current_path = Path(current)
+        directory_names.sort()
+        file_names.sort()
+        for name in (*directory_names, *file_names):
+            candidate = current_path / name
+            relative = candidate.relative_to(repo).as_posix()
+            if candidate.is_symlink():
+                raise AuditError(f"protected path is a symlink: {relative}")
+            observed.append(candidate)
+    return tuple(sorted(observed, key=lambda path: path.as_posix()))
+
+
 def build_working_tree_baseline(repo: Path) -> tuple[BaselineRow, ...]:
     """Include untracked files inside protected roots for promotion checks."""
     repo = repo.resolve()
@@ -377,34 +412,22 @@ def build_working_tree_baseline(repo: Path) -> tuple[BaselineRow, ...]:
             parts = relative.split("/")
             roots[repo / "/".join(parts[:4])] = "historical_output"
     theoretical_root = repo / "analysis/theoretical"
-    if theoretical_root.exists():
-        if theoretical_root.is_symlink():
-            raise AuditError("protected root is a symlink: analysis/theoretical")
-        for candidate in theoretical_root.rglob("*"):
-            relative = candidate.relative_to(repo).as_posix()
-            if candidate.is_symlink():
-                raise AuditError(f"protected path is a symlink: {relative}")
-            if (
-                candidate.name == "export_20260731_150800"
-                and candidate.is_dir()
-            ):
-                roots[candidate] = "historical_output"
+    for candidate in _scan_tree_fail_closed(repo, theoretical_root):
+        if (
+            candidate.name == "export_20260731_150800"
+            and candidate.is_dir()
+        ):
+            roots[candidate] = "historical_output"
 
     for root, classification in sorted(
         roots.items(), key=lambda item: item[0].as_posix()
     ):
-        if not root.exists():
-            continue
-        if root.is_symlink():
-            raise AuditError(
-                f"protected root is a symlink: {root.relative_to(repo).as_posix()}"
-            )
-        for path in sorted(root.rglob("*"), key=lambda item: item.as_posix()):
+        for path in _scan_tree_fail_closed(repo, root):
             relative = path.relative_to(repo).as_posix()
-            if path.is_symlink():
-                raise AuditError(f"protected path is a symlink: {relative}")
-            if not path.is_file() or relative in rows:
+            if path.is_dir() or relative in rows:
                 continue
+            if not path.is_file():
+                raise AuditError(f"protected path is not a regular file: {relative}")
             content = path.read_bytes()
             rows[relative] = BaselineRow(
                 path=relative,
@@ -655,7 +678,10 @@ def _publish_transaction(
                 if existed:
                     _atomic_write(path, content)
                 else:
-                    path.unlink(missing_ok=True)
+                    try:
+                        path.unlink(missing_ok=True)
+                    except NotADirectoryError:
+                        pass
             except OSError as rollback_error:
                 rollback_errors.append(rollback_error)
         if rollback_errors:
