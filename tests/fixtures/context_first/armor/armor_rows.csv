@@ -1,0 +1,11 @@
+troop_id,roster_index,slot,item_id,item_found,head_armor,body_armor,arm_armor,leg_armor,shield_armor,horse_speed,Riding
+equal_a,0,Head,helm_a,True,20,0,0,0,0,0,0
+equal_a,0,Body,body_a,True,0,40,10,5,0,0,0
+equal_a,0,Item0,shield_a,False,,,,,999,0,0
+equal_a,0,Horse,horse_a,False,,,,,0,999,999
+equal_b,0,Head,helm_b,True,20,0,0,0,999,999,999
+equal_b,0,Body,body_b,True,0,40,10,5,999,999,999
+alternatives,0,Body,body_heavy,True,0,60,20,10,0,0,0
+alternatives,0,Body,body_light,True,0,20,0,0,0,0,0
+incomplete,0,Body,body_unknown,True,0,,10,5,0,0,0
+unresolved,0,Body,missing_item,False,0,40,10,5,0,0,0
