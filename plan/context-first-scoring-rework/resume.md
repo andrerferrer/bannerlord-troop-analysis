@@ -7,18 +7,18 @@ This file is the compaction-proof source of truth for the rework. Update it afte
 ```yaml
 plan_version: 1
 state: in_progress
-active_step: D2
-completed_steps: [D1]
+active_step: D3
+completed_steps: [D1, D2]
 blocked_at: null
 base_branch: main
 planning_branch: agent/context-first-scoring-rework-plan
 tracking_issue: https://github.com/andrerferrer/bannerlord-troop-analysis/issues/58
 candidate_root: analysis/model_candidates/context_first_scores_v1
 promotion_gate: not_run
-last_verified_main: 467ad05aa8b59a90766b40ead1a3f54420b26154
+last_verified_main: 709dffae131ef1cd97a455cd6caede3672b8a0e1
 ```
 
-Planning and D1 are merged. D2 is implementing the strict declaration contract.
+Planning, D1, and D2 are merged. D3 is implementing direct worn-armor evidence.
 
 ## Read first
 
@@ -52,8 +52,8 @@ If any source conflicts, `AGENTS.md` wins for repository workflow, the PRD wins 
 | ID | Deliverable | State | Depends on | Merge/notes |
 |---|---|---|---|---|
 | D1 | Current-candidate audit | merged | — | PR #61; squash `467ad05aa8b59a90766b40ead1a3f54420b26154` |
-| D2 | Declaration contract | in_progress | D1 | branch `agent/context-first-02-contract` |
-| D3 | Armor evidence lane | pending | D2 | — |
+| D2 | Declaration contract | merged | D1 | PR #62; squash `709dffae131ef1cd97a455cd6caede3672b8a0e1` |
+| D3 | Armor evidence lane | in_progress | D2 | branch `agent/context-first-03-armor` |
 | D4 | Weapon-row normalization, override resolution, and crafted fail-closed gate | pending | D2 | may require exact raw XML/source package and operator tooltip observations; new evidence batches require two agents |
 | D5 | Finite/unlimited ranged semantics with explicit loadouts | pending | D4 | D3 must also be merged before D6 |
 | D6 | Context engine and dismounted siege cavalry | pending | D3, D4, D5 | — |
@@ -69,7 +69,7 @@ Allowed deliverable states are `pending`, `in_progress`, `ready_to_merge`, `merg
 | AC | Summary | Owning step | State |
 |---|---|---|---|
 | AC-1 | Existing model departures audited without mutation | D1 | passed: 49 focused tests + byte-identical audit/baseline regeneration |
-| AC-2 | Invalid declarations fail before scoring | D2 | pending |
+| AC-2 | Invalid declarations fail before scoring | D2 | passed: 22 contract tests + exact-head review |
 | AC-3 | Equal armor yields equal defense | D3 | pending |
 | AC-4 | Armor uncertainty remains blank and queued | D3 | pending |
 | AC-5 | Direct weapon rows reconstruct output | D4 | pending |
@@ -125,6 +125,20 @@ Before and after every generation/promotion step, compare them. D10 may add one 
 - Review findings fixed: transactional rollback ownership, file identity/content races, descriptor cleanup, and unsafe close retry
 - Remaining limitations: four unrelated pandas-dependent tests cannot import in this environment
 - Next step: D2 declaration contract
+
+### D2 — 2026-08-05
+
+- Branch: `agent/context-first-02-contract`
+- PR: https://github.com/andrerferrer/bannerlord-troop-analysis/pull/62
+- Exact reviewed head: `8e30a811b73796ec7c2041d678bf2625630d74d9`
+- Delivery state: merged
+- Squash merge SHA on main: `709dffae131ef1cd97a455cd6caede3672b8a0e1`
+- Focused verification: `python3 -m unittest tests.test_context_first_contract` — 22 passed
+- Full/regression verification: 302 tests; only four pre-existing pandas import errors; D1 audit byte-identical
+- Generated artifacts and hashes: 100 declarations; tree digest `c0482f76b4d48e2ab6d737c27685758e82e7679d68d707601e65105db1ebfbcc`
+- Review findings fixed: invalid UTF-8, duplicate JSON keys, exact armor-field diagnostics, and misleading cross-contract errors
+- Remaining limitations: four unrelated pandas-dependent tests cannot import in this environment
+- Next step: D3 worn-armor evidence
 
 Append one entry after each merged PR:
 
