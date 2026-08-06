@@ -4,7 +4,7 @@ import csv
 import sys
 import unittest
 from dataclasses import FrozenInstanceError
-from decimal import Decimal
+from decimal import Decimal, localcontext
 from pathlib import Path
 
 
@@ -49,6 +49,23 @@ class ContextFirstArmorTests(unittest.TestCase):
         self.assertNotIn("shield_a", {item.item_id for item in result.items})
         self.assertNotIn("horse_a", {item.item_id for item in result.items})
 
+    def test_all_five_worn_slots_are_summed(self) -> None:
+        rows = [
+            {
+                "troop_id": "full", "roster_index": "0", "slot": slot,
+                "item_id": slot.lower(), "item_found": "True",
+                "head_armor": str(index), "body_armor": str(index * 2),
+                "arm_armor": str(index * 3), "leg_armor": str(index * 4),
+            }
+            for index, slot in enumerate(equipment.WORN_SLOTS, start=1)
+        ]
+        roster = self.resolve(rows).rosters[0]
+        self.assertEqual(Decimal("15.000000"), roster.head_armor)
+        self.assertEqual(Decimal("30.000000"), roster.body_armor)
+        self.assertEqual(Decimal("45.000000"), roster.arm_armor)
+        self.assertEqual(Decimal("60.000000"), roster.leg_armor)
+        self.assertEqual(Decimal("27.000000"), roster.armor_output)
+
     def test_alternatives_are_averaged_inside_slot_not_summed_or_maxed(self) -> None:
         roster = next(row for row in self.resolve().rosters if row.troop_id == "alternatives")
         self.assertEqual(Decimal("40.000000"), roster.body_armor)
@@ -85,7 +102,7 @@ class ContextFirstArmorTests(unittest.TestCase):
         self.assertEqual([contract.ARMOR_ITEM_ID_MISSING], [reason.code for reason in roster.reasons])
 
     def test_malformed_negative_and_nonfinite_values_are_invalid_not_zero(self) -> None:
-        for value in ("bad", "-1", "NaN", "Infinity"):
+        for value in ("bad", "-1", "NaN", "Infinity", "1e100"):
             row = {
                 "troop_id": value, "roster_index": "0", "slot": "Body",
                 "item_id": "armor", "item_found": "True", "head_armor": "0",
@@ -103,6 +120,9 @@ class ContextFirstArmorTests(unittest.TestCase):
         ]
         result = self.resolve(rows)
         self.assertEqual(["a"], [item.item_id for item in result.items])
+        self.assertEqual(["a", "b"], [item.item_id for item in result.observations])
+        self.assertIsNone(result.observations[1].body_armor)
+        self.assertEqual([contract.ARMOR_REGION_MISSING], [reason.code for reason in result.observations[1].reasons])
         self.assertIsNone(result.rosters[0].armor_output)
         self.assertEqual(("a", "b"), result.rosters[0].source_item_ids)
 
@@ -130,6 +150,18 @@ class ContextFirstArmorTests(unittest.TestCase):
         )
         self.assertEqual(resolved.rosters, wrapped)
         self.assertEqual((), self.resolve([]).rosters)
+
+    def test_resolution_does_not_inherit_global_decimal_precision(self) -> None:
+        rows = [{
+            "troop_id": "x", "roster_index": "0", "slot": "Body", "item_id": "armor",
+            "item_found": "True", "head_armor": "0", "body_armor": "40",
+            "arm_armor": "10", "leg_armor": "5",
+        }]
+        expected = self.resolve(rows)
+        with localcontext() as context:
+            context.prec = 3
+            actual = self.resolve(rows)
+        self.assertEqual(expected, actual)
 
 
 if __name__ == "__main__":

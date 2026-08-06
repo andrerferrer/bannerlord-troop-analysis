@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from collections import defaultdict
 from dataclasses import dataclass
-from decimal import Decimal, InvalidOperation
+from decimal import Decimal, InvalidOperation, localcontext
 from typing import Mapping, Sequence
 
 from context_first_contract import (
@@ -21,6 +21,7 @@ from context_first_contract import (
 
 
 WORN_SLOTS = ("Head", "Body", "Gloves", "Leg", "Cape")
+ARMOR_DECIMAL_PRECISION = 50
 
 
 @dataclass(frozen=True)
@@ -70,8 +71,25 @@ class ArmorRosterEvidence:
 
 
 @dataclass(frozen=True)
+class ArmorItemObservation:
+    """Known worn-item row, including partial values that cannot rank."""
+    troop_id: str
+    roster_index: str
+    slot: str
+    alternative_index: int
+    item_id: str
+    head_armor: Decimal | None
+    body_armor: Decimal | None
+    arm_armor: Decimal | None
+    leg_armor: Decimal | None
+    source: SourceRef
+    reasons: tuple[ReviewReason, ...]
+
+
+@dataclass(frozen=True)
 class ArmorResolution:
     items: tuple[ArmorItemEvidence, ...]
+    observations: tuple[ArmorItemObservation, ...]
     rosters: tuple[ArmorRosterEvidence, ...]
 
 
@@ -104,6 +122,12 @@ def _armor_value(value: object) -> tuple[Decimal | None, str | None]:
         return None, ARMOR_VALUE_INVALID
     if not parsed.is_finite() or parsed < 0:
         return None, ARMOR_VALUE_INVALID
+    try:
+        with localcontext() as context:
+            context.prec = ARMOR_DECIMAL_PRECISION
+            parsed.quantize(DECIMAL_QUANTUM, rounding=DECIMAL_ROUNDING)
+    except InvalidOperation:
+        return None, ARMOR_VALUE_INVALID
     return parsed, None
 
 
@@ -112,7 +136,9 @@ def _reason(code: str, troop_id: str, roster_index: str, item_id: str, source: S
 
 
 def _quantize(value: Decimal) -> Decimal:
-    return value.quantize(DECIMAL_QUANTUM, rounding=DECIMAL_ROUNDING)
+    with localcontext() as context:
+        context.prec = ARMOR_DECIMAL_PRECISION
+        return value.quantize(DECIMAL_QUANTUM, rounding=DECIMAL_ROUNDING)
 
 
 def resolve_armor_evidence(
@@ -129,6 +155,7 @@ def resolve_armor_evidence(
         grouped[(_text(row.get("troop_id")), _text(row.get("roster_index")))].append((row, source))
 
     all_items: list[ArmorItemEvidence] = []
+    observations: list[ArmorItemObservation] = []
     rosters: list[ArmorRosterEvidence] = []
     for (troop_id, roster_index), group in sorted(grouped.items()):
         worn = [(row, source) for row, source in group if _text(row.get("slot")) in WORN_SLOTS]
@@ -152,15 +179,24 @@ def resolve_armor_evidence(
                 reasons.append(_reason(ARMOR_ITEM_UNRESOLVED, troop_id, roster_index, item_id, source, "item_found is not true"))
                 continue
 
-            values: dict[str, Decimal] = {}
+            values: dict[str, Decimal | None] = {}
+            item_reasons: list[ReviewReason] = []
             invalid = False
             for field in ARMOR_FIELDS:
                 parsed, code = _armor_value(row.get(field))
                 if code is not None:
-                    reasons.append(_reason(code, troop_id, roster_index, item_id, source, f"{field} is {'blank' if code == ARMOR_REGION_MISSING else 'invalid'}"))
+                    reason = _reason(code, troop_id, roster_index, item_id, source, f"{field} is {'blank' if code == ARMOR_REGION_MISSING else 'invalid'}")
+                    reasons.append(reason)
+                    item_reasons.append(reason)
+                    values[field] = None
                     invalid = True
                 else:
                     values[field] = parsed
+            observations.append(ArmorItemObservation(
+                troop_id, roster_index, slot, alternative_index, item_id,
+                values["head_armor"], values["body_armor"], values["arm_armor"], values["leg_armor"],
+                source, tuple(item_reasons),
+            ))
             if invalid:
                 continue
             evidence = ArmorItemEvidence(
@@ -181,19 +217,21 @@ def resolve_armor_evidence(
             ))
             continue
 
-        totals = {field: Decimal("0") for field in ARMOR_FIELDS}
-        for slot in WORN_SLOTS:
-            choices = alternatives.get(slot, [])
-            if not choices:
-                continue
-            for field in ARMOR_FIELDS:
-                totals[field] += sum((getattr(choice, field) for choice in choices), Decimal("0")) / Decimal(len(choices))
-        output = (
-            aggregation.head_weight * totals["head_armor"]
-            + aggregation.body_weight * totals["body_armor"]
-            + aggregation.arm_weight * totals["arm_armor"]
-            + aggregation.leg_weight * totals["leg_armor"]
-        )
+        with localcontext() as context:
+            context.prec = ARMOR_DECIMAL_PRECISION
+            totals = {field: Decimal("0") for field in ARMOR_FIELDS}
+            for slot in WORN_SLOTS:
+                choices = alternatives.get(slot, [])
+                if not choices:
+                    continue
+                for field in ARMOR_FIELDS:
+                    totals[field] += sum((getattr(choice, field) for choice in choices), Decimal("0")) / Decimal(len(choices))
+            output = (
+                aggregation.head_weight * totals["head_armor"]
+                + aggregation.body_weight * totals["body_armor"]
+                + aggregation.arm_weight * totals["arm_armor"]
+                + aggregation.leg_weight * totals["leg_armor"]
+            )
         rosters.append(ArmorRosterEvidence(
             troop_id, roster_index,
             _quantize(totals["head_armor"]), _quantize(totals["body_armor"]),
@@ -203,6 +241,7 @@ def resolve_armor_evidence(
 
     return ArmorResolution(
         tuple(sorted(all_items, key=lambda item: (item.troop_id, item.roster_index, item.slot, item.alternative_index, item.item_id, item.source.row_number))),
+        tuple(sorted(observations, key=lambda item: (item.troop_id, item.roster_index, item.slot, item.alternative_index, item.item_id, item.source.row_number))),
         tuple(rosters),
     )
 
