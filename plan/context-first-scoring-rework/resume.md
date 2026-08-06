@@ -6,19 +6,19 @@ This file is the compaction-proof source of truth for the rework. Update it afte
 
 ```yaml
 plan_version: 1
-state: in_progress
-active_step: D3
-completed_steps: [D1, D2]
-blocked_at: null
+state: blocked
+active_step: D4
+completed_steps: [D1, D2, D3]
+blocked_at: D4
 base_branch: main
 planning_branch: agent/context-first-scoring-rework-plan
 tracking_issue: https://github.com/andrerferrer/bannerlord-troop-analysis/issues/58
 candidate_root: analysis/model_candidates/context_first_scores_v1
 promotion_gate: not_run
-last_verified_main: 709dffae131ef1cd97a455cd6caede3672b8a0e1
+last_verified_main: ddbfe01ef1ac7cece27d0f549e26bccde1856234
 ```
 
-Planning, D1, and D2 are merged. D3 is implementing direct worn-armor evidence.
+Planning and D1-D3 are merged. D4 is blocked on exact raw XML, crafting catalogs, and tooltip observations.
 
 ## Read first
 
@@ -53,8 +53,8 @@ If any source conflicts, `AGENTS.md` wins for repository workflow, the PRD wins 
 |---|---|---|---|---|
 | D1 | Current-candidate audit | merged | — | PR #61; squash `467ad05aa8b59a90766b40ead1a3f54420b26154` |
 | D2 | Declaration contract | merged | D1 | PR #62; squash `709dffae131ef1cd97a455cd6caede3672b8a0e1` |
-| D3 | Armor evidence lane | in_progress | D2 | branch `agent/context-first-03-armor` |
-| D4 | Weapon-row normalization, override resolution, and crafted fail-closed gate | pending | D2 | may require exact raw XML/source package and operator tooltip observations; new evidence batches require two agents |
+| D3 | Armor evidence lane | merged | D2 | PR #63; squash `ddbfe01ef1ac7cece27d0f549e26bccde1856234` |
+| D4 | Weapon-row normalization, override resolution, and crafted fail-closed gate | blocked | D2 | exact acquisition request: `D4_ACQUISITION_REQUEST.md` |
 | D5 | Finite/unlimited ranged semantics with explicit loadouts | pending | D4 | D3 must also be merged before D6 |
 | D6 | Context engine and dismounted siege cavalry | pending | D3, D4, D5 | — |
 | D7 | Defense/attack/general candidate outputs | pending | D6 | — |
@@ -70,8 +70,8 @@ Allowed deliverable states are `pending`, `in_progress`, `ready_to_merge`, `merg
 |---|---|---|---|
 | AC-1 | Existing model departures audited without mutation | D1 | passed: 49 focused tests + byte-identical audit/baseline regeneration |
 | AC-2 | Invalid declarations fail before scoring | D2 | passed: 22 contract tests + exact-head review |
-| AC-3 | Equal armor yields equal defense | D3 | pending |
-| AC-4 | Armor uncertainty remains blank and queued | D3 | pending |
+| AC-3 | Equal armor yields equal defense | D3 | passed: 14 armor tests + exact-head review |
+| AC-4 | Armor uncertainty remains blank and queued | D3 | passed: partial observations and fail-closed roster tests |
 | AC-5 | Direct weapon rows reconstruct output | D4 | pending |
 | AC-6 | Crafted proxies/unvalidated values cannot rank | D4 | pending |
 | AC-7 | Compatible finite ammunition sums correctly | D5 | pending |
@@ -139,6 +139,35 @@ Before and after every generation/promotion step, compare them. D10 may add one 
 - Review findings fixed: invalid UTF-8, duplicate JSON keys, exact armor-field diagnostics, and misleading cross-contract errors
 - Remaining limitations: four unrelated pandas-dependent tests cannot import in this environment
 - Next step: D3 worn-armor evidence
+
+### D3 — 2026-08-06
+
+- Branch: `agent/context-first-03-armor`
+- PR: https://github.com/andrerferrer/bannerlord-troop-analysis/pull/63
+- Exact reviewed head: `0cc47043105f2c4774a01a8c76073a2dd2b8a814`
+- Delivery state: merged
+- Squash merge SHA on main: `ddbfe01ef1ac7cece27d0f549e26bccde1856234`
+- Focused verification: `python3 -m unittest tests.test_context_first_armor` — 14 passed
+- Full/regression verification: 316 tests; only four pre-existing pandas import errors; D1 audit byte-identical
+- Generated artifacts and hashes: direct armor evidence types/functions and deterministic fixture
+- Review findings fixed: Decimal-context crash, five-slot coverage, and preservation of partial known-item observations
+- Remaining limitations: current audit armor regions are frequently blank and correctly remain unrankable
+- Next step: D4 weapon evidence, currently blocked by the acquisition request below
+
+## Active D4 blocker
+
+```yaml
+state: blocked
+blocked_at: D4
+blocking_gate: D4_EXACT_WEAPON_SOURCE_INPUTS_MISSING
+candidate_sha256: not_generated
+validation_input_manifest_sha256: not_run
+failing_command: preflight search for source ZIP SHA-256 307d9eab533b1b83bb76545141226f86144af6712ed0b64b29e3efc3e23f3ad8 and exact XML/module roots returned no files
+required_evidence: exact XML bodies for all committed raw manifests; four piece catalogs; four template catalogs; hash-pinned per-item tooltip observations
+acquisition_method: follow D4_ACQUISITION_REQUEST.md and docs/handoff/PC_CRAFTING_PIECES_EXPORT_PROMPT.md; if committed as a batch, use separate normalization and analysis agents on one draft PR
+safe_completed_scope: D1-D3 merged and verified on main
+next_action_after_unblock: verify acquired bytes against manifests, then implement Step 4 without reading scalar audit damage as provenance
+```
 
 Append one entry after each merged PR:
 
