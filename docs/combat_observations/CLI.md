@@ -134,37 +134,48 @@ python3 -m unittest discover -v
 
 Tests include bundle corruption, tar/ZIP safety, formulas, matching, review triage, deduplication, hierarchy behavior, outlier routing, schema/semantic validation, retry behavior, deterministic golden output, and resumable ZIP preflight.
 
-## Portable skill
+## Repository skills
 
-The repository-local skill lives at:
+Raw-evidence normalization and Phase 2 analysis use separate skills:
 
 ```text
+.agents/skills/normalize-bannerlord-combat-batch/
 .agents/skills/analyze-bannerlord-combat-zip/
 ```
 
-Its wrapper discovers a compatible checkout and invokes this CLI. It does not
-reimplement the pipeline. A direct local invocation is:
+The normalization wrapper discovers a compatible checkout and invokes this CLI for safe preflight and extraction preparation. It intentionally stops before canonicalization, rankings, and model comparison:
 
 ```bash
-python3 .agents/skills/analyze-bannerlord-combat-zip/scripts/invoke_pipeline.py \
+python3 .agents/skills/normalize-bannerlord-combat-batch/scripts/invoke_pipeline.py \
   --input "/absolute/path/to/input" \
   --output "/absolute/path/to/output" \
-  --mode offline-existing \
+  --mode host-vision \
   --repo "$PWD"
 ```
+
+Saved Phase 2 invocations that used `--troop-registry`, `--corrections`, `--aliases`, `--general-model`, or `--burst-model` must now follow the committed handoff and `$analyze-bannerlord-combat-zip`; those flags no longer belong to the Phase 1 runner. Legacy pre-canonical extraction state can resume at the new path, while state that already entered canonicalization must continue as Phase 2.
+
+Before publishing a Phase 1 branch, draft PR, or pending task comment, run:
+
+```bash
+python3 .agents/skills/normalize-bannerlord-combat-batch/scripts/validate_phase1_handoff.py \
+  --repo-root "$PWD" \
+  --batch-dir "$PWD/data/combat_observations/<batch>" \
+  --branch "<head-branch>" \
+  --normalization-commit "<full-sha>"
+```
+
+Phase 2 starts only from the existing handoff or analysis queue and follows `$analyze-bannerlord-combat-zip` plus the batch-specific `handoff/ANALYSIS_PROMPT.md`.
 
 Validate the skill metadata and portable format with:
 
 ```bash
 .venv/bin/python \
   /Users/andrerferrer/.codex/skills/.system/skill-creator/scripts/quick_validate.py \
-  .agents/skills/analyze-bannerlord-combat-zip
+  .agents/skills/normalize-bannerlord-combat-batch
 
 .venv/bin/agentskills validate \
-  .agents/skills/analyze-bannerlord-combat-zip
+  .agents/skills/normalize-bannerlord-combat-batch
 ```
 
-The `.venv` is local and ignored. See the skill's
-`references/platform-adapters.md` for Codex, ChatGPT, Claude Code, and Cursor
-discovery/invocation behavior. Preview any adapter installation with
-`--dry-run`; no global installation is part of this workflow.
+Run the same validators for `.agents/skills/analyze-bannerlord-combat-zip`. The `.venv` is local and ignored. Each skill's `references/platform-adapters.md` defines its host boundary. Preview adapter installation with `--dry-run`; no global installation is part of this workflow.

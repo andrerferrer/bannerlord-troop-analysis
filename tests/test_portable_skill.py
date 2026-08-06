@@ -1,9 +1,12 @@
 from __future__ import annotations
 
-import csv
+import base64
+import hashlib
+import io
 import json
 import subprocess
 import sys
+import tarfile
 import tempfile
 import unittest
 import zipfile
@@ -13,9 +16,11 @@ from scripts.combat_observations.domain import write_jsonl
 
 
 REPO = Path(__file__).resolve().parents[1]
-SKILL = REPO / ".agents/skills/analyze-bannerlord-combat-zip"
-INVOKE = SKILL / "scripts/invoke_pipeline.py"
-INSTALL = SKILL / "scripts/install_adapters.py"
+NORMALIZER_SKILL = REPO / ".agents/skills/normalize-bannerlord-combat-batch"
+ANALYZER_SKILL = REPO / ".agents/skills/analyze-bannerlord-combat-zip"
+INVOKE = NORMALIZER_SKILL / "scripts/invoke_pipeline.py"
+INSTALL = NORMALIZER_SKILL / "scripts/install_adapters.py"
+ANALYZER_INSTALL = ANALYZER_SKILL / "scripts/install_adapters.py"
 PNG_FIXTURE = b"\x89PNG\r\n\x1a\n" + b"\x00" * 8 + (1).to_bytes(4, "big") + (1).to_bytes(4, "big") + b"\x00" * 16
 
 
@@ -38,19 +43,58 @@ class PortableSkillTests(unittest.TestCase):
     def test_trigger_and_non_trigger_contract(self) -> None:
         cases = json.loads((REPO / "tests/fixtures/skill_trigger_cases.json").read_text(encoding="utf-8"))
 
-        def contract(prompt: str) -> bool:
+        def normalizer_contract(prompt: str) -> bool:
             text = prompt.casefold()
-            bannerlord_evidence = "bannerlord" in text and any(
-                token in text for token in ("zip", "screenshot", "combat-observation", "combat screenshot")
+            return "bannerlord" in text and (
+                any(token in text for token in ("raw", "screenshot", "unpublished"))
+                and any(token in text for token in ("normalize", "process", "publish", "draft pr", "phase 1"))
             )
-            review_dataset = "bannerlord" in text and "uncertain rows" in text and "dataset" in text
-            return bannerlord_evidence or review_dataset
 
-        self.assertTrue(all(contract(prompt) for prompt in cases["trigger"]))
-        self.assertTrue(all(not contract(prompt) for prompt in cases["non_trigger"]))
-        skill_text = (SKILL / "SKILL.md").read_text(encoding="utf-8")
-        self.assertIn("Do not use for generic ZIP extraction", skill_text)
-        self.assertLess(len(skill_text.splitlines()), 500)
+        def analyzer_contract(prompt: str) -> bool:
+            text = prompt.casefold()
+            raw_request = any(token in text for token in ("raw", "screenshot", "unpublished"))
+            phase2_request = "fecha as análises" in text or any(
+                token in text for token in ("normalized", "handoff", "analysis-task", "canonical empirical rankings")
+            )
+            return not raw_request and phase2_request and (
+                "bannerlord" in text or "fecha as análises" in text
+            )
+
+        self.assertTrue(all(normalizer_contract(prompt) for prompt in cases["normalizer"]["trigger"]))
+        self.assertTrue(all(not normalizer_contract(prompt) for prompt in cases["normalizer"]["non_trigger"]))
+        self.assertTrue(all(analyzer_contract(prompt) for prompt in cases["analyzer"]["trigger"]))
+        self.assertTrue(all(not analyzer_contract(prompt) for prompt in cases["analyzer"]["non_trigger"]))
+        for prompt in cases["mixed"]:
+            self.assertTrue(normalizer_contract(prompt))
+            self.assertFalse(analyzer_contract(prompt))
+        for prompt in cases["neither"]:
+            self.assertFalse(normalizer_contract(prompt))
+            self.assertFalse(analyzer_contract(prompt))
+
+        normalizer_text = (NORMALIZER_SKILL / "SKILL.md").read_text(encoding="utf-8")
+        analyzer_text = (ANALYZER_SKILL / "SKILL.md").read_text(encoding="utf-8")
+        normalizer_description = next(
+            line.removeprefix("description: ")
+            for line in normalizer_text.splitlines()
+            if line.startswith("description: ")
+        ).casefold()
+        analyzer_description = next(
+            line.removeprefix("description: ")
+            for line in analyzer_text.splitlines()
+            if line.startswith("description: ")
+        ).casefold()
+        self.assertIn("raw bannerlord", normalizer_description)
+        self.assertIn("unpublished", normalizer_description)
+        self.assertIn("do not use for existing pending analysis tasks", normalizer_description)
+        self.assertIn("existing committed", analyzer_description)
+        self.assertIn("unpublished normalized packages", analyzer_description)
+        self.assertIn("do not use for raw screenshots", analyzer_description)
+        self.assertIn("Never continue into Phase 2 in the same agent run", normalizer_text)
+        self.assertIn("Reject raw screenshots and raw screenshot ZIPs", analyzer_text)
+        self.assertIn("require an open pull request", analyzer_text)
+        self.assertIn("is only a locator", analyzer_text)
+        self.assertLess(len(normalizer_text.splitlines()), 500)
+        self.assertLess(len(analyzer_text.splitlines()), 500)
 
     def test_adapter_dry_run_and_temporary_copy(self) -> None:
         project = self.root / "project"
@@ -65,7 +109,7 @@ class PortableSkillTests(unittest.TestCase):
         )
         self.assertEqual(preview.returncode, 0, preview.stderr)
         self.assertIn("dry-run:", preview.stdout)
-        self.assertFalse((project / ".claude/skills/analyze-bannerlord-combat-zip").exists())
+        self.assertFalse((project / ".claude/skills/normalize-bannerlord-combat-batch").exists())
 
         user_preview = self.run_script(
             INSTALL,
@@ -79,7 +123,7 @@ class PortableSkillTests(unittest.TestCase):
         self.assertIn(".claude/skills", user_preview.stdout)
         self.assertIn(".cursor/skills", user_preview.stdout)
         self.assertFalse(
-            (self.root / "user/.claude/skills/analyze-bannerlord-combat-zip").exists()
+            (self.root / "user/.claude/skills/normalize-bannerlord-combat-batch").exists()
         )
 
         applied = self.run_script(
@@ -90,7 +134,7 @@ class PortableSkillTests(unittest.TestCase):
             "--project-root", str(project),
         )
         self.assertEqual(applied.returncode, 0, applied.stderr)
-        installed = project / ".claude/skills/analyze-bannerlord-combat-zip"
+        installed = project / ".claude/skills/normalize-bannerlord-combat-batch"
         self.assertTrue((installed / "SKILL.md").is_file())
         again = self.run_script(
             INSTALL,
@@ -101,6 +145,18 @@ class PortableSkillTests(unittest.TestCase):
         )
         self.assertEqual(again.returncode, 0, again.stderr)
         self.assertIn("already current", again.stdout)
+
+        analyzer_preview = self.run_script(
+            ANALYZER_INSTALL,
+            "--target", "claude",
+            "--scope", "project",
+            "--mode", "copy",
+            "--project-root", str(project),
+            "--dry-run",
+        )
+        self.assertEqual(analyzer_preview.returncode, 0, analyzer_preview.stderr)
+        self.assertIn("analyze-bannerlord-combat-zip", analyzer_preview.stdout)
+        self.assertEqual(INSTALL.read_bytes(), ANALYZER_INSTALL.read_bytes())
 
     def test_screenshot_directory_preflight_and_resume(self) -> None:
         images = self.root / "images"
@@ -125,6 +181,35 @@ class PortableSkillTests(unittest.TestCase):
         second = self.run_script(INVOKE, *arguments)
         self.assertEqual(second.returncode, 0, second.stderr)
         self.assertEqual(first_state, (output / "batch_state.json").read_bytes())
+
+        legacy_state = json.loads(first_state)
+        legacy_state.pop("skill_runner_version")
+        legacy_configuration = {
+            "mode": "host-vision",
+            "config": None,
+            "troop_registry": None,
+            "corrections": None,
+            "aliases": None,
+            "general_model": None,
+            "burst_model": None,
+        }
+        legacy_state["configuration_hash"] = hashlib.sha256(
+            json.dumps(
+                legacy_configuration,
+                sort_keys=True,
+                separators=(",", ":"),
+                ensure_ascii=False,
+            ).encode("utf-8")
+        ).hexdigest()
+        (output / "batch_state.json").write_text(
+            json.dumps(legacy_state, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        migrated = self.run_script(INVOKE, *arguments)
+        self.assertEqual(migrated.returncode, 0, migrated.stderr)
+        migrated_state = json.loads((output / "batch_state.json").read_text(encoding="utf-8"))
+        self.assertEqual(migrated_state["skill_runner_version"], "0.3.0-phase1")
+
         (images / "different.png").write_bytes(PNG_FIXTURE + b"different")
         incompatible = self.run_script(INVOKE, *arguments)
         self.assertEqual(incompatible.returncode, 2)
@@ -206,11 +291,6 @@ class PortableSkillTests(unittest.TestCase):
                 "troop_occurrences.jsonl",
                 json.dumps(record, sort_keys=True) + "\n",
             )
-        registry = self.root / "unreadable-troops.csv"
-        with registry.open("w", encoding="utf-8", newline="") as handle:
-            writer = csv.DictWriter(handle, fieldnames=["troop_id", "name"])
-            writer.writeheader()
-            writer.writerow({"troop_id": "imperial_naute", "name": "Imperial Naute"})
         output = self.root / "unreadable-output"
         result = self.run_script(
             INVOKE,
@@ -218,16 +298,16 @@ class PortableSkillTests(unittest.TestCase):
             "--output", str(output),
             "--mode", "offline-existing",
             "--repo", str(REPO),
-            "--troop-registry", str(registry),
         )
         self.assertEqual(result.returncode, 0, result.stderr)
         state = json.loads((output / "batch_state.json").read_text(encoding="utf-8"))
         self.assertEqual(state["status"], "partial")
-        self.assertEqual(state["phase_statuses"]["canonical"], "complete_with_warnings")
-        self.assertEqual(state["review_queue_size"], 1)
-        self.assertNotEqual(state["next_action"], "complete")
+        self.assertEqual(state["phase_statuses"]["phase1_packaging"], "pending")
+        self.assertEqual(state["phase_statuses"]["canonical"], "not_permitted_in_phase1")
+        self.assertIn("validate_phase1_handoff.py", state["next_action"])
+        self.assertFalse((output / "canonical").exists())
 
-    def test_existing_normalized_end_to_end(self) -> None:
+    def test_existing_normalized_stops_before_phase2(self) -> None:
         normalized = self.root / "normalized"
         normalized.mkdir()
         write_jsonl(
@@ -258,25 +338,21 @@ class PortableSkillTests(unittest.TestCase):
                 }
             ],
         )
-        registry = self.root / "troops.csv"
-        with registry.open("w", encoding="utf-8", newline="") as handle:
-            writer = csv.DictWriter(handle, fieldnames=["troop_id", "name"])
-            writer.writeheader()
-            writer.writerow({"troop_id": "imperial_naute", "name": "Imperial Naute"})
-        output = self.root / "canonical-output"
+        output = self.root / "phase1-output"
         completed = self.run_script(
             INVOKE,
             "--input", str(normalized),
             "--output", str(output),
             "--mode", "offline-existing",
             "--repo", str(REPO),
-            "--troop-registry", str(registry),
         )
         self.assertEqual(completed.returncode, 0, completed.stderr)
         state = json.loads((output / "batch_state.json").read_text(encoding="utf-8"))
-        self.assertEqual(state["phase_statuses"]["canonical"], "complete")
-        self.assertEqual(state["next_action"], "complete")
-        self.assertTrue((output / "canonical/canonical_occurrences.jsonl").is_file())
+        self.assertEqual(state["phase_statuses"]["raw_verification"], "complete")
+        self.assertEqual(state["phase_statuses"]["phase1_packaging"], "pending")
+        self.assertEqual(state["phase_statuses"]["canonical"], "not_permitted_in_phase1")
+        self.assertIn("validate_phase1_handoff.py", state["next_action"])
+        self.assertFalse((output / "canonical").exists())
 
         normalized_zip = self.root / "normalized.zip"
         with zipfile.ZipFile(normalized_zip, "w") as archive:
@@ -288,11 +364,41 @@ class PortableSkillTests(unittest.TestCase):
             "--output", str(zip_output),
             "--mode", "offline-existing",
             "--repo", str(REPO),
-            "--troop-registry", str(registry),
         )
         self.assertEqual(zipped.returncode, 0, zipped.stderr)
         self.assertTrue((zip_output / "reports/normalized_zip_preflight.json").is_file())
-        self.assertTrue((zip_output / "canonical/canonical_occurrences.jsonl").is_file())
+        zipped_state = json.loads((zip_output / "batch_state.json").read_text(encoding="utf-8"))
+        self.assertEqual(zipped_state["phase_statuses"]["canonical"], "not_permitted_in_phase1")
+        self.assertFalse((zip_output / "canonical").exists())
+
+    def test_generic_single_part_phase1_bundle_is_staged(self) -> None:
+        source = self.root / "bundle-input"
+        source.mkdir()
+        archive_buffer = io.BytesIO()
+        with tarfile.open(fileobj=archive_buffer, mode="w:xz") as archive:
+            payload = b'{"observation_id":"obs-1"}\n'
+            info = tarfile.TarInfo("normalized/troop_occurrences.jsonl")
+            info.size = len(payload)
+            info.mtime = 0
+            archive.addfile(info, io.BytesIO(payload))
+        (source / "custom-normalized.tar.xz.base64.part-00").write_bytes(
+            base64.b64encode(archive_buffer.getvalue()) + b"\n"
+        )
+        output = self.root / "bundle-output"
+
+        completed = self.run_script(
+            INVOKE,
+            "--input", str(source),
+            "--output", str(output),
+            "--mode", "offline-existing",
+            "--repo", str(REPO),
+        )
+
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        state = json.loads((output / "batch_state.json").read_text(encoding="utf-8"))
+        self.assertEqual(state["phase_statuses"]["bundle_verification"], "complete")
+        self.assertEqual(state["phase_statuses"]["canonical"], "not_permitted_in_phase1")
+        self.assertTrue((output / "normalized/troop_occurrences.jsonl").is_file())
 
 
 if __name__ == "__main__":

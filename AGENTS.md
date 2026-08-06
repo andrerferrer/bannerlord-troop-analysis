@@ -37,6 +37,13 @@ Every new evidence batch must use one branch and one draft pull request from ing
 
 The normalization agent must not perform the analytical phase. The analysis agent must not silently rewrite normalized evidence.
 
+### Skill ownership invariant
+
+- `$normalize-bannerlord-combat-batch` owns raw screenshots/ZIPs through the validated Phase 1 draft-PR handoff and must stop after publishing `pending`.
+- `$analyze-bannerlord-combat-zip` owns only an existing normalized handoff or actionable analysis-task PR through Phase 2 completion.
+- Their trigger descriptions must remain mutually exclusive. A request spanning both phases requires two separate agent runs with the committed handoff between them; no single skill invocation may cross the boundary.
+- Phase 1 publication is forbidden until `validate_phase1_handoff.py` passes in a repository checkout. Connector-only preparation without executable validation must report publication as blocked and must not publish `pending`.
+
 ## Phase 1 — normalization agent
 
 The normalization agent must:

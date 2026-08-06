@@ -267,6 +267,66 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
                 repetitions=100,
             )
 
+    def test_routed_is_not_added_to_deployed_arithmetic(self) -> None:
+        occurrence = {
+            "observation_id": "obs-1",
+            "battle_id": "b1",
+            "battle_context": "field",
+            "display_name_normalized": "troop",
+            "side": "attacker",
+            "row_type": "troop",
+            "analysis_status": "included_primary",
+            "needs_review": False,
+            "source_image_sha256": "a" * 64,
+            "deployed": 10,
+            "survivors": 8,
+            "kills": 5,
+            "deaths": 1,
+            "wounded": 1,
+            "routed": 2,
+        }
+        consolidated_row = {
+            "battle_id": "b1",
+            "battle_context": "field",
+            "display_name_normalized": "troop",
+            "needs_review": False,
+            **{field: occurrence[field] for field in MODULE.COUNT_FIELDS},
+        }
+        errors, _ = MODULE.validate_normalized(
+            [{"battle_id": "b1", "battle_context": "field", "player_side": "attacker"}],
+            [occurrence],
+            [occurrence],
+            [consolidated_row],
+            [{"image_sha256": "a" * 64}],
+            [],
+        )
+
+        self.assertEqual(errors, [])
+
+    def test_uncertain_non_hero_can_enter_review_queue(self) -> None:
+        uncertain = {
+            "observation_id": "obs-review",
+            "battle_id": "b1",
+            "battle_context": "field",
+            "side": "attacker",
+            "row_type": "troop",
+            "analysis_status": "unresolved",
+            "needs_review": True,
+            "uncertain_fields": ["kills"],
+            "source_image_sha256": "a" * 64,
+        }
+
+        errors, _ = MODULE.validate_normalized(
+            [{"battle_id": "b1", "battle_context": "field", "player_side": "attacker"}],
+            [uncertain],
+            [],
+            [],
+            [{"image_sha256": "a" * 64}],
+            [{"observation_id": "obs-review", "reason": "kills unreadable"}],
+        )
+
+        self.assertEqual(errors, [])
+
 
 if __name__ == "__main__":
     unittest.main()

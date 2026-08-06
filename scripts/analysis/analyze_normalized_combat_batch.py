@@ -363,7 +363,7 @@ def validate_normalized(
         if all(isinstance(row.get(field), int) for field in COUNT_FIELDS):
             if int(row["deployed"]) <= 0:
                 errors.append(f"non-positive deployed count: {observation_id}")
-            accounted = sum(int(row[field]) for field in ("survivors", "deaths", "wounded", "routed"))
+            accounted = sum(int(row[field]) for field in ("survivors", "deaths", "wounded"))
             if accounted != int(row["deployed"]):
                 errors.append(f"troop arithmetic mismatch: {observation_id}")
 
@@ -387,7 +387,7 @@ def validate_normalized(
         if all(isinstance(row.get(field), int) for field in COUNT_FIELDS):
             if int(row["deployed"]) <= 0:
                 errors.append(f"non-positive consolidated deployed count: {'|'.join(key)}")
-            accounted = sum(int(row[field]) for field in ("survivors", "deaths", "wounded", "routed"))
+            accounted = sum(int(row[field]) for field in ("survivors", "deaths", "wounded"))
             if accounted != int(row["deployed"]):
                 errors.append(f"consolidated arithmetic mismatch: {'|'.join(key)}")
 
@@ -396,8 +396,15 @@ def validate_normalized(
         source = occurrence_by_id.get(observation_id)
         if not source:
             errors.append(f"review item missing source observation: {observation_id}")
-        elif source.get("row_type") != "hero" or source.get("analysis_status") != "excluded_hero":
-            errors.append(f"review item is not an excluded hero: {observation_id}")
+        elif not (
+            source.get("needs_review")
+            or source.get("uncertain_fields")
+            or (
+                source.get("row_type") == "hero"
+                and source.get("analysis_status") == "excluded_hero"
+            )
+        ):
+            errors.append(f"review item has no review reason: {observation_id}")
         if observation_id in primary_ids:
             errors.append(f"review item leaked into primary rows: {observation_id}")
 

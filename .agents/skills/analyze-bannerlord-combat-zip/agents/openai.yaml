@@ -1,4 +1,4 @@
 interface:
   display_name: "Analyze Bannerlord Combat ZIP"
-  short_description: "Normalize and analyze Bannerlord battle screenshots"
-  default_prompt: "Use $analyze-bannerlord-combat-zip to process this Bannerlord combat screenshot ZIP into validated canonical data and evidence-backed rankings."
+  short_description: "Complete Phase 2 combat-batch analysis"
+  default_prompt: "Use $analyze-bannerlord-combat-zip to verify this normalized Bannerlord batch handoff and complete its Phase 2 analysis."

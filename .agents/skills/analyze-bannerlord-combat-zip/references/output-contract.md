@@ -1,65 +1,20 @@
-# Output contract
-
-## Required response
+# Phase 2 output contract
 
 Report:
 
-1. `COMPLETE`, `COMPLETE_WITH_EXTERNAL_BLOCKERS`, or `BLOCKED`;
-2. input name and verified SHA-256;
-3. mode, pipeline/schema versions, and model provenance;
-4. image, battle, occurrence, canonical, excluded, outlier, and unresolved counts;
-5. schema/semantic validation result;
-6. complete/reliable and context ranking paths;
-7. model comparison and residual paths;
-8. highest-impact unresolved items;
-9. limitations/evidence grades;
-10. exact resume command.
+1. `COMPLETE` or `BLOCKED`;
+2. task ID, pull request, branch, and normalization commit;
+3. verified source and normalized-archive SHA-256 values;
+4. reviewed corrections, exclusions, and unresolved counts;
+5. identity-resolution coverage;
+6. battle, occurrence, reliable, and insufficient-evidence counts by side and context;
+7. paths to `review/` and `analysis/` artifacts;
+8. validation commands and results;
+9. limitations and blocked claims;
+10. latest append-only protocol state and completion action.
 
-Do not claim completion from prose alone. Link structured artifacts.
+Use `COMPLETE` only after every required action and merge gate passes. A prose summary never substitutes for committed structured outputs or a valid `complete` protocol comment.
 
-## Artifact classes
+Use `BLOCKED` when integrity, handoff, identity, validation, or boundary requirements prevent safe completion. Keep the pull request open and draft, repeat the full protocol payload, and describe actionable blockers.
 
-```text
-manifest/
-staging/
-extraction/
-reviewed/
-canonical/
-reports/
-analysis/
-batch_state.json
-```
-
-Expected canonical files:
-
-```text
-canonical_screenshots.jsonl
-canonical_battles.jsonl
-canonical_occurrences.jsonl
-canonical_troop_battle_consolidated.jsonl
-canonical_historical_aggregates.jsonl
-```
-
-Expected reports:
-
-```text
-review_resolutions.csv
-unresolved_rows.csv
-duplicate_report.csv
-grouping_validation.csv
-aggregation_validation.csv
-outlier_report.csv
-battle_context_review.csv
-canonical_validation_report.json
-model_vs_empirical.csv
-empirical_residual_rankings.csv
-empirical_analysis_summary.md
-```
-
-## Status rules
-
-Use `COMPLETE` only after the requested production input passes integrity, review, canonical validation, and output gates.
-
-Use `COMPLETE_WITH_EXTERNAL_BLOCKERS` after every safe local task is complete but a required input, paid authorization, upload authority, or human decision remains. Optional raw-image retention does not force this status when a verified normalized bundle is the declared authoritative input and any non-reviewable fields remain explicitly unresolved or excluded.
-
-Use `BLOCKED` when a missing prerequisite prevents meaningful processing of the supplied input.
+Never report Phase 1 branch creation, a new draft pull request, or a new `pending` task from this skill.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Normalize Bannerlord Combat Batch"
+  short_description: "Publish validated Phase 1 combat evidence"
+  default_prompt: "Use $normalize-bannerlord-combat-batch to normalize this Bannerlord combat screenshot batch and publish its validated Phase 1 draft PR handoff."
