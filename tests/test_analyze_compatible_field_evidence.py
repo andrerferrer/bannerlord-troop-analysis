@@ -1,0 +1,211 @@
+import base64
+import csv
+import hashlib
+import io
+import json
+import tarfile
+import tempfile
+import unittest
+from pathlib import Path
+
+from scripts.analysis import analyze_compatible_field_evidence as module
+
+
+class CompatibleFieldEvidenceTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.root = Path(self.temp.name)
+        self.batch_dir = self.root / "data" / "output"
+        analysis_dir = self.batch_dir / "analysis"
+        analysis_dir.mkdir(parents=True)
+        (self.batch_dir / "review").mkdir()
+        (analysis_dir / "README.md").write_text("# Standalone\n", encoding="utf-8")
+        (analysis_dir / "validation_report.json").write_text(
+            '{"status": "passed"}\n', encoding="utf-8"
+        )
+        self.identity_root = self.root / "data" / "identity"
+        self.identity_root.mkdir(parents=True)
+        (self.identity_root / "troops.csv").write_text(
+            "troop_id,name\nravens_teeth,Ravens' Teeth\n", encoding="utf-8"
+        )
+
+    def tearDown(self):
+        self.temp.cleanup()
+
+    def make_source(
+        self, batch_id, cohort, battle_ids, kills, *, track="realm_of_thrones"
+    ):
+        batch_path = self.root / "data" / batch_id
+        bundle = batch_path / "bundle"
+        bundle.mkdir(parents=True)
+        archive_name = f"{batch_id}.tar.xz"
+        archive_root = f"normalized-{batch_id}"
+        files = {
+            "normalization_summary.json": json.dumps(
+                {
+                    "batch_id": batch_id,
+                    "schema_version": "2.0.0",
+                    "game_track": track,
+                    "game_version": "1.4.x",
+                },
+                sort_keys=True,
+            )
+            + "\n",
+            "battles.jsonl": "".join(
+                json.dumps(
+                    {
+                        "battle_id": battle_id,
+                        "battle_context": "field",
+                        "game_track": track,
+                        "game_version": "1.4.x",
+                        "player_side": "attacker",
+                    },
+                    sort_keys=True,
+                )
+                + "\n"
+                for battle_id in battle_ids
+            ),
+            "troop_battle_consolidated.jsonl": "".join(
+                json.dumps(
+                    {
+                        "battle_id": battle_id,
+                        "battle_context": "field",
+                        "display_name_normalized": "ravens_teeth",
+                        "display_names_raw": ["Ravens' Teeth [T6]"],
+                        "game_track": track,
+                        "deployed": 5,
+                        "survivors": 5,
+                        "kills": kill_count,
+                        "deaths": 0,
+                        "wounded": 0,
+                        "routed": 0,
+                        "needs_review": False,
+                    },
+                    sort_keys=True,
+                )
+                + "\n"
+                for battle_id, kill_count in zip(battle_ids, kills, strict=True)
+            ),
+            "validation_report.json": json.dumps(
+                {
+                    "schema_version": "2.0.0",
+                    "sides_pooled": False,
+                    "status": "passed",
+                    "validation_errors": [],
+                },
+                sort_keys=True,
+            )
+            + "\n",
+        }
+        manifest = io.StringIO()
+        writer = csv.DictWriter(
+            manifest, fieldnames=("file", "sha256", "size_bytes"), lineterminator="\n"
+        )
+        writer.writeheader()
+        for name, text in sorted(files.items()):
+            encoded = text.encode()
+            writer.writerow(
+                {
+                    "file": name,
+                    "sha256": hashlib.sha256(encoded).hexdigest(),
+                    "size_bytes": len(encoded),
+                }
+            )
+        files["artifact_hashes.csv"] = manifest.getvalue()
+
+        archive_path = bundle / archive_name
+        with tarfile.open(archive_path, "w:xz") as archive:
+            directory = tarfile.TarInfo(archive_root)
+            directory.type = tarfile.DIRTYPE
+            archive.addfile(directory)
+            for name, text in sorted(files.items()):
+                encoded = text.encode()
+                info = tarfile.TarInfo(f"{archive_root}/{name}")
+                info.size = len(encoded)
+                archive.addfile(info, io.BytesIO(encoded))
+        archive_hash = hashlib.sha256(archive_path.read_bytes()).hexdigest()
+        part = bundle / f"{archive_name}.base64.part-00"
+        part.write_bytes(base64.b64encode(archive_path.read_bytes()))
+        archive_path.unlink()
+        return {
+            "archive_name": archive_name,
+            "batch_id": batch_id,
+            "batch_path": str(batch_path.relative_to(self.root)),
+            "battles_path": f"{archive_root}/battles.jsonl",
+            "cohort": cohort,
+            "consolidated_path": f"{archive_root}/troop_battle_consolidated.jsonl",
+            "expected_archive_sha256": archive_hash,
+            "manifest_base_path": archive_root,
+            "manifest_path": f"{archive_root}/artifact_hashes.csv",
+            "normalization_commit": "a" * 40,
+            "schema_version": "2.0.0",
+            "summary_path": f"{archive_root}/normalization_summary.json",
+            "validation_path": f"{archive_root}/validation_report.json",
+        }
+
+    def write_config(self, sources):
+        config = {
+            "analysis_id": "test-compatible-field",
+            "bootstrap_repetitions": 200,
+            "focus_slug": "ravens_teeth",
+            "game_version": "1.4.x",
+            "minimum_battles": 5,
+            "minimum_deployed": 20,
+            "sources": sources,
+            "track": "realm_of_thrones",
+        }
+        path = self.batch_dir / "analysis" / "compatible_field_sources.json"
+        path.write_text(json.dumps(config), encoding="utf-8")
+        return path
+
+    def test_real_archives_are_verified_joined_and_gated(self):
+        baseline = self.make_source(
+            "baseline", "baseline", ["b1", "b2", "b3"], [5, 10, 15]
+        )
+        current = self.make_source("current", "current", ["b4", "b5"], [20, 25])
+        config_path = self.write_config([baseline, current])
+
+        result = module.run_analysis(
+            config_path, self.root, self.batch_dir, self.identity_root
+        )
+
+        self.assertEqual(result["status"], "passed")
+        self.assertEqual(result["independent_battles"], 5)
+        self.assertEqual(result["reliable_rows"], 1)
+        ranking = module.base.read_csv(
+            self.batch_dir / "analysis" / "combined_ranking_reliable.csv"
+        )
+        self.assertEqual(ranking[0]["canonical_troop_id"], "ravens_teeth")
+        self.assertEqual(ranking[0]["kills_per_deployed"], "3.000000")
+        comparison = module.base.read_csv(
+            self.batch_dir / "analysis" / "ravens_teeth_comparison.csv"
+        )
+        self.assertEqual(comparison[1]["reliability_status"], "insufficient_evidence")
+        self.assertEqual(comparison[2]["reliability_status"], "reliable")
+        decision = json.loads(
+            (self.batch_dir / "analysis" / "compatibility_decision.json").read_text()
+        )
+        self.assertTrue(decision["checks"]["artifact_manifests_verified"])
+
+    def test_duplicate_battle_ids_are_rejected_as_non_independent(self):
+        baseline = self.make_source("baseline", "baseline", ["same"], [5])
+        current = self.make_source("current", "current", ["same"], [10])
+        config_path = self.write_config([baseline, current])
+
+        with self.assertRaisesRegex(ValueError, "battle ID collision"):
+            module.run_analysis(
+                config_path, self.root, self.batch_dir, self.identity_root
+            )
+
+    def test_archive_name_cannot_escape_bundle_directory(self):
+        source = self.make_source("baseline", "baseline", ["b1"], [5])
+        source["archive_name"] = "../evidence.tar.xz"
+
+        with self.assertRaisesRegex(
+            ValueError, "invalid compatible source archive_name"
+        ):
+            module.SourceSpec.from_dict(source)
+
+
+if __name__ == "__main__":
+    unittest.main()

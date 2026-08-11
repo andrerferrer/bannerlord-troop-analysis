@@ -1,0 +1,141 @@
+{
+  "batch_id": "combat_2026-08-11_ravens_teeth_field",
+  "external_blockers": [],
+  "frozen_model_changes": [],
+  "immutable_normalized_changes": [],
+  "manifest_checks": [
+    {
+      "actual_sha256": "8f9366eba8efef550a257538a78980a891d076a1183d092feb70f441dd036dfb",
+      "actual_size_bytes": 514,
+      "expected_sha256": "8f9366eba8efef550a257538a78980a891d076a1183d092feb70f441dd036dfb",
+      "expected_size_bytes": 514,
+      "file": "README.md",
+      "passed": true
+    },
+    {
+      "actual_sha256": "3c62c7faab6095f619fbf9921f4911d3bc79f2330ae4476f27faf305c27b2707",
+      "actual_size_bytes": 3840,
+      "expected_sha256": "3c62c7faab6095f619fbf9921f4911d3bc79f2330ae4476f27faf305c27b2707",
+      "expected_size_bytes": 3840,
+      "file": "battles.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "9432bbe8023fe55049e5dd00119fbc8c22f5c8c6a3c669ad32a75e380446cef0",
+      "actual_size_bytes": 904,
+      "expected_sha256": "9432bbe8023fe55049e5dd00119fbc8c22f5c8c6a3c669ad32a75e380446cef0",
+      "expected_size_bytes": 904,
+      "file": "normalization_summary.json",
+      "passed": true
+    },
+    {
+      "actual_sha256": "500f03ca885a17ffb3b2b9000a2b4111fa82a00b50efd3e48668e55dab62346f",
+      "actual_size_bytes": 66251,
+      "expected_sha256": "500f03ca885a17ffb3b2b9000a2b4111fa82a00b50efd3e48668e55dab62346f",
+      "expected_size_bytes": 66251,
+      "file": "primary_troop_occurrences.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "f0f8655493586feab1c3bcde9493c68dfa7308185771820dc861e559e269950c",
+      "actual_size_bytes": 3030,
+      "expected_sha256": "f0f8655493586feab1c3bcde9493c68dfa7308185771820dc861e559e269950c",
+      "expected_size_bytes": 3030,
+      "file": "review_queue.csv",
+      "passed": true
+    },
+    {
+      "actual_sha256": "fd6fa11e03100103c78929660c189dd7ab93e49b939a539034ce5cf33429dc89",
+      "actual_size_bytes": 2183,
+      "expected_sha256": "fd6fa11e03100103c78929660c189dd7ab93e49b939a539034ce5cf33429dc89",
+      "expected_size_bytes": 2183,
+      "file": "screenshots_manifest.csv",
+      "passed": true
+    },
+    {
+      "actual_sha256": "294a7c205865720d1a3f4e4c8c08a4587eb31dbfe051d53ffeba62b8cbc5ba2e",
+      "actual_size_bytes": 18455,
+      "expected_sha256": "294a7c205865720d1a3f4e4c8c08a4587eb31dbfe051d53ffeba62b8cbc5ba2e",
+      "expected_size_bytes": 18455,
+      "file": "troop_battle_consolidated.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "9031791805220edab9f0dc4b10bfebd7cc6e5b1895c0d9ab19dc5233cfa2d299",
+      "actual_size_bytes": 173171,
+      "expected_sha256": "9031791805220edab9f0dc4b10bfebd7cc6e5b1895c0d9ab19dc5233cfa2d299",
+      "expected_size_bytes": 173171,
+      "file": "troop_occurrences.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "06cc5f2857527eb67f6bdb00b8d4bc790053843f16dead5d825de30c64821bdc",
+      "actual_size_bytes": 1436,
+      "expected_sha256": "06cc5f2857527eb67f6bdb00b8d4bc790053843f16dead5d825de30c64821bdc",
+      "expected_size_bytes": 1436,
+      "file": "validation_report.json",
+      "passed": true
+    }
+  ],
+  "normalized_archive": {
+    "actual_sha256": "78a6f3a80ea8351e847555b44f2e7f01c2b4db3d4b772a5af716dd5eedcebcb8",
+    "expected_sha256": "78a6f3a80ea8351e847555b44f2e7f01c2b4db3d4b772a5af716dd5eedcebcb8",
+    "name": "ravens_teeth_field_2026-08-11.tar.xz",
+    "passed": true,
+    "safe_preflight": {
+      "members": 11,
+      "regular_files": 10,
+      "total_uncompressed_bytes": 270643
+    }
+  },
+  "normalized_summary": {
+    "battle_context_counts": {
+      "field": 4
+    },
+    "battles": 4,
+    "consolidated_rows": 46,
+    "occurrences": 120,
+    "ordinary_troop_labels": 22,
+    "primary_occurrences": 46,
+    "primary_rows_fully_consolidated": true,
+    "queued_rows_excluded_from_rankings": true,
+    "rankings_only_include_primary_troops": true,
+    "review_items": 8
+  },
+  "pipeline_mode": "offline-existing",
+  "schema_version": "2.0.0",
+  "source_archive": {
+    "actual_sha256": "",
+    "actual_size_bytes": null,
+    "expected_sha256": "78cac29a1a239a9435b83878762437057d36974fe890fc41bdd413f6a485f6f9",
+    "expected_size_bytes": 12476029,
+    "limits_visual_rereview": true,
+    "locally_verified": false,
+    "repository_addressable": false,
+    "repository_path": "data/combat_observations/2026-08-11-ravens-teeth-field/source/original_screenshots",
+    "retention_policy": "optional_after_verified_normalization",
+    "retention_status": "not_retained",
+    "verification_method": "not_available"
+  },
+  "source_provenance_checks": [
+    {
+      "expected": "78cac29a1a239a9435b83878762437057d36974fe890fc41bdd413f6a485f6f9",
+      "field": "normalization_summary.json:source_sha256",
+      "passed": true,
+      "recorded": "78cac29a1a239a9435b83878762437057d36974fe890fc41bdd413f6a485f6f9"
+    },
+    {
+      "expected": "78cac29a1a239a9435b83878762437057d36974fe890fc41bdd413f6a485f6f9",
+      "field": "validation_report.json:source_sha256",
+      "passed": true,
+      "recorded": "78cac29a1a239a9435b83878762437057d36974fe890fc41bdd413f6a485f6f9"
+    },
+    {
+      "expected": 12476029,
+      "field": "validation_report.json:source_size_bytes",
+      "passed": true,
+      "recorded": 12476029
+    }
+  ],
+  "status": "passed"
+}
