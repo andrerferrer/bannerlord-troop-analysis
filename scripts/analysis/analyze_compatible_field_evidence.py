@@ -237,24 +237,40 @@ def validate_normalization_report(
     evidence: dict[str, Any] = {}
     unverified: list[str] = []
     for boundary, (source_fields, expected) in expected_flags.items():
-        source_field = next((field for field in source_fields if field in report), None)
-        if source_field is None:
+        reported_fields = [field for field in source_fields if field in report]
+        if not reported_fields:
             evidence[boundary] = {"status": "not_reported"}
             unverified.append(boundary)
             continue
-        actual = report[source_field]
-        effective_expected = False if source_field == "contexts_pooled" else expected
-        if actual is not effective_expected:
-            raise ValueError(
-                f"{spec.batch_id}: normalization boundary violated: {source_field}"
+        reported_evidence = []
+        for source_field in reported_fields:
+            actual = report[source_field]
+            effective_expected = (
+                False if source_field == "contexts_pooled" else expected
             )
-        evidence[boundary] = {
-            "status": "verified",
-            "source_field": source_field,
-            "reported_value": actual,
-            "expected_reported_value": effective_expected,
-            "canonical_value": expected,
-        }
+            if actual is not effective_expected:
+                raise ValueError(
+                    f"{spec.batch_id}: normalization boundary violated: {source_field}"
+                )
+            reported_evidence.append(
+                {
+                    "source_field": source_field,
+                    "reported_value": actual,
+                    "expected_reported_value": effective_expected,
+                }
+            )
+        if len(reported_evidence) == 1:
+            evidence[boundary] = {
+                "status": "verified",
+                **reported_evidence[0],
+                "canonical_value": expected,
+            }
+        else:
+            evidence[boundary] = {
+                "status": "verified",
+                "reported_fields": reported_evidence,
+                "canonical_value": expected,
+            }
     return {"flags": evidence, "unverified_flags": unverified}
 
 
@@ -569,6 +585,25 @@ def build_report(
         for row in identities
         if row["match_status"] != "confirmed_id"
     ]
+    unresolved_identity_line = (
+        "- Unresolved canonical labels remain provisional: "
+        + ", ".join(f"`{slug}`" for slug in unresolved_slugs)
+        + "."
+        if unresolved_slugs
+        else "- Every observed label resolves to exactly one canonical ID."
+    )
+    if delta["evidence_status"] == "reliable":
+        delta_report_line = (
+            f"- Current minus baseline: {delta['point_estimate']:.3f} kills/deployed "
+            f"(95% battle bootstrap {delta['ci95_low']:.3f}–{delta['ci95_high']:.3f}). "
+            "This is a descriptive cohort difference, not a causal estimate."
+        )
+    else:
+        below_gate = ", ".join(delta["below_display_gate"])
+        delta_report_line = (
+            f"- The machine-readable delta remains `{delta['evidence_status']}`; "
+            f"below-gate cohorts: {below_gate}. No increase or decline is claimed."
+        )
     lines = [
         f"# Phase 2 analysis — {config['analysis_id']}",
         "",
@@ -618,8 +653,13 @@ def build_report(
             ]
         )
         for displayed_rank, row in enumerate(reliable[:10], start=1):
+            troop_identity = (
+                f"`{row['canonical_troop_id']}`"
+                if row["canonical_troop_id"]
+                else f"`{row['provisional_slug']}` (provisional)"
+            )
             lines.append(
-                f"| {displayed_rank} | `{row['canonical_troop_id'] or row['provisional_slug']}` | "
+                f"| {displayed_rank} | {troop_identity} | "
                 f"{row['independent_battles']} | {row['deployed']} | "
                 f"{row['kills_per_deployed']:.3f} | {row['ci95_low']:.3f}–"
                 f"{row['ci95_high']:.3f} | {row['casualty_rate']:.3f} |"
@@ -634,10 +674,7 @@ def build_report(
             comparison_report_line("Baseline cohort", baseline),
             comparison_report_line("Current cohort", current),
             comparison_report_line("Compatible combined estimate", combined),
-            (
-                f"- The machine-readable delta remains `{delta['evidence_status']}`; no increase or "
-                f"decline is claimed from the {current['independent_battles']}-battle current cohort."
-            ),
+            delta_report_line,
             "",
             "## Identity and completeness",
             "",
@@ -645,9 +682,7 @@ def build_report(
                 f"- {identity_counts.get('confirmed_id', 0)} of {len(identities)} observed labels "
                 "have one exact canonical ID in the versioned Realm of Thrones audit."
             ),
-            "- Unresolved canonical labels remain provisional: "
-            + ", ".join(f"`{slug}`" for slug in unresolved_slugs)
-            + ".",
+            unresolved_identity_line,
             (
                 "- `combined_ranking_complete.csv` retains every observed field label; "
                 "`combined_ranking_reliable.csv` and `combined_insufficient_evidence.csv` split it "
@@ -783,10 +818,13 @@ def build_focus_results(
         f"{analysis_id}|current-minus-baseline|{focus_slug}|{repetitions}",
         repetitions,
     )
+    below_display_gate = [
+        row["cohort"]
+        for row in (baseline, current)
+        if row["reliability_status"] != "reliable"
+    ]
     evidence_status = (
-        "reliable"
-        if baseline["reliability_status"] == current["reliability_status"] == "reliable"
-        else "diagnostic_only_current_below_display_gate"
+        "reliable" if not below_display_gate else "diagnostic_only_below_display_gate"
     )
     delta = {
         "metric": "current_minus_baseline_kills_per_deployed",
@@ -798,6 +836,7 @@ def build_focus_results(
         "bootstrap_repetitions": repetitions,
         "seed": f"sha256(analysis_id|current-minus-baseline|focus_slug|{repetitions})",
         "evidence_status": evidence_status,
+        "below_display_gate": below_display_gate,
         "report_displayed": evidence_status == "reliable",
     }
     return comparisons, delta

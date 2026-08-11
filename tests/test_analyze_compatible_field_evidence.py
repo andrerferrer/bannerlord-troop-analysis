@@ -228,6 +228,11 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
         self.assertNotIn("player_and_enemy_not_pooled", decision["checks"])
         self.assertNotIn("count_projection_semantics_match", decision["checks"])
         self.assertEqual(decision["compatibility_basis"]["status"], "analysis_decision")
+        report = (self.batch_dir / "analysis" / "ANALYSIS_REPORT.md").read_text()
+        self.assertIn(
+            "Every observed label resolves to exactly one canonical ID", report
+        )
+        self.assertNotIn("remain provisional: .", report)
 
     def test_duplicate_battle_ids_are_rejected_as_non_independent(self):
         baseline = self.make_source("baseline", "baseline", ["same"], [5])
@@ -260,6 +265,22 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
         config_path = self.write_config([baseline, current])
 
         with self.assertRaisesRegex(ValueError, "sides_pooled"):
+            module.run_analysis(
+                config_path, self.root, self.batch_dir, self.identity_root
+            )
+
+    def test_contradictory_normalization_boundary_alias_is_rejected(self):
+        baseline = self.make_source(
+            "baseline",
+            "baseline",
+            ["b1"],
+            [5],
+            validation_overrides={"contexts_pooled": True},
+        )
+        current = self.make_source("current", "current", ["b2"], [10])
+        config_path = self.write_config([baseline, current])
+
+        with self.assertRaisesRegex(ValueError, "contexts_pooled"):
             module.run_analysis(
                 config_path, self.root, self.batch_dir, self.identity_root
             )
@@ -373,6 +394,7 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
         self.assertIn("The 2.0.0 normalized schemas are joined", report)
         self.assertIn("The schema join across 2.0.0 is deliberately narrow", report)
         self.assertNotIn("1.1.0, 2.0.0", report)
+        self.assertIn("`wolf_guard` (provisional)", report)
 
     def test_report_gate_statement_uses_the_current_battle_count(self):
         baseline = self.make_source("baseline", "baseline", ["b0"], [5])
@@ -389,6 +411,60 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
         report = (self.batch_dir / "analysis" / "ANALYSIS_REPORT.md").read_text()
         self.assertIn("Per-label standalone eligibility", report)
         self.assertNotIn("none can clear", report)
+
+    def test_delta_names_the_actual_below_gate_cohort(self):
+        baseline = self.make_source("baseline", "baseline", ["b0"], [5])
+        current = self.make_source(
+            "current",
+            "current",
+            ["b1", "b2", "b3", "b4", "b5"],
+            [5, 10, 15, 20, 25],
+        )
+        config_path = self.write_config([baseline, current])
+
+        module.run_analysis(config_path, self.root, self.batch_dir, self.identity_root)
+
+        delta = json.loads(
+            (
+                self.batch_dir / "analysis" / "ravens_teeth_delta_uncertainty.json"
+            ).read_text()
+        )
+        self.assertEqual(delta["evidence_status"], "diagnostic_only_below_display_gate")
+        self.assertEqual(delta["below_display_gate"], ["baseline"])
+        self.assertFalse(delta["report_displayed"])
+        report = (self.batch_dir / "analysis" / "ANALYSIS_REPORT.md").read_text()
+        self.assertIn("below-gate cohorts: baseline", report)
+        self.assertIn("No increase or decline is claimed", report)
+
+    def test_reliable_delta_is_displayed_with_its_interval(self):
+        baseline = self.make_source(
+            "baseline",
+            "baseline",
+            ["b1", "b2", "b3", "b4", "b5"],
+            [5, 5, 5, 5, 5],
+        )
+        current = self.make_source(
+            "current",
+            "current",
+            ["b6", "b7", "b8", "b9", "b10"],
+            [10, 10, 10, 10, 10],
+        )
+        config_path = self.write_config([baseline, current])
+
+        module.run_analysis(config_path, self.root, self.batch_dir, self.identity_root)
+
+        delta = json.loads(
+            (
+                self.batch_dir / "analysis" / "ravens_teeth_delta_uncertainty.json"
+            ).read_text()
+        )
+        self.assertEqual(delta["evidence_status"], "reliable")
+        self.assertEqual(delta["below_display_gate"], [])
+        self.assertTrue(delta["report_displayed"])
+        report = (self.batch_dir / "analysis" / "ANALYSIS_REPORT.md").read_text()
+        self.assertIn("Current minus baseline: 1.000 kills/deployed", report)
+        self.assertIn("95% battle bootstrap 1.000–1.000", report)
+        self.assertNotIn("No increase or decline is claimed", report)
 
 
 if __name__ == "__main__":

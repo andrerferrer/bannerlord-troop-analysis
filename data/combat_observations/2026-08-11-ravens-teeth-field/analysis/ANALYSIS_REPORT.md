@@ -19,7 +19,7 @@ These are descriptive rates for visible player-side campaign rows. They are not 
 | 3 | `river_admiral` | 6 | 50 | 1.340 | 0.500–2.250 | 0.480 |
 | 4 | `river_ranger` | 6 | 175 | 1.063 | 0.428–1.632 | 0.029 |
 | 5 | `blackwood_archer` | 5 | 104 | 0.875 | 0.704–0.985 | 0.048 |
-| 6 | `westerlands_banner_knight` | 5 | 33 | 0.818 | 0.433–1.089 | 0.091 |
+| 6 | `westerlands_banner_knight` (provisional) | 5 | 33 | 0.818 | 0.433–1.089 | 0.091 |
 | 7 | `mallister_houseguard` | 6 | 117 | 0.547 | 0.282–0.726 | 0.068 |
 
 ## Ravens' Teeth focus
@@ -27,7 +27,7 @@ These are descriptive rates for visible player-side campaign rows. They are not 
 - Baseline cohort: 5 battles, 86 deployed, 3.326 kills/deployed (95% battle bootstrap 1.855–5.415); casualty rate 0.000.
 - Current cohort: 4 battles, 318 deployed; rate withheld because this cohort is below the display gate.
 - Compatible combined estimate: 9 battles, 404 deployed, 3.153 kills/deployed (95% battle bootstrap 1.816–4.358); casualty rate 0.040.
-- The machine-readable delta remains `diagnostic_only_current_below_display_gate`; no increase or decline is claimed from the 4-battle current cohort.
+- The machine-readable delta remains `diagnostic_only_below_display_gate`; below-gate cohorts: current. No increase or decline is claimed.
 
 ## Identity and completeness
 

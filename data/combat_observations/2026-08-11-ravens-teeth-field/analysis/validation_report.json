@@ -11,7 +11,7 @@
     "archive_hashes_verified": true,
     "artifact_manifests_verified": true,
     "complete_rows": 38,
-    "delta_evidence_status": "diagnostic_only_current_below_display_gate",
+    "delta_evidence_status": "diagnostic_only_below_display_gate",
     "focus_combined_status": "reliable",
     "focus_slug": "ravens_teeth",
     "independent_battles": 10,
