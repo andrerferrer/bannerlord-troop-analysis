@@ -203,7 +203,9 @@ def validate_summary(
             )
 
 
-def validate_normalization_report(report: dict[str, Any], spec: SourceSpec) -> None:
+def validate_normalization_report(
+    report: dict[str, Any], spec: SourceSpec
+) -> dict[str, Any]:
     if report.get("status") not in {"pass", "passed"}:
         raise ValueError(f"{spec.batch_id}: normalization validation did not pass")
     if str(report.get("schema_version", "")) != spec.schema_version:
@@ -211,14 +213,37 @@ def validate_normalization_report(report: dict[str, Any], spec: SourceSpec) -> N
     errors = report.get("validation_errors", report.get("errors", []))
     if errors:
         raise ValueError(f"{spec.batch_id}: normalization validation has errors")
-    forbidden_true = ("sides_pooled", "offscreen_rows_inferred", "heroes_in_primary")
-    violated = [field for field in forbidden_true if report.get(field) is True]
-    if violated:
-        raise ValueError(
-            f"{spec.batch_id}: normalization boundary violated: {', '.join(violated)}"
-        )
-    if report.get("context_boundaries_preserved") is False:
-        raise ValueError(f"{spec.batch_id}: context boundary was not preserved")
+    expected_flags = {
+        "sides_pooled": (("sides_pooled",), False),
+        "offscreen_rows_inferred": (("offscreen_rows_inferred",), False),
+        "heroes_in_primary": (("heroes_in_primary",), False),
+        "context_boundaries_preserved": (
+            ("context_boundaries_preserved", "contexts_pooled"),
+            True,
+        ),
+    }
+    evidence: dict[str, Any] = {}
+    unverified: list[str] = []
+    for boundary, (source_fields, expected) in expected_flags.items():
+        source_field = next((field for field in source_fields if field in report), None)
+        if source_field is None:
+            evidence[boundary] = {"status": "not_reported"}
+            unverified.append(boundary)
+            continue
+        actual = report[source_field]
+        effective_expected = False if source_field == "contexts_pooled" else expected
+        if actual is not effective_expected:
+            raise ValueError(
+                f"{spec.batch_id}: normalization boundary violated: {source_field}"
+            )
+        evidence[boundary] = {
+            "status": "verified",
+            "source_field": source_field,
+            "reported_value": actual,
+            "expected_reported_value": effective_expected,
+            "canonical_value": expected,
+        }
+    return {"flags": evidence, "unverified_flags": unverified}
 
 
 def validate_field_projection(
@@ -307,7 +332,7 @@ def load_source(
     normalization_validation = base.read_json_object(
         path_below(extraction_root, spec.validation_path, "validation_path")
     )
-    validate_normalization_report(normalization_validation, spec)
+    boundary_evidence = validate_normalization_report(normalization_validation, spec)
     battles = base.read_jsonl(
         path_below(extraction_root, spec.battles_path, "battles_path")
     )
@@ -321,6 +346,9 @@ def load_source(
         "batch_id": spec.batch_id,
         "cohort": spec.cohort,
         "normalization_commit": spec.normalization_commit,
+        "normalization_commit_verification": (
+            "identifier_format_only_not_compared_to_worktree"
+        ),
         "schema_version": spec.schema_version,
         "archive_name": spec.archive_name,
         "expected_archive_sha256": spec.expected_archive_sha256,
@@ -330,6 +358,10 @@ def load_source(
         "manifest_entries": len(manifest_checks),
         "manifest_passed": True,
         "normalization_validation_status": normalization_validation["status"],
+        "normalization_boundary_evidence": boundary_evidence["flags"],
+        "unverified_normalization_boundary_flags": boundary_evidence[
+            "unverified_flags"
+        ],
         "field_battle_ids": sorted(str(row["battle_id"]) for row in field_battles),
         "field_rows": len(field_rows),
     }
@@ -376,7 +408,9 @@ def comparison_row(
     deployed = counts["deployed"]
     return {
         "cohort": cohort,
-        "source_batch_ids": "|".join(source.spec.batch_id for source in sources),
+        "source_batch_ids": "|".join(
+            sorted(source.spec.batch_id for source in sources)
+        ),
         "independent_battles": battles,
         **counts,
         "kills_per_deployed": counts["kills"] / deployed,
@@ -413,6 +447,17 @@ def bootstrap_delta(
     return (
         samples[int(0.025 * (repetitions - 1))],
         samples[int(0.975 * (repetitions - 1))],
+    )
+
+
+def canonical_row_order(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return sorted(
+        rows,
+        key=lambda row: (
+            str(row["battle_context"]),
+            str(row["display_name_normalized"]),
+            str(row["battle_id"]),
+        ),
     )
 
 
@@ -480,16 +525,14 @@ def build_report(
     identities: list[dict[str, str]],
     comparisons: list[dict[str, Any]],
     delta: dict[str, Any],
+    current_review_decisions: int | None,
 ) -> str:
     minimum_battles = int(config["minimum_battles"])
     minimum_deployed = int(config["minimum_deployed"])
     baseline, current, combined = comparisons
-    current_source = next(
-        source for source in sources if source.spec.cohort == "current"
-    )
-    current_labels = {
-        str(row["display_name_normalized"]) for row in current_source.field_rows
-    }
+    current_sources = [source for source in sources if source.spec.cohort == "current"]
+    current_rows = [row for source in current_sources for row in source.field_rows]
+    current_labels = {str(row["display_name_normalized"]) for row in current_rows}
     identity_counts = Counter(row["match_status"] for row in identities)
     unresolved_slugs = [
         row["provisional_slug"]
@@ -502,14 +545,22 @@ def build_report(
         "## Result",
         "",
         (
-            "All three normalized archives, internal manifests, common field projection, and "
-            "track/context boundaries passed. The 1.1.0 and 2.0.0 normalized schemas are joined "
+            f"All {len(sources)} normalized archive hashes and internal manifests passed, as did "
+            "the common field projection's track, version, context, and row-arithmetic checks. "
+            f"The {', '.join(sorted({source.spec.schema_version for source in sources}))} "
+            "normalized schemas are joined "
             "only through their shared player-side ordinary-troop count fields; upgrade icons and "
             "whole-army contribution are outside this projection."
         ),
+        (
+            "Boundary flags absent from historical normalization reports are recorded as "
+            "unverified, not inferred. The compatibility decision is an explicit analytical "
+            "judgment over the verified common fields, not a claim of full schema equivalence."
+        ),
         "",
         (
-            f"The new batch alone has {len(current_source.field_battles)} independent field battles "
+            f"The current cohort alone has {sum(len(source.field_battles) for source in current_sources)} "
+            "independent field battles "
             f"and {len(current_labels)} visible ordinary-troop labels, so none clears the standalone "
             "battle-count gate. Across the compatible evidence there "
             f"are {sum(len(source.field_battles) for source in sources)} distinct field battles, "
@@ -549,12 +600,12 @@ def build_report(
             "",
             "## Ravens' Teeth focus",
             "",
-            comparison_report_line("Earlier 27/07 baseline", baseline),
-            comparison_report_line("New 11/08 cohort", current),
+            comparison_report_line("Baseline cohort", baseline),
+            comparison_report_line("Current cohort", current),
             comparison_report_line("Compatible combined estimate", combined),
             (
                 f"- The machine-readable delta remains `{delta['evidence_status']}`; no increase or "
-                "decline is claimed from the four-battle current cohort."
+                f"decline is claimed from the {current['independent_battles']}-battle current cohort."
             ),
             "",
             "## Identity and completeness",
@@ -572,8 +623,9 @@ def build_report(
                 "without dropping low-sample rows."
             ),
             (
-                "- Enemy rows, heroes, queued rows, off-screen troops, and non-field battles are not "
-                "in the combined projection."
+                "- Rows marked for review and non-field battles are rejected from the projection. "
+                "Where historical validation reports omit explicit side, hero, or off-screen flags, "
+                "that missing verification is preserved in `compatibility_decision.json`."
             ),
             "",
             "## Limitations",
@@ -587,8 +639,13 @@ def build_report(
                 "off-screen performance cannot be calculated."
             ),
             (
-                "- Raw PNGs for the new batch are not retained; its 12 queued field-level decisions "
-                "remain unresolved in the separate review layer."
+                "- Raw PNGs for the current batch are not retained; "
+                + (
+                    f"its {current_review_decisions} field-level review decisions remain unresolved "
+                    if current_review_decisions is not None
+                    else "its field-level review decisions remain unresolved "
+                )
+                + "in the separate review layer."
             ),
             (
                 "- The schema join is deliberately narrow. It does not imply that every 1.1.0 and "
@@ -607,8 +664,8 @@ def update_readme(path: Path, config_path: Path, repo_root: Path) -> None:
     relative_config = config_path.relative_to(repo_root)
     addition = (
         f"{marker}\n\n"
-        "After reproducing the standalone analysis above, regenerate the compatible 27/07 + "
-        "11/08 field projection with:\n\n"
+        "After reproducing the standalone analysis above, regenerate the compatible source-batch "
+        "field projection with:\n\n"
         "```bash\n"
         "python3 scripts/analysis/analyze_compatible_field_evidence.py \\\n"
         f"  --config {relative_config} \\\n"
@@ -654,6 +711,9 @@ def build_focus_results(
             if row["display_name_normalized"] == focus_slug
         ]
         for cohort, selected in cohort_sources.items()
+    }
+    cohort_rows = {
+        cohort: canonical_row_order(rows) for cohort, rows in cohort_rows.items()
     }
     if not cohort_rows["baseline"] or not cohort_rows["current"]:
         raise ValueError(
@@ -718,7 +778,9 @@ def build_combined_analysis(
     repo_root: Path,
     identity_root: Path,
 ) -> CombinedAnalysis:
-    combined_rows = [row for source in sources for row in source.field_rows]
+    combined_rows = canonical_row_order(
+        [row for source in sources for row in source.field_rows]
+    )
     candidates = base.collect_identity_candidates(identity_root, None, repo_root)
     identities = base.build_identity_audit(
         combined_rows, candidates, str(config["track"])
@@ -772,6 +834,9 @@ def build_provenance_rows(sources: list[LoadedSource]) -> list[dict[str, Any]]:
                     "source_batch_id": source.spec.batch_id,
                     "schema_version": source.spec.schema_version,
                     "normalization_commit": source.spec.normalization_commit,
+                    "normalization_commit_verification": source.verification[
+                        "normalization_commit_verification"
+                    ],
                     "archive_sha256": source.spec.expected_archive_sha256,
                     "battle_id": battle["battle_id"],
                     "captured_at": battle.get("captured_at", ""),
@@ -794,17 +859,25 @@ def build_compatibility_decision(
         "projection_fields": list(COMMON_FIELD_PROJECTION),
         "schema_versions": sorted({source.spec.schema_version for source in sources}),
         "sources": [source.verification for source in sources],
+        "compatibility_basis": {
+            "status": "analysis_decision",
+            "rationale": (
+                "Same track, game version, and field context; joined only on common "
+                "count fields whose presence, non-negativity, and casualty arithmetic "
+                "were machine-validated. This does not establish full semantic "
+                "equivalence between normalized schema versions."
+            ),
+        },
         "checks": {
             "archive_hashes_verified": True,
             "artifact_manifests_verified": True,
             "normalization_validations_passed": True,
             "battle_ids_distinct_across_sources": True,
-            "player_and_enemy_not_pooled": True,
-            "heroes_and_review_rows_excluded": True,
+            "review_needed_rows_excluded_from_projection": True,
             "track_matches": True,
             "game_version_matches": True,
             "context_matches": True,
-            "count_projection_semantics_match": True,
+            "common_count_projection_fields_and_arithmetic_validated": True,
         },
         "excluded_metrics": [
             "whole_army_contribution_index",
@@ -816,6 +889,14 @@ def build_compatibility_decision(
             "Schema compatibility is limited to the listed common projection.",
             "All source screenshots expose partial troop rows.",
             "Campaign conditions differ and remain observational confounders.",
+            (
+                "Normalization commit identifiers are provenance labels and were "
+                "format-validated, not compared with the current worktree."
+            ),
+            (
+                "Some historical normalization reports omit explicit boundary flags; "
+                "those flags remain unverified in the per-source records."
+            ),
         ],
     }
 
@@ -900,6 +981,12 @@ def write_metadata_outputs(
     analysis: CombinedAnalysis,
 ) -> None:
     analysis_dir = batch_dir / "analysis"
+    standalone_validation = base.read_json_object(
+        analysis_dir / "validation_report.json"
+    )
+    current_review_decisions = standalone_validation.get("review", {}).get("decisions")
+    if not isinstance(current_review_decisions, int):
+        current_review_decisions = None
     compatibility = build_compatibility_decision(config, analysis.sources)
     base.write_json(analysis_dir / "compatibility_decision.json", compatibility)
     base.write_json(
@@ -920,6 +1007,7 @@ def write_metadata_outputs(
             analysis.identities,
             analysis.comparisons,
             analysis.delta,
+            current_review_decisions,
         ),
         encoding="utf-8",
     )
@@ -948,7 +1036,10 @@ def run_analysis(
     config = base.read_json_object(config_path)
     track = str(config["track"])
     game_version = str(config["game_version"])
-    specs = [SourceSpec.from_dict(value) for value in config["sources"]]
+    specs = sorted(
+        (SourceSpec.from_dict(value) for value in config["sources"]),
+        key=lambda spec: (spec.cohort, spec.batch_id),
+    )
     if {spec.cohort for spec in specs} != {"baseline", "current"}:
         raise ValueError("compatible sources must contain baseline and current cohorts")
 

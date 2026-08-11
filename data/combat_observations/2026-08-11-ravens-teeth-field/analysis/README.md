@@ -45,7 +45,7 @@ python3 scripts/analysis/analyze_normalized_combat_batch.py \
 
 ## Compatible combined field evidence
 
-After reproducing the standalone analysis above, regenerate the compatible 27/07 + 11/08 field projection with:
+After reproducing the standalone analysis above, regenerate the compatible source-batch field projection with:
 
 ```bash
 python3 scripts/analysis/analyze_compatible_field_evidence.py \

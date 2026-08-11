@@ -1,8 +1,8 @@
 {
   "bootstrap_repetitions": 10000,
   "bootstrap_unit": "independent_battle_within_cohort",
-  "ci95_high": 2.125865524781341,
-  "ci95_low": -2.840998427672956,
+  "ci95_high": 2.094975884244373,
+  "ci95_low": -2.797484053862509,
   "evidence_status": "diagnostic_only_current_below_display_gate",
   "metric": "current_minus_baseline_kills_per_deployed",
   "point_estimate": -0.21866315635512645,

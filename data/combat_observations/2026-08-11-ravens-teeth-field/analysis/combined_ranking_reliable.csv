@@ -1,8 +1,8 @@
 context,rank,display_name,provisional_slug,canonical_troop_id,identity_status,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,ci95_low,ci95_high,reliability_status
-field,1,Ravens' Teeth [T6],ravens_teeth,ravens_teeth,confirmed_id,9,404,388,1274,3,13,0,3.153465,0.007426,0.039604,1.807504,4.380488,reliable
-field,2,Blackwood Longbowman [T5],blackwood_longbowman,blackwood_longbowman,confirmed_id,7,97,88,139,1,8,0,1.432990,0.010309,0.092784,1.180000,1.587719,reliable
-field,3,Riverlands Admiral [T6],riverlands_admiral,river_admiral,confirmed_id,6,50,26,67,4,20,0,1.340000,0.080000,0.480000,0.517241,2.250000,reliable
+field,1,Ravens' Teeth [T6],ravens_teeth,ravens_teeth,confirmed_id,9,404,388,1274,3,13,0,3.153465,0.007426,0.039604,1.815838,4.357923,reliable
+field,2,Blackwood Longbowman [T5],blackwood_longbowman,blackwood_longbowman,confirmed_id,7,97,88,139,1,8,0,1.432990,0.010309,0.092784,1.191489,1.592308,reliable
+field,3,Riverlands Admiral [T6],riverlands_admiral,river_admiral,confirmed_id,6,50,26,67,4,20,0,1.340000,0.080000,0.480000,0.500000,2.250000,reliable
 field,4,Riverlands Ranger [T5],riverlands_ranger,river_ranger,confirmed_id,6,175,170,186,1,4,0,1.062857,0.005714,0.028571,0.427536,1.632258,reliable
 field,5,Blackwood Archer [T4],blackwood_archer,blackwood_archer,confirmed_id,5,104,99,91,0,5,0,0.875000,0.000000,0.048077,0.704225,0.985401,reliable
 field,6,Westerlands Banner Knight [T6],westerlands_banner_knight,,unresolved,5,33,30,27,1,2,0,0.818182,0.030303,0.090909,0.433333,1.088889,reliable
-field,7,Mallister House Guard [T5],mallister_house_guard,mallister_houseguard,confirmed_id,6,117,109,64,2,6,0,0.547009,0.017094,0.068376,0.279570,0.724138,reliable
+field,7,Mallister House Guard [T5],mallister_house_guard,mallister_houseguard,confirmed_id,6,117,109,64,2,6,0,0.547009,0.017094,0.068376,0.282353,0.725926,reliable

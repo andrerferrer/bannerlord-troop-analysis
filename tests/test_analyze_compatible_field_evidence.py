@@ -33,7 +33,16 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
         self.temp.cleanup()
 
     def make_source(
-        self, batch_id, cohort, battle_ids, kills, *, track="realm_of_thrones"
+        self,
+        batch_id,
+        cohort,
+        battle_ids,
+        kills,
+        *,
+        track="realm_of_thrones",
+        schema_version="2.0.0",
+        include_boundary_flags=True,
+        validation_overrides=None,
     ):
         batch_path = self.root / "data" / batch_id
         bundle = batch_path / "bundle"
@@ -44,7 +53,7 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
             "normalization_summary.json": json.dumps(
                 {
                     "batch_id": batch_id,
-                    "schema_version": "2.0.0",
+                    "schema_version": schema_version,
                     "game_track": track,
                     "game_version": "1.4.x",
                 },
@@ -86,17 +95,23 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
                 + "\n"
                 for battle_id, kill_count in zip(battle_ids, kills, strict=True)
             ),
-            "validation_report.json": json.dumps(
-                {
-                    "schema_version": "2.0.0",
-                    "sides_pooled": False,
-                    "status": "passed",
-                    "validation_errors": [],
-                },
-                sort_keys=True,
-            )
-            + "\n",
         }
+        validation = {
+            "schema_version": schema_version,
+            "status": "passed",
+            "validation_errors": [],
+        }
+        if include_boundary_flags:
+            validation.update(
+                {
+                    "context_boundaries_preserved": True,
+                    "heroes_in_primary": False,
+                    "offscreen_rows_inferred": False,
+                    "sides_pooled": False,
+                }
+            )
+        validation.update(validation_overrides or {})
+        files["validation_report.json"] = json.dumps(validation, sort_keys=True) + "\n"
         manifest = io.StringIO()
         writer = csv.DictWriter(
             manifest, fieldnames=("file", "sha256", "size_bytes"), lineterminator="\n"
@@ -138,7 +153,7 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
             "manifest_base_path": archive_root,
             "manifest_path": f"{archive_root}/artifact_hashes.csv",
             "normalization_commit": "a" * 40,
-            "schema_version": "2.0.0",
+            "schema_version": schema_version,
             "summary_path": f"{archive_root}/normalization_summary.json",
             "validation_path": f"{archive_root}/validation_report.json",
         }
@@ -160,7 +175,12 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
 
     def test_real_archives_are_verified_joined_and_gated(self):
         baseline = self.make_source(
-            "baseline", "baseline", ["b1", "b2", "b3"], [5, 10, 15]
+            "baseline",
+            "baseline",
+            ["b1", "b2", "b3"],
+            [5, 10, 15],
+            schema_version="1.1.0",
+            include_boundary_flags=False,
         )
         current = self.make_source("current", "current", ["b4", "b5"], [20, 25])
         config_path = self.write_config([baseline, current])
@@ -186,6 +206,21 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
             (self.batch_dir / "analysis" / "compatibility_decision.json").read_text()
         )
         self.assertTrue(decision["checks"]["artifact_manifests_verified"])
+        baseline_verification = next(
+            source for source in decision["sources"] if source["batch_id"] == "baseline"
+        )
+        self.assertEqual(
+            baseline_verification["unverified_normalization_boundary_flags"],
+            [
+                "sides_pooled",
+                "offscreen_rows_inferred",
+                "heroes_in_primary",
+                "context_boundaries_preserved",
+            ],
+        )
+        self.assertNotIn("player_and_enemy_not_pooled", decision["checks"])
+        self.assertNotIn("count_projection_semantics_match", decision["checks"])
+        self.assertEqual(decision["compatibility_basis"]["status"], "analysis_decision")
 
     def test_duplicate_battle_ids_are_rejected_as_non_independent(self):
         baseline = self.make_source("baseline", "baseline", ["same"], [5])
@@ -205,6 +240,77 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
             ValueError, "invalid compatible source archive_name"
         ):
             module.SourceSpec.from_dict(source)
+
+    def test_explicit_normalization_boundary_violation_is_rejected(self):
+        baseline = self.make_source(
+            "baseline",
+            "baseline",
+            ["b1"],
+            [5],
+            validation_overrides={"sides_pooled": True},
+        )
+        current = self.make_source("current", "current", ["b2"], [10])
+        config_path = self.write_config([baseline, current])
+
+        with self.assertRaisesRegex(ValueError, "sides_pooled"):
+            module.run_analysis(
+                config_path, self.root, self.batch_dir, self.identity_root
+            )
+
+    def test_tampered_archive_is_rejected_before_analysis(self):
+        baseline = self.make_source("baseline", "baseline", ["b1"], [5])
+        current = self.make_source("current", "current", ["b2"], [10])
+        part = next(
+            (self.root / current["batch_path"] / "bundle").glob("*.base64.part-*")
+        )
+        archive = bytearray(base64.b64decode(part.read_bytes()))
+        archive[-1] ^= 1
+        part.write_bytes(base64.b64encode(archive))
+        config_path = self.write_config([baseline, current])
+
+        with self.assertRaisesRegex(ValueError, "archive SHA-256 mismatch"):
+            module.run_analysis(
+                config_path, self.root, self.batch_dir, self.identity_root
+            )
+
+    def test_bootstrap_outputs_are_independent_of_source_config_order(self):
+        baseline = self.make_source(
+            "baseline", "baseline", ["b1", "b2", "b3"], [1, 8, 20]
+        )
+        current = self.make_source(
+            "current", "current", ["b4", "b5", "b6"], [2, 15, 25]
+        )
+        config_path = self.write_config([baseline, current])
+        module.run_analysis(config_path, self.root, self.batch_dir, self.identity_root)
+        first_ranking = (
+            self.batch_dir / "analysis" / "combined_ranking_complete.csv"
+        ).read_bytes()
+        first_comparison = (
+            self.batch_dir / "analysis" / "ravens_teeth_comparison.csv"
+        ).read_bytes()
+        first_delta = (
+            self.batch_dir / "analysis" / "ravens_teeth_delta_uncertainty.json"
+        ).read_bytes()
+
+        self.write_config([current, baseline])
+        module.run_analysis(config_path, self.root, self.batch_dir, self.identity_root)
+
+        self.assertEqual(
+            first_ranking,
+            (
+                self.batch_dir / "analysis" / "combined_ranking_complete.csv"
+            ).read_bytes(),
+        )
+        self.assertEqual(
+            first_comparison,
+            (self.batch_dir / "analysis" / "ravens_teeth_comparison.csv").read_bytes(),
+        )
+        self.assertEqual(
+            first_delta,
+            (
+                self.batch_dir / "analysis" / "ravens_teeth_delta_uncertainty.json"
+            ).read_bytes(),
+        )
 
 
 if __name__ == "__main__":
