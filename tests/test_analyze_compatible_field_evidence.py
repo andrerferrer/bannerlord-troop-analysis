@@ -348,7 +348,7 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
                 config_path, self.root, self.batch_dir, self.identity_root
             )
 
-    def test_focus_output_filenames_follow_the_configured_slug(self):
+    def test_focus_outputs_and_report_follow_the_configured_focus(self):
         baseline = self.make_source(
             "baseline", "baseline", ["b1", "b2", "b3"], [5, 10, 15], slug="wolf_guard"
         )
@@ -367,6 +367,12 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
         self.assertTrue((analysis_dir / "wolf_guard_comparison.csv").is_file())
         self.assertTrue((analysis_dir / "wolf_guard_battle_rates.csv").is_file())
         self.assertTrue((analysis_dir / "wolf_guard_delta_uncertainty.json").is_file())
+        report = (analysis_dir / "ANALYSIS_REPORT.md").read_text()
+        self.assertIn("## Wolf Guard focus", report)
+        self.assertNotIn("## Ravens' Teeth focus", report)
+        self.assertIn("The 2.0.0 normalized schemas are joined", report)
+        self.assertIn("The schema join across 2.0.0 is deliberately narrow", report)
+        self.assertNotIn("1.1.0, 2.0.0", report)
 
     def test_report_gate_statement_uses_the_current_battle_count(self):
         baseline = self.make_source("baseline", "baseline", ["b0"], [5])
