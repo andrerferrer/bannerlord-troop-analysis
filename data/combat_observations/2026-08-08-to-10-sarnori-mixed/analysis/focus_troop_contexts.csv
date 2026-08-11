@@ -1,0 +1,17 @@
+context,rank,display_name,provisional_slug,canonical_troop_id,identity_status,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,ci95_low,ci95_high,reliability_status
+field,9,Sarnori Spider [T6],sarnori_spider,sarnor_spider,confirmed_id,2,107,35,266,7,65,0,2.485981,0.065421,0.672897,,,insufficient_evidence
+field,8,Sarnori Master Javelinier [T5],sarnori_master_javelinier,sarnor_master_javelinier,confirmed_id,3,71,47,207,4,20,0,2.915493,0.056338,0.338028,,,insufficient_evidence
+field,10,Sarnori Master Spearman [T5],sarnori_master_spearman,sarnor_master_spearman,confirmed_id,2,21,16,48,1,4,0,2.285714,0.047619,0.238095,,,insufficient_evidence
+field,11,Sarnori Javelineer [T3],sarnori_javelineer,sarnor_javelinier,confirmed_id,1,16,14,33,0,2,0,2.062500,0.000000,0.125000,,,insufficient_evidence
+field,16,Sarnori Elite Javelinier [T4],sarnori_elite_javelinier,sarnor_elite_javelinier,confirmed_id,1,7,7,10,0,0,0,1.428571,0.000000,0.000000,,,insufficient_evidence
+field,20,Sarnori Archer [T3],sarnori_archer,sarnor_archer,confirmed_id,1,5,2,2,0,3,0,0.400000,0.000000,0.600000,,,insufficient_evidence
+field,13,Sarnori Elite Archer [T4],sarnori_elite_archer,sarnor_elite_archer,confirmed_id,1,1,1,2,0,0,0,2.000000,0.000000,0.000000,,,insufficient_evidence
+field,19,Sarnori Longbowman [T5],sarnori_longbowman,sarnor_longbowman,confirmed_id,1,11,11,9,0,0,0,0.818182,0.000000,0.000000,,,insufficient_evidence
+siege_attack,4,Sarnori Spider [T6],sarnori_spider,sarnor_spider,confirmed_id,3,125,102,302,6,17,0,2.416000,0.048000,0.184000,,,insufficient_evidence
+siege_attack,5,Sarnori Master Javelinier [T5],sarnori_master_javelinier,sarnor_master_javelinier,confirmed_id,3,115,97,174,1,17,0,1.513043,0.008696,0.156522,,,insufficient_evidence
+siege_attack,7,Sarnori Master Spearman [T5],sarnori_master_spearman,sarnor_master_spearman,confirmed_id,1,25,23,37,1,1,0,1.480000,0.040000,0.080000,,,insufficient_evidence
+siege_attack,19,Sarnori Javelineer [T3],sarnori_javelineer,sarnor_javelinier,confirmed_id,2,5,1,4,2,2,0,0.800000,0.400000,0.800000,,,insufficient_evidence
+siege_attack,17,Sarnori Elite Javelinier [T4],sarnori_elite_javelinier,sarnor_elite_javelinier,confirmed_id,3,24,17,22,1,6,0,0.916667,0.041667,0.291667,,,insufficient_evidence
+siege_attack,14,Sarnori Archer [T3],sarnori_archer,sarnor_archer,confirmed_id,1,1,1,1,0,0,0,1.000000,0.000000,0.000000,,,insufficient_evidence
+siege_attack,22,Sarnori Elite Archer [T4],sarnori_elite_archer,sarnor_elite_archer,confirmed_id,1,2,0,1,0,2,0,0.500000,0.000000,1.000000,,,insufficient_evidence
+siege_attack,,Sarnori Longbowman [T5],sarnori_longbowman,sarnor_longbowman,confirmed_id,0,0,0,0,0,0,0,,,,,,not_observed

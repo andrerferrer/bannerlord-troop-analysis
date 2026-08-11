@@ -1,0 +1,32 @@
+{
+  "active_scoreboards_excluded": 1,
+  "battle_context_counts": {
+    "field": 3,
+    "siege_attack": 3
+  },
+  "battle_count": 6,
+  "context_boundaries_preserved": true,
+  "image_count": 7,
+  "known_limitations": [
+    "Only screenshot-visible rows are normalized; off-screen rows are not inferred.",
+    "The 2026-08-10 22:22:25 Omber screenshot is an active scoreboard with a Retreat button and is excluded from final-battle observations.",
+    "White level-up icons and one clipped bottom-row casualty pair remain explicit review items.",
+    "Raw PNG files are not retained in Git; filenames, sizes, per-image SHA-256 values, and the deterministic directory hash are recorded."
+  ],
+  "observation_count": 203,
+  "offscreen_rows_inferred": false,
+  "primary_troop_occurrences": 71,
+  "review_queue_count": 12,
+  "schema_version": "2.0.0",
+  "sides_pooled": false,
+  "source_sha256": "adcb2b9f8545c042f57b5ced51374d919b2829e0d81500aba353507b3dff88bc",
+  "source_size_bytes": 14829018,
+  "status": "passed",
+  "track_resolution": {
+    "evidence": [
+      "Sarnori, Qartheen, Dothraki, Ghiscari, and named Realm of Thrones character labels"
+    ],
+    "method": "track-specific visible faction and troop labels"
+  },
+  "validation_errors": []
+}
