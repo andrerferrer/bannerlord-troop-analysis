@@ -803,7 +803,7 @@ def build_focus_results(
         comparison_row(
             "combined",
             sources,
-            cohort_rows["baseline"] + cohort_rows["current"],
+            canonical_row_order(cohort_rows["baseline"] + cohort_rows["current"]),
             analysis_id,
             focus_slug,
             minimum_battles,

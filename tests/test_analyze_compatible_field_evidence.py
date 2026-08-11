@@ -285,6 +285,45 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
                 config_path, self.root, self.batch_dir, self.identity_root
             )
 
+    def test_compatible_normalization_boundary_aliases_are_recorded(self):
+        baseline = self.make_source(
+            "baseline",
+            "baseline",
+            ["b1"],
+            [5],
+            validation_overrides={"contexts_pooled": False},
+        )
+        current = self.make_source("current", "current", ["b2"], [10])
+        config_path = self.write_config([baseline, current])
+
+        module.run_analysis(config_path, self.root, self.batch_dir, self.identity_root)
+
+        decision = json.loads(
+            (self.batch_dir / "analysis" / "compatibility_decision.json").read_text()
+        )
+        baseline_evidence = next(
+            source for source in decision["sources"] if source["batch_id"] == "baseline"
+        )["normalization_boundary_evidence"]["context_boundaries_preserved"]
+        self.assertEqual(
+            baseline_evidence,
+            {
+                "status": "verified",
+                "reported_fields": [
+                    {
+                        "source_field": "context_boundaries_preserved",
+                        "reported_value": True,
+                        "expected_reported_value": True,
+                    },
+                    {
+                        "source_field": "contexts_pooled",
+                        "reported_value": False,
+                        "expected_reported_value": False,
+                    },
+                ],
+                "canonical_value": True,
+            },
+        )
+
     def test_legacy_errors_are_rejected_when_validation_errors_are_empty(self):
         baseline = self.make_source(
             "baseline",
@@ -319,10 +358,10 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
 
     def test_bootstrap_outputs_are_independent_of_source_config_order(self):
         baseline = self.make_source(
-            "baseline", "baseline", ["b1", "b2", "b3"], [1, 8, 20]
+            "baseline", "baseline", ["b1", "b3", "b5"], [1, 8, 20]
         )
         current = self.make_source(
-            "current", "current", ["b4", "b5", "b6"], [2, 15, 25]
+            "current", "current", ["b2", "b4", "b6"], [2, 15, 25]
         )
         config_path = self.write_config([baseline, current])
         module.run_analysis(config_path, self.root, self.batch_dir, self.identity_root)
@@ -355,6 +394,22 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
                 self.batch_dir / "analysis" / "ravens_teeth_delta_uncertainty.json"
             ).read_bytes(),
         )
+        ranking = next(
+            row
+            for row in module.base.read_csv(
+                self.batch_dir / "analysis" / "combined_ranking_complete.csv"
+            )
+            if row["provisional_slug"] == "ravens_teeth"
+        )
+        comparison = next(
+            row
+            for row in module.base.read_csv(
+                self.batch_dir / "analysis" / "ravens_teeth_comparison.csv"
+            )
+            if row["cohort"] == "combined"
+        )
+        self.assertEqual(comparison["ci95_low"], ranking["ci95_low"])
+        self.assertEqual(comparison["ci95_high"], ranking["ci95_high"])
 
     def test_focus_slug_must_be_a_safe_output_stem(self):
         baseline = self.make_source("baseline", "baseline", ["b1"], [5])
