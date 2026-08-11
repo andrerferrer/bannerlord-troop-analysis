@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 import importlib.util
 import io
 import tarfile
@@ -61,6 +62,34 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
         unresolved = MODULE.build_identity_audit(rows, {}, "realm_of_thrones")
         self.assertEqual(unresolved[0]["canonical_troop_id"], "")
         self.assertEqual(unresolved[0]["match_status"], "unresolved")
+
+    def test_identity_candidate_evidence_paths_are_repository_relative(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            repo_root = Path(directory)
+            audit_dir = repo_root / "data" / "realm_of_thrones" / "audit"
+            audit_dir.mkdir(parents=True)
+            audit_path = audit_dir / "troops.csv"
+            with audit_path.open("w", encoding="utf-8", newline="") as handle:
+                writer = csv.DictWriter(handle, fieldnames=("troop_id", "name"))
+                writer.writeheader()
+                writer.writerow({"troop_id": "sarnor_spider", "name": "Sarnori Spider"})
+
+            candidates = MODULE.collect_identity_candidates(
+                audit_dir,
+                existing_audit=None,
+                repo_root=repo_root,
+            )
+
+        self.assertEqual(
+            candidates["sarnori spider"],
+            [
+                (
+                    "sarnor_spider",
+                    "data/realm_of_thrones/audit/troops.csv",
+                    "versioned_track_reference",
+                )
+            ],
+        )
 
     def test_historical_identity_evidence_tier_is_preserved(self) -> None:
         rows = [consolidated("b1", "field", "riverlands_ranger", 10, 20)]
@@ -228,6 +257,16 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
         self.assertTrue(checks[1]["passed"])
         self.assertTrue(checks[2]["passed"])
 
+    def test_source_directory_provenance_uses_generic_source_fields(self) -> None:
+        checks, errors = MODULE.verify_recorded_source_identity(
+            "a" * 64,
+            123,
+            {"source_sha256": "a" * 64},
+            {"source_sha256": "a" * 64, "source_size_bytes": 123},
+        )
+        self.assertEqual(errors, [])
+        self.assertTrue(all(check["passed"] for check in checks))
+
     def test_symlinked_raw_source_is_never_repository_addressable(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -266,6 +305,92 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
                 minimum_deployed=20,
                 repetitions=100,
             )
+
+    def test_review_queue_accepts_excluded_unresolved_troop_rows(self) -> None:
+        errors, summary = MODULE.validate_normalized(
+            battles=[
+                {
+                    "battle_id": "b1",
+                    "battle_context": "siege_attack",
+                    "player_side": "attacker",
+                }
+            ],
+            occurrences=[
+                {
+                    "observation_id": "o1",
+                    "battle_id": "b1",
+                    "row_type": "troop",
+                    "analysis_status": "unresolved",
+                    "needs_review": True,
+                    "deaths": None,
+                    "wounded": None,
+                }
+            ],
+            primary=[],
+            consolidated=[],
+            screenshot_manifest=[],
+            review_queue=[
+                {
+                    "observation_id": "o1",
+                    "battle_id": "b1",
+                    "uncertain_fields": "deaths|wounded",
+                }
+            ],
+        )
+        self.assertEqual(errors, [])
+        self.assertEqual(summary["review_items"], 1)
+
+    def test_review_decisions_preserve_queue_specific_reason(self) -> None:
+        decisions = MODULE.build_review_decisions(
+            review_queue=[
+                {
+                    "observation_id": "o1",
+                    "battle_id": "b1",
+                    "source_image_file": "scoreboard.png",
+                    "uncertain_fields": "deaths|wounded",
+                    "notes": "bottom row is clipped",
+                }
+            ],
+            occurrences=[
+                {
+                    "observation_id": "o1",
+                    "source_image_sha256": "a" * 64,
+                    "deaths": None,
+                    "wounded": None,
+                }
+            ],
+            reviewer="test reviewer",
+            raw_visual_review_available=False,
+        )
+        self.assertEqual([row["field"] for row in decisions], ["deaths", "wounded"])
+        self.assertTrue(all("bottom row is clipped" in row["reason"] for row in decisions))
+        self.assertTrue(all("level-up icon" not in row["reason"] for row in decisions))
+
+    def test_focus_matrix_keeps_unobserved_contexts_explicit(self) -> None:
+        rows = [consolidated("b1", "field", "sarnori_spider", 10, 20)]
+        identities = MODULE.build_identity_audit(
+            rows,
+            {"sarnori spider": [("sarnor_spider", "audit.csv")]},
+            "realm_of_thrones",
+        )
+        rankings = MODULE.build_rankings(
+            rows,
+            identities,
+            "batch",
+            minimum_battles=5,
+            minimum_deployed=20,
+            repetitions=100,
+        )
+        focus = MODULE.build_focus_context_rows(
+            rankings,
+            identities,
+            ["sarnori_spider"],
+            ["field", "siege_attack"],
+        )
+        self.assertEqual(len(focus), 2)
+        self.assertEqual(focus[0]["reliability_status"], "insufficient_evidence")
+        self.assertEqual(focus[1]["reliability_status"], "not_observed")
+        self.assertEqual(focus[1]["deployed"], 0)
 
 
 if __name__ == "__main__":

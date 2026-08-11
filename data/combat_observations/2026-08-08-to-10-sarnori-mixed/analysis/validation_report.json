@@ -1,0 +1,81 @@
+{
+  "boundaries": {
+    "battle_is_independent_unit": true,
+    "contexts_pooled": false,
+    "frozen_models_changed": false,
+    "off_screen_rows_inferred": false,
+    "player_enemy_pooled": false,
+    "track": "realm_of_thrones"
+  },
+  "external_blockers": [],
+  "identity": {
+    "labels": 30,
+    "provisional_slugs_are_not_canonical_ids": true,
+    "status_counts": {
+      "confirmed_id": 27,
+      "unresolved": 3
+    }
+  },
+  "ranking": {
+    "bootstrap_repetitions": 10000,
+    "bootstrap_seed": "sha256(batch_id|context|provisional_slug|repetitions)",
+    "complete_rows": 48,
+    "coverage_by_context": {
+      "field": {
+        "context": "field",
+        "deployed": 360,
+        "independent_battles": 3,
+        "insufficient_labels": 23,
+        "minimum_battles": 5,
+        "minimum_deployed": 20,
+        "observed_labels": 23,
+        "reliable_labels": 0
+      },
+      "siege_attack": {
+        "context": "siege_attack",
+        "deployed": 522,
+        "independent_battles": 3,
+        "insufficient_labels": 25,
+        "minimum_battles": 5,
+        "minimum_deployed": 20,
+        "observed_labels": 25,
+        "reliable_labels": 0
+      },
+      "siege_defense": {
+        "context": "siege_defense",
+        "deployed": 0,
+        "independent_battles": 0,
+        "insufficient_labels": 0,
+        "minimum_battles": 5,
+        "minimum_deployed": 20,
+        "observed_labels": 0,
+        "reliable_labels": 0
+      }
+    },
+    "insufficient_rows": 48,
+    "minimum_battles": 5,
+    "minimum_deployed": 20,
+    "reliable_rows": 0
+  },
+  "review": {
+    "decisions": 13,
+    "heroes_excluded_from_rankings": true,
+    "queued": 12,
+    "queued_rows_excluded_from_rankings": true,
+    "unresolved": 13
+  },
+  "status": "passed",
+  "structural_validation": {
+    "battle_context_counts": {
+      "field": 3,
+      "siege_attack": 3
+    },
+    "battles": 6,
+    "consolidated_rows": 71,
+    "occurrences": 203,
+    "ordinary_troop_labels": 30,
+    "primary_occurrences": 71,
+    "review_items": 12
+  },
+  "validation_errors": []
+}

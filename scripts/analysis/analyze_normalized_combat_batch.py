@@ -61,6 +61,19 @@ IDENTITY_FIELDS = (
     "candidate_troop_ids",
     "blocking_reason",
 )
+REVIEW_FIELDS = (
+    "observation_id",
+    "battle_id",
+    "source_image_file",
+    "source_image_sha256",
+    "field",
+    "original_value",
+    "reviewed_value",
+    "decision_status",
+    "reason",
+    "reviewer",
+    "evidence_reference",
+)
 
 
 def read_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -213,22 +226,32 @@ def verify_recorded_source_identity(
     normalization_summary: dict[str, Any],
     normalization_validation: dict[str, Any],
 ) -> tuple[list[dict[str, Any]], list[str]]:
+    def recorded_value(
+        document: str,
+        record: dict[str, Any],
+        field_names: tuple[str, ...],
+    ) -> tuple[str, Any]:
+        for field_name in field_names:
+            if field_name in record:
+                return f"{document}:{field_name}", record[field_name]
+        return f"{document}:{'|'.join(field_names)}", None
+
     recorded_values = (
-        (
-            "normalization_summary.json:source_zip_sha256",
-            normalization_summary.get("source_zip_sha256"),
-            expected_sha256,
-        ),
-        (
-            "validation_report.json:source_zip_sha256",
-            normalization_validation.get("source_zip_sha256"),
-            expected_sha256,
-        ),
-        (
-            "validation_report.json:source_zip_size_bytes",
-            normalization_validation.get("source_zip_size_bytes"),
-            expected_size_bytes,
-        ),
+        (*recorded_value(
+            "normalization_summary.json",
+            normalization_summary,
+            ("source_sha256", "source_zip_sha256"),
+        ), expected_sha256),
+        (*recorded_value(
+            "validation_report.json",
+            normalization_validation,
+            ("source_sha256", "source_zip_sha256"),
+        ), expected_sha256),
+        (*recorded_value(
+            "validation_report.json",
+            normalization_validation,
+            ("source_size_bytes", "source_zip_size_bytes"),
+        ), expected_size_bytes),
     )
     checks: list[dict[str, Any]] = []
     errors: list[str] = []
@@ -396,8 +419,19 @@ def validate_normalized(
         source = occurrence_by_id.get(observation_id)
         if not source:
             errors.append(f"review item missing source observation: {observation_id}")
-        elif source.get("row_type") != "hero" or source.get("analysis_status") != "excluded_hero":
-            errors.append(f"review item is not an excluded hero: {observation_id}")
+            continue
+        if not source.get("needs_review"):
+            errors.append(f"review item source is not marked needs_review: {observation_id}")
+        uncertain_fields = [
+            field.strip()
+            for field in queued.get("uncertain_fields", "").split("|")
+            if field.strip()
+        ]
+        if not uncertain_fields:
+            errors.append(f"review item has no uncertain fields: {observation_id}")
+        for field in uncertain_fields:
+            if field not in source:
+                errors.append(f"review item names unknown field {field}: {observation_id}")
         if observation_id in primary_ids:
             errors.append(f"review item leaked into primary rows: {observation_id}")
 
@@ -419,7 +453,16 @@ def validate_normalized(
 def collect_identity_candidates(
     identity_root: Path,
     existing_audit: Path | None,
+    repo_root: Path | None = None,
 ) -> dict[str, list[tuple[str, str, str]]]:
+    def evidence_path(path: Path) -> str:
+        if repo_root:
+            try:
+                return path.resolve().relative_to(repo_root.resolve()).as_posix()
+            except ValueError:
+                pass
+        return str(path)
+
     candidates: dict[str, list[tuple[str, str, str]]] = defaultdict(list)
     for path in sorted(identity_root.rglob("*.csv")):
         try:
@@ -440,7 +483,7 @@ def collect_identity_candidates(
             )
             if troop_id and name:
                 evidence_kind = (row.get("evidence_kind") or "versioned_track_reference").strip()
-                candidate = (troop_id, str(path), evidence_kind)
+                candidate = (troop_id, evidence_path(path), evidence_kind)
                 key = normalize_display_name(name)
                 if candidate not in candidates[key]:
                     candidates[key].append(candidate)
@@ -464,7 +507,7 @@ def collect_identity_candidates(
                 )
                 candidate = (
                     row["canonical_troop_id"],
-                    str(existing_audit),
+                    evidence_path(existing_audit),
                     evidence_kind,
                 )
                 key = normalize_display_name(name)
@@ -636,6 +679,46 @@ def format_ranking_rows(rows: list[dict[str, Any]], rerank: bool = False) -> lis
     return output
 
 
+def build_focus_context_rows(
+    rankings: list[dict[str, Any]],
+    identities: list[dict[str, str]],
+    focus_slugs: list[str],
+    contexts: list[str],
+) -> list[dict[str, Any]]:
+    ranking_by_key = {
+        (str(row["context"]), str(row["provisional_slug"])): row
+        for row in rankings
+    }
+    identity_by_slug = {row["provisional_slug"]: row for row in identities}
+    output: list[dict[str, Any]] = []
+    for context in contexts:
+        for slug in focus_slugs:
+            observed = ranking_by_key.get((context, slug))
+            if observed:
+                output.append(dict(observed))
+                continue
+            identity = identity_by_slug.get(slug, {})
+            output.append(
+                {
+                    "context": context,
+                    "rank": "",
+                    "display_name": identity.get("display_name", slug),
+                    "provisional_slug": slug,
+                    "canonical_troop_id": identity.get("canonical_troop_id", ""),
+                    "identity_status": identity.get("match_status", "unresolved"),
+                    "independent_battles": 0,
+                    **{field: 0 for field in COUNT_FIELDS},
+                    "kills_per_deployed": "",
+                    "death_rate": "",
+                    "casualty_rate": "",
+                    "ci95_low": "",
+                    "ci95_high": "",
+                    "reliability_status": "not_observed",
+                }
+            )
+    return output
+
+
 def build_review_decisions(
     review_queue: list[dict[str, str]],
     occurrences: list[dict[str, Any]],
@@ -648,6 +731,15 @@ def build_review_decisions(
         source = occurrences_by_id[queued["observation_id"]]
         for field in queued["uncertain_fields"].split("|"):
             field = field.strip()
+            queue_note = queued.get("notes", "").strip()
+            evidence_limit = (
+                "The raw screenshot is locally verified, but no direct visual review "
+                "decision is recorded; the normalized value remains unresolved and no "
+                "replacement is inferred."
+                if raw_visual_review_available
+                else "The raw screenshot is not retained for visual re-review; the normalized "
+                "value remains unresolved and no replacement is inferred."
+            )
             output.append(
                 {
                     "observation_id": queued["observation_id"],
@@ -662,16 +754,12 @@ def build_review_decisions(
                         if raw_visual_review_available
                         else "unresolved_no_raw_image_review"
                     ),
-                    "reason": (
-                        "The normalized evidence records a visual level-up icon, but no "
-                        "direct visual review decision is recorded; no numeric value is inferred."
-                        if raw_visual_review_available
-                        else "The normalized evidence records a visual level-up icon, but the "
-                        "raw screenshot is not retained for visual re-review; no numeric value "
-                        "is inferred."
-                    ),
+                    "reason": f"{evidence_limit} Queue note: {queue_note}",
                     "reviewer": reviewer,
-                    "evidence_reference": "normalized occurrence and review_queue.csv",
+                    "evidence_reference": (
+                        f"normalized occurrence {queued['observation_id']}; review_queue.csv; "
+                        f"source SHA-256 {source['source_image_sha256']}"
+                    ),
                 }
             )
     return output
@@ -709,11 +797,17 @@ def main() -> None:
     parser.add_argument("--minimum-deployed", type=int, default=20)
     parser.add_argument("--bootstrap-repetitions", type=int, default=5000)
     parser.add_argument("--reviewer", default="Codex local analysis agent (GPT-5)")
+    parser.add_argument("--focus-slug", action="append", default=[])
     args = parser.parse_args()
 
     args.repo_root = args.repo_root.resolve()
     args.input_dir = args.input_dir.resolve()
     args.batch_dir = args.batch_dir.resolve()
+    args.identity_root = args.identity_root.resolve()
+    args.archive_path = args.archive_path.resolve()
+    args.source_path = args.source_path.resolve()
+    if args.existing_identity_audit:
+        args.existing_identity_audit = args.existing_identity_audit.resolve()
     analysis_dir = args.batch_dir / "analysis"
     review_dir = args.batch_dir / "review"
     analysis_dir.mkdir(parents=True, exist_ok=True)
@@ -792,7 +886,9 @@ def main() -> None:
         raise ValueError("\n".join(validation_errors))
 
     candidates = collect_identity_candidates(
-        args.identity_root, args.existing_identity_audit
+        args.identity_root,
+        args.existing_identity_audit,
+        args.repo_root,
     )
     identities = build_identity_audit(consolidated, candidates, args.track)
     rankings = build_rankings(
@@ -815,7 +911,7 @@ def main() -> None:
         raw_visual_review_available,
     )
 
-    write_csv(review_dir / "review_decisions.csv", review_decisions[0].keys(), review_decisions)
+    write_csv(review_dir / "review_decisions.csv", REVIEW_FIELDS, review_decisions)
     raw_review_sentence = (
         "Raw screenshots are locally verified but no direct visual review decision is "
         "recorded, so the reviewed layer preserves null values."
@@ -825,11 +921,10 @@ def main() -> None:
     )
     (review_dir / "README.md").write_text(
         "# Phase 2 review decisions\n\n"
-        "All five queued values remain unresolved. Each is a hero `upgrade_ready` field "
-        f"derived from a visual icon. {raw_review_sentence} The analysis does not infer "
-        "numeric counts. This "
-        "is a documented limitation rather than a merge blocker because heroes remain "
-        "excluded from ordinary troop rankings.\n",
+        f"The {len(review_queue)} queued rows expand to {len(review_decisions)} field-level "
+        f"decisions, and all remain unresolved. {raw_review_sentence} The analysis does not "
+        "infer numeric counts. Every queued row remains outside the ordinary-troop primary "
+        "input, so this is a documented limitation rather than a merge blocker.\n",
         encoding="utf-8",
     )
 
@@ -845,6 +940,24 @@ def main() -> None:
         RANKING_FIELDS,
         format_ranking_rows(insufficient),
     )
+
+    observed_contexts = [
+        context
+        for context in CONTEXTS
+        if any(row["battle_context"] == context for row in battles)
+    ]
+    focus_rows = build_focus_context_rows(
+        rankings,
+        identities,
+        args.focus_slug,
+        observed_contexts,
+    )
+    if focus_rows:
+        write_csv(
+            analysis_dir / "focus_troop_contexts.csv",
+            RANKING_FIELDS,
+            format_ranking_rows(focus_rows),
+        )
 
     coverage_rows: list[dict[str, Any]] = []
     for context in CONTEXTS:
@@ -896,6 +1009,11 @@ def main() -> None:
     write_json(analysis_dir / "input_verification.json", input_verification)
 
     identity_counts = Counter(row["match_status"] for row in identities)
+    unresolved_identity_names = [
+        row["display_name"]
+        for row in identities
+        if row["match_status"] != "confirmed_id"
+    ]
     coverage_by_context = {row["context"]: row for row in coverage_rows}
     validation = {
         "status": "passed",
@@ -909,6 +1027,7 @@ def main() -> None:
                 row["decision_status"].startswith("unresolved") for row in review_decisions
             ),
             "heroes_excluded_from_rankings": True,
+            "queued_rows_excluded_from_rankings": True,
         },
         "identity": {
             "labels": len(identities),
@@ -938,16 +1057,13 @@ def main() -> None:
 
     (analysis_dir / "COMPARISON_BLOCKED.md").write_text(
         "# Earlier-baseline comparison blocked\n\n"
-        "No earlier batch was joined. The repository does not version an explicit "
-        "same-track/schema compatibility decision for this 2026-07-27 normalized batch. "
+        f"No earlier batch was joined to `{args.batch_id}`. The repository does not version "
+        f"an explicit same-track/schema compatibility decision for this {args.track} batch. "
         "Forcing a comparison would risk mixing extraction schemas or campaign conditions. "
         "The current outputs therefore remain a standalone descriptive batch.\n",
         encoding="utf-8",
     )
 
-    top_siege_attack = [
-        row for row in reliable if row["context"] == "siege_attack"
-    ][:5]
     report_lines = [
         f"# Phase 2 analysis — {args.batch_id}",
         "",
@@ -971,27 +1087,74 @@ def main() -> None:
         "insufficient-evidence rows under the 5-battle / 20-deployed gate.",
         f"- {identity_counts.get('confirmed_id', 0)} of {len(identities)} display labels have "
         "a conservative exact canonical ID match.",
-        f"- All {len(review_decisions)} queued hero icon fields remain unresolved and excluded.",
+        "- Unresolved canonical labels: "
+        + (", ".join(unresolved_identity_names) if unresolved_identity_names else "none")
+        + ".",
+        f"- All {len(review_decisions)} queued fields remain unresolved; their source rows "
+        "remain excluded from ordinary-troop rankings.",
         "",
-        "## Highest reliable siege-attack descriptive rates",
+        "## Reliable descriptive rates",
         "",
-        "| Rank | Troop | Battles | Deployed | Kills/deployed | 95% battle bootstrap interval | Casualty rate |",
-        "|---:|---|---:|---:|---:|---:|---:|",
     ]
-    for rank, row in enumerate(top_siege_attack, start=1):
-        report_lines.append(
-            f"| {rank} | `{row['provisional_slug']}` | {row['independent_battles']} | "
-            f"{row['deployed']} | {row['kills_per_deployed']:.3f} | "
-            f"{row['ci95_low']:.3f}–{row['ci95_high']:.3f} | "
-            f"{row['casualty_rate']:.3f} |"
+    if reliable:
+        report_lines.extend(
+            [
+                "| Context | Rank | Troop | Battles | Deployed | Kills/deployed | 95% battle bootstrap interval | Casualty rate |",
+                "|---|---:|---|---:|---:|---:|---:|---:|",
+            ]
         )
+        for context in observed_contexts:
+            for rank, row in enumerate(
+                [item for item in reliable if item["context"] == context][:5],
+                start=1,
+            ):
+                report_lines.append(
+                    f"| {context} | {rank} | `{row['provisional_slug']}` | "
+                    f"{row['independent_battles']} | {row['deployed']} | "
+                    f"{row['kills_per_deployed']:.3f} | "
+                    f"{row['ci95_low']:.3f}–{row['ci95_high']:.3f} | "
+                    f"{row['casualty_rate']:.3f} |"
+                )
+    else:
+        report_lines.append(
+            "No troop/context row reaches the 5-independent-battle / 20-deployed display "
+            "gate, so no reliable ranking or bootstrap interval is displayed."
+        )
+    if focus_rows:
+        report_lines.extend(
+            [
+                "",
+                "## Requested Sarnori family by context",
+                "",
+                "| Context | Troop | Canonical ID | Battles | Deployed | Kills/deployed | Casualty rate | Evidence gate |",
+                "|---|---|---|---:|---:|---:|---:|---|",
+            ]
+        )
+        for row in focus_rows:
+            kills_per_deployed = (
+                f"{row['kills_per_deployed']:.3f}"
+                if row["kills_per_deployed"] != ""
+                else "—"
+            )
+            casualty_rate = (
+                f"{row['casualty_rate']:.3f}"
+                if row["casualty_rate"] != ""
+                else "—"
+            )
+            report_lines.append(
+                f"| {row['context']} | {row['display_name']} | "
+                f"`{row['canonical_troop_id'] or 'unresolved'}` | "
+                f"{row['independent_battles']} | {row['deployed']} | "
+                f"{kills_per_deployed} | {casualty_rate} | "
+                f"{row['reliability_status']} |"
+            )
     report_lines.extend(
         [
             "",
-            "Field has only four independent battles and siege defense only one, so neither "
-            "context produces a reliable row. Contexts are never pooled to manufacture an "
-            "overall display gate. Siege attack reaches five battles and has "
-            f"{coverage_by_context['siege_attack']['reliable_labels']} reliable rows.",
+            "Each observed context has at most "
+            f"{max(row['independent_battles'] for row in coverage_rows)} independent battles. "
+            "Contexts are never pooled to manufacture an overall display gate. Complete rates "
+            "remain diagnostics only and do not support the provisional S-tier conclusion.",
             "",
             "## Limitations",
             "",
@@ -1000,13 +1163,13 @@ def main() -> None:
             "- Only visible scoreboard rows are represented; off-screen rows are not inferred.",
             "- Canonical identity coverage is incomplete, so unresolved labels remain provisional.",
             (
-                "- The original screenshots are locally verified but the five visual hero icon "
-                "fields have no direct review decision and remain unresolved; heroes are "
-                "excluded from rankings."
+                f"- The original screenshots are locally verified but {len(review_decisions)} "
+                "queued fields have no direct review decision and remain unresolved; queued "
+                "rows are excluded from rankings."
                 if raw_visual_review_available
-                else "- The original screenshots are not retained, so the five visual hero "
-                "icon fields cannot be re-reviewed and remain unresolved; heroes are excluded "
-                "from rankings."
+                else f"- The original screenshots are not retained, so {len(review_decisions)} "
+                "queued fields cannot be re-reviewed and remain unresolved; queued rows are "
+                "excluded from rankings."
             ),
             "- No earlier baseline comparison or model recalibration was performed.",
         ]
@@ -1022,12 +1185,18 @@ def main() -> None:
         "`canonical_identity_audit.csv` never treats provisional slugs as XML IDs.\n\n"
         "The batch-level `../README.md` documents the shared batch envelope; authoritative "
         "workflow state lives in append-only protocol comments.\n\n"
-        "Reproduce from the repository root:\n\n"
+        + (
+            "`focus_troop_contexts.csv` records each requested focus troop separately for "
+            "every observed context, including explicit `not_observed` rows.\n\n"
+            if focus_rows
+            else ""
+        )
+        + "Reproduce from the repository root:\n\n"
         "```bash\n"
-        "batch='data/combat_observations/2026-07-27-normalized-only'\n"
-        "work_dir=$(mktemp -d /tmp/bannerlord-analysis-20260727.XXXXXX)\n"
-        "archive=\"$work_dir/bannerlord_combat_normalized_only_2026-07-27.tar.xz\"\n"
-        "cat \"$batch\"/bundle/bannerlord_combat_normalized_only_2026-07-27.tar.xz.base64.part-* \\\n"
+        f"batch='{args.batch_dir.relative_to(args.repo_root)}'\n"
+        "work_dir=$(mktemp -d /tmp/bannerlord-analysis.XXXXXX)\n"
+        f"archive=\"$work_dir/{args.archive_path.name}\"\n"
+        f"cat \"$batch\"/bundle/{args.archive_path.name}.base64.part-* \\\n"
         "  | base64 --decode > \"$archive\"\n"
         "python3 - \"$archive\" \"$work_dir/input\" <<'PY'\n"
         "import hashlib\n"
@@ -1035,7 +1204,7 @@ def main() -> None:
         "from pathlib import Path\n"
         "from scripts.combat_observations.bundle import inspect_tar, safe_extract_tar\n"
         "archive = Path(sys.argv[1])\n"
-        "expected = '031a7c60d4ed239a2fcb70a81bb6edf047711c3a422ee3ba4420c4a4af534855'\n"
+        f"expected = '{args.expected_archive_sha256}'\n"
         "actual = hashlib.sha256(archive.read_bytes()).hexdigest()\n"
         "if actual != expected:\n"
         "    raise SystemExit(f'archive SHA-256 mismatch: {actual} != {expected}')\n"
@@ -1043,17 +1212,19 @@ def main() -> None:
         "safe_extract_tar(archive, Path(sys.argv[2]))\n"
         "PY\n"
         "python3 scripts/analysis/analyze_normalized_combat_batch.py \\\n"
-        "  --input-dir \"$work_dir/input/bannerlord_combat_normalized_2026-07-27\" \\\n"
-        "  --batch-dir \"$batch\" --repo-root . --identity-root data/rot_reference \\\n"
-        "  --existing-identity-audit analysis/empirical/2026-07-23/canonical_identity_audit.csv \\\n"
-        "  --normalization-commit 4e0749b84f5efc297ebcb026fa6dfbdaaed7fdf1 \\\n"
-        "  --expected-archive-sha256 031a7c60d4ed239a2fcb70a81bb6edf047711c3a422ee3ba4420c4a4af534855 \\\n"
+        f"  --input-dir \"$work_dir/input/{args.input_dir.name}\" \\\n"
+        f"  --batch-dir \"$batch\" --repo-root . --identity-root {args.identity_root.relative_to(args.repo_root)} \\\n"
+        f"  --normalization-commit {args.normalization_commit} \\\n"
+        f"  --expected-archive-sha256 {args.expected_archive_sha256} \\\n"
         "  --archive-path \"$archive\" \\\n"
-        "  --expected-source-sha256 42d4adf2e8d9f9bce0dc90945832c673aeddf81d06044cb0e6f08a2ddb852617 \\\n"
-        "  --expected-source-size-bytes 18596761 \\\n"
-        "  --source-path \"$PWD/$batch/source/original_screenshots.zip\" \\\n"
-        "  --batch-id combat_2026-07-27_222843_010541 --track realm_of_thrones \\\n"
-        "  --minimum-battles 5 --minimum-deployed 20 --bootstrap-repetitions 5000\n"
+        f"  --expected-source-sha256 {args.expected_source_sha256} \\\n"
+        f"  --expected-source-size-bytes {args.expected_source_size_bytes} \\\n"
+        f"  --source-path \"$PWD/{args.source_path.relative_to(args.repo_root)}\" \\\n"
+        f"  --batch-id {args.batch_id} --track {args.track} \\\n"
+        f"  --minimum-battles {args.minimum_battles} --minimum-deployed {args.minimum_deployed} \\\n"
+        f"  --bootstrap-repetitions {args.bootstrap_repetitions}"
+        + "".join(f" \\\n  --focus-slug {slug}" for slug in args.focus_slug)
+        + "\n"
         "```\n",
         encoding="utf-8",
     )
