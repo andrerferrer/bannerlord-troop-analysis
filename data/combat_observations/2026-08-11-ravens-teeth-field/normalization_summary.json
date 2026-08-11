@@ -1,0 +1,26 @@
+{
+  "batch_id": "combat_2026-08-11_ravens_teeth_field",
+  "battle_context_counts": {
+    "field": 4
+  },
+  "battles": 4,
+  "duplicate_scoreboards_excluded": 1,
+  "game_track": "realm_of_thrones",
+  "game_version": "1.4.x",
+  "normalization_scope": "evidence_and_structural_normalization_only",
+  "observations": 120,
+  "primary_troop_occurrences": 46,
+  "review_queue": 8,
+  "schema_version": "2.0.0",
+  "screenshots": 5,
+  "source_kind": "host_exposed_screenshot_directory",
+  "source_retention_status": "not_retained_in_repository_hashes_recorded",
+  "source_sha256": "78cac29a1a239a9435b83878762437057d36974fe890fc41bdd413f6a485f6f9",
+  "status": "normalized_pending_analysis",
+  "track_resolution": {
+    "evidence": [
+      "Ravens' Teeth, Blackwood, Riverlands, Frey, Crownlands, and Westerlands Realm of Thrones labels"
+    ],
+    "method": "track-specific visible faction and troop labels"
+  }
+}

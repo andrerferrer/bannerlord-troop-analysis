@@ -1,0 +1,32 @@
+{
+  "battle_context_counts": {
+    "field": 4
+  },
+  "battle_count": 4,
+  "context_boundaries_preserved": true,
+  "duplicate_scoreboards_excluded": 1,
+  "image_count": 5,
+  "known_limitations": [
+    "Only screenshot-visible rows are normalized; off-screen rows are not inferred.",
+    "The two 14:32:24 screenshots show the same final scoreboard; one is retained in the manifest as a duplicate and contributes no second battle or observations.",
+    "All four scoreboards have partial row visibility, so contribution-index or whole-army share metrics must not be inferred from this batch.",
+    "White level-up icons and three clipped bottom-row field groups remain explicit review items rather than guessed values.",
+    "Raw PNG files are not retained in Git; filenames, sizes, per-image SHA-256 values, and the deterministic directory hash are recorded."
+  ],
+  "observation_count": 120,
+  "offscreen_rows_inferred": false,
+  "primary_troop_occurrences": 46,
+  "review_queue_count": 8,
+  "schema_version": "2.0.0",
+  "sides_pooled": false,
+  "source_sha256": "78cac29a1a239a9435b83878762437057d36974fe890fc41bdd413f6a485f6f9",
+  "source_size_bytes": 12476029,
+  "status": "passed",
+  "track_resolution": {
+    "evidence": [
+      "Ravens' Teeth, Blackwood, Riverlands, Frey, Crownlands, and Westerlands Realm of Thrones labels"
+    ],
+    "method": "track-specific visible faction and troop labels"
+  },
+  "validation_errors": []
+}
