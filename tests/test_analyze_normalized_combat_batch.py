@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import importlib.util
 import io
 import tarfile
@@ -211,6 +212,29 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
             self.assertEqual(checks, [])
             self.assertEqual(errors, ["unsafe artifact manifest path: ../outside.txt"])
 
+    def test_manifest_requires_complete_unique_file_coverage(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            input_dir = root / "input"
+            input_dir.mkdir()
+            included = input_dir / "included.txt"
+            included.write_text("included", encoding="utf-8")
+            (input_dir / "unlisted.txt").write_text("unlisted", encoding="utf-8")
+            (input_dir / "artifact_hashes.csv").write_text("self", encoding="utf-8")
+            digest = hashlib.sha256(included.read_bytes()).hexdigest()
+            manifest = root / "artifact_hashes.csv"
+            manifest.write_text(
+                "file,sha256,size_bytes\n"
+                f"included.txt,{digest},{included.stat().st_size}\n"
+                f"included.txt,{digest},{included.stat().st_size}\n",
+                encoding="utf-8",
+            )
+
+            _, errors = MODULE.verify_manifest(input_dir, manifest)
+
+            self.assertIn("duplicate artifact manifest path: included.txt", errors)
+            self.assertIn("unlisted artifact file: unlisted.txt", errors)
+
     def test_missing_optional_raw_source_is_not_a_validation_error(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -242,6 +266,32 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
             )
             self.assertEqual(source["retention_status"], "mismatch")
 
+    def test_retained_source_directory_is_verified_per_manifest_file(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source_path = root / "screenshots"
+            source_path.mkdir()
+            first = source_path / "one.png"
+            second = source_path / "two.png"
+            first.write_bytes(b"one")
+            second.write_bytes(b"two")
+            source_manifest = [
+                {"image_file": first.name, "image_sha256": MODULE.sha256_file(first)},
+                {"image_file": second.name, "image_sha256": MODULE.sha256_file(second)},
+            ]
+
+            source, errors = MODULE.inspect_optional_source(
+                source_path,
+                root,
+                "a" * 64,
+                first.stat().st_size + second.stat().st_size,
+                source_manifest,
+            )
+
+            self.assertEqual(errors, [])
+            self.assertTrue(source["locally_verified"])
+            self.assertEqual(source["verification_method"], "manifest_files_sha256_and_total_size")
+
     def test_optional_source_provenance_must_match_normalized_records(self) -> None:
         checks, errors = MODULE.verify_recorded_source_identity(
             "a" * 64,
@@ -266,6 +316,14 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
         )
         self.assertEqual(errors, [])
         self.assertTrue(all(check["passed"] for check in checks))
+
+    def test_normalized_schema_versions_must_agree(self) -> None:
+        version, errors = MODULE.verify_normalized_schema_version(
+            {"schema_version": "2.0.0"},
+            {"schema_version": "1.1.0"},
+        )
+        self.assertEqual(version, "")
+        self.assertEqual(errors, ["normalized schema version mismatch"])
 
     def test_symlinked_raw_source_is_never_repository_addressable(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -340,6 +398,55 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
         self.assertEqual(errors, [])
         self.assertEqual(summary["review_items"], 1)
 
+    def test_consolidated_rows_must_come_only_from_primary_and_exclude_queue(self) -> None:
+        primary = {
+            "observation_id": "o1",
+            "battle_id": "b1",
+            "battle_context": "field",
+            "row_type": "troop",
+            "analysis_status": "included_primary",
+            "needs_review": False,
+            "side": "attacker",
+            "source_image_sha256": "a" * 64,
+            "deployed": 1,
+            "survivors": 1,
+            "kills": 0,
+            "deaths": 0,
+            "wounded": 0,
+            "routed": 0,
+        }
+        consolidated_row = consolidated("b1", "field", "troop", 1, 0)
+        consolidated_row["observation_ids"] = ["queued", "not-primary"]
+        errors, summary = MODULE.validate_normalized(
+            battles=[{"battle_id": "b1", "battle_context": "field", "player_side": "attacker"}],
+            occurrences=[
+                primary,
+                {
+                    "observation_id": "queued",
+                    "battle_id": "b1",
+                    "row_type": "troop",
+                    "analysis_status": "unresolved",
+                    "needs_review": True,
+                    "deaths": None,
+                },
+            ],
+            primary=[primary],
+            consolidated=[consolidated_row],
+            screenshot_manifest=[{"image_sha256": "a" * 64}],
+            review_queue=[
+                {
+                    "observation_id": "queued",
+                    "battle_id": "b1",
+                    "uncertain_fields": "deaths",
+                }
+            ],
+        )
+        self.assertIn("non-primary observation entered consolidated rows: not-primary", errors)
+        self.assertIn("review item leaked into consolidated rows: queued", errors)
+        self.assertIn("primary observation missing from consolidated rows: o1", errors)
+        self.assertFalse(summary["queued_rows_excluded_from_rankings"])
+        self.assertFalse(summary["primary_rows_fully_consolidated"])
+
     def test_review_decisions_preserve_queue_specific_reason(self) -> None:
         decisions = MODULE.build_review_decisions(
             review_queue=[
@@ -391,6 +498,18 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
         self.assertEqual(focus[0]["reliability_status"], "insufficient_evidence")
         self.assertEqual(focus[1]["reliability_status"], "not_observed")
         self.assertEqual(focus[1]["deployed"], 0)
+
+    def test_unknown_focus_slug_fails_instead_of_reporting_not_observed(self) -> None:
+        rows = [consolidated("b1", "field", "sarnori_spider", 10, 20)]
+        identities = MODULE.build_identity_audit(rows, {}, "realm_of_thrones")
+        rankings = MODULE.build_rankings(rows, identities, "batch", 5, 20, 100)
+        with self.assertRaisesRegex(ValueError, "unknown focus slug: typo"):
+            MODULE.build_focus_context_rows(
+                rankings,
+                identities,
+                ["typo"],
+                ["field"],
+            )
 
 
 if __name__ == "__main__":

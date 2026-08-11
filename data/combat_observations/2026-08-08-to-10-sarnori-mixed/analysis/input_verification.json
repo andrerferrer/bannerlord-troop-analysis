@@ -98,10 +98,13 @@
     "occurrences": 203,
     "ordinary_troop_labels": 30,
     "primary_occurrences": 71,
+    "primary_rows_fully_consolidated": true,
+    "queued_rows_excluded_from_rankings": true,
+    "rankings_only_include_primary_troops": true,
     "review_items": 12
   },
   "pipeline_mode": "offline-existing",
-  "schema_version": "1.1.0",
+  "schema_version": "2.0.0",
   "source_archive": {
     "actual_sha256": "",
     "actual_size_bytes": null,
@@ -112,7 +115,8 @@
     "repository_addressable": false,
     "repository_path": "data/combat_observations/2026-08-08-to-10-sarnori-mixed/source/original_screenshots",
     "retention_policy": "optional_after_verified_normalization",
-    "retention_status": "not_retained"
+    "retention_status": "not_retained",
+    "verification_method": "not_available"
   },
   "source_provenance_checks": [
     {

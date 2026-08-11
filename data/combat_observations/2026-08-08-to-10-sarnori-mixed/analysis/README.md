@@ -2,7 +2,7 @@
 
 `ranking_complete.csv` contains every observed troop/context estimate. `ranking_reliable.csv` applies the 5-battle / 20-deployed gate. `insufficient_evidence.csv` retains all rows that fail the gate. `canonical_identity_audit.csv` never treats provisional slugs as XML IDs.
 
-The batch-level `../README.md` documents the shared batch envelope; authoritative workflow state lives in append-only protocol comments.
+The batch-level `../README.md` is preserved byte-for-byte as the immutable Phase 1 snapshot. This directory records Phase 2 outputs; authoritative workflow state lives in append-only protocol comments.
 
 `focus_troop_contexts.csv` records each requested focus troop separately for every observed context, including explicit `not_observed` rows.
 
@@ -39,6 +39,7 @@ python3 scripts/analysis/analyze_normalized_combat_batch.py \
   --batch-id combat_2026-08-08_to_10_sarnori_mixed --track realm_of_thrones \
   --minimum-battles 5 --minimum-deployed 20 \
   --bootstrap-repetitions 10000 \
+  --reviewer 'Codex local analysis agent (GPT-5)' \
   --focus-slug sarnori_spider \
   --focus-slug sarnori_master_javelinier \
   --focus-slug sarnori_master_spearman \

@@ -26,18 +26,18 @@ No troop/context row reaches the 5-independent-battle / 20-deployed display gate
 | field | Sarnori Spider [T6] | `sarnor_spider` | 2 | 107 | 2.486 | 0.673 | insufficient_evidence |
 | field | Sarnori Master Javelinier [T5] | `sarnor_master_javelinier` | 3 | 71 | 2.915 | 0.338 | insufficient_evidence |
 | field | Sarnori Master Spearman [T5] | `sarnor_master_spearman` | 2 | 21 | 2.286 | 0.238 | insufficient_evidence |
-| field | Sarnori Javelineer [T3] | `sarnor_javelinier` | 1 | 16 | 2.062 | 0.125 | insufficient_evidence |
-| field | Sarnori Elite Javelinier [T4] | `sarnor_elite_javelinier` | 1 | 7 | 1.429 | 0.000 | insufficient_evidence |
-| field | Sarnori Archer [T3] | `sarnor_archer` | 1 | 5 | 0.400 | 0.600 | insufficient_evidence |
-| field | Sarnori Elite Archer [T4] | `sarnor_elite_archer` | 1 | 1 | 2.000 | 0.000 | insufficient_evidence |
-| field | Sarnori Longbowman [T5] | `sarnor_longbowman` | 1 | 11 | 0.818 | 0.000 | insufficient_evidence |
+| field | Sarnori Javelineer [T3] | `sarnor_javelinier` | 1 | 16 | — | — | insufficient_evidence |
+| field | Sarnori Elite Javelinier [T4] | `sarnor_elite_javelinier` | 1 | 7 | — | — | insufficient_evidence |
+| field | Sarnori Archer [T3] | `sarnor_archer` | 1 | 5 | — | — | insufficient_evidence |
+| field | Sarnori Elite Archer [T4] | `sarnor_elite_archer` | 1 | 1 | — | — | insufficient_evidence |
+| field | Sarnori Longbowman [T5] | `sarnor_longbowman` | 1 | 11 | — | — | insufficient_evidence |
 | siege_attack | Sarnori Spider [T6] | `sarnor_spider` | 3 | 125 | 2.416 | 0.184 | insufficient_evidence |
 | siege_attack | Sarnori Master Javelinier [T5] | `sarnor_master_javelinier` | 3 | 115 | 1.513 | 0.157 | insufficient_evidence |
 | siege_attack | Sarnori Master Spearman [T5] | `sarnor_master_spearman` | 1 | 25 | 1.480 | 0.080 | insufficient_evidence |
-| siege_attack | Sarnori Javelineer [T3] | `sarnor_javelinier` | 2 | 5 | 0.800 | 0.800 | insufficient_evidence |
+| siege_attack | Sarnori Javelineer [T3] | `sarnor_javelinier` | 2 | 5 | — | — | insufficient_evidence |
 | siege_attack | Sarnori Elite Javelinier [T4] | `sarnor_elite_javelinier` | 3 | 24 | 0.917 | 0.292 | insufficient_evidence |
-| siege_attack | Sarnori Archer [T3] | `sarnor_archer` | 1 | 1 | 1.000 | 0.000 | insufficient_evidence |
-| siege_attack | Sarnori Elite Archer [T4] | `sarnor_elite_archer` | 1 | 2 | 0.500 | 1.000 | insufficient_evidence |
+| siege_attack | Sarnori Archer [T3] | `sarnor_archer` | 1 | 1 | — | — | insufficient_evidence |
+| siege_attack | Sarnori Elite Archer [T4] | `sarnor_elite_archer` | 1 | 2 | — | — | insufficient_evidence |
 | siege_attack | Sarnori Longbowman [T5] | `sarnor_longbowman` | 0 | 0 | — | — | not_observed |
 
 Each observed context has at most 3 independent battles. Contexts are never pooled to manufacture an overall display gate. Complete rates remain diagnostics only and do not support the provisional S-tier conclusion.

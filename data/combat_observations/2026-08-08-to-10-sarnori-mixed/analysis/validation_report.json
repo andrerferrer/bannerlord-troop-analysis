@@ -75,6 +75,9 @@
     "occurrences": 203,
     "ordinary_troop_labels": 30,
     "primary_occurrences": 71,
+    "primary_rows_fully_consolidated": true,
+    "queued_rows_excluded_from_rankings": true,
+    "rankings_only_include_primary_troops": true,
     "review_items": 12
   },
   "validation_errors": []

@@ -9,6 +9,7 @@ import hashlib
 import json
 import random
 import re
+import shlex
 import subprocess
 from collections import Counter, defaultdict
 from pathlib import Path, PurePosixPath
@@ -158,17 +159,60 @@ def inspect_optional_source(
     repo_root: Path,
     expected_sha256: str,
     expected_size_bytes: int,
+    source_manifest: list[dict[str, str]] | None = None,
 ) -> tuple[dict[str, Any], list[str]]:
-    source_exists = source_path.is_file()
+    source_exists = source_path.is_file() or source_path.is_dir()
     source_is_symlink = source_path.is_symlink()
-    actual_sha256 = sha256_file(source_path) if source_exists else ""
-    actual_size_bytes = source_path.stat().st_size if source_exists else None
-    source_matches = (
-        source_exists
-        and actual_sha256 == expected_sha256
-        and actual_size_bytes == expected_size_bytes
-    )
     errors: list[str] = []
+    actual_sha256 = ""
+    actual_size_bytes: int | None = None
+    verification_method = "not_available"
+    source_matches = False
+    if source_path.is_file():
+        actual_sha256 = sha256_file(source_path)
+        actual_size_bytes = source_path.stat().st_size
+        verification_method = "source_file_sha256_and_size"
+        source_matches = (
+            actual_sha256 == expected_sha256
+            and actual_size_bytes == expected_size_bytes
+        )
+    elif source_path.is_dir() and not source_is_symlink:
+        verification_method = "manifest_files_sha256_and_total_size"
+        expected_files: dict[str, str] = {}
+        manifest_safe = bool(source_manifest)
+        for row in source_manifest or []:
+            relative = str(row.get("image_file", ""))
+            pure = PurePosixPath(relative)
+            if (
+                pure.is_absolute()
+                or ".." in pure.parts
+                or pure.as_posix() in {"", "."}
+                or relative in expected_files
+            ):
+                manifest_safe = False
+                break
+            expected_files[relative] = str(row.get("image_sha256", ""))
+        actual_files = {
+            path.relative_to(source_path).as_posix(): path
+            for path in source_path.rglob("*")
+            if path.is_file() and not path.is_symlink()
+        }
+        contains_symlink = any(path.is_symlink() for path in source_path.rglob("*"))
+        actual_size_bytes = sum(path.stat().st_size for path in actual_files.values())
+        files_match = (
+            manifest_safe
+            and not contains_symlink
+            and set(actual_files) == set(expected_files)
+            and all(
+                sha256_file(actual_files[relative]) == expected_hash
+                for relative, expected_hash in expected_files.items()
+            )
+        )
+        source_matches = files_match and actual_size_bytes == expected_size_bytes
+        if source_matches:
+            # Matching every named constituent byte establishes the recorded directory
+            # identity without depending on the Phase 1 aggregate-hash encoding.
+            actual_sha256 = expected_sha256
     if source_exists and not source_matches:
         errors.append("retained raw source does not match its recorded hash and size")
     try:
@@ -212,6 +256,7 @@ def inspect_optional_source(
             "actual_sha256": actual_sha256,
             "expected_size_bytes": expected_size_bytes,
             "actual_size_bytes": actual_size_bytes,
+            "verification_method": verification_method,
             "locally_verified": source_matches,
             "repository_addressable": repository_addressable,
             "limits_visual_rereview": not source_matches,
@@ -270,12 +315,30 @@ def verify_recorded_source_identity(
     return checks, errors
 
 
+def verify_normalized_schema_version(
+    normalization_summary: dict[str, Any],
+    normalization_validation: dict[str, Any],
+) -> tuple[str, list[str]]:
+    summary_version = str(normalization_summary.get("schema_version", "")).strip()
+    validation_version = str(normalization_validation.get("schema_version", "")).strip()
+    if not summary_version or not validation_version:
+        return "", ["normalized schema version missing"]
+    if summary_version != validation_version:
+        return "", ["normalized schema version mismatch"]
+    return summary_version, []
+
+
 def verify_manifest(input_dir: Path, manifest_path: Path) -> tuple[list[dict[str, Any]], list[str]]:
     checks: list[dict[str, Any]] = []
     errors: list[str] = []
     base = input_dir.resolve(strict=True)
-    for row in read_csv(manifest_path):
+    rows = read_csv(manifest_path)
+    manifest_files: set[str] = set()
+    for row in rows:
         relative = row["file"]
+        if relative in manifest_files:
+            errors.append(f"duplicate artifact manifest path: {relative}")
+        manifest_files.add(relative)
         pure = PurePosixPath(relative)
         if pure.is_absolute() or ".." in pure.parts or pure.as_posix() in {"", "."}:
             errors.append(f"unsafe artifact manifest path: {relative}")
@@ -318,6 +381,18 @@ def verify_manifest(input_dir: Path, manifest_path: Path) -> tuple[list[dict[str
         )
         if not passed:
             errors.append(f"artifact manifest mismatch: {relative}")
+    actual_files = {
+        path.relative_to(input_dir).as_posix()
+        for path in input_dir.rglob("*")
+        if path.is_file()
+        and not path.is_symlink()
+        and path.relative_to(input_dir).as_posix() != "artifact_hashes.csv"
+    }
+    for relative in sorted(actual_files - manifest_files):
+        errors.append(f"unlisted artifact file: {relative}")
+    for relative in sorted(manifest_files - actual_files):
+        if not any(error.endswith(relative) for error in errors):
+            errors.append(f"manifest artifact file missing: {relative}")
     return checks, errors
 
 
@@ -391,6 +466,7 @@ def validate_normalized(
                 errors.append(f"troop arithmetic mismatch: {observation_id}")
 
     consolidated_keys: set[tuple[str, str, str]] = set()
+    consolidated_observation_ids: set[str] = set()
     for row in consolidated:
         key = (
             str(row.get("battle_id")),
@@ -404,6 +480,17 @@ def validate_normalized(
             errors.append(f"unknown consolidated context: {'|'.join(key)}")
         if row.get("needs_review"):
             errors.append(f"review-needed row entered consolidated input: {'|'.join(key)}")
+        observation_ids = row.get("observation_ids")
+        if not isinstance(observation_ids, list) or not observation_ids:
+            errors.append(f"consolidated row has no observation_ids: {'|'.join(key)}")
+        else:
+            for raw_observation_id in observation_ids:
+                observation_id = str(raw_observation_id)
+                if observation_id in consolidated_observation_ids:
+                    errors.append(
+                        f"observation entered multiple consolidated rows: {observation_id}"
+                    )
+                consolidated_observation_ids.add(observation_id)
         for field in COUNT_FIELDS:
             if not isinstance(row.get(field), int) or int(row[field]) < 0:
                 errors.append(f"invalid consolidated {field}: {'|'.join(key)}")
@@ -413,6 +500,14 @@ def validate_normalized(
             accounted = sum(int(row[field]) for field in ("survivors", "deaths", "wounded", "routed"))
             if accounted != int(row["deployed"]):
                 errors.append(f"consolidated arithmetic mismatch: {'|'.join(key)}")
+
+    queued_ids = {str(row.get("observation_id", "")) for row in review_queue}
+    for observation_id in sorted(consolidated_observation_ids - primary_ids):
+        errors.append(f"non-primary observation entered consolidated rows: {observation_id}")
+    for observation_id in sorted(primary_ids - consolidated_observation_ids):
+        errors.append(f"primary observation missing from consolidated rows: {observation_id}")
+    for observation_id in sorted(queued_ids & consolidated_observation_ids):
+        errors.append(f"review item leaked into consolidated rows: {observation_id}")
 
     for queued in review_queue:
         observation_id = queued.get("observation_id", "")
@@ -443,6 +538,15 @@ def validate_normalized(
         "primary_occurrences": len(primary),
         "consolidated_rows": len(consolidated),
         "review_items": len(review_queue),
+        "primary_rows_fully_consolidated": consolidated_observation_ids == primary_ids,
+        "queued_rows_excluded_from_rankings": not bool(
+            queued_ids & consolidated_observation_ids
+        ),
+        "rankings_only_include_primary_troops": all(
+            occurrence_by_id.get(observation_id, {}).get("row_type") == "troop"
+            and observation_id in primary_ids
+            for observation_id in consolidated_observation_ids
+        ),
         "ordinary_troop_labels": len(
             {str(row.get("display_name_normalized")) for row in consolidated}
         ),
@@ -690,6 +794,12 @@ def build_focus_context_rows(
         for row in rankings
     }
     identity_by_slug = {row["provisional_slug"]: row for row in identities}
+    known_slugs = set(identity_by_slug) | {
+        str(row["provisional_slug"]) for row in rankings
+    }
+    unknown_slugs = sorted(set(focus_slugs) - known_slugs)
+    if unknown_slugs:
+        raise ValueError(f"unknown focus slug: {', '.join(unknown_slugs)}")
     output: list[dict[str, Any]] = []
     for context in contexts:
         for slug in focus_slugs:
@@ -834,6 +944,10 @@ def main() -> None:
     recorded_normalization_validation = read_json_object(
         args.input_dir / "validation_report.json"
     )
+    normalized_schema_version, schema_version_errors = verify_normalized_schema_version(
+        recorded_normalization_summary,
+        recorded_normalization_validation,
+    )
     structural_errors, normalized_summary = validate_normalized(
         battles,
         occurrences,
@@ -850,7 +964,11 @@ def main() -> None:
             "normalization_summary.json",
             "validation_report.json",
             "artifact_hashes.csv",
+            "README.md",
+            "review_queue.csv",
             "bundle",
+            "source/README.md",
+            "handoff/ANALYSIS_PROMPT.md",
         )
     ]
     immutable_changes = git_changed_paths(
@@ -865,6 +983,7 @@ def main() -> None:
         args.repo_root,
         args.expected_source_sha256,
         args.expected_source_size_bytes,
+        screenshot_manifest,
     )
     source_provenance_checks, source_provenance_errors = verify_recorded_source_identity(
         args.expected_source_sha256,
@@ -879,6 +998,7 @@ def main() -> None:
         *structural_errors,
         *source_errors,
         *source_provenance_errors,
+        *schema_version_errors,
         *[f"immutable normalized input changed: {path}" for path in immutable_changes],
         *[f"frozen model changed: {path}" for path in frozen_model_changes],
     ]
@@ -958,6 +1078,8 @@ def main() -> None:
             RANKING_FIELDS,
             format_ranking_rows(focus_rows),
         )
+    else:
+        (analysis_dir / "focus_troop_contexts.csv").unlink(missing_ok=True)
 
     coverage_rows: list[dict[str, Any]] = []
     for context in CONTEXTS:
@@ -989,7 +1111,7 @@ def main() -> None:
     input_verification = {
         "status": "passed",
         "batch_id": args.batch_id,
-        "schema_version": "1.1.0",
+        "schema_version": normalized_schema_version,
         "pipeline_mode": "offline-existing",
         "normalized_archive": {
             "name": args.archive_path.name,
@@ -1026,8 +1148,12 @@ def main() -> None:
             "unresolved": sum(
                 row["decision_status"].startswith("unresolved") for row in review_decisions
             ),
-            "heroes_excluded_from_rankings": True,
-            "queued_rows_excluded_from_rankings": True,
+            "heroes_excluded_from_rankings": normalized_summary[
+                "rankings_only_include_primary_troops"
+            ],
+            "queued_rows_excluded_from_rankings": normalized_summary[
+                "queued_rows_excluded_from_rankings"
+            ],
         },
         "identity": {
             "labels": len(identities),
@@ -1131,14 +1257,15 @@ def main() -> None:
             ]
         )
         for row in focus_rows:
+            displays_rates = int(row["deployed"]) >= args.minimum_deployed
             kills_per_deployed = (
                 f"{row['kills_per_deployed']:.3f}"
-                if row["kills_per_deployed"] != ""
+                if row["kills_per_deployed"] != "" and displays_rates
                 else "—"
             )
             casualty_rate = (
                 f"{row['casualty_rate']:.3f}"
-                if row["casualty_rate"] != ""
+                if row["casualty_rate"] != "" and displays_rates
                 else "—"
             )
             report_lines.append(
@@ -1183,8 +1310,9 @@ def main() -> None:
         "`ranking_reliable.csv` applies the 5-battle / 20-deployed gate. "
         "`insufficient_evidence.csv` retains all rows that fail the gate. "
         "`canonical_identity_audit.csv` never treats provisional slugs as XML IDs.\n\n"
-        "The batch-level `../README.md` documents the shared batch envelope; authoritative "
-        "workflow state lives in append-only protocol comments.\n\n"
+        "The batch-level `../README.md` is preserved byte-for-byte as the immutable Phase 1 "
+        "snapshot. This directory records Phase 2 outputs; authoritative workflow state lives "
+        "in append-only protocol comments.\n\n"
         + (
             "`focus_troop_contexts.csv` records each requested focus troop separately for "
             "every observed context, including explicit `not_observed` rows.\n\n"
@@ -1213,8 +1341,13 @@ def main() -> None:
         "PY\n"
         "python3 scripts/analysis/analyze_normalized_combat_batch.py \\\n"
         f"  --input-dir \"$work_dir/input/{args.input_dir.name}\" \\\n"
-        f"  --batch-dir \"$batch\" --repo-root . --identity-root {args.identity_root.relative_to(args.repo_root)} \\\n"
-        f"  --normalization-commit {args.normalization_commit} \\\n"
+        f"  --batch-dir \"$batch\" --repo-root . --identity-root {shlex.quote(str(args.identity_root.relative_to(args.repo_root)))} \\\n"
+        + (
+            f"  --existing-identity-audit {shlex.quote(str(args.existing_identity_audit.relative_to(args.repo_root)))} \\\n"
+            if args.existing_identity_audit
+            else ""
+        )
+        + f"  --normalization-commit {args.normalization_commit} \\\n"
         f"  --expected-archive-sha256 {args.expected_archive_sha256} \\\n"
         "  --archive-path \"$archive\" \\\n"
         f"  --expected-source-sha256 {args.expected_source_sha256} \\\n"
@@ -1222,10 +1355,13 @@ def main() -> None:
         f"  --source-path \"$PWD/{args.source_path.relative_to(args.repo_root)}\" \\\n"
         f"  --batch-id {args.batch_id} --track {args.track} \\\n"
         f"  --minimum-battles {args.minimum_battles} --minimum-deployed {args.minimum_deployed} \\\n"
-        f"  --bootstrap-repetitions {args.bootstrap_repetitions}"
-        + "".join(f" \\\n  --focus-slug {slug}" for slug in args.focus_slug)
+        f"  --bootstrap-repetitions {args.bootstrap_repetitions} \\\n"
+        f"  --reviewer {shlex.quote(args.reviewer)}"
+        + "".join(
+            f" \\\n  --focus-slug {shlex.quote(slug)}" for slug in args.focus_slug
+        )
         + "\n"
-        "```\n",
+        + "```\n",
         encoding="utf-8",
     )
 
