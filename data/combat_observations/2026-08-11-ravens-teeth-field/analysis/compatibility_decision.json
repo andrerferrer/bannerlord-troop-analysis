@@ -1,0 +1,211 @@
+{
+  "analysis_id": "combat_2026-08-11_ravens_teeth_field_compatible",
+  "checks": {
+    "archive_hashes_verified": true,
+    "artifact_manifests_verified": true,
+    "battle_ids_distinct_across_sources": true,
+    "common_count_projection_fields_and_arithmetic_validated": true,
+    "context_matches": true,
+    "game_version_matches": true,
+    "normalization_validations_passed": true,
+    "review_needed_rows_excluded_from_projection": true,
+    "track_matches": true
+  },
+  "compatibility_basis": {
+    "rationale": "Same track, game version, and field context; joined only on common count fields whose presence, non-negativity, and casualty arithmetic were machine-validated. This does not establish full semantic equivalence between normalized schema versions.",
+    "status": "analysis_decision"
+  },
+  "context": "field",
+  "decision": "compatible_on_common_player_field_count_projection",
+  "excluded_metrics": [
+    "whole_army_contribution_index",
+    "whole_army_share",
+    "off_screen_rows",
+    "upgrade_ready"
+  ],
+  "game_version": "1.4.x",
+  "limitations": [
+    "Schema compatibility is limited to the listed common projection.",
+    "All source screenshots expose partial troop rows.",
+    "Campaign conditions differ and remain observational confounders.",
+    "Normalization commit identifiers are provenance labels and were format-validated, not compared with the current worktree.",
+    "Some historical normalization reports omit explicit boundary flags; those flags remain unverified in the per-source records."
+  ],
+  "projection_fields": [
+    "battle_id",
+    "battle_context",
+    "display_name_normalized",
+    "display_names_raw",
+    "deployed",
+    "survivors",
+    "kills",
+    "deaths",
+    "wounded",
+    "routed",
+    "needs_review"
+  ],
+  "schema_versions": [
+    "1.1.0",
+    "2.0.0"
+  ],
+  "sources": [
+    {
+      "actual_archive_sha256": "70abe0385130a6d96aa9c594b08edc9bfa528bfdddeedd94c92dcf1d9de940ce",
+      "archive_hash_passed": true,
+      "archive_name": "bannerlord_combat_normalized_rot_b01_b02.tar.xz",
+      "archive_preflight": {
+        "members": 12,
+        "regular_files": 12,
+        "total_uncompressed_bytes": 57057
+      },
+      "batch_id": "combat_2026-07-27_103534_104834_rot",
+      "cohort": "baseline",
+      "expected_archive_sha256": "70abe0385130a6d96aa9c594b08edc9bfa528bfdddeedd94c92dcf1d9de940ce",
+      "field_battle_ids": [
+        "B01",
+        "B02"
+      ],
+      "field_rows": 17,
+      "manifest_entries": 11,
+      "manifest_passed": true,
+      "normalization_boundary_evidence": {
+        "context_boundaries_preserved": {
+          "canonical_value": true,
+          "expected_reported_value": false,
+          "reported_value": false,
+          "source_field": "contexts_pooled",
+          "status": "verified"
+        },
+        "heroes_in_primary": {
+          "canonical_value": false,
+          "expected_reported_value": false,
+          "reported_value": false,
+          "source_field": "heroes_in_primary",
+          "status": "verified"
+        },
+        "offscreen_rows_inferred": {
+          "canonical_value": false,
+          "expected_reported_value": false,
+          "reported_value": false,
+          "source_field": "offscreen_rows_inferred",
+          "status": "verified"
+        },
+        "sides_pooled": {
+          "canonical_value": false,
+          "expected_reported_value": false,
+          "reported_value": false,
+          "source_field": "sides_pooled",
+          "status": "verified"
+        }
+      },
+      "normalization_commit": "2f4fdaa56ed75328f837f852e3789a24125c6bfd",
+      "normalization_commit_verification": "identifier_format_only_not_compared_to_worktree",
+      "normalization_validation_status": "pass",
+      "schema_version": "1.1.0",
+      "unverified_normalization_boundary_flags": []
+    },
+    {
+      "actual_archive_sha256": "031a7c60d4ed239a2fcb70a81bb6edf047711c3a422ee3ba4420c4a4af534855",
+      "archive_hash_passed": true,
+      "archive_name": "bannerlord_combat_normalized_only_2026-07-27.tar.xz",
+      "archive_preflight": {
+        "members": 12,
+        "regular_files": 11,
+        "total_uncompressed_bytes": 432953
+      },
+      "batch_id": "combat_2026-07-27_222843_010541",
+      "cohort": "baseline",
+      "expected_archive_sha256": "031a7c60d4ed239a2fcb70a81bb6edf047711c3a422ee3ba4420c4a4af534855",
+      "field_battle_ids": [
+        "battle_20260726_232619_farman",
+        "battle_20260726_233535_lorch_lannister",
+        "battle_20260726_235658_kenning",
+        "battle_20260727_004350_westerling"
+      ],
+      "field_rows": 50,
+      "manifest_entries": 10,
+      "manifest_passed": true,
+      "normalization_boundary_evidence": {
+        "context_boundaries_preserved": {
+          "status": "not_reported"
+        },
+        "heroes_in_primary": {
+          "status": "not_reported"
+        },
+        "offscreen_rows_inferred": {
+          "status": "not_reported"
+        },
+        "sides_pooled": {
+          "status": "not_reported"
+        }
+      },
+      "normalization_commit": "4e0749b84f5efc297ebcb026fa6dfbdaaed7fdf1",
+      "normalization_commit_verification": "identifier_format_only_not_compared_to_worktree",
+      "normalization_validation_status": "passed",
+      "schema_version": "1.1.0",
+      "unverified_normalization_boundary_flags": [
+        "sides_pooled",
+        "offscreen_rows_inferred",
+        "heroes_in_primary",
+        "context_boundaries_preserved"
+      ]
+    },
+    {
+      "actual_archive_sha256": "78a6f3a80ea8351e847555b44f2e7f01c2b4db3d4b772a5af716dd5eedcebcb8",
+      "archive_hash_passed": true,
+      "archive_name": "ravens_teeth_field_2026-08-11.tar.xz",
+      "archive_preflight": {
+        "members": 11,
+        "regular_files": 10,
+        "total_uncompressed_bytes": 270643
+      },
+      "batch_id": "combat_2026-08-11_ravens_teeth_field",
+      "cohort": "current",
+      "expected_archive_sha256": "78a6f3a80ea8351e847555b44f2e7f01c2b4db3d4b772a5af716dd5eedcebcb8",
+      "field_battle_ids": [
+        "battle_20260811_143224_ravens_field",
+        "battle_20260811_145204_ravens_field",
+        "battle_20260811_151007_ravens_field",
+        "battle_20260811_151622_ravens_field"
+      ],
+      "field_rows": 46,
+      "manifest_entries": 9,
+      "manifest_passed": true,
+      "normalization_boundary_evidence": {
+        "context_boundaries_preserved": {
+          "canonical_value": true,
+          "expected_reported_value": true,
+          "reported_value": true,
+          "source_field": "context_boundaries_preserved",
+          "status": "verified"
+        },
+        "heroes_in_primary": {
+          "status": "not_reported"
+        },
+        "offscreen_rows_inferred": {
+          "canonical_value": false,
+          "expected_reported_value": false,
+          "reported_value": false,
+          "source_field": "offscreen_rows_inferred",
+          "status": "verified"
+        },
+        "sides_pooled": {
+          "canonical_value": false,
+          "expected_reported_value": false,
+          "reported_value": false,
+          "source_field": "sides_pooled",
+          "status": "verified"
+        }
+      },
+      "normalization_commit": "85857f608ddf6be021c66a65435e57e8ee42023a",
+      "normalization_commit_verification": "identifier_format_only_not_compared_to_worktree",
+      "normalization_validation_status": "passed",
+      "schema_version": "2.0.0",
+      "unverified_normalization_boundary_flags": [
+        "heroes_in_primary"
+      ]
+    }
+  ],
+  "status": "passed",
+  "track": "realm_of_thrones"
+}

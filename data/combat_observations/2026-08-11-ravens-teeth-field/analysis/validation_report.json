@@ -1,0 +1,101 @@
+{
+  "boundaries": {
+    "battle_is_independent_unit": true,
+    "contexts_pooled": false,
+    "frozen_models_changed": false,
+    "off_screen_rows_inferred": false,
+    "player_enemy_pooled": false,
+    "track": "realm_of_thrones"
+  },
+  "compatible_field_evidence": {
+    "archive_hashes_verified": true,
+    "artifact_manifests_verified": true,
+    "complete_rows": 38,
+    "delta_evidence_status": "diagnostic_only_below_display_gate",
+    "focus_combined_status": "reliable",
+    "focus_slug": "ravens_teeth",
+    "independent_battles": 10,
+    "insufficient_rows": 31,
+    "normalization_validations_passed": true,
+    "reliable_rows": 7,
+    "schema_versions": [
+      "1.1.0",
+      "2.0.0"
+    ],
+    "source_batches": 3,
+    "status": "passed"
+  },
+  "external_blockers": [],
+  "identity": {
+    "labels": 22,
+    "provisional_slugs_are_not_canonical_ids": true,
+    "status_counts": {
+      "confirmed_id": 18,
+      "unresolved": 4
+    }
+  },
+  "ranking": {
+    "bootstrap_repetitions": 10000,
+    "bootstrap_seed": "sha256(batch_id|context|provisional_slug|repetitions)",
+    "complete_rows": 22,
+    "coverage_by_context": {
+      "field": {
+        "context": "field",
+        "deployed": 712,
+        "independent_battles": 4,
+        "insufficient_labels": 22,
+        "minimum_battles": 5,
+        "minimum_deployed": 20,
+        "observed_labels": 22,
+        "reliable_labels": 0
+      },
+      "siege_attack": {
+        "context": "siege_attack",
+        "deployed": 0,
+        "independent_battles": 0,
+        "insufficient_labels": 0,
+        "minimum_battles": 5,
+        "minimum_deployed": 20,
+        "observed_labels": 0,
+        "reliable_labels": 0
+      },
+      "siege_defense": {
+        "context": "siege_defense",
+        "deployed": 0,
+        "independent_battles": 0,
+        "insufficient_labels": 0,
+        "minimum_battles": 5,
+        "minimum_deployed": 20,
+        "observed_labels": 0,
+        "reliable_labels": 0
+      }
+    },
+    "insufficient_rows": 22,
+    "minimum_battles": 5,
+    "minimum_deployed": 20,
+    "reliable_rows": 0
+  },
+  "review": {
+    "decisions": 12,
+    "heroes_excluded_from_rankings": true,
+    "queued": 8,
+    "queued_rows_excluded_from_rankings": true,
+    "unresolved": 12
+  },
+  "status": "passed",
+  "structural_validation": {
+    "battle_context_counts": {
+      "field": 4
+    },
+    "battles": 4,
+    "consolidated_rows": 46,
+    "occurrences": 120,
+    "ordinary_troop_labels": 22,
+    "primary_occurrences": 46,
+    "primary_rows_fully_consolidated": true,
+    "queued_rows_excluded_from_rankings": true,
+    "rankings_only_include_primary_troops": true,
+    "review_items": 8
+  },
+  "validation_errors": []
+}

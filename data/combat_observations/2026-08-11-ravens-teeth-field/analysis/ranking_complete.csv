@@ -1,0 +1,23 @@
+context,rank,display_name,provisional_slug,canonical_troop_id,identity_status,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,ci95_low,ci95_high,reliability_status
+field,1,Ravens' Teeth [T6],ravens_teeth,ravens_teeth,confirmed_id,4,318,302,988,3,13,0,3.106918,0.009434,0.050314,,,insufficient_evidence
+field,2,Riverlands Pikeman [T5],riverlands_pikeman,river_pikeman,confirmed_id,1,1,0,3,1,0,0,3.000000,1.000000,1.000000,,,insufficient_evidence
+field,3,Riverlands Axeman [T5],riverlands_axeman,river_axeman,confirmed_id,1,9,0,19,2,7,0,2.111111,0.222222,1.000000,,,insufficient_evidence
+field,4,Northern Soldier [T2],northern_soldier,,unresolved,1,2,0,4,0,2,0,2.000000,0.000000,1.000000,,,insufficient_evidence
+field,5,Riverlands Swordmaster [T5],riverlands_swordmaster,river_swordmaster,confirmed_id,2,6,1,9,3,2,0,1.500000,0.500000,0.833333,,,insufficient_evidence
+field,6,Blackwood Longbowman [T5],blackwood_longbowman,blackwood_longbowman,confirmed_id,4,66,58,98,1,7,0,1.484848,0.015152,0.121212,,,insufficient_evidence
+field,7,Frey Sharpshooter [T5],frey_sharpshooter,frey_sharpshooter,confirmed_id,3,15,14,21,0,1,0,1.400000,0.000000,0.066667,,,insufficient_evidence
+field,8,Blackwood Levy [T2],blackwood_levy,blackwood_levy,confirmed_id,1,3,1,4,1,1,0,1.333333,0.333333,0.666667,,,insufficient_evidence
+field,9,Riverlands Horseman [T4],riverlands_horseman,river_horseman,confirmed_id,1,3,2,4,0,1,0,1.333333,0.000000,0.333333,,,insufficient_evidence
+field,10,Riverlands Admiral [T6],riverlands_admiral,river_admiral,confirmed_id,4,45,22,57,3,20,0,1.266667,0.066667,0.511111,,,insufficient_evidence
+field,11,Northern Colonel [T5],northern_colonel,,unresolved,3,14,8,17,3,3,0,1.214286,0.214286,0.428571,,,insufficient_evidence
+field,12,Northern Sergeant [T4],northern_sergeant,,unresolved,1,1,1,1,0,0,0,1.000000,0.000000,0.000000,,,insufficient_evidence
+field,13,Riverlands Ranger [T5],riverlands_ranger,river_ranger,confirmed_id,2,8,7,7,0,1,0,0.875000,0.000000,0.125000,,,insufficient_evidence
+field,14,Blackwood Archer [T4],blackwood_archer,blackwood_archer,confirmed_id,3,45,45,39,0,0,0,0.866667,0.000000,0.000000,,,insufficient_evidence
+field,15,Frey Assassin [T6],frey_assassin,frey_assassin,confirmed_id,3,59,55,46,1,3,0,0.779661,0.016949,0.067797,,,insufficient_evidence
+field,16,Frey Veteran Crossbowman [T4],frey_veteran_crossbowman,frey_veteran_crossbowman,confirmed_id,3,12,12,9,0,0,0,0.750000,0.000000,0.000000,,,insufficient_evidence
+field,17,Riverlands Cavalry [T5],riverlands_cavalry,river_calvary,confirmed_id,1,3,0,2,1,2,0,0.666667,0.333333,1.000000,,,insufficient_evidence
+field,18,Riverlands Elite Swordsman [T4],riverlands_elite_swordsman,river_elite_swordsman,confirmed_id,1,5,1,3,1,3,0,0.600000,0.200000,0.800000,,,insufficient_evidence
+field,19,Blackwood Bowman [T3],blackwood_bowman,blackwood_bowman,confirmed_id,2,22,20,13,1,1,0,0.590909,0.045455,0.090909,,,insufficient_evidence
+field,20,Westerlands Banner Knight [T6],westerlands_banner_knight,,unresolved,1,2,2,1,0,0,0,0.500000,0.000000,0.000000,,,insufficient_evidence
+field,21,Riverlands Man at Arms [T4],riverlands_man_at_arms,river_man_at_arms,confirmed_id,1,15,2,5,2,11,0,0.333333,0.133333,0.866667,,,insufficient_evidence
+field,22,Guard of the Crossing [T5],guard_of_the_crossing,guard_of_the_crossing,confirmed_id,3,58,54,15,1,3,0,0.258621,0.017241,0.068966,,,insufficient_evidence
