@@ -563,6 +563,7 @@ def build_report(
     current_labels = {str(row["display_name_normalized"]) for row in current_rows}
     current_battles = sum(len(source.field_battles) for source in current_sources)
     focus_slug = safe_output_stem(str(config["focus_slug"]), "focus_slug")
+    track = str(config["track"])
     focus_label = str(
         config.get("focus_label", focus_slug.replace("_", " ").title())
     ).strip()
@@ -680,7 +681,7 @@ def build_report(
             "",
             (
                 f"- {identity_counts.get('confirmed_id', 0)} of {len(identities)} observed labels "
-                "have one exact canonical ID in the versioned Realm of Thrones audit."
+                f"have one exact canonical ID in the versioned audit for track `{track}`."
             ),
             unresolved_identity_line,
             (

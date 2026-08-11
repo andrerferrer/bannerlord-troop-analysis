@@ -426,15 +426,26 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
 
     def test_focus_outputs_and_report_follow_the_configured_focus(self):
         baseline = self.make_source(
-            "baseline", "baseline", ["b1", "b2", "b3"], [5, 10, 15], slug="wolf_guard"
+            "baseline",
+            "baseline",
+            ["b1", "b2", "b3"],
+            [5, 10, 15],
+            slug="wolf_guard",
+            track="other_track",
         )
         current = self.make_source(
-            "current", "current", ["b4", "b5"], [20, 25], slug="wolf_guard"
+            "current",
+            "current",
+            ["b4", "b5"],
+            [20, 25],
+            slug="wolf_guard",
+            track="other_track",
         )
         config_path = self.write_config([baseline, current])
         config = json.loads(config_path.read_text())
         config["focus_slug"] = "wolf_guard"
         config["focus_label"] = "Wolf Guard"
+        config["track"] = "other_track"
         config_path.write_text(json.dumps(config), encoding="utf-8")
 
         module.run_analysis(config_path, self.root, self.batch_dir, self.identity_root)
@@ -450,6 +461,8 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
         self.assertIn("The schema join across 2.0.0 is deliberately narrow", report)
         self.assertNotIn("1.1.0, 2.0.0", report)
         self.assertIn("`wolf_guard` (provisional)", report)
+        self.assertIn("versioned audit for track `other_track`", report)
+        self.assertNotIn("Realm of Thrones audit", report)
 
     def test_report_gate_statement_uses_the_current_battle_count(self):
         baseline = self.make_source("baseline", "baseline", ["b0"], [5])

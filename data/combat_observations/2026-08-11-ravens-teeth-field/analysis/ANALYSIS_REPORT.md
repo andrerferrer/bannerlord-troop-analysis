@@ -31,7 +31,7 @@ These are descriptive rates for visible player-side campaign rows. They are not 
 
 ## Identity and completeness
 
-- 30 of 38 observed labels have one exact canonical ID in the versioned Realm of Thrones audit.
+- 30 of 38 observed labels have one exact canonical ID in the versioned audit for track `realm_of_thrones`.
 - Unresolved canonical labels remain provisional: `northern_colonel`, `northern_hero`, `northern_horseman`, `northern_mounted_warlord`, `northern_ranger`, `northern_sergeant`, `northern_soldier`, `westerlands_banner_knight`.
 - `combined_ranking_complete.csv` retains every observed field label; `combined_ranking_reliable.csv` and `combined_insufficient_evidence.csv` split it without dropping low-sample rows.
 - Rows marked for review and non-field battles are rejected from the projection. Where historical validation reports omit explicit side, hero, or off-screen flags, that missing verification is preserved in `compatibility_decision.json`.
