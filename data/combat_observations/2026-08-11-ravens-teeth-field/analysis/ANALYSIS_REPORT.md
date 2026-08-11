@@ -3,9 +3,10 @@
 ## Result
 
 All 3 normalized archive hashes and internal manifests passed, as did the common field projection's track, version, context, and row-arithmetic checks. The 1.1.0, 2.0.0 normalized schemas are joined only through their shared player-side ordinary-troop count fields; upgrade icons and whole-army contribution are outside this projection.
+
 Boundary flags absent from historical normalization reports are recorded as unverified, not inferred. The compatibility decision is an explicit analytical judgment over the verified common fields, not a claim of full schema equivalence.
 
-The current cohort alone has 4 independent field battles and 22 visible ordinary-troop labels, so none clears the standalone battle-count gate. Across the compatible evidence there are 10 distinct field battles, 7 reliable rows, and 31 insufficient rows under the 5-battle / 20-deployed rule.
+The current cohort alone has 4 independent field battles and 22 visible ordinary-troop labels. Because this is below the 5-battle gate, none can clear the standalone battle-count requirement. Across the compatible evidence there are 10 distinct field battles, 7 reliable rows, and 31 insufficient rows under the 5-battle / 20-deployed rule.
 
 These are descriptive rates for visible player-side campaign rows. They are not an intrinsic-strength tier list, universal score, or causal estimate.
 
@@ -40,5 +41,5 @@ These are descriptive rates for visible player-side campaign rows. They are not 
 - All screenshots are victory-only observational campaign evidence, confounded by army composition, enemy composition, map, difficulty, and player choices.
 - Row visibility is partial, so total-army contribution, deployment share, and off-screen performance cannot be calculated.
 - Raw PNGs for the current batch are not retained; its 12 field-level review decisions remain unresolved in the separate review layer.
-- The schema join is deliberately narrow. It does not imply that every 1.1.0 and 2.0.0 field is interchangeable.
+- The schema join across 1.1.0, 2.0.0 is deliberately narrow. It does not imply that every field is interchangeable.
 - No frozen model was changed or recalibrated.

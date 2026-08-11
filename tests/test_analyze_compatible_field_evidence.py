@@ -43,7 +43,13 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
         schema_version="2.0.0",
         include_boundary_flags=True,
         validation_overrides=None,
+        slug="ravens_teeth",
     ):
+        display_name = (
+            "Ravens' Teeth"
+            if slug == "ravens_teeth"
+            else slug.replace("_", " ").title()
+        )
         batch_path = self.root / "data" / batch_id
         bundle = batch_path / "bundle"
         bundle.mkdir(parents=True)
@@ -79,8 +85,8 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
                     {
                         "battle_id": battle_id,
                         "battle_context": "field",
-                        "display_name_normalized": "ravens_teeth",
-                        "display_names_raw": ["Ravens' Teeth [T6]"],
+                        "display_name_normalized": slug,
+                        "display_names_raw": [f"{display_name} [T6]"],
                         "game_track": track,
                         "deployed": 5,
                         "survivors": 5,
@@ -163,6 +169,7 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
             "analysis_id": "test-compatible-field",
             "bootstrap_repetitions": 200,
             "focus_slug": "ravens_teeth",
+            "focus_label": "Ravens' Teeth",
             "game_version": "1.4.x",
             "minimum_battles": 5,
             "minimum_deployed": 20,
@@ -257,6 +264,22 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
                 config_path, self.root, self.batch_dir, self.identity_root
             )
 
+    def test_legacy_errors_are_rejected_when_validation_errors_are_empty(self):
+        baseline = self.make_source(
+            "baseline",
+            "baseline",
+            ["b1"],
+            [5],
+            validation_overrides={"errors": ["legacy failure"]},
+        )
+        current = self.make_source("current", "current", ["b2"], [10])
+        config_path = self.write_config([baseline, current])
+
+        with self.assertRaisesRegex(ValueError, "normalization validation has errors"):
+            module.run_analysis(
+                config_path, self.root, self.batch_dir, self.identity_root
+            )
+
     def test_tampered_archive_is_rejected_before_analysis(self):
         baseline = self.make_source("baseline", "baseline", ["b1"], [5])
         current = self.make_source("current", "current", ["b2"], [10])
@@ -311,6 +334,55 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
                 self.batch_dir / "analysis" / "ravens_teeth_delta_uncertainty.json"
             ).read_bytes(),
         )
+
+    def test_focus_slug_must_be_a_safe_output_stem(self):
+        baseline = self.make_source("baseline", "baseline", ["b1"], [5])
+        current = self.make_source("current", "current", ["b2"], [10])
+        config_path = self.write_config([baseline, current])
+        config = json.loads(config_path.read_text())
+        config["focus_slug"] = "../ravens_teeth"
+        config_path.write_text(json.dumps(config), encoding="utf-8")
+
+        with self.assertRaisesRegex(ValueError, "invalid focus_slug"):
+            module.run_analysis(
+                config_path, self.root, self.batch_dir, self.identity_root
+            )
+
+    def test_focus_output_filenames_follow_the_configured_slug(self):
+        baseline = self.make_source(
+            "baseline", "baseline", ["b1", "b2", "b3"], [5, 10, 15], slug="wolf_guard"
+        )
+        current = self.make_source(
+            "current", "current", ["b4", "b5"], [20, 25], slug="wolf_guard"
+        )
+        config_path = self.write_config([baseline, current])
+        config = json.loads(config_path.read_text())
+        config["focus_slug"] = "wolf_guard"
+        config["focus_label"] = "Wolf Guard"
+        config_path.write_text(json.dumps(config), encoding="utf-8")
+
+        module.run_analysis(config_path, self.root, self.batch_dir, self.identity_root)
+
+        analysis_dir = self.batch_dir / "analysis"
+        self.assertTrue((analysis_dir / "wolf_guard_comparison.csv").is_file())
+        self.assertTrue((analysis_dir / "wolf_guard_battle_rates.csv").is_file())
+        self.assertTrue((analysis_dir / "wolf_guard_delta_uncertainty.json").is_file())
+
+    def test_report_gate_statement_uses_the_current_battle_count(self):
+        baseline = self.make_source("baseline", "baseline", ["b0"], [5])
+        current = self.make_source(
+            "current",
+            "current",
+            ["b1", "b2", "b3", "b4", "b5"],
+            [5, 10, 15, 20, 25],
+        )
+        config_path = self.write_config([baseline, current])
+
+        module.run_analysis(config_path, self.root, self.batch_dir, self.identity_root)
+
+        report = (self.batch_dir / "analysis" / "ANALYSIS_REPORT.md").read_text()
+        self.assertIn("Per-label standalone eligibility", report)
+        self.assertNotIn("none can clear", report)
 
 
 if __name__ == "__main__":

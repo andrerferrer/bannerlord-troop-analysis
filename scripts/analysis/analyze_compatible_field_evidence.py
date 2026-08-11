@@ -144,6 +144,12 @@ def path_below(root: Path, relative: str, label: str) -> Path:
     return candidate
 
 
+def safe_output_stem(value: str, label: str = "output stem") -> str:
+    if not re.fullmatch(r"[a-z0-9][a-z0-9_-]*", value):
+        raise ValueError(f"invalid {label}: {value}")
+    return value
+
+
 def decode_ordered_archive(parts: list[Path], destination: Path) -> None:
     if not parts:
         raise ValueError(f"normalized archive parts are missing for {destination.name}")
@@ -210,7 +216,13 @@ def validate_normalization_report(
         raise ValueError(f"{spec.batch_id}: normalization validation did not pass")
     if str(report.get("schema_version", "")) != spec.schema_version:
         raise ValueError(f"{spec.batch_id}: validation schema version mismatch")
-    errors = report.get("validation_errors", report.get("errors", []))
+    error_lists: list[list[Any]] = []
+    for field in ("validation_errors", "errors"):
+        values = report.get(field, [])
+        if not isinstance(values, list):
+            raise TypeError(f"{spec.batch_id}: invalid normalization {field}")
+        error_lists.append(values)
+    errors = [error for values in error_lists for error in values]
     if errors:
         raise ValueError(f"{spec.batch_id}: normalization validation has errors")
     expected_flags = {
@@ -533,6 +545,24 @@ def build_report(
     current_sources = [source for source in sources if source.spec.cohort == "current"]
     current_rows = [row for source in current_sources for row in source.field_rows]
     current_labels = {str(row["display_name_normalized"]) for row in current_rows}
+    current_battles = sum(len(source.field_battles) for source in current_sources)
+    focus_slug = safe_output_stem(str(config["focus_slug"]), "focus_slug")
+    focus_label = str(
+        config.get("focus_label", focus_slug.replace("_", " ").title())
+    ).strip()
+    if not focus_label:
+        raise ValueError("focus_label cannot be blank")
+    schema_versions = sorted({source.spec.schema_version for source in sources})
+    schema_versions_text = ", ".join(schema_versions)
+    current_gate_statement = (
+        f"Because this is below the {minimum_battles}-battle gate, none can clear "
+        "the standalone battle-count requirement."
+        if current_battles < minimum_battles
+        else (
+            "Per-label standalone eligibility is evaluated against the configured "
+            "battle and deployment gates."
+        )
+    )
     identity_counts = Counter(row["match_status"] for row in identities)
     unresolved_slugs = [
         row["provisional_slug"]
@@ -547,11 +577,12 @@ def build_report(
         (
             f"All {len(sources)} normalized archive hashes and internal manifests passed, as did "
             "the common field projection's track, version, context, and row-arithmetic checks. "
-            f"The {', '.join(sorted({source.spec.schema_version for source in sources}))} "
+            f"The {schema_versions_text} "
             "normalized schemas are joined "
             "only through their shared player-side ordinary-troop count fields; upgrade icons and "
             "whole-army contribution are outside this projection."
         ),
+        "",
         (
             "Boundary flags absent from historical normalization reports are recorded as "
             "unverified, not inferred. The compatibility decision is an explicit analytical "
@@ -559,10 +590,10 @@ def build_report(
         ),
         "",
         (
-            f"The current cohort alone has {sum(len(source.field_battles) for source in current_sources)} "
+            f"The current cohort alone has {current_battles} "
             "independent field battles "
-            f"and {len(current_labels)} visible ordinary-troop labels, so none clears the standalone "
-            "battle-count gate. Across the compatible evidence there "
+            f"and {len(current_labels)} visible ordinary-troop labels. {current_gate_statement} "
+            "Across the compatible evidence there "
             f"are {sum(len(source.field_battles) for source in sources)} distinct field battles, "
             f"{len(reliable)} reliable rows, and {len(rankings) - len(reliable)} insufficient rows "
             f"under the {minimum_battles}-battle / {minimum_deployed}-deployed rule."
@@ -598,7 +629,7 @@ def build_report(
     lines.extend(
         [
             "",
-            "## Ravens' Teeth focus",
+            f"## {focus_label} focus",
             "",
             comparison_report_line("Baseline cohort", baseline),
             comparison_report_line("Current cohort", current),
@@ -648,8 +679,8 @@ def build_report(
                 + "in the separate review layer."
             ),
             (
-                "- The schema join is deliberately narrow. It does not imply that every 1.1.0 and "
-                "2.0.0 field is interchangeable."
+                f"- The schema join across {schema_versions_text} is deliberately narrow. It does "
+                "not imply that every field is interchangeable."
             ),
             "- No frozen model was changed or recalibrated.",
         ]
@@ -905,6 +936,7 @@ def write_tabular_outputs(
     batch_dir: Path, analysis: CombinedAnalysis, focus_slug: str
 ) -> None:
     analysis_dir = batch_dir / "analysis"
+    focus_stem = safe_output_stem(focus_slug, "focus_slug")
     base.write_csv(
         analysis_dir / "combined_canonical_identity_audit.csv",
         base.IDENTITY_FIELDS,
@@ -937,12 +969,12 @@ def write_tabular_outputs(
         provenance_rows,
     )
     base.write_csv(
-        analysis_dir / "ravens_teeth_comparison.csv",
+        analysis_dir / f"{focus_stem}_comparison.csv",
         COMPARISON_FIELDS,
         formatted_comparison_rows(analysis.comparisons),
     )
     base.write_csv(
-        analysis_dir / "ravens_teeth_battle_rates.csv",
+        analysis_dir / f"{focus_stem}_battle_rates.csv",
         FOCUS_BATTLE_FIELDS,
         focus_battle_rows(analysis.sources, focus_slug),
     )
@@ -988,9 +1020,10 @@ def write_metadata_outputs(
     if not isinstance(current_review_decisions, int):
         current_review_decisions = None
     compatibility = build_compatibility_decision(config, analysis.sources)
+    focus_stem = safe_output_stem(str(config["focus_slug"]), "focus_slug")
     base.write_json(analysis_dir / "compatibility_decision.json", compatibility)
     base.write_json(
-        analysis_dir / "ravens_teeth_delta_uncertainty.json", analysis.delta
+        analysis_dir / f"{focus_stem}_delta_uncertainty.json", analysis.delta
     )
     update_validation_report(
         analysis_dir / "validation_report.json",
@@ -1036,6 +1069,7 @@ def run_analysis(
     config = base.read_json_object(config_path)
     track = str(config["track"])
     game_version = str(config["game_version"])
+    focus_slug = safe_output_stem(str(config["focus_slug"]), "focus_slug")
     specs = sorted(
         (SourceSpec.from_dict(value) for value in config["sources"]),
         key=lambda spec: (spec.cohort, spec.batch_id),
@@ -1048,7 +1082,7 @@ def run_analysis(
     analysis = build_combined_analysis(config, sources, repo_root, identity_root)
     (batch_dir / "analysis").mkdir(parents=True, exist_ok=True)
     (batch_dir / "review").mkdir(parents=True, exist_ok=True)
-    write_tabular_outputs(batch_dir, analysis, str(config["focus_slug"]))
+    write_tabular_outputs(batch_dir, analysis, focus_slug)
     write_metadata_outputs(config, config_path, repo_root, batch_dir, analysis)
     write_artifact_manifest(batch_dir)
     return {

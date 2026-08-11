@@ -1,6 +1,7 @@
 {
   "analysis_id": "combat_2026-08-11_ravens_teeth_field_compatible",
   "bootstrap_repetitions": 10000,
+  "focus_label": "Ravens' Teeth",
   "focus_slug": "ravens_teeth",
   "game_version": "1.4.x",
   "minimum_battles": 5,
