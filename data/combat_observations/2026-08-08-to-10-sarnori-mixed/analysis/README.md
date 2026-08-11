@@ -2,9 +2,9 @@
 
 `ranking_complete.csv` contains every observed troop/context estimate. `ranking_reliable.csv` applies the 5-battle / 20-deployed gate. `insufficient_evidence.csv` retains all rows that fail the gate. `canonical_identity_audit.csv` never treats provisional slugs as XML IDs.
 
-The batch-level `../README.md` is preserved byte-for-byte as the immutable Phase 1 snapshot. This directory records Phase 2 outputs; authoritative workflow state lives in append-only protocol comments.
+The batch-level `../README.md` is git-frozen at the normalization commit as Phase 1 metadata. This directory records Phase 2 outputs; authoritative workflow state lives in append-only protocol comments.
 
-`focus_troop_contexts.csv` records each requested focus troop separately for every observed context, including explicit `not_observed` rows.
+`focus_troop_contexts.csv` records each requested focus troop separately for every observed context, including explicit `not_observed` rows. Machine-readable diagnostic rates remain available with their evidence status; the report masks rates unless the full display gate passes.
 
 Reproduce from the repository root:
 
@@ -35,7 +35,7 @@ python3 scripts/analysis/analyze_normalized_combat_batch.py \
   --archive-path "$archive" \
   --expected-source-sha256 adcb2b9f8545c042f57b5ced51374d919b2829e0d81500aba353507b3dff88bc \
   --expected-source-size-bytes 14829018 \
-  --source-path "$PWD/data/combat_observations/2026-08-08-to-10-sarnori-mixed/source/original_screenshots" \
+  --source-path data/combat_observations/2026-08-08-to-10-sarnori-mixed/source/original_screenshots \
   --batch-id combat_2026-08-08_to_10_sarnori_mixed --track realm_of_thrones \
   --minimum-battles 5 --minimum-deployed 20 \
   --bootstrap-repetitions 10000 \

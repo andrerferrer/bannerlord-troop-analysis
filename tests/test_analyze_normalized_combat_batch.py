@@ -291,6 +291,7 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
             self.assertEqual(errors, [])
             self.assertTrue(source["locally_verified"])
             self.assertEqual(source["verification_method"], "manifest_files_sha256_and_total_size")
+            self.assertEqual(source["actual_sha256"], "")
 
     def test_optional_source_provenance_must_match_normalized_records(self) -> None:
         checks, errors = MODULE.verify_recorded_source_identity(
@@ -324,6 +325,24 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
         )
         self.assertEqual(version, "")
         self.assertEqual(errors, ["normalized schema version mismatch"])
+
+    def test_normalized_schema_version_must_be_supported(self) -> None:
+        version, errors = MODULE.verify_normalized_schema_version(
+            {"schema_version": "99.0.0"},
+            {"schema_version": "99.0.0"},
+        )
+        self.assertEqual(version, "")
+        self.assertEqual(errors, ["unsupported normalized schema version: 99.0.0"])
+
+    def test_reproduction_path_accepts_source_outside_repository(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            repo_root = Path(directory) / "repo"
+            repo_root.mkdir()
+            outside = Path(directory) / "raw screenshots"
+            self.assertEqual(
+                MODULE.format_reproduction_path(outside, repo_root),
+                "'" + str(outside) + "'",
+            )
 
     def test_symlinked_raw_source_is_never_repository_addressable(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -447,6 +466,48 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
         self.assertFalse(summary["queued_rows_excluded_from_rankings"])
         self.assertFalse(summary["primary_rows_fully_consolidated"])
 
+    def test_consolidated_identity_and_counts_must_match_primary_rows(self) -> None:
+        primary = {
+            "observation_id": "o1",
+            "battle_id": "b1",
+            "battle_context": "field",
+            "display_name_normalized": "right_troop",
+            "display_name_raw": "Right Troop [T3]",
+            "game_track": "realm_of_thrones",
+            "row_type": "troop",
+            "analysis_status": "included_primary",
+            "needs_review": False,
+            "side": "attacker",
+            "source_image_sha256": "a" * 64,
+            "deployed": 10,
+            "survivors": 9,
+            "kills": 1,
+            "deaths": 1,
+            "wounded": 0,
+            "routed": 0,
+        }
+        consolidated_row = consolidated("b1", "field", "wrong_troop", 999, 999)
+        consolidated_row.update(
+            {
+                "observation_ids": ["o1"],
+                "display_names_raw": ["Wrong Troop [T6]"],
+                "game_track": "wrong_track",
+            }
+        )
+
+        errors, summary = MODULE.validate_normalized(
+            battles=[{"battle_id": "b1", "battle_context": "field", "player_side": "attacker"}],
+            occurrences=[primary],
+            primary=[primary],
+            consolidated=[consolidated_row],
+            screenshot_manifest=[{"image_sha256": "a" * 64}],
+            review_queue=[],
+        )
+
+        self.assertTrue(any(error.startswith("consolidated key missing from primary rows:") for error in errors))
+        self.assertTrue(any(error.startswith("primary group missing from consolidated rows:") for error in errors))
+        self.assertFalse(summary["primary_rows_fully_consolidated"])
+
     def test_review_decisions_preserve_queue_specific_reason(self) -> None:
         decisions = MODULE.build_review_decisions(
             review_queue=[
@@ -510,6 +571,22 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
                 ["typo"],
                 ["field"],
             )
+
+    def test_focus_rate_display_requires_the_full_evidence_gate(self) -> None:
+        row = {
+            "independent_battles": 3,
+            "deployed": 100,
+            "kills_per_deployed": 2.5,
+        }
+        self.assertEqual(
+            MODULE.format_focus_rate(row, "kills_per_deployed", 5, 20),
+            "—",
+        )
+        row["independent_battles"] = 5
+        self.assertEqual(
+            MODULE.format_focus_rate(row, "kills_per_deployed", 5, 20),
+            "2.500",
+        )
 
 
 if __name__ == "__main__":

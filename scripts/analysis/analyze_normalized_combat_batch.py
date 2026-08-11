@@ -32,6 +32,7 @@ except ModuleNotFoundError:  # Direct script execution sets sys.path to scripts/
     from combat_observations.bundle import inspect_tar
 
 CONTEXTS = ("field", "siege_attack", "siege_defense")
+SUPPORTED_NORMALIZED_SCHEMA_VERSIONS = frozenset(("1.1.0", "2.0.0"))
 COUNT_FIELDS = ("deployed", "survivors", "kills", "deaths", "wounded", "routed")
 RANKING_FIELDS = (
     "context",
@@ -209,10 +210,6 @@ def inspect_optional_source(
             )
         )
         source_matches = files_match and actual_size_bytes == expected_size_bytes
-        if source_matches:
-            # Matching every named constituent byte establishes the recorded directory
-            # identity without depending on the Phase 1 aggregate-hash encoding.
-            actual_sha256 = expected_sha256
     if source_exists and not source_matches:
         errors.append("retained raw source does not match its recorded hash and size")
     try:
@@ -325,7 +322,17 @@ def verify_normalized_schema_version(
         return "", ["normalized schema version missing"]
     if summary_version != validation_version:
         return "", ["normalized schema version mismatch"]
+    if summary_version not in SUPPORTED_NORMALIZED_SCHEMA_VERSIONS:
+        return "", [f"unsupported normalized schema version: {summary_version}"]
     return summary_version, []
+
+
+def format_reproduction_path(path: Path, repo_root: Path) -> str:
+    try:
+        value = path.relative_to(repo_root).as_posix()
+    except ValueError:
+        value = str(path)
+    return shlex.quote(value)
 
 
 def verify_manifest(input_dir: Path, manifest_path: Path) -> tuple[list[dict[str, Any]], list[str]]:
@@ -436,11 +443,18 @@ def validate_normalized(
         errors.append("duplicate observation_id")
 
     primary_ids: set[str] = set()
+    primary_groups: dict[tuple[str, str, str], list[dict[str, Any]]] = defaultdict(list)
     for row in primary:
         observation_id = str(row.get("observation_id"))
         if observation_id in primary_ids:
             errors.append(f"duplicate primary observation: {observation_id}")
         primary_ids.add(observation_id)
+        primary_key = (
+            str(row.get("battle_id")),
+            str(row.get("battle_context")),
+            str(row.get("display_name_normalized")),
+        )
+        primary_groups[primary_key].append(row)
         battle = battle_by_id.get(str(row.get("battle_id")))
         if not battle:
             errors.append(f"primary row has unknown battle: {observation_id}")
@@ -467,6 +481,7 @@ def validate_normalized(
 
     consolidated_keys: set[tuple[str, str, str]] = set()
     consolidated_observation_ids: set[str] = set()
+    consolidation_matches_primary = True
     for row in consolidated:
         key = (
             str(row.get("battle_id")),
@@ -475,7 +490,40 @@ def validate_normalized(
         )
         if key in consolidated_keys:
             errors.append(f"duplicate consolidated key: {'|'.join(key)}")
+            consolidation_matches_primary = False
         consolidated_keys.add(key)
+        primary_group = primary_groups.get(key)
+        if primary_group is None:
+            errors.append(f"consolidated key missing from primary rows: {'|'.join(key)}")
+            consolidation_matches_primary = False
+        else:
+            expected_observation_ids = [
+                str(item.get("observation_id")) for item in primary_group
+            ]
+            expected_raw_names = list(
+                dict.fromkeys(str(item.get("display_name_raw")) for item in primary_group)
+            )
+            expected_tracks = {str(item.get("game_track")) for item in primary_group}
+            if row.get("observation_ids") != expected_observation_ids:
+                errors.append(
+                    f"consolidated observation_ids mismatch: {'|'.join(key)}"
+                )
+                consolidation_matches_primary = False
+            if row.get("display_names_raw") != expected_raw_names:
+                errors.append(f"consolidated raw names mismatch: {'|'.join(key)}")
+                consolidation_matches_primary = False
+            if len(expected_tracks) != 1 or str(row.get("game_track")) not in expected_tracks:
+                errors.append(f"consolidated track mismatch: {'|'.join(key)}")
+                consolidation_matches_primary = False
+            for field in COUNT_FIELDS:
+                values = [item.get(field) for item in primary_group]
+                if not all(isinstance(value, int) for value in values):
+                    consolidation_matches_primary = False
+                    continue
+                expected_count = sum(int(value) for value in values)
+                if row.get(field) != expected_count:
+                    errors.append(f"consolidated {field} mismatch: {'|'.join(key)}")
+                    consolidation_matches_primary = False
         if row.get("battle_context") not in CONTEXTS:
             errors.append(f"unknown consolidated context: {'|'.join(key)}")
         if row.get("needs_review"):
@@ -500,6 +548,10 @@ def validate_normalized(
             accounted = sum(int(row[field]) for field in ("survivors", "deaths", "wounded", "routed"))
             if accounted != int(row["deployed"]):
                 errors.append(f"consolidated arithmetic mismatch: {'|'.join(key)}")
+
+    for key in sorted(set(primary_groups) - consolidated_keys):
+        errors.append(f"primary group missing from consolidated rows: {'|'.join(key)}")
+        consolidation_matches_primary = False
 
     queued_ids = {str(row.get("observation_id", "")) for row in review_queue}
     for observation_id in sorted(consolidated_observation_ids - primary_ids):
@@ -538,7 +590,10 @@ def validate_normalized(
         "primary_occurrences": len(primary),
         "consolidated_rows": len(consolidated),
         "review_items": len(review_queue),
-        "primary_rows_fully_consolidated": consolidated_observation_ids == primary_ids,
+        "primary_rows_fully_consolidated": (
+            consolidation_matches_primary
+            and consolidated_observation_ids == primary_ids
+        ),
         "queued_rows_excluded_from_rankings": not bool(
             queued_ids & consolidated_observation_ids
         ),
@@ -829,6 +884,21 @@ def build_focus_context_rows(
     return output
 
 
+def format_focus_rate(
+    row: dict[str, Any],
+    field: str,
+    minimum_battles: int,
+    minimum_deployed: int,
+) -> str:
+    if (
+        int(row["independent_battles"]) < minimum_battles
+        or int(row["deployed"]) < minimum_deployed
+        or row[field] == ""
+    ):
+        return "—"
+    return f"{float(row[field]):.3f}"
+
+
 def build_review_decisions(
     review_queue: list[dict[str, str]],
     occurrences: list[dict[str, Any]],
@@ -931,6 +1001,8 @@ def main() -> None:
     manifest_checks, manifest_errors = verify_manifest(
         args.input_dir, args.batch_dir / "artifact_hashes.csv"
     )
+    if manifest_errors:
+        raise ValueError("\n".join(manifest_errors))
 
     battles = read_jsonl(args.input_dir / "battles.jsonl")
     occurrences = read_jsonl(args.input_dir / "troop_occurrences.jsonl")
@@ -1030,6 +1102,28 @@ def main() -> None:
         args.reviewer,
         raw_visual_review_available,
     )
+    observed_contexts = [
+        context
+        for context in CONTEXTS
+        if any(row["battle_context"] == context for row in battles)
+    ]
+    focus_rows = build_focus_context_rows(
+        rankings,
+        identities,
+        args.focus_slug,
+        observed_contexts,
+    )
+    reproduction_identity_root = format_reproduction_path(
+        args.identity_root, args.repo_root
+    )
+    reproduction_existing_audit = (
+        format_reproduction_path(args.existing_identity_audit, args.repo_root)
+        if args.existing_identity_audit
+        else ""
+    )
+    reproduction_source_path = format_reproduction_path(
+        args.source_path, args.repo_root
+    )
 
     write_csv(review_dir / "review_decisions.csv", REVIEW_FIELDS, review_decisions)
     raw_review_sentence = (
@@ -1061,17 +1155,6 @@ def main() -> None:
         format_ranking_rows(insufficient),
     )
 
-    observed_contexts = [
-        context
-        for context in CONTEXTS
-        if any(row["battle_context"] == context for row in battles)
-    ]
-    focus_rows = build_focus_context_rows(
-        rankings,
-        identities,
-        args.focus_slug,
-        observed_contexts,
-    )
     if focus_rows:
         write_csv(
             analysis_dir / "focus_troop_contexts.csv",
@@ -1257,16 +1340,17 @@ def main() -> None:
             ]
         )
         for row in focus_rows:
-            displays_rates = int(row["deployed"]) >= args.minimum_deployed
-            kills_per_deployed = (
-                f"{row['kills_per_deployed']:.3f}"
-                if row["kills_per_deployed"] != "" and displays_rates
-                else "—"
+            kills_per_deployed = format_focus_rate(
+                row,
+                "kills_per_deployed",
+                args.minimum_battles,
+                args.minimum_deployed,
             )
-            casualty_rate = (
-                f"{row['casualty_rate']:.3f}"
-                if row["casualty_rate"] != "" and displays_rates
-                else "—"
+            casualty_rate = format_focus_rate(
+                row,
+                "casualty_rate",
+                args.minimum_battles,
+                args.minimum_deployed,
             )
             report_lines.append(
                 f"| {row['context']} | {row['display_name']} | "
@@ -1310,12 +1394,14 @@ def main() -> None:
         "`ranking_reliable.csv` applies the 5-battle / 20-deployed gate. "
         "`insufficient_evidence.csv` retains all rows that fail the gate. "
         "`canonical_identity_audit.csv` never treats provisional slugs as XML IDs.\n\n"
-        "The batch-level `../README.md` is preserved byte-for-byte as the immutable Phase 1 "
-        "snapshot. This directory records Phase 2 outputs; authoritative workflow state lives "
+        "The batch-level `../README.md` is git-frozen at the normalization commit as Phase 1 "
+        "metadata. This directory records Phase 2 outputs; authoritative workflow state lives "
         "in append-only protocol comments.\n\n"
         + (
             "`focus_troop_contexts.csv` records each requested focus troop separately for "
-            "every observed context, including explicit `not_observed` rows.\n\n"
+            "every observed context, including explicit `not_observed` rows. Machine-readable "
+            "diagnostic rates remain available with their evidence status; the report masks "
+            "rates unless the full display gate passes.\n\n"
             if focus_rows
             else ""
         )
@@ -1341,9 +1427,9 @@ def main() -> None:
         "PY\n"
         "python3 scripts/analysis/analyze_normalized_combat_batch.py \\\n"
         f"  --input-dir \"$work_dir/input/{args.input_dir.name}\" \\\n"
-        f"  --batch-dir \"$batch\" --repo-root . --identity-root {shlex.quote(str(args.identity_root.relative_to(args.repo_root)))} \\\n"
+        f"  --batch-dir \"$batch\" --repo-root . --identity-root {reproduction_identity_root} \\\n"
         + (
-            f"  --existing-identity-audit {shlex.quote(str(args.existing_identity_audit.relative_to(args.repo_root)))} \\\n"
+            f"  --existing-identity-audit {reproduction_existing_audit} \\\n"
             if args.existing_identity_audit
             else ""
         )
@@ -1352,7 +1438,7 @@ def main() -> None:
         "  --archive-path \"$archive\" \\\n"
         f"  --expected-source-sha256 {args.expected_source_sha256} \\\n"
         f"  --expected-source-size-bytes {args.expected_source_size_bytes} \\\n"
-        f"  --source-path \"$PWD/{args.source_path.relative_to(args.repo_root)}\" \\\n"
+        f"  --source-path {reproduction_source_path} \\\n"
         f"  --batch-id {args.batch_id} --track {args.track} \\\n"
         f"  --minimum-battles {args.minimum_battles} --minimum-deployed {args.minimum_deployed} \\\n"
         f"  --bootstrap-repetitions {args.bootstrap_repetitions} \\\n"
