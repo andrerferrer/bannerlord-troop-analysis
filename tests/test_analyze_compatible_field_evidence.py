@@ -204,6 +204,21 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
             battle_context="siege_attack",
         )
         config_path = self.write_config([baseline, current], "siege_attack")
+        analysis_dir = self.batch_dir / "analysis"
+        (analysis_dir / "context_coverage.csv").write_text(
+            "context,independent_battles,observed_labels,deployed,reliable_labels,"
+            "insufficient_labels,minimum_battles,minimum_deployed\n"
+            "field,1,2,158,0,2,5,20\n"
+            "siege_attack,2,1,10,0,1,5,20\n",
+            encoding="utf-8",
+        )
+        (analysis_dir / "focus_troop_contexts.csv").write_text(
+            "context,provisional_slug,independent_battles,deployed,reliability_status\n"
+            "field,ravens_teeth,0,0,not_observed\n"
+            "field,other_troop,1,158,insufficient_evidence\n"
+            "siege_attack,ravens_teeth,2,10,insufficient_evidence\n",
+            encoding="utf-8",
+        )
 
         result = module.run_analysis(
             config_path, self.root, self.batch_dir, self.identity_root
@@ -220,6 +235,13 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
             decision["decision"],
             "compatible_on_common_player_siege_attack_count_projection",
         )
+        report = (analysis_dir / "ANALYSIS_REPORT_siege_attack.md").read_text()
+        self.assertIn("current-batch siege attack display gate", report)
+        self.assertNotIn("current-batch field", report)
+        self.assertIn("Ravens' Teeth was not observed in `field`", report)
+        self.assertNotIn("158 deployed", report)
+        self.assertNotIn("Ravens' Teeth in `siege_attack`", report)
+        self.assertIn("`combined_battle_provenance_siege_attack.csv`", report)
 
     def test_real_archives_are_verified_joined_and_gated(self):
         baseline = self.make_source(
@@ -661,7 +683,14 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
             if row["cohort"] == "current"
         )
         expected_low, expected_high = module.base.bootstrap_interval(
-            [{"deployed": 5, "kills": kills} for kills in [1, 3, 5, 7, 9]],
+            [
+                {"battle_id": battle_id, "deployed": 5, "kills": kills}
+                for battle_id, kills in zip(
+                    ["b5", "b6", "b7", "b8", "b9"],
+                    [1, 3, 5, 7, 9],
+                    strict=True,
+                )
+            ],
             "current",
             "field",
             "ravens_teeth",
@@ -669,6 +698,25 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
         )
         self.assertEqual(comparison["ci95_low"], f"{expected_low:.6f}")
         self.assertEqual(comparison["ci95_high"], f"{expected_high:.6f}")
+
+    def test_bootstrap_interval_is_row_order_independent(self):
+        rows = [
+            {"battle_id": battle_id, "deployed": 5, "kills": kills}
+            for battle_id, kills in zip(
+                ["b5", "b6", "b7", "b8", "b9"],
+                [1, 3, 5, 7, 9],
+                strict=True,
+            )
+        ]
+
+        forward = module.base.bootstrap_interval(
+            rows, "current", "field", "ravens_teeth", 200
+        )
+        reversed_order = module.base.bootstrap_interval(
+            list(reversed(rows)), "current", "field", "ravens_teeth", 200
+        )
+
+        self.assertEqual(forward, reversed_order)
 
     def test_delta_names_the_actual_below_gate_cohort(self):
         baseline = self.make_source("baseline", "baseline", ["b0"], [5])

@@ -644,23 +644,25 @@ def delta_report_line(delta: dict[str, Any]) -> str:
     )
 
 
-def current_field_gate_line(
+def current_context_gate_line(
     focus_label: str,
     current: dict[str, Any],
     minimum_battles: int,
     minimum_deployed: int,
+    context: str,
 ) -> str:
+    context_label = context.replace("_", " ")
     evidence = (
         f"{current['independent_battles']} battles and {current['deployed']} deployed"
     )
     if current["reliability_status"] == "reliable":
         return (
-            f"- {focus_label} has enough current-batch field evidence to close the "
+            f"- {focus_label} has enough current-batch {context_label} evidence to close the "
             f"{minimum_battles}-battle / {minimum_deployed}-deployed display gate "
             f"({evidence})."
         )
     return (
-        f"- {focus_label} remains below the current-batch field display gate "
+        f"- {focus_label} remains below the current-batch {context_label} display gate "
         f"({evidence})."
     )
 
@@ -669,6 +671,8 @@ def current_context_report_lines(
     context_rows: list[dict[str, str]],
     focus_rows: list[dict[str, str]],
     focus_label: str,
+    focus_slug: str,
+    context: str,
 ) -> list[str]:
     if not context_rows:
         return []
@@ -691,7 +695,9 @@ def current_context_report_lines(
         )
     lines.append("")
     for row in focus_rows:
-        if row["context"] == "field":
+        if row.get("provisional_slug", focus_slug) != focus_slug:
+            continue
+        if row["context"] == context:
             continue
         battles = int(row["independent_battles"])
         battle_word = "battle" if battles == 1 else "battles"
@@ -826,11 +832,15 @@ def build_report(
         else "- Every observed label resolves to exactly one canonical ID."
     )
     delta_line = delta_report_line(delta)
-    field_gate_line = current_field_gate_line(
-        focus_label, current, minimum_battles, minimum_deployed
+    context_gate_line = current_context_gate_line(
+        focus_label, current, minimum_battles, minimum_deployed, context
     )
     context_lines = current_context_report_lines(
-        standalone_context_rows, standalone_focus_rows, focus_label
+        standalone_context_rows,
+        standalone_focus_rows,
+        focus_label,
+        focus_slug,
+        context,
     )
     outcome_counts = focus_outcome_counts(sources, focus_slug)
     outcome_line = (
@@ -910,7 +920,7 @@ def build_report(
             comparison_report_line("Baseline cohort", baseline),
             comparison_report_line("Current cohort", current),
             comparison_report_line("Compatible combined estimate", combined),
-            field_gate_line,
+            context_gate_line,
             delta_line,
             outcome_line,
             *context_lines,
@@ -940,7 +950,8 @@ def build_report(
             (
                 "- These are observational campaign results, confounded by battle outcome, army "
                 "composition, enemy composition, map, difficulty, and player choices. Battle-result "
-                "composition is preserved in `combined_battle_provenance.csv` rather than assumed."
+                "composition is preserved in "
+                f"`{contextual('combined_battle_provenance', '.csv')}` rather than assumed."
             ),
             (
                 "- Row visibility is partial, so total-army contribution, deployment share, and "
