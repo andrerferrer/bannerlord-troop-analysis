@@ -517,6 +517,43 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
         self.assertIn("Per-label standalone eligibility", report)
         self.assertNotIn("none can clear", report)
 
+    def test_report_preserves_standalone_context_boundaries(self):
+        baseline = self.make_source(
+            "baseline", "baseline", ["b0", "b1", "b2", "b3", "b4"], [5] * 5
+        )
+        current = self.make_source(
+            "current", "current", ["b5", "b6", "b7", "b8", "b9"], [10] * 5
+        )
+        config_path = self.write_config([baseline, current])
+        analysis_dir = self.batch_dir / "analysis"
+        (analysis_dir / "context_coverage.csv").write_text(
+            "context,independent_battles,observed_labels,deployed,reliable_labels,"
+            "insufficient_labels,minimum_battles,minimum_deployed\n"
+            "field,5,2,40,1,1,5,20\n"
+            "siege_attack,1,3,30,0,3,5,20\n"
+            "siege_defense,0,0,0,0,0,5,20\n",
+            encoding="utf-8",
+        )
+        (analysis_dir / "focus_troop_contexts.csv").write_text(
+            "context,independent_battles,deployed,reliability_status\n"
+            "field,5,25,reliable\n"
+            "siege_attack,1,20,insufficient_evidence\n",
+            encoding="utf-8",
+        )
+
+        module.run_analysis(config_path, self.root, self.batch_dir, self.identity_root)
+
+        report = (analysis_dir / "ANALYSIS_REPORT.md").read_text()
+        self.assertIn("## Current batch context coverage", report)
+        self.assertIn("| `siege_attack` | 1 | 3 | 30 | 0 | 3 |", report)
+        self.assertIn("| `siege_defense` | 0 | 0 | 0 | 0 | 0 |\n\n-", report)
+        self.assertIn(
+            "Ravens' Teeth in `siege_attack` remains below the display gate with "
+            "1 battle and 20 deployed",
+            report,
+        )
+        self.assertIn("No field and siege observations are pooled", report)
+
     def test_delta_names_the_actual_below_gate_cohort(self):
         baseline = self.make_source("baseline", "baseline", ["b0"], [5])
         current = self.make_source(
@@ -569,7 +606,38 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
         report = (self.batch_dir / "analysis" / "ANALYSIS_REPORT.md").read_text()
         self.assertIn("Current minus baseline: 1.000 kills/deployed", report)
         self.assertIn("95% battle bootstrap 1.000–1.000", report)
+        self.assertIn("interval excludes zero on the increase side", report)
         self.assertNotIn("No increase or decline is claimed", report)
+
+    def test_reliable_delta_crossing_zero_does_not_establish_direction(self):
+        baseline = self.make_source(
+            "baseline",
+            "baseline",
+            ["b1", "b2", "b3", "b4", "b5"],
+            [1, 1, 1, 1, 10],
+        )
+        current = self.make_source(
+            "current",
+            "current",
+            ["b6", "b7", "b8", "b9", "b10"],
+            [1, 1, 1, 1, 9],
+        )
+        config_path = self.write_config([baseline, current])
+
+        module.run_analysis(config_path, self.root, self.batch_dir, self.identity_root)
+
+        delta = json.loads(
+            (
+                self.batch_dir / "analysis" / "ravens_teeth_delta_uncertainty.json"
+            ).read_text()
+        )
+        self.assertLessEqual(delta["ci95_low"], 0)
+        self.assertGreaterEqual(delta["ci95_high"], 0)
+        report = (self.batch_dir / "analysis" / "ANALYSIS_REPORT.md").read_text()
+        self.assertIn(
+            "The interval crosses zero, so no increase or decline is established",
+            report,
+        )
 
 
 if __name__ == "__main__":

@@ -619,6 +619,95 @@ def comparison_report_line(label: str, row: dict[str, Any]) -> str:
     )
 
 
+def delta_report_line(delta: dict[str, Any]) -> str:
+    if delta["evidence_status"] != "reliable":
+        below_gate = ", ".join(delta["below_display_gate"])
+        return (
+            f"- The machine-readable delta remains `{delta['evidence_status']}`; "
+            f"below-gate cohorts: {below_gate}. No increase or decline is claimed."
+        )
+
+    if delta["ci95_low"] <= 0 <= delta["ci95_high"]:
+        direction = (
+            "The interval crosses zero, so no increase or decline is established."
+        )
+    elif delta["ci95_low"] > 0:
+        direction = "The interval excludes zero on the increase side."
+    else:
+        direction = "The interval excludes zero on the decline side."
+    return (
+        f"- Current minus baseline: {delta['point_estimate']:.3f} kills/deployed "
+        f"(95% battle bootstrap {delta['ci95_low']:.3f}–{delta['ci95_high']:.3f}). "
+        f"{direction} This is a descriptive cohort difference, not a causal estimate."
+    )
+
+
+def current_field_gate_line(
+    focus_label: str,
+    current: dict[str, Any],
+    minimum_battles: int,
+    minimum_deployed: int,
+) -> str:
+    evidence = (
+        f"{current['independent_battles']} battles and {current['deployed']} deployed"
+    )
+    if current["reliability_status"] == "reliable":
+        return (
+            f"- {focus_label} has enough current-batch field evidence to close the "
+            f"{minimum_battles}-battle / {minimum_deployed}-deployed display gate "
+            f"({evidence})."
+        )
+    return (
+        f"- {focus_label} remains below the current-batch field display gate "
+        f"({evidence})."
+    )
+
+
+def current_context_report_lines(
+    context_rows: list[dict[str, str]],
+    focus_rows: list[dict[str, str]],
+    focus_label: str,
+) -> list[str]:
+    if not context_rows:
+        return []
+
+    lines = [
+        "",
+        "## Current batch context coverage",
+        "",
+        (
+            "| Context | Battles | Visible labels | Deployed | Reliable labels | "
+            "Insufficient labels |"
+        ),
+        "|---|---:|---:|---:|---:|---:|",
+    ]
+    for row in context_rows:
+        lines.append(
+            f"| `{row['context']}` | {row['independent_battles']} | "
+            f"{row['observed_labels']} | {row['deployed']} | "
+            f"{row['reliable_labels']} | {row['insufficient_labels']} |"
+        )
+    lines.append("")
+    for row in focus_rows:
+        if row["context"] == "field":
+            continue
+        battles = int(row["independent_battles"])
+        battle_word = "battle" if battles == 1 else "battles"
+        if row["reliability_status"] == "reliable":
+            status = "passes the display gate"
+        else:
+            status = "remains below the display gate"
+        lines.append(
+            f"- {focus_label} in `{row['context']}` {status} with {battles} "
+            f"{battle_word} and {row['deployed']} deployed; no rate from another context "
+            "is substituted."
+        )
+    lines.append(
+        "- No field and siege observations are pooled; each context must pass its own gate."
+    )
+    return lines
+
+
 def build_report(
     config: dict[str, Any],
     sources: list[LoadedSource],
@@ -628,6 +717,8 @@ def build_report(
     comparisons: list[dict[str, Any]],
     delta: dict[str, Any],
     current_review_decisions: int | None,
+    standalone_context_rows: list[dict[str, str]],
+    standalone_focus_rows: list[dict[str, str]],
 ) -> str:
     context = str(config.get("context", "field"))
     context_label = context.replace("_", " ")
@@ -670,18 +761,13 @@ def build_report(
         if unresolved_slugs
         else "- Every observed label resolves to exactly one canonical ID."
     )
-    if delta["evidence_status"] == "reliable":
-        delta_report_line = (
-            f"- Current minus baseline: {delta['point_estimate']:.3f} kills/deployed "
-            f"(95% battle bootstrap {delta['ci95_low']:.3f}–{delta['ci95_high']:.3f}). "
-            "This is a descriptive cohort difference, not a causal estimate."
-        )
-    else:
-        below_gate = ", ".join(delta["below_display_gate"])
-        delta_report_line = (
-            f"- The machine-readable delta remains `{delta['evidence_status']}`; "
-            f"below-gate cohorts: {below_gate}. No increase or decline is claimed."
-        )
+    delta_line = delta_report_line(delta)
+    field_gate_line = current_field_gate_line(
+        focus_label, current, minimum_battles, minimum_deployed
+    )
+    context_lines = current_context_report_lines(
+        standalone_context_rows, standalone_focus_rows, focus_label
+    )
     lines = [
         f"# Phase 2 analysis — {config['analysis_id']}",
         "",
@@ -752,7 +838,9 @@ def build_report(
             comparison_report_line("Baseline cohort", baseline),
             comparison_report_line("Current cohort", current),
             comparison_report_line("Compatible combined estimate", combined),
-            delta_report_line,
+            field_gate_line,
+            delta_line,
+            *context_lines,
             "",
             "## Identity and completeness",
             "",
@@ -1148,6 +1236,14 @@ def write_metadata_outputs(
     current_review_decisions = standalone_validation.get("review", {}).get("decisions")
     if not isinstance(current_review_decisions, int):
         current_review_decisions = None
+    context_coverage_path = analysis_dir / "context_coverage.csv"
+    focus_contexts_path = analysis_dir / "focus_troop_contexts.csv"
+    standalone_context_rows = (
+        base.read_csv(context_coverage_path) if context_coverage_path.is_file() else []
+    )
+    standalone_focus_rows = (
+        base.read_csv(focus_contexts_path) if focus_contexts_path.is_file() else []
+    )
     compatibility = build_compatibility_decision(config, analysis.sources)
     context = str(config.get("context", "field"))
     focus_stem = safe_output_stem(str(config["focus_slug"]), "focus_slug")
@@ -1178,6 +1274,8 @@ def write_metadata_outputs(
             analysis.comparisons,
             analysis.delta,
             current_review_decisions,
+            standalone_context_rows,
+            standalone_focus_rows,
         ),
         encoding="utf-8",
     )
