@@ -960,9 +960,9 @@ def build_report(
             (
                 "- Raw PNGs for the current batch are not retained; "
                 + (
-                    f"its {current_review_decisions} field-level review decisions remain unresolved "
+                    f"its {current_review_decisions} batch-level review decisions remain unresolved "
                     if current_review_decisions is not None
-                    else "its field-level review decisions remain unresolved "
+                    else "its batch-level review decisions remain unresolved "
                 )
                 + "in the separate review layer."
             ),

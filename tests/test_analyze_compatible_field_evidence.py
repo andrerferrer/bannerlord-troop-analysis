@@ -219,6 +219,10 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
             "siege_attack,ravens_teeth,2,10,insufficient_evidence\n",
             encoding="utf-8",
         )
+        (analysis_dir / "validation_report.json").write_text(
+            '{"review": {"decisions": 11}, "status": "passed"}\n',
+            encoding="utf-8",
+        )
 
         result = module.run_analysis(
             config_path, self.root, self.batch_dir, self.identity_root
@@ -242,6 +246,8 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
         self.assertNotIn("158 deployed", report)
         self.assertNotIn("Ravens' Teeth in `siege_attack`", report)
         self.assertIn("`combined_battle_provenance_siege_attack.csv`", report)
+        self.assertIn("11 batch-level review decisions", report)
+        self.assertNotIn("field-level review decisions", report)
 
     def test_real_archives_are_verified_joined_and_gated(self):
         baseline = self.make_source(

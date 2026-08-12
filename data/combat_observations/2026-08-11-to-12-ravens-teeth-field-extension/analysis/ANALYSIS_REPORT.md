@@ -56,6 +56,6 @@ These are descriptive rates for visible player-side campaign rows. They are not 
 
 - These are observational campaign results, confounded by battle outcome, army composition, enemy composition, map, difficulty, and player choices. Battle-result composition is preserved in `combined_battle_provenance.csv` rather than assumed.
 - Row visibility is partial, so total-army contribution, deployment share, and off-screen performance cannot be calculated.
-- Raw PNGs for the current batch are not retained; its 11 field-level review decisions remain unresolved in the separate review layer.
+- Raw PNGs for the current batch are not retained; its 11 batch-level review decisions remain unresolved in the separate review layer.
 - The schema join across 1.1.0, 2.0.0 is deliberately narrow. It does not imply that every field is interchangeable.
 - No frozen model was changed or recalibrated.
