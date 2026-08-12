@@ -1,0 +1,27 @@
+{
+  "batch_id": "combat_2026-08-11_to_12_ravens_teeth_field_extension",
+  "battle_context_counts": {
+    "field": 6,
+    "siege_attack": 1
+  },
+  "battles": 7,
+  "duplicate_scoreboards_excluded": 1,
+  "game_track": "realm_of_thrones",
+  "game_version": "1.4.x",
+  "normalization_scope": "evidence_and_structural_normalization_only",
+  "observations": 210,
+  "primary_troop_occurrences": 82,
+  "review_queue": 11,
+  "schema_version": "2.0.0",
+  "screenshots": 8,
+  "source_kind": "host_exposed_screenshot_directory",
+  "source_retention_status": "not_retained_in_repository_hashes_recorded",
+  "source_sha256": "60e861aa3e0e3da7f60beb71f17813b8a25367e3975358e8385f67c972a19047",
+  "status": "normalized_pending_analysis",
+  "track_resolution": {
+    "evidence": [
+      "Ravens' Teeth, Blackwood, Riverlands, Westerlands, Clegane and Cornfield labels"
+    ],
+    "method": "track-specific visible faction and troop labels"
+  }
+}

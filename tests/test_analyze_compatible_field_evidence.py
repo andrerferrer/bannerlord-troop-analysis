@@ -45,6 +45,7 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
         validation_overrides=None,
         slug="ravens_teeth",
         battle_context="field",
+        results=None,
     ):
         display_name = (
             "Ravens' Teeth"
@@ -75,11 +76,16 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
                         "game_track": track,
                         "game_version": "1.4.x",
                         "player_side": "attacker",
+                        "result": result,
                     },
                     sort_keys=True,
                 )
                 + "\n"
-                for battle_id in battle_ids
+                for battle_id, result in zip(
+                    battle_ids,
+                    results or ["Victory"] * len(battle_ids),
+                    strict=True,
+                )
             ),
             "troop_battle_consolidated.jsonl": "".join(
                 json.dumps(
@@ -198,6 +204,25 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
             battle_context="siege_attack",
         )
         config_path = self.write_config([baseline, current], "siege_attack")
+        analysis_dir = self.batch_dir / "analysis"
+        (analysis_dir / "context_coverage.csv").write_text(
+            "context,independent_battles,observed_labels,deployed,reliable_labels,"
+            "insufficient_labels,minimum_battles,minimum_deployed\n"
+            "field,1,2,158,0,2,5,20\n"
+            "siege_attack,2,1,10,0,1,5,20\n",
+            encoding="utf-8",
+        )
+        (analysis_dir / "focus_troop_contexts.csv").write_text(
+            "context,provisional_slug,independent_battles,deployed,reliability_status\n"
+            "field,ravens_teeth,0,0,not_observed\n"
+            "field,other_troop,1,158,insufficient_evidence\n"
+            "siege_attack,ravens_teeth,2,10,insufficient_evidence\n",
+            encoding="utf-8",
+        )
+        (analysis_dir / "validation_report.json").write_text(
+            '{"review": {"decisions": 11}, "status": "passed"}\n',
+            encoding="utf-8",
+        )
 
         result = module.run_analysis(
             config_path, self.root, self.batch_dir, self.identity_root
@@ -206,9 +231,7 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
         self.assertEqual(result["reliable_rows"], 1)
         decision = json.loads(
             (
-                self.batch_dir
-                / "analysis"
-                / "compatibility_decision_siege_attack.json"
+                self.batch_dir / "analysis" / "compatibility_decision_siege_attack.json"
             ).read_text()
         )
         self.assertEqual(decision["context"], "siege_attack")
@@ -216,6 +239,15 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
             decision["decision"],
             "compatible_on_common_player_siege_attack_count_projection",
         )
+        report = (analysis_dir / "ANALYSIS_REPORT_siege_attack.md").read_text()
+        self.assertIn("current-batch siege attack display gate", report)
+        self.assertNotIn("current-batch field", report)
+        self.assertIn("Ravens' Teeth was not observed in `field`", report)
+        self.assertNotIn("158 deployed", report)
+        self.assertNotIn("Ravens' Teeth in `siege_attack`", report)
+        self.assertIn("`combined_battle_provenance_siege_attack.csv`", report)
+        self.assertIn("11 batch-level review decisions", report)
+        self.assertNotIn("field-level review decisions", report)
 
     def test_real_archives_are_verified_joined_and_gated(self):
         baseline = self.make_source(
@@ -517,6 +549,181 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
         self.assertIn("Per-label standalone eligibility", report)
         self.assertNotIn("none can clear", report)
 
+    def test_report_preserves_standalone_context_boundaries(self):
+        baseline = self.make_source(
+            "baseline", "baseline", ["b0", "b1", "b2", "b3", "b4"], [5] * 5
+        )
+        current = self.make_source(
+            "current", "current", ["b5", "b6", "b7", "b8", "b9"], [10] * 5
+        )
+        config_path = self.write_config([baseline, current])
+        analysis_dir = self.batch_dir / "analysis"
+        (analysis_dir / "context_coverage.csv").write_text(
+            "context,independent_battles,observed_labels,deployed,reliable_labels,"
+            "insufficient_labels,minimum_battles,minimum_deployed\n"
+            "field,5,2,40,1,1,5,20\n"
+            "siege_attack,1,3,30,0,3,5,20\n"
+            "siege_defense,0,0,0,0,0,5,20\n",
+            encoding="utf-8",
+        )
+        (analysis_dir / "focus_troop_contexts.csv").write_text(
+            "context,independent_battles,deployed,reliability_status\n"
+            "field,5,25,reliable\n"
+            "siege_attack,1,20,insufficient_evidence\n",
+            encoding="utf-8",
+        )
+
+        module.run_analysis(config_path, self.root, self.batch_dir, self.identity_root)
+
+        report = (analysis_dir / "ANALYSIS_REPORT.md").read_text()
+        self.assertIn("## Current batch context coverage", report)
+        self.assertIn("| `siege_attack` | 1 | 3 | 30 | 0 | 3 |", report)
+        self.assertIn("| `siege_defense` | 0 | 0 | 0 | 0 | 0 |\n\n-", report)
+        self.assertIn(
+            "Ravens' Teeth in `siege_attack` remains below the display gate with "
+            "1 battle and 20 deployed",
+            report,
+        )
+        self.assertIn("No field and siege observations are pooled", report)
+
+    def test_report_distinguishes_not_observed_context(self):
+        baseline = self.make_source(
+            "baseline", "baseline", ["b0", "b1", "b2", "b3", "b4"], [5] * 5
+        )
+        current = self.make_source(
+            "current", "current", ["b5", "b6", "b7", "b8", "b9"], [10] * 5
+        )
+        config_path = self.write_config([baseline, current])
+        analysis_dir = self.batch_dir / "analysis"
+        (analysis_dir / "context_coverage.csv").write_text(
+            "context,independent_battles,observed_labels,deployed,reliable_labels,"
+            "insufficient_labels,minimum_battles,minimum_deployed\n"
+            "field,5,1,25,1,0,5,20\n"
+            "siege_defense,1,2,30,0,2,5,20\n",
+            encoding="utf-8",
+        )
+        (analysis_dir / "focus_troop_contexts.csv").write_text(
+            "context,independent_battles,deployed,reliability_status\n"
+            "field,5,25,reliable\n"
+            "siege_defense,0,0,not_observed\n",
+            encoding="utf-8",
+        )
+
+        module.run_analysis(config_path, self.root, self.batch_dir, self.identity_root)
+
+        report = (analysis_dir / "ANALYSIS_REPORT.md").read_text()
+        self.assertIn(
+            "Ravens' Teeth was not observed in `siege_defense`; no rate from another "
+            "context is substituted",
+            report,
+        )
+        self.assertNotIn("`siege_defense` remains below", report)
+
+    def test_standalone_context_gate_must_match_combined_config(self):
+        baseline = self.make_source("baseline", "baseline", ["b0"], [5])
+        current = self.make_source("current", "current", ["b1"], [10])
+        config_path = self.write_config([baseline, current])
+        analysis_dir = self.batch_dir / "analysis"
+        (analysis_dir / "context_coverage.csv").write_text(
+            "context,independent_battles,observed_labels,deployed,reliable_labels,"
+            "insufficient_labels,minimum_battles,minimum_deployed\n"
+            "field,1,1,5,0,1,3,20\n",
+            encoding="utf-8",
+        )
+
+        with self.assertRaisesRegex(ValueError, "standalone context gate mismatch"):
+            module.run_analysis(
+                config_path, self.root, self.batch_dir, self.identity_root
+            )
+
+    def test_outcome_composition_is_preserved_and_disclosed(self):
+        baseline = self.make_source(
+            "baseline",
+            "baseline",
+            ["b0", "b1", "b2", "b3", "b4"],
+            [5] * 5,
+        )
+        current = self.make_source(
+            "current",
+            "current",
+            ["b5", "b6", "b7", "b8", "b9"],
+            [10] * 5,
+            results=["Victory", "Victory", "Victory", "Victory", "Defeat"],
+        )
+        config_path = self.write_config([baseline, current])
+
+        module.run_analysis(config_path, self.root, self.batch_dir, self.identity_root)
+
+        analysis_dir = self.batch_dir / "analysis"
+        provenance = module.base.read_csv(
+            analysis_dir / "combined_battle_provenance.csv"
+        )
+        self.assertEqual(
+            [row["result"] for row in provenance if row["cohort"] == "current"],
+            ["Victory", "Victory", "Victory", "Victory", "Defeat"],
+        )
+        report = (analysis_dir / "ANALYSIS_REPORT.md").read_text()
+        self.assertIn(
+            "baseline 5 Victory; current 4 Victory, 1 Defeat; combined 9 Victory, 1 Defeat",
+            report,
+        )
+        self.assertIn("cohort contrast is outcome-confounded", report)
+        self.assertNotIn("victory-only", report)
+
+    def test_single_source_current_interval_matches_standalone_seed(self):
+        baseline = self.make_source(
+            "baseline", "baseline", ["b0", "b1", "b2", "b3", "b4"], [5] * 5
+        )
+        current = self.make_source(
+            "current", "current", ["b5", "b6", "b7", "b8", "b9"], [1, 3, 5, 7, 9]
+        )
+        config_path = self.write_config([baseline, current])
+
+        module.run_analysis(config_path, self.root, self.batch_dir, self.identity_root)
+
+        comparison = next(
+            row
+            for row in module.base.read_csv(
+                self.batch_dir / "analysis" / "ravens_teeth_comparison.csv"
+            )
+            if row["cohort"] == "current"
+        )
+        expected_low, expected_high = module.base.bootstrap_interval(
+            [
+                {"battle_id": battle_id, "deployed": 5, "kills": kills}
+                for battle_id, kills in zip(
+                    ["b5", "b6", "b7", "b8", "b9"],
+                    [1, 3, 5, 7, 9],
+                    strict=True,
+                )
+            ],
+            "current",
+            "field",
+            "ravens_teeth",
+            200,
+        )
+        self.assertEqual(comparison["ci95_low"], f"{expected_low:.6f}")
+        self.assertEqual(comparison["ci95_high"], f"{expected_high:.6f}")
+
+    def test_bootstrap_interval_is_row_order_independent(self):
+        rows = [
+            {"battle_id": battle_id, "deployed": 5, "kills": kills}
+            for battle_id, kills in zip(
+                ["b5", "b6", "b7", "b8", "b9"],
+                [1, 3, 5, 7, 9],
+                strict=True,
+            )
+        ]
+
+        forward = module.base.bootstrap_interval(
+            rows, "current", "field", "ravens_teeth", 200
+        )
+        reversed_order = module.base.bootstrap_interval(
+            list(reversed(rows)), "current", "field", "ravens_teeth", 200
+        )
+
+        self.assertEqual(forward, reversed_order)
+
     def test_delta_names_the_actual_below_gate_cohort(self):
         baseline = self.make_source("baseline", "baseline", ["b0"], [5])
         current = self.make_source(
@@ -569,7 +776,38 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
         report = (self.batch_dir / "analysis" / "ANALYSIS_REPORT.md").read_text()
         self.assertIn("Current minus baseline: 1.000 kills/deployed", report)
         self.assertIn("95% battle bootstrap 1.000–1.000", report)
+        self.assertIn("interval excludes zero on the increase side", report)
         self.assertNotIn("No increase or decline is claimed", report)
+
+    def test_reliable_delta_crossing_zero_does_not_establish_direction(self):
+        baseline = self.make_source(
+            "baseline",
+            "baseline",
+            ["b1", "b2", "b3", "b4", "b5"],
+            [1, 1, 1, 1, 10],
+        )
+        current = self.make_source(
+            "current",
+            "current",
+            ["b6", "b7", "b8", "b9", "b10"],
+            [1, 1, 1, 1, 9],
+        )
+        config_path = self.write_config([baseline, current])
+
+        module.run_analysis(config_path, self.root, self.batch_dir, self.identity_root)
+
+        delta = json.loads(
+            (
+                self.batch_dir / "analysis" / "ravens_teeth_delta_uncertainty.json"
+            ).read_text()
+        )
+        self.assertLessEqual(delta["ci95_low"], 0)
+        self.assertGreaterEqual(delta["ci95_high"], 0)
+        report = (self.batch_dir / "analysis" / "ANALYSIS_REPORT.md").read_text()
+        self.assertIn(
+            "The interval crosses zero, so no increase or decline is established",
+            report,
+        )
 
 
 if __name__ == "__main__":

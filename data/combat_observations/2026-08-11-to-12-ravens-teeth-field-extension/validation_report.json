@@ -1,0 +1,34 @@
+{
+  "battle_context_counts": {
+    "field": 6,
+    "siege_attack": 1
+  },
+  "battle_count": 7,
+  "context_boundaries_preserved": true,
+  "duplicate_scoreboards_excluded": 1,
+  "image_count": 8,
+  "known_limitations": [
+    "Only screenshot-visible rows are normalized; off-screen rows are not inferred.",
+    "The 23:23:14 and 23:23:15 PNGs differ at byte/pixel level but show the same 03m:37s scoreboard and totals; the later capture contributes no duplicate observations.",
+    "Six field battles and one siege-attack battle remain separate.",
+    "Every scoreboard has partial row visibility; whole-army contribution/share metrics cannot be derived.",
+    "White level-up icons remain explicit review items.",
+    "Raw PNGs are not retained in Git; filenames, sizes, per-image SHA-256 values, and the deterministic directory hash are recorded."
+  ],
+  "observation_count": 210,
+  "offscreen_rows_inferred": false,
+  "primary_troop_occurrences": 82,
+  "review_queue_count": 11,
+  "schema_version": "2.0.0",
+  "sides_pooled": false,
+  "source_sha256": "60e861aa3e0e3da7f60beb71f17813b8a25367e3975358e8385f67c972a19047",
+  "source_size_bytes": 16772247,
+  "status": "passed",
+  "track_resolution": {
+    "evidence": [
+      "Ravens' Teeth, Blackwood, Riverlands, Westerlands, Clegane and Cornfield labels"
+    ],
+    "method": "track-specific visible faction and troop labels"
+  },
+  "validation_errors": []
+}

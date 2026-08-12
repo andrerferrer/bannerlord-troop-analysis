@@ -1,0 +1,49 @@
+context,rank,display_name,provisional_slug,canonical_troop_id,identity_status,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,ci95_low,ci95_high,reliability_status
+field,1,Blackwood Scout [T4],blackwood_scout,blackwood_scout,confirmed_id,1,1,1,3,0,0,0,3.000000,0.000000,0.000000,,,insufficient_evidence
+field,2,Mallister Horseman [T4],mallister_horseman,mallister_rider,confirmed_id,1,1,1,3,0,0,0,3.000000,0.000000,0.000000,,,insufficient_evidence
+field,3,Riverlands Pikeman [T5],riverlands_pikeman,river_pikeman,confirmed_id,1,1,0,3,1,0,0,3.000000,1.000000,1.000000,,,insufficient_evidence
+field,4,Riverlands Swordsman [T3],riverlands_swordsman,river_swordsman,confirmed_id,1,1,1,3,0,0,0,3.000000,0.000000,0.000000,,,insufficient_evidence
+field,5,Guardian of the Rock [T6],guardian_of_the_rock,casterly_guardian,confirmed_id,1,2,2,5,0,0,0,2.500000,0.000000,0.000000,,,insufficient_evidence
+field,7,Riverlands Swordmaster [T5],riverlands_swordmaster,river_swordmaster,confirmed_id,4,8,2,17,4,2,0,2.125000,0.500000,0.750000,,,insufficient_evidence
+field,8,Northern Soldier [T2],northern_soldier,,unresolved,1,2,0,4,0,2,0,2.000000,0.000000,1.000000,,,insufficient_evidence
+field,9,Lannister Knight [T5],lannister_knight,lannister_knight,confirmed_id,1,1,1,2,0,0,0,2.000000,0.000000,0.000000,,,insufficient_evidence
+field,10,Westerlands Scout [T4],westerlands_scout,,unresolved,2,5,3,9,0,2,0,1.800000,0.000000,0.400000,,,insufficient_evidence
+field,11,Riverlands Horseman [T4],riverlands_horseman,river_horseman,confirmed_id,2,8,5,13,0,3,0,1.625000,0.000000,0.375000,,,insufficient_evidence
+field,12,Westerlands Swordsman [T4],westerlands_swordsman,,unresolved,1,6,1,9,1,4,0,1.500000,0.166667,0.833333,,,insufficient_evidence
+field,13,Riverrun Captain [T6],riverrun_captain,riverrun_captain,confirmed_id,3,4,4,6,0,0,0,1.500000,0.000000,0.000000,,,insufficient_evidence
+field,14,Northern Hero [T4],northern_hero,,unresolved,1,2,2,3,0,0,0,1.500000,0.000000,0.000000,,,insufficient_evidence
+field,16,Frey Sharpshooter [T5],frey_sharpshooter,frey_sharpshooter,confirmed_id,3,15,14,21,0,1,0,1.400000,0.000000,0.066667,,,insufficient_evidence
+field,17,Northern Mounted Warlord [T6],northern_mounted_warlord,,unresolved,3,15,14,21,0,1,0,1.400000,0.000000,0.066667,,,insufficient_evidence
+field,18,Blackwood Levy [T2],blackwood_levy,blackwood_levy,confirmed_id,1,3,1,4,1,1,0,1.333333,0.333333,0.666667,,,insufficient_evidence
+field,19,Riverlands Soldier [T3],riverlands_soldier,river_soldier,confirmed_id,1,3,3,4,0,0,0,1.333333,0.000000,0.000000,,,insufficient_evidence
+field,21,Northern Colonel [T5],northern_colonel,,unresolved,4,20,14,26,3,3,0,1.300000,0.150000,0.300000,,,insufficient_evidence
+field,22,Riverlands Footman [T2],riverlands_footman,river_footman,confirmed_id,2,7,5,9,0,2,0,1.285714,0.000000,0.285714,,,insufficient_evidence
+field,23,Riverlands Elite Swordsman [T4],riverlands_elite_swordsman,river_elite_swordsman,confirmed_id,2,8,2,10,2,4,0,1.250000,0.250000,0.750000,,,insufficient_evidence
+field,24,Westerlands Sharpshooter [T5],westerlands_sharpshooter,,unresolved,3,12,8,12,0,4,0,1.000000,0.000000,0.333333,,,insufficient_evidence
+field,25,Riverlands House Guard [T5],riverlands_house_guard,river_houseguard,confirmed_id,2,5,5,5,0,0,0,1.000000,0.000000,0.000000,,,insufficient_evidence
+field,26,Westerlands Militia Spearman [T2],westerlands_militia_spearman,,unresolved,1,3,3,3,0,0,0,1.000000,0.000000,0.000000,,,insufficient_evidence
+field,27,Riverlands Elite Archer [T4],riverlands_elite_archer,river_elite_archer,confirmed_id,1,2,2,2,0,0,0,1.000000,0.000000,0.000000,,,insufficient_evidence
+field,28,Riverlord's Son [T2],riverlord_s_son,river_noble_recruit,confirmed_id,1,2,2,2,0,0,0,1.000000,0.000000,0.000000,,,insufficient_evidence
+field,29,Tully House Guard [T5],tully_house_guard,tully_houseguard,confirmed_id,2,2,1,2,0,1,0,1.000000,0.000000,0.500000,,,insufficient_evidence
+field,30,Westerlands Noble Youth [T2],westerlands_noble_youth,,unresolved,1,2,2,2,0,0,0,1.000000,0.000000,0.000000,,,insufficient_evidence
+field,31,Lannister Longbowman [T5],lannister_longbowman,lannister_longbowman,confirmed_id,1,1,1,1,0,0,0,1.000000,0.000000,0.000000,,,insufficient_evidence
+field,32,Northern Sergeant [T4],northern_sergeant,,unresolved,1,1,1,1,0,0,0,1.000000,0.000000,0.000000,,,insufficient_evidence
+field,34,Blackwood Horseman [T5],blackwood_horseman,blackwood_horseman,confirmed_id,4,21,18,20,1,2,0,0.952381,0.047619,0.142857,,,insufficient_evidence
+field,35,Frey Assassin [T6],frey_assassin,frey_assassin,confirmed_id,4,64,60,58,1,3,0,0.906250,0.015625,0.062500,,,insufficient_evidence
+field,38,Westerlands Horseman [T5],westerlands_horseman,,unresolved,2,8,4,7,4,0,0,0.875000,0.500000,0.500000,,,insufficient_evidence
+field,40,Riverlands Recruit [T1],riverlands_recruit,river_recruit,confirmed_id,1,6,1,5,0,5,0,0.833333,0.000000,0.833333,,,insufficient_evidence
+field,42,Northern Horseman [T5],northern_horseman,,unresolved,2,9,8,7,0,1,0,0.777778,0.000000,0.111111,,,insufficient_evidence
+field,43,Mallister Eagle Knight [T6],mallister_eagle_knight,mallister_knight,confirmed_id,4,53,45,40,1,7,0,0.754717,0.018868,0.150943,,,insufficient_evidence
+field,44,Frey Veteran Crossbowman [T4],frey_veteran_crossbowman,frey_veteran_crossbowman,confirmed_id,3,12,12,9,0,0,0,0.750000,0.000000,0.000000,,,insufficient_evidence
+field,45,Blackwood Bowman [T3],blackwood_bowman,blackwood_bowman,confirmed_id,4,83,80,58,1,2,0,0.698795,0.012048,0.036145,,,insufficient_evidence
+field,46,Mallister Man at Arms [T4],mallister_man_at_arms,mallister_man_at_arms,confirmed_id,2,62,47,42,4,11,0,0.677419,0.064516,0.241935,,,insufficient_evidence
+field,47,Northern Ranger [T5],northern_ranger,,unresolved,1,3,2,2,0,1,0,0.666667,0.000000,0.333333,,,insufficient_evidence
+field,48,Westerlands Infantry [T3],westerlands_infantry,,unresolved,3,61,39,37,2,20,0,0.606557,0.032787,0.360656,,,insufficient_evidence
+field,49,Westerlands Recruit [T1],westerlands_recruit,,unresolved,2,23,12,13,0,11,0,0.565217,0.000000,0.478261,,,insufficient_evidence
+field,51,Mallister Elite Archer [T5],mallister_elite_archer,mallister_elite_archer,confirmed_id,4,135,132,73,2,1,0,0.540741,0.014815,0.022222,,,insufficient_evidence
+field,53,Westerlands Footman [T2],westerlands_footman,,unresolved,3,94,76,40,3,15,0,0.425532,0.031915,0.191489,,,insufficient_evidence
+field,54,Riverlands Man at Arms [T4],riverlands_man_at_arms,river_man_at_arms,confirmed_id,2,19,6,7,2,11,0,0.368421,0.105263,0.684211,,,insufficient_evidence
+field,55,Westerlands Skirmisher [T5],westerlands_skirmisher,,unresolved,3,72,44,24,5,23,0,0.333333,0.069444,0.388889,,,insufficient_evidence
+field,56,Westerlands Duelist [T5],westerlands_duelist,,unresolved,3,71,35,23,3,33,0,0.323944,0.042254,0.507042,,,insufficient_evidence
+field,57,Guard of the Crossing [T5],guard_of_the_crossing,guard_of_the_crossing,confirmed_id,4,61,57,19,1,3,0,0.311475,0.016393,0.065574,,,insufficient_evidence
+field,58,Mallister Footman [T3],mallister_footman,mallister_footman,confirmed_id,1,29,15,3,3,11,0,0.103448,0.103448,0.482759,,,insufficient_evidence

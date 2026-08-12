@@ -1,0 +1,5 @@
+context,rank,display_name,provisional_slug,canonical_troop_id,identity_status,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,ci95_low,ci95_high,reliability_status
+field,1,Ravens' Teeth [T6],ravens_teeth,ravens_teeth,confirmed_id,6,685,574,1264,22,89,0,1.845255,0.032117,0.162044,1.412446,2.290560,reliable
+field,2,Westerlands Banner Knight [T6],westerlands_banner_knight,,unresolved,5,30,18,27,1,11,0,0.900000,0.033333,0.400000,0.153846,1.722222,reliable
+field,3,Riverlands Cavalry [T5],riverlands_cavalry,river_calvary,confirmed_id,6,40,22,33,3,15,0,0.825000,0.075000,0.450000,0.333333,1.636364,reliable
+field,4,Blackwood House Guard [T5],blackwood_house_guard,blackwood_houseguard,confirmed_id,5,43,29,29,0,14,0,0.674419,0.000000,0.325581,0.365854,0.955556,reliable

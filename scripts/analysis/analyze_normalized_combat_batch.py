@@ -747,9 +747,19 @@ def bootstrap_interval(
     seed_text = f"{batch_id}|{context}|{slug}|{repetitions}"
     seed = int(hashlib.sha256(seed_text.encode()).hexdigest()[:16], 16)
     rng = random.Random(seed)
+    ordered_rows = sorted(
+        rows,
+        key=lambda row: (
+            str(row.get("battle_id", "")),
+            str(row.get("display_name_normalized", "")),
+        ),
+    )
     samples: list[float] = []
     for _ in range(repetitions):
-        sample = [rows[rng.randrange(len(rows))] for _ in rows]
+        sample = [
+            ordered_rows[rng.randrange(len(ordered_rows))]
+            for _ in ordered_rows
+        ]
         deployed = sum(int(row["deployed"]) for row in sample)
         kills = sum(int(row["kills"]) for row in sample)
         samples.append(kills / deployed if deployed else 0.0)
