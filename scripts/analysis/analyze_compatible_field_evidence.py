@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Join compatible normalized field batches without mutating their evidence."""
+"""Join compatible normalized context batches without mutating their evidence."""
 
 from __future__ import annotations
 
@@ -148,6 +148,12 @@ def safe_output_stem(value: str, label: str = "output stem") -> str:
     if not re.fullmatch(r"[a-z0-9][a-z0-9_-]*", value):
         raise ValueError(f"invalid {label}: {value}")
     return value
+
+
+def contextual_output_name(stem: str, context: str, suffix: str) -> str:
+    """Keep legacy field names while isolating additional context outputs."""
+    safe_context = safe_output_stem(context, "context")
+    return f"{stem}{'' if safe_context == 'field' else '_' + safe_context}{suffix}"
 
 
 def decode_ordered_archive(parts: list[Path], destination: Path) -> None:
@@ -327,12 +333,79 @@ def validate_field_projection(
     return field_battles, field_rows
 
 
+def validate_context_projection(
+    spec: SourceSpec,
+    battles: list[dict[str, Any]],
+    rows: list[dict[str, Any]],
+    track: str,
+    game_version: str,
+    context: str,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Validate one configured context; keep the field wrapper for compatibility."""
+    if context == "field":
+        return validate_field_projection(spec, battles, rows, track, game_version)
+    if context not in base.CONTEXTS:
+        raise ValueError(f"unsupported battle context: {context}")
+
+    context_battles = [
+        row for row in battles if row.get("battle_context") == context
+    ]
+    if not context_battles:
+        raise ValueError(f"{spec.batch_id}: no {context} battles")
+    battle_ids = {str(row.get("battle_id", "")) for row in context_battles}
+    if "" in battle_ids or len(battle_ids) != len(context_battles):
+        raise ValueError(
+            f"{spec.batch_id}: {context} battle IDs are blank or duplicated"
+        )
+    for battle in context_battles:
+        if (
+            battle.get("game_track") != track
+            or battle.get("game_version") != game_version
+        ):
+            raise ValueError(
+                f"{spec.batch_id}: {context} track/version boundary mismatch"
+            )
+        if battle.get("player_side") not in {"attacker", "defender"}:
+            raise ValueError(f"{spec.batch_id}: unresolved player side")
+
+    context_rows = [row for row in rows if row.get("battle_context") == context]
+    row_keys: set[tuple[str, str]] = set()
+    for row in context_rows:
+        missing = [field for field in COMMON_FIELD_PROJECTION if field not in row]
+        if missing:
+            raise ValueError(f"{spec.batch_id}: projection fields missing: {missing}")
+        battle_id = str(row["battle_id"])
+        slug = str(row["display_name_normalized"])
+        key = (battle_id, slug)
+        if battle_id not in battle_ids or not slug or key in row_keys:
+            raise ValueError(f"{spec.batch_id}: invalid {context} row key: {key}")
+        row_keys.add(key)
+        if row["needs_review"]:
+            raise ValueError(
+                f"{spec.batch_id}: review-needed row entered projection: {key}"
+            )
+        if row.get("game_track", track) != track:
+            raise ValueError(f"{spec.batch_id}: row track boundary mismatch: {key}")
+        counts = [row.get(field) for field in base.COUNT_FIELDS]
+        if not all(isinstance(value, int) and value >= 0 for value in counts):
+            raise ValueError(f"{spec.batch_id}: invalid counts: {key}")
+        if row["deployed"] <= 0:
+            raise ValueError(f"{spec.batch_id}: non-positive deployed count: {key}")
+        accounted = sum(
+            row[field] for field in ("survivors", "deaths", "wounded", "routed")
+        )
+        if accounted != row["deployed"]:
+            raise ValueError(f"{spec.batch_id}: casualty arithmetic mismatch: {key}")
+    return context_battles, context_rows
+
+
 def load_source(
     repo_root: Path,
     temporary_root: Path,
     spec: SourceSpec,
     track: str,
     game_version: str,
+    context: str = "field",
 ) -> LoadedSource:
     batch_path = path_below(repo_root, spec.batch_path, "batch_path")
     archive_parts = sorted(
@@ -367,8 +440,8 @@ def load_source(
     rows = base.read_jsonl(
         path_below(extraction_root, spec.consolidated_path, "consolidated_path")
     )
-    field_battles, field_rows = validate_field_projection(
-        spec, battles, rows, track, game_version
+    field_battles, field_rows = validate_context_projection(
+        spec, battles, rows, track, game_version, context
     )
     verification = {
         "batch_id": spec.batch_id,
@@ -418,6 +491,7 @@ def comparison_row(
     minimum_battles: int,
     minimum_deployed: int,
     repetitions: int,
+    context: str = "field",
 ) -> dict[str, Any]:
     counts = {
         field: sum(int(row[field]) for row in rows) for field in base.COUNT_FIELDS
@@ -431,7 +505,7 @@ def comparison_row(
             analysis_id if cohort == "combined" else f"{analysis_id}|{cohort}"
         )
         low, high = base.bootstrap_interval(
-            rows, bootstrap_batch_id, "field", focus_slug, repetitions
+            rows, bootstrap_batch_id, context, focus_slug, repetitions
         )
     deployed = counts["deployed"]
     return {
@@ -555,6 +629,9 @@ def build_report(
     delta: dict[str, Any],
     current_review_decisions: int | None,
 ) -> str:
+    context = str(config.get("context", "field"))
+    context_label = context.replace("_", " ")
+    contextual = lambda stem, suffix: contextual_output_name(stem, context, suffix)
     minimum_battles = int(config["minimum_battles"])
     minimum_deployed = int(config["minimum_deployed"])
     baseline, current, combined = comparisons
@@ -612,7 +689,7 @@ def build_report(
         "",
         (
             f"All {len(sources)} normalized archive hashes and internal manifests passed, as did "
-            "the common field projection's track, version, context, and row-arithmetic checks. "
+            f"the common {context_label} projection's track, version, context, and row-arithmetic checks. "
             f"The {schema_versions_text} "
             "normalized schemas are joined "
             "only through their shared player-side ordinary-troop count fields; upgrade icons and "
@@ -627,10 +704,10 @@ def build_report(
         "",
         (
             f"The current cohort alone has {current_battles} "
-            "independent field battles "
+            f"independent {context_label} battles "
             f"and {len(current_labels)} visible ordinary-troop labels. {current_gate_statement} "
             "Across the compatible evidence there "
-            f"are {sum(len(source.field_battles) for source in sources)} distinct field battles, "
+            f"are {sum(len(source.field_battles) for source in sources)} distinct {context_label} battles, "
             f"{len(reliable)} reliable rows, and {len(rankings) - len(reliable)} insufficient rows "
             f"under the {minimum_battles}-battle / {minimum_deployed}-deployed rule."
         ),
@@ -640,7 +717,7 @@ def build_report(
             "intrinsic-strength tier list, universal score, or causal estimate."
         ),
         "",
-        "## Reliable combined field ranking",
+        f"## Reliable combined {context_label} ranking",
         "",
     ]
     if reliable:
@@ -685,14 +762,16 @@ def build_report(
             ),
             unresolved_identity_line,
             (
-                "- `combined_ranking_complete.csv` retains every observed field label; "
-                "`combined_ranking_reliable.csv` and `combined_insufficient_evidence.csv` split it "
+                f"- `{contextual('combined_ranking_complete', '.csv')}` retains every observed {context_label} label; "
+                f"`{contextual('combined_ranking_reliable', '.csv')}` and "
+                f"`{contextual('combined_insufficient_evidence', '.csv')}` split it "
                 "without dropping low-sample rows."
             ),
             (
-                "- Rows marked for review and non-field battles are rejected from the projection. "
+                f"- Rows marked for review and non-{context_label} battles are rejected from the projection. "
                 "Where historical validation reports omit explicit side, hero, or off-screen flags, "
-                "that missing verification is preserved in `compatibility_decision.json`."
+                "that missing verification is preserved in "
+                f"`{contextual('compatibility_decision', '.json')}`."
             ),
             "",
             "## Limitations",
@@ -725,14 +804,17 @@ def build_report(
 
 
 def update_readme(path: Path, config_path: Path, repo_root: Path) -> None:
-    marker = "## Compatible combined field evidence"
+    config = base.read_json_object(config_path)
+    context = str(config.get("context", "field"))
+    context_label = context.replace("_", " ")
+    marker = f"## Compatible combined {context_label} evidence"
     existing = path.read_text(encoding="utf-8")
     prefix = existing.split(marker, maxsplit=1)[0].rstrip()
     relative_config = config_path.relative_to(repo_root)
     addition = (
         f"{marker}\n\n"
         "After reproducing the standalone analysis above, regenerate the compatible source-batch "
-        "field projection with:\n\n"
+        f"{context_label} projection with:\n\n"
         "```bash\n"
         "python3 scripts/analysis/analyze_compatible_field_evidence.py \\\n"
         f"  --config {relative_config} \\\n"
@@ -749,11 +831,12 @@ def load_all_sources(
     specs: list[SourceSpec],
     track: str,
     game_version: str,
+    context: str = "field",
 ) -> list[LoadedSource]:
     with tempfile.TemporaryDirectory(prefix="bannerlord-compatible-field-") as raw_temp:
         temporary_root = Path(raw_temp)
         return [
-            load_source(repo_root, temporary_root, spec, track, game_version)
+            load_source(repo_root, temporary_root, spec, track, game_version, context)
             for spec in specs
         ]
 
@@ -761,6 +844,7 @@ def load_all_sources(
 def build_focus_results(
     config: dict[str, Any], sources: list[LoadedSource]
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    context = str(config.get("context", "field"))
     focus_slug = str(config["focus_slug"])
     minimum_battles = int(config["minimum_battles"])
     minimum_deployed = int(config["minimum_deployed"])
@@ -797,6 +881,7 @@ def build_focus_results(
             minimum_battles,
             minimum_deployed,
             repetitions,
+            context,
         )
         for cohort in ("baseline", "current")
     ]
@@ -810,6 +895,7 @@ def build_focus_results(
             minimum_battles,
             minimum_deployed,
             repetitions,
+            context,
         )
     )
     baseline, current, _combined = comparisons
@@ -849,6 +935,7 @@ def build_combined_analysis(
     repo_root: Path,
     identity_root: Path,
 ) -> CombinedAnalysis:
+    context = str(config.get("context", "field"))
     combined_rows = canonical_row_order(
         [row for source in sources for row in source.field_rows]
     )
@@ -866,7 +953,7 @@ def build_combined_analysis(
             int(config["minimum_deployed"]),
             int(config["bootstrap_repetitions"]),
         )
-        if row["context"] == "field"
+        if row["context"] == context
     ]
     reliable = [row for row in rankings if row["reliability_status"] == "reliable"]
     insufficient = [
@@ -874,7 +961,7 @@ def build_combined_analysis(
     ]
     comparisons, delta = build_focus_results(config, sources)
     coverage = {
-        "context": "field",
+        "context": context,
         "independent_battles": sum(len(source.field_battles) for source in sources),
         "observed_labels": len(rankings),
         "deployed": sum(int(row["deployed"]) for row in rankings),
@@ -920,20 +1007,21 @@ def build_provenance_rows(sources: list[LoadedSource]) -> list[dict[str, Any]]:
 def build_compatibility_decision(
     config: dict[str, Any], sources: list[LoadedSource]
 ) -> dict[str, Any]:
+    context = str(config.get("context", "field"))
     return {
         "status": "passed",
-        "decision": "compatible_on_common_player_field_count_projection",
+        "decision": f"compatible_on_common_player_{context}_count_projection",
         "analysis_id": config["analysis_id"],
         "track": config["track"],
         "game_version": config["game_version"],
-        "context": "field",
+        "context": context,
         "projection_fields": list(COMMON_FIELD_PROJECTION),
         "schema_versions": sorted({source.spec.schema_version for source in sources}),
         "sources": [source.verification for source in sources],
         "compatibility_basis": {
             "status": "analysis_decision",
             "rationale": (
-                "Same track, game version, and field context; joined only on common "
+                f"Same track, game version, and {context.replace('_', ' ')} context; joined only on common "
                 "count fields whose presence, non-negativity, and casualty arithmetic "
                 "were machine-validated. This does not establish full semantic "
                 "equivalence between normalized schema versions."
@@ -973,48 +1061,48 @@ def build_compatibility_decision(
 
 
 def write_tabular_outputs(
-    batch_dir: Path, analysis: CombinedAnalysis, focus_slug: str
+    batch_dir: Path, analysis: CombinedAnalysis, focus_slug: str, context: str
 ) -> None:
     analysis_dir = batch_dir / "analysis"
     focus_stem = safe_output_stem(focus_slug, "focus_slug")
     base.write_csv(
-        analysis_dir / "combined_canonical_identity_audit.csv",
+        analysis_dir / contextual_output_name("combined_canonical_identity_audit", context, ".csv"),
         base.IDENTITY_FIELDS,
         analysis.identities,
     )
     base.write_csv(
-        analysis_dir / "combined_ranking_complete.csv",
+        analysis_dir / contextual_output_name("combined_ranking_complete", context, ".csv"),
         base.RANKING_FIELDS,
         base.format_ranking_rows(analysis.rankings),
     )
     base.write_csv(
-        analysis_dir / "combined_ranking_reliable.csv",
+        analysis_dir / contextual_output_name("combined_ranking_reliable", context, ".csv"),
         base.RANKING_FIELDS,
         base.format_ranking_rows(analysis.reliable, rerank=True),
     )
     base.write_csv(
-        analysis_dir / "combined_insufficient_evidence.csv",
+        analysis_dir / contextual_output_name("combined_insufficient_evidence", context, ".csv"),
         base.RANKING_FIELDS,
         base.format_ranking_rows(analysis.insufficient),
     )
     base.write_csv(
-        analysis_dir / "combined_context_coverage.csv",
+        analysis_dir / contextual_output_name("combined_context_coverage", context, ".csv"),
         analysis.coverage.keys(),
         [analysis.coverage],
     )
     provenance_rows = build_provenance_rows(analysis.sources)
     base.write_csv(
-        analysis_dir / "combined_battle_provenance.csv",
+        analysis_dir / contextual_output_name("combined_battle_provenance", context, ".csv"),
         provenance_rows[0].keys(),
         provenance_rows,
     )
     base.write_csv(
-        analysis_dir / f"{focus_stem}_comparison.csv",
+        analysis_dir / contextual_output_name(f"{focus_stem}_comparison", context, ".csv"),
         COMPARISON_FIELDS,
         formatted_comparison_rows(analysis.comparisons),
     )
     base.write_csv(
-        analysis_dir / f"{focus_stem}_battle_rates.csv",
+        analysis_dir / contextual_output_name(f"{focus_stem}_battle_rates", context, ".csv"),
         FOCUS_BATTLE_FIELDS,
         focus_battle_rows(analysis.sources, focus_slug),
     )
@@ -1025,9 +1113,10 @@ def update_validation_report(
     compatibility: dict[str, Any],
     analysis: CombinedAnalysis,
     focus_slug: str,
+    context: str,
 ) -> None:
     validation = base.read_json_object(path)
-    validation["compatible_field_evidence"] = {
+    validation[f"compatible_{context}_evidence"] = {
         "status": "passed",
         "source_batches": len(analysis.sources),
         "schema_versions": compatibility["schema_versions"],
@@ -1060,18 +1149,26 @@ def write_metadata_outputs(
     if not isinstance(current_review_decisions, int):
         current_review_decisions = None
     compatibility = build_compatibility_decision(config, analysis.sources)
+    context = str(config.get("context", "field"))
     focus_stem = safe_output_stem(str(config["focus_slug"]), "focus_slug")
-    base.write_json(analysis_dir / "compatibility_decision.json", compatibility)
     base.write_json(
-        analysis_dir / f"{focus_stem}_delta_uncertainty.json", analysis.delta
+        analysis_dir / contextual_output_name("compatibility_decision", context, ".json"),
+        compatibility,
+    )
+    base.write_json(
+        analysis_dir / contextual_output_name(
+            f"{focus_stem}_delta_uncertainty", context, ".json"
+        ),
+        analysis.delta,
     )
     update_validation_report(
         analysis_dir / "validation_report.json",
         compatibility,
         analysis,
         str(config["focus_slug"]),
+        context,
     )
-    (analysis_dir / "ANALYSIS_REPORT.md").write_text(
+    (analysis_dir / contextual_output_name("ANALYSIS_REPORT", context, ".md")).write_text(
         build_report(
             config,
             analysis.sources,
@@ -1084,7 +1181,7 @@ def write_metadata_outputs(
         ),
         encoding="utf-8",
     )
-    (analysis_dir / "COMPARISON_BLOCKED.md").unlink(missing_ok=True)
+    (analysis_dir / contextual_output_name("COMPARISON_BLOCKED", context, ".md")).unlink(missing_ok=True)
     update_readme(analysis_dir / "README.md", config_path, repo_root)
 
 
@@ -1109,6 +1206,9 @@ def run_analysis(
     config = base.read_json_object(config_path)
     track = str(config["track"])
     game_version = str(config["game_version"])
+    context = str(config.get("context", "field"))
+    if context not in base.CONTEXTS:
+        raise ValueError(f"unsupported battle context: {context}")
     focus_slug = safe_output_stem(str(config["focus_slug"]), "focus_slug")
     specs = sorted(
         (SourceSpec.from_dict(value) for value in config["sources"]),
@@ -1117,12 +1217,12 @@ def run_analysis(
     if {spec.cohort for spec in specs} != {"baseline", "current"}:
         raise ValueError("compatible sources must contain baseline and current cohorts")
 
-    sources = load_all_sources(repo_root, specs, track, game_version)
+    sources = load_all_sources(repo_root, specs, track, game_version, context)
     reject_cross_source_battle_collisions(sources)
     analysis = build_combined_analysis(config, sources, repo_root, identity_root)
     (batch_dir / "analysis").mkdir(parents=True, exist_ok=True)
     (batch_dir / "review").mkdir(parents=True, exist_ok=True)
-    write_tabular_outputs(batch_dir, analysis, focus_slug)
+    write_tabular_outputs(batch_dir, analysis, focus_slug, context)
     write_metadata_outputs(config, config_path, repo_root, batch_dir, analysis)
     write_artifact_manifest(batch_dir)
     return {

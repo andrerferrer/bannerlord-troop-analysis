@@ -1,0 +1,4 @@
+cohort,source_batch_ids,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,ci95_low,ci95_high,reliability_status
+baseline,combat_2026-07-27_222843_010541,5,164,107,159,19,38,0,0.969512,0.115854,0.347561,0.796407,1.187500,reliable
+current,combat_2026-08-12_mallister_mixed,2,158,49,230,32,77,0,1.455696,0.202532,0.689873,,,insufficient_evidence
+combined,combat_2026-07-27_222843_010541|combat_2026-08-12_mallister_mixed,7,322,156,389,51,115,0,1.208075,0.158385,0.515528,0.899123,1.529086,reliable

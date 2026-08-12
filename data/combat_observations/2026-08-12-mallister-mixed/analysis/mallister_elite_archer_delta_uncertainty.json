@@ -1,0 +1,15 @@
+{
+  "below_display_gate": [
+    "baseline",
+    "current"
+  ],
+  "bootstrap_repetitions": 10000,
+  "bootstrap_unit": "independent_battle_within_cohort",
+  "ci95_high": 1.3772073723825147,
+  "ci95_low": 0.23026315789473684,
+  "evidence_status": "diagnostic_only_below_display_gate",
+  "metric": "current_minus_baseline_kills_per_deployed",
+  "point_estimate": 0.8690153568202348,
+  "report_displayed": false,
+  "seed": "sha256(analysis_id|current-minus-baseline|focus_slug|10000)"
+}
