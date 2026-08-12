@@ -1,0 +1,32 @@
+{
+  "battle_context_counts": {
+    "field": 4,
+    "siege_attack": 2
+  },
+  "battle_count": 6,
+  "context_boundaries_preserved": true,
+  "image_count": 6,
+  "known_limitations": [
+    "Only screenshot-visible rows are normalized; off-screen rows are not inferred.",
+    "All six scoreboards have partial row visibility, so contribution-index or whole-army share metrics must not be inferred from this batch.",
+    "White level-up icons and three clipped bottom-row cells remain explicit review items rather than guessed values.",
+    "The 15:18 battle is field context with the player on the defender side; it has party-only opponents and no visible garrison or militia groups.",
+    "Raw PNG files are not retained in Git; filenames, sizes, per-image SHA-256 values, and the deterministic directory hash are recorded."
+  ],
+  "observation_count": 205,
+  "offscreen_rows_inferred": false,
+  "primary_troop_occurrences": 75,
+  "review_queue_count": 11,
+  "schema_version": "2.0.0",
+  "sides_pooled": false,
+  "source_sha256": "da79e212250da1b9105f1c71b7ade09f463b4373de87c011b1a8987979e74016",
+  "source_size_bytes": 13002374,
+  "status": "passed",
+  "track_resolution": {
+    "evidence": [
+      "Mallister, Riverlands, Arryn, Westerlands, and named Realm of Thrones character labels"
+    ],
+    "method": "track-specific visible faction and troop labels"
+  },
+  "validation_errors": []
+}

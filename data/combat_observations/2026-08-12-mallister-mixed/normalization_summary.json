@@ -1,0 +1,26 @@
+{
+  "batch_id": "combat_2026-08-12_mallister_mixed",
+  "battle_context_counts": {
+    "field": 4,
+    "siege_attack": 2
+  },
+  "battles": 6,
+  "game_track": "realm_of_thrones",
+  "game_version": "1.4.x",
+  "normalization_scope": "evidence_and_structural_normalization_only",
+  "observations": 205,
+  "primary_troop_occurrences": 75,
+  "review_queue": 11,
+  "schema_version": "2.0.0",
+  "screenshots": 6,
+  "source_kind": "host_exposed_screenshot_directory",
+  "source_retention_status": "not_retained_in_repository_hashes_recorded",
+  "source_sha256": "da79e212250da1b9105f1c71b7ade09f463b4373de87c011b1a8987979e74016",
+  "status": "normalized_pending_analysis",
+  "track_resolution": {
+    "evidence": [
+      "Mallister, Riverlands, Arryn, Westerlands, and named Realm of Thrones character labels"
+    ],
+    "method": "track-specific visible faction and troop labels"
+  }
+}
