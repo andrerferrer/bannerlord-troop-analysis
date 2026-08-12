@@ -1,0 +1,30 @@
+{
+  "blockers": [],
+  "branch": "agent/normalize-ravens-teeth-extension-2026-08-11-to-12",
+  "completion": {
+    "action": "merge",
+    "merge_method": "squash"
+  },
+  "handoff_path": "data/combat_observations/2026-08-11-to-12-ravens-teeth-field-extension/handoff/ANALYSIS_PROMPT.md",
+  "normalization_commit": "11c84fed5420acc23b930ffa729bcb978256e8e3",
+  "normalized_archive_sha256": "403814973c1cad3e4c5a84032806949c4fad5e613c43d2c8a9f5bcc567188fba",
+  "protocol": "bannerlord-analysis-task",
+  "required_actions": [
+    "verify_handoff_hashes",
+    "preserve_normalized_inputs",
+    "complete_review_layer",
+    "resolve_canonical_identities",
+    "evaluate_and_join_compatible_ravens_teeth_field_evidence",
+    "generate_reliable_and_complete_rankings",
+    "publish_insufficient_evidence_and_context_coverage",
+    "quantify_battle_level_uncertainty",
+    "commit_analysis_validation_and_hashes",
+    "confirm_frozen_models_unchanged",
+    "update_pull_request_summary",
+    "validate_and_merge"
+  ],
+  "source_sha256": "60e861aa3e0e3da7f60beb71f17813b8a25367e3975358e8385f67c972a19047",
+  "status": "pending",
+  "task_id": "combat_2026-08-11_to_12_ravens_teeth_field_extension",
+  "version": 1
+}
