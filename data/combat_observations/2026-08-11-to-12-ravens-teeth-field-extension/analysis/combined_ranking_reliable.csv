@@ -1,0 +1,11 @@
+context,rank,display_name,provisional_slug,canonical_troop_id,identity_status,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,ci95_low,ci95_high,reliability_status
+field,1,Ravens' Teeth [T6],ravens_teeth,ravens_teeth,confirmed_id,15,1089,962,2538,25,102,0,2.330579,0.022957,0.116621,1.745924,3.081162,reliable
+field,2,Blackwood Longbowman [T5],blackwood_longbowman,blackwood_longbowman,confirmed_id,7,97,88,139,1,8,0,1.432990,0.010309,0.092784,1.186441,1.592233,reliable
+field,3,Riverlands Admiral [T6],riverlands_admiral,river_admiral,confirmed_id,7,52,28,68,4,20,0,1.307692,0.076923,0.461538,0.500000,2.142857,reliable
+field,4,Riverlands Ranger [T5],riverlands_ranger,river_ranger,confirmed_id,9,204,189,196,3,12,0,0.960784,0.014706,0.073529,0.393258,1.436275,reliable
+field,5,Riverlands Axeman [T5],riverlands_axeman,river_axeman,confirmed_id,5,46,27,41,4,15,0,0.891304,0.086957,0.413043,0.372093,1.511628,reliable
+field,6,Blackwood Archer [T4],blackwood_archer,blackwood_archer,confirmed_id,5,104,99,91,0,5,0,0.875000,0.000000,0.048077,0.704225,0.990654,reliable
+field,7,Westerlands Banner Knight [T6],westerlands_banner_knight,,unresolved,10,63,48,54,2,13,0,0.857143,0.031746,0.238095,0.428571,1.313433,reliable
+field,8,Riverlands Cavalry [T5],riverlands_cavalry,river_calvary,confirmed_id,10,57,35,47,4,18,0,0.824561,0.070175,0.385965,0.468750,1.312500,reliable
+field,9,Mallister House Guard [T5],mallister_house_guard,mallister_houseguard,confirmed_id,6,117,109,64,2,6,0,0.547009,0.017094,0.068376,0.282353,0.725926,reliable
+field,10,Blackwood House Guard [T5],blackwood_house_guard,blackwood_houseguard,confirmed_id,9,116,100,59,0,16,0,0.508621,0.000000,0.137931,0.299270,0.759259,reliable

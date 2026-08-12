@@ -1,0 +1,41 @@
+context,rank,display_name,provisional_slug,canonical_troop_id,identity_status,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,ci95_low,ci95_high,reliability_status
+field,1,Riverlands Swordmaster [T5],riverlands_swordmaster,river_swordmaster,confirmed_id,2,2,1,8,1,0,0,4.000000,0.500000,0.500000,,,insufficient_evidence
+field,2,Blackwood Scout [T4],blackwood_scout,blackwood_scout,confirmed_id,1,1,1,3,0,0,0,3.000000,0.000000,0.000000,,,insufficient_evidence
+field,3,Riverlands Swordsman [T3],riverlands_swordsman,river_swordsman,confirmed_id,1,1,1,3,0,0,0,3.000000,0.000000,0.000000,,,insufficient_evidence
+field,4,Riverlands Elite Swordsman [T4],riverlands_elite_swordsman,river_elite_swordsman,confirmed_id,1,3,1,7,1,1,0,2.333333,0.333333,0.666667,,,insufficient_evidence
+field,5,Lannister Knight [T5],lannister_knight,lannister_knight,confirmed_id,1,1,1,2,0,0,0,2.000000,0.000000,0.000000,,,insufficient_evidence
+field,7,Riverlands Horseman [T4],riverlands_horseman,river_horseman,confirmed_id,1,5,3,9,0,2,0,1.800000,0.000000,0.400000,,,insufficient_evidence
+field,8,Westerlands Scout [T4],westerlands_scout,,unresolved,2,5,3,9,0,2,0,1.800000,0.000000,0.400000,,,insufficient_evidence
+field,9,Westerlands Swordsman [T4],westerlands_swordsman,,unresolved,1,6,1,9,1,4,0,1.500000,0.166667,0.833333,,,insufficient_evidence
+field,10,Riverrun Captain [T6],riverrun_captain,riverrun_captain,confirmed_id,2,2,2,3,0,0,0,1.500000,0.000000,0.000000,,,insufficient_evidence
+field,11,Riverlands Footman [T2],riverlands_footman,river_footman,confirmed_id,2,7,5,9,0,2,0,1.285714,0.000000,0.285714,,,insufficient_evidence
+field,12,Blackwood Horseman [T5],blackwood_horseman,blackwood_horseman,confirmed_id,1,5,3,6,1,1,0,1.200000,0.200000,0.400000,,,insufficient_evidence
+field,13,Westerlands Sharpshooter [T5],westerlands_sharpshooter,,unresolved,3,12,8,12,0,4,0,1.000000,0.000000,0.333333,,,insufficient_evidence
+field,14,Westerlands Militia Spearman [T2],westerlands_militia_spearman,,unresolved,1,3,3,3,0,0,0,1.000000,0.000000,0.000000,,,insufficient_evidence
+field,15,Riverlands Elite Archer [T4],riverlands_elite_archer,river_elite_archer,confirmed_id,1,2,2,2,0,0,0,1.000000,0.000000,0.000000,,,insufficient_evidence
+field,16,Riverlord's Son [T2],riverlord_s_son,river_noble_recruit,confirmed_id,1,2,2,2,0,0,0,1.000000,0.000000,0.000000,,,insufficient_evidence
+field,17,Tully House Guard [T5],tully_house_guard,tully_houseguard,confirmed_id,2,2,1,2,0,1,0,1.000000,0.000000,0.500000,,,insufficient_evidence
+field,18,Westerlands Noble Youth [T2],westerlands_noble_youth,,unresolved,1,2,2,2,0,0,0,1.000000,0.000000,0.000000,,,insufficient_evidence
+field,19,Lannister Longbowman [T5],lannister_longbowman,lannister_longbowman,confirmed_id,1,1,1,1,0,0,0,1.000000,0.000000,0.000000,,,insufficient_evidence
+field,21,Westerlands Horseman [T5],westerlands_horseman,,unresolved,2,8,4,7,4,0,0,0.875000,0.500000,0.500000,,,insufficient_evidence
+field,22,Riverlands Recruit [T1],riverlands_recruit,river_recruit,confirmed_id,1,6,1,5,0,5,0,0.833333,0.000000,0.833333,,,insufficient_evidence
+field,25,Westerlands Infantry [T3],westerlands_infantry,,unresolved,3,61,39,37,2,20,0,0.606557,0.032787,0.360656,,,insufficient_evidence
+field,26,Westerlands Recruit [T1],westerlands_recruit,,unresolved,2,23,12,13,0,11,0,0.565217,0.000000,0.478261,,,insufficient_evidence
+field,27,Riverlands Admiral [T6],riverlands_admiral,river_admiral,confirmed_id,1,2,2,1,0,0,0,0.500000,0.000000,0.000000,,,insufficient_evidence
+field,28,Riverlands House Guard [T5],riverlands_house_guard,river_houseguard,confirmed_id,1,2,2,1,0,0,0,0.500000,0.000000,0.000000,,,insufficient_evidence
+field,29,Westerlands Footman [T2],westerlands_footman,,unresolved,3,94,76,40,3,15,0,0.425532,0.031915,0.191489,,,insufficient_evidence
+field,30,Riverlands Ranger [T5],riverlands_ranger,river_ranger,confirmed_id,3,29,19,10,2,8,0,0.344828,0.068966,0.344828,,,insufficient_evidence
+field,31,Westerlands Skirmisher [T5],westerlands_skirmisher,,unresolved,3,72,44,24,5,23,0,0.333333,0.069444,0.388889,,,insufficient_evidence
+field,32,Westerlands Duelist [T5],westerlands_duelist,,unresolved,3,71,35,23,3,33,0,0.323944,0.042254,0.507042,,,insufficient_evidence
+field,33,Riverlands Axeman [T5],riverlands_axeman,river_axeman,confirmed_id,2,18,9,5,1,8,0,0.277778,0.055556,0.500000,,,insufficient_evidence
+siege_attack,1,Riverlands House Guard [T5],riverlands_house_guard,river_houseguard,confirmed_id,1,1,1,4,0,0,0,4.000000,0.000000,0.000000,,,insufficient_evidence
+siege_attack,2,Ravens' Teeth [T6],ravens_teeth,ravens_teeth,confirmed_id,1,117,72,290,8,37,0,2.478632,0.068376,0.384615,,,insufficient_evidence
+siege_attack,3,Riverlands Cavalry [T5],riverlands_cavalry,river_calvary,confirmed_id,1,7,5,5,1,1,0,0.714286,0.142857,0.285714,,,insufficient_evidence
+siege_attack,4,Westerlands Banner Knight [T6],westerlands_banner_knight,,unresolved,1,8,6,5,1,1,0,0.625000,0.125000,0.250000,,,insufficient_evidence
+siege_attack,5,Riverlands Ranger [T5],riverlands_ranger,river_ranger,confirmed_id,1,11,7,6,2,2,0,0.545455,0.181818,0.363636,,,insufficient_evidence
+siege_attack,6,Westerlands Sharpshooter [T5],westerlands_sharpshooter,,unresolved,1,4,1,2,0,3,0,0.500000,0.000000,0.750000,,,insufficient_evidence
+siege_attack,7,Blackwood House Guard [T5],blackwood_house_guard,blackwood_houseguard,confirmed_id,1,2,1,1,1,0,0,0.500000,0.500000,0.500000,,,insufficient_evidence
+siege_attack,8,Lannister Longbowman [T5],lannister_longbowman,lannister_longbowman,confirmed_id,1,2,2,1,0,0,0,0.500000,0.000000,0.000000,,,insufficient_evidence
+siege_attack,9,Riverlands Admiral [T6],riverlands_admiral,river_admiral,confirmed_id,1,2,2,1,0,0,0,0.500000,0.000000,0.000000,,,insufficient_evidence
+siege_attack,10,Westerlands Duelist [T5],westerlands_duelist,,unresolved,1,5,4,2,1,0,0,0.400000,0.200000,0.200000,,,insufficient_evidence
+siege_attack,11,Westerlands Skirmisher [T5],westerlands_skirmisher,,unresolved,1,16,12,5,1,3,0,0.312500,0.062500,0.250000,,,insufficient_evidence

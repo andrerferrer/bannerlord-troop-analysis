@@ -1,0 +1,3 @@
+context,rank,display_name,provisional_slug,canonical_troop_id,identity_status,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,ci95_low,ci95_high,reliability_status
+field,6,Ravens' Teeth [T6],ravens_teeth,ravens_teeth,confirmed_id,6,685,574,1264,22,89,0,1.845255,0.032117,0.162044,1.412446,2.290560,reliable
+siege_attack,2,Ravens' Teeth [T6],ravens_teeth,ravens_teeth,confirmed_id,1,117,72,290,8,37,0,2.478632,0.068376,0.384615,,,insufficient_evidence

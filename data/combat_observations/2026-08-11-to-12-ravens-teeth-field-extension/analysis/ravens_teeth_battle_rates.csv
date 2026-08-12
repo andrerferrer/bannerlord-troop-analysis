@@ -1,0 +1,16 @@
+cohort,source_batch_id,battle_id,deployed,kills,deaths,wounded,kills_per_deployed,casualty_rate
+baseline,combat_2026-07-27_103534_104834_rot,B02,9,28,0,0,3.111111,0.000000
+baseline,combat_2026-07-27_222843_010541,battle_20260726_232619_farman,20,35,0,0,1.750000,0.000000
+baseline,combat_2026-07-27_222843_010541,battle_20260726_233535_lorch_lannister,21,61,0,0,2.904762,0.000000
+baseline,combat_2026-07-27_222843_010541,battle_20260726_235658_kenning,17,28,0,0,1.647059,0.000000
+baseline,combat_2026-07-27_222843_010541,battle_20260727_004350_westerling,19,134,0,0,7.052632,0.000000
+baseline,combat_2026-08-11_ravens_teeth_field,battle_20260811_143224_ravens_field,38,137,1,3,3.605263,0.105263
+baseline,combat_2026-08-11_ravens_teeth_field,battle_20260811_145204_ravens_field,84,385,0,1,4.583333,0.011905
+baseline,combat_2026-08-11_ravens_teeth_field,battle_20260811_151007_ravens_field,91,362,2,9,3.978022,0.120879
+baseline,combat_2026-08-11_ravens_teeth_field,battle_20260811_151622_ravens_field,105,104,0,0,0.990476,0.000000
+current,combat_2026-08-11_to_12_ravens_teeth_field_extension,battle_20260811_232314_ravens_field,116,122,0,0,1.051724,0.000000
+current,combat_2026-08-11_to_12_ravens_teeth_field_extension,battle_20260811_233036_ravens_field,117,173,0,1,1.478632,0.008547
+current,combat_2026-08-11_to_12_ravens_teeth_field_extension,battle_20260811_233731_ravens_field,117,246,0,0,2.102564,0.000000
+current,combat_2026-08-11_to_12_ravens_teeth_field_extension,battle_20260811_234333_ravens_field,117,276,0,1,2.358974,0.008547
+current,combat_2026-08-11_to_12_ravens_teeth_field_extension,battle_20260811_235703_ravens_field,109,161,0,0,1.477064,0.000000
+current,combat_2026-08-11_to_12_ravens_teeth_field_extension,battle_20260812_000125_ravens_field,109,286,22,87,2.623853,1.000000
