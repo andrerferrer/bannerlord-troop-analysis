@@ -28,10 +28,11 @@ These are descriptive rates for visible player-side campaign rows. They are not 
 ## Ravens' Teeth focus
 
 - Baseline cohort: 9 battles, 404 deployed, 3.153 kills/deployed (95% battle bootstrap 1.833–4.357); casualty rate 0.040.
-- Current cohort: 6 battles, 685 deployed, 1.845 kills/deployed (95% battle bootstrap 1.412–2.293); casualty rate 0.162.
+- Current cohort: 6 battles, 685 deployed, 1.845 kills/deployed (95% battle bootstrap 1.412–2.291); casualty rate 0.162.
 - Compatible combined estimate: 15 battles, 1089 deployed, 2.331 kills/deployed (95% battle bootstrap 1.746–3.081); casualty rate 0.117.
 - Ravens' Teeth has enough current-batch field evidence to close the 5-battle / 20-deployed display gate (6 battles and 685 deployed).
 - Current minus baseline: -1.308 kills/deployed (95% battle bootstrap -2.627–0.129). The interval crosses zero, so no increase or decline is established. This is a descriptive cohort difference, not a causal estimate.
+- Focus-cohort battle results: baseline 9 Victory; current 5 Victory, 1 Defeat; combined 14 Victory, 1 Defeat. The cohort contrast is outcome-confounded when these compositions differ.
 
 ## Current batch context coverage
 
@@ -53,7 +54,7 @@ These are descriptive rates for visible player-side campaign rows. They are not 
 
 ## Limitations
 
-- All screenshots are victory-only observational campaign evidence, confounded by army composition, enemy composition, map, difficulty, and player choices.
+- These are observational campaign results, confounded by battle outcome, army composition, enemy composition, map, difficulty, and player choices. Battle-result composition is preserved in `combined_battle_provenance.csv` rather than assumed.
 - Row visibility is partial, so total-army contribution, deployment share, and off-screen performance cannot be calculated.
 - Raw PNGs for the current batch are not retained; its 11 field-level review decisions remain unresolved in the separate review layer.
 - The schema join across 1.1.0, 2.0.0 is deliberately narrow. It does not imply that every field is interchangeable.

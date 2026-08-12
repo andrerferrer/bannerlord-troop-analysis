@@ -347,9 +347,7 @@ def validate_context_projection(
     if context not in base.CONTEXTS:
         raise ValueError(f"unsupported battle context: {context}")
 
-    context_battles = [
-        row for row in battles if row.get("battle_context") == context
-    ]
+    context_battles = [row for row in battles if row.get("battle_context") == context]
     if not context_battles:
         raise ValueError(f"{spec.batch_id}: no {context} battles")
     battle_ids = {str(row.get("battle_id", "")) for row in context_battles}
@@ -501,9 +499,13 @@ def comparison_row(
     low: float | str = ""
     high: float | str = ""
     if reliable:
-        bootstrap_batch_id = (
-            analysis_id if cohort == "combined" else f"{analysis_id}|{cohort}"
-        )
+        bootstrap_batch_id = analysis_id
+        if cohort != "combined":
+            bootstrap_batch_id = (
+                sources[0].spec.batch_id
+                if len(sources) == 1
+                else f"{analysis_id}|{cohort}"
+            )
         low, high = base.bootstrap_interval(
             rows, bootstrap_batch_id, context, focus_slug, repetitions
         )
@@ -693,6 +695,12 @@ def current_context_report_lines(
             continue
         battles = int(row["independent_battles"])
         battle_word = "battle" if battles == 1 else "battles"
+        if row["reliability_status"] == "not_observed":
+            lines.append(
+                f"- {focus_label} was not observed in `{row['context']}`; no rate "
+                "from another context is substituted."
+            )
+            continue
         if row["reliability_status"] == "reliable":
             status = "passes the display gate"
         else:
@@ -706,6 +714,62 @@ def current_context_report_lines(
         "- No field and siege observations are pooled; each context must pass its own gate."
     )
     return lines
+
+
+def validate_standalone_context_gates(
+    context_rows: list[dict[str, str]],
+    minimum_battles: int,
+    minimum_deployed: int,
+) -> None:
+    for row in context_rows:
+        context = row.get("context", "")
+        try:
+            row_minimum_battles = int(row["minimum_battles"])
+            row_minimum_deployed = int(row["minimum_deployed"])
+        except (KeyError, TypeError, ValueError) as error:
+            raise ValueError(
+                f"standalone context gate is invalid for {context or 'unknown context'}"
+            ) from error
+        if (
+            row_minimum_battles != minimum_battles
+            or row_minimum_deployed != minimum_deployed
+        ):
+            raise ValueError(
+                f"standalone context gate mismatch for {context or 'unknown context'}: "
+                f"{row_minimum_battles}/{row_minimum_deployed} != "
+                f"{minimum_battles}/{minimum_deployed}"
+            )
+
+
+def focus_outcome_counts(
+    sources: list[LoadedSource], focus_slug: str
+) -> dict[str, Counter[str]]:
+    counts = {"baseline": Counter(), "current": Counter(), "combined": Counter()}
+    for source in sources:
+        focus_battle_ids = {
+            str(row["battle_id"])
+            for row in source.field_rows
+            if row["display_name_normalized"] == focus_slug
+        }
+        for battle in source.field_battles:
+            if str(battle["battle_id"]) not in focus_battle_ids:
+                continue
+            result = str(battle.get("result", "")).strip().casefold() or "not_reported"
+            counts[source.spec.cohort][result] += 1
+            counts["combined"][result] += 1
+    return counts
+
+
+def format_outcome_counts(counts: Counter[str]) -> str:
+    if not counts:
+        return "no focus-troop battles"
+    order = {"victory": 0, "defeat": 1, "retreat": 2, "not_reported": 3}
+    return ", ".join(
+        f"{count} {result.replace('_', ' ').title()}"
+        for result, count in sorted(
+            counts.items(), key=lambda item: (order.get(item[0], 99), item[0])
+        )
+    )
 
 
 def build_report(
@@ -767,6 +831,14 @@ def build_report(
     )
     context_lines = current_context_report_lines(
         standalone_context_rows, standalone_focus_rows, focus_label
+    )
+    outcome_counts = focus_outcome_counts(sources, focus_slug)
+    outcome_line = (
+        "- Focus-cohort battle results: baseline "
+        f"{format_outcome_counts(outcome_counts['baseline'])}; current "
+        f"{format_outcome_counts(outcome_counts['current'])}; combined "
+        f"{format_outcome_counts(outcome_counts['combined'])}. The cohort contrast "
+        "is outcome-confounded when these compositions differ."
     )
     lines = [
         f"# Phase 2 analysis — {config['analysis_id']}",
@@ -840,6 +912,7 @@ def build_report(
             comparison_report_line("Compatible combined estimate", combined),
             field_gate_line,
             delta_line,
+            outcome_line,
             *context_lines,
             "",
             "## Identity and completeness",
@@ -865,8 +938,9 @@ def build_report(
             "## Limitations",
             "",
             (
-                "- All screenshots are victory-only observational campaign evidence, confounded by "
-                "army composition, enemy composition, map, difficulty, and player choices."
+                "- These are observational campaign results, confounded by battle outcome, army "
+                "composition, enemy composition, map, difficulty, and player choices. Battle-result "
+                "composition is preserved in `combined_battle_provenance.csv` rather than assumed."
             ),
             (
                 "- Row visibility is partial, so total-army contribution, deployment share, and "
@@ -1087,6 +1161,7 @@ def build_provenance_rows(sources: list[LoadedSource]) -> list[dict[str, Any]]:
                     "battle_id": battle["battle_id"],
                     "captured_at": battle.get("captured_at", ""),
                     "player_side": battle["player_side"],
+                    "result": str(battle.get("result", "")).strip() or "not_reported",
                 }
             )
     return output
@@ -1154,43 +1229,51 @@ def write_tabular_outputs(
     analysis_dir = batch_dir / "analysis"
     focus_stem = safe_output_stem(focus_slug, "focus_slug")
     base.write_csv(
-        analysis_dir / contextual_output_name("combined_canonical_identity_audit", context, ".csv"),
+        analysis_dir
+        / contextual_output_name("combined_canonical_identity_audit", context, ".csv"),
         base.IDENTITY_FIELDS,
         analysis.identities,
     )
     base.write_csv(
-        analysis_dir / contextual_output_name("combined_ranking_complete", context, ".csv"),
+        analysis_dir
+        / contextual_output_name("combined_ranking_complete", context, ".csv"),
         base.RANKING_FIELDS,
         base.format_ranking_rows(analysis.rankings),
     )
     base.write_csv(
-        analysis_dir / contextual_output_name("combined_ranking_reliable", context, ".csv"),
+        analysis_dir
+        / contextual_output_name("combined_ranking_reliable", context, ".csv"),
         base.RANKING_FIELDS,
         base.format_ranking_rows(analysis.reliable, rerank=True),
     )
     base.write_csv(
-        analysis_dir / contextual_output_name("combined_insufficient_evidence", context, ".csv"),
+        analysis_dir
+        / contextual_output_name("combined_insufficient_evidence", context, ".csv"),
         base.RANKING_FIELDS,
         base.format_ranking_rows(analysis.insufficient),
     )
     base.write_csv(
-        analysis_dir / contextual_output_name("combined_context_coverage", context, ".csv"),
+        analysis_dir
+        / contextual_output_name("combined_context_coverage", context, ".csv"),
         analysis.coverage.keys(),
         [analysis.coverage],
     )
     provenance_rows = build_provenance_rows(analysis.sources)
     base.write_csv(
-        analysis_dir / contextual_output_name("combined_battle_provenance", context, ".csv"),
+        analysis_dir
+        / contextual_output_name("combined_battle_provenance", context, ".csv"),
         provenance_rows[0].keys(),
         provenance_rows,
     )
     base.write_csv(
-        analysis_dir / contextual_output_name(f"{focus_stem}_comparison", context, ".csv"),
+        analysis_dir
+        / contextual_output_name(f"{focus_stem}_comparison", context, ".csv"),
         COMPARISON_FIELDS,
         formatted_comparison_rows(analysis.comparisons),
     )
     base.write_csv(
-        analysis_dir / contextual_output_name(f"{focus_stem}_battle_rates", context, ".csv"),
+        analysis_dir
+        / contextual_output_name(f"{focus_stem}_battle_rates", context, ".csv"),
         FOCUS_BATTLE_FIELDS,
         focus_battle_rows(analysis.sources, focus_slug),
     )
@@ -1244,17 +1327,22 @@ def write_metadata_outputs(
     standalone_focus_rows = (
         base.read_csv(focus_contexts_path) if focus_contexts_path.is_file() else []
     )
+    validate_standalone_context_gates(
+        standalone_context_rows,
+        int(config["minimum_battles"]),
+        int(config["minimum_deployed"]),
+    )
     compatibility = build_compatibility_decision(config, analysis.sources)
     context = str(config.get("context", "field"))
     focus_stem = safe_output_stem(str(config["focus_slug"]), "focus_slug")
     base.write_json(
-        analysis_dir / contextual_output_name("compatibility_decision", context, ".json"),
+        analysis_dir
+        / contextual_output_name("compatibility_decision", context, ".json"),
         compatibility,
     )
     base.write_json(
-        analysis_dir / contextual_output_name(
-            f"{focus_stem}_delta_uncertainty", context, ".json"
-        ),
+        analysis_dir
+        / contextual_output_name(f"{focus_stem}_delta_uncertainty", context, ".json"),
         analysis.delta,
     )
     update_validation_report(
@@ -1264,7 +1352,9 @@ def write_metadata_outputs(
         str(config["focus_slug"]),
         context,
     )
-    (analysis_dir / contextual_output_name("ANALYSIS_REPORT", context, ".md")).write_text(
+    (
+        analysis_dir / contextual_output_name("ANALYSIS_REPORT", context, ".md")
+    ).write_text(
         build_report(
             config,
             analysis.sources,
@@ -1279,7 +1369,9 @@ def write_metadata_outputs(
         ),
         encoding="utf-8",
     )
-    (analysis_dir / contextual_output_name("COMPARISON_BLOCKED", context, ".md")).unlink(missing_ok=True)
+    (
+        analysis_dir / contextual_output_name("COMPARISON_BLOCKED", context, ".md")
+    ).unlink(missing_ok=True)
     update_readme(analysis_dir / "README.md", config_path, repo_root)
 
 
