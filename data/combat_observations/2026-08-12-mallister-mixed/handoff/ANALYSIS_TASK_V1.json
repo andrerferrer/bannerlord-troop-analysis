@@ -6,7 +6,7 @@
     "merge_method": "squash"
   },
   "handoff_path": "data/combat_observations/2026-08-12-mallister-mixed/handoff/ANALYSIS_PROMPT.md",
-  "normalization_commit": "f30f0b7ffed43590faf751457c38d5e4e8495442",
+  "normalization_commit": "62e389f9621df6d353b60541bcc96f222fb20520",
   "normalized_archive_sha256": "97db4b82f1d1b146d43c3f3afc421cb4594c2960bd418a045f70c2a0685758e7",
   "protocol": "bannerlord-analysis-task",
   "required_actions": [
@@ -28,3 +28,4 @@
   "task_id": "combat_2026-08-12_mallister_mixed",
   "version": 1
 }
+
