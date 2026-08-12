@@ -1,0 +1,7 @@
+context,rank,display_name,provisional_slug,canonical_troop_id,identity_status,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,ci95_low,ci95_high,reliability_status
+siege_attack,1,Ravens' Teeth [T6],ravens_teeth,ravens_teeth,confirmed_id,5,88,52,337,8,28,0,3.829545,0.090909,0.409091,3.329897,4.657143,reliable
+siege_attack,2,Mallister Elite Archer [T5],mallister_elite_archer,mallister_elite_archer,confirmed_id,7,322,156,389,51,115,0,1.208075,0.158385,0.515528,0.899123,1.529086,reliable
+siege_attack,3,Mallister Eagle Knight [T6],mallister_eagle_knight,mallister_knight,confirmed_id,7,123,85,130,9,29,0,1.056911,0.073171,0.308943,0.468085,1.473118,reliable
+siege_attack,4,Mallister House Guard [T5],mallister_house_guard,mallister_houseguard,confirmed_id,7,137,92,133,9,36,0,0.970803,0.065693,0.328467,0.607143,1.242105,reliable
+siege_attack,5,Riverlands Ranger [T5],riverlands_ranger,river_ranger,confirmed_id,7,181,117,151,17,47,0,0.834254,0.093923,0.353591,0.692308,0.960396,reliable
+siege_attack,6,Blackwood House Guard [T5],blackwood_house_guard,blackwood_houseguard,confirmed_id,5,98,70,76,5,23,0,0.775510,0.051020,0.285714,0.340000,1.230769,reliable

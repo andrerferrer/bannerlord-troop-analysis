@@ -1,0 +1,142 @@
+{
+  "batch_id": "combat_2026-08-12_mallister_mixed",
+  "external_blockers": [],
+  "frozen_model_changes": [],
+  "immutable_normalized_changes": [],
+  "manifest_checks": [
+    {
+      "actual_sha256": "982f3c89d39584d4f4d2560d7344d7c83e333b4891acb5a3ea7ec513c6dfa4ba",
+      "actual_size_bytes": 476,
+      "expected_sha256": "982f3c89d39584d4f4d2560d7344d7c83e333b4891acb5a3ea7ec513c6dfa4ba",
+      "expected_size_bytes": 476,
+      "file": "README.md",
+      "passed": true
+    },
+    {
+      "actual_sha256": "1ce0adca894f7822a6981fbc890d71d25d51ad38afb5a0abdd46c36d21fe95a8",
+      "actual_size_bytes": 5735,
+      "expected_sha256": "1ce0adca894f7822a6981fbc890d71d25d51ad38afb5a0abdd46c36d21fe95a8",
+      "expected_size_bytes": 5735,
+      "file": "battles.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "b2ba1f7a7897b2dec951c938d289f8ba799b363c9cfb482be48771f97f1f4514",
+      "actual_size_bytes": 877,
+      "expected_sha256": "b2ba1f7a7897b2dec951c938d289f8ba799b363c9cfb482be48771f97f1f4514",
+      "expected_size_bytes": 877,
+      "file": "normalization_summary.json",
+      "passed": true
+    },
+    {
+      "actual_sha256": "03f0924c5a87d3647186cfff324f01d0fb5a9b60fa5cdb34ccb27fd5cc809a47",
+      "actual_size_bytes": 108803,
+      "expected_sha256": "03f0924c5a87d3647186cfff324f01d0fb5a9b60fa5cdb34ccb27fd5cc809a47",
+      "expected_size_bytes": 108803,
+      "file": "primary_troop_occurrences.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "681ddb72538c25667085cb40d2c71c6a973062615814ccb245af5b9aa9f341e6",
+      "actual_size_bytes": 4123,
+      "expected_sha256": "681ddb72538c25667085cb40d2c71c6a973062615814ccb245af5b9aa9f341e6",
+      "expected_size_bytes": 4123,
+      "file": "review_queue.csv",
+      "passed": true
+    },
+    {
+      "actual_sha256": "dcbd6f335377b6710308289f8fb2faa1f882515cccf83bacfb6ee9347679e1d7",
+      "actual_size_bytes": 2582,
+      "expected_sha256": "dcbd6f335377b6710308289f8fb2faa1f882515cccf83bacfb6ee9347679e1d7",
+      "expected_size_bytes": 2582,
+      "file": "screenshots_manifest.csv",
+      "passed": true
+    },
+    {
+      "actual_sha256": "78fc1fb1a40bc344f164e04ca6c4bc0c6db2bcf678dad2e0d2ee82af2e096cdd",
+      "actual_size_bytes": 30877,
+      "expected_sha256": "78fc1fb1a40bc344f164e04ca6c4bc0c6db2bcf678dad2e0d2ee82af2e096cdd",
+      "expected_size_bytes": 30877,
+      "file": "troop_battle_consolidated.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "e9d83760f60a6a31b777136f34ed0aff68699ed0108eac513d1c74408cb7fef2",
+      "actual_size_bytes": 297031,
+      "expected_sha256": "e9d83760f60a6a31b777136f34ed0aff68699ed0108eac513d1c74408cb7fef2",
+      "expected_size_bytes": 297031,
+      "file": "troop_occurrences.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "e38ee6df916b83b97d0c8a8de18f89ad7502392042035b82371bea3f9d9d5318",
+      "actual_size_bytes": 1389,
+      "expected_sha256": "e38ee6df916b83b97d0c8a8de18f89ad7502392042035b82371bea3f9d9d5318",
+      "expected_size_bytes": 1389,
+      "file": "validation_report.json",
+      "passed": true
+    }
+  ],
+  "normalized_archive": {
+    "actual_sha256": "97db4b82f1d1b146d43c3f3afc421cb4594c2960bd418a045f70c2a0685758e7",
+    "expected_sha256": "97db4b82f1d1b146d43c3f3afc421cb4594c2960bd418a045f70c2a0685758e7",
+    "name": "mallister_combat_2026-08-12.tar.xz",
+    "passed": true,
+    "safe_preflight": {
+      "members": 11,
+      "regular_files": 10,
+      "total_uncompressed_bytes": 452753
+    }
+  },
+  "normalized_summary": {
+    "battle_context_counts": {
+      "field": 4,
+      "siege_attack": 2
+    },
+    "battles": 6,
+    "consolidated_rows": 75,
+    "occurrences": 205,
+    "ordinary_troop_labels": 34,
+    "primary_occurrences": 75,
+    "primary_rows_fully_consolidated": true,
+    "queued_rows_excluded_from_rankings": true,
+    "rankings_only_include_primary_troops": true,
+    "review_items": 11
+  },
+  "pipeline_mode": "offline-existing",
+  "schema_version": "2.0.0",
+  "source_archive": {
+    "actual_sha256": "",
+    "actual_size_bytes": null,
+    "expected_sha256": "da79e212250da1b9105f1c71b7ade09f463b4373de87c011b1a8987979e74016",
+    "expected_size_bytes": 13002374,
+    "limits_visual_rereview": true,
+    "locally_verified": false,
+    "repository_addressable": false,
+    "repository_path": "data/combat_observations/2026-08-12-mallister-mixed/source/original_screenshots",
+    "retention_policy": "optional_after_verified_normalization",
+    "retention_status": "not_retained",
+    "verification_method": "not_available"
+  },
+  "source_provenance_checks": [
+    {
+      "expected": "da79e212250da1b9105f1c71b7ade09f463b4373de87c011b1a8987979e74016",
+      "field": "normalization_summary.json:source_sha256",
+      "passed": true,
+      "recorded": "da79e212250da1b9105f1c71b7ade09f463b4373de87c011b1a8987979e74016"
+    },
+    {
+      "expected": "da79e212250da1b9105f1c71b7ade09f463b4373de87c011b1a8987979e74016",
+      "field": "validation_report.json:source_sha256",
+      "passed": true,
+      "recorded": "da79e212250da1b9105f1c71b7ade09f463b4373de87c011b1a8987979e74016"
+    },
+    {
+      "expected": 13002374,
+      "field": "validation_report.json:source_size_bytes",
+      "passed": true,
+      "recorded": 13002374
+    }
+  ],
+  "status": "passed"
+}

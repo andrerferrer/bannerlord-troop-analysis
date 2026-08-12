@@ -1,0 +1,8 @@
+cohort,source_batch_id,battle_id,deployed,kills,deaths,wounded,kills_per_deployed,casualty_rate
+baseline,combat_2026-07-27_222843_010541,battle_20260726_222851_banefort,31,27,3,10,0.870968,0.419355
+baseline,combat_2026-07-27_222843_010541,battle_20260726_234809_the_crag,39,29,4,9,0.743590,0.333333
+baseline,combat_2026-07-27_222843_010541,battle_20260727_001125_faircastle,35,47,1,5,1.342857,0.171429
+baseline,combat_2026-07-27_222843_010541,battle_20260727_005322_banefort,30,32,1,3,1.066667,0.133333
+baseline,combat_2026-07-27_222843_010541,battle_20260727_010541_kayce,29,24,10,11,0.827586,0.724138
+current,combat_2026-08-12_mallister_mixed,battle_20260812_111049_bloody_gate_siege,82,90,12,31,1.097561,0.524390
+current,combat_2026-08-12_mallister_mixed,battle_20260812_114124_stoney_sept_siege,76,140,20,46,1.842105,0.868421

@@ -1,0 +1,9 @@
+cohort,source_batch_id,battle_id,deployed,kills,deaths,wounded,kills_per_deployed,casualty_rate
+baseline,combat_2026-07-27_222843_010541,battle_20260726_232619_farman,38,6,0,0,0.157895,0.000000
+baseline,combat_2026-07-27_222843_010541,battle_20260726_233535_lorch_lannister,39,18,0,0,0.461538,0.000000
+baseline,combat_2026-07-27_222843_010541,battle_20260726_235658_kenning,26,18,0,0,0.692308,0.000000
+baseline,combat_2026-07-27_222843_010541,battle_20260727_004350_westerling,32,31,2,1,0.968750,0.093750
+current,combat_2026-08-12_mallister_mixed,battle_20260812_105603_mallister_field,65,62,3,1,0.953846,0.061538
+current,combat_2026-08-12_mallister_mixed,battle_20260812_110101_mallister_field,73,114,0,0,1.561644,0.000000
+current,combat_2026-08-12_mallister_mixed,battle_20260812_132934_mallister_field,11,3,0,0,0.272727,0.000000
+current,combat_2026-08-12_mallister_mixed,battle_20260812_151802_mallister_field,56,110,3,9,1.964286,0.214286

@@ -1,0 +1,17 @@
+context,rank,display_name,provisional_slug,canonical_troop_id,identity_status,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,ci95_low,ci95_high,reliability_status
+field,12,Mallister Elite Archer [T5],mallister_elite_archer,mallister_elite_archer,confirmed_id,4,205,189,289,6,10,0,1.409756,0.029268,0.078049,,,insufficient_evidence
+field,20,Mallister House Guard [T5],mallister_house_guard,mallister_houseguard,confirmed_id,4,101,100,72,0,1,0,0.712871,0.000000,0.009901,,,insufficient_evidence
+field,13,Mallister Eagle Knight [T6],mallister_eagle_knight,mallister_knight,confirmed_id,4,124,94,125,5,25,0,1.008065,0.040323,0.241935,,,insufficient_evidence
+field,16,Mallister Archer [T4],mallister_archer,mallister_archer,confirmed_id,2,35,35,29,0,0,0,0.828571,0.000000,0.000000,,,insufficient_evidence
+field,23,Mallister Footman [T3],mallister_footman,mallister_footman,confirmed_id,2,23,23,8,0,0,0,0.347826,0.000000,0.000000,,,insufficient_evidence
+field,24,Mallister Horseman [T4],mallister_horseman,mallister_rider,confirmed_id,2,50,33,15,4,13,0,0.300000,0.080000,0.340000,,,insufficient_evidence
+field,22,Mallister Knight [T5],mallister_knight,mallister_horseman,confirmed_id,2,69,63,26,1,5,0,0.376812,0.014493,0.086957,,,insufficient_evidence
+field,19,Mallister Man at Arms [T4],mallister_man_at_arms,mallister_man_at_arms,confirmed_id,2,28,27,20,0,1,0,0.714286,0.000000,0.035714,,,insufficient_evidence
+siege_attack,6,Mallister Elite Archer [T5],mallister_elite_archer,mallister_elite_archer,confirmed_id,2,158,49,230,32,77,0,1.455696,0.202532,0.689873,,,insufficient_evidence
+siege_attack,11,Mallister House Guard [T5],mallister_house_guard,mallister_houseguard,confirmed_id,2,69,36,86,5,28,0,1.246377,0.072464,0.478261,,,insufficient_evidence
+siege_attack,5,Mallister Eagle Knight [T6],mallister_eagle_knight,mallister_knight,confirmed_id,2,56,32,92,5,19,0,1.642857,0.089286,0.428571,,,insufficient_evidence
+siege_attack,17,Mallister Archer [T4],mallister_archer,mallister_archer,confirmed_id,1,6,4,5,0,2,0,0.833333,0.000000,0.333333,,,insufficient_evidence
+siege_attack,20,Mallister Footman [T3],mallister_footman,mallister_footman,confirmed_id,1,7,4,3,1,2,0,0.428571,0.142857,0.428571,,,insufficient_evidence
+siege_attack,21,Mallister Horseman [T4],mallister_horseman,mallister_rider,confirmed_id,1,14,7,2,3,4,0,0.142857,0.214286,0.500000,,,insufficient_evidence
+siege_attack,12,Mallister Knight [T5],mallister_knight,mallister_horseman,confirmed_id,2,54,30,63,3,21,0,1.166667,0.055556,0.444444,,,insufficient_evidence
+siege_attack,13,Mallister Man at Arms [T4],mallister_man_at_arms,mallister_man_at_arms,confirmed_id,2,9,6,9,1,2,0,1.000000,0.111111,0.333333,,,insufficient_evidence

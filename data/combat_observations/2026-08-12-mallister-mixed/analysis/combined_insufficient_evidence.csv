@@ -1,0 +1,43 @@
+context,rank,display_name,provisional_slug,canonical_troop_id,identity_status,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,ci95_low,ci95_high,reliability_status
+field,1,Riverlands Archer [T3],riverlands_archer,river_archer,confirmed_id,1,1,1,5,0,0,0,5.000000,0.000000,0.000000,,,insufficient_evidence
+field,2,Tully Longbowman [T5],tully_longbowman,tully_longbowman,confirmed_id,1,4,3,15,1,0,0,3.750000,0.250000,0.250000,,,insufficient_evidence
+field,4,Riverlands Pikeman [T5],riverlands_pikeman,river_pikeman,confirmed_id,1,1,0,3,1,0,0,3.000000,1.000000,1.000000,,,insufficient_evidence
+field,5,Guardian of the Rock [T6],guardian_of_the_rock,casterly_guardian,confirmed_id,1,2,2,5,0,0,0,2.500000,0.000000,0.000000,,,insufficient_evidence
+field,6,Gold Cloak Halberdier [T5],gold_cloak_halberdier,kingsguard,confirmed_id,1,3,3,7,0,0,0,2.333333,0.000000,0.000000,,,insufficient_evidence
+field,7,Gold Cloak Sniper [T5],gold_cloak_sniper,goldcloak_master_archer,confirmed_id,1,3,2,7,1,0,0,2.333333,0.333333,0.333333,,,insufficient_evidence
+field,8,Northern Soldier [T2],northern_soldier,,unresolved,1,2,0,4,0,2,0,2.000000,0.000000,1.000000,,,insufficient_evidence
+field,9,Vale Master Archer [T5],vale_master_archer,vale_master_archer,confirmed_id,1,2,2,4,0,0,0,2.000000,0.000000,0.000000,,,insufficient_evidence
+field,10,Riverlands House Guard [T5],riverlands_house_guard,river_houseguard,confirmed_id,3,5,5,9,0,0,0,1.800000,0.000000,0.000000,,,insufficient_evidence
+field,12,Riverlands Elite Archer [T4],riverlands_elite_archer,river_elite_archer,confirmed_id,1,3,3,5,0,0,0,1.666667,0.000000,0.000000,,,insufficient_evidence
+field,14,Riverlands Swordmaster [T5],riverlands_swordmaster,river_swordmaster,confirmed_id,2,6,1,9,3,2,0,1.500000,0.500000,0.833333,,,insufficient_evidence
+field,15,Northern Hero [T4],northern_hero,,unresolved,1,2,2,3,0,0,0,1.500000,0.000000,0.000000,,,insufficient_evidence
+field,16,Riverrun Captain [T6],riverrun_captain,riverrun_captain,confirmed_id,1,2,2,3,0,0,0,1.500000,0.000000,0.000000,,,insufficient_evidence
+field,18,Frey Sharpshooter [T5],frey_sharpshooter,frey_sharpshooter,confirmed_id,3,15,14,21,0,1,0,1.400000,0.000000,0.066667,,,insufficient_evidence
+field,19,Northern Mounted Warlord [T6],northern_mounted_warlord,,unresolved,3,15,14,21,0,1,0,1.400000,0.000000,0.066667,,,insufficient_evidence
+field,20,Blackwood Levy [T2],blackwood_levy,blackwood_levy,confirmed_id,1,3,1,4,1,1,0,1.333333,0.333333,0.666667,,,insufficient_evidence
+field,21,Riverlands Horseman [T4],riverlands_horseman,river_horseman,confirmed_id,1,3,2,4,0,1,0,1.333333,0.000000,0.333333,,,insufficient_evidence
+field,22,Riverlands Soldier [T3],riverlands_soldier,river_soldier,confirmed_id,1,3,3,4,0,0,0,1.333333,0.000000,0.000000,,,insufficient_evidence
+field,23,Northern Colonel [T5],northern_colonel,,unresolved,4,20,14,26,3,3,0,1.300000,0.150000,0.300000,,,insufficient_evidence
+field,27,Broken Man [T1],broken_man,,unresolved,1,2,2,2,0,0,0,1.000000,0.000000,0.000000,,,insufficient_evidence
+field,28,Northern Sergeant [T4],northern_sergeant,,unresolved,1,1,1,1,0,0,0,1.000000,0.000000,0.000000,,,insufficient_evidence
+field,30,Arryn Winged Knight [T6],arryn_winged_knight,arryn_moonknight,confirmed_id,2,13,9,12,1,3,0,0.923077,0.076923,0.307692,,,insufficient_evidence
+field,31,Frey Assassin [T6],frey_assassin,frey_assassin,confirmed_id,4,64,60,58,1,3,0,0.906250,0.015625,0.062500,,,insufficient_evidence
+field,33,Blackwood Horseman [T5],blackwood_horseman,blackwood_horseman,confirmed_id,3,16,15,14,0,1,0,0.875000,0.000000,0.062500,,,insufficient_evidence
+field,34,Mallister Archer [T4],mallister_archer,mallister_archer,confirmed_id,2,35,35,29,0,0,0,0.828571,0.000000,0.000000,,,insufficient_evidence
+field,36,Northern Horseman [T5],northern_horseman,,unresolved,2,9,8,7,0,1,0,0.777778,0.000000,0.111111,,,insufficient_evidence
+field,37,Frey Veteran Crossbowman [T4],frey_veteran_crossbowman,frey_veteran_crossbowman,confirmed_id,3,12,12,9,0,0,0,0.750000,0.000000,0.000000,,,insufficient_evidence
+field,38,Brigand [T3],brigand,,ambiguous_exact_name,1,4,4,3,0,0,0,0.750000,0.000000,0.000000,,,insufficient_evidence
+field,39,Blackwood Bowman [T3],blackwood_bowman,blackwood_bowman,confirmed_id,4,83,80,58,1,2,0,0.698795,0.012048,0.036145,,,insufficient_evidence
+field,40,Mallister Man at Arms [T4],mallister_man_at_arms,mallister_man_at_arms,confirmed_id,4,90,74,62,4,12,0,0.688889,0.044444,0.177778,,,insufficient_evidence
+field,41,Northern Ranger [T5],northern_ranger,,unresolved,1,3,2,2,0,1,0,0.666667,0.000000,0.333333,,,insufficient_evidence
+field,43,Riverlands Elite Swordsman [T4],riverlands_elite_swordsman,river_elite_swordsman,confirmed_id,1,5,1,3,1,3,0,0.600000,0.200000,0.800000,,,insufficient_evidence
+field,44,Robber Knight [T4],robber_knight,robber_knight,confirmed_id,1,2,2,1,0,0,0,0.500000,0.000000,0.000000,,,insufficient_evidence
+field,45,Riverlands Man at Arms [T4],riverlands_man_at_arms,river_man_at_arms,confirmed_id,3,24,10,11,2,12,0,0.458333,0.083333,0.583333,,,insufficient_evidence
+field,46,Blackwood House Guard [T5],blackwood_house_guard,blackwood_houseguard,confirmed_id,4,73,71,30,0,2,0,0.410959,0.000000,0.027397,,,insufficient_evidence
+field,47,Mallister Knight [T5],mallister_knight,mallister_horseman,confirmed_id,2,69,63,26,1,5,0,0.376812,0.014493,0.086957,,,insufficient_evidence
+field,48,Mallister Horseman [T4],mallister_horseman,mallister_rider,confirmed_id,3,51,34,18,4,13,0,0.352941,0.078431,0.333333,,,insufficient_evidence
+field,49,Guard of the Crossing [T5],guard_of_the_crossing,guard_of_the_crossing,confirmed_id,4,61,57,19,1,3,0,0.311475,0.016393,0.065574,,,insufficient_evidence
+field,50,Vale Recruit [T1],vale_recruit,vale_recruit,confirmed_id,2,34,32,10,0,2,0,0.294118,0.000000,0.058824,,,insufficient_evidence
+field,51,Mallister Footman [T3],mallister_footman,mallister_footman,confirmed_id,3,52,38,11,3,11,0,0.211538,0.057692,0.269231,,,insufficient_evidence
+field,52,Westerlands Recruit [T1],westerlands_recruit,,unresolved,1,25,11,3,1,13,0,0.120000,0.040000,0.560000,,,insufficient_evidence
+field,53,Robber Knight Boss [T5],robber_knight_boss,robber_boss,confirmed_id,1,1,1,0,0,0,0,0.000000,0.000000,0.000000,,,insufficient_evidence

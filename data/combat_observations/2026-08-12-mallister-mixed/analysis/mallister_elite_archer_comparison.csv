@@ -1,0 +1,4 @@
+cohort,source_batch_ids,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,ci95_low,ci95_high,reliability_status
+baseline,combat_2026-07-27_103534_104834_rot|combat_2026-07-27_222843_010541|combat_2026-08-11_ravens_teeth_field,4,135,132,73,2,1,0,0.540741,0.014815,0.022222,,,insufficient_evidence
+current,combat_2026-08-12_mallister_mixed,4,205,189,289,6,10,0,1.409756,0.029268,0.078049,,,insufficient_evidence
+combined,combat_2026-07-27_103534_104834_rot|combat_2026-07-27_222843_010541|combat_2026-08-11_ravens_teeth_field|combat_2026-08-12_mallister_mixed,8,340,321,362,8,11,0,1.064706,0.023529,0.055882,0.561404,1.481707,reliable

@@ -44,6 +44,7 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
         include_boundary_flags=True,
         validation_overrides=None,
         slug="ravens_teeth",
+        battle_context="field",
     ):
         display_name = (
             "Ravens' Teeth"
@@ -70,7 +71,7 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
                 json.dumps(
                     {
                         "battle_id": battle_id,
-                        "battle_context": "field",
+                        "battle_context": battle_context,
                         "game_track": track,
                         "game_version": "1.4.x",
                         "player_side": "attacker",
@@ -84,7 +85,7 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
                 json.dumps(
                     {
                         "battle_id": battle_id,
-                        "battle_context": "field",
+                        "battle_context": battle_context,
                         "display_name_normalized": slug,
                         "display_names_raw": [f"{display_name} [T6]"],
                         "game_track": track,
@@ -164,10 +165,11 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
             "validation_path": f"{archive_root}/validation_report.json",
         }
 
-    def write_config(self, sources):
+    def write_config(self, sources, battle_context="field"):
         config = {
             "analysis_id": "test-compatible-field",
             "bootstrap_repetitions": 200,
+            "context": battle_context,
             "focus_slug": "ravens_teeth",
             "focus_label": "Ravens' Teeth",
             "game_version": "1.4.x",
@@ -179,6 +181,41 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
         path = self.batch_dir / "analysis" / "compatible_field_sources.json"
         path.write_text(json.dumps(config), encoding="utf-8")
         return path
+
+    def test_configured_siege_attack_context_is_joined_and_gated(self):
+        baseline = self.make_source(
+            "baseline",
+            "baseline",
+            ["s1", "s2", "s3"],
+            [5, 10, 15],
+            battle_context="siege_attack",
+        )
+        current = self.make_source(
+            "current",
+            "current",
+            ["s4", "s5"],
+            [20, 25],
+            battle_context="siege_attack",
+        )
+        config_path = self.write_config([baseline, current], "siege_attack")
+
+        result = module.run_analysis(
+            config_path, self.root, self.batch_dir, self.identity_root
+        )
+
+        self.assertEqual(result["reliable_rows"], 1)
+        decision = json.loads(
+            (
+                self.batch_dir
+                / "analysis"
+                / "compatibility_decision_siege_attack.json"
+            ).read_text()
+        )
+        self.assertEqual(decision["context"], "siege_attack")
+        self.assertEqual(
+            decision["decision"],
+            "compatible_on_common_player_siege_attack_count_projection",
+        )
 
     def test_real_archives_are_verified_joined_and_gated(self):
         baseline = self.make_source(

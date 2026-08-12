@@ -1,0 +1,43 @@
+{
+  "analysis_id": "combat_2026-08-12_mallister_siege_attack_compatible",
+  "bootstrap_repetitions": 10000,
+  "context": "siege_attack",
+  "focus_label": "Mallister Elite Archer",
+  "focus_slug": "mallister_elite_archer",
+  "game_version": "1.4.x",
+  "minimum_battles": 5,
+  "minimum_deployed": 20,
+  "sources": [
+    {
+      "archive_name": "bannerlord_combat_normalized_only_2026-07-27.tar.xz",
+      "batch_id": "combat_2026-07-27_222843_010541",
+      "batch_path": "data/combat_observations/2026-07-27-normalized-only",
+      "battles_path": "bannerlord_combat_normalized_2026-07-27/battles.jsonl",
+      "cohort": "baseline",
+      "consolidated_path": "bannerlord_combat_normalized_2026-07-27/troop_battle_consolidated.jsonl",
+      "expected_archive_sha256": "031a7c60d4ed239a2fcb70a81bb6edf047711c3a422ee3ba4420c4a4af534855",
+      "manifest_base_path": "bannerlord_combat_normalized_2026-07-27",
+      "manifest_path": "bannerlord_combat_normalized_2026-07-27/artifact_hashes.csv",
+      "normalization_commit": "4e0749b84f5efc297ebcb026fa6dfbdaaed7fdf1",
+      "schema_version": "1.1.0",
+      "summary_path": "bannerlord_combat_normalized_2026-07-27/normalization_summary.json",
+      "validation_path": "bannerlord_combat_normalized_2026-07-27/validation_report.json"
+    },
+    {
+      "archive_name": "mallister_combat_2026-08-12.tar.xz",
+      "batch_id": "combat_2026-08-12_mallister_mixed",
+      "batch_path": "data/combat_observations/2026-08-12-mallister-mixed",
+      "battles_path": "mallister_combat_2026-08-12/battles.jsonl",
+      "cohort": "current",
+      "consolidated_path": "mallister_combat_2026-08-12/troop_battle_consolidated.jsonl",
+      "expected_archive_sha256": "97db4b82f1d1b146d43c3f3afc421cb4594c2960bd418a045f70c2a0685758e7",
+      "manifest_base_path": "mallister_combat_2026-08-12",
+      "manifest_path": "mallister_combat_2026-08-12/artifact_hashes.csv",
+      "normalization_commit": "62e389f9621df6d353b60541bcc96f222fb20520",
+      "schema_version": "2.0.0",
+      "summary_path": "mallister_combat_2026-08-12/normalization_summary.json",
+      "validation_path": "mallister_combat_2026-08-12/validation_report.json"
+    }
+  ],
+  "track": "realm_of_thrones"
+}

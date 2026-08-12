@@ -1333,7 +1333,7 @@ def main() -> None:
         report_lines.extend(
             [
                 "",
-                "## Requested Sarnori family by context",
+                "## Requested focus troops by context",
                 "",
                 "| Context | Troop | Canonical ID | Battles | Deployed | Kills/deployed | Casualty rate | Evidence gate |",
                 "|---|---|---|---:|---:|---:|---:|---|",
@@ -1365,7 +1365,7 @@ def main() -> None:
             "Each observed context has at most "
             f"{max(row['independent_battles'] for row in coverage_rows)} independent battles. "
             "Contexts are never pooled to manufacture an overall display gate. Complete rates "
-            "remain diagnostics only and do not support the provisional S-tier conclusion.",
+            "remain diagnostics only and do not support a tier conclusion by themselves.",
             "",
             "## Limitations",
             "",
