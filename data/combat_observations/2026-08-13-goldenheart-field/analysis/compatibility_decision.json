@@ -1,2 +1,31 @@
-}«Z––­…Ö­k÷(™¶­¡»®ö­Š‰ìÿm6ëO5Þ
-%uéáyªí~'¥wö§j\¬ŠÏÜ¢jZ¶&â–+ruç"²*'ŽÊ'{¬¶Ê'v+$nëg¢Ø§ÛmŸßwûñíõ}Ý7ñ½½ß×}Ç½w­ys§´áþ}
+{
+  "checks": {
+    "baseline_battle_ids_distinct": true,
+    "baseline_clean_player_party_rows": true,
+    "baseline_exact_context_subtype_preserved": false,
+    "canonical_identity_exact_match": true,
+    "current_context_is_field": true,
+    "current_player_enemy_boundary_verified": true,
+    "direct_metric_definition_compatible": true,
+    "track_identity_compatible": true
+  },
+  "decision": "compatible_for_identity_anchored_direct_rate_extension_only",
+  "excluded_joins": [
+    "field_only_reliable_ranking",
+    "contribution_index",
+    "whole_army_share",
+    "combined_casualty_rate",
+    "combined_death_rate",
+    "battle_bootstrap_delta"
+  ],
+  "focus_canonical_troop_id": "summer_master_longbowman",
+  "limitations": [
+    "The frozen nine-battle baseline preserves clean player-party membership but not a field-versus-siege subtype for each battle.",
+    "The frozen baseline does not retain versioned per-battle Goldenheart counts, so a battle bootstrap interval cannot be reconstructed.",
+    "The aggregate extension is diagnostic and does not make the two-battle current field cohort reliable.",
+    "No contribution index or whole-army share is computed from the partial current scoreboards."
+  ],
+  "metric_joined": "kills_per_present_or_deployed = total_kills / (survivors + deaths + wounded)",
+  "status": "passed_with_scope_limit",
+  "track": "realm_of_thrones"
+}

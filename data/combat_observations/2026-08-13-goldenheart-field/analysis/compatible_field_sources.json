@@ -1,2 +1,46 @@
-}«Z––­…Ö­k÷(™¶­¡»®ö­Š‰ìÿm6ëO5Ş
-%uéáyªí~'¥wö§j\¬ŠÏÜ¢jZ¶&åyø•Û(º·²;(ìb²Û(Ø¬‘»­‹bŸm¶}ßïÇ·Õ÷tßÆö÷\q÷õŞµåÎÓ‡ù
+{
+  "analysis_id": "combat_2026-08-13_goldenheart_field_empirical_extension",
+  "comparison_scope": "identity_anchored_clean_player_party_direct_kills_per_deployed",
+  "focus_canonical_troop_id": "summer_master_longbowman",
+  "focus_label": "Goldenheart Warrior",
+  "minimum_battles": 5,
+  "minimum_deployed": 20,
+  "sources": [
+    {
+      "battle_ids": [
+        "rot_empirical_20260703_005",
+        "rot_empirical_20260703_006",
+        "rot_empirical_20260703_007",
+        "rot_empirical_20260703_008",
+        "rot_empirical_20260703_009",
+        "rot_empirical_20260703_014",
+        "rot_empirical_20260703_015",
+        "rot_empirical_20260703_016",
+        "rot_empirical_20260703_018"
+      ],
+      "cohort": "frozen_baseline",
+      "context_scope": "clean_player_party_troop; exact field-versus-siege subtype not preserved",
+      "independent_battles": 9,
+      "source_path": "data/rot_reference/empirical/20260703_contextual_control_status.csv",
+      "source_sha256": "51e21d7b7fb8973894f166c38786bd999aab0b1bbef54011f376fa04927ef574",
+      "source_type": "frozen_empirical_aggregate",
+      "total_deployed": 161,
+      "total_kills": 428
+    },
+    {
+      "battle_ids": [
+        "battle_20260813_014759_goldenheart_field",
+        "battle_20260813_181502_goldenheart_field"
+      ],
+      "cohort": "current_field",
+      "context_scope": "field; player party; ordinary troop",
+      "independent_battles": 2,
+      "normalization_commit": "f62040266a72be6974905693a837b88c57d04e01",
+      "normalized_archive_sha256": "b9b59cdd6547637b7dbf73ff66bef8370654df1dd3ecf7dd62cc48fe37577829",
+      "source_type": "normalized_schema_2_0_0",
+      "total_deployed": 29,
+      "total_kills": 92
+    }
+  ],
+  "track": "realm_of_thrones"
+}

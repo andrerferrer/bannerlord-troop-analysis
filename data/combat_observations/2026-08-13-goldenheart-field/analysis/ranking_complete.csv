@@ -1,2 +1,21 @@
-}´Zññ≠Ö÷≠k˜(ô∂≠°ªÆˆ≠äâÏˇm6ÎO5ﬁ
-%uÈ·y™Ì~'•wˆßj\¨äœÎjy"û(öô^µÁ,ΩÏb≤€(ùÿ¨ëª≠ûãbüm∂}ﬂÔ«∑’˜tﬂ∆ˆ˜\q˜ıﬁµÂŒû”á˘
+context,rank,display_name,provisional_slug,canonical_troop_id,identity_status,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,ci95_low,ci95_high,reliability_status
+field,1,Dornish Spearmaster [T5],dornish_spearmaster,,unresolved,1,3,0,12,2,1,0,4.000000,0.666667,1.000000,,,insufficient_evidence
+field,2,Goldenheart Warrior [T6],goldenheart_warrior,summer_master_longbowman,confirmed_id,2,29,28,92,1,0,0,3.172414,0.034483,0.034483,,,insufficient_evidence
+field,3,Lyseni Axe Apprentice [T3],lyseni_axe_apprentice,lyseni_axe_apprentice,confirmed_id,1,3,0,8,1,2,0,2.666667,0.333333,1.000000,,,insufficient_evidence
+field,4,Lyseni Warrior [T4],lyseni_warrior,lyseni_warrior,confirmed_id,1,2,2,5,0,0,0,2.500000,0.000000,0.000000,,,insufficient_evidence
+field,5,Lyseni Axeman [T4],lyseni_axeman,lyseni_axeman,confirmed_id,1,3,0,7,2,1,0,2.333333,0.666667,1.000000,,,insufficient_evidence
+field,6,Tyroshi Firstmate [T5],tyroshi_firstmate,tyroshi_firstmate,confirmed_id,1,3,0,5,1,2,0,1.666667,0.333333,1.000000,,,insufficient_evidence
+field,7,Tyroshi Quartermaster [T4],tyroshi_quartermaster,tyroshi_quartermaster,confirmed_id,1,6,0,8,0,6,0,1.333333,0.000000,1.000000,,,insufficient_evidence
+field,8,Summer Isles Spearmaster [T5],summer_isles_spearmaster,summer_pikeman,confirmed_id,2,16,9,18,3,4,0,1.125000,0.187500,0.437500,,,insufficient_evidence
+field,9,Dornish Footman [T3],dornish_footman,,unresolved,1,6,0,6,1,5,0,1.000000,0.166667,1.000000,,,insufficient_evidence
+field,10,Lyseni Soldier [T3],lyseni_soldier,lyseni_soldier,confirmed_id,1,4,4,4,0,0,0,1.000000,0.000000,0.000000,,,insufficient_evidence
+field,11,Summer Isles Scout [T4],summer_isles_scout,summer_rider,confirmed_id,1,2,2,2,0,0,0,1.000000,0.000000,0.000000,,,insufficient_evidence
+field,12,Summer Isles Longbowman [T5],summer_isles_longbowman,summer_longbowman,confirmed_id,2,25,22,24,1,2,0,0.960000,0.040000,0.120000,,,insufficient_evidence
+field,13,Summer Isles Archer [T4],summer_isles_archer,summer_veteran_bowman,confirmed_id,2,58,55,42,1,2,0,0.724138,0.017241,0.051724,,,insufficient_evidence
+field,14,Tyroshi Boatswain [T3],tyroshi_boatswain,tyroshi_boatswain,confirmed_id,2,10,2,7,4,4,0,0.700000,0.400000,0.800000,,,insufficient_evidence
+field,15,Rhoynar Convoy Guard [T4],rhoynar_convoy_guard,,unresolved,1,5,2,3,0,3,0,0.600000,0.000000,0.600000,,,insufficient_evidence
+field,16,Dornish Levy [T2],dornish_levy,,unresolved,1,19,1,10,9,9,1,0.526316,0.473684,0.947368,,,insufficient_evidence
+field,17,Summer Isles Footman [T2],summer_isles_footman,summer_footman,confirmed_id,2,36,13,18,3,20,0,0.500000,0.083333,0.638889,,,insufficient_evidence
+field,18,Summer Isles Horseman [T5],summer_isles_horseman,summer_horseman,confirmed_id,1,11,9,4,0,2,0,0.363636,0.000000,0.181818,,,insufficient_evidence
+field,19,Summer Isles Bowman [T3],summer_isles_bowman,summer_bowman,confirmed_id,2,71,50,22,5,16,0,0.309859,0.070423,0.295775,,,insufficient_evidence
+field,20,Dornish Recruit [T1],dornish_recruit,,unresolved,1,50,0,14,18,32,0,0.280000,0.360000,1.000000,,,insufficient_evidence

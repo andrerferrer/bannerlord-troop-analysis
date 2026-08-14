@@ -1,2 +1,4 @@
-}«Z––­…Ö­k÷(™¶­¡»®ö­Š‰ìÿm6ëO5Þ
-%uéáyªí~'¥wö§j\¬ŠÏà¢W^žš®Ü®¸¨­Ê&¥ªâ²‰Ü²÷±ŠËl¢wb²Fî¶z-Š}¶Ùý÷¿ßWÝÓÛÝýqÇÜ{×z×—:{Nç
+cohort,source_battle_ids,independent_battles,deployed,kills,kills_per_deployed,current_minus_baseline_kills_per_deployed,combined_minus_baseline_kills_per_deployed,minimum_battles,minimum_deployed,evidence_status
+frozen_baseline,rot_empirical_20260703_005|rot_empirical_20260703_006|rot_empirical_20260703_007|rot_empirical_20260703_008|rot_empirical_20260703_009|rot_empirical_20260703_014|rot_empirical_20260703_015|rot_empirical_20260703_016|rot_empirical_20260703_018,9,161,428,2.658385,,,5,20,reliable_clean_player_party_aggregate
+current_field,battle_20260813_014759_goldenheart_field|battle_20260813_181502_goldenheart_field,2,29,92,3.172414,0.514029,,5,20,diagnostic_below_5_battle_gate
+combined_direct_rate,rot_empirical_20260703_005|rot_empirical_20260703_006|rot_empirical_20260703_007|rot_empirical_20260703_008|rot_empirical_20260703_009|rot_empirical_20260703_014|rot_empirical_20260703_015|rot_empirical_20260703_016|rot_empirical_20260703_018|battle_20260813_014759_goldenheart_field|battle_20260813_181502_goldenheart_field,11,190,520,2.736842,,0.078457,5,20,diagnostic_context_subtype_not_preserved
