@@ -1,0 +1,25 @@
+{
+  "batch_id": "combat_2026-08-13_goldenheart_field",
+  "battle_context_counts": {
+    "field": 2
+  },
+  "battles": 2,
+  "game_track": "realm_of_thrones",
+  "game_version": "1.4.x",
+  "normalization_scope": "evidence_and_structural_normalization_only",
+  "observations": 69,
+  "primary_troop_occurrences": 27,
+  "review_queue": 5,
+  "schema_version": "2.0.0",
+  "screenshots": 2,
+  "source_kind": "host_exposed_screenshot_directory",
+  "source_retention_status": "not_retained_in_repository_hashes_and_library_ids_recorded",
+  "source_sha256": "763f8fb7bceb6f34514fe4686a812ec714e4ec694de1c6ddc86dc9cbb11bb1d2",
+  "status": "normalized_pending_analysis",
+  "track_resolution": {
+    "evidence": [
+      "Goldenheart Warrior, Summer Isles, Martell, Dornish, Tyroshi, and Lyseni labels"
+    ],
+    "method": "track-specific visible faction and troop labels"
+  }
+}

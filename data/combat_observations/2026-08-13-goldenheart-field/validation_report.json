@@ -1,0 +1,32 @@
+{
+  "battle_context_counts": {
+    "field": 2
+  },
+  "battle_count": 2,
+  "context_boundaries_preserved": true,
+  "image_count": 2,
+  "known_limitations": [
+    "Only screenshot-visible rows are normalized; off-screen rows are not inferred.",
+    "Both player scoreboards have partial row visibility, so contribution-index or whole-army share metrics must not be inferred from this batch.",
+    "Five white level-up icons remain explicit review items rather than guessed numeric values.",
+    "The two screenshots are independent field battles; the player is defender at 01:47 and attacker at 18:15.",
+    "Raw PNG files are not retained in Git; filenames, sizes, per-image SHA-256 values, Library file IDs, and the deterministic selected-source hash are recorded.",
+    "The new batch alone is below the 5-independent-battle display gate and must not produce a standalone reliable conclusion."
+  ],
+  "observation_count": 69,
+  "offscreen_rows_inferred": false,
+  "primary_troop_occurrences": 27,
+  "review_queue_count": 5,
+  "schema_version": "2.0.0",
+  "sides_pooled": false,
+  "source_sha256": "763f8fb7bceb6f34514fe4686a812ec714e4ec694de1c6ddc86dc9cbb11bb1d2",
+  "source_size_bytes": 4690340,
+  "status": "passed",
+  "track_resolution": {
+    "evidence": [
+      "Goldenheart Warrior, Summer Isles, Martell, Dornish, Tyroshi, and Lyseni labels"
+    ],
+    "method": "track-specific visible faction and troop labels"
+  },
+  "validation_errors": []
+}
