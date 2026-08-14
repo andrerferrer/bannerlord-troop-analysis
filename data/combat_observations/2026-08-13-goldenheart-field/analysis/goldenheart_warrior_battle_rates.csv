@@ -1,0 +1,3 @@
+cohort,battle_id,player_side,result,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,evidence_status
+current_field,battle_20260813_014759_goldenheart_field,defender,Victory,7,6,36,1,0,0,5.142857,0.142857,0.142857,diagnostic_below_5_battle_gate
+current_field,battle_20260813_181502_goldenheart_field,attacker,Victory,22,22,56,0,0,0,2.545455,0.000000,0.000000,diagnostic_below_5_battle_gate

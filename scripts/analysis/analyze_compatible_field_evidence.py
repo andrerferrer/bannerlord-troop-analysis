@@ -325,9 +325,7 @@ def validate_field_projection(
             raise ValueError(f"{spec.batch_id}: invalid counts: {key}")
         if row["deployed"] <= 0:
             raise ValueError(f"{spec.batch_id}: non-positive deployed count: {key}")
-        accounted = sum(
-            row[field] for field in ("survivors", "deaths", "wounded", "routed")
-        )
+        accounted = sum(row[field] for field in ("survivors", "deaths", "wounded"))
         if accounted != row["deployed"]:
             raise ValueError(f"{spec.batch_id}: casualty arithmetic mismatch: {key}")
     return field_battles, field_rows
@@ -389,9 +387,7 @@ def validate_context_projection(
             raise ValueError(f"{spec.batch_id}: invalid counts: {key}")
         if row["deployed"] <= 0:
             raise ValueError(f"{spec.batch_id}: non-positive deployed count: {key}")
-        accounted = sum(
-            row[field] for field in ("survivors", "deaths", "wounded", "routed")
-        )
+        accounted = sum(row[field] for field in ("survivors", "deaths", "wounded"))
         if accounted != row["deployed"]:
             raise ValueError(f"{spec.batch_id}: casualty arithmetic mismatch: {key}")
     return context_battles, context_rows

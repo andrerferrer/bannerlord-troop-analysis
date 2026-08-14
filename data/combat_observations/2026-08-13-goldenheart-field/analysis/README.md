@@ -1,0 +1,63 @@
+# Phase 2 analytical outputs
+
+`ranking_complete.csv` contains every observed troop/context estimate. `ranking_reliable.csv` applies the 5-battle / 20-deployed gate. `insufficient_evidence.csv` retains all rows that fail the gate. `canonical_identity_audit.csv` never treats provisional slugs as XML IDs.
+
+The batch-level `../README.md` is git-frozen at the normalization commit as Phase 1 metadata. This directory records Phase 2 outputs; authoritative workflow state lives in append-only protocol comments.
+
+`focus_troop_contexts.csv` records each requested focus troop separately for every observed context, including explicit `not_observed` rows. Machine-readable diagnostic rates remain available with their evidence status; the report masks rates unless the full display gate passes.
+
+`goldenheart_warrior_battle_rates.csv` contains the two current field diagnostics. `goldenheart_warrior_comparison.csv`, `combined_battle_provenance.csv`, and `compatibility_decision.json` document the deliberately narrow extension of the frozen nine-battle clean player-party baseline. The extension joins only canonical identity plus direct kills/present; it is not a context-strict combined field ranking.
+
+Reproduce from the repository root:
+
+```bash
+batch='data/combat_observations/2026-08-13-goldenheart-field'
+work_dir=$(mktemp -d /tmp/bannerlord-analysis.XXXXXX)
+archive="$work_dir/goldenheart_field_2026-08-13.tar.xz"
+cat "$batch"/bundle/goldenheart_field_2026-08-13.tar.xz.base64.part-* \
+  | base64 --decode > "$archive"
+python3 - "$archive" "$work_dir/input" <<'PY'
+import hashlib
+import sys
+from pathlib import Path
+from scripts.combat_observations.bundle import inspect_tar, safe_extract_tar
+archive = Path(sys.argv[1])
+expected = 'b9b59cdd6547637b7dbf73ff66bef8370654df1dd3ecf7dd62cc48fe37577829'
+actual = hashlib.sha256(archive.read_bytes()).hexdigest()
+if actual != expected:
+    raise SystemExit(f'archive SHA-256 mismatch: {actual} != {expected}')
+print(inspect_tar(archive))
+safe_extract_tar(archive, Path(sys.argv[2]))
+PY
+python3 scripts/analysis/analyze_normalized_combat_batch.py \
+  --input-dir "$work_dir/input/goldenheart_field_2026-08-13" \
+  --batch-dir "$batch" --repo-root . --identity-root data/realm_of_thrones/audit \
+  --normalization-commit f62040266a72be6974905693a837b88c57d04e01 \
+  --expected-archive-sha256 b9b59cdd6547637b7dbf73ff66bef8370654df1dd3ecf7dd62cc48fe37577829 \
+  --archive-path "$archive" \
+  --expected-source-sha256 763f8fb7bceb6f34514fe4686a812ec714e4ec694de1c6ddc86dc9cbb11bb1d2 \
+  --expected-source-size-bytes 4690340 \
+  --source-path "$batch/source/original_screenshots" \
+  --batch-id combat_2026-08-13_goldenheart_field --track realm_of_thrones \
+  --minimum-battles 5 --minimum-deployed 20 \
+  --bootstrap-repetitions 10000 \
+  --reviewer 'Phase 2 local evidence review' \
+  --focus-slug goldenheart_warrior \
+  --focus-slug summer_isles_archer \
+  --focus-slug summer_isles_bowman \
+  --focus-slug summer_isles_footman \
+  --focus-slug summer_isles_longbowman \
+  --focus-slug summer_isles_spearmaster \
+  --focus-slug summer_isles_horseman \
+  --focus-slug summer_isles_scout
+```
+
+The raw-source path is optional after verified normalization. The committed input verification records the successful local check of both PNG SHA-256 values, total size, and selected-source hash. The additive white-icon review additionally requires those exact retained PNGs; it resolves icon presence without assigning a numeric count.
+
+The frozen comparison is arithmetically reproducible from the versioned aggregate and current normalized rows:
+
+```text
+baseline = 428 / 161 = 2.658385
+current = 92 / 29 = 3.172414
+combined = (428 + 92) / (161 + 29) = 2.736842
+```

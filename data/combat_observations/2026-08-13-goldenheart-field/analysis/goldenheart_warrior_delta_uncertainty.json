@@ -1,0 +1,13 @@
+{
+  "baseline_kills_per_deployed": 2.658385093167702,
+  "combined_kills_per_deployed": 2.736842105263158,
+  "combined_minus_baseline": 0.07845701209545597,
+  "current_kills_per_deployed": 3.1724137931034484,
+  "current_minus_baseline": 0.5140286999357464,
+  "evidence_status": "point_estimates_only_no_reconstructible_baseline_battle_interval",
+  "interval": null,
+  "interval_reason": "The frozen baseline preserves aggregate totals and nine battle IDs but not the per-battle Goldenheart numerator and denominator rows required for battle-level bootstrap resampling.",
+  "metric": "kills_per_deployed",
+  "new_deployed_fraction_of_baseline": 0.18012422360248448,
+  "new_kills_fraction_of_baseline": 0.21495327102803738
+}

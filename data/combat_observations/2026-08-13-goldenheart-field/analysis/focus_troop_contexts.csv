@@ -1,0 +1,9 @@
+context,rank,display_name,provisional_slug,canonical_troop_id,identity_status,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,ci95_low,ci95_high,reliability_status
+field,2,Goldenheart Warrior [T6],goldenheart_warrior,summer_master_longbowman,confirmed_id,2,29,28,92,1,0,0,3.172414,0.034483,0.034483,,,insufficient_evidence
+field,13,Summer Isles Archer [T4],summer_isles_archer,summer_veteran_bowman,confirmed_id,2,58,55,42,1,2,0,0.724138,0.017241,0.051724,,,insufficient_evidence
+field,19,Summer Isles Bowman [T3],summer_isles_bowman,summer_bowman,confirmed_id,2,71,50,22,5,16,0,0.309859,0.070423,0.295775,,,insufficient_evidence
+field,17,Summer Isles Footman [T2],summer_isles_footman,summer_footman,confirmed_id,2,36,13,18,3,20,0,0.500000,0.083333,0.638889,,,insufficient_evidence
+field,12,Summer Isles Longbowman [T5],summer_isles_longbowman,summer_longbowman,confirmed_id,2,25,22,24,1,2,0,0.960000,0.040000,0.120000,,,insufficient_evidence
+field,8,Summer Isles Spearmaster [T5],summer_isles_spearmaster,summer_pikeman,confirmed_id,2,16,9,18,3,4,0,1.125000,0.187500,0.437500,,,insufficient_evidence
+field,18,Summer Isles Horseman [T5],summer_isles_horseman,summer_horseman,confirmed_id,1,11,9,4,0,2,0,0.363636,0.000000,0.181818,,,insufficient_evidence
+field,11,Summer Isles Scout [T4],summer_isles_scout,summer_rider,confirmed_id,1,2,2,2,0,0,0,1.000000,0.000000,0.000000,,,insufficient_evidence

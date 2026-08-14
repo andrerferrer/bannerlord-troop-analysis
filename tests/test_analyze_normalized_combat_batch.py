@@ -44,6 +44,58 @@ def consolidated(
 
 
 class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
+    def test_routed_is_not_added_to_deployed_arithmetic(self) -> None:
+        battle = {
+            "battle_id": "b1",
+            "battle_context": "field",
+            "player_side": "attacker",
+        }
+        occurrence = {
+            "observation_id": "o1",
+            "battle_id": "b1",
+            "battle_context": "field",
+            "display_name_normalized": "troop",
+            "display_name_raw": "Troop [T1]",
+            "game_track": "realm_of_thrones",
+            "row_type": "troop",
+            "analysis_status": "included_primary",
+            "needs_review": False,
+            "side": "attacker",
+            "source_image_sha256": "image-hash",
+            "deployed": 1,
+            "survivors": 1,
+            "kills": 0,
+            "deaths": 0,
+            "wounded": 0,
+            "routed": 1,
+        }
+        consolidated_row = {
+            "battle_id": "b1",
+            "battle_context": "field",
+            "display_name_normalized": "troop",
+            "display_names_raw": ["Troop [T1]"],
+            "game_track": "realm_of_thrones",
+            "observation_ids": ["o1"],
+            "needs_review": False,
+            "deployed": 1,
+            "survivors": 1,
+            "kills": 0,
+            "deaths": 0,
+            "wounded": 0,
+            "routed": 1,
+        }
+
+        errors, _ = MODULE.validate_normalized(
+            [battle],
+            [occurrence],
+            [occurrence],
+            [consolidated_row],
+            [{"image_sha256": "image-hash"}],
+            [],
+        )
+
+        self.assertEqual(errors, [])
+
     def test_name_normalization_removes_tier_without_using_slug_as_id(self) -> None:
         self.assertEqual(
             MODULE.normalize_display_name("Ravens’ Teeth [T6]"),

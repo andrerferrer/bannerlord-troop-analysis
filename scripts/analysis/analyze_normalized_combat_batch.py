@@ -475,7 +475,7 @@ def validate_normalized(
         if all(isinstance(row.get(field), int) for field in COUNT_FIELDS):
             if int(row["deployed"]) <= 0:
                 errors.append(f"non-positive deployed count: {observation_id}")
-            accounted = sum(int(row[field]) for field in ("survivors", "deaths", "wounded", "routed"))
+            accounted = sum(int(row[field]) for field in ("survivors", "deaths", "wounded"))
             if accounted != int(row["deployed"]):
                 errors.append(f"troop arithmetic mismatch: {observation_id}")
 
@@ -545,7 +545,7 @@ def validate_normalized(
         if all(isinstance(row.get(field), int) for field in COUNT_FIELDS):
             if int(row["deployed"]) <= 0:
                 errors.append(f"non-positive consolidated deployed count: {'|'.join(key)}")
-            accounted = sum(int(row[field]) for field in ("survivors", "deaths", "wounded", "routed"))
+            accounted = sum(int(row[field]) for field in ("survivors", "deaths", "wounded"))
             if accounted != int(row["deployed"]):
                 errors.append(f"consolidated arithmetic mismatch: {'|'.join(key)}")
 

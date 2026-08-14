@@ -1,0 +1,3 @@
+# Phase 2 review decisions
+
+The five queued rows were re-reviewed against the two exact locally retained PNGs after their SHA-256 values and the selected-source hash passed. Each row visibly contains the white level-up icon, so the additive layer resolves only the semantic fact `icon_present_non_numeric`. It does not invent an integer for `upgrade_ready` and does not rewrite normalized evidence. All five rows are heroes and remain excluded from ordinary-troop rankings.

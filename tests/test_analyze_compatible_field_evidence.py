@@ -32,6 +32,59 @@ class CompatibleFieldEvidenceTests(unittest.TestCase):
     def tearDown(self):
         self.temp.cleanup()
 
+    def test_routed_is_not_added_to_deployed_arithmetic(self):
+        spec = module.SourceSpec(
+            batch_id="batch",
+            cohort="current",
+            batch_path="data/batch",
+            normalization_commit="a" * 40,
+            archive_name="batch.tar.xz",
+            expected_archive_sha256="b" * 64,
+            manifest_path="artifact_hashes.csv",
+            manifest_base_path=".",
+            summary_path="normalization_summary.json",
+            validation_path="validation_report.json",
+            battles_path="battles.jsonl",
+            consolidated_path="troop_battle_consolidated.jsonl",
+            schema_version="2.0.0",
+        )
+        battles = [
+            {
+                "battle_id": "b1",
+                "battle_context": "field",
+                "game_track": "realm_of_thrones",
+                "game_version": "1.4.x",
+                "player_side": "attacker",
+            }
+        ]
+        rows = [
+            {
+                "battle_id": "b1",
+                "battle_context": "field",
+                "display_name_normalized": "troop",
+                "display_names_raw": ["Troop [T1]"],
+                "game_track": "realm_of_thrones",
+                "deployed": 5,
+                "survivors": 5,
+                "kills": 1,
+                "deaths": 0,
+                "wounded": 0,
+                "routed": 2,
+                "needs_review": False,
+            }
+        ]
+
+        validated_battles, validated_rows = module.validate_field_projection(
+            spec,
+            battles,
+            rows,
+            "realm_of_thrones",
+            "1.4.x",
+        )
+
+        self.assertEqual(validated_battles, battles)
+        self.assertEqual(validated_rows, rows)
+
     def make_source(
         self,
         batch_id,
