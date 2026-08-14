@@ -6,7 +6,7 @@
     "merge_method": "squash"
   },
   "handoff_path": "data/combat_observations/2026-08-13-goldenheart-field/handoff/ANALYSIS_PROMPT.md",
-  "normalization_commit": "NORMALIZATION_COMMIT_PENDING",
+  "normalization_commit": "f62040266a72be6974905693a837b88c57d04e01",
   "normalized_archive_sha256": "b9b59cdd6547637b7dbf73ff66bef8370654df1dd3ecf7dd62cc48fe37577829",
   "protocol": "bannerlord-analysis-task",
   "required_actions": [
