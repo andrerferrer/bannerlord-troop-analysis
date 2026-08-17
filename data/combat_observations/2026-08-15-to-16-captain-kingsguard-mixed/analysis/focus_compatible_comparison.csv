@@ -1,0 +1,7 @@
+canonical_troop_id,context,scope,source_count,independent_battles,deployed,survivors,kills,deaths,wounded,routed,casualties,kills_per_deployed,death_rate,casualty_rate,gate_status,allowed_use,blocked_use
+mounted_kingsguard,field,strict_baseline_2026-07-23,1,5,23,,124,0,,,2,5.391304,0.000000,0.086957,passes_5_battles_20_deployed,published aggregate baseline,battle-level reconstruction; wounded/routed split
+mounted_kingsguard,field,current_batch,1,3,58,43,133,3,12,0,15,2.293103,0.051724,0.258621,insufficient_battles,descriptive current-batch aggregate,standalone reliable classification
+mounted_kingsguard,field,compatible_direct_extension,2,8,81,,257,3,,,17,3.172840,0.037037,0.209877,passes_5_battles_20_deployed,close dedicated field test; field-only descriptive classification,"combined bootstrap, wounded/routed split, causal delta, universal tier, whole-army ranking"
+goldcloak_master_archer,field,mallister_2026-08-12,1,1,3,2,7,1,0,0,1,2.333333,0.333333,0.333333,insufficient_battles_and_deployed,compatible battle provenance,reliable classification
+goldcloak_master_archer,field,current_batch,1,3,106,104,102,1,1,0,2,0.962264,0.009434,0.018868,insufficient_battles,descriptive current-batch aggregate,reliable classification
+goldcloak_master_archer,field,compatible_direct_extension,2,4,109,106,109,2,1,0,3,1.000000,0.018349,0.027523,insufficient_battles,descriptive compatible aggregate,"reliable classification, combined bootstrap, causal delta"

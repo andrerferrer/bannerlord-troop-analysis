@@ -1,0 +1,65 @@
+context,rank,display_name,provisional_slug,canonical_troop_id,identity_status,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,ci95_low,ci95_high,reliability_status
+field,1,Queen's Man [T6],queen_s_man,dragonstone_steel_curtain,confirmed_id,3,8,6,19,0,2,0,2.375000,0.000000,0.250000,,,insufficient_evidence
+field,2,Captain of the Kingsguard [T6],captain_of_the_kingsguard,mounted_kingsguard,confirmed_id,3,58,43,133,3,12,0,2.293103,0.051724,0.258621,,,insufficient_evidence
+field,3,Westerlands Banner Knight [T6],westerlands_banner_knight,,unresolved,2,6,4,12,0,2,0,2.000000,0.000000,0.333333,,,insufficient_evidence
+field,4,Kingswood Bandit [T3],kingswood_bandit,kingswood_bandit,confirmed_id,1,1,1,2,0,0,0,2.000000,0.000000,0.000000,,,insufficient_evidence
+field,5,Westerlands Hardened Crossbowman [T4],westerlands_hardened_crossbowman,,unresolved,1,2,2,3,0,0,0,1.500000,0.000000,0.000000,,,insufficient_evidence
+field,6,Riverlands Man at Arms [T4],riverlands_man_at_arms,river_man_at_arms,confirmed_id,1,5,1,7,0,4,0,1.400000,0.000000,0.800000,,,insufficient_evidence
+field,7,Gold Cloak Archer [T3],gold_cloak_archer,goldcloak_archer,confirmed_id,1,29,29,39,0,0,0,1.344828,0.000000,0.000000,,,insufficient_evidence
+field,8,Westerlands Horseman [T5],westerlands_horseman,,unresolved,2,6,2,8,0,4,0,1.333333,0.000000,0.666667,,,insufficient_evidence
+field,9,Kingsguard [T5],kingsguard,kingsguard_captain,confirmed_id,3,51,23,59,3,25,0,1.156863,0.058824,0.549020,,,insufficient_evidence
+field,10,Riverlands Soldier [T3],riverlands_soldier,river_soldier,confirmed_id,1,13,4,15,4,5,0,1.153846,0.307692,0.692308,,,insufficient_evidence
+field,11,Kingsguard Initiate [T4],kingsguard_initiate,kingsguard_initiate,confirmed_id,2,69,16,76,10,43,0,1.101449,0.144928,0.768116,,,insufficient_evidence
+field,12,Gold Cloak Elite Archer [T4],gold_cloak_elite_archer,goldcloak_elite_archer,confirmed_id,3,63,61,65,0,2,0,1.031746,0.000000,0.031746,,,insufficient_evidence
+field,13,Westerlands Levy Crossbowman [T2],westerlands_levy_crossbowman,,unresolved,1,7,7,7,0,0,0,1.000000,0.000000,0.000000,,,insufficient_evidence
+field,14,Gold Cloak Sniper [T5],gold_cloak_sniper,goldcloak_master_archer,confirmed_id,3,106,104,102,1,1,0,0.962264,0.009434,0.018868,,,insufficient_evidence
+field,15,Andal Veteran Caravan Guard [T5],andal_veteran_caravan_guard,,unresolved,1,9,4,8,0,5,0,0.888889,0.000000,0.555556,,,insufficient_evidence
+field,16,Riverlands Militia Archer [T2],riverlands_militia_archer,river_militia_archer,confirmed_id,2,45,43,27,1,1,0,0.600000,0.022222,0.044444,,,insufficient_evidence
+field,17,Riverlands Footman [T2],riverlands_footman,river_footman,confirmed_id,2,17,2,8,2,13,0,0.470588,0.117647,0.882353,,,insufficient_evidence
+field,18,Riverlands Militia Spearman [T2],riverlands_militia_spearman,river_militia_spearman,confirmed_id,1,16,1,5,4,11,0,0.312500,0.250000,0.937500,,,insufficient_evidence
+field,19,Riverlands Recruit [T1],riverlands_recruit,river_recruit,confirmed_id,3,36,2,11,5,29,0,0.305556,0.138889,0.944444,,,insufficient_evidence
+field,20,Kingsguard's Squire [T3],kingsguard_s_squire,kingsguard_squire,confirmed_id,2,51,0,10,16,35,0,0.196078,0.313725,1.000000,,,insufficient_evidence
+siege_attack,1,Casterly Rock Master Crossbowman [T5],casterly_rock_master_crossbowman,casterly_master_crossbowman,confirmed_id,1,1,1,8,0,0,0,8.000000,0.000000,0.000000,,,insufficient_evidence
+siege_attack,2,Mormont Bowmaiden [T6],mormont_bowmaiden,mormont_bowmaiden,confirmed_id,1,1,0,7,0,1,0,7.000000,0.000000,1.000000,,,insufficient_evidence
+siege_attack,3,Lannister Officer [T5],lannister_officer,lannister_officer,confirmed_id,1,1,1,6,0,0,0,6.000000,0.000000,0.000000,,,insufficient_evidence
+siege_attack,4,Riverlands Admiral [T6],riverlands_admiral,river_admiral,confirmed_id,1,1,1,6,0,0,0,6.000000,0.000000,0.000000,,,insufficient_evidence
+siege_attack,5,Kingswood Brigand [T4],kingswood_brigand,kingswood_chief,confirmed_id,1,1,1,5,0,0,0,5.000000,0.000000,0.000000,,,insufficient_evidence
+siege_attack,6,Frey Assassin [T6],frey_assassin,frey_assassin,confirmed_id,2,2,2,8,0,0,0,4.000000,0.000000,0.000000,,,insufficient_evidence
+siege_attack,7,Realm Master Sellsword [T6],realm_master_sellsword,ROT_mercenary5,confirmed_id,2,2,2,8,0,0,0,4.000000,0.000000,0.000000,,,insufficient_evidence
+siege_attack,8,Andal Veteran Convoy Guard [T5],andal_veteran_convoy_guard,,unresolved,1,1,1,4,0,0,0,4.000000,0.000000,0.000000,,,insufficient_evidence
+siege_attack,9,Gold Cloak Petty Officer [T4],gold_cloak_petty_officer,goldcloak_officer,confirmed_id,1,1,1,4,0,0,0,4.000000,0.000000,0.000000,,,insufficient_evidence
+siege_attack,10,Westerlands Hardened Crossbowman [T4],westerlands_hardened_crossbowman,,unresolved,1,4,3,13,0,1,0,3.250000,0.000000,0.250000,,,insufficient_evidence
+siege_attack,11,Lannister Archer [T4],lannister_archer,lannister_archer,confirmed_id,1,1,0,3,1,0,0,3.000000,1.000000,1.000000,,,insufficient_evidence
+siege_attack,12,Northern Mounted Warlord [T6],northern_mounted_warlord,,unresolved,1,6,6,11,0,0,0,1.833333,0.000000,0.000000,,,insufficient_evidence
+siege_attack,13,Riverlands Ranger [T5],riverlands_ranger,river_ranger,confirmed_id,1,3,3,5,0,0,0,1.666667,0.000000,0.000000,,,insufficient_evidence
+siege_attack,14,Captain of the Kingsguard [T6],captain_of_the_kingsguard,mounted_kingsguard,confirmed_id,4,208,154,331,11,43,0,1.591346,0.052885,0.259615,,,insufficient_evidence
+siege_attack,15,Westerlands Sharpshooter [T5],westerlands_sharpshooter,,unresolved,3,28,20,43,1,7,0,1.535714,0.035714,0.285714,,,insufficient_evidence
+siege_attack,16,Queen's Man [T6],queen_s_man,dragonstone_steel_curtain,confirmed_id,3,12,6,18,2,4,0,1.500000,0.166667,0.500000,,,insufficient_evidence
+siege_attack,17,Westerlands Skirmisher [T5],westerlands_skirmisher,,unresolved,1,6,6,9,0,0,0,1.500000,0.000000,0.000000,,,insufficient_evidence
+siege_attack,18,Kingsguard [T5],kingsguard,kingsguard_captain,confirmed_id,4,71,52,87,6,13,0,1.225352,0.084507,0.267606,,,insufficient_evidence
+siege_attack,19,Riverlands Axeman [T5],riverlands_axeman,river_axeman,confirmed_id,1,16,1,19,7,8,0,1.187500,0.437500,0.937500,,,insufficient_evidence
+siege_attack,20,Westerlands Axeman [T4],westerlands_axeman,,unresolved,1,7,0,8,1,6,0,1.142857,0.142857,1.000000,,,insufficient_evidence
+siege_attack,21,Gold Cloak Sniper [T5],gold_cloak_sniper,goldcloak_master_archer,confirmed_id,4,223,173,249,11,39,0,1.116592,0.049327,0.224215,,,insufficient_evidence
+siege_attack,22,Andal Veteran Caravan Guard [T5],andal_veteran_caravan_guard,,unresolved,2,20,14,21,0,6,0,1.050000,0.000000,0.300000,,,insufficient_evidence
+siege_attack,23,Reaver [T4],reaver,,unresolved,2,18,9,17,2,7,0,0.944444,0.111111,0.500000,,,insufficient_evidence
+siege_attack,24,Sword Sister [T4],sword_sister,,ambiguous_exact_name,1,9,2,8,2,5,0,0.888889,0.222222,0.777778,,,insufficient_evidence
+siege_attack,25,Westerlands Banner Knight [T6],westerlands_banner_knight,,unresolved,2,16,14,13,0,2,0,0.812500,0.000000,0.125000,,,insufficient_evidence
+siege_attack,26,Gold Cloak Archer [T3],gold_cloak_archer,goldcloak_archer,confirmed_id,1,17,14,11,0,3,0,0.647059,0.000000,0.176471,,,insufficient_evidence
+siege_attack,27,Riverlands Militia Archer [T2],riverlands_militia_archer,river_militia_archer,confirmed_id,1,14,7,9,2,5,0,0.642857,0.142857,0.500000,,,insufficient_evidence
+siege_attack,28,Westerlands Infantry [T3],westerlands_infantry,,unresolved,1,14,11,9,1,2,0,0.642857,0.071429,0.214286,,,insufficient_evidence
+siege_attack,29,Robber Horseman [T3],robber_horseman,robber_horseman,confirmed_id,1,4,3,2,0,1,0,0.500000,0.000000,0.250000,,,insufficient_evidence
+siege_attack,30,Realm Hedge Knight [T4],realm_hedge_knight,realm_hedge_knight,confirmed_id,1,8,7,3,0,1,0,0.375000,0.000000,0.125000,,,insufficient_evidence
+siege_defense,1,Westerlands Sharpshooter [T5],westerlands_sharpshooter,,unresolved,2,3,1,70,0,2,0,23.333333,0.000000,0.666667,,,insufficient_evidence
+siege_defense,2,Frey Assassin [T6],frey_assassin,frey_assassin,confirmed_id,2,2,0,28,0,2,0,14.000000,0.000000,1.000000,,,insufficient_evidence
+siege_defense,3,Westerlands Hardened Crossbowman [T4],westerlands_hardened_crossbowman,,unresolved,2,4,1,21,1,2,0,5.250000,0.250000,0.750000,,,insufficient_evidence
+siege_defense,4,Gold Cloak Sniper [T5],gold_cloak_sniper,goldcloak_master_archer,confirmed_id,1,23,21,48,0,2,0,2.086957,0.000000,0.086957,,,insufficient_evidence
+siege_defense,5,Captain of the Kingsguard [T6],captain_of_the_kingsguard,mounted_kingsguard,confirmed_id,1,44,6,91,7,31,0,2.068182,0.159091,0.863636,,,insufficient_evidence
+siege_defense,6,Westerlands Champion [T5],westerlands_champion,,unresolved,1,1,0,2,0,1,0,2.000000,0.000000,1.000000,,,insufficient_evidence
+siege_defense,7,Queen's Man [T6],queen_s_man,dragonstone_steel_curtain,confirmed_id,1,3,0,5,0,3,0,1.666667,0.000000,1.000000,,,insufficient_evidence
+siege_defense,8,Braavosi Footman [T2],braavosi_footman,,unresolved,1,2,0,2,0,2,0,1.000000,0.000000,1.000000,,,insufficient_evidence
+siege_defense,9,Robber Horseman [T3],robber_horseman,robber_horseman,confirmed_id,1,2,0,2,0,2,0,1.000000,0.000000,1.000000,,,insufficient_evidence
+siege_defense,10,Westerlands Infantry [T3],westerlands_infantry,,unresolved,1,1,0,1,1,0,0,1.000000,1.000000,1.000000,,,insufficient_evidence
+siege_defense,11,Westerlands Horseman [T5],westerlands_horseman,,unresolved,1,3,0,2,0,3,0,0.666667,0.000000,1.000000,,,insufficient_evidence
+siege_defense,12,Westerlands Banner Knight [T6],westerlands_banner_knight,,unresolved,2,10,0,1,2,8,0,0.100000,0.200000,1.000000,,,insufficient_evidence
+siege_defense,13,Realm Master Sellsword [T6],realm_master_sellsword,ROT_mercenary5,confirmed_id,1,1,0,0,0,1,0,0.000000,0.000000,1.000000,,,insufficient_evidence
+siege_defense,14,Sellsword [T3],sellsword,eastern_mercenary,confirmed_id,1,1,0,0,0,1,0,0.000000,0.000000,1.000000,,,insufficient_evidence

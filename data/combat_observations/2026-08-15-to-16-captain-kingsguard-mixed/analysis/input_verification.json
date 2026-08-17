@@ -1,0 +1,151 @@
+{
+  "batch_id": "combat_2026-08-15_to_16_captain_kingsguard_mixed",
+  "external_blockers": [],
+  "frozen_model_changes": [],
+  "immutable_normalized_changes": [],
+  "manifest_checks": [
+    {
+      "actual_sha256": "cb4986504f47bd875c4bfe90ccfad11b4f6e191ce27d31dc4b3ac5ab05361ecf",
+      "actual_size_bytes": 857,
+      "expected_sha256": "cb4986504f47bd875c4bfe90ccfad11b4f6e191ce27d31dc4b3ac5ab05361ecf",
+      "expected_size_bytes": 857,
+      "file": "README.md",
+      "passed": true
+    },
+    {
+      "actual_sha256": "c415864b36afb382236a1a603169dd4dff15180255f1e8e8f8a9561c0c8a34b9",
+      "actual_size_bytes": 8597,
+      "expected_sha256": "c415864b36afb382236a1a603169dd4dff15180255f1e8e8f8a9561c0c8a34b9",
+      "expected_size_bytes": 8597,
+      "file": "battles.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "c27c6ab06c0b26d445420c46bb8920c602be6985efaee30b55623e4d7b9a1b85",
+      "actual_size_bytes": 1110,
+      "expected_sha256": "c27c6ab06c0b26d445420c46bb8920c602be6985efaee30b55623e4d7b9a1b85",
+      "expected_size_bytes": 1110,
+      "file": "normalization_summary.json",
+      "passed": true
+    },
+    {
+      "actual_sha256": "523045c7a897b1078ece471082e5f8467cf3119fd4da9bb6071aeb77a609c818",
+      "actual_size_bytes": 146627,
+      "expected_sha256": "523045c7a897b1078ece471082e5f8467cf3119fd4da9bb6071aeb77a609c818",
+      "expected_size_bytes": 146627,
+      "file": "primary_troop_occurrences.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "f73670371c9361ef1f9f5fad8028791f8f8ed8c62be6521d029db8eff1daeba0",
+      "actual_size_bytes": 3924,
+      "expected_sha256": "f73670371c9361ef1f9f5fad8028791f8f8ed8c62be6521d029db8eff1daeba0",
+      "expected_size_bytes": 3924,
+      "file": "review_queue.csv",
+      "passed": true
+    },
+    {
+      "actual_sha256": "3d6b3b5db05bb0ee95700a71244edf9241ce958059858d6f0f83db36297aea26",
+      "actual_size_bytes": 3517,
+      "expected_sha256": "3d6b3b5db05bb0ee95700a71244edf9241ce958059858d6f0f83db36297aea26",
+      "expected_size_bytes": 3517,
+      "file": "screenshots_manifest.csv",
+      "passed": true
+    },
+    {
+      "actual_sha256": "ce98ad786b00b232e7232404c4a672e6e558db8f99c1364788e31700b25b29cb",
+      "actual_size_bytes": 6256,
+      "expected_sha256": "ce98ad786b00b232e7232404c4a672e6e558db8f99c1364788e31700b25b29cb",
+      "expected_size_bytes": 6256,
+      "file": "source_inventory.csv",
+      "passed": true
+    },
+    {
+      "actual_sha256": "8e39f199844c5e6e6a5d01d0a2f9374b7f5d135d6e626744c1dde5988a578b6d",
+      "actual_size_bytes": 43496,
+      "expected_sha256": "8e39f199844c5e6e6a5d01d0a2f9374b7f5d135d6e626744c1dde5988a578b6d",
+      "expected_size_bytes": 43496,
+      "file": "troop_battle_consolidated.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "979d44a8792707dc52b9e7cbc26392f15d79cc341e2d429386b323c154b936ce",
+      "actual_size_bytes": 419546,
+      "expected_sha256": "979d44a8792707dc52b9e7cbc26392f15d79cc341e2d429386b323c154b936ce",
+      "expected_size_bytes": 419546,
+      "file": "troop_occurrences.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "178da33dfd817e3bdfd213c546f5dbeb8baf1dcc452d59317ef2b2b54d5a2b6d",
+      "actual_size_bytes": 1919,
+      "expected_sha256": "178da33dfd817e3bdfd213c546f5dbeb8baf1dcc452d59317ef2b2b54d5a2b6d",
+      "expected_size_bytes": 1919,
+      "file": "validation_report.json",
+      "passed": true
+    }
+  ],
+  "normalized_archive": {
+    "actual_sha256": "6b16d78d32ca70ea5093431874d8a73b00e6a3b961fa2686ec8701659decbc4d",
+    "expected_sha256": "6b16d78d32ca70ea5093431874d8a73b00e6a3b961fa2686ec8701659decbc4d",
+    "name": "captain.tar.xz",
+    "passed": true,
+    "safe_preflight": {
+      "members": 12,
+      "regular_files": 11,
+      "total_uncompressed_bytes": 636801
+    }
+  },
+  "normalized_summary": {
+    "battle_context_counts": {
+      "field": 3,
+      "siege_attack": 4,
+      "siege_defense": 2
+    },
+    "battles": 9,
+    "consolidated_rows": 104,
+    "occurrences": 297,
+    "ordinary_troop_labels": 44,
+    "primary_occurrences": 104,
+    "primary_rows_fully_consolidated": true,
+    "queued_rows_excluded_from_rankings": true,
+    "rankings_only_include_primary_troops": true,
+    "review_items": 11
+  },
+  "pipeline_mode": "offline-existing",
+  "schema_version": "2.0.0",
+  "source_archive": {
+    "actual_sha256": "",
+    "actual_size_bytes": 20339546,
+    "expected_sha256": "7862cd371ef8e3353035cd89c2bb9fe4aed3853637caeec67aee2832b4663dce",
+    "expected_size_bytes": 20339546,
+    "limits_visual_rereview": false,
+    "locally_verified": true,
+    "repository_addressable": false,
+    "repository_path": "",
+    "retention_policy": "optional_after_verified_normalization",
+    "retention_status": "locally_verified",
+    "verification_method": "manifest_files_sha256_and_total_size"
+  },
+  "source_provenance_checks": [
+    {
+      "expected": "7862cd371ef8e3353035cd89c2bb9fe4aed3853637caeec67aee2832b4663dce",
+      "field": "normalization_summary.json:source_sha256",
+      "passed": true,
+      "recorded": "7862cd371ef8e3353035cd89c2bb9fe4aed3853637caeec67aee2832b4663dce"
+    },
+    {
+      "expected": "7862cd371ef8e3353035cd89c2bb9fe4aed3853637caeec67aee2832b4663dce",
+      "field": "validation_report.json:source_sha256",
+      "passed": true,
+      "recorded": "7862cd371ef8e3353035cd89c2bb9fe4aed3853637caeec67aee2832b4663dce"
+    },
+    {
+      "expected": 20339546,
+      "field": "validation_report.json:source_size_bytes",
+      "passed": true,
+      "recorded": 20339546
+    }
+  ],
+  "status": "passed"
+}

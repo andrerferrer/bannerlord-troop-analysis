@@ -1,0 +1,17 @@
+evidence_source,battle_context,battle_id,provisional_slug,canonical_troop_id,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,visibility_scope_complete
+current_batch,field,battle_20260815_002744_captain_field,gold_cloak_sniper,goldcloak_master_archer,10,10,16,0,0,0,1.600000,0.000000,0.000000,False
+current_batch,field,battle_20260815_003923_captain_field,gold_cloak_sniper,goldcloak_master_archer,34,32,50,1,1,0,1.470588,0.029412,0.058824,False
+current_batch,field,battle_20260815_101255_captain_field,gold_cloak_sniper,goldcloak_master_archer,62,62,36,0,0,0,0.580645,0.000000,0.000000,False
+current_batch,siege_attack,battle_20260816_004856_captain_siege_attack,gold_cloak_sniper,goldcloak_master_archer,62,49,116,2,11,0,1.870968,0.032258,0.209677,False
+current_batch,siege_attack,battle_20260816_010212_captain_siege_attack,gold_cloak_sniper,goldcloak_master_archer,51,33,66,4,14,0,1.294118,0.078431,0.352941,False
+current_batch,siege_attack,battle_20260816_180448_captain_siege_attack,gold_cloak_sniper,goldcloak_master_archer,55,53,45,0,2,0,0.818182,0.000000,0.036364,False
+current_batch,siege_attack,battle_20260816_182033_captain_siege_attack,gold_cloak_sniper,goldcloak_master_archer,55,38,22,5,12,0,0.400000,0.090909,0.309091,False
+current_batch,siege_defense,battle_20260815_230207_captain_siege_defense,gold_cloak_sniper,goldcloak_master_archer,23,21,48,0,2,0,2.086957,0.000000,0.086957,False
+current_batch,field,battle_20260815_002744_captain_field,captain_of_the_kingsguard,mounted_kingsguard,8,4,27,0,4,0,3.375000,0.000000,0.500000,False
+current_batch,field,battle_20260815_003923_captain_field,captain_of_the_kingsguard,mounted_kingsguard,7,2,30,0,5,0,4.285714,0.000000,0.714286,False
+current_batch,field,battle_20260815_101255_captain_field,captain_of_the_kingsguard,mounted_kingsguard,43,37,76,3,3,0,1.767442,0.069767,0.139535,False
+current_batch,siege_attack,battle_20260816_004856_captain_siege_attack,captain_of_the_kingsguard,mounted_kingsguard,53,26,84,5,22,0,1.584906,0.094340,0.509434,False
+current_batch,siege_attack,battle_20260816_010212_captain_siege_attack,captain_of_the_kingsguard,mounted_kingsguard,48,39,127,0,9,0,2.645833,0.000000,0.187500,False
+current_batch,siege_attack,battle_20260816_180448_captain_siege_attack,captain_of_the_kingsguard,mounted_kingsguard,54,49,29,2,3,0,0.537037,0.037037,0.092593,False
+current_batch,siege_attack,battle_20260816_182033_captain_siege_attack,captain_of_the_kingsguard,mounted_kingsguard,53,40,91,4,9,0,1.716981,0.075472,0.245283,False
+current_batch,siege_defense,battle_20260815_230207_captain_siege_defense,captain_of_the_kingsguard,mounted_kingsguard,44,6,91,7,31,0,2.068182,0.159091,0.863636,False
