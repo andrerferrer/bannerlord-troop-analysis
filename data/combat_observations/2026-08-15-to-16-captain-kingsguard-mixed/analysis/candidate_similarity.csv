@@ -1,0 +1,9 @@
+rank,canonical_troop_id,troop_name,descriptive_distance,evidence_summary,test_status,recommendation
+1,arryn_moonknight,Arryn Winged Knight,5.250000,2 field / 13 deployed; 2 siege attack / 11 deployed (cross-batch exact-context direct sum),below gate,next dedicated test
+2,mallister_knight,Mallister Eagle Knight,5.925000,8 field / 177 deployed / 0.932203 KPD; 7 siege attack / 123 / 1.056911,already gate-clearing,"observed contrast, not next"
+3,lannister_prideknight,Lannister Prideknight,6.175000,no exact gate-clearing candidate-specific evidence located,not tested,candidate
+4,whiteharbor_knight_commander,White Harbor Knight Commander,6.650000,no exact gate-clearing candidate-specific evidence located,not tested,candidate
+5,ROT_mercenary5,Realm Master Sellsword,7.775000,current batch: siege attack 2 battles / 2 deployed / 8 kills; siege defense 1 / 1 / 0,below gate,candidate
+6,realm_paladin,Realm Paladin,8.125000,no exact gate-clearing candidate-specific evidence located,not tested,candidate
+7,dayne_starfall_knights,Knights of Starfall,8.550000,no exact gate-clearing candidate-specific evidence located,not tested,candidate
+8,dondarion_boltknight,Dondarrion Boltknight,8.800000,no exact gate-clearing candidate-specific evidence located,not tested,candidate

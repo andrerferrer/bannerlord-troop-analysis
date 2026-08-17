@@ -1,0 +1,209 @@
+{
+  "base64_parts": [
+    {
+      "actual_sha256": "4060da6f638137723bdcaea23ca772fa2fa159acb40183a43417c4ac21cda531",
+      "expected_sha256": "4060da6f638137723bdcaea23ca772fa2fa159acb40183a43417c4ac21cda531",
+      "file": "captain_kingsguard_mixed_2026-08-15_to_16.tar.xz.base64.part-00",
+      "passed": true,
+      "size_bytes": 22817
+    }
+  ],
+  "counts": {
+    "excluded": 5,
+    "inventory": 14,
+    "selected": 9
+  },
+  "cross_batch_exclusions": {
+    "goldenheart_source_13_14": "Exact hashes already published in merged PR #69; correctly excluded here."
+  },
+  "decoded_archive": {
+    "actual_sha256": "6b16d78d32ca70ea5093431874d8a73b00e6a3b961fa2686ec8701659decbc4d",
+    "expected_sha256": "6b16d78d32ca70ea5093431874d8a73b00e6a3b961fa2686ec8701659decbc4d",
+    "passed": true,
+    "safe_preflight_members": 12,
+    "safe_preflight_regular_files": 11,
+    "safe_preflight_uncompressed_bytes": 636801,
+    "size_bytes": 17112
+  },
+  "full_inventory_ordered_digest": {
+    "actual": "cad08ea85f618c1882cb289ae07604730bd5ee15a1178b7a31455c636de3c5ee",
+    "expected": "cad08ea85f618c1882cb289ae07604730bd5ee15a1178b7a31455c636de3c5ee",
+    "passed": true
+  },
+  "selected_ordered_digest": {
+    "actual": "7862cd371ef8e3353035cd89c2bb9fe4aed3853637caeec67aee2832b4663dce",
+    "expected": "7862cd371ef8e3353035cd89c2bb9fe4aed3853637caeec67aee2832b4663dce",
+    "passed": true
+  },
+  "source_checks": [
+    {
+      "actual_sha256": "26089da19f684989ec9259ad790d47724018785922ae99fc1df275f1faa1b470",
+      "actual_size_bytes": 1913997,
+      "expected_sha256": "26089da19f684989ec9259ad790d47724018785922ae99fc1df275f1faa1b470",
+      "expected_size_bytes": 1913997,
+      "image_file": "Mount and Blade II Bannerlord - Singleplayer PID_ 12664 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 15_08_2026 00_27_44.png",
+      "included_in_primary": "True",
+      "passed": true,
+      "screen_status": "final_result",
+      "selection_reason": "",
+      "source_id": "source_01"
+    },
+    {
+      "actual_sha256": "46b6b118f9f333d34c71e0c9c0a7133c65d250b6e0ae90ee7f862954c3762022",
+      "actual_size_bytes": 1948471,
+      "expected_sha256": "46b6b118f9f333d34c71e0c9c0a7133c65d250b6e0ae90ee7f862954c3762022",
+      "expected_size_bytes": 1948471,
+      "image_file": "Mount and Blade II Bannerlord - Singleplayer PID_ 12664 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 15_08_2026 00_27_48.png",
+      "included_in_primary": "False",
+      "passed": true,
+      "screen_status": "duplicate_final_result",
+      "selection_reason": "same 05m40s totals, parties, and visible rows; transient scene pixels differ",
+      "source_id": "source_02"
+    },
+    {
+      "actual_sha256": "b0d69892b502f39c35af82822c96fe4828e7744d2b8a7adb52ad0a915b087ca4",
+      "actual_size_bytes": 2367773,
+      "expected_sha256": "b0d69892b502f39c35af82822c96fe4828e7744d2b8a7adb52ad0a915b087ca4",
+      "expected_size_bytes": 2367773,
+      "image_file": "Mount and Blade II Bannerlord - Singleplayer PID_ 12664 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 15_08_2026 00_39_23.png",
+      "included_in_primary": "True",
+      "passed": true,
+      "screen_status": "final_result",
+      "selection_reason": "",
+      "source_id": "source_03"
+    },
+    {
+      "actual_sha256": "329c2451ddf245bb7287d1ba1af499eaedbd8a88f606429fbc38ebe22231bbde",
+      "actual_size_bytes": 2488250,
+      "expected_sha256": "329c2451ddf245bb7287d1ba1af499eaedbd8a88f606429fbc38ebe22231bbde",
+      "expected_size_bytes": 2488250,
+      "image_file": "Armoury Crate SE 15_08_2026 10_12_55.png",
+      "included_in_primary": "True",
+      "passed": true,
+      "screen_status": "final_result",
+      "selection_reason": "",
+      "source_id": "source_04"
+    },
+    {
+      "actual_sha256": "8a048a2ae2ea7391b394d262eb079bc594dcd590020360cb30e8dc620fb10811",
+      "actual_size_bytes": 1877185,
+      "expected_sha256": "8a048a2ae2ea7391b394d262eb079bc594dcd590020360cb30e8dc620fb10811",
+      "expected_size_bytes": 1877185,
+      "image_file": "Mount and Blade II Bannerlord - Singleplayer PID_ 840 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 15_08_2026 14_08_22.png",
+      "included_in_primary": "False",
+      "passed": true,
+      "screen_status": "in_progress_superseded",
+      "selection_reason": "Surrender screen at 01h39m03s; same Roose/Joffrey battle finalized at 02h30m34s",
+      "source_id": "source_05"
+    },
+    {
+      "actual_sha256": "055573e8de7040f2ce70616ba1d29761d09f1b5dae357dab47b799e31d8b4373",
+      "actual_size_bytes": 2202998,
+      "expected_sha256": "055573e8de7040f2ce70616ba1d29761d09f1b5dae357dab47b799e31d8b4373",
+      "expected_size_bytes": 2202998,
+      "image_file": "Mount and Blade II Bannerlord - Singleplayer PID_ 840 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 15_08_2026 14_28_29.png",
+      "included_in_primary": "True",
+      "passed": true,
+      "screen_status": "final_result",
+      "selection_reason": "",
+      "source_id": "source_06"
+    },
+    {
+      "actual_sha256": "0391006e94d27a887fcc9dfbdc45246546a4b842c1ae6728d8420158fc09cbb0",
+      "actual_size_bytes": 2139240,
+      "expected_sha256": "0391006e94d27a887fcc9dfbdc45246546a4b842c1ae6728d8420158fc09cbb0",
+      "expected_size_bytes": 2139240,
+      "image_file": "Mount and Blade II Bannerlord - Singleplayer PID_ 5832 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 15_08_2026 23_02_07.png",
+      "included_in_primary": "True",
+      "passed": true,
+      "screen_status": "final_result",
+      "selection_reason": "",
+      "source_id": "source_07"
+    },
+    {
+      "actual_sha256": "2d59c673979b7fcd020716a0eff17368a47bf43638a3a94535e09cd6f4e1cdd6",
+      "actual_size_bytes": 2071177,
+      "expected_sha256": "2d59c673979b7fcd020716a0eff17368a47bf43638a3a94535e09cd6f4e1cdd6",
+      "expected_size_bytes": 2071177,
+      "image_file": "Mount and Blade II Bannerlord - Singleplayer PID_ 5832 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 16_08_2026 00_48_56.png",
+      "included_in_primary": "True",
+      "passed": true,
+      "screen_status": "final_result",
+      "selection_reason": "",
+      "source_id": "source_08"
+    },
+    {
+      "actual_sha256": "ff3b5d614a65b197b2f6d235a63b839626fcd729a5e922679a29199b3d1470f7",
+      "actual_size_bytes": 2412753,
+      "expected_sha256": "ff3b5d614a65b197b2f6d235a63b839626fcd729a5e922679a29199b3d1470f7",
+      "expected_size_bytes": 2412753,
+      "image_file": "Mount and Blade II Bannerlord - Singleplayer PID_ 5832 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 16_08_2026 01_02_12.png",
+      "included_in_primary": "True",
+      "passed": true,
+      "screen_status": "final_result",
+      "selection_reason": "",
+      "source_id": "source_09"
+    },
+    {
+      "actual_sha256": "e38a3014d5f150439d9739e91fe47a22186df9906e70054606103ae558920f7a",
+      "actual_size_bytes": 2505389,
+      "expected_sha256": "e38a3014d5f150439d9739e91fe47a22186df9906e70054606103ae558920f7a",
+      "expected_size_bytes": 2505389,
+      "image_file": "Mount and Blade II Bannerlord - Singleplayer PID_ 5832 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 16_08_2026 18_04_48.png",
+      "included_in_primary": "True",
+      "passed": true,
+      "screen_status": "final_result",
+      "selection_reason": "",
+      "source_id": "source_10"
+    },
+    {
+      "actual_sha256": "db73a717dc6d5239a7cbdc05778c05faa2a152f778cbcbcdd924393fd4e9ce6a",
+      "actual_size_bytes": 2238465,
+      "expected_sha256": "db73a717dc6d5239a7cbdc05778c05faa2a152f778cbcbcdd924393fd4e9ce6a",
+      "expected_size_bytes": 2238465,
+      "image_file": "Mount and Blade II Bannerlord - Singleplayer PID_ 5832 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 16_08_2026 18_20_32.png",
+      "included_in_primary": "False",
+      "passed": true,
+      "screen_status": "duplicate_final_result",
+      "selection_reason": "same 08m33s totals, parties, and visible rows; transient cursor/background pixels differ",
+      "source_id": "source_11"
+    },
+    {
+      "actual_sha256": "bcf6c8249e75be6d0c9f6d98b3a40fd0e941392b972780511ff05185747aafaf",
+      "actual_size_bytes": 2237969,
+      "expected_sha256": "bcf6c8249e75be6d0c9f6d98b3a40fd0e941392b972780511ff05185747aafaf",
+      "expected_size_bytes": 2237969,
+      "image_file": "Mount and Blade II Bannerlord - Singleplayer PID_ 5832 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 16_08_2026 18_20_33.png",
+      "included_in_primary": "True",
+      "passed": true,
+      "screen_status": "final_result",
+      "selection_reason": "",
+      "source_id": "source_12"
+    },
+    {
+      "actual_sha256": "eac0531ffcc1cbcc009216074d123c9833c14cb588c573f4f887d270f21d0ce4",
+      "actual_size_bytes": 2151489,
+      "expected_sha256": "eac0531ffcc1cbcc009216074d123c9833c14cb588c573f4f887d270f21d0ce4",
+      "expected_size_bytes": 2151489,
+      "image_file": "Mount and Blade II Bannerlord PID_ 16024 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 13_08_2026 01_47_59(1).png",
+      "included_in_primary": "False",
+      "passed": true,
+      "screen_status": "previously_published",
+      "selection_reason": "exact SHA-256 already preserved and analyzed in merged PR #69",
+      "source_id": "source_13"
+    },
+    {
+      "actual_sha256": "207b192d701af9fc183c46115a90ff0fbc1e0748620ba84248b1f3e0b7af9955",
+      "actual_size_bytes": 2538851,
+      "expected_sha256": "207b192d701af9fc183c46115a90ff0fbc1e0748620ba84248b1f3e0b7af9955",
+      "expected_size_bytes": 2538851,
+      "image_file": "Mount and Blade II Bannerlord PID_ 16024 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 13_08_2026 18_15_02(1).png",
+      "included_in_primary": "False",
+      "passed": true,
+      "screen_status": "previously_published",
+      "selection_reason": "exact SHA-256 already preserved and analyzed in merged PR #69",
+      "source_id": "source_14"
+    }
+  ],
+  "status": "passed"
+}

@@ -1,0 +1,30 @@
+{
+  "batch_id": "combat_2026-08-15_to_16_captain_kingsguard_mixed",
+  "battle_context_counts": {
+    "field": 3,
+    "siege_attack": 4,
+    "siege_defense": 2
+  },
+  "battles": 9,
+  "excluded_sources": 5,
+  "game_track": "realm_of_thrones",
+  "game_version": "1.4.x",
+  "inventory_images": 14,
+  "normalization_scope": "evidence_and_structural_normalization_only",
+  "observations": 297,
+  "primary_troop_occurrences": 104,
+  "review_queue": 11,
+  "schema_version": "2.0.0",
+  "selected_screenshots": 9,
+  "source_inventory_sha256": "cad08ea85f618c1882cb289ae07604730bd5ee15a1178b7a31455c636de3c5ee",
+  "source_kind": "host_exposed_screenshot_directory",
+  "source_retention_status": "not_retained_in_repository_hashes_and_library_ids_recorded",
+  "source_sha256": "7862cd371ef8e3353035cd89c2bb9fe4aed3853637caeec67aee2832b4663dce",
+  "status": "normalized_pending_analysis",
+  "track_resolution": {
+    "evidence": [
+      "Captain of the Kingsguard, Gold Cloak, Kingsguard, Riverlands, Westerlands, Bolton, Tully, and Frey labels"
+    ],
+    "method": "track-specific visible faction and troop labels"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "battle_context_counts": {
+    "field": 3,
+    "siege_attack": 4,
+    "siege_defense": 2
+  },
+  "battle_count": 9,
+  "context_boundaries_preserved": true,
+  "excluded_source_count": 5,
+  "inventory_image_count": 14,
+  "known_limitations": [
+    "Only screenshot-visible rows and cells are normalized; off-screen rows are not inferred.",
+    "Every selected scoreboard has partial troop-row visibility, so contribution-index or whole-army share metrics must not be inferred from this package.",
+    "White level-up icons and cursor-obscured numeric cells remain explicit review items rather than guessed values.",
+    "The 14:08 scoreboard is an in-progress state superseded by the final 14:28 result and is not a second independent battle.",
+    "The 18:20:32/33 and 00:27:44/48 pairs are duplicate captures of the same final results; one canonical image from each pair is selected.",
+    "The two 2026-08-13 Goldenheart PNG hashes exactly match the source already published in merged PR #69 and are excluded from this batch.",
+    "Raw PNG files are not retained in Git; filenames, sizes, per-image SHA-256 values, Library file IDs, selection status, and deterministic source hashes are recorded."
+  ],
+  "observation_count": 297,
+  "offscreen_rows_inferred": false,
+  "primary_troop_occurrences": 104,
+  "review_queue_count": 11,
+  "schema_version": "2.0.0",
+  "selected_image_count": 9,
+  "sides_pooled": false,
+  "source_inventory_sha256": "cad08ea85f618c1882cb289ae07604730bd5ee15a1178b7a31455c636de3c5ee",
+  "source_sha256": "7862cd371ef8e3353035cd89c2bb9fe4aed3853637caeec67aee2832b4663dce",
+  "source_size_bytes": 20339546,
+  "status": "passed",
+  "track_resolution": {
+    "evidence": [
+      "Captain of the Kingsguard, Gold Cloak, Kingsguard, Riverlands, Westerlands, Bolton, Tully, and Frey labels"
+    ],
+    "method": "track-specific visible faction and troop labels"
+  },
+  "validation_errors": []
+}

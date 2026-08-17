@@ -1,0 +1,81 @@
+{
+  "allowed": [
+    "direct count summation",
+    "field-only descriptive conclusion for Captain",
+    "recording exact available battle IDs"
+  ],
+  "blocked": [
+    "combined battle bootstrap because baseline per-battle counts/IDs are unpublished",
+    "causal delta",
+    "whole-army shares/ranking",
+    "pooling field with either siege context",
+    "universal tier assignment"
+  ],
+  "captain_field_extension": {
+    "battles": 8,
+    "casualties": 17,
+    "casualty_rate": 0.20987654320987653,
+    "death_rate": 0.037037037037037035,
+    "deaths": 3,
+    "deployed": 81,
+    "kills": 257,
+    "kills_per_deployed": 3.1728395061728394,
+    "wounded_routed_split": "not_reconstructible_from_strict_baseline_aggregate"
+  },
+  "confounders": [
+    "all included outcomes are victories",
+    "opponent composition",
+    "army composition",
+    "map and siege geometry",
+    "difficulty/mod configuration not controlled",
+    "player tactical choices"
+  ],
+  "decision": {
+    "goldcloak_master_archer_field": "compatible_direct_extension_but_below_gate",
+    "mounted_kingsguard_field": "compatible_direct_extension",
+    "siege_attack": "no_prior_exact_compatible_rows_found",
+    "siege_defense": "no_prior_exact_compatible_rows_found"
+  },
+  "descriptive_rate_differences": {
+    "combined_minus_baseline_kills_per_deployed": -2.2184648416456305,
+    "current_minus_baseline_kills_per_deployed": -3.098200899550225,
+    "interpretation": "descriptive only; not causal and no combined interval"
+  },
+  "goldcloak_field_extension": {
+    "battles": 4,
+    "casualties": 3,
+    "casualty_rate": 0.027522935779816515,
+    "death_rate": 0.01834862385321101,
+    "deaths": 2,
+    "deployed": 109,
+    "kills": 109,
+    "kills_per_deployed": 1.0,
+    "routed": 0,
+    "wounded": 1
+  },
+  "required_match": [
+    "game_track",
+    "game_version",
+    "player_side",
+    "ordinary_troop",
+    "battle_context",
+    "canonical_identity",
+    "deployed/kills/deaths/wounded/routed definitions"
+  ],
+  "schema_version": "1.0.0",
+  "sources": [
+    {
+      "path": "analysis/empirical/2026-07-23/baseline_strict_player_side.csv",
+      "sha256": "b7e8ae047c96d09c9bd5f0e989fba3592e9aecc2ffd04c852f62daefc7f96a33"
+    },
+    {
+      "decoded_archive_sha256": "97db4b82f1d1b146d43c3f3afc421cb4594c2960bd418a045f70c2a0685758e7",
+      "path": "data/combat_observations/2026-08-12-mallister-mixed/bundle/mallister_combat_2026-08-12.tar.xz.base64.part-00"
+    },
+    {
+      "path": "current normalized archive",
+      "sha256": "6b16d78d32ca70ea5093431874d8a73b00e6a3b961fa2686ec8701659decbc4d"
+    }
+  ],
+  "status": "passed_scope_limited"
+}

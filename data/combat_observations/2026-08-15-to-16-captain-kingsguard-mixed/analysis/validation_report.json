@@ -1,0 +1,106 @@
+{
+  "boundaries": {
+    "battle_is_independent_unit": true,
+    "contexts_pooled": false,
+    "frozen_models_changed": false,
+    "off_screen_rows_inferred": false,
+    "player_enemy_pooled": false,
+    "track": "realm_of_thrones"
+  },
+  "compatibility": {
+    "captain_field_combined_gate": "passed",
+    "combined_bootstrap_computed": false,
+    "contexts_pooled": false,
+    "goldcloak_field_combined_gate": "insufficient_battles",
+    "status": "passed_scope_limited"
+  },
+  "external_blockers": [],
+  "identity": {
+    "labels": 44,
+    "provisional_slugs_are_not_canonical_ids": true,
+    "status_counts": {
+      "ambiguous_exact_name": 1,
+      "confirmed_id": 29,
+      "unresolved": 14
+    }
+  },
+  "mechanical_comparison": {
+    "frozen_models_changed": false,
+    "next_candidate": "arryn_moonknight",
+    "status": "passed_descriptive_only"
+  },
+  "ranking": {
+    "bootstrap_repetitions": 10000,
+    "bootstrap_seed": "sha256(batch_id|context|provisional_slug|repetitions)",
+    "complete_rows": 64,
+    "coverage_by_context": {
+      "field": {
+        "context": "field",
+        "deployed": 598,
+        "independent_battles": 3,
+        "insufficient_labels": 20,
+        "minimum_battles": 5,
+        "minimum_deployed": 20,
+        "observed_labels": 20,
+        "reliable_labels": 0
+      },
+      "siege_attack": {
+        "context": "siege_attack",
+        "deployed": 716,
+        "independent_battles": 4,
+        "insufficient_labels": 30,
+        "minimum_battles": 5,
+        "minimum_deployed": 20,
+        "observed_labels": 30,
+        "reliable_labels": 0
+      },
+      "siege_defense": {
+        "context": "siege_defense",
+        "deployed": 100,
+        "independent_battles": 2,
+        "insufficient_labels": 14,
+        "minimum_battles": 5,
+        "minimum_deployed": 20,
+        "observed_labels": 14,
+        "reliable_labels": 0
+      }
+    },
+    "insufficient_rows": 64,
+    "minimum_battles": 5,
+    "minimum_deployed": 20,
+    "reliable_rows": 0
+  },
+  "review": {
+    "all_queued_rows_remain_excluded": true,
+    "decisions": 11,
+    "heroes_excluded_from_rankings": true,
+    "queued": 11,
+    "queued_rows_excluded_from_rankings": true,
+    "resolved_visual_non_numeric": 8,
+    "unresolved": 3
+  },
+  "source_inventory_verification": {
+    "excluded_images": 5,
+    "inventory_images": 14,
+    "selected_images": 9,
+    "status": "passed"
+  },
+  "status": "passed",
+  "structural_validation": {
+    "battle_context_counts": {
+      "field": 3,
+      "siege_attack": 4,
+      "siege_defense": 2
+    },
+    "battles": 9,
+    "consolidated_rows": 104,
+    "occurrences": 297,
+    "ordinary_troop_labels": 44,
+    "primary_occurrences": 104,
+    "primary_rows_fully_consolidated": true,
+    "queued_rows_excluded_from_rankings": true,
+    "rankings_only_include_primary_troops": true,
+    "review_items": 11
+  },
+  "validation_errors": []
+}

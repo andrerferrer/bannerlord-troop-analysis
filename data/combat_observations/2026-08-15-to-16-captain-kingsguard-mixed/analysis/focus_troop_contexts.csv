@@ -1,0 +1,7 @@
+context,rank,display_name,provisional_slug,canonical_troop_id,identity_status,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,death_rate,casualty_rate,ci95_low,ci95_high,reliability_status
+field,2,Captain of the Kingsguard [T6],captain_of_the_kingsguard,mounted_kingsguard,confirmed_id,3,58,43,133,3,12,0,2.293103,0.051724,0.258621,,,insufficient_evidence
+field,14,Gold Cloak Sniper [T5],gold_cloak_sniper,goldcloak_master_archer,confirmed_id,3,106,104,102,1,1,0,0.962264,0.009434,0.018868,,,insufficient_evidence
+siege_attack,14,Captain of the Kingsguard [T6],captain_of_the_kingsguard,mounted_kingsguard,confirmed_id,4,208,154,331,11,43,0,1.591346,0.052885,0.259615,,,insufficient_evidence
+siege_attack,21,Gold Cloak Sniper [T5],gold_cloak_sniper,goldcloak_master_archer,confirmed_id,4,223,173,249,11,39,0,1.116592,0.049327,0.224215,,,insufficient_evidence
+siege_defense,5,Captain of the Kingsguard [T6],captain_of_the_kingsguard,mounted_kingsguard,confirmed_id,1,44,6,91,7,31,0,2.068182,0.159091,0.863636,,,insufficient_evidence
+siege_defense,4,Gold Cloak Sniper [T5],gold_cloak_sniper,goldcloak_master_archer,confirmed_id,1,23,21,48,0,2,0,2.086957,0.000000,0.086957,,,insufficient_evidence
