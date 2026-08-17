@@ -1,0 +1,6 @@
+canonical_troop_id,troop_name,screen_band,roster_count,melee_skill_floor,mobility_floor,armor_total_mean,shield_hp_mean,harness_armor_mean,core_coverage_rosters,three_mode_rosters,crafted_weapon_stat_status
+mounted_kingsguard,Captain of the Kingsguard,captain_like_strict,1,270.0,250.0,211.0,370.0,80.0,1,1,not_reconstructed
+arryn_moonknight,Arryn Winged Knight,near_match_test_queue,2,220.0,220.0,221.0,370.0,75.0,2,0,not_reconstructed
+dayne_starfall_knights,Knights of Starfall,near_match_test_queue,1,220.0,230.0,197.0,400.0,75.0,1,0,not_reconstructed
+mallister_knight,Mallister Eagle Knight,near_match_test_queue,1,230.0,230.0,208.0,400.0,75.0,1,0,not_reconstructed
+realm_paladin,Realm Paladin,near_match_test_queue,1,230.0,230.0,194.0,370.0,72.0,1,0,not_reconstructed
