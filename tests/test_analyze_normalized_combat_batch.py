@@ -640,6 +640,49 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
             "2.500",
         )
 
+    def test_batch_wide_report_includes_every_reliable_and_insufficient_row(self) -> None:
+        rankings = []
+        for index in range(1, 7):
+            rankings.append(
+                {
+                    "context": "field",
+                    "provisional_slug": f"reliable_{index}",
+                    "canonical_troop_id": f"reliable_{index}",
+                    "independent_battles": 5,
+                    "deployed": 20,
+                    "kills_per_deployed": 1.0,
+                    "casualty_rate": 0.1,
+                    "ci95_low": 0.5,
+                    "ci95_high": 1.5,
+                    "reliability_status": "reliable",
+                }
+            )
+        rankings.append(
+            {
+                "context": "field",
+                "provisional_slug": "below_gate",
+                "canonical_troop_id": "",
+                "independent_battles": 3,
+                "deployed": 12,
+                "kills_per_deployed": 9.0,
+                "casualty_rate": 0.0,
+                "ci95_low": "",
+                "ci95_high": "",
+                "reliability_status": "insufficient_evidence",
+            }
+        )
+
+        report = "\n".join(
+            MODULE.build_batch_wide_report_sections(rankings, ["field"], 5, 20)
+        )
+
+        for index in range(1, 7):
+            self.assertIn(f"`reliable_{index}`", report)
+        self.assertIn("`below_gate (provisional)`", report)
+        self.assertIn("| 3 | 12 | 2 | 8 |", report)
+        self.assertNotIn("9.000", report)
+        self.assertLess(report.index("Batch-wide roster analysis"), report.index("below_gate"))
+
 
 if __name__ == "__main__":
     unittest.main()
