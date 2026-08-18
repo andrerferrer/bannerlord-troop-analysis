@@ -63,7 +63,7 @@ Goldenheart lacks a compatible death numerator, so it is an output-only anchor.
 | Captain of the Kingsguard | melee | 8 | 81 | 257 | 3 | 3.172840 | 3.7037% | 85.6667 |
 | Ravens' Teeth | ranged | 15 | 1,089 | 2,538 | 25 | 2.330579 | 2.2957% | 101.5200 |
 | Goldenheart Warrior | ranged | 11 | 190 | 520 | unavailable | 2.736842 | unavailable | unavailable |
-| Mallister Eagle Knight | melee contrast | 8 | 177 | 165 | 6 | 0.932203 | 3.3898% | 27.5000 |
+| Mallister Eagle Knight | incidental melee co-observation | 8 | 177 | 165 | 6 | 0.932203 | 3.3898% | 27.5000 |
 
 The Captain produces 3.172840 / 0.932203 = **3.4036 times** the Mallister
 Knight's kills per deployed while their death rates remain similar
@@ -123,9 +123,13 @@ rank. Passing it does not authorize an S-tier label.
 
 Only Captain of the Kingsguard passes the strict signature. Arryn Winged
 Knight, Mallister Eagle Knight, Realm Paladin, and Knights of Starfall pass the
-near-match screen. Mallister is the essential negative contrast: it passes the
-structural shortlist but its gate-clearing field output is only 0.932203 kills
-per deployed. This demonstrates why battle validation remains mandatory.
+near-match screen. Mallister is the essential negative contrast, but it was not
+the deliberately isolated target of the Mallister test. The Eagle Knight was
+co-observed while the House Guard/family composition was being tested and its
+compatible presence happens to clear the display gate: 8 field battles, 177
+deployed, and 0.932203 kills per deployed. This incidental evidence is useful
+as a contrast but must not be described as a dedicated Eagle Knight test. It
+also demonstrates why battle validation remains mandatory.
 
 Arryn remains the next test because it is the closest below-gate candidate in
 the batch-specific mechanical comparison. Its current field evidence is 2
