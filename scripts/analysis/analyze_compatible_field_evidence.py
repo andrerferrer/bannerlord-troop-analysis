@@ -881,33 +881,16 @@ def build_report(
             "intrinsic-strength tier list, universal score, or causal estimate."
         ),
         "",
-        f"## Reliable combined {context_label} ranking",
-        "",
     ]
-    if reliable:
-        lines.extend(
-            [
-                (
-                    "| Rank | Troop | Battles | Deployed | Kills/deployed | "
-                    "95% battle bootstrap interval | Casualty rate |"
-                ),
-                "|---:|---|---:|---:|---:|---:|---:|",
-            ]
+    lines.extend(
+        base.build_batch_wide_report_sections(
+            rankings,
+            [context],
+            minimum_battles,
+            minimum_deployed,
+            heading=f"Batch-wide compatible {context_label} analysis",
         )
-        for displayed_rank, row in enumerate(reliable[:10], start=1):
-            troop_identity = (
-                f"`{row['canonical_troop_id']}`"
-                if row["canonical_troop_id"]
-                else f"`{row['provisional_slug']}` (provisional)"
-            )
-            lines.append(
-                f"| {displayed_rank} | {troop_identity} | "
-                f"{row['independent_battles']} | {row['deployed']} | "
-                f"{row['kills_per_deployed']:.3f} | {row['ci95_low']:.3f}–"
-                f"{row['ci95_high']:.3f} | {row['casualty_rate']:.3f} |"
-            )
-    else:
-        lines.append("No combined troop row reaches the display gate.")
+    )
     lines.extend(
         [
             "",
