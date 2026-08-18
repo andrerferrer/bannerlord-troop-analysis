@@ -848,6 +848,109 @@ def format_ranking_rows(rows: list[dict[str, Any]], rerank: bool = False) -> lis
     return output
 
 
+def build_batch_wide_report_sections(
+    rankings: list[dict[str, Any]],
+    observed_contexts: list[str],
+    minimum_battles: int,
+    minimum_deployed: int,
+    heading: str = "Batch-wide roster analysis",
+) -> list[str]:
+    """Render every visible ordinary troop/context row without bypassing the gate."""
+    valid_statuses = {"reliable", "insufficient_evidence"}
+    invalid = [
+        row for row in rankings if str(row.get("reliability_status")) not in valid_statuses
+    ]
+    keys = [
+        (str(row["context"]), str(row["provisional_slug"])) for row in rankings
+    ]
+    ranking_contexts = {context for context, _ in keys}
+    if (
+        invalid
+        or len(keys) != len(set(keys))
+        or not ranking_contexts.issubset(set(observed_contexts))
+    ):
+        raise ValueError("batch-wide ranking partition is invalid")
+
+    reliable = [row for row in rankings if row["reliability_status"] == "reliable"]
+    insufficient = [
+        row for row in rankings if row["reliability_status"] == "insufficient_evidence"
+    ]
+    lines = [
+        f"## {heading}",
+        "",
+        "Every visible player-side ordinary troop is included by context. Requested focus "
+        "troops receive an additive deep dive and never filter this batch-wide analysis.",
+        "",
+        "### Reliable descriptive rates",
+        "",
+    ]
+    if reliable:
+        lines.extend(
+            [
+                "| Context | Rank | Troop | Canonical ID | Battles | Deployed | Kills/deployed | 95% battle bootstrap interval | Casualty rate |",
+                "|---|---:|---|---|---:|---:|---:|---:|---:|",
+            ]
+        )
+        for context in observed_contexts:
+            context_rows = [row for row in reliable if row["context"] == context]
+            for displayed_rank, row in enumerate(context_rows, start=1):
+                canonical_identity = (
+                    f"`{row['canonical_troop_id']}`"
+                    if row.get("canonical_troop_id")
+                    else f"`{row['provisional_slug']}` (provisional)"
+                )
+                display_name = str(
+                    row.get("display_name")
+                    or str(row["provisional_slug"]).replace("_", " ").title()
+                )
+                lines.append(
+                    f"| {context} | {displayed_rank} | {display_name} | "
+                    f"{canonical_identity} | "
+                    f"{row['independent_battles']} | {row['deployed']} | "
+                    f"{float(row['kills_per_deployed']):.3f} | "
+                    f"{float(row['ci95_low']):.3f}–{float(row['ci95_high']):.3f} | "
+                    f"{float(row['casualty_rate']):.3f} |"
+                )
+    else:
+        lines.append(
+            "No troop/context row reaches the configured display gate, so no reliable "
+            "rate or bootstrap interval is displayed."
+        )
+
+    lines.extend(["", "### Below-gate coverage", ""])
+    if insufficient:
+        lines.extend(
+            [
+                "Rates remain available as machine-readable diagnostics in `ranking_complete.csv`; "
+                "the report lists coverage and the exact evidence gap without promoting them.",
+                "",
+                "| Context | Troop | Canonical ID | Battles | Deployed | More battles needed | More deployed needed |",
+                "|---|---|---|---:|---:|---:|---:|",
+            ]
+        )
+        for context in observed_contexts:
+            for row in (item for item in insufficient if item["context"] == context):
+                battles = int(row["independent_battles"])
+                deployed = int(row["deployed"])
+                canonical_id = (
+                    str(row["canonical_troop_id"])
+                    if row.get("canonical_troop_id")
+                    else f"{row['provisional_slug']} (provisional)"
+                )
+                display_name = str(
+                    row.get("display_name")
+                    or str(row["provisional_slug"]).replace("_", " ").title()
+                )
+                lines.append(
+                    f"| {context} | {display_name} | `{canonical_id}` | "
+                    f"{battles} | {deployed} | {max(0, minimum_battles - battles)} | "
+                    f"{max(0, minimum_deployed - deployed)} |"
+                )
+    else:
+        lines.append("Every visible troop/context row reaches the configured display gate.")
+    return lines
+
+
 def build_focus_context_rows(
     rankings: list[dict[str, Any]],
     identities: list[dict[str, str]],
@@ -1312,33 +1415,15 @@ def main() -> None:
         f"- All {len(review_decisions)} queued fields remain unresolved; their source rows "
         "remain excluded from ordinary-troop rankings.",
         "",
-        "## Reliable descriptive rates",
-        "",
     ]
-    if reliable:
-        report_lines.extend(
-            [
-                "| Context | Rank | Troop | Battles | Deployed | Kills/deployed | 95% battle bootstrap interval | Casualty rate |",
-                "|---|---:|---|---:|---:|---:|---:|---:|",
-            ]
+    report_lines.extend(
+        build_batch_wide_report_sections(
+            rankings,
+            observed_contexts,
+            args.minimum_battles,
+            args.minimum_deployed,
         )
-        for context in observed_contexts:
-            for rank, row in enumerate(
-                [item for item in reliable if item["context"] == context][:5],
-                start=1,
-            ):
-                report_lines.append(
-                    f"| {context} | {rank} | `{row['provisional_slug']}` | "
-                    f"{row['independent_battles']} | {row['deployed']} | "
-                    f"{row['kills_per_deployed']:.3f} | "
-                    f"{row['ci95_low']:.3f}–{row['ci95_high']:.3f} | "
-                    f"{row['casualty_rate']:.3f} |"
-                )
-    else:
-        report_lines.append(
-            "No troop/context row reaches the 5-independent-battle / 20-deployed display "
-            "gate, so no reliable ranking or bootstrap interval is displayed."
-        )
+    )
     if focus_rows:
         report_lines.extend(
             [
@@ -1403,7 +1488,9 @@ def main() -> None:
         "`ranking_complete.csv` contains every observed troop/context estimate. "
         "`ranking_reliable.csv` applies the 5-battle / 20-deployed gate. "
         "`insufficient_evidence.csv` retains all rows that fail the gate. "
-        "`canonical_identity_audit.csv` never treats provisional slugs as XML IDs.\n\n"
+        "`ANALYSIS_REPORT.md` renders every row as either a reliable rate or explicit "
+        "below-gate coverage. `canonical_identity_audit.csv` never treats provisional "
+        "slugs as XML IDs.\n\n"
         "The batch-level `../README.md` is git-frozen at the normalization commit as Phase 1 "
         "metadata. This directory records Phase 2 outputs; authoritative workflow state lives "
         "in append-only protocol comments.\n\n"
