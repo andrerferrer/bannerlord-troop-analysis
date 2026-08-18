@@ -38,7 +38,8 @@ Task state lives in append-only pull-request comments.
   "required_actions": [
     "verify_handoff_hashes",
     "complete_review_layer",
-    "generate_analysis_outputs",
+    "generate_batch_wide_analysis_outputs",
+    "generate_focus_deep_dive",
     "validate_and_merge"
   ],
   "completion": {
@@ -108,6 +109,8 @@ The local analysis agent must, for each returned task:
 3. read `handoff_path` and repository `AGENTS.md`;
 4. publish a new `in_progress` protocol comment before material analysis work;
 5. execute and validate every required action;
+   analysis scope includes every visible player-side ordinary troop/context row,
+   while requested focus troops receive an additive deep dive;
 6. publish either a full `blocked` or full `complete` protocol comment;
 7. for `complete`, mark the PR ready when necessary and merge using the declared method;
 8. verify that the PR is no longer open before moving to the next task.
@@ -121,6 +124,8 @@ The agent must not publish `complete` or merge when:
 - validation fails;
 - frozen model files changed outside a dedicated model-change task;
 - a track, side, or battle-context boundary was violated;
+- an eligible visible player-side ordinary troop/context row is absent from the
+  reliable/insufficient partition or the human-readable batch-wide report;
 - unresolved blockers remain.
 
 A blocked task remains an open draft PR and continues to appear in dispatcher output.

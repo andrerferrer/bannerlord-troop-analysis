@@ -68,12 +68,16 @@ The local analysis agent must:
 4. treat normalized artifacts as immutable inputs;
 5. record corrections in a separate reviewed layer with provenance;
 6. resolve troop identities only against versioned track audits;
-7. write analytical outputs under the batch `analysis/` directory;
-8. use separate commits that identify the analysis phase;
-9. publish append-only protocol comments for `in_progress`, `blocked`, or `complete` state;
-10. update the pull-request checklist and analytical summary;
-11. mark the pull request ready only after all acceptance checks pass;
-12. merge completed PRs using the method declared in the protocol comment.
+7. analyze every visible player-side ordinary troop in every observed context;
+8. treat requested focus troops as an additive deep dive, never as a filter on the batch-wide analysis;
+9. publish every reliable troop/context row and retain explicit below-gate coverage for every insufficient row;
+10. write analytical outputs under the batch `analysis/` directory;
+11. use separate commits that identify the analysis phase;
+12. publish append-only protocol comments for `in_progress`, `blocked`, or `complete` state;
+13. update the pull-request checklist and analytical summary;
+14. summarize batch-wide findings before the requested focus in the user-facing handoff;
+15. mark the pull request ready only after all acceptance checks pass;
+16. merge completed PRs using the method declared in the protocol comment.
 
 ## Operator command: `Fecha as análises`
 
@@ -117,6 +121,9 @@ Protocol specification:
 - Provisional labels are not canonical XML IDs.
 - Off-screen rows must not be inferred.
 - Heroes are excluded from ordinary troop rankings.
+- A requested focus troop must never filter the batch-wide analysis. Every visible
+  player-side ordinary troop/context row must appear exactly once in either the
+  reliable or insufficient-evidence output and in the human-readable report.
 - New scoring work must follow
   [`docs/methodology/006_context_first_scoring_rules.md`](docs/methodology/006_context_first_scoring_rules.md):
   select track, battle context, troop question, attack mode, and mount state
@@ -136,3 +143,5 @@ A batch pull request remains draft after normalization. It may be marked ready a
 - normalized hashes still match the Phase 1 handoff;
 - unresolved limitations are documented;
 - no track, side, or battle-context boundary was violated.
+- no visible eligible player-side ordinary troop/context row was omitted from the
+  batch-wide analytical outputs or report.
