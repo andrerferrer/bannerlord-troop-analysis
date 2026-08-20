@@ -46,9 +46,15 @@ Five battles is the minimum display gate, not proof of stability. Estimates at t
 kills_per_deployed = sum(kills) / sum(deployed)
 death_rate         = sum(deaths) / sum(deployed)
 casualty_rate      = sum(deaths + wounded) / sum(deployed)
+player_side_kill_share = sum(kills) / sum(verified player-side total kills)
+share_adjusted_impact  = kills_per_deployed * player_side_kill_share
 ```
 
 Rates are recomputed after aggregation. Child-row rates are never averaged.
+Kill share and share-adjusted impact require complete, verified player-side
+kill-total coverage across the contributing battles. When coverage is incomplete,
+the metrics remain null and the coverage gap is reported. Efficiency and impact
+rankings remain separate.
 
 ### Independent sampling unit
 

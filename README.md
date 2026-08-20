@@ -129,6 +129,9 @@ The current rankings are exploratory campaign-performance evidence, not a univer
   follow the context-first scoring rules instead of extending a universal score.
 - Use the battle as the independent sampling unit.
 - Require at least **5 independent battles and 20 deployed troops** before displaying a troop/context estimate.
+- Publish efficiency (`kills/deployed`) beside verified player-side kill share
+  and a separate share-adjusted impact rank; never infer side totals from partial
+  visible rows.
 - Display uncertainty beside point estimates.
 - Do not pool the victorious player side with the defeated enemy side.
 - Do not recalibrate frozen models until canonicalization and out-of-sample validation gates pass.

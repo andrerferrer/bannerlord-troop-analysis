@@ -40,10 +40,13 @@ The same Python command works on macOS, Linux, and Windows. It avoids platform-s
 ```bash
 python3 -m scripts.combat_observations manifest-images \
   --input /path/to/screenshots.zip \
-  --output-dir /path/to/batch-output
+  --output-dir /path/to/batch-output \
+  --history-root data/combat_observations
 ```
 
-ZIP preflight rejects traversal, absolute paths, symlinks, duplicate names, excessive member/declared sizes, suspicious compression ratios, and corrupt archives. It preserves the source ZIP, hashes every extracted file, inventories unsupported files, and identifies exact duplicate images.
+ZIP preflight rejects traversal, absolute paths, symlinks, duplicate names, excessive member/declared sizes, suspicious compression ratios, and corrupt archives. It preserves the source ZIP, hashes every extracted file, inventories unsupported files, identifies exact duplicate images, and skips committed historical matches by SHA-256 or capture identity plus filename. Captures from the same recorder/process within 60 seconds are marked for visual review, not automatically discarded.
+
+The portable skill supplies the repository history root automatically. After preflight, complete the visual whole-batch audit described in the skill before extracting rows.
 
 For an already extracted directory, pass the directory as `--input`.
 

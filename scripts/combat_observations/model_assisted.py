@@ -105,7 +105,16 @@ def prepare_extraction_queue(
     estimated_cost_per_image: float | None = None,
 ) -> dict[str, object]:
     config = ExtractionConfig.from_environment(mode)
-    rows = [row for row in read_csv(manifest_csv) if str(row.get("supported_image")).casefold() == "true"]
+    inventory = [
+        row
+        for row in read_csv(manifest_csv)
+        if str(row.get("supported_image")).casefold() == "true"
+    ]
+    rows = [
+        row
+        for row in inventory
+        if not row.get("exact_duplicate_of") and not row.get("historical_duplicate_of")
+    ]
     if estimated_cost_per_image is not None and estimated_cost_per_image < 0:
         raise BundleError("estimated cost per image must be non-negative")
     if mode == "offline-existing":
@@ -150,7 +159,19 @@ def prepare_extraction_queue(
         "schema_version": "1.0.0",
         "mode": mode,
         "queue_size": len(queue),
-        "status": "ready_for_host_vision" if mode == "host-vision" else "ready",
+        "skipped_exact_duplicates": sum(bool(row.get("exact_duplicate_of")) for row in inventory),
+        "skipped_already_normalized": sum(
+            bool(row.get("historical_duplicate_of")) and not bool(row.get("exact_duplicate_of"))
+            for row in inventory
+        ),
+        "visual_deduplication_review": sum(
+            row.get("deduplication_status") == "needs_visual_review" for row in inventory
+        ),
+        "status": (
+            "nothing_to_extract"
+            if not queue
+            else "ready_for_host_vision" if mode == "host-vision" else "ready"
+        ),
         "paid_api_authorized": authorize_paid_api,
         "files_that_would_leave_machine": [row["source_filename"] for row in queue] if mode == "api-batch" else [],
         "queue_path": "extraction_queue.jsonl",

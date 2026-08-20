@@ -4,8 +4,8 @@
 
 | Input | Action |
 |---|---|
-| Screenshot ZIP | Run safe ZIP preflight, manifest images, then queue/extract |
-| Screenshot directory | Manifest files in place, then queue/extract |
+| Screenshot ZIP | Run safe ZIP preflight, historical/visual deduplication, then queue/extract only accepted images |
+| Screenshot directory | Manifest files in place, perform historical/visual deduplication, then queue/extract |
 | Eleven normalized Base64 parts | Run strict reconstruction and exact-hash verification |
 | Existing normalized directory | Locate `troop_occurrences.jsonl`; build only with a verified troop registry |
 | Corrupt/unsupported input | Stop that input path with an actionable error; never treat it as empty |
@@ -17,12 +17,14 @@
 `host-vision` uses the current session to inspect queued images. For each image:
 
 1. read the full screen rather than standalone OCR;
-2. emit strict structured rows;
+2. emit strict structured rows, including visible side-total and party rows;
 3. leave unreadable fields null;
 4. retain raw response/provenance;
 5. validate schema and arithmetic;
 6. route uncertain/invalid rows to review;
 7. checkpoint before the next batch.
+
+Before row extraction, compare every screenshot with committed history and with the other screenshots in the batch. Inspect the actual scoreboard: same sides, party headings, totals, troop rows, result state, battle timer, and environment. Write `reports/screenshot_deduplication_audit.csv`. Skip prior normalized and repeated screens; group supplemental or sequential screens under one battle rather than treating them as new samples.
 
 `api-batch` uses configured extractor/reviewer adapters. Require explicit upload/paid authorization, bounded retries/concurrency, and a usage estimate or cap. Exact provider models are configuration values.
 
@@ -31,15 +33,16 @@
 ```text
 preflight and SHA-256
 → safe staging
-→ image inventory and exact duplicates
+→ committed-history lookup by hash and capture identity
+→ full-batch visual duplicate/same-battle audit
 → screen extraction
 → schema and semantic validation
 → troop matching
 → review queue and explicit decisions
 → conservative deduplication
 → canonical occurrence build
-→ context aggregates and evidence grades
-→ complete/reliable rankings
+→ context aggregates, kill-total coverage, and evidence grades
+→ separate efficiency and share-adjusted-impact ranks in complete/reliable rankings
 → frozen-model comparison
 → artifact index and state
 ```

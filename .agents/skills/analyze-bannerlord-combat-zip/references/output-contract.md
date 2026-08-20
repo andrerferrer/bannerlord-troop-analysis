@@ -7,15 +7,21 @@ Report:
 1. `COMPLETE`, `COMPLETE_WITH_EXTERNAL_BLOCKERS`, or `BLOCKED`;
 2. input name and verified SHA-256;
 3. mode, pipeline/schema versions, and model provenance;
-4. image, battle, occurrence, canonical, excluded, outlier, and unresolved counts;
+4. new, already-normalized, duplicate, supplemental, battle, occurrence, canonical, excluded, outlier, and unresolved counts;
 5. schema/semantic validation result;
 6. complete/reliable and context ranking paths;
 7. model comparison and residual paths;
 8. highest-impact unresolved items;
-9. limitations/evidence grades;
-10. exact resume command.
+9. efficiency rank, player-side kill share, share-adjusted impact rank, and kill-total coverage;
+10. limitations/evidence grades;
+11. exact resume command.
 
 Do not claim completion from prose alone. Link structured artifacts.
+
+Ranking CSVs must keep `historical_kills_per_deployed`, `player_side_kill_share`,
+and `share_adjusted_impact` as separate columns, with independent efficiency and
+impact ranks. Leave share/impact null unless verified player-side kill totals
+cover every contributing battle.
 
 ## Artifact classes
 
@@ -46,6 +52,7 @@ Expected reports:
 review_resolutions.csv
 unresolved_rows.csv
 duplicate_report.csv
+screenshot_deduplication_audit.csv
 grouping_validation.csv
 aggregation_validation.csv
 outlier_report.csv

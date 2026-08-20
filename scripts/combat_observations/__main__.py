@@ -65,6 +65,7 @@ def build_parser() -> argparse.ArgumentParser:
     manifest.add_argument("--max-members", type=int, default=10_000)
     manifest.add_argument("--max-uncompressed-bytes", type=int, default=1_000_000_000)
     manifest.add_argument("--max-compression-ratio", type=float, default=1_000.0)
+    manifest.add_argument("--history-root", type=Path)
 
     stage = subcommands.add_parser(
         "stage-normalized-zip",
@@ -248,6 +249,7 @@ def main() -> int:
                 max_members=args.max_members,
                 max_uncompressed_bytes=args.max_uncompressed_bytes,
                 max_compression_ratio=args.max_compression_ratio,
+                history_root=args.history_root,
             )
             return 0
         if args.command == "stage-normalized-zip":

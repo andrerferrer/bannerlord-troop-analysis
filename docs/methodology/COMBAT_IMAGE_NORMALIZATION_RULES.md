@@ -6,6 +6,15 @@
 
 This document records the accepted normalization rules derived from representative Bannerlord battle-result screenshots. It is intentionally updated during the schema interview and will later be converted into the final JSON Schema, extractor prompt, and validation code.
 
+## Screenshot and historical deduplication
+
+1. Before extraction, compare the new input against all committed screenshot manifests and source inventories.
+2. Skip and report exact SHA-256 matches. Because attachment transport can re-encode images, also skip an exact recorder filename plus embedded capture timestamp match even when bytes differ.
+3. Inspect the visible scoreboard for every possible duplicate within the batch. Use side/party headings, totals, troop rows, result state, timer, and environment to establish same-screen or same-battle identity.
+4. Duplicate final screens contribute once. Sequential active scoreboards belong to one battle and are excluded from primary evidence. Complementary scroll positions may be retained under the same battle only for otherwise hidden rows; overlapping occurrences contribute once.
+5. Prefer a final result, then greater row coverage, fewer obstructions, and sharper text. Recency is only a tie-breaker.
+6. Record accepted, skipped, supplemental, and already-normalized decisions in `reports/screenshot_deduplication_audit.csv` and surface the counts to the user.
+
 ## Battle context classification
 
 Supported values:
@@ -162,6 +171,52 @@ historical_kills_per_deployed = total_kills / total_deployed
 ```
 
 Do not use an unweighted average of per-battle rates as the primary metric.
+
+Also retain the verified kill total from the player's scoreboard side and derive:
+
+```text
+player_side_kill_share = troop_kills / verified_player_side_total_kills
+share_adjusted_impact  = kills_per_deployed * player_side_kill_share
+```
+
+At context-aggregate level, recompute both components from compatible sums:
+
+```text
+historical_kills_per_deployed = sum(troop_kills) / sum(troop_deployed)
+player_side_kill_share        = sum(troop_kills) / sum(player_side_total_kills)
+share_adjusted_impact         = historical_kills_per_deployed * player_side_kill_share
+```
+
+The denominator is the total of the player's **side**, not the sum of visible
+troop rows and not one selected party. The side total includes kills attributed
+to heroes and other parties, which is intentional: the share measures how much
+of the actual side output the troop supplied. Party totals remain useful for
+hierarchy validation and separate party-level sensitivity views.
+
+Publish both the efficiency rank (`historical_kills_per_deployed`) and the
+impact rank (`share_adjusted_impact`). The impact rank is descriptive campaign
+evidence and must not overwrite the frozen theoretical model. A troop with high
+efficiency but low kill share is a high-output niche deployment; high efficiency
+and high share indicates broad realized impact.
+
+Only calculate an aggregate impact score when every contributing battle has one
+unambiguous, positive player-side kill total and the troop-side relationship is
+verified. Repeated equal side totals may corroborate one denominator; conflicting,
+missing, or partial totals make the aggregate impact fields null. Report the
+number of covered battles and whether coverage is complete. Never infer the
+denominator from visible troop rows because off-screen, player, and hero rows may
+be absent.
+
+Example:
+
+```text
+2.0 kills/deployed * 90% player-side kill share = 1.80 impact
+4.0 kills/deployed * 25% player-side kill share = 1.00 impact
+```
+
+The micro-aggregated kill share above is the primary share component. A simple
+mean of battle-level kill shares may be emitted as a diagnostic for consistency,
+but it must not replace the primary aggregate.
 
 The `overall` view must be marked as mixing battle contexts and must not replace context-specific comparisons.
 

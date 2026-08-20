@@ -9,7 +9,9 @@ from pathlib import Path
 from scripts.combat_observations.canonical import (
     apply_corrections,
     build_canonical_dataset,
+    consolidate_occurrences,
     deduplicate_occurrences,
+    verified_player_side_kill_totals,
 )
 from scripts.combat_observations.domain import DomainError, read_jsonl, write_jsonl
 
@@ -55,6 +57,28 @@ def occurrence(
         "game": {"version": "1.4.x", "track": "vanilla_war_sails_1.4.x", "active_modules": []},
         "provenance": {"extractor_model": "fixture", "prompt_version": "fixture"},
     }
+
+
+def side_total(
+    observation_id: str,
+    battle_id: str,
+    kills: int,
+    *,
+    context: str = "field",
+) -> dict[str, object]:
+    record = occurrence(
+        observation_id,
+        battle_id,
+        "Attacker Side",
+        context=context,
+        survivors=16,
+        kills=kills,
+        deaths=2,
+        wounded=2,
+    )
+    record["row_type"] = "side_total"
+    record["canonical_troop_id"] = None
+    return record
 
 
 class CanonicalPipelineTests(unittest.TestCase):
@@ -133,6 +157,9 @@ class CanonicalPipelineTests(unittest.TestCase):
             occurrence("obs-2", "battle-1", "Imperial Naute", overlap_group_id="o1", screenshot_group_id="s1"),
             occurrence("obs-3", "battle-2", "Imperial Naute", kills=10),
             occurrence("obs-4", "battle-3", "Battanian Skipari", context="siege_attack", kills=7),
+            side_total("total-1", "battle-1", 10),
+            side_total("total-2", "battle-2", 20),
+            side_total("total-3", "battle-3", 10, context="siege_attack"),
         ]
         records[1]["source"] = records[0]["source"]
         write_jsonl(raw_path, records)
@@ -161,9 +188,87 @@ class CanonicalPipelineTests(unittest.TestCase):
         self.assertEqual(naute_overall["total_deployed"], 20)
         self.assertEqual(naute_overall["total_kills"], 15)
         self.assertEqual(naute_overall["historical_kills_per_deployed"], "0.750000")
+        self.assertEqual(naute_overall["verified_player_side_total_kills"], 30)
+        self.assertEqual(naute_overall["player_side_kill_share"], "0.500000")
+        self.assertEqual(
+            naute_overall["mean_battle_player_side_kill_share"],
+            "0.500000",
+        )
+        self.assertEqual(naute_overall["share_adjusted_impact"], "0.375000")
+        self.assertTrue(naute_overall["kill_share_coverage_complete"])
         self.assertEqual(naute_overall["context_distribution"], {"field": 2})
         self.assertEqual(naute_overall["variation_by_battle"], "0.250000")
         self.assertIn(naute_overall["best_battle_id"], {"battle-1", "battle-2"})
+
+        with (first / "canonical/ranking_overall_complete.csv").open(
+            encoding="utf-8", newline=""
+        ) as handle:
+            ranking = list(csv.DictReader(handle))
+        naute_ranking = next(
+            row for row in ranking if row["canonical_troop_id"] == "imperial_naute"
+        )
+        self.assertEqual(naute_ranking["impact_rank"], "2")
+
+    def test_share_adjusted_impact_combines_efficiency_and_total_kill_share(self) -> None:
+        efficient_majority = occurrence(
+            "obs-a",
+            "battle-a",
+            "Imperial Naute",
+            survivors=9,
+            kills=18,
+            deaths=0,
+            wounded=0,
+        )
+        niche_burst = occurrence(
+            "obs-b",
+            "battle-b",
+            "Battanian Skipari",
+            survivors=5,
+            kills=20,
+            deaths=0,
+            wounded=0,
+        )
+        efficient_majority["canonical_troop_id"] = "imperial_naute"
+        niche_burst["canonical_troop_id"] = "battanian_skipari"
+
+        rows = consolidate_occurrences(
+            [efficient_majority, niche_burst],
+            {
+                ("battle-a", "field"): ("attacker", 20),
+                ("battle-b", "field"): ("attacker", 80),
+            },
+        )
+        by_troop = {str(row["canonical_troop_id"]): row for row in rows}
+        majority = by_troop["imperial_naute"]
+        burst = by_troop["battanian_skipari"]
+
+        self.assertEqual(majority["kills_per_deployed"], "2.000000")
+        self.assertEqual(majority["player_side_kill_share"], "0.900000")
+        self.assertEqual(majority["share_adjusted_impact"], "1.800000")
+        self.assertEqual(burst["kills_per_deployed"], "4.000000")
+        self.assertEqual(burst["player_side_kill_share"], "0.250000")
+        self.assertEqual(burst["share_adjusted_impact"], "1.000000")
+        self.assertGreater(
+            float(majority["share_adjusted_impact"]),
+            float(burst["share_adjusted_impact"]),
+        )
+
+    def test_kill_share_stays_null_for_conflicting_or_blocked_side_totals(self) -> None:
+        troop = occurrence("troop", "battle-1", "Imperial Naute")
+        first_total = side_total("total-1", "battle-1", 20)
+        conflicting_total = side_total("total-2", "battle-1", 21)
+
+        self.assertEqual(
+            verified_player_side_kill_totals([troop, first_total, conflicting_total]),
+            {},
+        )
+        self.assertEqual(
+            verified_player_side_kill_totals(
+                [troop, first_total],
+                blocked_observation_ids={"total-1"},
+            ),
+            {},
+        )
 
     def test_unresolved_critical_value_is_quarantined(self) -> None:
         raw_path = self.root / "raw-unresolved.jsonl"

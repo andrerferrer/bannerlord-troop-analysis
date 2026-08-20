@@ -12,7 +12,7 @@ import zipfile
 from pathlib import Path
 
 
-PIPELINE_VERSION = "0.2.0"
+PIPELINE_VERSION = "0.4.0"
 SCHEMA_VERSION = "2.0.0"
 BUNDLE_PART_PREFIX = "bannerlord_normalized_v1.tar.xz.base64.part-"
 
@@ -328,6 +328,7 @@ def main() -> int:
                 "--max-members", str(max_members),
                 "--max-uncompressed-bytes", str(max_uncompressed),
                 "--max-compression-ratio", str(max_ratio),
+                "--history-root", str(repo / "data/combat_observations"),
             ],
             environment=pipeline_environment,
         )
@@ -347,12 +348,26 @@ def main() -> int:
         state["phase_statuses"]["preflight"] = "complete"
         state["phase_statuses"]["extraction"] = "pending"
         state["pending_images"] = plan["queue_size"]
-        state["counts"] = {"images_queued": plan["queue_size"]}
+        state["counts"] = {
+            "images_queued": plan["queue_size"],
+            "skipped_exact_duplicates": plan["skipped_exact_duplicates"],
+            "skipped_already_normalized": plan["skipped_already_normalized"],
+            "visual_deduplication_review": plan["visual_deduplication_review"],
+        }
         state["generated_artifacts"] = [
             str(manifest.relative_to(output)),
             "extraction/extraction_queue.jsonl",
             "extraction/extraction_plan.json",
         ]
+        if not plan["queue_size"]:
+            state["phase_statuses"]["extraction"] = "not_required"
+            state["next_action"] = (
+                "report that every supported screenshot was already normalized or an exact duplicate"
+            )
+            state["status"] = "complete"
+            atomic_json(state_path, state)
+            print(f"no new screenshots to extract; duplicate audit: {manifest}")
+            return 0
         state["next_action"] = (
             "process extraction/extraction_queue.jsonl, retain raw structured results, then rerun "
             "with an existing normalized directory"
