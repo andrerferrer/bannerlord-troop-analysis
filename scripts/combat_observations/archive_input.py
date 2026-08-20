@@ -1,13 +1,16 @@
 from __future__ import annotations
 
+import csv
 import hashlib
 import json
 import os
+import re
 import shutil
 import stat
 import struct
 import tempfile
 import zipfile
+from datetime import datetime
 from pathlib import Path, PurePosixPath
 from typing import Iterable
 
@@ -17,6 +20,119 @@ from .domain import stable_id, stable_json, write_csv
 
 
 SUPPORTED_IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".bmp", ".tif", ".tiff"}
+CAPTURE_STAMP = re.compile(
+    r"(?<!\d)(\d{2})[_-](\d{2})[_-](\d{4})[ _T-]+(\d{2})[_-](\d{2})[_-](\d{2})(?!\d)"
+)
+
+
+def capture_identity(filename: str) -> tuple[str, str]:
+    """Return a stable capture timestamp and the recorder/process prefix."""
+    name = Path(filename).name
+    match = CAPTURE_STAMP.search(name)
+    if match is None:
+        return "", ""
+    day, month, year, hour, minute, second = match.groups()
+    try:
+        captured_at = datetime(
+            int(year), int(month), int(day), int(hour), int(minute), int(second)
+        )
+    except ValueError:
+        return "", ""
+    stamp = captured_at.isoformat(timespec="seconds")
+    prefix = name[: match.start()].strip(" _-").casefold()
+    return stamp, prefix
+
+
+def _history_records(history_root: Path | None) -> list[dict[str, str]]:
+    if history_root is None or not history_root.is_dir():
+        return []
+    records: list[dict[str, str]] = []
+    manifests = sorted(history_root.rglob("screenshots_manifest.csv"))
+    inventories = sorted(history_root.rglob("source_inventory.csv"))
+    for path in [*manifests, *inventories]:
+        with path.open(newline="", encoding="utf-8") as handle:
+            for row in csv.DictReader(handle):
+                filename = str(row.get("image_file") or row.get("source_filename") or "")
+                digest = str(row.get("image_sha256") or row.get("source_sha256") or "")
+                if not filename or len(digest) != 64:
+                    continue
+                stamp, _ = capture_identity(filename)
+                records.append(
+                    {
+                        "filename": filename,
+                        "basename": Path(filename).name.casefold(),
+                        "sha256": digest,
+                        "capture_identity": stamp,
+                        "reference": f"{path.relative_to(history_root).as_posix()}::{filename}",
+                    }
+                )
+    return records
+
+
+def _history_index_sha256(records: list[dict[str, str]]) -> str:
+    digest = hashlib.sha256()
+    for record in sorted(records, key=lambda item: (item["reference"], item["sha256"])):
+        digest.update(stable_json(record).encode("utf-8"))
+        digest.update(b"\n")
+    return digest.hexdigest()
+
+
+def _mark_visual_duplicate_candidates(rows: list[dict[str, object]]) -> None:
+    previous_by_prefix: dict[str, tuple[datetime, str]] = {}
+    chronological = []
+    for row in rows:
+        stamp = str(row["capture_identity"])
+        prefix = str(row.pop("_capture_prefix"))
+        if bool(row["supported_image"]) and stamp and prefix:
+            chronological.append((datetime.fromisoformat(stamp), prefix, row))
+    for captured_at, prefix, row in sorted(chronological, key=lambda item: item[0]):
+        previous = previous_by_prefix.get(prefix)
+        if previous is not None:
+            previous_at, previous_filename = previous
+            if (captured_at - previous_at).total_seconds() <= 60:
+                row["visual_duplicate_candidate_of"] = previous_filename
+        previous_by_prefix[prefix] = (captured_at, str(row["source_filename"]))
+
+
+def _apply_history(rows: list[dict[str, object]], records: list[dict[str, str]]) -> None:
+    by_hash: dict[str, list[str]] = {}
+    by_capture_filename: dict[tuple[str, str], list[str]] = {}
+    by_capture: dict[str, list[str]] = {}
+    for record in records:
+        by_hash.setdefault(record["sha256"], []).append(record["reference"])
+        if record["capture_identity"]:
+            key = (record["capture_identity"], record["basename"])
+            by_capture_filename.setdefault(key, []).append(record["reference"])
+            by_capture.setdefault(record["capture_identity"], []).append(record["reference"])
+
+    for row in rows:
+        if not bool(row["supported_image"]):
+            row["deduplication_status"] = "unsupported"
+            continue
+        digest_matches = by_hash.get(str(row["source_sha256"]), [])
+        stamp = str(row["capture_identity"])
+        filename_matches = by_capture_filename.get(
+            (stamp, Path(str(row["source_filename"])).name.casefold()), []
+        ) if stamp else []
+        candidate_matches = by_capture.get(stamp, []) if stamp else []
+        if digest_matches:
+            row["historical_duplicate_of"] = "|".join(sorted(set(digest_matches)))
+            row["historical_match_type"] = "sha256"
+        elif filename_matches:
+            row["historical_duplicate_of"] = "|".join(sorted(set(filename_matches)))
+            row["historical_match_type"] = "capture_identity_and_filename"
+        elif candidate_matches:
+            row["historical_candidate_of"] = "|".join(sorted(set(candidate_matches)))
+            row["historical_match_type"] = "capture_identity_candidate"
+
+        if row["exact_duplicate_of"]:
+            row["deduplication_status"] = "skip_exact_duplicate"
+        elif row["historical_duplicate_of"]:
+            row["deduplication_status"] = "skip_already_normalized"
+        elif row["historical_candidate_of"] or row["visual_duplicate_candidate_of"]:
+            row["deduplication_status"] = "needs_visual_review"
+        else:
+            row["deduplication_status"] = "pending"
 
 
 def _safe_zip_member(name: str) -> PurePosixPath:
@@ -192,6 +308,7 @@ def inventory_directory(
         duplicate_of = first_by_hash.get(digest)
         if duplicate_of is None:
             first_by_hash[digest] = relative
+        capture_stamp, capture_prefix = capture_identity(relative)
         rows.append(
             {
                 "source_filename": relative,
@@ -201,7 +318,14 @@ def inventory_directory(
                 "supported_image": supported,
                 "width": width,
                 "height": height,
+                "capture_identity": capture_stamp,
+                "_capture_prefix": capture_prefix,
                 "exact_duplicate_of": duplicate_of or "",
+                "visual_duplicate_candidate_of": "",
+                "historical_duplicate_of": "",
+                "historical_candidate_of": "",
+                "historical_match_type": "",
+                "deduplication_status": "pending" if supported else "unsupported",
                 "source_timestamp": (
                     source_timestamps.get(relative)
                     if source_timestamps is not None
@@ -209,6 +333,7 @@ def inventory_directory(
                 ),
             }
         )
+    _mark_visual_duplicate_candidates(rows)
     return rows
 
 
@@ -219,6 +344,7 @@ def prepare_input(
     max_members: int = 10_000,
     max_uncompressed_bytes: int = 1_000_000_000,
     max_compression_ratio: float = 1_000.0,
+    history_root: Path | None = None,
 ) -> dict[str, object]:
     input_path = input_path.resolve()
     output_dir = output_dir.resolve()
@@ -279,6 +405,8 @@ def prepare_input(
         else None
     )
     inventory = inventory_directory(staging, source_timestamps=source_timestamps)
+    history_records = _history_records(history_root.resolve() if history_root else None)
+    _apply_history(inventory, history_records)
     supported_count = sum(bool(row["supported_image"]) for row in inventory)
     if supported_count == 0:
         raise BundleError("input contains no supported screenshot images")
@@ -294,14 +422,27 @@ def prepare_input(
             "supported_image",
             "width",
             "height",
+            "capture_identity",
             "exact_duplicate_of",
+            "visual_duplicate_candidate_of",
+            "historical_duplicate_of",
+            "historical_candidate_of",
+            "historical_match_type",
+            "deduplication_status",
             "source_timestamp",
         ),
     )
+    skipped_exact = sum(row["deduplication_status"] == "skip_exact_duplicate" for row in inventory)
+    skipped_historical = sum(
+        row["deduplication_status"] == "skip_already_normalized" for row in inventory
+    )
+    visual_review = sum(row["deduplication_status"] == "needs_visual_review" for row in inventory)
+    pending_count = supported_count - skipped_exact - skipped_historical
     configuration = {
         "max_members": max_members,
         "max_uncompressed_bytes": max_uncompressed_bytes,
         "max_compression_ratio": f"{max_compression_ratio:.6f}",
+        "history_index_sha256": _history_index_sha256(history_records),
     }
     configuration_hash = hashlib.sha256(stable_json(configuration).encode("utf-8")).hexdigest()
     state_path = output_dir / "execution" / f"{batch_id}.json"
@@ -325,7 +466,13 @@ def prepare_input(
         "mode": "preflight",
         "phase_statuses": {"preflight": "complete", "extraction": "pending", "canonical": "pending"},
         "processed_images": 0,
-        "pending_images": supported_count,
+        "pending_images": pending_count,
+        "counts": {
+            "supported_images": supported_count,
+            "skipped_exact_duplicates": skipped_exact,
+            "skipped_already_normalized": skipped_historical,
+            "visual_deduplication_review": visual_review,
+        },
         "review_queue_size": 0,
         "failed_items": [],
         "retry_counts": {},

@@ -42,17 +42,18 @@ The normalization agent must not perform the analytical phase. The analysis agen
 The normalization agent must:
 
 1. preserve known source provenance and calculate SHA-256 hashes;
-2. store every generated artifact required to reproduce downstream analysis in the repository;
-3. publish a deterministic normalized archive with a manifest, reconstruction commands, and expected hash;
-4. retain raw screenshots through Git LFS or a reconstructible source package when useful and available, but do not require raw retention after the normalized evidence passes its integrity and validation gates;
-5. normalize the source into deterministic structured records;
-6. keep player and enemy sides separate;
-7. keep field, siege attack, and siege defense separate;
-8. preserve uncertain values in an explicit review queue instead of guessing;
-9. run structural validation;
-10. generate `handoff/ANALYSIS_PROMPT.md` for the local analysis agent;
-11. publish a valid `bannerlord-analysis-task:v1` PR comment with status `pending`;
-12. leave the pull request in draft state with the analysis phase unchecked.
+2. compare the batch with committed screenshot history and visually audit the whole batch for duplicate, sequential, improved, or complementary screens; skip and report previously normalized/repeated evidence and keep same-battle screens under one battle ID;
+3. store every generated artifact required to reproduce downstream analysis in the repository;
+4. publish a deterministic normalized archive with a manifest, reconstruction commands, and expected hash;
+5. retain raw screenshots through Git LFS or a reconstructible source package when useful and available, but do not require raw retention after the normalized evidence passes its integrity and validation gates;
+6. normalize the source into deterministic structured records;
+7. keep player and enemy sides separate;
+8. keep field, siege attack, and siege defense separate;
+9. preserve uncertain values in an explicit review queue instead of guessing;
+10. run structural validation;
+11. generate `handoff/ANALYSIS_PROMPT.md` for the local analysis agent;
+12. publish a valid `bannerlord-analysis-task:v1` PR comment with status `pending`;
+13. leave the pull request in draft state with the analysis phase unchecked.
 
 The normalization agent must not publish rankings, gameplay conclusions, causal claims, model recalibration, or recommendations as part of Phase 1.
 

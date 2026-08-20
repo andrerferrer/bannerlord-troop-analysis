@@ -7,7 +7,7 @@ import warnings
 import zipfile
 from pathlib import Path
 
-from scripts.combat_observations.archive_input import inspect_zip, prepare_input
+from scripts.combat_observations.archive_input import capture_identity, inspect_zip, prepare_input
 from scripts.combat_observations.bundle import BundleError
 
 
@@ -38,12 +38,54 @@ class ArchiveInputTests(unittest.TestCase):
         first = prepare_input(archive, output)
         second = prepare_input(archive, output)
         self.assertEqual(first, second)
-        self.assertEqual(first["pending_images"], 2)
+        self.assertEqual(first["pending_images"], 1)
+        self.assertEqual(first["counts"]["skipped_exact_duplicates"], 1)
         manifest = (output / first["generated_artifacts"][0]).read_text(encoding="utf-8")
         self.assertIn("nested/two.png", manifest)
         self.assertIn("one.png", manifest)
         self.assertIn("notes.txt", manifest)
         self.assertIn("exact_duplicate_of", manifest)
+
+    def test_capture_identity_handles_bannerlord_and_armoury_names(self) -> None:
+        bannerlord = (
+            "Mount and Blade II Bannerlord PID_ 10 - Modules_ 19_08_2026 21_03_23.png"
+        )
+        armoury = "Armoury Crate SE 17_08_2026 23_18_42.png"
+        self.assertEqual(capture_identity(bannerlord)[0], "2026-08-19T21:03:23")
+        self.assertEqual(capture_identity(armoury)[0], "2026-08-17T23:18:42")
+
+    def test_reencoded_historical_capture_is_skipped_by_identity(self) -> None:
+        history = self.root / "history" / "prior-batch"
+        history.mkdir(parents=True)
+        filename = "Armoury Crate SE 17_08_2026 23_18_42.png"
+        (history / "screenshots_manifest.csv").write_text(
+            "image_file,image_sha256,battle_id\n"
+            f"{filename},{'a' * 64},battle-prior\n",
+            encoding="utf-8",
+        )
+        archive = self.make_zip("repeat.zip", [(filename, PNG_FIXTURE + b"reencoded")])
+        output = self.root / "historical-output"
+        state = prepare_input(archive, output, history_root=self.root / "history")
+        self.assertEqual(state["pending_images"], 0)
+        self.assertEqual(state["counts"]["skipped_already_normalized"], 1)
+        manifest = (output / state["generated_artifacts"][0]).read_text(encoding="utf-8")
+        self.assertIn("capture_identity_and_filename", manifest)
+        self.assertIn("skip_already_normalized", manifest)
+
+    def test_close_captures_require_visual_review_instead_of_auto_skip(self) -> None:
+        archive = self.make_zip(
+            "near.zip",
+            [
+                ("Bannerlord PID_ 1_19_08_2026 21_02_50.png", PNG_FIXTURE + b"first"),
+                ("Bannerlord PID_ 1_19_08_2026 21_03_23.png", PNG_FIXTURE + b"second"),
+            ],
+        )
+        output = self.root / "near-output"
+        state = prepare_input(archive, output)
+        self.assertEqual(state["pending_images"], 2)
+        self.assertEqual(state["counts"]["visual_deduplication_review"], 1)
+        manifest = (output / state["generated_artifacts"][0]).read_text(encoding="utf-8")
+        self.assertIn("needs_visual_review", manifest)
 
     def test_corrupt_zip_is_not_empty_batch(self) -> None:
         path = self.root / "corrupt.zip"

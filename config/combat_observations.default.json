@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "pipeline_version": "0.2.0",
+  "pipeline_version": "0.3.0",
   "game": {
     "version": "1.4.x",
     "track": "vanilla_war_sails_1.4.x",

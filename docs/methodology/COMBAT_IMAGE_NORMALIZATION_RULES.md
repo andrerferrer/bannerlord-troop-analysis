@@ -6,6 +6,15 @@
 
 This document records the accepted normalization rules derived from representative Bannerlord battle-result screenshots. It is intentionally updated during the schema interview and will later be converted into the final JSON Schema, extractor prompt, and validation code.
 
+## Screenshot and historical deduplication
+
+1. Before extraction, compare the new input against all committed screenshot manifests and source inventories.
+2. Skip and report exact SHA-256 matches. Because attachment transport can re-encode images, also skip an exact recorder filename plus embedded capture timestamp match even when bytes differ.
+3. Inspect the visible scoreboard for every possible duplicate within the batch. Use side/party headings, totals, troop rows, result state, timer, and environment to establish same-screen or same-battle identity.
+4. Duplicate final screens contribute once. Sequential active scoreboards belong to one battle and are excluded from primary evidence. Complementary scroll positions may be retained under the same battle only for otherwise hidden rows; overlapping occurrences contribute once.
+5. Prefer a final result, then greater row coverage, fewer obstructions, and sharper text. Recency is only a tie-breaker.
+6. Record accepted, skipped, supplemental, and already-normalized decisions in `reports/screenshot_deduplication_audit.csv` and surface the counts to the user.
+
 ## Battle context classification
 
 Supported values:
