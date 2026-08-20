@@ -208,6 +208,86 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
         self.assertEqual(field["ci95_low"], "")
         self.assertEqual(field["ci95_high"], "")
 
+    def test_kill_share_impact_can_reverse_efficiency_order(self) -> None:
+        rows = [
+            consolidated("b1", "field", "majority", 9, 18),
+            consolidated("b2", "field", "burst", 5, 20),
+        ]
+        identities = MODULE.build_identity_audit(rows, {}, "realm_of_thrones")
+        rankings = MODULE.build_rankings(
+            rows,
+            identities,
+            "batch",
+            minimum_battles=5,
+            minimum_deployed=20,
+            repetitions=100,
+            player_side_kill_totals={
+                ("b1", "field"): {
+                    "kills": 20,
+                    "provenance": "battle_metadata_direct",
+                },
+                ("b2", "field"): {
+                    "kills": 80,
+                    "provenance": "battle_metadata_direct",
+                },
+            },
+        )
+        by_slug = {str(row["provisional_slug"]): row for row in rankings}
+
+        self.assertEqual(by_slug["majority"]["kills_per_deployed"], 2.0)
+        self.assertEqual(by_slug["majority"]["player_side_kill_share"], 0.9)
+        self.assertEqual(by_slug["majority"]["share_adjusted_impact"], 1.8)
+        self.assertEqual(by_slug["majority"]["rank"], 2)
+        self.assertEqual(by_slug["majority"]["impact_rank"], 1)
+        self.assertEqual(by_slug["burst"]["kills_per_deployed"], 4.0)
+        self.assertEqual(by_slug["burst"]["player_side_kill_share"], 0.25)
+        self.assertEqual(by_slug["burst"]["share_adjusted_impact"], 1.0)
+        self.assertEqual(by_slug["burst"]["rank"], 1)
+        self.assertEqual(by_slug["burst"]["impact_rank"], 2)
+
+    def test_verified_player_side_totals_reject_conflicts(self) -> None:
+        battles = [
+            {
+                "battle_id": "b1",
+                "battle_context": "field",
+                "player_side": "attacker",
+                "player_kills": 20,
+            },
+            {
+                "battle_id": "b2",
+                "battle_context": "field",
+                "player_side": "defender",
+                "player_kills": 30,
+            },
+        ]
+        occurrences = [
+            {
+                "battle_id": "b1",
+                "battle_context": "field",
+                "side": "attacker",
+                "row_type": "side_total",
+                "kills": 20,
+                "needs_review": False,
+            },
+            {
+                "battle_id": "b2",
+                "battle_context": "field",
+                "side": "defender",
+                "row_type": "side_total",
+                "kills": 31,
+                "needs_review": False,
+            },
+        ]
+
+        totals = MODULE.verified_player_side_kill_totals(battles, occurrences)
+
+        self.assertEqual(totals[("b1", "field")]["kills"], 20)
+        self.assertEqual(
+            totals[("b1", "field")]["provenance"],
+            "battle_metadata_and_side_total",
+        )
+        self.assertNotIn(("b2", "field"), totals)
+
     def test_bootstrap_is_deterministic(self) -> None:
         rows = [
             consolidated("b1", "field", "troop", 10, 5),

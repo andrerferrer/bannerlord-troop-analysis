@@ -44,6 +44,14 @@ RANKING_FIELDS = (
     "independent_battles",
     *COUNT_FIELDS,
     "kills_per_deployed",
+    "impact_rank",
+    "verified_player_side_total_kills",
+    "player_side_kill_share",
+    "share_adjusted_impact",
+    "kill_share_coverage_battles",
+    "kill_share_coverage_complete",
+    "kill_share_status",
+    "kill_share_denominator_provenance",
     "death_rate",
     "casualty_rate",
     "ci95_low",
@@ -769,6 +777,60 @@ def bootstrap_interval(
     return samples[low_index], samples[high_index]
 
 
+def verified_player_side_kill_totals(
+    battles: list[dict[str, Any]],
+    occurrences: list[dict[str, Any]],
+) -> dict[tuple[str, str], dict[str, Any]]:
+    """Return direct positive player-side kill totals with conflict checks."""
+    result: dict[tuple[str, str], dict[str, Any]] = {}
+    for battle in battles:
+        battle_id = str(battle.get("battle_id", ""))
+        context = str(battle.get("battle_context", ""))
+        player_side = str(battle.get("player_side", ""))
+        if not battle_id or context not in CONTEXTS or player_side not in {"attacker", "defender"}:
+            continue
+
+        metadata_value = battle.get("player_kills")
+        metadata_total = (
+            int(metadata_value)
+            if isinstance(metadata_value, int) and not isinstance(metadata_value, bool)
+            and int(metadata_value) > 0
+            else None
+        )
+        side_values = {
+            int(row["kills"])
+            for row in occurrences
+            if row.get("row_type") == "side_total"
+            and not row.get("needs_review")
+            and str(row.get("battle_id")) == battle_id
+            and str(row.get("battle_context")) == context
+            and str(row.get("side")) == player_side
+            and isinstance(row.get("kills"), int)
+            and not isinstance(row.get("kills"), bool)
+            and int(row["kills"]) > 0
+        }
+        if len(side_values) > 1:
+            continue
+        side_total = next(iter(side_values), None)
+        if metadata_total is not None and side_total is not None and metadata_total != side_total:
+            continue
+        total = metadata_total if metadata_total is not None else side_total
+        if total is None:
+            continue
+        provenance = (
+            "battle_metadata_and_side_total"
+            if metadata_total is not None and side_total is not None
+            else "battle_metadata_direct"
+            if metadata_total is not None
+            else "side_total_direct"
+        )
+        result[(battle_id, context)] = {
+            "kills": total,
+            "provenance": provenance,
+        }
+    return result
+
+
 def build_rankings(
     consolidated: list[dict[str, Any]],
     identities: list[dict[str, str]],
@@ -776,7 +838,9 @@ def build_rankings(
     minimum_battles: int,
     minimum_deployed: int,
     repetitions: int,
+    player_side_kill_totals: dict[tuple[str, str], dict[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
+    player_side_kill_totals = player_side_kill_totals or {}
     identity_by_slug = {row["provisional_slug"]: row for row in identities}
     output: list[dict[str, Any]] = []
     for context in CONTEXTS:
@@ -802,6 +866,37 @@ def build_rankings(
             )
             identity = identity_by_slug[slug]
             deployed = counts["deployed"]
+            battle_keys = {
+                (str(row["battle_id"]), context)
+                for row in rows
+            }
+            covered = {
+                key: player_side_kill_totals[key]
+                for key in battle_keys
+                if key in player_side_kill_totals
+            }
+            coverage_complete = len(covered) == battles
+            verified_total = (
+                sum(int(value["kills"]) for value in covered.values())
+                if coverage_complete
+                else None
+            )
+            kill_share = (
+                counts["kills"] / verified_total
+                if verified_total is not None
+                and verified_total > 0
+                and counts["kills"] <= verified_total
+                else None
+            )
+            if verified_total is not None and counts["kills"] > verified_total:
+                coverage_complete = False
+                verified_total = None
+            denominator_provenance = (
+                "|".join(sorted({str(value["provenance"]) for value in covered.values()}))
+                if coverage_complete
+                else ""
+            )
+            kills_per_deployed = counts["kills"] / deployed
             context_rows.append(
                 {
                     "context": context,
@@ -812,7 +907,25 @@ def build_rankings(
                     "identity_status": identity["match_status"],
                     "independent_battles": battles,
                     **counts,
-                    "kills_per_deployed": counts["kills"] / deployed,
+                    "kills_per_deployed": kills_per_deployed,
+                    "impact_rank": None,
+                    "verified_player_side_total_kills": verified_total,
+                    "player_side_kill_share": kill_share,
+                    "share_adjusted_impact": (
+                        kills_per_deployed * kill_share
+                        if kill_share is not None
+                        else None
+                    ),
+                    "kill_share_coverage_battles": len(covered),
+                    "kill_share_coverage_complete": coverage_complete,
+                    "kill_share_status": (
+                        "complete"
+                        if coverage_complete
+                        else "invalid_troop_kills_exceed_side_total"
+                        if len(covered) == battles
+                        else "missing_player_side_total"
+                    ),
+                    "kill_share_denominator_provenance": denominator_provenance,
                     "death_rate": counts["deaths"] / deployed,
                     "casualty_rate": (counts["deaths"] + counts["wounded"]) / deployed,
                     "ci95_low": ci_low,
@@ -820,6 +933,18 @@ def build_rankings(
                     "reliability_status": "reliable" if reliable else "insufficient_evidence",
                 }
             )
+        impact_rows = sorted(
+            (row for row in context_rows if row["share_adjusted_impact"] is not None),
+            key=lambda row: (
+                -float(row["share_adjusted_impact"]),
+                -int(row["deployed"]),
+                str(row["provisional_slug"]),
+            ),
+        )
+        impact_rank_by_slug = {
+            str(row["provisional_slug"]): rank
+            for rank, row in enumerate(impact_rows, start=1)
+        }
         context_rows.sort(
             key=lambda row: (
                 -float(row["kills_per_deployed"]),
@@ -829,6 +954,7 @@ def build_rankings(
         )
         for rank, row in enumerate(context_rows, start=1):
             row["rank"] = rank
+            row["impact_rank"] = impact_rank_by_slug.get(str(row["provisional_slug"]))
             output.append(row)
     return output
 
@@ -841,9 +967,19 @@ def format_ranking_rows(rows: list[dict[str, Any]], rerank: bool = False) -> lis
         if rerank:
             ranks[str(value["context"])] += 1
             value["rank"] = ranks[str(value["context"])]
-        for field in ("kills_per_deployed", "death_rate", "casualty_rate", "ci95_low", "ci95_high"):
+        for field in (
+            "kills_per_deployed",
+            "player_side_kill_share",
+            "share_adjusted_impact",
+            "death_rate",
+            "casualty_rate",
+            "ci95_low",
+            "ci95_high",
+        ):
             if value[field] != "":
-                value[field] = f"{float(value[field]):.6f}"
+                value[field] = (
+                    "" if value[field] is None else f"{float(value[field]):.6f}"
+                )
         output.append(value)
     return output
 
@@ -887,8 +1023,8 @@ def build_batch_wide_report_sections(
     if reliable:
         lines.extend(
             [
-                "| Context | Rank | Troop | Canonical ID | Battles | Deployed | Kills/deployed | 95% battle bootstrap interval | Casualty rate |",
-                "|---|---:|---|---|---:|---:|---:|---:|---:|",
+                "| Context | Efficiency rank | Impact rank | Troop | Canonical ID | Battles | Deployed | Kills/deployed | Player kill share | 95% battle bootstrap interval | Casualty rate |",
+                "|---|---:|---:|---|---|---:|---:|---:|---:|---:|---:|",
             ]
         )
         for context in observed_contexts:
@@ -903,11 +1039,17 @@ def build_batch_wide_report_sections(
                     row.get("display_name")
                     or str(row["provisional_slug"]).replace("_", " ").title()
                 )
+                kill_share = (
+                    f"{float(row['player_side_kill_share']):.1%}"
+                    if row.get("player_side_kill_share") is not None
+                    else "—"
+                )
                 lines.append(
-                    f"| {context} | {displayed_rank} | {display_name} | "
+                    f"| {context} | {displayed_rank} | {row.get('impact_rank') or '—'} | {display_name} | "
                     f"{canonical_identity} | "
                     f"{row['independent_battles']} | {row['deployed']} | "
                     f"{float(row['kills_per_deployed']):.3f} | "
+                    f"{kill_share} | "
                     f"{float(row['ci95_low']):.3f}–{float(row['ci95_high']):.3f} | "
                     f"{float(row['casualty_rate']):.3f} |"
                 )
@@ -987,6 +1129,14 @@ def build_focus_context_rows(
                     "independent_battles": 0,
                     **{field: 0 for field in COUNT_FIELDS},
                     "kills_per_deployed": "",
+                    "impact_rank": "",
+                    "verified_player_side_total_kills": "",
+                    "player_side_kill_share": "",
+                    "share_adjusted_impact": "",
+                    "kill_share_coverage_battles": 0,
+                    "kill_share_coverage_complete": False,
+                    "kill_share_status": "not_observed",
+                    "kill_share_denominator_provenance": "",
                     "death_rate": "",
                     "casualty_rate": "",
                     "ci95_low": "",
@@ -1203,6 +1353,7 @@ def main() -> None:
         args.minimum_battles,
         args.minimum_deployed,
         args.bootstrap_repetitions,
+        verified_player_side_kill_totals(battles, occurrences),
     )
     reliable = [row for row in rankings if row["reliability_status"] == "reliable"]
     insufficient = [
