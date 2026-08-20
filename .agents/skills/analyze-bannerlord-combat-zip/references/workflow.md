@@ -17,7 +17,7 @@
 `host-vision` uses the current session to inspect queued images. For each image:
 
 1. read the full screen rather than standalone OCR;
-2. emit strict structured rows;
+2. emit strict structured rows, including visible side-total and party rows;
 3. leave unreadable fields null;
 4. retain raw response/provenance;
 5. validate schema and arithmetic;
@@ -41,8 +41,8 @@ preflight and SHA-256
 → review queue and explicit decisions
 → conservative deduplication
 → canonical occurrence build
-→ context aggregates and evidence grades
-→ complete/reliable rankings
+→ context aggregates, kill-total coverage, and evidence grades
+→ separate efficiency and share-adjusted-impact ranks in complete/reliable rankings
 → frozen-model comparison
 → artifact index and state
 ```

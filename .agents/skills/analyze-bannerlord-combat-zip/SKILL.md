@@ -61,6 +61,8 @@ The invocation script must discover a compatible repository/package or fail with
 - Exclude player, hero, lord, and companion rows from ordinary troop rankings.
 - Deduplicate only when overlap identity proves the same visible occurrence.
 - Never rely on byte hashes alone for screenshot deduplication; finish the historical and visual audit first.
+- Preserve the visible player-side total row. Publish player-side kill share and share-adjusted impact only when every contributing battle has an unambiguous positive total; never reconstruct that denominator from partial troop rows.
+- Keep efficiency rank and share-adjusted impact rank separate, with both components visible. These descriptive empirical metrics do not modify the frozen theoretical models.
 - Apply suspected siege-engine handling at occurrence level only.
 - Keep v7.1 general and v7.3 burst separate and immutable.
 - Never turn uncertainty into a performance bonus or penalty.
@@ -83,6 +85,7 @@ Read [references/output-contract.md](references/output-contract.md). Report:
 - already-normalized, internal-duplicate, supplemental, and newly accepted screenshot counts;
 - mode and extractor/reviewer provenance;
 - validation status and evidence grades;
+- player-side kill-total coverage, efficiency rank, kill share, and share-adjusted impact rank;
 - paths to canonical data, rankings, model comparison, outliers, summary, and state;
 - limitations and the exact resume command when incomplete.
 

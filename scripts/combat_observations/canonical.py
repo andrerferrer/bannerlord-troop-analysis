@@ -23,6 +23,7 @@ from .domain import (
     load_aliases,
     load_troop_registry,
     read_jsonl,
+    safe_rate,
     stable_id,
     validate_occurrence,
     write_csv,
@@ -263,7 +264,69 @@ def _ranking_usable(record: Mapping[str, object], unresolved_ids: set[str]) -> b
     return all(metrics[field] is not None for field in ("survivors", "kills", "deaths", "wounded"))
 
 
-def consolidate_occurrences(records: Iterable[Mapping[str, object]]) -> list[dict[str, object]]:
+def _decimal_product(left: object, right: object) -> str | None:
+    if left is None or right is None:
+        return None
+    return format(
+        (Decimal(str(left)) * Decimal(str(right))).quantize(Decimal("0.000000")),
+        "f",
+    )
+
+
+def verified_player_side_kill_totals(
+    records: Iterable[Mapping[str, object]],
+    blocked_observation_ids: Iterable[str] = (),
+) -> dict[tuple[str, str], tuple[str, int]]:
+    """Return unambiguous player-side kill totals keyed by battle and context.
+
+    The player side is inferred only from explicit ``player_party`` relationships.
+    Repeated side-total rows are acceptable when every visible value agrees; a
+    missing, zero, non-numeric, or conflicting total leaves the denominator absent.
+    """
+    blocked_ids = set(blocked_observation_ids)
+    by_battle: dict[tuple[str, str], list[Mapping[str, object]]] = defaultdict(list)
+    for record in records:
+        if (
+            record.get("analysis_status") in {"excluded", "unresolved"}
+            or str(record.get("observation_id") or "") in blocked_ids
+        ):
+            continue
+        by_battle[
+            (str(record.get("battle_id") or ""), str(record.get("battle_context") or ""))
+        ].append(record)
+
+    totals: dict[tuple[str, str], tuple[str, int]] = {}
+    for key, group in sorted(by_battle.items()):
+        player_sides = {
+            str(record.get("side"))
+            for record in group
+            if record.get("relationship_to_player") == "player_party"
+            and record.get("side") in {"attacker", "defender"}
+        }
+        if len(player_sides) != 1:
+            continue
+        player_side = next(iter(player_sides))
+        candidate_values = [
+            record.get("kills")
+            for record in group
+            if record.get("row_type") == "side_total"
+            and record.get("side") == player_side
+        ]
+        if not candidate_values or not all(
+            isinstance(value, int) and not isinstance(value, bool) and value > 0
+            for value in candidate_values
+        ):
+            continue
+        unique_values = {int(value) for value in candidate_values}
+        if len(unique_values) == 1:
+            totals[key] = (player_side, unique_values.pop())
+    return totals
+
+
+def consolidate_occurrences(
+    records: Iterable[Mapping[str, object]],
+    player_side_kill_totals: Mapping[tuple[str, str], tuple[str, int]] | None = None,
+) -> list[dict[str, object]]:
     groups: dict[tuple[str, str, str], list[Mapping[str, object]]] = defaultdict(list)
     for record in records:
         groups[
@@ -291,6 +354,12 @@ def consolidate_occurrences(records: Iterable[Mapping[str, object]]) -> list[dic
             for record in group
             if isinstance(record.get("provenance"), Mapping)
         ]
+        side_total = None
+        if player_side_kill_totals:
+            candidate = player_side_kill_totals.get((battle_id, context))
+            group_sides = {str(record.get("side") or "") for record in group}
+            if candidate and group_sides == {candidate[0]}:
+                side_total = candidate[1]
         base = {
             "schema_version": "2.0.0",
             "consolidated_id": stable_id("battle_troop", battle_id, troop_id, context),
@@ -354,9 +423,25 @@ def consolidate_occurrences(records: Iterable[Mapping[str, object]]) -> list[dic
                     if provenance.get("code_commit_sha")
                 }
             ),
+            "verified_player_side_total_kills": side_total,
             **totals,
         }
-        result.append({**base, **derived_metrics(base)})
+        metrics = derived_metrics(base)
+        player_side_kill_share = (
+            safe_rate(totals["kills"], side_total)
+            if side_total is not None and totals["kills"] <= side_total
+            else None
+        )
+        result.append(
+            {
+                **base,
+                **metrics,
+                "player_side_kill_share": player_side_kill_share,
+                "share_adjusted_impact": _decimal_product(
+                    metrics["kills_per_deployed"], player_side_kill_share
+                ),
+            }
+        )
     return result
 
 
@@ -374,6 +459,41 @@ def historical_aggregates(consolidated: Iterable[Mapping[str, object]]) -> list[
         total_deaths = sum(int(row["deaths"]) for row in group)
         total_wounded = sum(int(row["wounded"]) for row in group)
         total_routed = sum(int(row["routed"]) for row in group)
+        kill_share_rows = [
+            row
+            for row in group
+            if row.get("verified_player_side_total_kills") is not None
+            and row.get("player_side_kill_share") is not None
+        ]
+        kill_share_coverage_battles = len(
+            {str(row["battle_id"]) for row in kill_share_rows}
+        )
+        battle_count = len({str(row["battle_id"]) for row in group})
+        kill_share_coverage_complete = kill_share_coverage_battles == battle_count
+        verified_player_side_total_kills = (
+            sum(int(row["verified_player_side_total_kills"]) for row in kill_share_rows)
+            if kill_share_coverage_complete
+            else None
+        )
+        player_side_kill_share = (
+            safe_rate(total_kills, verified_player_side_total_kills)
+            if kill_share_coverage_complete
+            else None
+        )
+        mean_battle_player_side_kill_share = (
+            format(
+                (
+                    sum(
+                        Decimal(str(row["player_side_kill_share"]))
+                        for row in kill_share_rows
+                    )
+                    / Decimal(len(kill_share_rows))
+                ).quantize(Decimal("0.000000")),
+                "f",
+            )
+            if kill_share_coverage_complete and kill_share_rows
+            else None
+        )
         rows_with_rates = sorted(
             (
                 (Decimal(str(row["kills_per_deployed"])), str(row["battle_id"]))
@@ -405,7 +525,7 @@ def historical_aggregates(consolidated: Iterable[Mapping[str, object]]) -> list[
             "canonical_troop_id": troop_id,
             "battle_context": context,
             "mixed_contexts": context == "overall",
-            "battle_count": len({str(row["battle_id"]) for row in group}),
+            "battle_count": battle_count,
             "consolidated_ids": sorted(str(row["consolidated_id"]) for row in group),
             "battle_ids": sorted({str(row["battle_id"]) for row in group}),
             "observation_ids": sorted(
@@ -478,6 +598,15 @@ def historical_aggregates(consolidated: Iterable[Mapping[str, object]]) -> list[
             "total_wounded": total_wounded,
             "total_routed": total_routed,
             "historical_kills_per_deployed": f"{total_kills / total_deployed:.6f}" if total_deployed else None,
+            "verified_player_side_total_kills": verified_player_side_total_kills,
+            "player_side_kill_share": player_side_kill_share,
+            "mean_battle_player_side_kill_share": mean_battle_player_side_kill_share,
+            "share_adjusted_impact": _decimal_product(
+                f"{total_kills / total_deployed:.6f}" if total_deployed else None,
+                player_side_kill_share,
+            ),
+            "kill_share_coverage_battles": kill_share_coverage_battles,
+            "kill_share_coverage_complete": kill_share_coverage_complete,
             "survival_rate": f"{total_survivors / total_deployed:.6f}" if total_deployed else None,
             "death_rate": f"{total_deaths / total_deployed:.6f}" if total_deployed else None,
             "wounded_rate": f"{total_wounded / total_deployed:.6f}" if total_deployed else None,
@@ -507,6 +636,13 @@ def build_rankings(aggregates: list[dict[str, object]], output_dir: Path) -> lis
         "total_deployed",
         "total_kills",
         "historical_kills_per_deployed",
+        "impact_rank",
+        "verified_player_side_total_kills",
+        "player_side_kill_share",
+        "mean_battle_player_side_kill_share",
+        "share_adjusted_impact",
+        "kill_share_coverage_battles",
+        "kill_share_coverage_complete",
         "survival_rate",
         "death_rate",
         "wounded_rate",
@@ -523,6 +659,18 @@ def build_rankings(aggregates: list[dict[str, object]], output_dir: Path) -> lis
     written = []
     for context in ("field", "siege_attack", "siege_defense", "overall"):
         context_rows = [row.copy() for row in aggregates if row["battle_context"] == context]
+        impact_rows = sorted(
+            (row for row in context_rows if row.get("share_adjusted_impact") is not None),
+            key=lambda row: (
+                -float(row["share_adjusted_impact"]),
+                -int(row["total_deployed"]),
+                str(row["canonical_troop_id"]),
+            ),
+        )
+        impact_rank_by_id = {
+            str(row["aggregate_id"]): rank
+            for rank, row in enumerate(impact_rows, 1)
+        }
         context_rows.sort(
             key=lambda row: (
                 -float(row["historical_kills_per_deployed"] or 0),
@@ -532,6 +680,7 @@ def build_rankings(aggregates: list[dict[str, object]], output_dir: Path) -> lis
         )
         for rank, row in enumerate(context_rows, 1):
             row["rank"] = rank
+            row["impact_rank"] = impact_rank_by_id.get(str(row["aggregate_id"]))
         complete = output_dir / f"ranking_{context}_complete.csv"
         reliable = output_dir / f"ranking_{context}_reliable.csv"
         write_csv(complete, context_rows, fields)
@@ -750,7 +899,14 @@ def build_canonical_dataset(
     primary = [record for record in canonical_occurrences if record.get("analysis_status") == "canonical"]
     explicit_outliers = {str(row["observation_id"]) for row in primary if row.get("suspected_siege_engine_outlier")}
     primary_without_outliers = [record for record in primary if str(record["observation_id"]) not in explicit_outliers]
-    consolidated = consolidate_occurrences(primary_without_outliers)
+    player_side_kill_totals = verified_player_side_kill_totals(
+        canonical_occurrences,
+        unresolved_critical | invalid_ids,
+    )
+    consolidated = consolidate_occurrences(
+        primary_without_outliers,
+        player_side_kill_totals,
+    )
     aggregates = historical_aggregates(consolidated)
 
     screenshots_by_hash: dict[str, dict[str, object]] = {}

@@ -12,7 +12,7 @@ import zipfile
 from pathlib import Path
 
 
-PIPELINE_VERSION = "0.3.0"
+PIPELINE_VERSION = "0.4.0"
 SCHEMA_VERSION = "2.0.0"
 BUNDLE_PART_PREFIX = "bannerlord_normalized_v1.tar.xz.base64.part-"
 

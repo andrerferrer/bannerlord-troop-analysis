@@ -12,10 +12,16 @@ Report:
 6. complete/reliable and context ranking paths;
 7. model comparison and residual paths;
 8. highest-impact unresolved items;
-9. limitations/evidence grades;
-10. exact resume command.
+9. efficiency rank, player-side kill share, share-adjusted impact rank, and kill-total coverage;
+10. limitations/evidence grades;
+11. exact resume command.
 
 Do not claim completion from prose alone. Link structured artifacts.
+
+Ranking CSVs must keep `historical_kills_per_deployed`, `player_side_kill_share`,
+and `share_adjusted_impact` as separate columns, with independent efficiency and
+impact ranks. Leave share/impact null unless verified player-side kill totals
+cover every contributing battle.
 
 ## Artifact classes
 
