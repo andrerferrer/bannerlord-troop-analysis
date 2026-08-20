@@ -1,0 +1,26 @@
+{
+  "analysis_version": "0.4.0",
+  "archive_status_counts": {
+    "archive_hash_mismatch": 1,
+    "legacy_without_phase2_ranking": 1,
+    "verified": 8
+  },
+  "batch_count": 10,
+  "complete_kill_share_rows": 258,
+  "kill_share_status_counts": {
+    "archive_hash_mismatch": 37,
+    "complete": 258,
+    "missing_player_side_total": 76
+  },
+  "metric_row_count": 371,
+  "reliable_complete_kill_share_rows": 4,
+  "screenshot_count": 66,
+  "screenshot_decision_counts": {
+    "keep_existing_representative": 53,
+    "keep_grouped_pending_visual_representative_audit": 4,
+    "skip_already_normalized": 2,
+    "skip_internal_duplicate": 4,
+    "skip_nonfinal_or_superseded": 3
+  },
+  "status": "pass_with_explicit_historical_blockers"
+}
