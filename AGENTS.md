@@ -2,11 +2,12 @@
 
 ## Git authorization (standing)
 
-In this repository (`bannerlord-troop-analysis`), agents may **commit and push**
-by default when finishing a slice of work. Do not wait for per-step push
-approval. Still never force-push to `main`/`master`, never skip hooks, and never
-commit secrets or unrelated untracked files (for example `arquivo.md`) unless
-explicitly asked.
+In this repository (`bannerlord-troop-analysis`), agents may **commit, push,
+create pull requests, mark them ready, and merge them after the repository gates
+pass** by default when finishing a slice of work. Do not wait for per-step
+publication approval. Still never force-push to `main`/`master`, never skip
+hooks, and never commit secrets or unrelated untracked files (for example
+`arquivo.md`) unless explicitly asked.
 
 ## Pull request completion is part of the work
 
