@@ -450,6 +450,16 @@ class AnalyzeNormalizedCombatBatchTests(unittest.TestCase):
         self.assertEqual(errors, [])
         self.assertTrue(all(check["passed"] for check in checks))
 
+    def test_combined_source_directory_provenance_uses_directory_hash(self) -> None:
+        checks, errors = MODULE.verify_recorded_source_identity(
+            "a" * 64,
+            123,
+            {"source_directory_sha256": "a" * 64},
+            {"source_directory_sha256": "a" * 64, "source_size_bytes": 123},
+        )
+        self.assertEqual(errors, [])
+        self.assertTrue(all(check["passed"] for check in checks))
+
     def test_normalized_schema_versions_must_agree(self) -> None:
         version, errors = MODULE.verify_normalized_schema_version(
             {"schema_version": "2.0.0"},
