@@ -1,0 +1,37 @@
+{
+  "combined_host_input": {
+    "algorithm": "sha256(relative_posix_path + NUL + file_sha256 + newline), ordered by path",
+    "file_count": 9,
+    "sha256": "10b4e2e5e17116df7b8dd1beb8a8c679f6e119b0f7411a0c3ea6040898855498"
+  },
+  "direct_sources": [
+    {
+      "file_citation_id": "file_000000006730820e9ad90fa1b350a1de",
+      "image_sha256": "ed980638d4eb9f91dcceba7f77bab16cff667a73c8ef24e8803bab942bd8be97",
+      "library_file_id": "libfile_ead2fe6168c48191a0a754feac329529"
+    },
+    {
+      "file_citation_id": "file_00000000cf40820eb6e0aa7d1653ed78",
+      "image_sha256": "e8dff1312a42efb48f2fa69519d1ccd91b4a13fba82bd7efa80246e508110e45",
+      "library_file_id": "libfile_678a2c070f848191ba59aa13c19a77f5"
+    }
+  ],
+  "original_zip": {
+    "file_citation_id": "file_000000009ad481f5a862871a20547b4b",
+    "library_file_id": "libfile_da23160a0df88191bba12128c25eab1f",
+    "member_count": 7,
+    "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 23396 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 21_08_2026 00_31_14.zip",
+    "safe_preflight": {
+      "compressed_size": 14284346,
+      "declared_uncompressed_size": 14281374,
+      "duplicate_members": 0,
+      "member_count": 7,
+      "status": "passed",
+      "symlinks": 0,
+      "traversal_or_absolute_paths": 0
+    },
+    "sha256": "aef41e69e9db4cb7998a328d24759140c812cd66e0be3be98f3dfb897b91a7a7"
+  },
+  "raw_retention": "not retained in Git; original Library identifiers and exact source hashes are recorded",
+  "source_inventory_file_sha256": "7f93bf8cbd05124e188e6089d295fab4f58061de0f7d5e6f792895701d4bef54"
+}

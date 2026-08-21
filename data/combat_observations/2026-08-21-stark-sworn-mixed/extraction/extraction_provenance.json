@@ -1,0 +1,14 @@
+{
+  "extractor": {
+    "mode": "host-vision",
+    "model_version": "unknown"
+  },
+  "image_detail": "original",
+  "prompt_version": "combat-v2",
+  "reviewer": {
+    "mode": "host-vision",
+    "model_version": "unknown"
+  },
+  "schema_version": "2.0.0",
+  "uncertainty_policy": "unreadable values remain null and appear in review_queue.csv"
+}

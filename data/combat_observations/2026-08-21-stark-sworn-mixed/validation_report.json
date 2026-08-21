@@ -1,0 +1,55 @@
+{
+  "battle_context_counts": {
+    "field": 5,
+    "siege_attack": 4
+  },
+  "battle_count": 9,
+  "context_boundaries_preserved": true,
+  "counts": {
+    "all_rows": 186,
+    "battle_groups": 9,
+    "primary_troop_occurrences": 106,
+    "review_queue_rows": 17
+  },
+  "excluded_source_count": 0,
+  "historical_duplicate_count": 0,
+  "internal_duplicate_count": 0,
+  "interrupted_active_count": 2,
+  "inventory_image_count": 9,
+  "known_limitations": [
+    "Only screenshot-visible player-side rows and visible side/party total rows are normalized; off-screen troop rows are not inferred.",
+    "Enemy ordinary troop rows are not transcribed; enemy side and visible party totals are preserved separately from player rows.",
+    "The Stoney Sept and Banefort scoreboards are active observations with one defender remaining; no unplayed remainder is estimated.",
+    "No active/interrupted battle is combined, subtracted, or reconstructed with a later cleanup or re-engagement.",
+    "Cursor/tooltip-obscured numeric cells and white non-numeric upgrade icons remain explicit review items rather than guessed values.",
+    "Raw PNG files are not retained in Git; exact hashes, source container provenance, and Library/file citation identifiers are recorded.",
+    "Host-vision extraction model/version is not exposed by the host and is recorded as unknown."
+  ],
+  "observation_count": 186,
+  "offscreen_rows_inferred": false,
+  "primary_troop_occurrences": 106,
+  "review_queue_count": 17,
+  "schema_version": "2.0.0",
+  "selected_image_count": 9,
+  "sides_pooled": false,
+  "source_directory_sha256": "10b4e2e5e17116df7b8dd1beb8a8c679f6e119b0f7411a0c3ea6040898855498",
+  "source_inventory_file_sha256": "7f93bf8cbd05124e188e6089d295fab4f58061de0f7d5e6f792895701d4bef54",
+  "source_size_bytes": 18907345,
+  "status": "passed",
+  "structural_checks": {
+    "all_battle_ids_unique": true,
+    "all_image_hashes_match_source": true,
+    "all_primary_rows_have_numeric_survivors_kills_deaths_wounded": true,
+    "contexts_are_allowed": true,
+    "no_duplicate_primary_battle_name_keys": true,
+    "player_side_totals_present": true
+  },
+  "supplemental_count": 0,
+  "track_resolution": {
+    "evidence": [
+      "Stark, Northern, Gold Cloak, Riverlands, Westerlands, Crownlands, Rosby, Stoney Sept, Silverhill, and Banefort labels"
+    ],
+    "method": "track-specific visible faction, troop, and settlement labels"
+  },
+  "validation_errors": []
+}

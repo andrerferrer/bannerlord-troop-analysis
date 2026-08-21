@@ -1,0 +1,37 @@
+{
+  "batch_id": "combat_2026-08-21_stark_sworn_mixed",
+  "battle_context_counts": {
+    "field": 5,
+    "siege_attack": 4
+  },
+  "battles": 9,
+  "excluded_sources": 0,
+  "extractor_provenance": {
+    "mode": "host-vision",
+    "model_version": "unknown"
+  },
+  "game_track": "realm_of_thrones",
+  "game_version": "1.4.x",
+  "historical_duplicates": 0,
+  "internal_duplicates": 0,
+  "interrupted_active_screenshots": 2,
+  "inventory_images": 9,
+  "normalization_scope": "evidence_and_structural_normalization_only",
+  "observations": 186,
+  "primary_troop_occurrences": 106,
+  "review_queue": 17,
+  "schema_version": "2.0.0",
+  "selected_screenshots": 9,
+  "source_directory_sha256": "10b4e2e5e17116df7b8dd1beb8a8c679f6e119b0f7411a0c3ea6040898855498",
+  "source_inventory_file_sha256": "7f93bf8cbd05124e188e6089d295fab4f58061de0f7d5e6f792895701d4bef54",
+  "source_kind": "seven_member_library_zip_plus_two_direct_library_screenshots",
+  "source_retention_status": "raw_not_retained_hashes_library_ids_and_container_provenance_recorded",
+  "status": "normalized_pending_analysis",
+  "supplemental_screenshots": 0,
+  "track_resolution": {
+    "evidence": [
+      "Stark, Northern, Gold Cloak, Riverlands, Westerlands, Crownlands, Rosby, Stoney Sept, Silverhill, and Banefort labels"
+    ],
+    "method": "track-specific visible faction, troop, and settlement labels"
+  }
+}
