@@ -1,0 +1,54 @@
+{
+  "battle_context_counts": {
+    "field": 8,
+    "siege_attack": 1
+  },
+  "battle_count": 9,
+  "context_boundaries_preserved": true,
+  "counts": {
+    "all_rows": 155,
+    "battle_groups": 9,
+    "primary_troop_occurrences": 110,
+    "review_queue_rows": 5
+  },
+  "excluded_source_count": 0,
+  "historical_duplicate_count": 0,
+  "internal_duplicate_count": 0,
+  "interrupted_active_count": 0,
+  "inventory_image_count": 9,
+  "known_limitations": [
+    "Only screenshot-visible player-side rows and visible side/party total rows are normalized; off-screen troop rows are not inferred.",
+    "Enemy ordinary troop rows are not transcribed; enemy side and visible party totals are preserved separately from player rows.",
+    "The 19:27 Jason Mallister screen contains only one visible enemy Mallister Eagle Knight and provides no player-side Mallister focus evidence.",
+    "Cursor-obscured hero cells and white non-numeric upgrade icons remain explicit review items rather than guessed values.",
+    "Raw PNG files are not retained in Git; exact hashes and Library/file citation identifiers are recorded.",
+    "Host-vision extraction model/version is not exposed by the host and is recorded as unknown."
+  ],
+  "observation_count": 155,
+  "offscreen_rows_inferred": false,
+  "primary_troop_occurrences": 110,
+  "review_queue_count": 5,
+  "schema_version": "2.0.0",
+  "selected_image_count": 9,
+  "sides_pooled": false,
+  "source_directory_sha256": "62aa7f249e53ae5747cd9a30b44b9fdab957a9f9db8674bd28639be78e1266bb",
+  "source_inventory_file_sha256": "8d9483432fe9989e4f3d1277b79525565a0cb5ad19afc4199f392eb1f17123bf",
+  "source_size_bytes": 19735019,
+  "status": "passed",
+  "structural_checks": {
+    "all_battle_ids_unique": true,
+    "all_image_hashes_match_source": true,
+    "all_primary_rows_have_numeric_survivors_kills_deaths_wounded": true,
+    "contexts_are_allowed": true,
+    "no_duplicate_primary_battle_name_keys": true,
+    "player_side_totals_present": true
+  },
+  "supplemental_count": 0,
+  "track_resolution": {
+    "evidence": [
+      "Lannister, Westerlands, Northern, Riverlands, Frey, Mallister, Stark, Tully, Forrester, Willow Wood, and Tywin Lannister labels"
+    ],
+    "method": "track-specific visible faction, troop, character, and settlement labels"
+  },
+  "validation_errors": []
+}
