@@ -22,10 +22,11 @@ Run the repository pipeline; never reproduce its formulas, schemas, matching, de
 1. Compare the input with every committed `data/combat_observations/**/screenshots_manifest.csv` and `source_inventory.csv` before normalization.
 2. Treat an exact SHA-256 match as already normalized. Also treat the same recorder filename plus embedded capture timestamp as already normalized when host transport changed the image bytes. Skip it and report the prior batch reference.
 3. Visually inspect the scoreboard contents across the entire new batch. SHA-256 and filenames alone cannot identify re-encoded, adjacent, scrolled, or slightly improved screenshots.
-4. Give screenshots from the same battle one `battle_id`. Do not count sequential active scoreboards, duplicate final screens, or complementary scroll positions as independent battles.
-5. Select the representative screen in this order: final result over active scoreboard; greater visible row coverage; fewer tooltips, highlights, notifications, or obstructions; sharper text. Use the later capture only as a tie-breaker.
-6. Keep a complementary scroll position only when it adds otherwise hidden rows. Mark it supplemental and deduplicate overlapping occurrences. When only active scoreboards exist, retain at most the best/latest one as excluded evidence; never promote it to a final result.
-7. Record every decision in `reports/screenshot_deduplication_audit.csv` with the candidate, representative/prior batch, decision, same-battle status, and visual reason. Do not normalize or rank skipped images.
+4. Give screenshots one `battle_id` only when they show the same actual battle/result table. Sequential views, duplicate final screens, and complementary scroll positions of that battle are not independent samples.
+5. Treat a fresh re-engagement or cleanup fight as a new independent battle even when it exists only because the prior fight was stopped with one enemy stuck. Never add, subtract, or reconstruct values across those battles.
+6. For multiple screens of the same battle, select the representative in this order: final result; best/latest interrupted or active scoreboard; greater visible row coverage; fewer obstructions; sharper text. Use a complementary scroll position only for otherwise hidden rows and deduplicate overlaps.
+7. When no final screen exists because the fight was stopped, accept the best/latest readable active scoreboard as primary evidence for that battle. Preserve the visible values exactly and record `result=active`; record the known interruption reason without estimating the unplayed remainder. If it is unclear whether the screen was the last observation before stopping, route it to review instead of excluding it automatically.
+8. Record every decision in `reports/screenshot_deduplication_audit.csv` with the candidate, representative/prior batch, decision, same-battle status, and visual reason. Do not normalize or rank skipped images.
 
 ## Select a mode
 
@@ -60,6 +61,7 @@ The invocation script must discover a compatible repository/package or fail with
 - Leave unreadable values null and unresolved.
 - Exclude player, hero, lord, and companion rows from ordinary troop rankings.
 - Deduplicate only when overlap identity proves the same visible occurrence.
+- Accept a readable interrupted/active scoreboard as its own battle when it is the last available observation before that fight was stopped. A later cleanup fight remains a separate battle; never combine their values.
 - Never rely on byte hashes alone for screenshot deduplication; finish the historical and visual audit first.
 - Preserve the visible player-side total row. Publish player-side kill share and share-adjusted impact only when every contributing battle has an unambiguous positive total; never reconstruct that denominator from partial troop rows.
 - Keep efficiency rank and share-adjusted impact rank separate, with both components visible. These descriptive empirical metrics do not modify the frozen theoretical models.
@@ -82,7 +84,7 @@ Read [references/output-contract.md](references/output-contract.md). Report:
 
 - batch status, input name, and SHA-256;
 - image, battle, occurrence, and unresolved-review counts;
-- already-normalized, internal-duplicate, supplemental, and newly accepted screenshot counts;
+- already-normalized, internal-duplicate, supplemental, interrupted/active, and newly accepted screenshot counts;
 - mode and extractor/reviewer provenance;
 - validation status and evidence grades;
 - player-side kill-total coverage, efficiency rank, kill share, and share-adjusted impact rank;

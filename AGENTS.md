@@ -117,6 +117,12 @@ Protocol specification:
 
 - Minimum display gate: **5 independent battles and 20 deployed troops**.
 - The battle is the independent sampling unit.
+- A readable active scoreboard that is the last observation before a fight was
+  stopped is a valid battle observation. A later re-engagement or cleanup fight
+  is a separate battle, even when it targets a single enemy left by a bug. Never
+  combine, subtract, or reconstruct values across those battles. Share one
+  `battle_id` only for proven views of the same result table, such as a rare
+  complementary scroll split, and deduplicate overlapping rows.
 - Player-side and enemy-side observations must not be pooled.
 - Field, siege attack, and siege defense must remain separate.
 - Realm of Thrones, vanilla/War Sails, and other mod tracks must not be silently mixed.
@@ -132,6 +138,8 @@ Protocol specification:
   before choosing the smallest direct driver set. Do not infer a universal score
   from chat examples or from the newest candidate.
 - `analysis/model_versions/` is frozen unless a dedicated model-change pull request passes the documented gates.
+- Controlled mixed-opponent tests must use a versioned fixed composition and
+  remain separate from campaign and homogeneous-test aggregates.
 
 ## Merge gate
 
