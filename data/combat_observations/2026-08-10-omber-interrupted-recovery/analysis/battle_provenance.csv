@@ -1,0 +1,2 @@
+battle_id,battle_context,result,player_side,captured_at,duration_seconds,independent_observation,right_censored,combined_with_later_battle,source_image_sha256
+battle_20260810_222225_omber_siege_attack_interrupted,siege_attack,active,attacker,2026-08-10T22:22:25-03:00,500,True,True,False,5371af51eb5ad2d18b3af126dfc7243a659bd8bd28c35774427420a8d1b6358a

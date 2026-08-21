@@ -1,0 +1,88 @@
+{
+  "boundaries": {
+    "battle_result": "active",
+    "battle_is_independent_unit": true,
+    "casat_2237_combined": false,
+    "cleanup_engagement_combined": false,
+    "contexts_pooled": false,
+    "frozen_models_changed": false,
+    "off_screen_rows_inferred": false,
+    "player_enemy_pooled": false,
+    "player_side": "attacker",
+    "track": "realm_of_thrones"
+  },
+  "external_blockers": [],
+  "identity": {
+    "labels": 9,
+    "provisional_slugs_are_not_canonical_ids": true,
+    "status_counts": {
+      "confirmed_id": 9
+    }
+  },
+  "ranking": {
+    "bootstrap_repetitions": 10000,
+    "bootstrap_seed": "sha256(batch_id|context|provisional_slug|repetitions)",
+    "complete_rows": 9,
+    "coverage_by_context": {
+      "field": {
+        "context": "field",
+        "deployed": 0,
+        "independent_battles": 0,
+        "insufficient_labels": 0,
+        "minimum_battles": 5,
+        "minimum_deployed": 20,
+        "observed_labels": 0,
+        "reliable_labels": 0
+      },
+      "siege_attack": {
+        "context": "siege_attack",
+        "deployed": 187,
+        "independent_battles": 1,
+        "insufficient_labels": 9,
+        "minimum_battles": 5,
+        "minimum_deployed": 20,
+        "observed_labels": 9,
+        "reliable_labels": 0
+      },
+      "siege_defense": {
+        "context": "siege_defense",
+        "deployed": 0,
+        "independent_battles": 0,
+        "insufficient_labels": 0,
+        "minimum_battles": 5,
+        "minimum_deployed": 20,
+        "observed_labels": 0,
+        "reliable_labels": 0
+      }
+    },
+    "insufficient_rows": 9,
+    "minimum_battles": 5,
+    "minimum_deployed": 20,
+    "reliable_rows": 0
+  },
+  "review": {
+    "direct_visual_review": true,
+    "decisions": 6,
+    "heroes_excluded_from_rankings": true,
+    "queued": 6,
+    "queued_rows_excluded_from_rankings": true,
+    "confirmed_unreadable": 6,
+    "unresolved": 0
+  },
+  "status": "passed",
+  "structural_validation": {
+    "battle_context_counts": {
+      "siege_attack": 1
+    },
+    "battles": 1,
+    "consolidated_rows": 9,
+    "occurrences": 33,
+    "ordinary_troop_labels": 9,
+    "primary_occurrences": 9,
+    "primary_rows_fully_consolidated": true,
+    "queued_rows_excluded_from_rankings": true,
+    "rankings_only_include_primary_troops": true,
+    "review_items": 6
+  },
+  "validation_errors": []
+}

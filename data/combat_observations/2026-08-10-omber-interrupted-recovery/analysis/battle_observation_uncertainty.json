@@ -1,0 +1,22 @@
+{
+  "battle_context": "siege_attack",
+  "battle_id": "battle_20260810_222225_omber_siege_attack_interrupted",
+  "captured_at": "2026-08-10T22:22:25-03:00",
+  "independent_observation": true,
+  "later_battles_combined": false,
+  "observation_seconds": 500,
+  "player_side": "attacker",
+  "player_side_total_kills_observed": 716,
+  "result": "active",
+  "right_censored": true,
+  "terminal_outcome_known": false,
+  "unplayed_remainder_estimated": false,
+  "visible_eligible_troop_deployed": 187,
+  "visible_eligible_troop_kills": 290,
+  "visible_eligible_troop_kill_share": 0.405028,
+  "wrongly_combined_battles": [],
+  "excluded_from_combination": [
+    "battle_20260810_223715_casat_field",
+    "any_cleanup_or_reengagement"
+  ]
+}
