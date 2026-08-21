@@ -290,12 +290,12 @@ def verify_recorded_source_identity(
         (*recorded_value(
             "normalization_summary.json",
             normalization_summary,
-            ("source_sha256", "source_zip_sha256"),
+            ("source_sha256", "source_zip_sha256", "source_directory_sha256"),
         ), expected_sha256),
         (*recorded_value(
             "validation_report.json",
             normalization_validation,
-            ("source_sha256", "source_zip_sha256"),
+            ("source_sha256", "source_zip_sha256", "source_directory_sha256"),
         ), expected_sha256),
         (*recorded_value(
             "validation_report.json",

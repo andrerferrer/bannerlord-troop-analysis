@@ -1,0 +1,29 @@
+{
+  "batch_id": "combat_2026-08-21_stark_sworn_mixed",
+  "counts": {
+    "accepted_images": 9,
+    "active_interrupted_images": 2,
+    "battles": 9,
+    "historical_duplicates": 0,
+    "internal_duplicates": 0,
+    "occurrences": 186,
+    "primary_troop_occurrences": 106,
+    "review_queue": 17,
+    "supplemental_images": 0
+  },
+  "input_name": "seven-image ZIP plus two direct PNG attachments",
+  "input_sha256": "10b4e2e5e17116df7b8dd1beb8a8c679f6e119b0f7411a0c3ea6040898855498",
+  "normalized_archive_sha256": "d94a770ddcabeb24eda965fd289dcb1d91c2a4b0ed945322cd0b825057a5bb6e",
+  "normalized_base64_part_sha256": "ce5930a02c255e165dd355bf295ad57e7a233ecc8df08a700fafd954b4505dcd",
+  "mode": "host-vision",
+  "next_action": "Phase 2: read handoff/ANALYSIS_PROMPT.md, verify hashes, complete reviewed layer and analysis",
+  "phase_statuses": {
+    "analysis": "pending",
+    "historical_visual_audit": "complete",
+    "normalization": "complete",
+    "structural_validation": "complete"
+  },
+  "pipeline_version": "0.4.0",
+  "schema_version": "2.0.0",
+  "status": "normalized_pending_analysis"
+}

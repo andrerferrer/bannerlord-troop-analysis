@@ -1,0 +1,21 @@
+{
+  "active_observations": [
+    {
+      "battle_id": "battle_20260821_011522_stark_sworn_siege_attack_stoney_sept_interrupted",
+      "opponent_remaining": 1,
+      "result": "active",
+      "uncertainty": "Terminal outcome and any unplayed contribution are unknown."
+    },
+    {
+      "battle_id": "battle_20260821_094651_stark_sworn_siege_attack_banefort_interrupted",
+      "opponent_remaining": 1,
+      "result": "active",
+      "uncertainty": "Terminal outcome and any unplayed contribution are unknown."
+    }
+  ],
+  "battle_is_independent_unit": true,
+  "cleanup_or_reengagement_joined": false,
+  "context_pooling": false,
+  "offscreen_rows_inferred": false,
+  "policy": "Each readable last active scoreboard remains its own siege_attack observation; no later cleanup is added, subtracted, or reconstructed."
+}

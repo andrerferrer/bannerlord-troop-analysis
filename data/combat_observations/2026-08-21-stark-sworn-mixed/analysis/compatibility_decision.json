@@ -1,0 +1,10 @@
+{
+  "current_batch": "combat_2026-08-21_stark_sworn_mixed",
+  "decision": "standalone_only",
+  "joined_battles": [],
+  "joined_sources": [],
+  "reason": "No earlier committed combat-observation batch contains an exact canonical Stark Sworn Sword occurrence with compatible Realm of Thrones track, version, player side, context, result-state, and count fields.",
+  "search_scope": "committed data/combat_observations evidence and historical reanalysis artifacts",
+  "track": "realm_of_thrones",
+  "version": "1.4.x"
+}

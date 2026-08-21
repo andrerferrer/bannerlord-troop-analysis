@@ -1,0 +1,10 @@
+battle_id,context,result,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,player_side_total_kills,player_side_kill_share
+battle_20260821_003114_stark_sworn_field,field,Victory,25,24,29,1,0,0,1.160000,140,0.207143
+battle_20260821_004310_stark_sworn_field,field,Victory,62,40,130,4,18,0,2.096774,486,0.267490
+battle_20260821_013121_stark_sworn_field,field,Victory,61,34,136,5,22,0,2.229508,591,0.230118
+battle_20260821_023743_stark_sworn_field,field,Defeat,39,0,108,6,33,0,2.769231,378,0.285714
+battle_20260821_113327_stark_sworn_field,field,Defeat,68,0,100,5,63,0,1.470588,361,0.277008
+battle_20260821_004935_stark_sworn_siege_attack_rosby,siege_attack,Victory,59,28,49,9,22,0,0.830508,270,0.181481
+battle_20260821_011522_stark_sworn_siege_attack_stoney_sept_interrupted,siege_attack,active,66,42,73,5,19,0,1.106061,554,0.131769
+battle_20260821_023142_stark_sworn_siege_attack_silverhill,siege_attack,Victory,56,37,62,4,15,0,1.107143,312,0.198718
+battle_20260821_094651_stark_sworn_siege_attack_banefort_interrupted,siege_attack,active,10,4,6,5,1,0,0.600000,363,0.016529
