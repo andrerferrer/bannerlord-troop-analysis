@@ -7,7 +7,7 @@ Report:
 1. `COMPLETE`, `COMPLETE_WITH_EXTERNAL_BLOCKERS`, or `BLOCKED`;
 2. input name and verified SHA-256;
 3. mode, pipeline/schema versions, and model provenance;
-4. new, already-normalized, duplicate, supplemental, battle, occurrence, canonical, excluded, outlier, and unresolved counts;
+4. new, already-normalized, duplicate, supplemental, interrupted/active, battle, occurrence, canonical, excluded, outlier, and unresolved counts;
 5. schema/semantic validation result;
 6. complete/reliable and context ranking paths;
 7. model comparison and residual paths;

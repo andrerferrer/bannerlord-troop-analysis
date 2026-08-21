@@ -24,7 +24,7 @@
 6. route uncertain/invalid rows to review;
 7. checkpoint before the next batch.
 
-Before row extraction, compare every screenshot with committed history and with the other screenshots in the batch. Inspect the actual scoreboard: same sides, party headings, totals, troop rows, result state, battle timer, and environment. Write `reports/screenshot_deduplication_audit.csv`. Skip prior normalized and repeated screens; group supplemental or sequential screens under one battle rather than treating them as new samples.
+Before row extraction, compare every screenshot with committed history and with the other screenshots in the batch. Inspect the actual scoreboard: same sides, party headings, totals, troop rows, result state, battle timer, and environment. Write `reports/screenshot_deduplication_audit.csv`. Skip prior normalized and repeated screens; group supplemental or sequential screens only when they show the same actual battle. Accept the best/latest readable active scoreboard when it is the final observation before that fight was stopped. Give any later re-engagement or cleanup fight a new `battle_id`, and never combine or reconstruct values across the two battles.
 
 `api-batch` uses configured extractor/reviewer adapters. Require explicit upload/paid authorization, bounded retries/concurrency, and a usage estimate or cap. Exact provider models are configuration values.
 
@@ -35,6 +35,7 @@ preflight and SHA-256
 → safe staging
 → committed-history lookup by hash and capture identity
 → full-batch visual duplicate/same-battle audit
+→ interrupted-versus-new-battle classification
 → screen extraction
 → schema and semantic validation
 → troop matching

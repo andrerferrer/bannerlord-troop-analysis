@@ -128,6 +128,9 @@ The current rankings are exploratory campaign-performance evidence, not a univer
 - Choose scoring inputs from the question and context before writing a formula;
   follow the context-first scoring rules instead of extending a universal score.
 - Use the battle as the independent sampling unit.
+- Keep the last readable active scoreboard when a battle is stopped; treat any
+  cleanup re-engagement as a new battle and never reconstruct totals across the
+  two. Merge screenshots only when they are proven views of the same table.
 - Require at least **5 independent battles and 20 deployed troops** before displaying a troop/context estimate.
 - Publish efficiency (`kills/deployed`) beside verified player-side kill share
   and a separate share-adjusted impact rank; never infer side totals from partial
@@ -135,6 +138,8 @@ The current rankings are exploratory campaign-performance evidence, not a univer
 - Display uncertainty beside point estimates.
 - Do not pool the victorious player side with the defeated enemy side.
 - Do not recalibrate frozen models until canonicalization and out-of-sample validation gates pass.
+- Keep versioned mixed-opponent controlled benchmarks separate from campaign
+  observations and homogeneous matchup tests.
 
 ## Goal
 
@@ -150,6 +155,8 @@ Target outputs include:
 - tier-by-tier and role-specific rankings;
 - empirical campaign validation;
 - controlled matchup evidence;
+- a versioned mixed-opponent field benchmark defined in
+  [`009_mixed_opponent_controlled_benchmark.md`](docs/methodology/009_mixed_opponent_controlled_benchmark.md);
 - eventually, calibrated battle predictions with uncertainty.
 
 ## Primary target

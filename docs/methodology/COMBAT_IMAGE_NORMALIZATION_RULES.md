@@ -11,9 +11,12 @@ This document records the accepted normalization rules derived from representati
 1. Before extraction, compare the new input against all committed screenshot manifests and source inventories.
 2. Skip and report exact SHA-256 matches. Because attachment transport can re-encode images, also skip an exact recorder filename plus embedded capture timestamp match even when bytes differ.
 3. Inspect the visible scoreboard for every possible duplicate within the batch. Use side/party headings, totals, troop rows, result state, timer, and environment to establish same-screen or same-battle identity.
-4. Duplicate final screens contribute once. Sequential active scoreboards belong to one battle and are excluded from primary evidence. Complementary scroll positions may be retained under the same battle only for otherwise hidden rows; overlapping occurrences contribute once.
-5. Prefer a final result, then greater row coverage, fewer obstructions, and sharper text. Recency is only a tie-breaker.
-6. Record accepted, skipped, supplemental, and already-normalized decisions in `reports/screenshot_deduplication_audit.csv` and surface the counts to the user.
+4. Duplicate final screens contribute once. Sequential views and complementary scroll positions share one `battle_id` only when they show the same actual battle; overlapping occurrences contribute once.
+5. A readable active scoreboard is primary evidence when it is the last available observation before that battle was stopped. Preserve exactly the visible values, set `result=active`, and record a known interruption reason without estimating what would have happened next.
+6. A later re-engagement or cleanup fight is a new independent battle, including a fight created only to kill one enemy stuck by a bug. Give it a new `battle_id`; never add, subtract, or reconstruct values across the two battles.
+7. For proven views of the same battle, prefer a final result, then the best/latest interrupted or active scoreboard, greater row coverage, fewer obstructions, and sharper text. Complementary scroll positions may add otherwise hidden rows.
+8. If it is unclear whether an active screen was the last observation before stopping, route it to review rather than automatically excluding it.
+9. Record accepted, skipped, supplemental, interrupted/active, and already-normalized decisions in `reports/screenshot_deduplication_audit.csv` and surface the counts to the user.
 
 ## Battle context classification
 
@@ -150,6 +153,10 @@ Grouping evidence includes:
 - visible scroll continuity.
 
 Ambiguous groupings are routed to user review.
+
+Close timestamps and related armies do not prove a shared battle. A scoreboard
+reset, fresh deployment, or explicit re-engagement establishes a new battle even
+when it continues the same campaign encounter. Its numbers remain independent.
 
 Repeated rows across screenshots are deduplicated using the visible row identity and values, including side, parent group, name, survivors, kills, upgrade-ready count, deaths, wounded, and routed count.
 

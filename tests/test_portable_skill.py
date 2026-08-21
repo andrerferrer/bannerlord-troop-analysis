@@ -52,6 +52,12 @@ class PortableSkillTests(unittest.TestCase):
         self.assertIn("Do not use for generic ZIP extraction", skill_text)
         self.assertLess(len(skill_text.splitlines()), 500)
 
+    def test_interrupted_and_cleanup_battles_remain_independent(self) -> None:
+        skill_text = (SKILL / "SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("active scoreboard as primary evidence", skill_text)
+        self.assertIn("cleanup fight as a new independent battle", skill_text)
+        self.assertIn("Never add, subtract, or reconstruct values across those battles", skill_text)
+
     def test_adapter_dry_run_and_temporary_copy(self) -> None:
         project = self.root / "project"
         project.mkdir()
