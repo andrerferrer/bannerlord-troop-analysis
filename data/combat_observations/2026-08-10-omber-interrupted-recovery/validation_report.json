@@ -1,0 +1,41 @@
+{
+  "battle_context_counts": {
+    "siege_attack": 1
+  },
+  "battle_count": 1,
+  "context_boundaries_preserved": true,
+  "counts": {
+    "all_rows": 33,
+    "battle_groups": 1,
+    "primary_troop_occurrences": 9,
+    "review_queue_rows": 6
+  },
+  "excluded_source_count": 0,
+  "interrupted_active_count": 1,
+  "inventory_image_count": 1,
+  "known_limitations": [
+    "Only screenshot-visible rows and cells are normalized; off-screen rows are not inferred.",
+    "The scoreboard is active at 08m20s; values are preserved exactly as shown and no unplayed remainder is estimated.",
+    "This battle is not combined with the later 22:37 Casat field battle or with any cleanup engagement.",
+    "Two white level-up icons and four RTS Camera-overlay-obscured routed cells remain explicit review items.",
+    "The source PNG is not retained in Git; filename, size, exact SHA-256, and Library file ID are recorded."
+  ],
+  "observation_count": 33,
+  "offscreen_rows_inferred": false,
+  "primary_troop_occurrences": 9,
+  "review_queue_count": 6,
+  "schema_version": "2.0.0",
+  "selected_image_count": 1,
+  "sides_pooled": false,
+  "source_inventory_sha256": "f8fad8a43801f885d7428ca15558a78ac54e827a4dd186fd92d59132709ef1d3",
+  "source_sha256": "f8fad8a43801f885d7428ca15558a78ac54e827a4dd186fd92d59132709ef1d3",
+  "source_size_bytes": 2280636,
+  "status": "passed",
+  "track_resolution": {
+    "evidence": [
+      "Sarnori, Qartheen, Yi Ti, Ibbenese, Garrison of Omber, and Militia of Omber labels"
+    ],
+    "method": "track-specific visible faction, troop, and settlement labels"
+  },
+  "validation_errors": []
+}

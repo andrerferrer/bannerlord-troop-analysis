@@ -1,0 +1,168 @@
+{
+  "batch_id": "combat_2026-08-10_omber_interrupted_recovery",
+  "external_blockers": [],
+  "frozen_model_changes": [],
+  "immutable_normalized_changes": [],
+  "manifest_checks": [
+    {
+      "actual_sha256": "596343231a8c505500e8bf9fd8a80ac2ae2736733e0ecae652be65e1538438d0",
+      "actual_size_bytes": 925,
+      "expected_sha256": "596343231a8c505500e8bf9fd8a80ac2ae2736733e0ecae652be65e1538438d0",
+      "expected_size_bytes": 925,
+      "file": "README.md",
+      "passed": true
+    },
+    {
+      "actual_sha256": "2151938c2dcc7168bbf50e9daf745f9b3760fa05aef4bc901d9ee21a5304b811",
+      "actual_size_bytes": 858,
+      "expected_sha256": "2151938c2dcc7168bbf50e9daf745f9b3760fa05aef4bc901d9ee21a5304b811",
+      "expected_size_bytes": 858,
+      "file": "battles.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "500a3721873128d76a40776cbfc52a92c1147109fc6a37422a49a47ef8559431",
+      "actual_size_bytes": 1175,
+      "expected_sha256": "500a3721873128d76a40776cbfc52a92c1147109fc6a37422a49a47ef8559431",
+      "expected_size_bytes": 1175,
+      "file": "normalization_summary.json",
+      "passed": true
+    },
+    {
+      "actual_sha256": "15391c178ec510c26884138890f36183360cbd24ec05452964d84a90d87d814c",
+      "actual_size_bytes": 12866,
+      "expected_sha256": "15391c178ec510c26884138890f36183360cbd24ec05452964d84a90d87d814c",
+      "expected_size_bytes": 12866,
+      "file": "primary_troop_occurrences.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "9977add6429e8254bea44ac84eea6ca7ee92362b034cfb796a3f7b3f37b53073",
+      "actual_size_bytes": 1067,
+      "expected_sha256": "9977add6429e8254bea44ac84eea6ca7ee92362b034cfb796a3f7b3f37b53073",
+      "expected_size_bytes": 1067,
+      "file": "reports/screenshot_deduplication_audit.csv",
+      "passed": true
+    },
+    {
+      "actual_sha256": "5b896ebc5a81044014953dc4ddcc3f2b4a86bc5da46c68ed6f4f45daf356b832",
+      "actual_size_bytes": 2392,
+      "expected_sha256": "5b896ebc5a81044014953dc4ddcc3f2b4a86bc5da46c68ed6f4f45daf356b832",
+      "expected_size_bytes": 2392,
+      "file": "review_queue.csv",
+      "passed": true
+    },
+    {
+      "actual_sha256": "08315a9fa931f70bb555028b5f3a76af9854c8261152de4b5f013078c5f3d41d",
+      "actual_size_bytes": 565,
+      "expected_sha256": "08315a9fa931f70bb555028b5f3a76af9854c8261152de4b5f013078c5f3d41d",
+      "expected_size_bytes": 565,
+      "file": "screenshots_manifest.csv",
+      "passed": true
+    },
+    {
+      "actual_sha256": "ef936654ac354319c8a3393b0d6eb37e70665262b7ec78238f2ffee8fa4c9ba6",
+      "actual_size_bytes": 763,
+      "expected_sha256": "ef936654ac354319c8a3393b0d6eb37e70665262b7ec78238f2ffee8fa4c9ba6",
+      "expected_size_bytes": 763,
+      "file": "source_inventory.csv",
+      "passed": true
+    },
+    {
+      "actual_sha256": "b90a2051d5364d708d34de0aa925222d5b6bf2715aa64416a622ce9bc8e3e84c",
+      "actual_size_bytes": 3740,
+      "expected_sha256": "b90a2051d5364d708d34de0aa925222d5b6bf2715aa64416a622ce9bc8e3e84c",
+      "expected_size_bytes": 3740,
+      "file": "troop_battle_consolidated.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "a8dde2420b2871028d233ca90ece9717c5d7b7e9e981136c22030037a65cbe6d",
+      "actual_size_bytes": 47457,
+      "expected_sha256": "a8dde2420b2871028d233ca90ece9717c5d7b7e9e981136c22030037a65cbe6d",
+      "expected_size_bytes": 47457,
+      "file": "troop_occurrences.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "8a99712eed38696f51c82ec5b24d29b8f1e41b6989a4b70839217b1ec29fd151",
+      "actual_size_bytes": 1609,
+      "expected_sha256": "8a99712eed38696f51c82ec5b24d29b8f1e41b6989a4b70839217b1ec29fd151",
+      "expected_size_bytes": 1609,
+      "file": "validation_report.json",
+      "passed": true
+    }
+  ],
+  "normalized_archive": {
+    "actual_sha256": "03ff1f4006603b424e5c4c3fc4b3955f5464bb5ed8489819b59a8c44c1e25774",
+    "expected_sha256": "03ff1f4006603b424e5c4c3fc4b3955f5464bb5ed8489819b59a8c44c1e25774",
+    "name": "omber_interrupted_recovery_2026-08-10.tar.xz",
+    "passed": true,
+    "safe_preflight": {
+      "members": 14,
+      "regular_files": 12,
+      "total_uncompressed_bytes": 74476
+    }
+  },
+  "normalized_summary": {
+    "battle_context_counts": {
+      "siege_attack": 1
+    },
+    "battles": 1,
+    "consolidated_rows": 9,
+    "occurrences": 33,
+    "ordinary_troop_labels": 9,
+    "primary_occurrences": 9,
+    "primary_rows_fully_consolidated": true,
+    "queued_rows_excluded_from_rankings": true,
+    "rankings_only_include_primary_troops": true,
+    "review_items": 6
+  },
+  "pipeline_mode": "offline-existing",
+  "raw_source_png": {
+    "actual_sha256": "5371af51eb5ad2d18b3af126dfc7243a659bd8bd28c35774427420a8d1b6358a",
+    "actual_size_bytes": 2280636,
+    "expected_sha256": "5371af51eb5ad2d18b3af126dfc7243a659bd8bd28c35774427420a8d1b6358a",
+    "expected_size_bytes": 2280636,
+    "library_file_id": "libfile_8f2d0553118c8191b91fd618c66d817b",
+    "passed": true,
+    "retained_in_repository": false,
+    "verification_method": "exact_png_sha256_and_size"
+  },
+  "schema_version": "2.0.0",
+  "source_identity": {
+    "actual_sha256": "f8fad8a43801f885d7428ca15558a78ac54e827a4dd186fd92d59132709ef1d3",
+    "actual_size_bytes": 2280636,
+    "construction": "filename_utf8_nul_lowercase_png_sha256_ascii_lf",
+    "expected_sha256": "f8fad8a43801f885d7428ca15558a78ac54e827a4dd186fd92d59132709ef1d3",
+    "expected_size_bytes": 2280636,
+    "limits_visual_rereview": false,
+    "locally_verified": true,
+    "repository_addressable": true,
+    "repository_path": "data/combat_observations/2026-08-10-omber-interrupted-recovery/source_inventory.csv",
+    "retention_policy": "optional_after_verified_normalization",
+    "retention_status": "identity_metadata_in_repository_exact_png_verified_external",
+    "verification_method": "source_inventory_identity_plus_exact_png_sha256_and_size"
+  },
+  "source_provenance_checks": [
+    {
+      "expected": "f8fad8a43801f885d7428ca15558a78ac54e827a4dd186fd92d59132709ef1d3",
+      "field": "normalization_summary.json:source_sha256",
+      "passed": true,
+      "recorded": "f8fad8a43801f885d7428ca15558a78ac54e827a4dd186fd92d59132709ef1d3"
+    },
+    {
+      "expected": "f8fad8a43801f885d7428ca15558a78ac54e827a4dd186fd92d59132709ef1d3",
+      "field": "validation_report.json:source_sha256",
+      "passed": true,
+      "recorded": "f8fad8a43801f885d7428ca15558a78ac54e827a4dd186fd92d59132709ef1d3"
+    },
+    {
+      "expected": 2280636,
+      "field": "validation_report.json:source_size_bytes",
+      "passed": true,
+      "recorded": 2280636
+    }
+  ],
+  "status": "passed"
+}

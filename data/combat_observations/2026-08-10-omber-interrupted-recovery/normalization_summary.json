@@ -1,0 +1,33 @@
+{
+  "batch_id": "combat_2026-08-10_omber_interrupted_recovery",
+  "battle_context_counts": {
+    "siege_attack": 1
+  },
+  "battles": 1,
+  "excluded_sources": 0,
+  "extractor_provenance": {
+    "mode": "host-vision",
+    "model_version": "unknown"
+  },
+  "game_track": "realm_of_thrones",
+  "game_version": "1.4.x",
+  "interrupted_active_screenshots": 1,
+  "inventory_images": 1,
+  "normalization_scope": "evidence_and_structural_normalization_only",
+  "observations": 33,
+  "primary_troop_occurrences": 9,
+  "review_queue": 6,
+  "schema_version": "2.0.0",
+  "selected_screenshots": 1,
+  "source_inventory_sha256": "f8fad8a43801f885d7428ca15558a78ac54e827a4dd186fd92d59132709ef1d3",
+  "source_kind": "host_exposed_library_screenshot",
+  "source_retention_status": "not_retained_in_repository_hash_and_library_id_recorded",
+  "source_sha256": "f8fad8a43801f885d7428ca15558a78ac54e827a4dd186fd92d59132709ef1d3",
+  "status": "normalized_pending_analysis",
+  "track_resolution": {
+    "evidence": [
+      "Sarnori, Qartheen, Yi Ti, Ibbenese, Garrison of Omber, and Militia of Omber labels"
+    ],
+    "method": "track-specific visible faction, troop, and settlement labels"
+  }
+}
