@@ -9,6 +9,24 @@ publication approval. Still never force-push to `main`/`master`, never skip
 hooks, and never commit secrets or unrelated untracked files (for example
 `arquivo.md`) unless explicitly asked.
 
+## Operator command: combat-evidence upload
+
+When the user attaches Bannerlord battle-result screenshots or a ZIP containing
+them for this project, treat the upload itself as the operator command and
+authorization to execute the complete repository workflow. Without asking for
+per-batch or per-step confirmation, agents must normalize the evidence, commit
+and publish the batch branch, create or update its single draft pull request,
+publish the analysis-task protocol comments, run Phase 2 with the required
+separate agent, validate, mark the pull request ready, merge it after all gates
+pass, and verify the merge. A short conversational question accompanying the
+upload does not narrow this default workflow unless the user explicitly asks
+for inspection only, asks to leave the work unpublished/open, or cancels it.
+
+Repository standing authorization does not override a host-platform approval
+or permission boundary. If the platform blocks an otherwise authorized action,
+report that concrete blocker instead of asking the user to reconfirm the
+repository workflow.
+
 ## Pull request completion is part of the work
 
 When an agent creates or updates a pull request in this repository, the task is
