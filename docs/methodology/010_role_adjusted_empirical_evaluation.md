@@ -1,203 +1,250 @@
-# Role-adjusted empirical combat evaluation
+# Provisional empirical combat criteria: offense and defense
 
-## Status and purpose
+## Status
 
-This document adds a small empirical interpretation layer for Bannerlord
-campaign scoreboards. It does not replace the existing combat evidence,
-`kills_per_deployed`, kill share, share-adjusted impact, or frozen theoretical
-models.
+Operator-approved provisional methodology as of 2026-08-22. This document
+replaces the earlier role-percentile and 2:1 blended-score proposal that
+previously occupied this path.
 
-It addresses two recurring distortions:
+The current goal is deliberately modest: use very simple scoreboard-backed
+measures that approximate battlefield reality, keep their meanings visible, and
+avoid pretending that one formula can already compare every combat role.
 
-1. A dominant ranged troop can consume a large share of the side's available
-   kills, making useful frontline troops look irrelevant in a zero-sum kill-share
-   table.
-2. Ranged troops can deal damage while avoiding contact, while infantry and
-   melee cavalry must usually accept contact losses to perform their role.
+No frozen model changes are authorized by this document. The third general
+criterion remains undecided.
 
-The solution is not to transfer kills from a ranged troop to a melee troop or to
-invent support credit. Keep offensive contribution, retention, and role value as
-separate inspectable outputs.
+## Current decision
 
-## Required boundaries
-
-Keep track, battle context, player/enemy side, and ordinary-troop rules exactly as
-specified by the combat workflow. Apply the existing 5-independent-battle / 20-
-deployed evidence gate before publishing a reliable role result.
-
-Role-adjusted results are comparable only inside the same:
+Keep the criteria independent. Do not average, multiply, percentile-normalize,
+or weight offense and defense into one score.
 
 ```text
-track + battle context + role bucket
+1. Offensive criterion
+   kills / deployed
+
+2. Defensive criterion
+   a. frontline retention
+   b. pressure margin
+
+3. Third criterion
+   unresolved
 ```
 
-They do not authorize a universal ranged-versus-infantry-versus-cavalry tier.
+Kill share, deployment share, death rate, backline retention, and other values
+may remain useful diagnostics. They are not substitutes for the two accepted
+defensive components and do not currently determine a tier.
 
-## 1. Offensive composition diagnostic
-
-Preserve the existing offensive metrics:
+## 1. Offensive criterion
 
 ```text
-kills_per_deployed = troop_kills / troop_deployed
-player_side_kill_share = troop_kills / verified_player_side_kills
-share_adjusted_impact = kills_per_deployed × player_side_kill_share
+offensive_efficiency = kills / deployed
 ```
 
-Add directly verified deployment share over the same contributing battles:
+This answers one narrow question:
+
+> How many enemy kills did each deployed unit produce?
+
+Ranged troops may dominate this criterion because they can attack with less
+exposure. That is not corrected inside the offensive formula; the defensive
+criterion exists to capture a different dimension.
+
+Continue to keep track, battle context, player/enemy side, and the existing
+5-independent-battle / 20-deployed display gate separate.
+
+## 2. Defensive criterion
+
+The defensive criterion has two separately published components. Neither is a
+weighted input to the other.
+
+### 2.1 Frontline retention
 
 ```text
-player_side_deployment_share =
-    troop_deployed / verified_player_side_deployed
-
-offensive_contribution_ratio =
-    player_side_kill_share / player_side_deployment_share
-
-offensive_share_gap =
-    player_side_kill_share - player_side_deployment_share
+frontline_retention = frontline_survivors / frontline_deployed
 ```
+
+Under the combat-observation schema:
+
+```text
+deployed = survivors + deaths + wounded
+```
+
+`routed` remains separate. Dead and wounded are both unavailable at the end of
+the observation, so neither counts as retained.
+
+Frontline retention answers:
+
+> How much of the tested frontline remained operational at the end?
+
+This distinguishes a costly victory using disposable recruits from a cleaner
+victory using stronger infantry, even when both battles end in a win.
+
+Retention is still a proxy. High retention can result from strength, favorable
+targeting, low exposure, late contact, or an easy matchup. For that reason,
+ranged support may have retention recorded as a diagnostic, but it does not
+compete as the tested defensive frontline.
+
+### 2.2 Pressure margin
+
+```text
+allied_retention = allied_remaining / allied_deployed
+enemy_retention  = enemy_remaining / enemy_deployed
+
+pressure_margin = allied_retention - enemy_retention
+```
+
+For a symmetric 100-versus-100 test:
+
+```text
+pressure_margin = (allied_remaining - enemy_remaining) / 100
+```
+
+Pressure margin answers:
+
+> How favorable was the final battlefield state, including close defeats and
+> costly victories?
 
 Interpretation:
 
-- ratio `> 1`: the troop produced more kills than its manpower share;
-- ratio `= 1`: kills were proportional to manpower;
-- ratio `< 1`: the troop produced fewer kills than its manpower share;
-- a large positive gap on one troop records army-level offensive concentration
-  and explains why other units may appear visually overshadowed.
+- large positive value: decisive favorable result;
+- small positive value: narrow or costly victory;
+- near zero: battle decided at the limit;
+- small negative value: close defeat;
+- large negative value: heavy defeat.
 
-This is an offensive diagnostic only. It must not be described as damage
-absorbed, target access created, protection supplied, or kills that another troop
-would have produced without the dominant unit.
+This preserves information that a binary win/loss indicator discards. Losing
+with three enemies remaining is correctly treated as very different from losing
+with twenty-five enemies remaining.
 
-The deployment denominator must be a direct positive player-side total covering
-exactly the same battles as the kill-share denominator. Never reconstruct it from
-partial visible troop rows.
+Only a final result with direct positive side deployment totals and final
+remaining counts receives a production pressure margin. An active,
+interrupted, or otherwise right-censored scoreboard may retain a diagnostic
+snapshot, but it must not be ranked as a final pressure margin.
 
-## 2. Defensive proxy
+## Controlled infantry exercise
 
-Use combat retention as the smallest scoreboard-backed defensive measure:
-
-```text
-retention_rate = survivors / deployed
-               = 1 - ((deaths + wounded) / deployed)
-```
-
-Dead and wounded are both unavailable at the end of that battle. `routed`
-remains a separate diagnostic under the repository schema and is not added to
-`deployed` or silently folded into retention.
-
-Retention is a durability proxy, not proof of damage absorbed. A troop can retain
-units because it was well protected, avoided contact, arrived late, or fought an
-easy matchup. That is why retention is interpreted only within a role and battle
-context.
-
-Keep `death_rate` beside retention because permanent deaths and recoverable
-wounds have different campaign costs, but do not add a third weight to the role
-score.
-
-## 3. Role buckets
-
-Resolve the role from the versioned canonical troop `default_group`:
-
-| `default_group` | Empirical role |
-|---|---|
-| `Ranged`, `HorseArcher` | `ranged` |
-| `Infantry` | `frontline_infantry` |
-| `Cavalry` | `melee_cavalry` |
-
-For siege defense, map `Cavalry` to `frontline_infantry`, matching the standing
-context-first dismounted-cavalry rule. A horse archer remains in the ranged bucket
-because its primary attack mode remains ranged.
-
-Unresolved role identity blocks the blended role rank but does not block the raw
-offense, kill share, deployment share, or retention outputs.
-
-## 4. Minimal role-adjusted score
-
-Do not blend raw `kills_per_deployed` and retention because their scales differ.
-Convert each to a deterministic 0-100 midrank percentile among reliable peers in
-the same track, context, and role:
+The simplest intended benchmark is:
 
 ```text
-offense_percentile = percentile(kills_per_deployed)
-defense_percentile = percentile(retention_rate)
+50 tested infantry
++ 50 fixed archers
+versus
+100 fixed opponents
 ```
 
-Require at least **5 reliable role rows**, including the evaluated troop, in
-that role bucket. Below that role-population gate, publish the two raw components
-and withhold the blended score.
+Only the tested frontline changes between candidates. Orders, support, opponent
+composition, track, version, and battle context remain fixed as far as the test
+setup allows.
 
-Use one simple 2:1 role weight:
+### Example: recruit frontline
 
 ```text
-frontline_role_score =
-    (offense_percentile + 2 × defense_percentile) / 3
+frontline survivors = 0 / 50
+allied remaining     = 40 / 100
+enemy remaining      = 0 / 100
 
-melee_cavalry_role_score =
-    (offense_percentile + 2 × defense_percentile) / 3
-
-ranged_role_score =
-    (2 × offense_percentile + defense_percentile) / 3
+frontline retention = 0%
+pressure margin      = 40% - 0% = +40 percentage points
 ```
 
-The 2:1 rule makes the dominant job explicit without adding armor, skills, speed,
-reach, horse stats, damage type, or hidden tuning constants. Publish both
-percentiles, the role, and the selected weight beside every score.
+The army wins, but spends its entire frontline.
 
-The blend is an empirical role rank, not a causal equipment model. It does not
-change `analysis/model_versions/`.
-
-## Mallister field example — 2026-08-22
-
-The five accepted field battles contain 1,005 directly verified player-side
-deployments and 1,029 player-side kills.
-
-| Troop | Role | Deployed | Kills | Deployment share | Kill share | Contribution ratio | Share gap | Retention |
-|---|---|---:|---:|---:|---:|---:|---:|---:|
-| Ravens' Teeth [T6] | ranged | 170 | 281 | 16.92% | 27.31% | 1.61 | +10.39 pp | 98.24% |
-| Mallister House Guard [T5] | frontline infantry | 153 | 179 | 15.22% | 17.40% | 1.14 | +2.17 pp | 93.46% |
-| Mallister Knight [T5] | melee cavalry | 37 | 30 | 3.68% | 2.92% | 0.79 | -0.77 pp | 83.78% |
-| Mallister Eagle Knight [T6] | melee cavalry | 159 | 102 | 15.82% | 9.91% | 0.63 | -5.91 pp | 82.39% |
-
-Intermediate checks:
+### Example: stronger frontline
 
 ```text
-Ravens deployment share = 170 / 1,005 = 0.169154
-Ravens kill share       = 281 / 1,029 = 0.273081
-Ravens ratio            = 0.273081 / 0.169154 = 1.614389
+frontline survivors = 35 / 50
+allied remaining     = 82 / 100
+enemy remaining      = 0 / 100
 
-House Guard deployment share = 153 / 1,005 = 0.152239
-House Guard kill share       = 179 / 1,029 = 0.173955
-House Guard ratio            = 0.173955 / 0.152239 = 1.142648
-House Guard retention        = 143 / 153 = 0.934641
-
-Eagle Knight deployment share = 159 / 1,005 = 0.158209
-Eagle Knight kill share       = 102 / 1,029 = 0.099125
-Eagle Knight ratio            = 0.099125 / 0.158209 = 0.626547
-Eagle Knight retention        = 131 / 159 = 0.823899
+frontline retention = 35 / 50 = 70%
+pressure margin      = 82% - 0% = +82 percentage points
 ```
 
-The result separates two claims that the offense-only ranking obscures:
+Both armies win, but the stronger frontline preserves far more combat power and
+produces a much better final battlefield state.
 
-- Ravens' Teeth are the army's dominant offensive carry.
-- Mallister House Guard is still a strong frontline result: it exceeds its
-  manpower share offensively and retains 93.46% of deployments.
+### Defeats remain informative
 
-The same correction does not automatically rescue Mallister Eagle Knight. Its
-retention is almost identical to the whole field side's 82.59% retention, while
-its offensive contribution ratio is 0.63. It may move relative to other melee
-cavalry once a reliable cavalry peer set exists, but the current data do not
-support an elite defensive classification.
+```text
+heavy defeat:
+0 / 100 allied remaining - 25 / 100 enemy remaining = -25 pp
+
+close defeat:
+0 / 100 allied remaining - 3 / 100 enemy remaining = -3 pp
+```
+
+The criterion therefore does not discard pressure tests simply because the
+candidate loses.
+
+## Reading the two defensive components together
+
+| Frontline retention | Pressure margin | Interpretation |
+|---|---|---|
+| high | high | frontline survives and the formation dominates |
+| low | high | sacrificial frontline that still enables a strong result |
+| high | low or negative | durable unit that does not convert durability into formation success |
+| low | strongly negative | defensive collapse |
+
+Do not collapse these cases into one weighted number yet.
+
+## Optional diagnostics
+
+The following may be published beside the criterion without becoming additional
+criteria:
+
+```text
+backline_retention = backline_survivors / backline_deployed
+death_rate         = deaths / deployed
+casualty_rate      = (deaths + wounded) / deployed
+```
+
+Backline retention can help explain whether the frontline protected the fixed
+archers. Death rate distinguishes permanent campaign losses from wounded troops.
+Neither receives a provisional weight.
+
+## Campaign evidence boundary
+
+Ordinary campaign battles may publish frontline retention and side-level
+pressure margin when the necessary rows and totals are directly visible.
+However, mixed campaign evidence does not isolate causality: army composition,
+opponents, terrain, tactics, and exposure vary.
+
+Use the controlled 50-infantry / 50-archer exercise for direct defensive
+frontline comparisons. Campaign values remain descriptive evidence and must not
+be presented as if only the tested infantry caused the side-level margin.
+
+## Explicitly rejected for now
+
+Do not implement any of the following as the current rule:
+
+- defensive swing based only on win-rate differences;
+- survivors/deployed as the sole defensive verdict;
+- kill share or share-adjusted impact as defensive credit;
+- a universal offense-plus-defense score;
+- role-percentile blending with 2:1 weights;
+- inferred support kills transferred from ranged troops to the frontline;
+- a cavalry-specific criterion before the infantry defense criterion is settled.
 
 ## Publication contract
 
-Future empirical reports should publish, when denominators are complete:
+When the defensive inputs exist, publish at minimum:
 
-1. existing offense rank and share-adjusted impact rank;
-2. deployment share, offensive contribution ratio, and offensive share gap;
-3. retention and death rate;
-4. canonical role and peer coverage;
-5. role-adjusted score and role rank only after five reliable role rows exist.
+```text
+frontline_deployed
+frontline_survivors
+frontline_retention
+allied_deployed
+allied_remaining
+enemy_deployed
+enemy_remaining
+allied_retention
+enemy_retention
+pressure_margin
+result_state
+```
 
-Do not use the role-adjusted score to reorder different roles into one universal
-ladder. When the role-population gate is not met, the correct output is a
-component-level interpretation, not a provisional blended number.
+Keep `offensive_efficiency` separate. Preserve raw numerators and denominators so
+every percentage remains auditable.
+
+The next methodology task is to validate these two defensive outputs against a
+small set of intuitive infantry anchors. Do not define the third general
+criterion until that check is complete.
