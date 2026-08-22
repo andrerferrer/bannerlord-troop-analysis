@@ -74,7 +74,7 @@ class RoleAdjustedEmpiricalTests(unittest.TestCase):
             ROLE_FRONTLINE_INFANTRY,
         )
 
-    def test_midrank_percentile_and_peer_gate(self) -> None:
+    def test_midrank_percentile_and_role_population_gate(self) -> None:
         self.assertIsNone(midrank_percentile(3, [1, 2, 3, 4], minimum_rows=5))
         self.assertEqual(midrank_percentile(1, [1, 2, 3, 4, 5]), 0.0)
         self.assertEqual(midrank_percentile(5, [1, 2, 3, 4, 5]), 100.0)

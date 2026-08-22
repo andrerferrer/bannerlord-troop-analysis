@@ -76,7 +76,7 @@ def offensive_share_gap(
     player_side_kill_share: float,
     player_side_deployment_share: float,
 ) -> float:
-    """Return kill share minus deployment share in proportion points."""
+    """Return kill share minus deployment share as a proportion."""
     kill_share = _non_negative(player_side_kill_share, "player_side_kill_share")
     deployed_share = _non_negative(
         player_side_deployment_share, "player_side_deployment_share"
@@ -129,21 +129,17 @@ def midrank_percentile(
     peer_values: Iterable[float],
     minimum_rows: int = MINIMUM_ROLE_ROWS,
 ) -> float | None:
-    """Return a deterministic 0-100 midrank percentile or None below peer gate."""
+    """Return a 0-100 midrank percentile or None below the role-row gate."""
     values = [_finite(item, "peer value") for item in peer_values]
     if minimum_rows < 2:
         raise ValueError("minimum_rows must be at least 2")
     if len(values) < minimum_rows:
-        return None
-    if not values:
         return None
     current = _finite(value, "value")
     lower = sum(item < current for item in values)
     equal = sum(item == current for item in values)
     if equal == 0:
         raise ValueError("value must be present in peer_values")
-    if len(values) == 1:
-        return 50.0
     return 100.0 * (lower + 0.5 * (equal - 1)) / (len(values) - 1)
 
 
