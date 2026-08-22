@@ -1,0 +1,9 @@
+{
+  "decision": "compatible_with_protocol_caveat",
+  "frozen_models_changed": false,
+  "game_track": "realm_of_thrones",
+  "game_version": "1.4.x",
+  "historical_field_source": "data/combat_observations/2026-08-12-mallister-mixed",
+  "protocol_difference": "historical evidence is incidental/co-observational; current evidence is a dedicated retest",
+  "separate_contexts": ["field", "siege_attack"]
+}

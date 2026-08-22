@@ -1,0 +1,21 @@
+context,display_name,canonical_troop_id,identity_status,independent_battles,deployed,more_battles_needed,more_deployed_needed
+field,Mallister Man at Arms [T4],mallister_man_at_arms,confirmed_id,4,36,1,0
+field,Blackwood Longbowman [T5],blackwood_longbowman,confirmed_id,4,21,1,0
+field,Frey Veteran Crossbowman [T4],frey_veteran_crossbowman,confirmed_id,1,11,4,9
+field,Frey Sharpshooter [T5],frey_sharpshooter,confirmed_id,2,16,3,4
+field,Mallister Elite Archer [T5],mallister_elite_archer,confirmed_id,1,52,4,0
+field,Blackwood Archer [T4],blackwood_archer,confirmed_id,4,15,1,5
+field,Frey Assassin [T6],frey_assassin,confirmed_id,3,17,2,3
+field,Knight of the Vale [T6],,unresolved,1,1,4,19
+field,Mallister Footman [T3],mallister_footman,confirmed_id,4,87,1,0
+field,Frey Crossbowman [T3],,unresolved,1,16,4,4
+field,Blackwood Levy [T2],blackwood_levy,confirmed_id,1,5,4,15
+field,Blackwood Bowman [T3],blackwood_bowman,confirmed_id,2,20,3,0
+field,Mallister Horseman [T4],mallister_rider,confirmed_id,4,52,1,0
+field,Mallister Levy [T2],,unresolved,1,26,4,0
+siege_attack,Mallister Eagle Knight [T6],mallister_knight,confirmed_id,2,55,3,0
+siege_attack,Ravens' Teeth [T6],ravens_teeth,confirmed_id,2,50,3,0
+siege_attack,Mallister House Guard [T5],mallister_houseguard,confirmed_id,2,60,3,0
+siege_attack,Mallister Elite Archer [T5],mallister_elite_archer,confirmed_id,1,52,4,0
+siege_attack,Frey Assassin [T6],frey_assassin,confirmed_id,1,51,4,0
+siege_attack,Mallister Footman [T3],mallister_footman,confirmed_id,1,38,4,0

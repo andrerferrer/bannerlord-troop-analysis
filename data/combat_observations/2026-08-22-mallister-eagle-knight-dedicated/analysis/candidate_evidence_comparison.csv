@@ -1,0 +1,5 @@
+evidence_scope,context,protocol,independent_battles,deployed,kills,kills_per_deployed,verified_player_side_total_kills,player_side_kill_share,share_adjusted_impact,deaths,wounded,casualty_rate,evidence_status,source
+historical_compatible_field_incidental,field,incidental/co-observation,8,177,165,0.932203,,,,6,32,0.214689,reliable,PR #68 merged analysis; compatible Realm of Thrones 1.4.x field counts
+current_dedicated_field_retest,field,dedicated retest,5,159,102,0.641509,1029.000000,0.099125,0.063590,9,19,0.176101,reliable,current 2026-08-22 dedicated batch
+combined_compatible_field,field,incidental plus dedicated; protocol difference preserved,13,336,267,0.794643,,,,15,51,0.196429,reliable,compatible count-field join of PR #68 and current batch; historical kill-share denominator not reconstructed
+current_siege_attack_diagnostic,siege_attack,mixed final plus one right-censored active scoreboard,2,55,59,1.072727,920.000000,0.064130,0.068794,1,8,0.163636,insufficient_evidence,current 2026-08-22 batch; one active Eyrie scoreboard
