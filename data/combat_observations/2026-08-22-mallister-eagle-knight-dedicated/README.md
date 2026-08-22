@@ -30,4 +30,4 @@ Browseable authoritative subset:
 - `analysis/candidate_evidence_comparison.csv`
 - `reports/screenshot_deduplication_audit.csv`
 - `validation_report.json`
-- `bundle/mallister_eagle_knight_dedicated_2026-08-22.tar.xz.base64.part-00`
+- `bundle/mallister_eagle_knight_dedicated_2026-08-22.tar.xz.base64.part-*`
