@@ -1,0 +1,37 @@
+{
+  "batch_id": "combat_2026-08-21_lannister_prideknight_mixed",
+  "battle_context_counts": {
+    "field": 8,
+    "siege_attack": 1
+  },
+  "battles": 9,
+  "excluded_sources": 0,
+  "extractor_provenance": {
+    "mode": "host-vision",
+    "model_version": "unknown"
+  },
+  "game_track": "realm_of_thrones",
+  "game_version": "1.4.x",
+  "historical_duplicates": 0,
+  "internal_duplicates": 0,
+  "interrupted_active_screenshots": 0,
+  "inventory_images": 9,
+  "normalization_scope": "evidence_and_structural_normalization_only",
+  "observations": 155,
+  "primary_troop_occurrences": 110,
+  "review_queue": 5,
+  "schema_version": "2.0.0",
+  "selected_screenshots": 9,
+  "source_directory_sha256": "62aa7f249e53ae5747cd9a30b44b9fdab957a9f9db8674bd28639be78e1266bb",
+  "source_inventory_file_sha256": "8d9483432fe9989e4f3d1277b79525565a0cb5ad19afc4199f392eb1f17123bf",
+  "source_kind": "nine_direct_library_png_attachments",
+  "source_retention_status": "raw_not_retained_hashes_library_ids_and_file_citations_recorded",
+  "status": "normalized_pending_analysis",
+  "supplemental_screenshots": 0,
+  "track_resolution": {
+    "evidence": [
+      "Lannister, Westerlands, Northern, Riverlands, Frey, Mallister, Stark, Tully, Forrester, Willow Wood, and Tywin Lannister labels"
+    ],
+    "method": "track-specific visible faction, troop, character, and settlement labels"
+  }
+}

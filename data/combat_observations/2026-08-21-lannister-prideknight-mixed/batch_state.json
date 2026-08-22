@@ -1,0 +1,29 @@
+{
+  "batch_id": "combat_2026-08-21_lannister_prideknight_mixed",
+  "counts": {
+    "accepted_images": 9,
+    "active_interrupted_images": 0,
+    "battles": 9,
+    "historical_duplicates": 0,
+    "internal_duplicates": 0,
+    "occurrences": 155,
+    "primary_troop_occurrences": 110,
+    "review_queue": 5,
+    "supplemental_images": 0
+  },
+  "input_name": "nine direct PNG attachments",
+  "input_sha256": "62aa7f249e53ae5747cd9a30b44b9fdab957a9f9db8674bd28639be78e1266bb",
+  "mode": "host-vision",
+  "next_action": "Phase 2: read handoff/ANALYSIS_PROMPT.md, verify hashes, complete reviewed layer and analysis",
+  "normalized_archive_sha256": "1ff30bba3440c89a338cbbdbe9a78c76f0eaf912bae2d5504ee9f05f42d82456",
+  "normalized_base64_part_sha256": "bc8b8032303bab5785b36bf3dd591963b30e928cddb007b1b4acfa87498e151c",
+  "phase_statuses": {
+    "analysis": "pending",
+    "historical_visual_audit": "complete",
+    "normalization": "complete",
+    "structural_validation": "complete"
+  },
+  "pipeline_version": "0.4.0",
+  "schema_version": "2.0.0",
+  "status": "normalized_pending_analysis"
+}
