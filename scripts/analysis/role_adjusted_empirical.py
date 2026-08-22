@@ -12,8 +12,8 @@ No function infers damage absorbed, aggro, support credit, or counterfactual kil
 
 from __future__ import annotations
 
-from collections.abc import Iterable
 import math
+from collections.abc import Iterable
 
 ROLE_RANGED = "ranged"
 ROLE_FRONTLINE_INFANTRY = "frontline_infantry"
@@ -21,7 +21,7 @@ ROLE_MELEE_CAVALRY = "melee_cavalry"
 SUPPORTED_ROLES = frozenset(
     {ROLE_RANGED, ROLE_FRONTLINE_INFANTRY, ROLE_MELEE_CAVALRY}
 )
-MINIMUM_ROLE_PEERS = 5
+MINIMUM_ROLE_ROWS = 5
 
 
 def _finite(value: int | float, name: str) -> float:
@@ -127,13 +127,13 @@ def role_from_default_group(default_group: str, context: str) -> str:
 def midrank_percentile(
     value: float,
     peer_values: Iterable[float],
-    minimum_peers: int = MINIMUM_ROLE_PEERS,
+    minimum_rows: int = MINIMUM_ROLE_ROWS,
 ) -> float | None:
     """Return a deterministic 0-100 midrank percentile or None below peer gate."""
     values = [_finite(item, "peer value") for item in peer_values]
-    if minimum_peers < 2:
-        raise ValueError("minimum_peers must be at least 2")
-    if len(values) < minimum_peers:
+    if minimum_rows < 2:
+        raise ValueError("minimum_rows must be at least 2")
+    if len(values) < minimum_rows:
         return None
     if not values:
         return None

@@ -13,7 +13,7 @@ Report:
 7. model comparison and residual paths;
 8. highest-impact unresolved items;
 9. efficiency rank, player-side kill share, share-adjusted impact rank, kill-total coverage, directly verified deployment share, offensive contribution ratio/gap, and retention;
-10. canonical role, role-peer coverage, and role-adjusted rank when the peer gate passes;
+10. canonical role, role-population coverage, and role-adjusted rank when the role-population gate passes;
 11. limitations/evidence grades;
 12. exact resume command.
 
@@ -30,10 +30,10 @@ also publish `player_side_deployment_share`, `offensive_contribution_ratio`,
 denominator from partial visible troop rows.
 
 Role-adjusted empirical outputs must follow
-[`docs/methodology/010_role_adjusted_empirical_evaluation.md`](../../../docs/methodology/010_role_adjusted_empirical_evaluation.md):
+[`docs/methodology/010_role_adjusted_empirical_evaluation.md`](../../../../docs/methodology/010_role_adjusted_empirical_evaluation.md):
 rank only inside the same track, context, and role; weight defense twice for
 frontline infantry and melee cavalry, weight offense twice for ranged troops,
-and leave the blended score null until at least five reliable role peers exist.
+and leave the blended score null until at least five reliable role rows exist.
 Never use that result as a universal cross-role ladder or infer damage absorbed,
 support credit, aggro, or counterfactual kills.
 

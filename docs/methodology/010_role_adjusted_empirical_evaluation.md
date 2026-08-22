@@ -122,8 +122,9 @@ offense_percentile = percentile(kills_per_deployed)
 defense_percentile = percentile(retention_rate)
 ```
 
-Require at least **5 reliable peer rows** in that role bucket. Below that peer
-gate, publish the two raw components and withhold the blended score.
+Require at least **5 reliable role rows**, including the evaluated troop, in
+that role bucket. Below that role-population gate, publish the two raw components
+and withhold the blended score.
 
 Use one simple 2:1 role weight:
 
@@ -195,8 +196,8 @@ Future empirical reports should publish, when denominators are complete:
 2. deployment share, offensive contribution ratio, and offensive share gap;
 3. retention and death rate;
 4. canonical role and peer coverage;
-5. role-adjusted score and role rank only after the five-peer gate.
+5. role-adjusted score and role rank only after five reliable role rows exist.
 
 Do not use the role-adjusted score to reorder different roles into one universal
-ladder. When the peer gate is not met, the correct output is a component-level
-interpretation, not a provisional blended number.
+ladder. When the role-population gate is not met, the correct output is a
+component-level interpretation, not a provisional blended number.
