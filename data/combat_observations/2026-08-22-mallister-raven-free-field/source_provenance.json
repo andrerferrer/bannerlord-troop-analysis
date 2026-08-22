@@ -1,0 +1,8 @@
+{
+  "batch_id": "combat_2026-08-22_mallister_raven_free_field",
+  "combined_source_inventory_sha256": "8b93bafe68a52007ebe2012273ade0c5a1e6641c7d0896b65f6db3093d0e47cd",
+  "host_vision_model": "GPT-5.6 Pro host vision; exact extractor build unavailable",
+  "raw_retention": "not committed; filenames, sizes, SHA-256 hashes, and visual transcription retained",
+  "source_kind": "four direct PNG attachments",
+  "supplied_images": 4
+}
