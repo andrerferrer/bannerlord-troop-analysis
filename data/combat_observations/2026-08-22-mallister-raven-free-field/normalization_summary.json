@@ -1,0 +1,20 @@
+{
+  "already_normalized": 0,
+  "batch_id": "combat_2026-08-22_mallister_raven_free_field",
+  "battles": 4,
+  "distinct_troop_labels": 13,
+  "extractor": "host vision; exact model build unknown",
+  "field_battles": 4,
+  "game_track": "realm_of_thrones",
+  "game_version": "1.4.x",
+  "insufficient_rows": 13,
+  "internal_duplicates": 0,
+  "new_screenshots": 4,
+  "observations": 32,
+  "primary_troop_occurrences": 32,
+  "reliable_rows": 0,
+  "review_queue": 1,
+  "screenshots": 4,
+  "source_inventory_sha256": "8b93bafe68a52007ebe2012273ade0c5a1e6641c7d0896b65f6db3093d0e47cd",
+  "status": "complete_below_gate"
+}
