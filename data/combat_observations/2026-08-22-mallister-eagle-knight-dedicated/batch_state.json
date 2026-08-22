@@ -1,0 +1,14 @@
+{
+  "accepted_battles": 7,
+  "batch_id": "combat_2026-08-22_mallister_eagle_knight_dedicated",
+  "input_sha256": "fe98581275f436a297511fecceab6ff0f9b5b7d6a098b8c2a9e47ca8af759a43",
+  "mode": "host-vision",
+  "next_action": "publish branch, open PR, validate remote tree, squash merge",
+  "phase": "published_ready",
+  "primary_occurrences": 78,
+  "resume_command": "python3 validation/validate_batch.py \"/mnt/data/bannerlord_batch_2026-08-22_mallister_eagle_knight_dedicated\"",
+  "schema_version": "2.1.0-compatible",
+  "source_inventory_sha256": "2c2cdf98d25eb60909796bfa555c424b8b3ffa400179454c90f4dd2ed0548eae",
+  "status": "COMPLETE",
+  "unresolved_review_items": 0
+}
