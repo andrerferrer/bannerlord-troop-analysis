@@ -1,0 +1,2 @@
+review_id,screenshot_id,battle_id,display_name_raw,visible_fields,unresolved_fields,reason,ranking_status
+review_0001,screen_20260822T2032270300,battle_20260822_203227_mallister_raven_free_field,Mallister Levy [T2],survivors=0; deaths=1 visible at clipped bottom edge,"kills,upgrade_ready,wounded,routed",row is cut by the bottom table boundary; hidden values are not reconstructed from party arithmetic,excluded_pending_review
