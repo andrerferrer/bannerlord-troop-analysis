@@ -1,0 +1,25 @@
+{
+  "batch_id": "combat_2026-08-22_mallister_eagle_knight_dedicated",
+  "checks": {
+    "battle_count_7": "pass",
+    "dedup_partition_7_new_11_historical": "pass",
+    "deployed_arithmetic": "pass",
+    "frozen_model_files_changed": "no",
+    "json_jsonl_csv_readable": "pass",
+    "mallister_eagle_field_arithmetic_102_div_159": "pass",
+    "mallister_eagle_field_gate_5_battles_159_deployed": "pass",
+    "positive_player_side_kill_totals_7_of_7": "pass",
+    "primary_occurrence_count_78": "pass",
+    "ranking_aggregation": "pass",
+    "review_queue_resolved_16_of_16": "pass",
+    "structured_record_count_138": "pass",
+    "unique_observation_ids": "pass",
+    "visible_rows_do_not_exceed_player_party_totals": "pass"
+  },
+  "executed_command": "python3 validation/validate_batch.py .",
+  "repository_wide_test_limitation": "Additive batch-only change; remote repository has no associated CI run on the prior PR head.",
+  "repository_wide_tests": "not_run_no_local_checkout",
+  "status": "pass",
+  "validator": "validation/validate_batch.py",
+  "validator_sha256": "7598bb8404ded1d8da35345667ff7bd7089da6d781de6090b4126a95d5ea1103"
+}
