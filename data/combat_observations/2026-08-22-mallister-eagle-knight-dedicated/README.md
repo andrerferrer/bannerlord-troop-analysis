@@ -19,7 +19,7 @@ This batch processes the 18 supplied Realm of Thrones 1.4.x screenshots in host-
 
 The current field block is the requested dedicated Mallister Eagle Knight retest. It clears the 5-battle / 20-deployed display gate and should stop. The Eyrie active scoreboard is retained as an independent right-censored siege observation; it is not combined with any cleanup fight.
 
-The GitHub tree keeps the reviewed summary, rankings, manifests, validation, and the compact Base64 bundle. Reconstructing the bundle yields the full 61-file artifact tree, including `primary_troop_occurrences.jsonl`, `troop_occurrences.jsonl`, canonical files, review decisions, and all reports.
+The GitHub tree keeps the reviewed summary, rankings, manifests, validation, and the compact Base64 bundle. Reconstructing the bundle yields the full normalized artifact tree, including `primary_troop_occurrences.jsonl`, `troop_occurrences.jsonl`, canonical files, review decisions, and all reports.
 
 Browseable authoritative subset:
 
