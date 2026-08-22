@@ -1,3 +1,4 @@
+import math
 import unittest
 
 from scripts.analysis.role_adjusted_empirical import (
@@ -99,6 +100,10 @@ class RoleAdjustedEmpiricalTests(unittest.TestCase):
             midrank_percentile(6, [1, 2, 3, 4, 5])
         with self.assertRaises(ValueError):
             role_from_default_group("Unknown", "field")
+        with self.assertRaises(ValueError):
+            retention_rate(math.nan, 0, 0)
+        with self.assertRaises(ValueError):
+            role_adjusted_score(math.inf, 50, ROLE_RANGED)
 
 
 if __name__ == "__main__":

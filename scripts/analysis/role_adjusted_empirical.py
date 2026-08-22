@@ -13,6 +13,7 @@ No function infers damage absorbed, aggro, support credit, or counterfactual kil
 from __future__ import annotations
 
 from collections.abc import Iterable
+import math
 
 ROLE_RANGED = "ranged"
 ROLE_FRONTLINE_INFANTRY = "frontline_infantry"
@@ -23,8 +24,17 @@ SUPPORTED_ROLES = frozenset(
 MINIMUM_ROLE_PEERS = 5
 
 
-def _non_negative(value: int | float, name: str) -> float:
+def _finite(value: int | float, name: str) -> float:
+    if isinstance(value, bool):
+        raise ValueError(f"{name} must be numeric, not boolean")
     number = float(value)
+    if not math.isfinite(number):
+        raise ValueError(f"{name} must be finite")
+    return number
+
+
+def _non_negative(value: int | float, name: str) -> float:
+    number = _finite(value, name)
     if number < 0:
         raise ValueError(f"{name} must be non-negative")
     return number
@@ -120,14 +130,14 @@ def midrank_percentile(
     minimum_peers: int = MINIMUM_ROLE_PEERS,
 ) -> float | None:
     """Return a deterministic 0-100 midrank percentile or None below peer gate."""
-    values = [float(item) for item in peer_values]
+    values = [_finite(item, "peer value") for item in peer_values]
     if minimum_peers < 2:
         raise ValueError("minimum_peers must be at least 2")
     if len(values) < minimum_peers:
         return None
     if not values:
         return None
-    current = float(value)
+    current = _finite(value, "value")
     lower = sum(item < current for item in values)
     equal = sum(item == current for item in values)
     if equal == 0:
@@ -152,8 +162,8 @@ def role_adjusted_score(
         return None
     if role not in SUPPORTED_ROLES:
         raise ValueError(f"unsupported role: {role}")
-    offense = float(offense_percentile)
-    defense = float(defense_percentile)
+    offense = _finite(offense_percentile, "offense_percentile")
+    defense = _finite(defense_percentile, "defense_percentile")
     if not 0 <= offense <= 100 or not 0 <= defense <= 100:
         raise ValueError("percentiles must be in [0, 100]")
     if role == ROLE_RANGED:
