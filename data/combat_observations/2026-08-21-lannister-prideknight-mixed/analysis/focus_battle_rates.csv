@@ -1,0 +1,10 @@
+battle_id,context,result,player_side,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,player_side_total_kills,player_side_kill_share
+battle_20260821_134203_lannister_prideknight_field,field,Victory,defender,19,16,23,0,3,0,1.210526,687,0.033479
+battle_20260821_135249_lannister_prideknight_field,field,Victory,attacker,37,33,50,0,4,0,1.351351,267,0.187266
+battle_20260821_140516_lannister_prideknight_field,field,Defeat,defender,39,0,53,9,30,0,1.358974,677,0.078287
+battle_20260821_172401_lannister_prideknight_field,field,Victory,defender,53,34,67,6,13,0,1.264151,500,0.134000
+battle_20260821_185306_lannister_prideknight_field,field,Victory,attacker,56,56,28,0,0,0,0.500000,181,0.154696
+battle_20260821_190900_lannister_prideknight_field,field,Victory,defender,76,67,114,1,8,0,1.500000,248,0.459677
+battle_20260821_191516_lannister_prideknight_siege_attack,siege_attack,Victory,attacker,85,82,42,0,3,0,0.494118,242,0.173554
+battle_20260821_192210_lannister_prideknight_field,field,Victory,attacker,93,90,71,0,3,0,0.763441,130,0.546154
+battle_20260821_192744_lannister_prideknight_field,field,Victory,attacker,94,78,88,0,16,0,0.936170,191,0.460733

@@ -1,0 +1,9 @@
+{
+  "active_observations": [],
+  "battle_is_independent_unit": true,
+  "cleanup_or_reengagement_joined": false,
+  "context_pooling": false,
+  "final_results": 9,
+  "offscreen_rows_inferred": false,
+  "policy": "All nine screenshots are distinct final scoreboards. Player and enemy sides remain separate; the single enemy Mallister Eagle Knight at 19:27 is not player evidence."
+}

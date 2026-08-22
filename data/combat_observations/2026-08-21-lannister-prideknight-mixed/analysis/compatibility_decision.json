@@ -1,0 +1,29 @@
+{
+  "current_batch": "combat_2026-08-21_lannister_prideknight_mixed",
+  "current_focus": "lannister_prideknight",
+  "decision": "standalone_current_focus_with_external_descriptive_candidate_contrasts",
+  "joined_battles": [],
+  "joined_sources": [],
+  "reason": "No earlier committed combat-observation batch contains exact player-side Lannister Prideknight counts with matching Realm of Thrones 1.4.x track, field context, side semantics, result state, and count fields. Candidate rows are contrasts only and are not pooled.",
+  "allowed_comparisons": [
+    "descriptive comparison with versioned Captain-neighbor distance",
+    "descriptive comparison with published Mallister Eagle Knight and Arryn Winged Knight field aggregates"
+  ],
+  "blocked_comparisons": [
+    "pooled Prideknight baseline",
+    "causal delta between candidates",
+    "universal tier assignment",
+    "field and siege pooling"
+  ],
+  "sources": [
+    {
+      "path": "data/combat_observations/2026-08-15-to-16-captain-kingsguard-mixed/analysis/candidate_similarity.csv",
+      "sha256": "d98834bca2ae05abe53ed77e6d7ccdb142859b2b5a8ada14c8881dffcd4dc4e9"
+    },
+    {
+      "path": "data/combat_observations/2026-08-12-mallister-mixed/analysis/combined_ranking_reliable.csv",
+      "sha256": "046454842812d22a1ae29595cb8c0166c6b7e2fdc4eedd5953f6c01acb5a3003"
+    }
+  ],
+  "status": "passed_scope_limited"
+}

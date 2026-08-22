@@ -1,0 +1,23 @@
+{
+  "purpose": "Run the repository Phase 2 analyzer without mutating immutable Phase 1 artifacts.",
+  "source_fields": {
+    "review_queue.csv": "uncertain_fields uses semicolon between multiple fields",
+    "troop_battle_consolidated.jsonl": "source_observation_ids and display_name_raw"
+  },
+  "temporary_derived_transform": {
+    "review_queue.csv": "semicolon to pipe delimiter only",
+    "troop_battle_consolidated.jsonl": "source_observation_ids to observation_ids; display_name_raw to one-element display_names_raw"
+  },
+  "source_sha256": {
+    "review_queue.csv": "b855d4e70ad941b5ba5340d44a5a83d5a082164535f3efb3072387382674ed48",
+    "troop_battle_consolidated.jsonl": "caabba5c03befd4ab0df4ca228f9d9f0a2688d98c9dd7d4e6ee94424d2146470"
+  },
+  "derived_sha256": {
+    "review_queue.csv": "ca32e9b48237cb7e0ae20961fe80181fc04f11fe9c625d97b4322d29ec5de0a3",
+    "troop_battle_consolidated.jsonl": "5db52837fce2707ea6043c943f965f79b2a4b080c0bd7640c1524f6fc4341797"
+  },
+  "count_values_changed": false,
+  "identities_changed": false,
+  "phase_1_files_changed": false,
+  "validated_consolidated_rows": 110
+}

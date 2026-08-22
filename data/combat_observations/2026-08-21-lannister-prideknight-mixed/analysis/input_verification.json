@@ -1,0 +1,235 @@
+{
+  "batch_id": "combat_2026-08-21_lannister_prideknight_mixed",
+  "artifact_manifest": {
+    "actual_sha256": "a88f54de58e0d158d66559be38bd0a2bee9f8534324373a0d15dcc9f85e8ae73",
+    "all_entries_verified": true,
+    "entries": 16,
+    "expected_sha256": "a88f54de58e0d158d66559be38bd0a2bee9f8534324373a0d15dcc9f85e8ae73"
+  },
+  "base64_part": {
+    "actual_sha256": "bc8b8032303bab5785b36bf3dd591963b30e928cddb007b1b4acfa87498e151c",
+    "expected_sha256": "bc8b8032303bab5785b36bf3dd591963b30e928cddb007b1b4acfa87498e151c",
+    "passed": true
+  },
+  "combined_source": {
+    "actual_sha256": "62aa7f249e53ae5747cd9a30b44b9fdab957a9f9db8674bd28639be78e1266bb",
+    "algorithm": "sha256(relative_posix_path + NUL + file_sha256 + newline), ordered by path",
+    "expected_sha256": "62aa7f249e53ae5747cd9a30b44b9fdab957a9f9db8674bd28639be78e1266bb",
+    "file_count": 9,
+    "passed": true,
+    "total_size_bytes": 19735019
+  },
+  "delivery_manifest": {
+    "actual_sha256": "06bffbb78c12559e8950a13c63aa42575e3e3b20416f05b1a570803f79feb129",
+    "all_entries_verified": true,
+    "entries": 12,
+    "expected_sha256": "06bffbb78c12559e8950a13c63aa42575e3e3b20416f05b1a570803f79feb129"
+  },
+  "external_blockers": [],
+  "frozen_model_changes": [],
+  "frozen_model_tree_sha": "768961eafbb87cc1156225db0ef60add4a299647",
+  "handoff": {
+    "actual_sha256": "a0999090cbd651230151777030c763020733706fc710718ce525d97912abeeaa",
+    "expected_sha256": "a0999090cbd651230151777030c763020733706fc710718ce525d97912abeeaa",
+    "passed": true
+  },
+  "immutable_normalized_changes": [],
+  "manifest_checks": [
+    {
+      "actual_sha256": "7ce5b9a9b344676093643c56ec38738b7f40aea667bdfe150461b814453c4723",
+      "actual_size_bytes": 1141,
+      "expected_sha256": "7ce5b9a9b344676093643c56ec38738b7f40aea667bdfe150461b814453c4723",
+      "expected_size_bytes": 1141,
+      "file": "README.md",
+      "passed": true
+    },
+    {
+      "actual_sha256": "765aea8197de574f406b0aeb446b3ae4e403cbdd5c1a4b3df3b5e84d71aeba4f",
+      "actual_size_bytes": 8316,
+      "expected_sha256": "765aea8197de574f406b0aeb446b3ae4e403cbdd5c1a4b3df3b5e84d71aeba4f",
+      "expected_size_bytes": 8316,
+      "file": "battles.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "3d7337a3eed300b783fbe25058286a91835d0c59e2437344384c762acc68208b",
+      "actual_size_bytes": 342,
+      "expected_sha256": "3d7337a3eed300b783fbe25058286a91835d0c59e2437344384c762acc68208b",
+      "expected_size_bytes": 342,
+      "file": "extraction/extraction_provenance.json",
+      "passed": true
+    },
+    {
+      "actual_sha256": "33c91732dbdeb2e700799f6fa509440a0e2511ed0975a9016151b8457a6521be",
+      "actual_size_bytes": 5004,
+      "expected_sha256": "33c91732dbdeb2e700799f6fa509440a0e2511ed0975a9016151b8457a6521be",
+      "expected_size_bytes": 5004,
+      "file": "extraction/host_vision_extraction_queue.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "e8007a33e8fa7c3c850db05a52dfb966990eef3866c3ba24e3574a97e84c716d",
+      "actual_size_bytes": 1369,
+      "expected_sha256": "e8007a33e8fa7c3c850db05a52dfb966990eef3866c3ba24e3574a97e84c716d",
+      "expected_size_bytes": 1369,
+      "file": "normalization_summary.json",
+      "passed": true
+    },
+    {
+      "actual_sha256": "fb2aa668662aa99b002d50e5f2c7245863dbd7d20a56ba050b113e6d0ea0e9e7",
+      "actual_size_bytes": 153905,
+      "expected_sha256": "fb2aa668662aa99b002d50e5f2c7245863dbd7d20a56ba050b113e6d0ea0e9e7",
+      "expected_size_bytes": 153905,
+      "file": "primary_troop_occurrences.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "90985ca7327a1a4b97885c08d3254ebacf8ebbc4b206a269d8175be79bc820a1",
+      "actual_size_bytes": 804,
+      "expected_sha256": "90985ca7327a1a4b97885c08d3254ebacf8ebbc4b206a269d8175be79bc820a1",
+      "expected_size_bytes": 804,
+      "file": "reports/aggregation_validation.csv",
+      "passed": true
+    },
+    {
+      "actual_sha256": "e06bb4a6e1e939e975bbfa13aad7cc3b677a2115db233ae0ee396ef14c91f398",
+      "actual_size_bytes": 1396,
+      "expected_sha256": "e06bb4a6e1e939e975bbfa13aad7cc3b677a2115db233ae0ee396ef14c91f398",
+      "expected_size_bytes": 1396,
+      "file": "reports/grouping_validation.csv",
+      "passed": true
+    },
+    {
+      "actual_sha256": "d406864d4a2e9f766ed4bed336401c177590070ab840365444ba2e0c147bf484",
+      "actual_size_bytes": 5767,
+      "expected_sha256": "d406864d4a2e9f766ed4bed336401c177590070ab840365444ba2e0c147bf484",
+      "expected_size_bytes": 5767,
+      "file": "reports/screenshot_deduplication_audit.csv",
+      "passed": true
+    },
+    {
+      "actual_sha256": "b855d4e70ad941b5ba5340d44a5a83d5a082164535f3efb3072387382674ed48",
+      "actual_size_bytes": 2077,
+      "expected_sha256": "b855d4e70ad941b5ba5340d44a5a83d5a082164535f3efb3072387382674ed48",
+      "expected_size_bytes": 2077,
+      "file": "review_queue.csv",
+      "passed": true
+    },
+    {
+      "actual_sha256": "21e28ed8a88f5ee375cd7c2716697449762f3b19acc344038cda24bd0fb28ed5",
+      "actual_size_bytes": 3833,
+      "expected_sha256": "21e28ed8a88f5ee375cd7c2716697449762f3b19acc344038cda24bd0fb28ed5",
+      "expected_size_bytes": 3833,
+      "file": "screenshots_manifest.csv",
+      "passed": true
+    },
+    {
+      "actual_sha256": "8d9483432fe9989e4f3d1277b79525565a0cb5ad19afc4199f392eb1f17123bf",
+      "actual_size_bytes": 4900,
+      "expected_sha256": "8d9483432fe9989e4f3d1277b79525565a0cb5ad19afc4199f392eb1f17123bf",
+      "expected_size_bytes": 4900,
+      "file": "source_inventory.csv",
+      "passed": true
+    },
+    {
+      "actual_sha256": "8a381523f7cfb8340633871582071af8ef09e1527fb7067d4ab31f52df260510",
+      "actual_size_bytes": 4582,
+      "expected_sha256": "8a381523f7cfb8340633871582071af8ef09e1527fb7067d4ab31f52df260510",
+      "expected_size_bytes": 4582,
+      "file": "source_provenance.json",
+      "passed": true
+    },
+    {
+      "actual_sha256": "caabba5c03befd4ab0df4ca228f9d9f0a2688d98c9dd7d4e6ee94424d2146470",
+      "actual_size_bytes": 49878,
+      "expected_sha256": "caabba5c03befd4ab0df4ca228f9d9f0a2688d98c9dd7d4e6ee94424d2146470",
+      "expected_size_bytes": 49878,
+      "file": "troop_battle_consolidated.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "981e703d97aba742dc6dd225ae64c82acabecbf8af6acdb7381980428d9de72d",
+      "actual_size_bytes": 216639,
+      "expected_sha256": "981e703d97aba742dc6dd225ae64c82acabecbf8af6acdb7381980428d9de72d",
+      "expected_size_bytes": 216639,
+      "file": "troop_occurrences.jsonl",
+      "passed": true
+    },
+    {
+      "actual_sha256": "9f00925622178777800fde617718d72ecb3775f6ff3a50c98b4cc913d0558325",
+      "actual_size_bytes": 2314,
+      "expected_sha256": "9f00925622178777800fde617718d72ecb3775f6ff3a50c98b4cc913d0558325",
+      "expected_size_bytes": 2314,
+      "file": "validation_report.json",
+      "passed": true
+    }
+  ],
+  "normalized_archive": {
+    "actual_sha256": "1ff30bba3440c89a338cbbdbe9a78c76f0eaf912bae2d5504ee9f05f42d82456",
+    "expected_sha256": "1ff30bba3440c89a338cbbdbe9a78c76f0eaf912bae2d5504ee9f05f42d82456",
+    "name": "lannister_prideknight_mixed_2026-08-21.tar.xz",
+    "passed": true,
+    "safe_preflight": {
+      "members": 20,
+      "regular_files": 17,
+      "total_uncompressed_bytes": 463855
+    }
+  },
+  "normalized_summary": {
+    "battle_context_counts": {
+      "field": 8,
+      "siege_attack": 1
+    },
+    "battles": 9,
+    "consolidated_rows": 110,
+    "occurrences": 155,
+    "ordinary_troop_labels": 40,
+    "primary_occurrences": 110,
+    "primary_rows_fully_consolidated": true,
+    "queued_rows_excluded_from_rankings": true,
+    "rankings_only_include_primary_troops": true,
+    "review_items": 5
+  },
+  "pipeline_mode": "offline-existing",
+  "schema_adapter": {
+    "count_values_changed": false,
+    "documented_path": "analysis/normalized_schema_adapter.json",
+    "phase_1_files_changed": false,
+    "temporary_derived_input_only": true
+  },
+  "schema_version": "2.0.0",
+  "source_archive": {
+    "actual_sha256": "62aa7f249e53ae5747cd9a30b44b9fdab957a9f9db8674bd28639be78e1266bb",
+    "actual_size_bytes": 19735019,
+    "expected_sha256": "62aa7f249e53ae5747cd9a30b44b9fdab957a9f9db8674bd28639be78e1266bb",
+    "expected_size_bytes": 19735019,
+    "limits_visual_rereview": false,
+    "locally_verified": true,
+    "repository_addressable": false,
+    "repository_path": "",
+    "retention_policy": "optional_after_verified_normalization",
+    "retention_status": "locally_verified",
+    "verification_method": "per_file_sha256_size_and_combined_identity_digest"
+  },
+  "source_provenance_checks": [
+    {
+      "expected": "62aa7f249e53ae5747cd9a30b44b9fdab957a9f9db8674bd28639be78e1266bb",
+      "field": "normalization_summary.json:source_directory_sha256",
+      "passed": true,
+      "recorded": "62aa7f249e53ae5747cd9a30b44b9fdab957a9f9db8674bd28639be78e1266bb"
+    },
+    {
+      "expected": "62aa7f249e53ae5747cd9a30b44b9fdab957a9f9db8674bd28639be78e1266bb",
+      "field": "validation_report.json:source_directory_sha256",
+      "passed": true,
+      "recorded": "62aa7f249e53ae5747cd9a30b44b9fdab957a9f9db8674bd28639be78e1266bb"
+    },
+    {
+      "expected": 19735019,
+      "field": "validation_report.json:source_size_bytes",
+      "passed": true,
+      "recorded": 19735019
+    }
+  ],
+  "status": "passed"
+}
