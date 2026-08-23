@@ -1,0 +1,32 @@
+{
+  "batch_id": "2026-08-23-mallister-raven-free-field-extension",
+  "battle_count": 6,
+  "combined_battles": 10,
+  "combined_reliable_rows": 7,
+  "combined_reviewed_ordinary_occurrences": 90,
+  "compatible_join_passed": true,
+  "complete_partition": true,
+  "confirmed_identities": 17,
+  "distinct_ordinary_labels": 21,
+  "extension_archive_sha256_verified": true,
+  "extension_archive_size_bytes": 8616,
+  "extension_manifest_files_verified": 16,
+  "frozen_models_changed": false,
+  "identity_corrections": 6,
+  "insufficient_rows": 18,
+  "limitations": [
+    "Opponent composition and pressure differ across campaign battles.",
+    "Three open-field scoreboards include named garrisons and retain medium context confidence.",
+    "The join is descriptive and does not attribute causality to Raven removal or to an individual troop."
+  ],
+  "numeric_review_items": 0,
+  "player_side_ordinary_occurrences": 59,
+  "pressure_margin_final_battles": 6,
+  "prior_archive_sha256_verified": true,
+  "prior_manifest_files_verified": 14,
+  "raw_source_zip_retained": false,
+  "reliable_rows": 3,
+  "source_zip_hash_declarations_consistent": true,
+  "status": "passed",
+  "unresolved_identities": 4
+}

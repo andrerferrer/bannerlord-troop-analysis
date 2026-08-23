@@ -1,0 +1,7 @@
+battle_id,captured_at,result,context_confidence,player_deployed,player_remaining,allied_retention,opponent_deployed,opponent_remaining,enemy_retention,pressure_margin,source_image_sha256
+battle_20260823_020338_mallister_raven_free_field_extension,2026-08-23T02:03:38-03:00,Defeat,medium,220,0,0.000000,570,136,0.238596,-0.238596,1ce7f887a5dae5b38bc2e1d8b3b556392dd21a0c550e29eda3fef50e88076f7d
+battle_20260823_021000_mallister_raven_free_field_extension,2026-08-23T02:10:00-03:00,Defeat,medium,220,0,0.000000,585,392,0.670085,-0.670085,d1fe082d4c71229bae69befd81b3b59773586d7d6efe3b0e5243ce32aacd48cb
+battle_20260823_021754_mallister_raven_free_field_extension,2026-08-23T02:17:54-03:00,Victory,high,220,129,0.586364,380,0,0.000000,0.586364,13f52e20808d70de3eaecd65a5098ee448462c27e6b62ee41526ff59d4b21dcf
+battle_20260823_022439_mallister_raven_free_field_extension,2026-08-23T02:24:39-03:00,Victory,high,181,161,0.889503,244,0,0.000000,0.889503,10d95ef56e3d05cee888dead73b69243369e1e673024088a802b2ec75757afb0
+battle_20260823_023305_mallister_raven_free_field_extension,2026-08-23T02:33:05-03:00,Defeat,high,202,0,0.000000,558,327,0.586022,-0.586022,3e96d1e8a80c179c2ce93532a309b4bdabaa036dc4a48aeb82a9d39a612fdb45
+battle_20260823_023849_mallister_raven_free_field_extension,2026-08-23T02:38:49-03:00,Victory,high,202,155,0.767327,370,23,0.062162,0.705165,a57532bc0391268a466ad29558855b81962a44b4dbc0dd30de2cbc61bb398203
