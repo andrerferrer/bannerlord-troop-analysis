@@ -1,0 +1,20 @@
+{
+  "all_primary_arithmetic_passed": true,
+  "all_visible_complete_rows_normalized": true,
+  "battle_count": 6,
+  "consolidated_rows": 59,
+  "frozen_models_changed": false,
+  "historical_deduplication_completed": true,
+  "image_count": 6,
+  "observation_count": 77,
+  "ordinary_troop_labels": 21,
+  "primary_troop_occurrences": 59,
+  "review_queue_count": 0,
+  "schema_version": "2.0.0",
+  "source_sha256": "46dddffb5741055396f5921421cf5bdc97bb62579f4275a4c807eb1506e4faa4",
+  "source_size_bytes": 13439943,
+  "status": "passed",
+  "track_context_side_boundaries_passed": true,
+  "validation_errors": [],
+  "visual_same_battle_audit_completed": true
+}
