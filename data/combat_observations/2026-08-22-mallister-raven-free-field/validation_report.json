@@ -1,0 +1,19 @@
+{
+  "battle_count": 4,
+  "checks": [
+    "all included troop arithmetic satisfies deployed=survivors+deaths+wounded",
+    "party and side totals preserved",
+    "player and enemy sides separate",
+    "field context preserved",
+    "all complete visible player-side ordinary troops included",
+    "partial clipped row excluded without inference",
+    "offense and retention components kept separate",
+    "pressure margin computed only from final side totals"
+  ],
+  "image_count": 4,
+  "observation_count": 32,
+  "primary_troop_occurrences": 32,
+  "review_queue_count": 1,
+  "status": "passed",
+  "validation_errors": []
+}

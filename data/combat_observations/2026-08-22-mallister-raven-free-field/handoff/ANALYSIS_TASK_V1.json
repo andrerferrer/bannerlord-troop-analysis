@@ -1,0 +1,27 @@
+{
+  "protocol": "bannerlord-analysis-task",
+  "version": 1,
+  "task_id": "combat_2026-08-22_mallister_raven_free_field",
+  "status": "pending",
+  "branch": "normalize/2026-08-22-mallister-raven-free-field",
+  "handoff_path": "data/combat_observations/2026-08-22-mallister-raven-free-field/handoff/ANALYSIS_PROMPT.md",
+  "normalization_commit": "987830f6388d357144bd8fd33ae6aac28d8e470f",
+  "source_sha256": "8b93bafe68a52007ebe2012273ade0c5a1e6641c7d0896b65f6db3093d0e47cd",
+  "normalized_archive_sha256": "f79302fd55e000296c8ee41b57c06aa9355bd9dce523ca1ebbaf1c16c567f0a2",
+  "required_actions": [
+    "verify_handoff_hashes",
+    "preserve_normalized_inputs",
+    "complete_review_layer",
+    "resolve_canonical_identities",
+    "generate_analysis_outputs",
+    "analyze_all_visible_player_side_ordinary_troops",
+    "calculate_pressure_margin",
+    "confirm_frozen_models_unchanged",
+    "validate_and_merge"
+  ],
+  "completion": {
+    "action": "merge",
+    "merge_method": "squash"
+  },
+  "blockers": []
+}
