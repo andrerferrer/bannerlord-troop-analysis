@@ -1,0 +1,23 @@
+{
+  "protocol": "bannerlord-analysis-task",
+  "version": 1,
+  "task_id": "2026-08-23-mallister-raven-free-field-extension",
+  "status": "pending",
+  "branch": "normalize/2026-08-23-mallister-raven-free-extension",
+  "handoff_path": "data/combat_observations/2026-08-23-mallister-raven-free-field-extension/handoff/ANALYSIS_PROMPT.md",
+  "normalization_commit": "c61c1caf99eba6546cefa40efd79c071383bcb53",
+  "required_actions": [
+    "verify_handoff_hashes",
+    "complete_review_layer",
+    "generate_batch_wide_analysis_outputs",
+    "generate_compatible_ten_battle_projection",
+    "generate_victory_defeat_splits",
+    "generate_focus_deep_dive",
+    "validate_and_merge"
+  ],
+  "completion": {
+    "action": "merge",
+    "merge_method": "squash"
+  },
+  "blockers": []
+}
