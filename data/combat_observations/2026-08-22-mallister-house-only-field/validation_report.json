@@ -1,0 +1,20 @@
+{
+  "arithmetic_checks": "passed",
+  "battle_count": 4,
+  "consolidated_rows": 33,
+  "context_boundary": "passed",
+  "deduplication_decisions": {
+    "accepted_primary": 4
+  },
+  "image_count": 4,
+  "observation_count": 52,
+  "ordinary_troop_coverage": "all visible player-side ordinary troops included exactly once",
+  "player_enemy_boundary": "passed",
+  "primary_troop_occurrences": 33,
+  "review_queue_count": 0,
+  "schema_version": "2.1.0-compatible",
+  "source_zip_sha256": "2ffab83ffa5b8a07ec5c16b3fa9a5e92da71f4dc8cc6892f266dfcd6089d8f79",
+  "source_zip_size_bytes": 6423817,
+  "status": "passed",
+  "validation_errors": []
+}
