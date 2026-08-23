@@ -1,0 +1,18 @@
+{
+  "all_visible_complete_rows_partitioned": true,
+  "batch_id": "2026-08-22-mallister-raven-free-field",
+  "battle_count": 4,
+  "distinct_ordinary_labels": 13,
+  "frozen_models_changed": false,
+  "insufficient_rows": 13,
+  "limitations": [
+    "All rows remain below the five-battle gate.",
+    "Campaign composition and opponent differences prevent causal attribution."
+  ],
+  "player_side_ordinary_occurrences": 31,
+  "pressure_margin_final_battles": 4,
+  "reliable_rows": 0,
+  "review_items": 2,
+  "review_items_excluded": 2,
+  "status": "passed"
+}

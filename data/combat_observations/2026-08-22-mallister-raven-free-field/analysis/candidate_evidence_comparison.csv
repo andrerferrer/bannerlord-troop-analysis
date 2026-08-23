@@ -1,0 +1,4 @@
+display_name,raven_present_battles,raven_present_deployed,raven_present_kills_per_deployed,raven_present_retention,raven_free_battles,raven_free_deployed,raven_free_kills_per_deployed,raven_free_retention,offensive_rate_ratio_raven_free_to_present,retention_delta_pp
+Mallister Eagle Knight [T6],5,159,0.641509,0.823899,4,234,1.290598,0.559829,2.011815,-26.407031
+Mallister House Guard [T5],5,153,1.169935,0.934641,4,233,1.180258,0.412017,1.008823,-52.262336
+Mallister Elite Archer [T5],1,52,1.173077,1.000000,3,129,2.341085,0.488372,1.995679,-51.162791

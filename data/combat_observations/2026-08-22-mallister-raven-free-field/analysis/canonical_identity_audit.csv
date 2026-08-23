@@ -1,0 +1,14 @@
+display_name,observed_track,canonical_troop_id,match_status,resolution_method
+Lannister Longbowman [T5],realm_of_thrones,lannister_longbowman,confirmed_id,carried_forward_from_versioned Realm of Thrones audits
+Lannister Officer [T5],realm_of_thrones,lannister_officer,provisional,provisional exact display slug pending audit
+Mallister Archer [T4],realm_of_thrones,mallister_archer,confirmed_id,carried_forward_from_versioned Realm of Thrones audits
+Mallister Eagle Knight [T6],realm_of_thrones,mallister_knight,confirmed_id,carried_forward_from_versioned Realm of Thrones audits
+Mallister Elite Archer [T5],realm_of_thrones,mallister_elite_archer,confirmed_id,carried_forward_from_versioned Realm of Thrones audits
+Mallister Footman [T3],realm_of_thrones,mallister_footman,confirmed_id,carried_forward_from_versioned Realm of Thrones audits
+Mallister Horseman [T4],realm_of_thrones,mallister_rider,confirmed_id,carried_forward_from_versioned Realm of Thrones audits
+Mallister House Guard [T5],realm_of_thrones,mallister_houseguard,confirmed_id,carried_forward_from_versioned Realm of Thrones audits
+Mallister Knight [T5],realm_of_thrones,mallister_horseman,confirmed_id,carried_forward_from_versioned Realm of Thrones audits
+Mallister Levy [T2],realm_of_thrones,mallister_levy,provisional,provisional exact display slug pending audit
+Mallister Man at Arms [T4],realm_of_thrones,mallister_man_at_arms,confirmed_id,carried_forward_from_versioned Realm of Thrones audits
+Riverlands Archer [T3],realm_of_thrones,river_archer,confirmed_id,carried_forward_from_versioned Realm of Thrones audits
+Riverlands Bowman [T2],realm_of_thrones,river_bowman,provisional,provisional exact display slug pending audit

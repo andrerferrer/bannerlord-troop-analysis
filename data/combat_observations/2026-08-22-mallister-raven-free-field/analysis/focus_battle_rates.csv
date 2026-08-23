@@ -1,0 +1,12 @@
+battle_id,captured_at,result,display_name,deployed,survivors,kills,deaths,wounded,kills_per_deployed,retention_rate,pressure_margin
+battle_20260822_195241_mallister_raven_free_field,2026-08-22T19:52:41-03:00,Victory,Mallister Eagle Knight [T6],56,30,120,3,23,2.142857,0.535714,0.250000
+battle_20260822_201143_mallister_raven_free_field,2026-08-22T20:11:43-03:00,Victory,Mallister Eagle Knight [T6],62,43,98,4,15,1.580645,0.693548,0.800885
+battle_20260822_201904_mallister_raven_free_field,2026-08-22T20:19:04-03:00,Victory,Mallister Eagle Knight [T6],58,58,37,0,0,0.637931,1.000000,0.954751
+battle_20260822_203227_mallister_raven_free_field,2026-08-22T20:32:27-03:00,Defeat,Mallister Eagle Knight [T6],58,0,47,12,46,0.810345,0.000000,-0.200342
+battle_20260822_201143_mallister_raven_free_field,2026-08-22T20:11:43-03:00,Victory,Mallister Elite Archer [T5],12,12,6,0,0,0.500000,1.000000,0.800885
+battle_20260822_201904_mallister_raven_free_field,2026-08-22T20:19:04-03:00,Victory,Mallister Elite Archer [T5],52,51,24,0,1,0.461538,0.980769,0.954751
+battle_20260822_203227_mallister_raven_free_field,2026-08-22T20:32:27-03:00,Defeat,Mallister Elite Archer [T5],65,0,272,14,51,4.184615,0.000000,-0.200342
+battle_20260822_195241_mallister_raven_free_field,2026-08-22T19:52:41-03:00,Victory,Mallister House Guard [T5],61,0,91,11,50,1.491803,0.000000,0.250000
+battle_20260822_201143_mallister_raven_free_field,2026-08-22T20:11:43-03:00,Victory,Mallister House Guard [T5],54,45,90,0,9,1.666667,0.833333,0.800885
+battle_20260822_201904_mallister_raven_free_field,2026-08-22T20:19:04-03:00,Victory,Mallister House Guard [T5],54,51,32,0,3,0.592593,0.944444,0.954751
+battle_20260822_203227_mallister_raven_free_field,2026-08-22T20:32:27-03:00,Defeat,Mallister House Guard [T5],64,0,62,7,57,0.968750,0.000000,-0.200342
