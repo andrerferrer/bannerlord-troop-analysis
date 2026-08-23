@@ -1,0 +1,26 @@
+{
+  "checks": {
+    "battle_id_overlap": [],
+    "field_context_equal": true,
+    "game_track_equal": true,
+    "game_version_equal": true,
+    "player_party_boundary_preserved": true,
+    "protocol_label": "raven_free",
+    "protocol_label_equal": true,
+    "source_image_hash_overlap": []
+  },
+  "combined_battles": 10,
+  "combined_distinct_labels": 21,
+  "combined_reviewed_ordinary_occurrences": 90,
+  "compatible": true,
+  "extension_batch": "2026-08-23-mallister-raven-free-field-extension",
+  "join_scope": "Raven-free Realm of Thrones 1.4.x field cohort projection",
+  "limitations": [
+    "Opponent composition and pressure differ across campaign battles.",
+    "Three open-field scoreboards include named garrisons and retain medium context confidence.",
+    "The join is descriptive and does not attribute causality to Raven removal or to an individual troop."
+  ],
+  "medium_context_confidence_battles": 3,
+  "prior_batch": "2026-08-22-mallister-raven-free-field",
+  "status": "compatible_descriptive_join"
+}

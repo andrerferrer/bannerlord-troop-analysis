@@ -1,0 +1,7 @@
+display_name,observed_canonical_troop_id,observed_identity_status,reviewed_canonical_troop_id,reviewed_identity_status,decision,source
+Braavosi Footman [T2],braavosi_footman,provisional,,unresolved,analysis-layer identity correction; normalized numeric evidence unchanged,data/realm_of_thrones/audit/realm_of_thrones_troops.csv
+Dornish Archer [T3],dornish_archer,provisional,,unresolved,analysis-layer identity correction; normalized numeric evidence unchanged,data/realm_of_thrones/audit/realm_of_thrones_troops.csv
+Dornish Bowman [T2],dornish_bowman,provisional,,unresolved,analysis-layer identity correction; normalized numeric evidence unchanged,data/realm_of_thrones/audit/realm_of_thrones_troops.csv
+Lannister Officer [T5],lannister_officer,provisional,lannister_officer,confirmed_id,analysis-layer identity correction; normalized numeric evidence unchanged,data/realm_of_thrones/audit/realm_of_thrones_troops.csv
+Mallister Levy [T2],mallister_levy,provisional,mallister_levy,confirmed_id,analysis-layer identity correction; normalized numeric evidence unchanged,data/realm_of_thrones/audit/realm_of_thrones_troops.csv
+Riverlands Bowman [T2],river_bowman,provisional,river_bowman,confirmed_id,analysis-layer identity correction; normalized numeric evidence unchanged,data/realm_of_thrones/audit/realm_of_thrones_troops.csv

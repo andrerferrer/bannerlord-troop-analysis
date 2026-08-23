@@ -1,0 +1,22 @@
+{
+  "batch_id": "2026-08-23-mallister-raven-free-field-extension",
+  "battles": 6,
+  "consolidated_rows": 59,
+  "defeats": 3,
+  "extractor_mode": "host-vision",
+  "extractor_model": "GPT-5.6 Pro",
+  "field_battles": 6,
+  "game_track": "realm_of_thrones",
+  "game_version": "1.4.x",
+  "historical_duplicates": 0,
+  "internal_duplicates": 0,
+  "observations": 77,
+  "ordinary_troop_labels": 21,
+  "primary_troop_occurrences": 59,
+  "review_queue": 0,
+  "schema_version": "2.0.0",
+  "screenshots": 6,
+  "source_sha256": "46dddffb5741055396f5921421cf5bdc97bb62579f4275a4c807eb1506e4faa4",
+  "source_size_bytes": 13439943,
+  "victories": 3
+}

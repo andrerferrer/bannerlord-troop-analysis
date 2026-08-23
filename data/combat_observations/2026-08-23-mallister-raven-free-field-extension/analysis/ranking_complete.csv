@@ -1,0 +1,22 @@
+context,rank,display_name,canonical_troop_id,identity_status,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,retention_rate,impact_rank,verified_player_side_total_kills,player_side_kill_share,share_adjusted_impact,death_rate,casualty_rate,reliability_status,more_battles_needed,more_deployed_needed
+field,1,Lannister Longbowman [T5],lannister_longbowman,confirmed_id,3,3,1,10,0,2,0,3.333333,0.333333,7,974,0.010267,0.034223,0.000000,0.666667,insufficient_evidence,2,17
+field,2,Lannister Officer [T5],lannister_officer,confirmed_id,4,4,1,12,0,3,0,3.000000,0.250000,9,1249,0.009608,0.028823,0.000000,0.750000,insufficient_evidence,1,16
+field,3,Riverlands Soldier [T3],river_soldier,confirmed_id,1,1,1,3,0,0,0,3.000000,1.000000,5,244,0.012295,0.036885,0.000000,0.000000,insufficient_evidence,4,19
+field,4,Riverlands Elite Archer [T4],river_elite_archer,confirmed_id,2,4,2,9,0,2,0,2.250000,0.500000,6,578,0.015571,0.035035,0.000000,0.500000,insufficient_evidence,3,16
+field,5,Riverlands Man at Arms [T4],river_man_at_arms,confirmed_id,2,2,1,4,0,1,0,2.000000,0.500000,12,578,0.006920,0.013841,0.000000,0.500000,insufficient_evidence,3,18
+field,6,Mallister Man at Arms [T4],mallister_man_at_arms,confirmed_id,3,12,1,22,2,9,0,1.833333,0.083333,4,1005,0.021891,0.040133,0.166667,0.916667,insufficient_evidence,2,8
+field,7,Riverlands Archer [T3],river_archer,confirmed_id,3,7,4,12,2,1,0,1.714286,0.571429,11,822,0.014599,0.025026,0.285714,0.428571,insufficient_evidence,2,13
+field,8,Mallister Elite Archer [T5],mallister_elite_archer,confirmed_id,6,401,198,676,38,165,0,1.685786,0.493766,1,1827,0.370005,0.623750,0.094763,0.506234,reliable,0,0
+field,9,Riverlands Bowman [T2],river_bowman,confirmed_id,2,5,4,8,0,1,0,1.600000,0.800000,10,475,0.016842,0.026947,0.000000,0.200000,insufficient_evidence,3,15
+field,10,Riverlands Cavalry [T5],river_calvary,confirmed_id,2,2,1,3,1,0,0,1.500000,0.500000,15,578,0.005190,0.007785,0.500000,0.500000,insufficient_evidence,3,18
+field,11,Mallister Archer [T4],mallister_archer,confirmed_id,3,15,5,22,3,7,0,1.466667,0.333333,8,1005,0.021891,0.032106,0.200000,0.666667,insufficient_evidence,2,5
+field,12,Mallister House Guard [T5],mallister_houseguard,confirmed_id,6,330,75,474,52,203,0,1.436364,0.227273,2,1827,0.259442,0.372653,0.157576,0.772727,reliable,0,0
+field,13,Dornish Bowman [T2],,unresolved,2,4,2,5,0,2,0,1.250000,0.500000,13,578,0.008651,0.010813,0.000000,0.500000,insufficient_evidence,3,16
+field,14,Mallister Eagle Knight [T6],mallister_knight,confirmed_id,6,325,109,382,47,169,0,1.175385,0.335385,3,1827,0.209086,0.245756,0.144615,0.664615,reliable,0,0
+field,15,Braavosi Footman [T2],,unresolved,1,1,0,1,0,1,0,1.000000,0.000000,17,231,0.004329,0.004329,0.000000,1.000000,insufficient_evidence,4,19
+field,16,Broken Man [T1],,unresolved,1,1,0,1,0,1,0,1.000000,0.000000,19,244,0.004098,0.004098,0.000000,1.000000,insufficient_evidence,4,19
+field,17,Dornish Archer [T3],,unresolved,1,1,0,1,0,1,0,1.000000,0.000000,18,231,0.004329,0.004329,0.000000,1.000000,insufficient_evidence,4,19
+field,18,Mallister Knight [T5],mallister_horseman,confirmed_id,1,2,2,2,0,0,0,1.000000,1.000000,14,244,0.008197,0.008197,0.000000,0.000000,insufficient_evidence,4,18
+field,19,Mallister Levy [T2],mallister_levy,confirmed_id,3,3,0,2,0,3,0,0.666667,0.000000,20,1005,0.001990,0.001327,0.000000,1.000000,insufficient_evidence,2,17
+field,20,Mallister Horseman [T4],mallister_rider,confirmed_id,4,26,4,12,9,13,0,0.461538,0.153846,16,1249,0.009608,0.004434,0.346154,0.846154,insufficient_evidence,1,0
+field,21,Mallister Footman [T3],mallister_footman,confirmed_id,3,10,1,3,3,6,0,0.300000,0.100000,21,974,0.003080,0.000924,0.300000,0.900000,insufficient_evidence,2,10
