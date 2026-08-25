@@ -1,0 +1,21 @@
+{
+  "empirical": false,
+  "evidence_basis": "xml_structural",
+  "generator": "scripts/analysis/map_rot_low_level_armor_outliers.py",
+  "methodology": "docs/methodology/009_rot_low_level_armor_outlier_screen.md",
+  "outputs": {
+    "low_level_armor_map.csv": {
+      "rows": 427,
+      "sha256": "57b8a714197457cb674daf6f130a5ff45a14ce63041b8ece8a41114097d7f3c2"
+    },
+    "review_queue.csv": {
+      "rows": 1,
+      "sha256": "733459e364a8ff60507a1387a0fb21917dbad380af0aa5069fa417d82efe0e14"
+    }
+  },
+  "source": {
+    "path": "analysis_pack/realm_of_thrones/realm_of_thrones_troop_equipment_audit.csv",
+    "sha256": "e08edca636e27df34fbb00fb7d6fc6f83f974846374fb286740460aa540a678f"
+  },
+  "track": "realm_of_thrones"
+}
