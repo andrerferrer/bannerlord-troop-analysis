@@ -1,0 +1,428 @@
+operator_tier_label,level,body_zone_rank,body_zone_percentile,body_zone_band_median,body_zone_band_size,troop_id,troop_name,culture,default_group,tree_tier,roster_count,body_slot_armor,body_zone_armor,arm_zone_armor,head_zone_armor,leg_zone_armor,shield_hp,shield_armor,body_item_ids,evidence_basis,empirical
+T2,11,1,100,22.50,114,lannister_levy,Lannister Levy,vlandia,Infantry,2,1,42,42,6,32,20,305,1,lannister_light_armor,xml_structural,false
+T2,11,2,99.12,22.50,114,grafton_levy,Grafton Levy,vale,Infantry,2,1,36,36,10,36,22,280,8,grafton_armor,xml_structural,false
+T2,11,2,99.12,22.50,114,westerling_levy,Westerling Levy,vlandia,Infantry,2,1,36,36,10,36,22,280,8,westerling_armor,xml_structural,false
+T2,11,2,99.12,22.50,114,celtigar_levy,Celtigar Levy,dragonstone,Infantry,2,1,36,36,8,36,29,0,0,celtigar_armor,xml_structural,false
+T2,11,2,99.12,22.50,114,dayne_levy,Dayne Levy,aserai,Infantry,2,1,36,36,8,34,20,305,1,dayne_armor3,xml_structural,false
+T2,11,6,95.61,22.50,114,tarth_militia,Tarth Militia,stormlands,Infantry,2,1,34,34,9,27,18,220,1,tarth_armor,xml_structural,false
+T2,11,7,94.74,22.50,114,golden_recruit,Golden Company Recruit,volantine,Infantry,1,2,32,32,8,37,29,0,0,golden_company_armor3,xml_structural,false
+T2,11,7,94.74,22.50,114,tarly_footman,Tarly Footman,reach,Infantry,2,1,32,32,8,19,14,0,0,tarly_light_armor,xml_structural,false
+T2,11,9,92.98,22.50,114,stark_levy,Stark Levy,battania,Infantry,2,1,29,29,8,19,24,215,1,north_leather,xml_structural,false
+T2,11,10,92.11,22.50,114,freehouses_levy,Karstark Levy,battania,Infantry,2,1,28,28,20,0,20,205,10,dragonstone_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,umber_levy,Umber Levy,battania,Infantry,2,1,28,28,20,0,20,305,1,west_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,mormont_woodswoman,Mormont Woodswoman,battania,Infantry,2,1,28,28,16,22,20,0,0,reach_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,arryn_levy,Arryn Levy,vale,Infantry,2,1,28,28,12,0,29,280,8,arryn_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,baratheon_footman,Baratheon Footman,stormlands,Infantry,2,1,28,28,12,26,17,220,1,baratheon_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,blackwood_levy,Blackwood Levy,river,Infantry,2,1,28,28,12,36,20,205,10,dragonstone_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,bolton_levy,Bolton Levy,battania,Infantry,2,1,28,28,12,0,20,205,10,dragonstone_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,bracken_levy,Bracken Levy,river,Infantry,2,1,28,28,12,37,20,280,8,stormlands_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,casterly_guard,Casterly Rock Guard,vlandia,Infantry,1,1,28,28,12,18,20,400,8,lannister_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,cerwyn_levy,Cerwyn Levy,battania,Infantry,2,1,28,28,12,19,20,215,1,north_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,clegane_levy,Clegane Levy,vlandia,Infantry,2,1,28,28,12,0,20,305,1,dragonstone_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,crownlands_bowman,Crownlands Bowman,crownlands,Ranged,2,1,28,28,12,0,14,0,0,stormlands_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,crownlands_levy,Crownlands Levy,crownlands,Infantry,2,1,28,28,12,11,14,0,0,stormlands_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,dondarion_levy,Dondarrion Levy,stormlands,Infantry,2,1,28,28,12,27,17,220,1,north_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,dragonstone_footman,Dragonstone Footman,dragonstone,Infantry,2,1,28,28,12,2,20,0,0,dragonstone_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,frey_levy,Frey Levy,river,Infantry,2,1,28,28,12,0,20,205,10,north_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,glover_levy,Glover Levy,battania,Infantry,2,1,28,28,12,19,20,225,1,west_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,greyjoy_footman,Greyjoy Footman,sturgia,Infantry,2,1,28,28,12,35,28,0,0,greyjoy_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,harlaw_levy,Harlaw Levy,sturgia,Infantry,2,1,28,28,12,19,20,0,0,harlaw_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,hightower_levy,Hightower Levy,reach,Infantry,2,1,28,28,12,36,14,0,0,reach_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,lyseni_footman,Lyseni Footman,lyseni,Infantry,2,1,28,28,12,7,12,240,1,lys_light_armor,xml_structural,false
+T2,11,10,92.11,22.50,114,myrish_footman,Myrish Footman,myrish,Infantry,2,1,28,28,12,20,12,0,0,myr_light_armor,xml_structural,false
+T2,11,10,92.11,22.50,114,nightswatch_soldier,Night's Watch Soldier,nightswatch,Infantry,2,1,28,28,12,0,29,0,0,nightswatch_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,norvos_bowman,Norvoshi Bowman,norvos,Ranged,2,1,28,28,12,0,20,0,0,west_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,norvos_footman,Norvoshi Footman,norvos,Infantry,2,1,28,28,12,6,20,215,1,west_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,reach_bowman,Reach Bowman,reach,Ranged,2,1,28,28,12,0,14,0,0,reach_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,reach_levy,Reach Levy,reach,Infantry,2,1,28,28,12,11,14,0,0,reach_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,river_footman,Riverlands Footman,river,Infantry,2,1,28,28,12,8,14,205,10,riverlands_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,royce_footman,Royce Footman,vale,Infantry,2,1,28,28,12,0,29,280,8,stormlands_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,stormlands_bowman,Stormlands Bowman,stormlands,Ranged,2,1,28,28,12,6,17,0,0,baratheon_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,stormlands_levy,Stormlands Levy,stormlands,Infantry,2,1,28,28,12,0,17,220,1,stormlands_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,summer_footman,Summer Isles Footman,summer,Infantry,2,1,28,28,12,0,12,0,0,step_gambeson4,xml_structural,false
+T2,11,10,92.11,22.50,114,targaryen_levy,Valyrian Levy,valyrian,Infantry,2,1,28,28,12,36,20,0,0,dragonstone_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,tully_footman,Tully Footman,river,Infantry,2,1,28,28,12,35,20,205,10,riverlands_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,tyrell_footman,Tyrell Footman,reach,Infantry,2,1,28,28,12,19,14,0,0,reach_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,tyroshi_footman,Tyroshi Footman,tyroshi,Infantry,2,1,28,28,12,33,12,0,0,tyr_light_armor,xml_structural,false
+T2,11,10,92.11,22.50,114,vale_footman,Vale Footman,vale,Infantry,2,1,28,28,12,0,12,0,0,vale_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,velaryon_shipman,Velaryon Shipmate,dragonstone,Infantry,2,1,28,28,12,38,28,0,0,riverlands_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,yiti_footman,Yi Ti Footman,yiti,Infantry,2,1,28,28,12,6,20,0,0,yiti_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,yronwood_levy,Yronwood Levy,aserai,Infantry,2,1,28,28,12,37,20,345,1,stormlands_gambeson,xml_structural,false
+T2,11,10,92.11,22.50,114,freefolk_bowman,Free Folk Bowman,freefolk,Ranged,2,1,28,28,10,25,28,0,0,wildling_armor1,xml_structural,false
+T2,11,10,92.11,22.50,114,freefolk_thenn_son,Freefolk Son of Thenn,freefolk,Infantry,1,1,28,28,10,0,28,0,0,wildling_armor1,xml_structural,false
+T2,11,10,92.11,22.50,114,freefolk_warrior,Free Folk Warrior,freefolk,Infantry,2,1,28,28,10,25,28,300,4,wildling_armor1,xml_structural,false
+T2,11,10,92.11,22.50,114,mallister_levy,Mallister Levy,river,Infantry,2,1,28,28,10,38,22,280,8,mallister_armor,xml_structural,false
+T2,11,10,92.11,22.50,114,martell_levy,Martell Levy,aserai,Infantry,2,1,28,28,10,25,18,345,1,dorne_armor,xml_structural,false
+T2,11,10,92.11,22.50,114,whiteharbor_levy,Manderly Levy,battania,Infantry,2,1,28,28,10,19,22,215,1,manderly_leather_armor,xml_structural,false
+T2,11,10,92.11,22.50,114,qohorik_footman,Qohorik Footman,qohorik,Infantry,2,1,28,28,9,37,21,365,1,qohorik_armor4,xml_structural,false
+T2,11,57,50.88,22.50,114,sarnor_footman,Sarnori Footman,sarnor,Infantry,2,1,25,25,6,0,18,350,1,sarnor_tunic,xml_structural,false
+T2,11,58,50,22.50,114,volantine_footman,Volantene Footman,volantine,Infantry,2,1,20,20,5,23,17,0,0,volantis_tunic,xml_structural,false
+T2,11,59,49.12,22.50,114,aserai_tribesman,Aserai Tribesman,aserai,Infantry,2,3,16,18,13.33,6,14,160,1,desert_padded_cloth,xml_structural,false
+T2,11,59,49.12,22.50,114,dragonstone_noble_recruit,Dragonstone Noble's Son,dragonstone,Infantry,1,1,15,18,6,0,17,0,0,dragonstone_garb,xml_structural,false
+T2,11,59,49.12,22.50,114,stormlands_noble_recruit,Stormlands Noble's Son,stormlands,Infantry,1,1,15,18,6,0,17,0,0,stormlands_garb,xml_structural,false
+T2,11,59,49.12,22.50,114,valyrian_noble_recruit,Valyrian Noble's Son,valyrian,Infantry,1,1,15,18,6,0,17,0,0,valyrian_garb,xml_structural,false
+T2,11,63,45.61,22.50,114,galloglass_tier_1,Skene,battania,Infantry,1,1,14,17,12,12,11,215,1,battania_woodland_outfit,xml_structural,false
+T2,11,64,44.74,22.50,114,nord_ungmann,Nord Scion,nord,Infantry,1,3,15,16.33,7,7,8,360,4,heavy_gambeson_armor_plain,xml_structural,false
+T2,11,65,43.86,22.50,114,company_of_the_boar_tier_1,Boar Novice,vlandia,Ranged,1,1,11,16,5,9,10,225,1,woven_leather_vest,xml_structural,false
+T2,11,66,42.98,22.50,114,battanian_clanwarrior,Battanian Clan Warrior,battania,Infantry,2,3,14,15.67,9.33,2.67,11,215,1,battania_woodland_outfit,xml_structural,false
+T2,11,67,42.11,22.50,114,lakepike_tier_1,Lake Rat Recruit,sturgia,Infantry,1,4,15.25,15.25,2.50,0,9.50,225,2,layered_leather_tunic;nordic_sloven_leather;northern_lamellar_armor;stitched_leather_vest,xml_structural,false
+T2,11,68,41.23,22.50,114,crownlands_noble_recruit,Crownlands Noble's Son,crownlands,Infantry,1,1,15,15,9,11,17,0,0,crownlands_garb,xml_structural,false
+T2,11,68,41.23,22.50,114,norvos_initiate,Norvoshi Initiate,norvos,Infantry,1,1,15,15,9,0,17,0,0,norvoshi_garb,xml_structural,false
+T2,11,68,41.23,22.50,114,pentoshi_noble_recruit,Pentoshi Noble Youth,pentoshi,Infantry,1,1,15,15,9,0,17,0,0,pentoshi_tunic,xml_structural,false
+T2,11,68,41.23,22.50,114,qohorik_noble_recruit,Qohorik Noble Youth,qohorik,Infantry,1,1,15,15,9,0,17,0,0,qohorik_garb,xml_structural,false
+T2,11,68,41.23,22.50,114,vale_page,Vale Page,vale,Infantry,1,1,15,15,9,0,17,0,0,vale_garb,xml_structural,false
+T2,11,68,41.23,22.50,114,volantine_noble_recruit,Volantene Noble Youth,volantine,Infantry,1,1,15,15,9,0,17,0,0,volantine_garb,xml_structural,false
+T2,11,68,41.23,22.50,114,forest_people_tier_1,Recruit Forester,vakken,Ranged,1,2,13,15,8,4,11,0,0,crude_leather_armor,xml_structural,false
+T2,11,68,41.23,22.50,114,lyseni_noble_recruit,Lyseni Noble Youth,lyseni,Infantry,1,1,15,15,6,0,17,0,0,lyseni_garb,xml_structural,false
+T2,11,68,41.23,22.50,114,myrish_noble_recruit,Myrish Noble Youth,myrish,Infantry,1,1,15,15,6,0,17,0,0,myrish_garb,xml_structural,false
+T2,11,68,41.23,22.50,114,sarnor_noble_recruit,Sarnori Noble's Son,sarnor,Infantry,1,1,15,15,6,0,17,0,0,sarnori_garb,xml_structural,false
+T2,11,68,41.23,22.50,114,tyroshi_noble_recruit,Tyroshi Noble Youth,tyroshi,Infantry,1,1,15,15,6,0,17,0,0,tyroshi_garb,xml_structural,false
+T2,11,68,41.23,22.50,114,ghiscari_noble_recruit,Ghiscari Former Slave,ghiscari,Infantry,1,1,15,15,5,6,17,0,0,ghiscari_garb,xml_structural,false
+T2,11,68,41.23,22.50,114,nightswatch_ranger_recruit,Night's Watch Ranger Recruit,nightswatch,Ranged,1,1,15,15,5,9,17,0,0,nightswatch_garb,xml_structural,false
+T2,11,68,41.23,22.50,114,pentoshi_footman,Pentoshi Footman,pentoshi,Infantry,2,1,15,15,5,39,17,360,9,pentoshi_tunic,xml_structural,false
+T2,11,68,41.23,22.50,114,reach_noble_recruit,Reach Noble's Son,reach,Infantry,1,1,15,15,5,11,17,0,0,reach_garb,xml_structural,false
+T2,11,68,41.23,22.50,114,river_noble_recruit,Riverlord's Son,river,Infantry,1,1,15,15,5,8,17,0,0,riverlands_garb,xml_structural,false
+T2,11,84,27.19,22.50,114,nord_huntsman,Nord Huntsman,nord,Ranged,2,3,11,14.33,7,0,8,0,0,nordic_sloven,xml_structural,false
+T2,11,85,26.32,22.50,114,legion_of_the_betrayed_tier_1,Hastati,empire,Infantry,1,4,14,14,4,0,13,280,8,woven_leather_coat,xml_structural,false
+T2,11,85,26.32,22.50,114,skag_footman,Skagosi Footman,skagosi,Infantry,2,1,14,14,3,12,15,360,9,fur_armor,xml_structural,false
+T2,11,87,24.56,22.50,114,vlandian_footman,Vlandian Footman,vlandia,Infantry,2,3,13,13,7,11.33,8,300,10,aketon,xml_structural,false
+T2,11,88,23.68,22.50,114,vale_bowman,Vale Bowman,vale,Ranged,2,1,12,12,7,0,9,0,0,stitched_leather_vest,xml_structural,false
+T2,11,88,23.68,22.50,114,imperial_archer,Imperial Archer,empire,Ranged,2,1,12,12,2,6,12,0,0,leather_tunic,xml_structural,false
+T2,11,90,21.93,22.50,114,river_bowman,Riverlands Bowman,river,Ranged,2,1,11,11,3,0,11,0,0,woven_leather_vest,xml_structural,false
+T2,11,90,21.93,22.50,114,wolfskins_tier_1,Young Wolf,battania,Ranged,1,2,11,11,0,16,10.50,390,1,sleeveless_studded_fur_armor,xml_structural,false
+T2,11,92,20.18,22.50,114,aserai_mameluke_soldier,Aserai Mamluke Soldier,aserai,Infantry,2,3,10,10,6,22,11,430,1,studded_leather_coat,xml_structural,false
+T2,11,93,19.30,22.50,114,nord_drengr,Nord Warrior,nord,Infantry,2,3,6.33,9.67,4.67,4.67,7.33,390,4,battania_civil_a;nordic_padded_cloth,xml_structural,false
+T2,11,94,18.42,22.50,114,khuzait_footman,Khuzait Footman,khuzait,Infantry,2,3,8,9,9.67,7,9,365,1,khuzait_belt_leather,xml_structural,false
+T2,11,94,18.42,22.50,114,ibbenese_footman,Ibbenese Footman,ibbenese,Infantry,2,1,9,9,2,35,25,0,0,highland_cloth,xml_structural,false
+T2,11,94,18.42,22.50,114,ibbenese_noble_recruit,Ibbenese Deckhand,ibbenese,Infantry,1,1,9,9,2,35,25,0,0,highland_cloth,xml_structural,false
+T2,11,97,15.79,22.50,114,vlandian_levy_crossbowman,Vlandian Levy Crossbowman,vlandia,Ranged,2,3,5.67,8.67,6.67,12,7.67,0,0,cloth_tunic;long_hemp_tunic;woven_leather_vest,xml_structural,false
+T2,11,97,15.79,22.50,114,hidden_hand_tier_1,Hidden Pawn,empire,Infantry,1,3,8.67,8.67,3,5,7.33,0,0,layered_leather_tunic;tied_cloth_tunic,xml_structural,false
+T2,11,99,14.04,22.50,114,sturgian_woodsman,Sturgian Woodsman,sturgia,Infantry,2,3,7,8,5,7.33,10,0,0,heavy_nordic_tunic,xml_structural,false
+T2,11,99,14.04,22.50,114,brotherhood_of_woods_tier_1,Sprout,vlandia,Ranged,1,3,8,8,2,4,10,0,0,leather_coat_over_cloth,xml_structural,false
+T2,11,101,12.28,22.50,114,skolderbrotva_tier_1,Skolder Recruit,nord,Infantry,1,2,6,6,2,0,11,260,6,northern_tunic,xml_structural,false
+T2,11,102,11.40,22.50,114,battanian_woodrunner,Battanian Wood Runner,battania,Infantry,2,4,4.25,5.25,7.25,0,11.25,300,1,battania_light_armor_b;battania_light_armor_c;battania_light_armor_d;battania_light_armor_e,xml_structural,false
+T2,11,103,10.53,22.50,114,ghiscari_bowman,Ghiscari Bowman,ghiscari,Ranged,2,1,5,5,8,0,8,0,0,layered_robe,xml_structural,false
+T2,11,103,10.53,22.50,114,ghiscari_footman,Ghiscari Footman,ghiscari,Infantry,2,1,5,5,8,6,8,0,0,layered_robe,xml_structural,false
+T2,11,103,10.53,22.50,114,sarnor_bowman,Sarnori Bowman,sarnor,Ranged,2,1,5,5,6,0,14,0,0,layered_robe,xml_structural,false
+T2,11,103,10.53,22.50,114,jawwal_tier_1,Jawwal Recruit,aserai,Infantry,1,5,0,5,2,1.20,0,260,1,,xml_structural,false
+T2,11,103,10.53,22.50,114,embers_of_flame_tier_1,Spark,empire,Infantry,1,1,5,5,1,3,5,0,0,monk_robe,xml_structural,false
+T2,11,108,6.14,22.50,114,guardians_tier_1,Guardian Recruit,empire,Ranged,1,2,4.50,4.50,1.50,0,7,0,0,footmans_tunic;tunic_with_shoulder_pads,xml_structural,false
+T2,11,109,5.26,22.50,114,kingsguard_page,Kingsguard's Page,crownlands,Infantry,1,1,4,4,5,11,5,0,0,tied_cloth_tunic,xml_structural,false
+T2,11,109,5.26,22.50,114,veteran_borrowed_troop,Veteran Borrowed Troop,empire,Infantry,2,2,4,4,1,0,5,305,1,footmans_tunic,xml_structural,false
+T2,11,109,5.26,22.50,114,qartheen_bowman,Qartheen Bowman,qartheen,Ranged,2,1,4,4,0,0,12,0,0,empire_short_dress,xml_structural,false
+T2,11,109,5.26,22.50,114,qartheen_footman,Qartheen Footman,qartheen,Infantry,2,1,4,4,0,6,12,0,0,empire_short_dress,xml_structural,false
+T2,11,109,5.26,22.50,114,qartheen_noble_recruit,Qartheen Pureborn Youth,qartheen,Infantry,1,1,4,4,0,6,12,0,0,empire_short_dress,xml_structural,false
+T2,11,114,0.88,22.50,114,angry_wight,Angry Wight,whitewalker,Infantry,2,1,0,0,8,0,6,0,0,,xml_structural,false
+T3,16,1,100,28,138,targaryen_soldier,Valyrian Soldier,valyrian,Infantry,3,1,37,51,10,36,30,400,7,targ_armor,xml_structural,false
+T3,16,2,99.28,28,138,hightower_soldier,Hightower Soldier,reach,Infantry,3,1,50,50,12,36,32,350,1,hightower_armor,xml_structural,false
+T3,16,3,98.55,28,138,pentoshi_pikeman,Pentoshi Pikeman,pentoshi,Infantry,2,1,48,48,32,39,32,0,0,pentoshi_armor,xml_structural,false
+T3,16,3,98.55,28,138,myrish_crossbowman,Myrish Crossbowman,myrish,Ranged,2,1,48,48,10,40,31,0,0,myrish_armor,xml_structural,false
+T3,16,3,98.55,28,138,pentoshi_soldier,Pentoshi Soldier,pentoshi,Infantry,3,1,48,48,8,39,28,360,9,pentoshi_armor,xml_structural,false
+T3,16,6,96.38,28,138,yronwood_man_at_arms,Yronwood Man at Arms,aserai,Infantry,3,1,46,46,31,37,25,345,1,yronwood_plate,xml_structural,false
+T3,16,6,96.38,28,138,vale_soldier,Vale Soldier,vale,Infantry,3,1,46,46,9,37,15,280,8,vale_armor,xml_structural,false
+T3,16,8,94.93,28,138,nord_thegn,Nord War-Proven,nord,Infantry,2,3,40,44.33,30.33,29,27,313.33,4,nordic_hauberk,xml_structural,false
+T3,16,9,94.20,28,138,karstark_soldier,Karstark Brute,battania,Infantry,3,1,38,43,31,25,16,225,1,karstark_armor,xml_structural,false
+T3,16,9,94.20,28,138,umber_footman,Umber Footman,battania,Infantry,3,1,38,43,11,25,20,305,1,umber_armor2,xml_structural,false
+T3,16,9,94.20,28,138,volantine_soldier,Volantene Soldier,volantine,Infantry,3,1,43,43,11,35,19,360,1,volantis_light_armor,xml_structural,false
+T3,16,9,94.20,28,138,clegane_footman,Clegane Footman,vlandia,Infantry,3,1,38,43,8,25,30,305,1,gold_cloak_armor,xml_structural,false
+T3,16,9,94.20,28,138,lannister_footman,Lannister Footman,vlandia,Infantry,3,1,43,43,6,32,27,400,8,lannister_scout_armor,xml_structural,false
+T3,16,14,90.58,28,138,goldcloak_archer,Gold Cloak Archer,crownlands,Ranged,3,1,41,41,10,36,32,0,0,goldcloak_armor,xml_structural,false
+T3,16,14,90.58,28,138,goldcloak_soldier,Gold Cloak Soldier,crownlands,Infantry,3,1,41,41,10,36,32,280,1,goldcloak_armor,xml_structural,false
+T3,16,14,90.58,28,138,casterly_soldier,Casterly Rock Soldier,vlandia,Infantry,2,1,41,41,8,37,20,400,8,casterly_armor_light,xml_structural,false
+T3,16,17,88.41,28,138,dragonstone_soldier,Dragonstone Soldier,dragonstone,Infantry,3,1,40,40,12,37,22,315,9,dragonstone_armor,xml_structural,false
+T3,16,18,87.68,28,138,nightswatch_ranger,Night's Watch Ranger,nightswatch,Ranged,2,1,39,39,33,28,33,0,0,nightswatch_brigandine,xml_structural,false
+T3,16,18,87.68,28,138,tyroshi_soldier,Tyroshi Soldier,tyroshi,Infantry,3,1,39,39,10,33,22,380,1,tyroshi_armor,xml_structural,false
+T3,16,20,86.23,28,138,ibbenese_rower,Ibbenese Rower,ibbenese,Infantry,2,1,38,38,30,35,31,330,9,ibb_armor,xml_structural,false
+T3,16,20,86.23,28,138,ibbenese_tracker,Ibbenese Tracker,ibbenese,Infantry,3,1,38,38,30,35,31,330,9,ibb_armor,xml_structural,false
+T3,16,20,86.23,28,138,qartheen_warrior,Qartheen Soldier,qartheen,Infantry,3,1,38,38,25,37,22,360,9,qarth_armor,xml_structural,false
+T3,16,20,86.23,28,138,qartheen_archer,Qartheen Archer,qartheen,Ranged,3,1,38,38,17,37,22,0,0,qarth_armor,xml_structural,false
+T3,16,20,86.23,28,138,stormlands_man_at_arms,Stormlands Man at Arms,stormlands,Infantry,3,1,38,38,15,37,17,220,1,stormlands_armor,xml_structural,false
+T3,16,20,86.23,28,138,cerwyn_soldier,Cerwyn Soldier,battania,Infantry,3,1,38,38,10,38,30,520,1,cerwin_armor,xml_structural,false
+T3,16,20,86.23,28,138,golden_crossbowman,Goldenmark Marksmen,volantine,Ranged,2,2,38,38,10,24,31,0,0,golden_company_armor2,xml_structural,false
+T3,16,20,86.23,28,138,norvos_acolyte,Norvoshi Acolyte,norvos,Infantry,2,1,38,38,10,37,32,0,0,norvos_armor,xml_structural,false
+T3,16,20,86.23,28,138,norvos_soldier,Norvoshi Soldier,norvos,Infantry,3,1,38,38,10,29,30,215,1,norvos_armor,xml_structural,false
+T3,16,20,86.23,28,138,qartheen_pureborn,Qartheen Pureborn Fighter,qartheen,Infantry,2,1,38,38,10,37,22,360,9,qarth_armor,xml_structural,false
+T3,16,20,86.23,28,138,skag_soldier,Skagosi Soldier,skagosi,Infantry,3,1,38,38,10,37,31,360,9,skagosi_armor,xml_structural,false
+T3,16,20,86.23,28,138,yiti_bowman,Yi Ti Bowman,yiti,Ranged,3,1,38,38,10,37,32,0,0,yiti_armor,xml_structural,false
+T3,16,20,86.23,28,138,dondarion_footman,Dondarrion Footman,stormlands,Infantry,3,1,38,38,9,31,33,220,1,dondarion_leather,xml_structural,false
+T3,16,20,86.23,28,138,qohorik_goat_initiate,Black Goat Initiate,qohorik,Infantry,2,1,38,38,9,37,29,0,0,qohorik_armor2,xml_structural,false
+T3,16,34,76.09,28,138,nightswatch_shieldbrother,Night's Watch Shieldbrother,nightswatch,Infantry,3,1,37,37,29,9,29,305,1,nightswatch_armor2,xml_structural,false
+T3,16,34,76.09,28,138,mormont_footman,Mormont Footman,battania,Infantry,3,1,28,37,17,35,20,0,0,reach_gambeson,xml_structural,false
+T3,16,34,76.09,28,138,mormont_trapper,Mormont Trapper,battania,Ranged,3,1,28,37,17,35,20,0,0,reach_gambeson,xml_structural,false
+T3,16,34,76.09,28,138,vale_squire,Vale Squire,vale,Infantry,2,1,28,37,17,0,12,280,8,vale_gambeson,xml_structural,false
+T3,16,34,76.09,28,138,river_soldier,Riverlands Soldier,river,Infantry,3,1,37,37,13,33,34,205,10,riverlands_armor,xml_structural,false
+T3,16,34,76.09,28,138,tully_soldier,Tully Soldier,river,Infantry,3,1,37,37,13,35,34,205,10,riverlands_armor,xml_structural,false
+T3,16,34,76.09,28,138,reach_soldier,Reach Soldier,reach,Infantry,3,1,37,37,11,30,17,280,1,reach_armor2,xml_structural,false
+T3,16,34,76.09,28,138,targaryen_bowman,Valyrian Bowman,valyrian,Ranged,3,1,37,37,10,6,30,0,0,targ_armor,xml_structural,false
+T3,16,34,76.09,28,138,martell_bowman,Martell Bowman,aserai,Ranged,3,1,37,37,9,36,13,0,0,dorne_armor1,xml_structural,false
+T3,16,34,76.09,28,138,martell_footman,Martell Footman,aserai,Infantry,3,1,37,37,9,36,21,345,1,dorne_armor1,xml_structural,false
+T3,16,34,76.09,28,138,frey_crossbowman,Frey Crossbowman,river,Ranged,3,1,37,37,6,28,29,0,0,frey_armor,xml_structural,false
+T3,16,34,76.09,28,138,frey_cutthroat,Frey Cutthroat,river,Infantry,3,1,37,37,6,28,29,205,10,frey_armor,xml_structural,false
+T3,16,46,67.39,28,138,celtigar_footman,Celtigar Footman,dragonstone,Infantry,3,1,36,36,30,36,29,315,9,celtigar_armor,xml_structural,false
+T3,16,46,67.39,28,138,bracken_footman,Bracken Footman,river,Infantry,3,1,36,36,12,37,33,280,8,bracken_armor,xml_structural,false
+T3,16,46,67.39,28,138,freefolk_thenn,Freefolk Thenn,freefolk,Infantry,2,1,36,36,10,27,32,380,9,thenn_scale_armor,xml_structural,false
+T3,16,46,67.39,28,138,grafton_footman,Grafton Footman,vale,Infantry,3,1,36,36,10,36,30,280,8,grafton_armor,xml_structural,false
+T3,16,46,67.39,28,138,westerling_footman,Westerling Footman,vlandia,Infantry,3,1,36,36,10,36,31,280,8,westerling_armor,xml_structural,false
+T3,16,46,67.39,28,138,dayne_man_at_arms,Dayne Footman,aserai,Infantry,3,1,36,36,8,34,29,305,1,dayne_armor3,xml_structural,false
+T3,16,46,67.39,28,138,lannister_bowman,Lannister Bowman,vlandia,Ranged,3,1,25,36,8,26,27,0,0,west_archer_armor,xml_structural,false
+T3,16,53,62.32,28,138,ghiscari_archer,Ghiscari Archer,ghiscari,Ranged,3,1,35,35,12,29,14,0,0,ghiscari_armor,xml_structural,false
+T3,16,53,62.32,28,138,ghiscari_warrior,Ghiscari Warrior,ghiscari,Infantry,3,1,35,35,12,29,14,0,0,ghiscari_armor,xml_structural,false
+T3,16,53,62.32,28,138,ghiscari_unsullied_initiate,Ghiscari Legion Trainee,ghiscari,Infantry,2,1,35,35,5,36,28,300,1,ghiscari_armor,xml_structural,false
+T3,16,56,60.14,28,138,bolton_scout,Bolton Footman,battania,Infantry,3,1,34,34,30,31,29,360,1,bolton_armor,xml_structural,false
+T3,16,56,60.14,28,138,blackwood_bowman,Blackwood Bowman,river,Ranged,3,1,34,34,10,36,31,0,0,blackwood_armor3,xml_structural,false
+T3,16,56,60.14,28,138,blackwood_footman,Blackwood Footman,river,Infantry,3,1,34,34,10,36,31,205,10,blackwood_armor3,xml_structural,false
+T3,16,56,60.14,28,138,bolton_archer,Bolton Archer,battania,Ranged,3,1,34,34,9,31,29,0,0,bolton_armor,xml_structural,false
+T3,16,56,60.14,28,138,tarth_man_at_arms,Tarth Man at Arms,stormlands,Infantry,3,1,34,34,9,33,30,220,1,tarth_armor,xml_structural,false
+T3,16,61,56.52,28,138,golden_infantryman,Golden Company Giltblade Warriors,volantine,Infantry,2,2,32,32,8,37,29,420,1,golden_company_armor3,xml_structural,false
+T3,16,61,56.52,28,138,tarly_soldier,Tarly Soldier,reach,Infantry,3,1,32,32,8,35,14,280,1,tarly_light_armor,xml_structural,false
+T3,16,63,55.07,28,138,galloglass_tier_2,Kern,battania,Infantry,2,3,29,31.67,19,28.67,18.33,303.33,3,battania_woodland_chainmail;mail_shirt,xml_structural,false
+T3,16,64,54.35,28,138,stark_footman,Stark Footman,battania,Infantry,3,1,29,29,8,36,32,420,9,north_leather,xml_structural,false
+T3,16,65,53.62,28,138,freefolk_archer,Free Folk Archer,freefolk,Ranged,3,1,28,28,30,25,28,0,0,wildling_armor1,xml_structural,false
+T3,16,65,53.62,28,138,freefolk_axeman,Free Folk Axeman,freefolk,Infantry,3,1,28,28,30,25,28,300,4,wildling_armor1,xml_structural,false
+T3,16,65,53.62,28,138,qohorik_soldier,Qohorik Soldier,qohorik,Infantry,3,1,28,28,29,37,29,380,9,qohorik_armor4,xml_structural,false
+T3,16,65,53.62,28,138,khuzait_spearman,Khuzait Spearman,khuzait,Infantry,3,3,20,28,18,10,16,365,1,eastern_stitched_leather_coat,xml_structural,false
+T3,16,65,53.62,28,138,norvos_archer,Norvoshi Archer,norvos,Ranged,3,1,28,28,16,6,20,0,0,west_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,arryn_footman,Arryn Footman,vale,Infantry,3,1,28,28,12,11,29,305,1,arryn_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,baratheon_bowman,Baratheon Bowman,stormlands,Ranged,3,1,28,28,12,26,17,0,0,baratheon_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,baratheon_soldier,Baratheon Soldier,stormlands,Infantry,3,2,28,28,12,33,28,370,1,baratheon_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,crownlands_squire,Crownlands Squire,crownlands,Infantry,2,1,28,28,12,14,17,280,1,stormlands_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,dragonstone_bowman,Dragonstone Bowman,dragonstone,Ranged,3,1,28,28,12,2,20,0,0,dragonstone_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,dragonstone_squire,Squire,dragonstone,Infantry,2,1,28,28,12,2,28,300,10,dragonstone_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,glover_footman,Glover Footman,battania,Infantry,3,1,28,28,12,36,28,225,1,west_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,greyjoy_soldier,Greyjoy Soldier,sturgia,Infantry,3,1,28,28,12,35,30,510,1,greyjoy_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,harlaw_footman,Harlaw Footman,sturgia,Infantry,3,1,28,28,12,41,29,0,0,harlaw_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,kingsguard_squire,Kingsguard's Squire,crownlands,Infantry,2,1,28,28,12,14,17,280,1,stormlands_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,lyseni_axe_apprentice,Lyseni Axe Apprentice,lyseni,Infantry,2,1,28,28,12,39,21,240,1,lys_light_armor,xml_structural,false
+T3,16,65,53.62,28,138,lyseni_bowman,Lyseni Bowman,lyseni,Ranged,3,1,28,28,12,33,12,0,0,lys_light_armor,xml_structural,false
+T3,16,65,53.62,28,138,lyseni_soldier,Lyseni Soldier,lyseni,Infantry,3,1,28,28,12,33,12,240,1,lys_light_armor,xml_structural,false
+T3,16,65,53.62,28,138,myrish_bowman,Myrish Bowman,myrish,Ranged,3,1,28,28,12,20,12,0,0,myr_light_armor,xml_structural,false
+T3,16,65,53.62,28,138,myrish_soldier,Myrish Soldier,myrish,Infantry,3,1,28,28,12,20,12,240,1,myr_light_armor,xml_structural,false
+T3,16,65,53.62,28,138,nightswatch_crossbowman,Night's Watch Crossbowman,nightswatch,Ranged,3,1,28,28,12,9,29,0,0,nightswatch_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,reach_archer,Reach Archer,reach,Ranged,3,1,28,28,12,11,14,0,0,reach_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,reach_hookman,Reach Voulgier,reach,Infantry,2,1,28,28,12,30,14,0,0,reach_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,river_archer,Riverlands Archer,river,Ranged,3,1,28,28,12,8,14,0,0,riverlands_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,river_swordsman,Riverlands Swordsman,river,Infantry,2,1,28,28,12,20,28,370,1,riverlands_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,royce_soldier,Royce Soldier,vale,Infantry,3,1,28,28,12,36,29,280,8,stormlands_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,stark_bowman,Stark Bowman,battania,Ranged,3,1,28,28,12,19,20,0,0,stark_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,stormlands_archer,Stormlands Archer,stormlands,Ranged,3,1,28,28,12,37,17,0,0,stormlands_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,stormlands_squire,Stormlands Squire,stormlands,Infantry,2,1,28,28,12,14,17,0,0,stormlands_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,summer_bowman,Summer Isles Bowman,summer,Ranged,3,1,28,28,12,32,12,0,0,step_gambeson4,xml_structural,false
+T3,16,65,53.62,28,138,summer_infantryman,Summer Isles Infantryman,summer,Infantry,3,1,28,28,12,32,12,260,1,step_gambeson4,xml_structural,false
+T3,16,65,53.62,28,138,tyrell_soldier,Tyrell Soldier,reach,Infantry,3,1,28,28,12,37,14,430,1,reach_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,tyroshi_boatswain,Tyroshi Boatswain,tyroshi,Infantry,2,1,28,28,12,33,12,380,1,tyr_light_armor,xml_structural,false
+T3,16,65,53.62,28,138,tyroshi_bowman,Tyroshi Bowman,tyroshi,Ranged,3,1,28,28,12,33,12,0,0,tyr_light_armor,xml_structural,false
+T3,16,65,53.62,28,138,vale_archer,Vale Archer,vale,Ranged,3,1,28,28,12,11,12,0,0,vale_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,valyrian_squire,Valyrian Squire,valyrian,Infantry,2,1,28,28,12,36,28,300,10,dragonstone_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,velaryon_soldier,Velaryon Sailor,dragonstone,Infantry,3,1,28,28,12,38,27,315,9,vale_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,yiti_infantryman,Yi Ti Infantryman,yiti,Infantry,3,1,28,28,12,37,30,360,9,yiti_gambeson,xml_structural,false
+T3,16,65,53.62,28,138,mallister_footman,Mallister Footman,river,Infantry,3,1,28,28,10,38,30,280,8,mallister_armor,xml_structural,false
+T3,16,65,53.62,28,138,whiteharbor_footman,Manderly Footman,battania,Infantry,3,1,28,28,10,38,30,360,9,manderly_leather_armor,xml_structural,false
+T3,16,65,53.62,28,138,qohorik_bowman,Qohorik Bowman,qohorik,Ranged,3,1,28,28,9,37,21,0,0,qohorik_armor4,xml_structural,false
+T3,16,106,23.91,28,138,nord_axe_warrior,Nord Axe Warrior,nord,Infantry,3,3,15,26,11.33,24.67,11,313.33,4,sleeveless_padded_short_coat,xml_structural,false
+T3,16,107,23.19,28,138,nord_freeman_archer,Nord Freeman Archer,nord,Ranged,3,3,22,25.67,14,28.33,13,0,0,heavy_gambeson_armor,xml_structural,false
+T3,16,108,22.46,28,138,sarnor_javelinier,Sarnori Javelineer,sarnor,Infantry,2,1,25,25,26,36,21,0,0,sarnor_tunic,xml_structural,false
+T3,16,108,22.46,28,138,nord_spear_warrior,Nord Spear Warrior,nord,Infantry,3,3,18,25,16,26,15,306.67,4,double_belted_leather_armor,xml_structural,false
+T3,16,108,22.46,28,138,sarnor_archer,Sarnori Archer,sarnor,Ranged,3,1,25,25,6,36,18,0,0,sarnor_tunic,xml_structural,false
+T3,16,108,22.46,28,138,sarnor_warrior,Sarnori Warrior,sarnor,Infantry,3,1,25,25,6,36,21,350,1,sarnor_tunic,xml_structural,false
+T3,16,112,19.57,28,138,scorned_wight,Scorned Wight,whitewalker,Infantry,3,3,24,24,6,0,12,0,0,wight_armor2,xml_structural,false
+T3,16,113,18.84,28,138,aserai_mameluke_axeman,Aserai Mamluke Axeman,aserai,Infantry,3,3,20,22.67,12.67,20,14,0,0,ringed_desert_armor,xml_structural,false
+T3,16,114,18.12,28,138,legion_of_the_betrayed_tier_2,Principes,empire,Infantry,2,2,20,20,17,33,13,400,1,basic_imperial_leather_armor;eastern_studded_leather,xml_structural,false
+T3,16,114,18.12,28,138,hidden_hand_tier_2,Hidden Soldati,empire,Infantry,2,3,18,20,15.33,20,12,0,0,eastern_studded_leather,xml_structural,false
+T3,16,114,18.12,28,138,tigercloak_elite_initiate,Tigercloak Elite Initiate,volantine,Ranged,2,1,20,20,7,35,12,0,0,volantis_heavy_tunic,xml_structural,false
+T3,16,114,18.12,28,138,targ_squire,Targaryen Squire,valyrian,Infantry,2,1,20,20,6,36,26,400,7,valyrian_surcoat,xml_structural,false
+T3,16,114,18.12,28,138,volantine_bowman,Volantene Bowman,volantine,Ranged,3,1,20,20,5,35,17,0,0,volantis_tunic,xml_structural,false
+T3,16,119,14.49,28,138,battanian_trained_warrior,Battanian Trained Warrior,battania,Infantry,3,3,14,18.67,14.67,22.67,11,226.67,1,battania_woodland_outfit,xml_structural,false
+T3,16,119,14.49,28,138,aserai_footman,Aserai Footman,aserai,Infantry,3,3,16,18.67,14,32,12,430,1,desert_padded_cloth,xml_structural,false
+T3,16,121,13.04,28,138,company_of_the_boar_tier_2,Boar Veteran,vlandia,Ranged,2,1,13,18,16,24,8,300,10,aketon,xml_structural,false
+T3,16,121,13.04,28,138,wolfskins_tier_2,Seasoned Wolf,battania,Ranged,2,2,12,18,11,16,11,400,1,bandit_fur_b,xml_structural,false
+T3,16,123,11.59,28,138,battanian_raider,Battanian Raider,battania,Infantry,3,3,14,17.33,14,25.33,11,0,0,battania_woodland_outfit,xml_structural,false
+T3,16,123,11.59,28,138,sturgian_brigand,Sturgian Brigand,sturgia,Infantry,3,3,15.33,17.33,12.67,12.33,11.67,280,3.33,northern_padded_cloth;northern_padded_gambeson,xml_structural,false
+T3,16,125,10.14,28,138,vlandian_infantry,Vlandian Infantry,vlandia,Infantry,1,3,15,17,10.67,19,11.33,300,10,padded_short_coat;sleeveless_padded_short_coat,xml_structural,false
+T3,16,125,10.14,28,138,guardians_tier_2,Expert Guardian,empire,Ranged,2,2,14,17,9,6,12,0,0,padded_cloth_with_strips,xml_structural,false
+T3,16,127,8.70,28,138,sturgian_hunter,Sturgian Hunter,sturgia,Ranged,3,3,15,16.33,11,7,12,0,0,northern_padded_cloth,xml_structural,false
+T3,16,128,7.97,28,138,khuzait_hunter,Khuzait Hunter,khuzait,Ranged,3,3,15,15.67,13,8.33,13,0,0,khuzait_sturdy_armor,xml_structural,false
+T3,16,129,7.25,28,138,vlandian_spearman,Vlandian Spearman,vlandia,Infantry,3,3,15,15,12.67,37,8.33,246.67,4,padded_short_coat;sleeveless_padded_short_coat,xml_structural,false
+T3,16,129,7.25,28,138,empire_marine_t3,Imperial Shipmate,empire,Infantry,1,3,15,15,3.33,9,12,340,1,empire_warrior_padded_armor_a;empire_warrior_padded_armor_g;leather_tunic,xml_structural,false
+T3,16,131,5.80,28,138,lakepike_tier_2,Lake Rat Veteran,sturgia,Infantry,2,3,11.67,14.33,2.67,18,27.33,0,0,layered_leather_tunic;nordic_sloven_leather,xml_structural,false
+T3,16,132,5.07,28,138,skag_bowman,Skagosi Bowman,skagosi,Ranged,3,1,14,14,3,12,15,0,0,fur_armor,xml_structural,false
+T3,16,133,4.35,28,138,forest_people_tier_2,Expert Forester,vakken,Ranged,2,1,11,13,8,9,10,0,0,woven_leather_vest,xml_structural,false
+T3,16,134,3.62,28,138,brotherhood_of_woods_tier_2,Sapling,vlandia,Ranged,2,2,12,12,14,3,11,0,0,stitched_leather_vest,xml_structural,false
+T3,16,134,3.62,28,138,sturgia_marine_t3,Sturgian Crewman,sturgia,Infantry,1,3,12,12,3,8,7,380,1,nordic_sloven_leather;stitched_leather_vest,xml_structural,false
+T3,16,136,2.17,28,138,imperial_trained_archer,Imperial Trained Archer,empire,Ranged,3,2,11,11,12,14,9,0,0,imperial_padded_cloth;tunic_with_rolled_cloth,xml_structural,false
+T3,16,136,2.17,28,138,skolderbrotva_tier_2,Skolder Warrior Broda,nord,Infantry,2,2,3,11,11,20.50,9.50,420,6.50,armored_baggy_trunks;baggy_trunks,xml_structural,false
+T3,16,138,0.72,28,138,embers_of_flame_tier_2,Flame,empire,Infantry,2,1,5,8,5,37,5,0,0,monk_robe,xml_structural,false
+T4,21,1,100,40,175,casterly_marshal,Casterly Rock Pikeman,vlandia,Infantry,3,1,52,68,47,44,38,400,8,casterly_armor,xml_structural,false
+T4,21,2,99.43,40,175,tyrell_man_at_arms,Tyrell Man at Arms,reach,Infantry,4,1,50,65,37,37,30,430,1,reach_armor3,xml_structural,false
+T4,21,3,98.86,40,175,qohorik_swordsman,Qohorik Swordsman,qohorik,Infantry,4,1,42,64,41,42,29,380,9,qohorik_armor3,xml_structural,false
+T4,21,3,98.86,40,175,pentoshi_pike_warrior,Pentoshi Pike Warrior,pentoshi,Infantry,3,1,48,64,40,39,32,360,9,pentoshi_armor,xml_structural,false
+T4,21,5,97.71,40,175,tyroshi_quartermaster,Tyroshi Quartermaster,tyroshi,Infantry,3,1,48,63,18,45,30,380,1,tyroshi_armor3,xml_structural,false
+T4,21,6,97.14,40,175,lannister_man_at_arms,Lannister Man at Arms,vlandia,Infantry,4,1,44,61,43,36,31,400,8,lannister_soldier_armor,xml_structural,false
+T4,21,6,97.14,40,175,martell_spearman,Martell Spearman,aserai,Infantry,4,1,47,61,37,36,30,380,9,dorne_armor2,xml_structural,false
+T4,21,6,97.14,40,175,tyroshi_axeman,Tyroshi Axeman,tyroshi,Infantry,4,1,46,61,18,39,30,0,0,tyroshi_armor4,xml_structural,false
+T4,21,9,95.43,40,175,yronwood_pikeman,Yronwood Pikeman,aserai,Infantry,4,1,46,60,38,37,33,280,8,yronwood_plate,xml_structural,false
+T4,21,9,95.43,40,175,baratheon_hammer,Baratheon Hammerman,stormlands,Infantry,4,1,48,60,11,37,31,0,0,stormlands_plate,xml_structural,false
+T4,21,11,94.29,40,175,tigercloak_elite,Tigercloak,volantine,Ranged,3,1,47,57,32,54,30,0,0,volantis_armor,xml_structural,false
+T4,21,12,93.71,40,175,grafton_man_at_arms,Grafton Man at Arms,vale,Infantry,4,1,48,56,36,40,30,380,9,grafton_plate,xml_structural,false
+T4,21,13,93.14,40,175,dayne_pikeman,Dayne Man at Arms,aserai,Infantry,4,1,42,55,38,37,30,400,1,dayne_armor2,xml_structural,false
+T4,21,13,93.14,40,175,dragonstone_brute,Dragonstone Halberdier,dragonstone,Infantry,4,1,40,55,34,37,30,315,9,dragonstone_armor,xml_structural,false
+T4,21,13,93.14,40,175,dragonstone_man_at_arms,Dragonstone Man at Arms,dragonstone,Infantry,4,1,40,55,34,37,30,315,9,dragonstone_armor,xml_structural,false
+T4,21,13,93.14,40,175,forest_people_tier_3,Veteran Forester,vakken,Ranged,3,1,53,55,19,24,23,0,0,battania_mercenary_armor,xml_structural,false
+T4,21,13,93.14,40,175,golden_spearman,Golden Company Aurum Spearbearers,volantine,Infantry,3,2,43,55,16,37,31,420,1,golden_company_armor,xml_structural,false
+T4,21,13,93.14,40,175,casterly_crossbowman,Casterly Rock Crossbowman,vlandia,Ranged,3,1,41,55,14,33,28,0,0,casterly_armor_light,xml_structural,false
+T4,21,13,93.14,40,175,kingsguard_initiate,Kingsguard Initiate,crownlands,Infantry,3,1,55,55,12,55,35,370,1,kg_armor,xml_structural,false
+T4,21,20,89.14,40,175,mallister_man_at_arms,Mallister Man at Arms,river,Infantry,4,1,44,54,40,38,35,400,9,mallister_armor2,xml_structural,false
+T4,21,21,88.57,40,175,galloglass_tier_3,Redshank,battania,Infantry,3,3,44.33,53.67,33,46.67,38.67,520,1,battania_mercenary_armor;hauberk,xml_structural,false
+T4,21,22,88,40,175,westerling_man_at_arms,Westerling Man at Arms,vlandia,Infantry,4,1,36,53,46,45,31,380,9,westerling_armor,xml_structural,false
+T4,21,22,88,40,175,tarth_soldier,Tarth Soldier,stormlands,Infantry,4,1,39,53,20,35,33,300,10,tarth_armor2,xml_structural,false
+T4,21,24,86.86,40,175,stormlands_basher,Stormlands Maceman,stormlands,Infantry,4,1,38,52,31,37,31,300,10,stormlands_armor,xml_structural,false
+T4,21,24,86.86,40,175,stormlands_spearman,Stormlands Spearman,stormlands,Infantry,4,1,38,52,31,37,31,300,10,stormlands_armor,xml_structural,false
+T4,21,24,86.86,40,175,stark_soldier,Stark Soldier,battania,Infantry,4,2,38,52,30.50,34,30,420,9,stark_armor_2;stark_armor_4,xml_structural,false
+T4,21,24,86.86,40,175,lyseni_warrior,Lyseni Warrior,lyseni,Infantry,4,1,38,52,16,36,32,390,1,lyseni_armor,xml_structural,false
+T4,21,24,86.86,40,175,tully_man_at_arms,Tully Man at Arms,river,Infantry,4,1,37,52,13,37,34,205,10,riverlands_armor,xml_structural,false
+T4,21,29,84,40,175,river_elite_swordsman,Riverlands Elite Swordsman,river,Infantry,3,1,37,51,40,37,34,370,1,riverlands_armor,xml_structural,false
+T4,21,29,84,40,175,targaryen_man_at_arms,Valyrian Man at Arms,valyrian,Infantry,4,1,37,51,39,36,30,400,7,targ_armor,xml_structural,false
+T4,21,29,84,40,175,river_man_at_arms,Riverlands Man at Arms,river,Infantry,4,1,37,51,19,31,34,205,10,riverlands_armor,xml_structural,false
+T4,21,29,84,40,175,bracken_man_at_arms,Bracken Man at Arms,river,Infantry,4,1,36,51,12,37,33,315,9,bracken_armor,xml_structural,false
+T4,21,29,84,40,175,vale_man_at_arms,Vale Man at Arms,vale,Infantry,4,1,51,51,11,37,31,280,8,vale_armor2,xml_structural,false
+T4,21,29,84,40,175,targaryen_archer,Valyrian Archer,valyrian,Ranged,4,1,37,51,10,36,30,0,0,targ_armor,xml_structural,false
+T4,21,35,80.57,40,175,celtigar_man_at_arms,Celtigar Man at Arms,dragonstone,Infantry,4,1,36,50,38,36,29,315,9,celtigar_armor,xml_structural,false
+T4,21,35,80.57,40,175,hightower_guard,Hightower Guard,reach,Infantry,4,1,50,50,34,36,32,350,1,hightower_armor,xml_structural,false
+T4,21,35,80.57,40,175,qartheen_hoplite,Qartheen Hoplite,qartheen,Infantry,4,1,38,50,33,37,34,360,9,qarth_armor,xml_structural,false
+T4,21,35,80.57,40,175,reach_hedge_knight,Reach Hedge Knight,reach,Infantry,3,1,50,50,33,51,33,500,1,reach_heavy_armor,xml_structural,false
+T4,21,35,80.57,40,175,skag_savage,Skagosi Savage,skagosi,Infantry,4,1,38,50,33,37,31,360,9,skagosi_armor,xml_structural,false
+T4,21,35,80.57,40,175,skag_spearman,Skagosi Spearman,skagosi,Infantry,4,1,38,50,33,37,31,360,9,skagosi_armor,xml_structural,false
+T4,21,35,80.57,40,175,lyseni_axeman,Lyseni Axeman,lyseni,Infantry,3,1,50,50,30,39,32,390,1,lyseni_lord_armor,xml_structural,false
+T4,21,35,80.57,40,175,freefolk_thenn_warrior,Freefolk Thenn Warrior,freefolk,Infantry,3,1,36,50,18,40,32,380,9,thenn_scale_armor,xml_structural,false
+T4,21,35,80.57,40,175,yiti_spearman,Yi Ti Spearman,yiti,Infantry,4,1,38,50,18,37,32,360,9,yiti_armor,xml_structural,false
+T4,21,35,80.57,40,175,yiti_veteran_bowman,Yi Ti Archer,yiti,Ranged,4,1,38,50,18,37,32,0,0,yiti_armor,xml_structural,false
+T4,21,35,80.57,40,175,golden_veteran_crossbowman,Gleaming Shaft Marksmen,volantine,Ranged,3,2,38,50,16,24,31,0,0,golden_company_armor2,xml_structural,false
+T4,21,35,80.57,40,175,hightower_crossbowman,Hightower Crossbowman,reach,Ranged,4,1,50,50,12,36,32,0,0,hightower_armor,xml_structural,false
+T4,21,35,80.57,40,175,tarly_man_at_arms,Tarly Man at Arms,reach,Infantry,4,1,50,50,9,38,29,280,1,tarly_soldier_armor,xml_structural,false
+T4,21,48,73.14,40,175,nord_jarlsmann,Nord Hearthguard,nord,Infantry,3,3,35,49,36.67,42,19,436.67,5,nordic_chainmail_a,xml_structural,false
+T4,21,48,73.14,40,175,ghiscari_soldier,Ghiscari Soldier,ghiscari,Infantry,4,1,35,49,31,36,28,240,1,ghiscari_armor,xml_structural,false
+T4,21,48,73.14,40,175,mormont_man_at_arms,Mormont Man at Arms,battania,Infantry,4,1,49,49,12,35,32,510,1,lyanna_armor,xml_structural,false
+T4,21,51,71.43,40,175,mormont_huntress,Mormont Huntress,battania,Ranged,4,1,48,48,32,35,33,0,0,mormont_armor,xml_structural,false
+T4,21,51,71.43,40,175,harlaw_seaman,Harlaw Seaman,sturgia,Infantry,4,1,48,48,31,41,31,0,0,harlaw_plate,xml_structural,false
+T4,21,51,71.43,40,175,myrish_elite_crossbowman,Myrish Elite Crossbowman,myrish,Ranged,3,1,48,48,31,53,31,0,0,myrish_armor,xml_structural,false
+T4,21,51,71.43,40,175,myrish_warrior,Myrish Warrior,myrish,Infantry,4,1,48,48,31,40,31,450,1,myrish_armor,xml_structural,false
+T4,21,51,71.43,40,175,velaryon_warrior,Velaryon Marine,dragonstone,Infantry,4,1,48,48,31,38,30,315,9,velaryon_soldier_armor,xml_structural,false
+T4,21,51,71.43,40,175,pentoshi_man_at_arms,Pentoshi Man at Arms,pentoshi,Infantry,4,1,48,48,28,39,28,360,9,pentoshi_armor,xml_structural,false
+T4,21,51,71.43,40,175,blackwood_man_at_arms,Blackwood Man at Arms,river,Infantry,4,1,36,48,12,39,33,300,10,blackwood_armor,xml_structural,false
+T4,21,51,71.43,40,175,arryn_man_at_arms,Arryn Man at Arms,vale,Infantry,4,1,48,48,10,37,30,370,1,vale_armor4,xml_structural,false
+T4,21,51,71.43,40,175,pentoshi_archer,Pentoshi Archer,pentoshi,Ranged,4,1,48,48,8,39,28,0,0,pentoshi_armor,xml_structural,false
+T4,21,60,66.29,40,175,battanian_falxman,Battanian Falxman,battania,Infantry,4,3,45,47.33,25.67,28.67,20,0,0,scale_armor,xml_structural,false
+T4,21,61,65.71,40,175,bolton_veteran,Bolton Veteran,battania,Infantry,4,1,47,47,32,36,30,390,1,bolton_plate,xml_structural,false
+T4,21,61,65.71,40,175,realm_hedge_knight,Realm Hedge Knight,crownlands,Infantry,3,1,47,47,32,55,31,300,10,chain_armor_short_tabbard,xml_structural,false
+T4,21,61,65.71,40,175,qohorik_spearman,Qohorik Spearman,qohorik,Infantry,4,1,42,47,31,42,29,380,9,qohorik_armor3,xml_structural,false
+T4,21,61,65.71,40,175,glover_man_at_arms,Glover Man at Arms,battania,Infantry,4,1,47,47,30,36,29,300,10,glover_armor,xml_structural,false
+T4,21,65,63.43,40,175,nord_boandi,Nord Shield Biters,nord,Infantry,4,3,37,46,37.33,42,21.33,438.33,5,nordic_chainmail_c,xml_structural,false
+T4,21,65,63.43,40,175,yronwood_archer,Yronwood Archer,aserai,Ranged,4,1,46,46,9,37,33,0,0,yronwood_plate,xml_structural,false
+T4,21,67,62.29,40,175,imperial_menavliaton,Imperial Menavliaton,empire,Infantry,1,3,31,45,36.33,41.67,12,0,0,imperial_mail_over_leather,xml_structural,false
+T4,21,67,62.29,40,175,greyjoy_houseguard,Greyjoy Deckman,sturgia,Infantry,4,1,45,45,31,35,32,510,1,greyjoy_armor,xml_structural,false
+T4,21,69,61.14,40,175,manderly_man_at_arms,Manderly Man at Arms,battania,Infantry,4,1,44,44,35,46,32,360,9,manderly_chainmail,xml_structural,false
+T4,21,69,61.14,40,175,norvos_bearded_priest,Norvoshi Bearded Priest,norvos,Infantry,3,1,44,44,34,45,33,250,1,norvoshi_priest_armor,xml_structural,false
+T4,21,69,61.14,40,175,ibbenese_sailor,Ibbenese Sailor,ibbenese,Infantry,3,1,44,44,32,38,36,400,9,ibb_armor2,xml_structural,false
+T4,21,69,61.14,40,175,ibbenese_warrior,Ibbenese Warrior,ibbenese,Infantry,4,1,44,44,32,38,33,330,9,ibb_armor2,xml_structural,false
+T4,21,69,61.14,40,175,qartheen_pureborn_warrior,Qartheen Pureborn Warrior,qartheen,Infantry,3,1,44,44,27,37,36,360,9,qarth_armor2,xml_structural,false
+T4,21,74,58.29,40,175,nord_hew-bearer,Nord Marauder,nord,Infantry,4,3,35,43.33,42.67,40.67,18,0,0,nordic_chainmail_a,xml_structural,false
+T4,21,75,57.71,40,175,karstark_archer,Karstark Archer,battania,Ranged,4,1,38,43,31,25,16,0,0,karstark_armor,xml_structural,false
+T4,21,75,57.71,40,175,karstark_ruffian,Karstark Spearman,battania,Infantry,4,1,38,43,31,31,31,225,1,karstark_armor,xml_structural,false
+T4,21,75,57.71,40,175,qohorik_goat_warrior,Black Goat Warrior,qohorik,Infantry,3,1,38,43,31,42,33,430,9,qohorik_armor2,xml_structural,false
+T4,21,75,57.71,40,175,tigercloak_warrior,Volantene Warrior,volantine,Infantry,4,1,43,43,29,35,27,360,1,volantis_light_armor,xml_structural,false
+T4,21,75,57.71,40,175,guardians_tier_3,Veteran Guardian,empire,Ranged,3,2,34,43,23,46,24,0,0,legionary_mail,xml_structural,false
+T4,21,80,54.86,40,175,ghiscari_unsullied,Ghiscari Pikeman,ghiscari,Infantry,4,1,42,42,30,36,32,400,1,unsullied_soldier_armor,xml_structural,false
+T4,21,80,54.86,40,175,khuzait_archer,Khuzait Archer,khuzait,Ranged,4,3,34,42,6,32,8,0,0,eastern_plated_leather_vest,xml_structural,false
+T4,21,80,54.86,40,175,summer_spearman,Summer Isles Spearman,summer,Infantry,4,1,42,42,6,36,28,260,1,summer_armor,xml_structural,false
+T4,21,83,53.14,40,175,nord_marksman,Nord Marksman,nord,Ranged,4,3,37,41.33,18.33,36,22,0,0,nordic_chainmail_c,xml_structural,false
+T4,21,84,52.57,40,175,goldcloak_officer,Gold Cloak Petty Officer,crownlands,Infantry,4,1,41,41,32,38,32,370,1,goldcloak_armor,xml_structural,false
+T4,21,84,52.57,40,175,goldcloak_elite_archer,Gold Cloak Elite Archer,crownlands,Ranged,4,1,41,41,10,36,32,0,0,goldcloak_armor,xml_structural,false
+T4,21,86,51.43,40,175,nord_vargr,Nord Warfang,nord,Infantry,4,3,35,40.67,35.33,42,19,0,0,nordic_chainmail_a,xml_structural,false
+T4,21,87,50.86,40,175,royce_warrior,Royce Warrior,vale,Infantry,4,1,40,40,32,36,33,500,9,royce_armor,xml_structural,false
+T4,21,87,50.86,40,175,sarnor_elite_javelinier,Sarnori Elite Javelinier,sarnor,Infantry,3,1,40,40,29,42,24,0,0,sarnor_armor,xml_structural,false
+T4,21,87,50.86,40,175,sarnor_glaiveman,Sarnori Glaiveman,sarnor,Infantry,4,1,40,40,29,36,24,350,1,sarnor_armor,xml_structural,false
+T4,21,87,50.86,40,175,sarnor_spearman,Sarnori Spearman,sarnor,Infantry,4,1,40,40,29,36,24,350,1,sarnor_armor,xml_structural,false
+T4,21,91,48.57,40,175,nightswatch_elite_ranger,Night's Watch Elite Ranger,nightswatch,Ranged,3,1,39,39,33,28,33,0,0,nightswatch_brigandine,xml_structural,false
+T4,21,92,48,40,175,skolderbrotva_tier_3,Skolder Veteran Broda,nord,Infantry,3,3,30,38.33,24.67,0,34.33,500,9,decorated_nordic_hauberk;nordic_hauberk;sturgian_chainmale_shortsleeve,xml_structural,false
+T4,21,93,47.43,40,175,umber_man_at_arms,Umber Man at Arms,battania,Infantry,4,2,38,38,34,37,29,500,1,umber_armor2,xml_structural,false
+T4,21,93,47.43,40,175,cerwyn_axeman,Cerwyn Axeman,battania,Infantry,4,1,38,38,31,38,30,520,1,cerwin_armor,xml_structural,false
+T4,21,93,47.43,40,175,clegane_man_at_arms,Clegane Man at Arms,vlandia,Infantry,4,2,38,38,30,37,30,500,1,gold_cloak_armor,xml_structural,false
+T4,21,93,47.43,40,175,dondarion_man_at_arms,Dondarrion Man at Arms,stormlands,Infantry,4,1,38,38,30,37,33,300,10,dondarion_leather,xml_structural,false
+T4,21,93,47.43,40,175,ibbenese_hunter,Ibbenese Hunter,ibbenese,Ranged,4,1,38,38,30,35,31,0,0,ibb_armor,xml_structural,false
+T4,21,93,47.43,40,175,norvos_axeman,Norvoshi Axeman,norvos,Infantry,4,1,38,38,30,35,30,215,1,norvos_armor,xml_structural,false
+T4,21,93,47.43,40,175,norvos_spearman,Norvoshi Spearman,norvos,Infantry,4,1,38,38,30,35,30,250,1,norvos_armor,xml_structural,false
+T4,21,93,47.43,40,175,qartheen_elite_archer,Qarthene Veteran Archer,qartheen,Ranged,4,1,38,38,25,37,22,0,0,qarth_armor,xml_structural,false
+T4,21,93,47.43,40,175,stormlands_crossbowman,Stormlands Crossbowman,stormlands,Ranged,4,1,38,38,15,37,31,0,0,stormlands_armor,xml_structural,false
+T4,21,93,47.43,40,175,stormlands_elite_archer,Stormlands Elite Archer,stormlands,Ranged,4,1,38,38,15,37,20,0,0,stormlands_armor,xml_structural,false
+T4,21,93,47.43,40,175,umber_archer,Umber Archer,battania,Ranged,4,1,38,38,11,37,29,0,0,umber_armor2,xml_structural,false
+T4,21,93,47.43,40,175,cerwyn_archer,Cerwyn Archer,battania,Ranged,4,1,38,38,10,38,30,0,0,cerwin_armor,xml_structural,false
+T4,21,93,47.43,40,175,norvos_elite_archer,Norvoshi Elite Archer,norvos,Ranged,4,1,38,38,10,31,30,0,0,norvos_armor,xml_structural,false
+T4,21,93,47.43,40,175,skag_archer,Skagosi Archer,skagosi,Ranged,4,1,38,38,10,37,31,0,0,skagosi_armor,xml_structural,false
+T4,21,93,47.43,40,175,dondarion_bowman,Dondarrion Bowman,stormlands,Ranged,4,1,38,38,9,36,33,0,0,dondarion_leather,xml_structural,false
+T4,21,93,47.43,40,175,clegane_archer,Clegane Archer,vlandia,Ranged,4,1,38,38,8,37,30,0,0,gold_cloak_armor,xml_structural,false
+T4,21,93,47.43,40,175,lyseni_archer,Lyseni Archer,lyseni,Ranged,4,1,38,38,8,33,32,0,0,lyseni_armor,xml_structural,false
+T4,21,110,37.71,40,175,legion_of_the_betrayed_tier_3,Triarii,empire,Infantry,3,2,30,37,40,45,37,530,1,empire_legion_a,xml_structural,false
+T4,21,110,37.71,40,175,freefolk_berzerker,Free Folk Berzerker,freefolk,Infantry,4,1,37,37,33,30,33,0,0,wildling_armor2,xml_structural,false
+T4,21,110,37.71,40,175,freefolk_sharpshooter,Free Folk Sharpshooter,freefolk,Ranged,4,1,37,37,33,25,33,0,0,wildling_armor2,xml_structural,false
+T4,21,110,37.71,40,175,freefolk_shieldman,Free Folk Shieldman,freefolk,Infantry,4,1,37,37,33,30,33,420,9,wildling_armor2,xml_structural,false
+T4,21,110,37.71,40,175,freefolk_spearman,Free Folk Spearman,freefolk,Infantry,4,1,37,37,33,30,33,300,4,wildling_armor2,xml_structural,false
+T4,21,110,37.71,40,175,reach_hacker,Reach Man at Arms,reach,Infantry,4,1,37,37,31,37,31,370,1,reach_armor2,xml_structural,false
+T4,21,110,37.71,40,175,martell_archer,Martell Archer,aserai,Ranged,4,1,37,37,29,36,30,0,0,dorne_armor1,xml_structural,false
+T4,21,110,37.71,40,175,nightswatch_defender,Night's Watch Defender,nightswatch,Infantry,4,1,37,37,29,20,29,225,1,nightswatch_armor2,xml_structural,false
+T4,21,110,37.71,40,175,frey_man_at_arms,Frey Man at Arms,river,Infantry,4,1,37,37,27,30,29,205,10,frey_armor,xml_structural,false
+T4,21,110,37.71,40,175,frey_veteran_crossbowman,Frey Veteran Crossbowman,river,Ranged,4,1,37,37,27,28,29,0,0,frey_armor,xml_structural,false
+T4,21,110,37.71,40,175,tully_archer,Tully Archer,river,Ranged,4,1,37,37,13,35,25,0,0,riverlands_armor,xml_structural,false
+T4,21,121,31.43,40,175,aserai_infantry,Aserai Infantry,aserai,Infantry,4,3,36,36,31,35,12,350,1,leather_strips_over_padded_robe,xml_structural,false
+T4,21,121,31.43,40,175,celtigar_archer,Celtigar Archer,dragonstone,Ranged,4,1,36,36,30,36,29,0,0,celtigar_armor,xml_structural,false
+T4,21,121,31.43,40,175,grafton_crossbowman,Grafton Archer,vale,Ranged,4,1,36,36,10,36,30,0,0,grafton_armor,xml_structural,false
+T4,21,121,31.43,40,175,westerling_archer,Westerling Archer,vlandia,Ranged,4,1,36,36,10,36,31,0,0,westerling_armor,xml_structural,false
+T4,21,121,31.43,40,175,dayne_archer,Dayne Archer,aserai,Ranged,4,1,36,36,8,34,29,0,0,dayne_armor3,xml_structural,false
+T4,21,121,31.43,40,175,lannister_archer,Lannister Archer,vlandia,Ranged,4,1,25,36,8,26,27,0,0,west_archer_armor,xml_structural,false
+T4,21,127,28,40,175,lakepike_tier_3,Lake Rat Wrecker ,sturgia,Infantry,3,4,31.25,35.75,34.25,42.75,36.50,500,9,decorated_nordic_hauberk;nordic_hauberk;nordic_sloven_over_mail,xml_structural,false
+T4,21,128,27.43,40,175,ghiscari_elite_archer,Ghiscari Elite Archer,ghiscari,Ranged,4,1,35,35,25,29,28,0,0,ghiscari_armor,xml_structural,false
+T4,21,128,27.43,40,175,ghiscari_unsullied_hoplite,Ghiscari Legionnaire,ghiscari,Infantry,3,1,35,35,25,36,28,300,1,ghiscari_armor,xml_structural,false
+T4,21,130,26.29,40,175,aserai_mameluke_guard,Aserai Mamluke Guard,aserai,Infantry,4,3,25,34,31,38,36,0,0,aserai_armor_02,xml_structural,false
+T4,21,130,26.29,40,175,blackwood_archer,Blackwood Archer,river,Ranged,4,1,34,34,31,36,31,0,0,blackwood_armor3,xml_structural,false
+T4,21,130,26.29,40,175,bolton_elite_archer,Bolton Veteran Archer,battania,Ranged,4,1,34,34,30,31,29,0,0,bolton_armor,xml_structural,false
+T4,21,130,26.29,40,175,tarth_crossbowman,Tarth Crossbowman,stormlands,Ranged,4,1,34,34,9,33,30,0,0,tarth_armor,xml_structural,false
+T4,21,134,24,40,175,khuzait_spear_infantry,Khuzait Spear Infantry,khuzait,Infantry,4,3,24,33,26,32,16,510,1,leather_lamellar_armor,xml_structural,false
+T4,21,134,24,40,175,battanian_picked_warrior,Battanian Picked Warrior,battania,Infantry,4,3,31,33,22,44,19,410,1,battania_woodland_chainmail,xml_structural,false
+T4,21,136,22.86,40,175,tarly_crossbowman,Tarly Crossbowman,reach,Ranged,4,1,32,32,31,35,14,0,0,tarly_light_armor2,xml_structural,false
+T4,21,136,22.86,40,175,hidden_hand_tier_3,Puppeteer,empire,Infantry,3,3,29,32,28,46,32,176.67,0.33,banded_leather_over_mail,xml_structural,false
+T4,21,136,22.86,40,175,vlandian_billman,Vlandian Billman,vlandia,Infantry,4,3,30,32,19.67,36,20,0,0,nordic_sloven_over_mail,xml_structural,false
+T4,21,139,21.14,40,175,dragonstone_archer,Dragonstone Archer,dragonstone,Ranged,4,1,28,31,13,2,14,0,0,dragonstone_gambeson,xml_structural,false
+T4,21,140,20.57,40,175,sturgian_archer,Sturgian Archer,sturgia,Ranged,4,3,26,30,23,40.33,21,0,0,northern_lamellar_armor,xml_structural,false
+T4,21,141,20,40,175,company_of_the_boar_tier_3,Boar Champion,vlandia,Ranged,3,1,24,29,34,28,19,750,1,veteran_mercenary_armor,xml_structural,false
+T4,21,142,19.43,40,175,greyjoy_archer,Greyjoy Archer,sturgia,Ranged,4,1,28,28,33,35,30,0,0,greyjoy_gambeson,xml_structural,false
+T4,21,142,19.43,40,175,harlaw_archer,Harlaw Archer,sturgia,Ranged,4,1,28,28,33,41,29,0,0,harlaw_gambeson,xml_structural,false
+T4,21,142,19.43,40,175,mallister_archer,Mallister Archer,river,Ranged,4,1,28,28,33,38,30,0,0,mallister_armor,xml_structural,false
+T4,21,142,19.43,40,175,nightswatch_elite_crossbowman,Night's Watch Elite Crossbowman,nightswatch,Ranged,4,1,28,28,33,9,29,0,0,nightswatch_gambeson,xml_structural,false
+T4,21,142,19.43,40,175,velaryon_crossbowman,Velaryon Crossbowman,dragonstone,Ranged,4,1,28,28,33,38,27,0,0,vale_gambeson,xml_structural,false
+T4,21,142,19.43,40,175,imperial_crossbowman,Imperial Crossbowman,empire,Ranged,4,3,26,28,20.67,29.33,18,0,0,imperial_mail_vest,xml_structural,false
+T4,21,142,19.43,40,175,baratheon_archer,Baratheon Archer,stormlands,Ranged,4,1,28,28,16,26,28,0,0,baratheon_gambeson,xml_structural,false
+T4,21,142,19.43,40,175,arryn_archer,Arryn Archer,vale,Ranged,4,1,28,28,12,30,29,0,0,arryn_gambeson,xml_structural,false
+T4,21,142,19.43,40,175,glover_archer,Glover Archer,battania,Ranged,4,1,28,28,12,36,28,0,0,west_gambeson,xml_structural,false
+T4,21,142,19.43,40,175,myrish_archer,Myrish Archer,myrish,Ranged,4,1,28,28,12,20,12,0,0,myr_light_armor,xml_structural,false
+T4,21,142,19.43,40,175,reach_elite_archer,Reach Elite Archer,reach,Ranged,4,1,28,28,12,30,14,0,0,reach_gambeson,xml_structural,false
+T4,21,142,19.43,40,175,river_elite_archer,Riverlands Elite Archer,river,Ranged,4,1,28,28,12,8,14,0,0,riverlands_gambeson,xml_structural,false
+T4,21,142,19.43,40,175,royce_archer,Royce Archer,vale,Ranged,4,1,28,28,12,36,29,0,0,stormlands_gambeson,xml_structural,false
+T4,21,142,19.43,40,175,stark_archer,Stark Longbowman,battania,Ranged,4,1,28,28,12,36,28,0,0,stark_gambeson,xml_structural,false
+T4,21,142,19.43,40,175,summer_veteran_bowman,Summer Isles Archer,summer,Ranged,4,1,28,28,12,32,12,0,0,step_gambeson4,xml_structural,false
+T4,21,142,19.43,40,175,tyrell_bowman,Tyrell Longbowman,reach,Ranged,4,1,28,28,12,37,28,0,0,reach_gambeson,xml_structural,false
+T4,21,142,19.43,40,175,tyroshi_archer,Tyroshi Archer,tyroshi,Ranged,4,1,28,28,12,33,12,0,0,tyr_light_armor,xml_structural,false
+T4,21,142,19.43,40,175,vale_elite_archer,Vale Elite Archer,vale,Ranged,4,1,28,28,12,11,12,0,0,vale_gambeson,xml_structural,false
+T4,21,142,19.43,40,175,sturgian_berzerker,Sturgian Line Breaker,sturgia,Infantry,1,3,28,28,10.67,49,13,0,0,nordic_lamellar_vest,xml_structural,false
+T4,21,142,19.43,40,175,manderly_archer,Manderly Archer,battania,Ranged,4,1,28,28,10,38,30,0,0,manderly_leather_armor,xml_structural,false
+T4,21,142,19.43,40,175,qohorik_archer,Qohorik Archer,qohorik,Ranged,4,1,28,28,9,37,29,0,0,qohorik_armor4,xml_structural,false
+T4,21,163,7.43,40,175,vlandian_swordsman,Vlandian Swordsman,vlandia,Infantry,4,3,25,27,20.67,24.67,36,346.67,4,mail_shirt,xml_structural,false
+T4,21,164,6.86,40,175,wolfskins_tier_3,Chosen Wolf,battania,Ranged,3,2,12,26,15,16,9,370,1,bandit_fur_b,xml_structural,false
+T4,21,165,6.29,40,175,brotherhood_of_woods_tier_3,Arboreal,vlandia,Ranged,3,1,22,25,9,20,10,0,0,leather_and_iron_plate_armor,xml_structural,false
+T4,21,165,6.29,40,175,sarnor_elite_archer,Sarnori Elite Archer,sarnor,Ranged,4,1,25,25,6,36,21,0,0,sarnor_tunic,xml_structural,false
+T4,21,167,5.14,40,175,cursed_wight,Cursed Wight,whitewalker,Infantry,4,2,24,24,26,21.50,12,0,0,wight_armor2,xml_structural,false
+T4,21,168,4.57,40,175,empire_marine_t4,Imperial Coast Guard,empire,Infantry,2,3,20.67,21.67,8.33,9,29.67,500,1,basic_imperial_leather_armor;eastern_studded_leather,xml_structural,false
+T4,21,169,4,40,175,battanian_marine_t4,Battanian River Raider,battania,Infantry,1,3,20,21,18,22,13,250,1,battanian_chainmail_armor_a,xml_structural,false
+T4,21,170,3.43,40,175,sturgia_marine_t4,Sturgian Veteran Shipman,sturgia,Infantry,2,3,19.33,20.33,20.67,37,29.33,320,1,leather_and_iron_plate_armor;northern_leather_tabard,xml_structural,false
+T4,21,171,2.86,40,175,tigercloak_archer,Volantene Archer,volantine,Ranged,4,1,20,20,5,35,25,0,0,volantis_tunic,xml_structural,false
+T4,21,172,2.29,40,175,vlandian_marine_t4,Vlandian Seasoned Seafarer,vlandia,Ranged,1,3,16.67,19.67,12,32,13.67,370,1,padded_coat;sleeveless_padded_coat,xml_structural,false
+T4,21,173,1.71,40,175,aserai_marine_t4,Aserai Veteran Sailor,aserai,Ranged,1,3,18.67,18.67,12,23.33,32.33,350,1,desert_padded_cloth;ringed_desert_armor,xml_structural,false
+T4,21,174,1.14,40,175,imperial_veteran_archer,Imperial Veteran Archer,empire,Ranged,4,3,18,18,24,27.33,14,0,0,eastern_studded_leather,xml_structural,false
+T4,21,175,0.57,40,175,embers_of_flame_tier_3,Blaze,empire,Infantry,3,1,5,13,32,39,14,0,0,monk_robe,xml_structural,false
