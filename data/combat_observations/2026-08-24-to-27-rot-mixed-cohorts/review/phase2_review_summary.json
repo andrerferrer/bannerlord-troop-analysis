@@ -1,0 +1,8 @@
+{
+  "identity_decisions": 75,
+  "normalized_review_queue_rows": 0,
+  "note": "No normalized value changed. Canonical identities are analysis-layer decisions only.",
+  "numeric_corrections": 0,
+  "reviewer": "separate Phase 2 local analysis agent",
+  "status": "complete"
+}

@@ -1,0 +1,41 @@
+{
+  "active_battles_combined_with_later_fights": false,
+  "artifact_hashes_verified": 26,
+  "arwa_allied_rows": 2,
+  "batch_id": "2026-08-24-to-27-rot-mixed-cohorts",
+  "battles": 29,
+  "bundle_members_verified": 16,
+  "cohorts_pooled": false,
+  "contexts_pooled": false,
+  "direct_deployment_total_coverage": "29/29",
+  "direct_kill_total_coverage": "29/29",
+  "distinct_display_labels": 75,
+  "focus_battle_rows": 51,
+  "focus_rows": 6,
+  "frozen_models_changed": false,
+  "full_unittests": {
+    "failed": 1,
+    "passed": 380,
+    "pre_existing_failure_reproduced_on_main": true
+  },
+  "git_diff_check": "passed",
+  "identity_confirmed": 55,
+  "identity_unresolved": 20,
+  "insufficient_rows": 62,
+  "offscreen_rows_inferred": false,
+  "ordinary_occurrences": 339,
+  "partition_exact": true,
+  "partition_rows": 90,
+  "player_enemy_pooled": false,
+  "pressure_margin_censored_snapshots": 2,
+  "pressure_margin_final_battles": 27,
+  "reliable_rows": 28,
+  "role_adjusted_blended_rank_published": false,
+  "source_members_verified": 29,
+  "status": "passed",
+  "targeted_unittests": {
+    "failed": 0,
+    "passed": 73
+  },
+  "validation_errors": []
+}

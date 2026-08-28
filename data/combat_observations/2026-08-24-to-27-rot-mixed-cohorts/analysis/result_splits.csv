@@ -1,0 +1,137 @@
+cohort,context,participant_scope,parent_group,display_name,canonical_troop_id,result,censoring_status,independent_battles,deployed,survivors,kills,deaths,wounded,kills_per_deployed,retention_rate,verified_player_side_total_kills,player_side_kill_share,verified_player_side_total_deployed,player_side_deployment_share,offensive_contribution_ratio,offensive_share_gap
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Braavosi Footman [T2],,victory,final,1,5,5,2,0,0,0.400000,1.000000,270,0.007407,256,0.019531,0.379259,-0.012124
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Broken Archer [T1],,victory,final,1,4,4,3,0,0,0.750000,1.000000,128,0.023438,129,0.031008,0.755859,-0.007570
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Broken Man [T1],,victory,final,2,12,8,5,2,2,0.416667,0.666667,398,0.012563,385,0.031169,0.403057,-0.018606
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dayne Archer [T4],dayne_archer,victory,final,2,38,37,36,0,1,0.947368,0.973684,783,0.045977,727,0.052270,0.879613,-0.006293
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dayne Archer [T4],dayne_archer,defeat,final,2,72,0,178,21,51,2.472222,0.000000,819,0.217338,466,0.154506,1.406661,0.062832
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dayne Footman [T3],dayne_man_at_arms,victory,final,4,194,147,127,11,36,0.654639,0.757732,1363,0.093177,1173,0.165388,0.563384,-0.072211
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dayne Footman [T3],dayne_man_at_arms,defeat,final,2,94,0,55,26,68,0.585106,0.000000,819,0.067155,466,0.201717,0.332918,-0.134562
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dayne Horseman [T4],dayne_horseman,victory,final,5,72,41,43,9,22,0.597222,0.569444,1410,0.030496,1193,0.060352,0.505309,-0.029856
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dayne Horseman [T4],dayne_horseman,defeat,final,2,26,0,26,7,19,1.000000,0.000000,819,0.031746,466,0.055794,0.568987,-0.024048
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dayne Knight [T5],dayne_knight,victory,final,8,60,33,64,4,23,1.066667,0.550000,1886,0.033934,1758,0.034130,0.994274,-0.000195
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dayne Knight [T5],dayne_knight,defeat,final,2,26,0,36,10,16,1.384615,0.000000,819,0.043956,466,0.055794,0.787828,-0.011838
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dayne Levy [T2],dayne_levy,victory,final,3,77,73,24,2,2,0.311688,0.948052,1215,0.019753,960,0.080208,0.246272,-0.060455
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dayne Levy [T2],dayne_levy,defeat,final,2,42,0,24,7,35,0.571429,0.000000,819,0.029304,466,0.090129,0.325135,-0.060825
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dayne Man at Arms [T4],dayne_pikeman,victory,final,7,16,16,24,0,0,1.500000,1.000000,985,0.024365,1230,0.013008,1.873096,0.011357
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dayne Pikeman [T5],dayne_veteran_pikeman,victory,final,9,144,116,141,5,23,0.979167,0.805556,2338,0.060308,1811,0.079514,0.758456,-0.019206
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dayne Pikeman [T5],dayne_veteran_pikeman,active,censored_diagnostic,1,8,7,31,0,1,3.875000,0.875000,520,0.059615,250,0.032000,1.862981,0.027615
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dayne Veteran Archer [T5],dayne_veteran_archer,victory,final,2,41,35,77,2,4,1.878049,0.853659,534,0.144195,467,0.087794,1.642413,0.056400
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dayne Veteran Archer [T5],dayne_veteran_archer,defeat,final,2,54,0,149,15,39,2.759259,0.000000,819,0.181929,466,0.115880,1.569981,0.066049
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dornish Archer [T3],,victory,final,4,14,13,15,1,0,1.071429,0.928571,1693,0.008860,965,0.014508,0.610708,-0.005648
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dornish Bowman [T2],,victory,final,1,1,1,0,0,0,0.000000,1.000000,68,0.000000,115,0.008696,0.000000,-0.008696
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dornish Elite Archer [T4],,victory,final,9,47,46,86,0,1,1.829787,0.978723,2315,0.037149,1816,0.025881,1.435375,0.011268
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dornish Elite Archer [T4],,defeat,final,2,6,0,22,1,5,3.666667,0.000000,819,0.026862,466,0.012876,2.086284,0.013986
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dornish Elite Archer [T4],,active,censored_diagnostic,1,8,8,17,0,0,2.125000,1.000000,520,0.032692,250,0.032000,1.021635,0.000692
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dornish Elite Spearman [T4],,victory,final,3,8,3,19,0,5,2.375000,0.375000,1261,0.015067,732,0.010929,1.378668,0.004138
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dornish Horse Archer [T4],,victory,final,2,9,9,7,0,0,0.777778,1.000000,398,0.017588,385,0.023377,0.752373,-0.005789
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dornish Horse Archer [T4],,defeat,final,1,2,0,5,1,1,2.500000,0.000000,351,0.014245,233,0.008584,1.659544,0.005661
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dornish Horse Archer [T4],,active,censored_diagnostic,1,6,5,7,0,1,1.166667,0.833333,520,0.013462,250,0.024000,0.560897,-0.010538
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dornish Horseman [T4],,victory,final,2,4,3,4,0,1,1.000000,0.750000,482,0.008299,454,0.008811,0.941909,-0.000512
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dornish Master Archer [T5],,victory,final,11,372,348,742,4,20,1.994624,0.935484,2898,0.256039,2173,0.171192,1.495624,0.084847
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dornish Master Archer [T5],,defeat,final,2,6,0,25,4,2,4.166667,0.000000,819,0.030525,466,0.012876,2.370777,0.017649
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dornish Master Archer [T5],,active,censored_diagnostic,1,75,75,204,0,0,2.720000,1.000000,520,0.392308,250,0.300000,1.307692,0.092308
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dornish Sidewinder [T5],,victory,final,5,65,43,97,4,18,1.492308,0.661538,1795,0.054039,1142,0.056918,0.949424,-0.002879
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dornish Sidewinder [T5],,active,censored_diagnostic,1,16,16,21,0,0,1.312500,1.000000,520,0.040385,250,0.064000,0.631010,-0.023615
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dornish Spearmaster [T5],,victory,final,4,14,14,25,0,0,1.785714,1.000000,884,0.028281,818,0.017115,1.652392,0.011166
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dornish Viper [T6],,victory,final,5,43,28,64,2,13,1.488372,0.651163,1815,0.035262,1226,0.035073,1.005369,0.000188
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Dornish Viper [T6],,active,censored_diagnostic,1,3,3,8,0,0,2.666667,1.000000,520,0.015385,250,0.012000,1.282051,0.003385
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Hightower Crossbowman [T4],hightower_crossbowman,victory,final,1,2,2,2,0,0,1.000000,1.000000,274,0.007299,235,0.008511,0.857664,-0.001211
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Hightower Marksmen [T5],hightower_marksman,victory,final,3,15,10,32,1,4,2.133333,0.666667,1459,0.021933,794,0.018892,1.160978,0.003041
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Hightower Marksmen [T5],hightower_marksman,active,censored_diagnostic,1,7,7,5,0,0,0.714286,1.000000,520,0.009615,250,0.028000,0.343407,-0.018385
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Hightower Recruit [T1],hightower_recruit,victory,final,1,1,1,2,0,0,2.000000,1.000000,128,0.015625,129,0.007752,2.015625,0.007873
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Knights of Starfall [T6],dayne_starfall_knights,victory,final,13,562,447,924,15,100,1.644128,0.795374,3681,0.251019,2900,0.193793,1.295292,0.057226
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Knights of Starfall [T6],dayne_starfall_knights,defeat,final,2,50,0,92,9,41,1.840000,0.000000,819,0.112332,466,0.107296,1.046935,0.005036
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Knights of Starfall [T6],dayne_starfall_knights,active,censored_diagnostic,1,52,24,100,3,25,1.923077,0.461538,520,0.192308,250,0.208000,0.924556,-0.015692
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Marauder [T5],,victory,final,6,6,6,10,0,0,1.666667,1.000000,1085,0.009217,1137,0.005277,1.746544,0.003940
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Martell Archer [T4],martell_archer,victory,final,1,3,3,3,0,0,1.000000,1.000000,128,0.023438,129,0.023256,1.007812,0.000182
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Martell Bowman [T3],martell_bowman,victory,final,1,4,3,15,0,1,3.750000,0.750000,775,0.019355,299,0.013378,1.446774,0.005977
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Martell Footman [T3],martell_footman,victory,final,1,4,0,9,0,4,2.250000,0.000000,775,0.011613,299,0.013378,0.868065,-0.001765
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Martell House Guard [T5],martell_houseguard,active,censored_diagnostic,1,3,3,13,0,0,4.333333,1.000000,520,0.025000,250,0.012000,2.083333,0.013000
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Martell Levy [T2],martell_levy,victory,final,1,4,0,6,2,2,1.500000,0.000000,775,0.007742,299,0.013378,0.578710,-0.005636
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Martell Veteran Archer [T5],martell_veteran_archer,active,censored_diagnostic,1,5,5,10,0,0,2.000000,1.000000,520,0.019231,250,0.020000,0.961538,-0.000769
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Reach Archer [T3],reach_archer,victory,final,3,10,10,20,0,0,2.000000,1.000000,1240,0.016129,844,0.011848,1.361290,0.004281
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Reach Archer [T3],reach_archer,defeat,final,2,10,0,14,0,10,1.400000,0.000000,819,0.017094,466,0.021459,0.796581,-0.004365
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Reach Axeman [T5],reach_axeman,victory,final,3,5,5,12,0,0,2.400000,1.000000,803,0.014944,725,0.006897,2.166874,0.008047
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Reach Axeman [T5],reach_axeman,defeat,final,1,2,0,9,0,2,4.500000,0.000000,468,0.019231,233,0.008584,2.240385,0.010647
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Reach Bowman [T2],reach_bowman,victory,final,2,11,7,7,0,4,0.636364,0.636364,955,0.007330,728,0.015110,0.485102,-0.007780
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Reach Elite Archer [T4],reach_elite_archer,victory,final,2,5,3,13,0,2,2.600000,0.600000,1113,0.011680,726,0.006887,1.695957,0.004793
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Reach Elite Archer [T4],reach_elite_archer,defeat,final,2,8,0,16,2,6,2.000000,0.000000,819,0.019536,466,0.017167,1.137973,0.002369
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Reach Flower Knight [T6],reach_flower_knight,victory,final,8,22,12,50,3,7,2.272727,0.545455,2239,0.022331,1643,0.013390,1.667749,0.008941
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Reach Flower Knight [T6],reach_flower_knight,defeat,final,2,6,0,14,4,2,2.333333,0.000000,819,0.017094,466,0.012876,1.327635,0.004218
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Reach Flower Knight [T6],reach_flower_knight,active,censored_diagnostic,1,5,2,8,0,3,1.600000,0.400000,520,0.015385,250,0.020000,0.769231,-0.004615
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Reach Horseman [T5],reach_knight,victory,final,1,4,4,5,0,0,1.250000,1.000000,128,0.039062,129,0.031008,1.259766,0.008055
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Reach Man at Arms [T4],reach_hacker,victory,final,1,1,1,3,0,0,3.000000,1.000000,432,0.006944,233,0.004292,1.618056,0.002653
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Reach Master Archer [T5],reach_master_archer,victory,final,7,54,53,39,0,1,0.722222,0.981481,1531,0.025474,1368,0.039474,0.645330,-0.014000
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Reach Master Archer [T5],reach_master_archer,defeat,final,1,2,0,8,0,2,4.000000,0.000000,351,0.022792,233,0.008584,2.655271,0.014208
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Reach Recruit [T1],reach_recruit,victory,final,2,39,23,8,3,13,0.205128,0.589744,422,0.018957,448,0.087054,0.217766,-0.068096
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Reach Rider [T4],reach_rider,victory,final,1,1,1,2,0,0,2.000000,1.000000,270,0.007407,256,0.003906,1.896296,0.003501
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Reach Soldier [T3],reach_soldier,victory,final,1,2,2,3,0,0,1.500000,1.000000,432,0.006944,233,0.008584,0.809028,-0.001639
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Reaver [T4],,victory,final,9,160,117,124,9,34,0.775000,0.731250,2338,0.053037,1811,0.088349,0.600310,-0.035312
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Reaver [T4],,active,censored_diagnostic,1,19,14,57,1,4,3.000000,0.736842,520,0.109615,250,0.076000,1.442308,0.033615
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Rhoynar Caravan Guard [T4],,victory,final,3,13,5,12,1,7,0.923077,0.384615,1215,0.009877,960,0.013542,0.729345,-0.003665
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Rhoynar Caravan Guard [T4],,defeat,final,1,4,0,7,0,4,1.750000,0.000000,468,0.014957,233,0.017167,0.871261,-0.002210
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Tarly Soldier [T3],tarly_soldier,victory,final,1,2,2,2,0,0,1.000000,1.000000,212,0.009434,198,0.010101,0.933962,-0.000667
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Tarly Vanguard [T6],tarly_vanguard,victory,final,1,2,0,5,0,2,2.500000,0.000000,775,0.006452,299,0.006689,0.964516,-0.000237
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Tyrell Elite Longbowman [T5],tyrell_longbowman,victory,final,1,1,1,2,0,0,2.000000,1.000000,128,0.015625,129,0.007752,2.015625,0.007873
+edric_reach_dornish,field,player_party,Edric Dayne's Party,Tyrell Elite Longbowman [T5],tyrell_longbowman,active,censored_diagnostic,1,1,1,5,0,0,5.000000,1.000000,520,0.009615,250,0.004000,2.403846,0.005615
+trego_myrish_pentoshi,field,allied_party,Arwa's Party,Essosi Convoy Guard [T4],,victory,final,1,3,3,4,0,0,1.333333,1.000000,318,0.012579,287,0.010453,1.203354,0.002126
+trego_myrish_pentoshi,field,player_party,Trego Drahar's Party,Knight of Hollow Hill [T4],,victory,final,1,9,2,12,2,5,1.333333,0.222222,496,0.024194,369,0.024390,0.991935,-0.000197
+trego_myrish_pentoshi,field,player_party,Trego Drahar's Party,Magister Guard Elite [T6],magister_guard,victory,final,6,31,29,31,1,1,1.000000,0.935484,1616,0.019183,1625,0.019077,1.005569,0.000106
+trego_myrish_pentoshi,field,player_party,Trego Drahar's Party,Myrish Archer [T4],myrish_archer,victory,final,2,42,39,35,1,2,0.833333,0.928571,916,0.038210,588,0.071429,0.534934,-0.033219
+trego_myrish_pentoshi,field,player_party,Trego Drahar's Party,Myrish Artisan of War [T6],myrish_artisan,victory,final,7,469,451,694,6,12,1.479744,0.961620,2124,0.326742,1936,0.242252,1.348769,0.084490
+trego_myrish_pentoshi,field,player_party,Trego Drahar's Party,Myrish Cavalry [T5],myrish_cavalry,victory,final,5,167,123,307,10,34,1.838323,0.736527,1819,0.168774,1440,0.115972,1.455297,0.052802
+trego_myrish_pentoshi,field,player_party,Trego Drahar's Party,Myrish Crossbowman [T3],myrish_crossbowman,victory,final,5,91,91,52,0,0,0.571429,1.000000,1298,0.040062,1338,0.068012,0.589038,-0.027950
+trego_myrish_pentoshi,field,player_party,Trego Drahar's Party,Myrish Elite Archer [T5],myrish_elite_archer,victory,final,2,138,138,229,0,0,1.659420,1.000000,916,0.250000,588,0.234694,1.065217,0.015306
+trego_myrish_pentoshi,field,allied_party,Arwa's Party,Myrish Elite Archer [T5],myrish_elite_archer,victory,final,1,5,5,5,0,0,1.000000,1.000000,318,0.015723,287,0.017422,0.902516,-0.001698
+trego_myrish_pentoshi,field,player_party,Trego Drahar's Party,Myrish Elite Crossbowman [T4],myrish_elite_crossbowman,victory,final,6,75,75,66,0,0,0.880000,1.000000,1994,0.033099,1673,0.044830,0.738335,-0.011730
+trego_myrish_pentoshi,field,player_party,Trego Drahar's Party,Myrish Footman [T2],myrish_footman,victory,final,2,29,13,13,5,11,0.448276,0.448276,916,0.014192,588,0.049320,0.287758,-0.035128
+trego_myrish_pentoshi,field,player_party,Trego Drahar's Party,Myrish Horseman [T4],myrish_horseman,victory,final,3,20,12,42,1,7,2.100000,0.600000,1412,0.029745,957,0.020899,1.423300,0.008846
+trego_myrish_pentoshi,field,player_party,Trego Drahar's Party,Myrish Legionnaire [T5],myrish_axeman,victory,final,5,135,116,99,3,16,0.733333,0.859259,1819,0.054426,1440,0.093750,0.580539,-0.039324
+trego_myrish_pentoshi,field,player_party,Trego Drahar's Party,Myrish Master Crossbowman [T5],myrish_master_crossbowman,victory,final,6,61,57,92,2,2,1.508197,0.934426,1994,0.046138,1673,0.036461,1.265403,0.009677
+trego_myrish_pentoshi,field,player_party,Trego Drahar's Party,Myrish Noble Youth [T2],myrish_noble_recruit,victory,final,4,72,67,14,0,5,0.194444,0.930556,802,0.017456,969,0.074303,0.234933,-0.056847
+trego_myrish_pentoshi,field,player_party,Trego Drahar's Party,Myrish Recruit [T1],myrish_recruit,victory,final,1,4,2,0,0,2,0.000000,0.500000,130,0.000000,263,0.015209,0.000000,-0.015209
+trego_myrish_pentoshi,field,player_party,Trego Drahar's Party,Myrish Soldier [T3],myrish_soldier,victory,final,3,41,38,21,1,2,0.512195,0.926829,1034,0.020309,909,0.045105,0.450276,-0.024795
+trego_myrish_pentoshi,field,player_party,Trego Drahar's Party,Myrish Warrior [T4],myrish_warrior,victory,final,2,12,11,5,0,1,0.416667,0.916667,538,0.009294,540,0.022222,0.418216,-0.012929
+trego_myrish_pentoshi,field,player_party,Trego Drahar's Party,Pentoshi Footman [T2],pentoshi_footman,victory,final,2,55,41,30,6,8,0.545455,0.745455,626,0.047923,632,0.087025,0.550683,-0.039102
+trego_myrish_pentoshi,field,player_party,Trego Drahar's Party,Pentoshi Noble Youth [T2],pentoshi_noble_recruit,victory,final,1,1,1,1,0,0,1.000000,1.000000,318,0.003145,287,0.003484,0.902516,-0.000340
+trego_myrish_pentoshi,field,player_party,Trego Drahar's Party,Pentoshi Recruit [T1],pentoshi_recruit,victory,final,3,135,94,42,7,34,0.311111,0.696296,1034,0.040619,909,0.148515,0.273501,-0.107896
+trego_myrish_pentoshi,field,player_party,Trego Drahar's Party,Pentoshi Soldier [T3],pentoshi_soldier,victory,final,2,39,36,12,1,2,0.307692,0.923077,585,0.020513,565,0.069027,0.297173,-0.048514
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Braavosi Soldier [T3],,victory,final,1,1,1,1,0,0,1.000000,1.000000,244,0.004098,293,0.003413,1.200820,0.000685
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Essosi Veteran Convoy Guard [T5],,victory,final,1,4,1,4,1,2,1.000000,0.250000,288,0.013889,372,0.010753,1.291667,0.003136
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Magister Guard Elite [T6],magister_guard,victory,final,2,14,6,23,2,6,1.642857,0.428571,1057,0.021760,623,0.022472,0.968307,-0.000712
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Magister Guard Elite [T6],magister_guard,defeat,final,2,16,0,31,3,13,1.937500,0.000000,899,0.034483,500,0.032000,1.077586,0.002483
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Magister Guard Elite [T6],magister_guard,active,censored_diagnostic,1,9,9,0,0,0,0.000000,1.000000,261,0.000000,250,0.036000,0.000000,-0.036000
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Archer [T4],myrish_archer,victory,final,1,13,7,1,0,6,0.076923,0.538462,244,0.004098,293,0.044369,0.092371,-0.040270
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Artisan of War [T6],myrish_artisan,victory,final,3,229,139,565,17,73,2.467249,0.606987,1301,0.434281,916,0.250000,1.737125,0.184281
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Artisan of War [T6],myrish_artisan,defeat,final,2,191,10,579,43,138,3.031414,0.052356,899,0.644049,500,0.382000,1.685992,0.262049
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Artisan of War [T6],myrish_artisan,active,censored_diagnostic,1,96,96,224,0,0,2.333333,1.000000,261,0.858238,250,0.384000,2.234994,0.474238
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Cavalry [T5],myrish_cavalry,victory,final,3,100,56,134,9,35,1.340000,0.560000,1301,0.102998,916,0.109170,0.943459,-0.006173
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Cavalry [T5],myrish_cavalry,defeat,final,2,80,0,47,27,53,0.587500,0.000000,899,0.052280,500,0.160000,0.326752,-0.107720
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Cavalry [T5],myrish_cavalry,active,censored_diagnostic,1,40,39,1,0,1,0.025000,0.975000,261,0.003831,250,0.160000,0.023946,-0.156169
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Crossbowman [T3],myrish_crossbowman,victory,final,1,3,0,8,0,3,2.666667,0.000000,769,0.010403,251,0.011952,0.870394,-0.001549
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Crossbowman [T3],myrish_crossbowman,defeat,final,2,7,0,15,0,7,2.142857,0.000000,899,0.016685,500,0.014000,1.191800,0.002685
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Elite Archer [T5],myrish_elite_archer,victory,final,2,93,61,68,7,25,0.731183,0.655914,532,0.127820,665,0.139850,0.913978,-0.012030
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Elite Crossbowman [T4],myrish_elite_crossbowman,victory,final,3,47,26,72,4,17,1.531915,0.553191,1301,0.055342,916,0.051310,1.078581,0.004032
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Elite Crossbowman [T4],myrish_elite_crossbowman,defeat,final,2,18,0,35,5,13,1.944444,0.000000,899,0.038932,500,0.036000,1.081449,0.002932
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Elite Crossbowman [T4],myrish_elite_crossbowman,active,censored_diagnostic,1,9,9,15,0,0,1.666667,1.000000,261,0.057471,250,0.036000,1.596424,0.021471
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Legionnaire [T5],myrish_axeman,victory,final,3,89,44,158,10,35,1.775281,0.494382,1301,0.121445,916,0.097162,1.249929,0.024283
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Legionnaire [T5],myrish_axeman,defeat,final,2,72,0,37,23,49,0.513889,0.000000,899,0.041157,500,0.144000,0.285811,-0.102843
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Legionnaire [T5],myrish_axeman,active,censored_diagnostic,1,36,36,1,0,0,0.027778,1.000000,261,0.003831,250,0.144000,0.026607,-0.140169
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Master Crossbowman [T5],myrish_master_crossbowman,victory,final,3,47,28,43,3,16,0.914894,0.595745,1301,0.033051,916,0.051310,0.644153,-0.018259
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Master Crossbowman [T5],myrish_master_crossbowman,defeat,final,2,30,0,42,3,27,1.400000,0.000000,899,0.046719,500,0.060000,0.778643,-0.013281
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Master Crossbowman [T5],myrish_master_crossbowman,active,censored_diagnostic,1,15,14,9,1,0,0.600000,0.933333,261,0.034483,250,0.060000,0.574713,-0.025517
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Noble Youth [T2],myrish_noble_recruit,victory,final,1,3,0,0,1,2,0.000000,0.000000,769,0.000000,251,0.011952,0.000000,-0.011952
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Noble Youth [T2],myrish_noble_recruit,defeat,final,2,6,0,0,1,5,0.000000,0.000000,899,0.000000,500,0.012000,0.000000,-0.012000
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Noble Youth [T2],myrish_noble_recruit,active,censored_diagnostic,1,2,2,0,0,0,0.000000,1.000000,261,0.000000,250,0.008000,0.000000,-0.008000
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Soldier [T3],myrish_soldier,victory,final,2,24,7,24,6,11,1.000000,0.291667,532,0.045113,665,0.036090,1.250000,0.009023
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Myrish Warrior [T4],myrish_warrior,victory,final,1,9,7,9,0,2,1.000000,0.777778,244,0.036885,293,0.030717,1.200820,0.006169
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Pentoshi Archer [T4],pentoshi_archer,victory,final,1,3,3,1,0,0,0.333333,1.000000,244,0.004098,293,0.010239,0.400273,-0.006141
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Pentoshi Cavalry [T5],pentoshi_cavalry,victory,final,1,2,2,1,0,0,0.500000,1.000000,244,0.004098,293,0.006826,0.600410,-0.002728
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Pentoshi Footman [T2],pentoshi_footman,victory,final,1,43,27,11,2,14,0.255814,0.627907,288,0.038194,372,0.115591,0.330426,-0.077397
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Pentoshi Man at Arms [T4],pentoshi_man_at_arms,victory,final,1,7,3,8,0,4,1.142857,0.428571,769,0.010403,251,0.027888,0.373026,-0.017485
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Pentoshi Man at Arms [T4],pentoshi_man_at_arms,defeat,final,2,7,0,5,2,5,0.714286,0.000000,899,0.005562,500,0.014000,0.397267,-0.008438
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Pentoshi Man at Arms [T4],pentoshi_man_at_arms,active,censored_diagnostic,1,7,7,4,0,0,0.571429,1.000000,261,0.015326,250,0.028000,0.547345,-0.012674
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Pentoshi Pike Warrior [T4],pentoshi_pike_warrior,victory,final,1,1,1,1,0,0,1.000000,1.000000,244,0.004098,293,0.003413,1.200820,0.000685
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Pentoshi Soldier [T3],pentoshi_soldier,victory,final,3,56,27,99,7,22,1.767857,0.482143,1301,0.076095,916,0.061135,1.244702,0.014960
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Pentoshi Soldier [T3],pentoshi_soldier,defeat,final,2,52,0,30,13,39,0.576923,0.000000,899,0.033370,500,0.104000,0.320869,-0.070630
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,Pentoshi Soldier [T3],pentoshi_soldier,active,censored_diagnostic,1,26,26,4,0,0,0.153846,1.000000,261,0.015326,250,0.104000,0.147362,-0.088674
