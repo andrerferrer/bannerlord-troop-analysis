@@ -32,3 +32,19 @@ When choosing the next practical test:
 
 All existing context boundaries, the five-battle/twenty-deployed evidence gate,
 and the requirement to analyze every visible ordinary troop remain unchanged.
+
+## Current Realm of Thrones target
+
+The operator explicitly parks Pentoshi Soldier [T3] until the new T5/T6
+candidate queue is exhausted. A batch-local shortest-gap calculation may still
+describe its evidence deficit, but must not promote it to the practical
+next-test slot.
+
+The next dedicated target is **White Harbor Knight Commander [T6]**
+(`whiteharbor_knight_commander`) in field battles. It is the next untested
+ordinary T6 candidate in the versioned mounted-melee sustained-output screen.
+
+Capture five independent field battles with at least 20 White Harbor Knight
+Commanders per battle. Use it as the only or main T6 melee cavalry, keep support
+composition and orders as stable as practical, and do not mix siege evidence
+into the field gate.
