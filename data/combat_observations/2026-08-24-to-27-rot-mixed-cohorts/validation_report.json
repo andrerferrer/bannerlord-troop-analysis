@@ -1,0 +1,20 @@
+{
+  "all_primary_arithmetic_passed": true,
+  "all_visible_complete_player_side_ordinary_rows_normalized": true,
+  "battle_count": 29,
+  "consolidated_rows": 339,
+  "frozen_models_changed": false,
+  "historical_deduplication_completed": true,
+  "image_count": 29,
+  "observation_count": 427,
+  "ordinary_troop_labels": 75,
+  "primary_troop_occurrences": 339,
+  "review_queue_count": 0,
+  "schema_version": "2.0.0",
+  "source_sha256": "e3b00de66dedfb06eca8f2fbf74a761b96aa19cf563f7f5311bedd98536c53bf",
+  "source_size_bytes": 57809819,
+  "status": "passed",
+  "track_context_side_boundaries_passed": true,
+  "validation_errors": [],
+  "visual_same_battle_audit_completed": true
+}

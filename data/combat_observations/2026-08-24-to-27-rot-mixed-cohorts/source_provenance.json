@@ -1,0 +1,10 @@
+{
+  "capture_timezone": "America/Sao_Paulo",
+  "host_transport_note": "original attachment preserved unchanged in the task workspace during normalization",
+  "member_manifest": "source_inventory.csv",
+  "raw_retention": "external source ZIP not committed; deterministic normalized bundle is repository-addressable",
+  "received_at": "2026-08-28",
+  "source_name": "Mount and Blade II Bannerlord combat screenshot ZIP attached in ChatGPT Work",
+  "source_sha256": "e3b00de66dedfb06eca8f2fbf74a761b96aa19cf563f7f5311bedd98536c53bf",
+  "source_size_bytes": 57809819
+}

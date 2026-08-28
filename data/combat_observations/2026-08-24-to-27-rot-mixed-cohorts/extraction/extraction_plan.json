@@ -1,0 +1,13 @@
+{
+  "files_that_would_leave_machine": [],
+  "mode": "host-vision",
+  "note": "This command prepares deterministic work only. Live model execution is intentionally not performed without a configured provider adapter.",
+  "paid_api_authorized": false,
+  "queue_path": "extraction_queue.jsonl",
+  "queue_size": 29,
+  "schema_version": "1.0.0",
+  "skipped_already_normalized": 0,
+  "skipped_exact_duplicates": 0,
+  "status": "ready_for_host_vision",
+  "visual_deduplication_review": 0
+}

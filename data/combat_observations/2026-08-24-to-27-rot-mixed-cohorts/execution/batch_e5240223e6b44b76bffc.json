@@ -1,0 +1,270 @@
+{
+  "batch_id": "batch_e5240223e6b44b76bffc",
+  "configuration_hash": "81d2871eabb8f58717f89c3307f878ded171518b39cd7e0feccebc3eb827e476",
+  "counts": {
+    "skipped_already_normalized": 0,
+    "skipped_exact_duplicates": 0,
+    "supported_images": 29,
+    "visual_deduplication_review": 0
+  },
+  "failed_items": [],
+  "generated_artifacts": [
+    "manifest/batch_e5240223e6b44b76bffc.csv"
+  ],
+  "input_kind": "zip",
+  "input_name": "Mount and Blade II Bannerlord - Singleplayer PID_ 11032 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 25_08_2026 00_09_36.zip",
+  "input_sha256": "e3b00de66dedfb06eca8f2fbf74a761b96aa19cf563f7f5311bedd98536c53bf",
+  "mode": "preflight",
+  "next_action": "run extraction in offline-existing, host-vision, or api-batch mode",
+  "pending_images": 29,
+  "phase_statuses": {
+    "canonical": "pending",
+    "extraction": "pending",
+    "preflight": "complete"
+  },
+  "pipeline_version": "0.4.0",
+  "processed_images": 0,
+  "retry_counts": {},
+  "review_queue_size": 0,
+  "schema_version": "1.0.0",
+  "schema_version_combat": "2.0.0",
+  "zip_preflight": {
+    "compressed_size": 57793927,
+    "declared_uncompressed_size": 57782414,
+    "member_count": 29,
+    "members": [
+      {
+        "compressed_size": 1783546,
+        "compression_ratio": "0.999791",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 11032 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 25_08_2026 00_09_36.png",
+        "source_timestamp": "2026-08-25T00:09:36",
+        "uncompressed_size": 1783173
+      },
+      {
+        "compressed_size": 1871901,
+        "compression_ratio": "0.999787",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 11032 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 25_08_2026 00_19_15.png",
+        "source_timestamp": "2026-08-25T00:19:14",
+        "uncompressed_size": 1871502
+      },
+      {
+        "compressed_size": 1482615,
+        "compression_ratio": "1.000219",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 11040 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 24_08_2026 18_49_01.png",
+        "source_timestamp": "2026-08-24T18:49:02",
+        "uncompressed_size": 1482939
+      },
+      {
+        "compressed_size": 1799280,
+        "compression_ratio": "0.999834",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 11040 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 24_08_2026 19_07_13.png",
+        "source_timestamp": "2026-08-24T19:07:12",
+        "uncompressed_size": 1798982
+      },
+      {
+        "compressed_size": 2457180,
+        "compression_ratio": "0.999765",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 17004 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 25_08_2026 02_52_28.png",
+        "source_timestamp": "2026-08-25T02:52:28",
+        "uncompressed_size": 2456602
+      },
+      {
+        "compressed_size": 2323972,
+        "compression_ratio": "0.999771",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 17004 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 25_08_2026 16_29_56.png",
+        "source_timestamp": "2026-08-25T16:29:56",
+        "uncompressed_size": 2323440
+      },
+      {
+        "compressed_size": 2252596,
+        "compression_ratio": "0.999769",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 17004 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 25_08_2026 16_34_50.png",
+        "source_timestamp": "2026-08-25T16:34:50",
+        "uncompressed_size": 2252076
+      },
+      {
+        "compressed_size": 2076529,
+        "compression_ratio": "0.999774",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 17004 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 25_08_2026 16_39_14.png",
+        "source_timestamp": "2026-08-25T16:39:14",
+        "uncompressed_size": 2076060
+      },
+      {
+        "compressed_size": 2443883,
+        "compression_ratio": "0.999765",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 28728 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 24_08_2026 22_31_26.png",
+        "source_timestamp": "2026-08-24T22:31:26",
+        "uncompressed_size": 2443308
+      },
+      {
+        "compressed_size": 2243222,
+        "compression_ratio": "0.999770",
+        "is_directory": false,
+        "name": "Armoury Crate SE 24_08_2026 23_59_01.png",
+        "source_timestamp": "2026-08-24T23:59:00",
+        "uncompressed_size": 2242705
+      },
+      {
+        "compressed_size": 2537317,
+        "compression_ratio": "0.999764",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 2160 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 26_08_2026 19_33_40.png",
+        "source_timestamp": "2026-08-26T19:33:40",
+        "uncompressed_size": 2536719
+      },
+      {
+        "compressed_size": 2294857,
+        "compression_ratio": "0.999770",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 2160 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 26_08_2026 19_46_15.png",
+        "source_timestamp": "2026-08-26T19:46:14",
+        "uncompressed_size": 2294330
+      },
+      {
+        "compressed_size": 2057003,
+        "compression_ratio": "0.999788",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 2160 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 26_08_2026 19_58_02.png",
+        "source_timestamp": "2026-08-26T19:58:02",
+        "uncompressed_size": 2056566
+      },
+      {
+        "compressed_size": 1985248,
+        "compression_ratio": "0.999792",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 2160 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 26_08_2026 20_16_49.png",
+        "source_timestamp": "2026-08-26T20:16:48",
+        "uncompressed_size": 1984836
+      },
+      {
+        "compressed_size": 2082832,
+        "compression_ratio": "0.999783",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 2160 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 26_08_2026 20_33_53.png",
+        "source_timestamp": "2026-08-26T20:33:52",
+        "uncompressed_size": 2082379
+      },
+      {
+        "compressed_size": 2011473,
+        "compression_ratio": "0.999788",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 2160 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 26_08_2026 20_56_07.png",
+        "source_timestamp": "2026-08-26T20:56:06",
+        "uncompressed_size": 2011047
+      },
+      {
+        "compressed_size": 2052533,
+        "compression_ratio": "0.999779",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 2160 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 26_08_2026 20_58_39.png",
+        "source_timestamp": "2026-08-26T20:58:40",
+        "uncompressed_size": 2052080
+      },
+      {
+        "compressed_size": 2260176,
+        "compression_ratio": "0.999774",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 2160 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 26_08_2026 21_00_19.png",
+        "source_timestamp": "2026-08-26T21:00:18",
+        "uncompressed_size": 2259666
+      },
+      {
+        "compressed_size": 1596739,
+        "compression_ratio": "0.999841",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 2160 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 26_08_2026 21_47_46.png",
+        "source_timestamp": "2026-08-26T21:47:46",
+        "uncompressed_size": 1596485
+      },
+      {
+        "compressed_size": 1704771,
+        "compression_ratio": "0.999826",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 2160 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 26_08_2026 21_56_09.png",
+        "source_timestamp": "2026-08-26T21:56:08",
+        "uncompressed_size": 1704475
+      },
+      {
+        "compressed_size": 1619827,
+        "compression_ratio": "0.999833",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 2160 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 26_08_2026 22_04_29.png",
+        "source_timestamp": "2026-08-26T22:04:28",
+        "uncompressed_size": 1619557
+      },
+      {
+        "compressed_size": 1595271,
+        "compression_ratio": "0.999830",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 2160 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 26_08_2026 22_11_16.png",
+        "source_timestamp": "2026-08-26T22:11:16",
+        "uncompressed_size": 1595000
+      },
+      {
+        "compressed_size": 1638872,
+        "compression_ratio": "0.999816",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 2160 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 26_08_2026 22_25_27.png",
+        "source_timestamp": "2026-08-26T22:25:26",
+        "uncompressed_size": 1638570
+      },
+      {
+        "compressed_size": 2322174,
+        "compression_ratio": "0.999771",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 2160 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 26_08_2026 23_01_53.png",
+        "source_timestamp": "2026-08-26T23:01:52",
+        "uncompressed_size": 2321643
+      },
+      {
+        "compressed_size": 2276896,
+        "compression_ratio": "0.999770",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 2160 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 26_08_2026 23_09_35.png",
+        "source_timestamp": "2026-08-26T23:09:34",
+        "uncompressed_size": 2276373
+      },
+      {
+        "compressed_size": 1637489,
+        "compression_ratio": "0.999824",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 2160 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 27_08_2026 23_51_42.png",
+        "source_timestamp": "2026-08-27T23:51:42",
+        "uncompressed_size": 1637200
+      },
+      {
+        "compressed_size": 1712783,
+        "compression_ratio": "0.999803",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 2540 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 24_08_2026 16_50_21.png",
+        "source_timestamp": "2026-08-24T16:50:20",
+        "uncompressed_size": 1712446
+      },
+      {
+        "compressed_size": 1592301,
+        "compression_ratio": "0.999861",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 4540 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 25_08_2026 19_37_11.png",
+        "source_timestamp": "2026-08-25T19:37:10",
+        "uncompressed_size": 1592080
+      },
+      {
+        "compressed_size": 2080641,
+        "compression_ratio": "0.999776",
+        "is_directory": false,
+        "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 4540 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 25_08_2026 19_57_03.png",
+        "source_timestamp": "2026-08-25T19:57:02",
+        "uncompressed_size": 2080175
+      }
+    ]
+  }
+}
