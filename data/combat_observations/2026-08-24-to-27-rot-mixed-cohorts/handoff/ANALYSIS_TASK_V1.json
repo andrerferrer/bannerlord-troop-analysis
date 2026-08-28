@@ -1,0 +1,24 @@
+{
+  "protocol": "bannerlord-analysis-task",
+  "version": 1,
+  "task_id": "2026-08-24-to-27-rot-mixed-cohorts",
+  "status": "pending",
+  "branch": "normalize/2026-08-24-to-27-rot-mixed-cohorts",
+  "handoff_path": "data/combat_observations/2026-08-24-to-27-rot-mixed-cohorts/handoff/ANALYSIS_PROMPT.md",
+  "normalization_commit": "05d960d39a33165cc58e8740387bad5346dfe2bb",
+  "required_actions": [
+    "verify_handoff_hashes",
+    "complete_review_layer",
+    "resolve_canonical_identities",
+    "generate_batch_wide_analysis_outputs",
+    "generate_context_and_result_splits",
+    "generate_focus_deep_dives",
+    "recommend_smallest_next_test",
+    "validate_and_merge"
+  ],
+  "completion": {
+    "action": "merge",
+    "merge_method": "squash"
+  },
+  "blockers": []
+}
