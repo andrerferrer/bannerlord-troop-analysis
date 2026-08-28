@@ -1,0 +1,35 @@
+{
+  "artifact_manifest": {
+    "failed": 0,
+    "verified": 26
+  },
+  "batch_id": "2026-08-24-to-27-rot-mixed-cohorts",
+  "frozen_model_files_modified": [],
+  "identity_audit": {
+    "commit": "fb8cf889330f9fe570189c081e5dd23fe078837b",
+    "path": "data/realm_of_thrones/audit/realm_of_thrones_troops.csv",
+    "sha256": "63ea983998e25aa0e6f8c0747bf42e44440f695bbe1fec717074e7ba64e42810"
+  },
+  "immutable_inputs_modified": [],
+  "local_equivalent_phase1_head": "87ca0598f73a83a22b1cf0fe69844b1843c44883",
+  "normalization_commit": "05d960d39a33165cc58e8740387bad5346dfe2bb",
+  "normalized_bundle": {
+    "members": 16,
+    "safe_preflight_passed": true,
+    "sha256": "547984824ffaad4f7b07013e03c945ef722bf0677651b82050dbd8919ba03cc7",
+    "size_bytes": 25304
+  },
+  "pipeline_mode": "offline-existing with local source-hash recheck",
+  "pipeline_version": "0.4.0",
+  "remote_phase1_head": "37abe16a62b0f08ea6dd3742883a4393cbe72ddf",
+  "schema_version": "2.0.0",
+  "source_zip": {
+    "actual_sha256": "e3b00de66dedfb06eca8f2fbf74a761b96aa19cf563f7f5311bedd98536c53bf",
+    "actual_size_bytes": 57809819,
+    "expected_sha256": "e3b00de66dedfb06eca8f2fbf74a761b96aa19cf563f7f5311bedd98536c53bf",
+    "expected_size_bytes": 57809819,
+    "locally_verified": true,
+    "member_hashes_verified": 29
+  },
+  "status": "passed"
+}

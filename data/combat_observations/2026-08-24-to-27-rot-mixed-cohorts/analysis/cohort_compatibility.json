@@ -1,0 +1,38 @@
+{
+  "decisions": [
+    {
+      "cohort": "trego_myrish_pentoshi",
+      "contexts": [
+        "field",
+        "siege_attack"
+      ],
+      "decision": "same party/core roster may aggregate only inside one context; field and siege remain separate"
+    },
+    {
+      "cohort": "edric_reach_dornish",
+      "contexts": [
+        "field"
+      ],
+      "decision": "same party/core roster may aggregate inside field only"
+    },
+    {
+      "decision": "incompatible; never pooled",
+      "pair": [
+        "trego_myrish_pentoshi",
+        "edric_reach_dornish"
+      ]
+    },
+    {
+      "decision": "allied-party rows remain distinct from Trego player-party rows",
+      "scope": "Arwa's Party"
+    },
+    {
+      "active_battles": [
+        "battle_20260825_163450_siege",
+        "battle_20260827_235142_field"
+      ],
+      "decision": "independent censored observations; never combined/subtracted/reconstructed with later fights"
+    }
+  ],
+  "status": "passed_with_separate_cohorts"
+}

@@ -1,0 +1,5 @@
+cohort,context,participant_scope,parent_group,independent_battles,ordinary_occurrences,partition_rows,reliable_rows,insufficient_rows
+edric_reach_dornish,field,player_party,Edric Dayne's Party,16,205,48,14,34
+trego_myrish_pentoshi,field,allied_party,Arwa's Party,1,2,2,0,2
+trego_myrish_pentoshi,field,player_party,Trego Drahar's Party,7,68,20,7,13
+trego_myrish_pentoshi,siege_attack,player_party,Trego Drahar's Party,6,64,20,7,13
