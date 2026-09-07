@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "track": "realm_of_thrones",
+  "game_version": "1.4.x",
+  "updated_at": "2026-09-07",
+  "queue_status": "blocked_pending_active_batch_and_historical_audit",
+  "authority": {
+    "path": "data/combat_observations/test_queues/realm_of_thrones.json",
+    "scope": "current dedicated empirical target, ordered future targets, verification holds, and parked or closed troops",
+    "rule": "This file is the only repository source of truth for what troop should be tested next. Batch-local analysis/NEXT_TEST_RECOMMENDATION.md files and pull-request bodies are proposals and historical evidence only until the same merged pull request updates this file."
+  },
+  "active_test": {
+    "troop_id": "cerwyn_marauder",
+    "display_name": "Cerwyn Marauder",
+    "context": "field",
+    "status": "evidence_received_pending_canonical_batch",
+    "selected_by": "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/analysis/NEXT_TEST_RECOMMENDATION.md",
+    "notes": [
+      "The operator supplied a dedicated screenshot batch on 2026-09-07.",
+      "The uploaded batch is not canonical until its evidence pull request completes normalization and Phase 2 analysis.",
+      "Do not choose a different target or publish a future queue order from preliminary arithmetic."
+    ]
+  },
+  "ordered_queue": [],
+  "verification_holds": [
+    {
+      "troop_id": "realm_paladin",
+      "display_name": "Realm Paladin",
+      "context": "field",
+      "status": "do_not_recommend_until_audited",
+      "reason": "The operator recalls that this troop was already tested. Historical evidence exists, but the repository previously had no single queue ledger reconciling completed and queued targets."
+    },
+    {
+      "troop_id": "arryn_moonknight",
+      "display_name": "Arryn Winged Knight",
+      "context": "field",
+      "status": "do_not_recommend_until_audited",
+      "reason": "The operator recalls that this troop may already have been tested. The repository contains incidental coverage and repeated next-test recommendations, but no authoritative global ledger previously resolved its final status."
+    }
+  ],
+  "parked": [
+    {
+      "troop_id": "westerling_archer",
+      "display_name": "Westerling Archer",
+      "context": "field",
+      "status": "parked_no_dedicated_test",
+      "reason": "No extraordinary empirical or structural hypothesis currently justifies spending dedicated battles merely to close its display gate."
+    },
+    {
+      "troop_id": "westerling_elite_archer",
+      "display_name": "Westerling Elite Archer",
+      "context": "field",
+      "status": "parked_no_additional_test",
+      "reason": "No extraordinary empirical or structural hypothesis currently justifies additional dedicated battles."
+    }
+  ],
+  "update_contract": {
+    "phase_1": "May set or confirm active_test, but must not choose or reorder future targets from preliminary extraction.",
+    "phase_2": "Must update active_test, ordered_queue, verification_holds, and parked or closed entries in the same pull request whenever the completed analysis changes what should be tested next.",
+    "operator_decision": "An explicit operator decision takes precedence and must be recorded in this file immediately.",
+    "no_fallback": "Never reconstruct the queue from chat memory, a pull-request title or body, or one batch-local NEXT_TEST_RECOMMENDATION.md while this file exists.",
+    "empty_queue": "An empty ordered_queue means no future target is approved yet; it does not authorize inventing a candidate."
+  }
+}
