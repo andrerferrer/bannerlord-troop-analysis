@@ -1,0 +1,15 @@
+display_name,canonical_troop_id,battle_id,captured_at,cohort,context,result,battle_state,deployed,survivors,kills,deaths,wounded,kills_per_deployed,retention_rate,player_side_kills,player_side_deployed
+White Harbor Knight Commander,whiteharbor_knight_commander,battle_wh01,2026-08-29T01:55:59,white_harbor,field,victory,final,41,39,45,0,2,1.097561,0.951220,144,156
+White Harbor Knight Commander,whiteharbor_knight_commander,battle_wh02,2026-08-29T02:08:07,white_harbor,field,victory,final,43,42,36,0,1,0.837209,0.976744,127,158
+White Harbor Knight Commander,whiteharbor_knight_commander,battle_wh03,2026-08-30T01:51:02,white_harbor,field,victory,final,44,44,12,0,0,0.272727,1.000000,104,192
+White Harbor Knight Commander,whiteharbor_knight_commander,battle_wh04,2026-08-30T01:56:55,white_harbor,field,victory,final,44,28,54,4,12,1.227273,0.636364,168,193
+White Harbor Knight Commander,whiteharbor_knight_commander,battle_wh05,2026-08-30T02:05:38,white_harbor,field,victory,final,44,40,23,0,4,0.522727,0.909091,180,236
+White Harbor Knight Commander,whiteharbor_knight_commander,battle_wh06,2026-08-30T02:13:17,white_harbor,field,victory,final,40,19,77,2,19,1.925000,0.475000,376,255
+White Harbor Knight Commander,whiteharbor_knight_commander,battle_wh07,2026-08-30T02:18:00,white_harbor,field,victory,final,19,14,35,0,5,1.842105,0.736842,282,240
+White Harbor Knight Commander,whiteharbor_knight_commander,battle_wh08,2026-08-30T02:26:08,white_harbor,field,defeat,final,14,0,3,2,12,0.214286,0.000000,196,256
+Westerling Hedgeknight,westerling_hedgeknight,battle_j14,2026-09-05T12:00:01,joffrey,field,victory,final,4,0,8,0,4,2.000000,0.000000,739,324
+Westerling Hedgeknight,westerling_hedgeknight,battle_j15,2026-09-05T12:15:09,joffrey,siege_attack,active,active_last_readable,7,3,20,0,4,2.857143,0.428571,532,
+Westerling Hedgeknight,westerling_hedgeknight,battle_j16,2026-09-05T16:11:06,joffrey,field,victory,final,10,7,71,0,3,7.100000,0.700000,1104,461
+Westerling Hedgeknight,westerling_hedgeknight,battle_j17,2026-09-05T17:47:59,joffrey,field,victory,final,13,12,33,0,1,2.538462,0.923077,515,274
+Westerling Hedgeknight,westerling_hedgeknight,battle_j18,2026-09-05T17:55:28,joffrey,field,victory,final,17,14,58,0,3,3.411765,0.823529,572,308
+Westerling Hedgeknight,westerling_hedgeknight,battle_j19,2026-09-05T18:48:50,joffrey,field,defeat,final,29,0,63,6,23,2.172414,0.000000,1127,347

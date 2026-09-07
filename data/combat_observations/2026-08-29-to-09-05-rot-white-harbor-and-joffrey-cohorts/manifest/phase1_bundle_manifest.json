@@ -1,0 +1,92 @@
+{
+  "batch": "2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts",
+  "input_sha256": "198e895c17e03a9254c4d23e8611557da05271fec5a466966cffbddb36a9028a",
+  "payload": [
+    {
+      "path": "README.md",
+      "sha256": "edfeae32a52555eb08bad6d058b69451b19086b2606ed454e91a1a71f8654054",
+      "size_bytes": 1006
+    },
+    {
+      "path": "source_provenance.json",
+      "sha256": "74e47ecf348fa06b442fb5f18f1ff4ea656254d067221381eac8f080e2b6036f",
+      "size_bytes": 604
+    },
+    {
+      "path": "source_inventory.csv",
+      "sha256": "5546f45b74b13ee0183bdacc5d1f42d567790cbd1a9dcc321eafa175fc5c1177",
+      "size_bytes": 16959
+    },
+    {
+      "path": "screenshots_manifest.csv",
+      "sha256": "cb04f9e266a51aa2fd1e4d104b6bd296ccf17574fde8a7958f3d85f6334ba157",
+      "size_bytes": 17082
+    },
+    {
+      "path": "battles.jsonl",
+      "sha256": "a6369a62ed57ad91fb14589be6b2133c7ad60f0f4f46ccd0ed5e3da49bad1b7b",
+      "size_bytes": 30649
+    },
+    {
+      "path": "troop_occurrences.jsonl",
+      "sha256": "40edae787bc9ead821ca1e48458f683d5bc8174c86a305fa6f6da63328718716",
+      "size_bytes": 840216
+    },
+    {
+      "path": "primary_troop_occurrences.jsonl",
+      "sha256": "1c0569ec996dc91e9df1e040a576782e8d801c41d87fce047831f2cc801ba8db",
+      "size_bytes": 594324
+    },
+    {
+      "path": "normalization_summary.json",
+      "sha256": "711742bee764b62c1271cc6c086b8c44a33e294cf8cdc8935ea8df5256495e8e",
+      "size_bytes": 548
+    },
+    {
+      "path": "normalization_validation_report.json",
+      "sha256": "f96fc397544aa0d75988f02d6fe53105d8cc8c6d0c238a459fa03fdf113ca40c",
+      "size_bytes": 606
+    },
+    {
+      "path": "manifest/source_inventory.csv",
+      "sha256": "5546f45b74b13ee0183bdacc5d1f42d567790cbd1a9dcc321eafa175fc5c1177",
+      "size_bytes": 16959
+    },
+    {
+      "path": "manifest/screenshots_manifest.csv",
+      "sha256": "cb04f9e266a51aa2fd1e4d104b6bd296ccf17574fde8a7958f3d85f6334ba157",
+      "size_bytes": 17082
+    },
+    {
+      "path": "staging/README.md",
+      "sha256": "88ddd0ef557eb28700ec0fe5ce87bc988f2a6ee173f876399a7d0abc83c08e4b",
+      "size_bytes": 53
+    },
+    {
+      "path": "staging/battles.jsonl",
+      "sha256": "a6369a62ed57ad91fb14589be6b2133c7ad60f0f4f46ccd0ed5e3da49bad1b7b",
+      "size_bytes": 30649
+    },
+    {
+      "path": "extraction/raw_extraction.jsonl",
+      "sha256": "40edae787bc9ead821ca1e48458f683d5bc8174c86a305fa6f6da63328718716",
+      "size_bytes": 840216
+    },
+    {
+      "path": "review/review_queue.csv",
+      "sha256": "b6ab7c403fb1f1359ca6c0ece704db16c3a5fad06d04efa753c22148e273522e",
+      "size_bytes": 1389
+    },
+    {
+      "path": "review/troop_identity_review.csv",
+      "sha256": "abff6ba957d7b33fdd4303ed1f612c773406b7ef1168d0a9f07f2f1f51cdca7b",
+      "size_bytes": 13351
+    },
+    {
+      "path": "handoff/ANALYSIS_PROMPT.md",
+      "sha256": "c4b67d875eaa8a3fb5d2fd9398f6e820d822070d09794e3ef601075431299710",
+      "size_bytes": 904
+    }
+  ],
+  "schema_version": "1.0.0"
+}

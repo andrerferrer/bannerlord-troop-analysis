@@ -1,0 +1,16 @@
+{
+  "extracted_file_count": 38,
+  "extractor_model": "GPT-5.6 Pro",
+  "game_track": "realm_of_thrones",
+  "game_version": "1.4.x",
+  "input_name": "Armoury Crate SE 03_09_2026 22_51_42.zip",
+  "input_sha256": "198e895c17e03a9254c4d23e8611557da05271fec5a466966cffbddb36a9028a",
+  "input_size_bytes": 67529739,
+  "mode": "host-vision",
+  "observation_schema_version": "2.0.0",
+  "pipeline_version": "0.4.0",
+  "prompt_version": "combat-v2",
+  "raw_images_retained_in_overlay": false,
+  "raw_source_location_at_execution": "/mnt/data/Armoury Crate SE 03_09_2026 22_51_42.zip",
+  "schema_version": "1.0.0"
+}

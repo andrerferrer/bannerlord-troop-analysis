@@ -1,0 +1,5 @@
+cohort,context,participant_scope,parent_group,independent_battles,ordinary_occurrences,partition_rows,reliable_rows,insufficient_rows
+joffrey,field,player_party,Joffrey Baratheon's Party,14,189,53,12,41
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,4,41,23,0,23
+joffrey,siege_defense,player_party,Joffrey Baratheon's Party,1,11,11,0,11
+white_harbor,field,player_party,Wyman Manderly's Party,8,114,47,7,40

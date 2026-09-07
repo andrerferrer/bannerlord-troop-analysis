@@ -1,0 +1,35 @@
+{
+  "decisions": [
+    {
+      "cohort": "white_harbor",
+      "contexts": [
+        "field"
+      ],
+      "decision": "aggregate only inside field and Wyman Manderly player-party scope"
+    },
+    {
+      "cohort": "joffrey",
+      "contexts": [
+        "field",
+        "siege_attack",
+        "siege_defense"
+      ],
+      "decision": "same party may aggregate only within one context; contexts never pooled"
+    },
+    {
+      "decision": "incompatible campaigns/rosters; never pooled",
+      "pair": [
+        "white_harbor",
+        "joffrey"
+      ]
+    },
+    {
+      "battle_states": [
+        "active_last_readable",
+        "phase_complete"
+      ],
+      "decision": "independent observations; active remains censored, phase-complete retreat stays its own result category"
+    }
+  ],
+  "status": "passed_with_separate_cohorts_and_contexts"
+}

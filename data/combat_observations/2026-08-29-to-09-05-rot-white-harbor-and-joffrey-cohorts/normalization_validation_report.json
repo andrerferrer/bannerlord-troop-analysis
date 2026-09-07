@@ -1,0 +1,18 @@
+{
+  "active_last_readable_battle_count": 2,
+  "already_normalized_count": 0,
+  "complete_player_side_ordinary_occurrence_count": 355,
+  "excluded_non_evidence_count": 8,
+  "independent_battle_count": 27,
+  "input_image_count": 38,
+  "input_sha256": "198e895c17e03a9254c4d23e8611557da05271fec5a466966cffbddb36a9028a",
+  "new_representative_count": 27,
+  "normalized_occurrence_count": 515,
+  "phase_boundary": "normalization_only",
+  "schema_version": "1.0.0",
+  "status": "passed",
+  "structural_error_count": 0,
+  "supplemental_count": 0,
+  "visual_duplicate_count": 3,
+  "visual_review_queue_count": 3
+}
