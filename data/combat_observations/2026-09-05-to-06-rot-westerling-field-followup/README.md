@@ -11,3 +11,7 @@ This directory is a repository-ready immutable Phase 1 overlay generated from `M
 - Current status: `PHASE_1_COMPLETE`
 
 This commit deliberately stops at the two-agent boundary. It publishes normalized evidence and a handoff only; it does **not** publish a gameplay ranking or conclude the follow-up question.
+
+## Phase 2 status
+
+Completed by a distinct analysis run. Batch-wide rankings, context/result splits, canonical identity review, Westerling Hedgeknight historical comparison, validation and smallest-next-test recommendation are in `analysis/` and `review/`. Phase 1 normalized inputs remain immutable.

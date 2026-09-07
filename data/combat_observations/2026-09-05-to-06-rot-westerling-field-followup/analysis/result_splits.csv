@@ -1,0 +1,81 @@
+cohort,context,participant_scope,parent_group,display_name,canonical_troop_id,result,censoring_status,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,retention_rate,verified_player_side_total_kills,kill_total_coverage_complete,player_side_kill_share,verified_player_side_total_deployed,deployment_total_coverage_complete,player_side_deployment_share,offensive_contribution_ratio,offensive_share_gap
+joffrey,field,player_party,Joffrey Baratheon's Party,Captain of the Kingsguard,mounted_kingsguard,victory,final,1,52,43,235,1,8,0,4.519231,0.826923,905,True,0.259669,280,True,0.185714,1.398215,0.073954
+joffrey,field,player_party,Joffrey Baratheon's Party,Captain of the Kingsguard,mounted_kingsguard,defeat,final,3,156,0,244,23,133,0,1.564103,0.000000,1777,True,0.137310,1031,True,0.151309,0.907479,-0.013999
+joffrey,field,player_party,Joffrey Baratheon's Party,Frey Assassin,frey_assassin,victory,final,1,6,5,11,0,1,0,1.833333,0.833333,905,True,0.012155,280,True,0.021429,0.567219,-0.009274
+joffrey,field,player_party,Joffrey Baratheon's Party,Frey Assassin,frey_assassin,defeat,final,3,18,0,57,2,16,0,3.166667,0.000000,1777,True,0.032077,1031,True,0.017459,1.837273,0.014618
+joffrey,field,player_party,Joffrey Baratheon's Party,Kingsguard,kingsguard_captain,victory,final,1,18,4,37,3,11,0,2.055556,0.222222,905,True,0.040884,280,True,0.064286,0.635973,-0.023402
+joffrey,field,player_party,Joffrey Baratheon's Party,Kingsguard,kingsguard_captain,defeat,final,3,128,0,184,15,113,0,1.437500,0.000000,1777,True,0.103545,1031,True,0.124151,0.834025,-0.020606
+joffrey,field,player_party,Joffrey Baratheon's Party,Knight of the Vale,vale_knight_of,victory,final,1,11,7,45,0,4,0,4.090909,0.636364,905,True,0.049724,280,True,0.039286,1.265696,0.010438
+joffrey,field,player_party,Joffrey Baratheon's Party,Knight of the Vale,vale_knight_of,defeat,final,3,61,0,73,6,55,0,1.196721,0.000000,1777,True,0.041080,1031,True,0.059166,0.694327,-0.018085
+joffrey,field,player_party,Joffrey Baratheon's Party,Lannister Longbowman,lannister_longbowman,victory,final,1,32,28,27,2,2,0,0.843750,0.875000,905,True,0.029834,280,True,0.114286,0.261050,-0.084451
+joffrey,field,player_party,Joffrey Baratheon's Party,Lannister Longbowman,lannister_longbowman,defeat,final,3,92,0,127,16,76,0,1.380435,0.000000,1777,True,0.071469,1031,True,0.089234,0.800916,-0.017765
+joffrey,field,player_party,Joffrey Baratheon's Party,Mallister Footman,mallister_footman,defeat,final,1,2,0,5,0,2,0,2.500000,0.000000,464,True,0.010776,342,True,0.005848,1.842672,0.004928
+joffrey,field,player_party,Joffrey Baratheon's Party,Mountain's Man,mountains_man,defeat,final,2,7,0,14,2,5,0,2.000000,0.000000,1313,True,0.010663,689,True,0.010160,1.049505,0.000503
+joffrey,field,player_party,Joffrey Baratheon's Party,Northern Mounted Warlord,,victory,final,1,2,2,15,0,0,0,7.500000,1.000000,905,True,0.016575,280,True,0.007143,2.320442,0.009432
+joffrey,field,player_party,Joffrey Baratheon's Party,Ravens' Teeth,ravens_teeth,victory,final,1,27,20,124,1,6,0,4.592593,0.740741,905,True,0.137017,280,True,0.096429,1.420913,0.040588
+joffrey,field,player_party,Joffrey Baratheon's Party,Ravens' Teeth,ravens_teeth,defeat,final,3,81,0,410,18,63,0,5.061728,0.000000,1777,True,0.230726,1031,True,0.078565,2.936771,0.152161
+joffrey,field,player_party,Joffrey Baratheon's Party,Realm Paladin,realm_paladin,victory,final,1,18,13,90,1,4,0,5.000000,0.722222,905,True,0.099448,280,True,0.064286,1.546961,0.035162
+joffrey,field,player_party,Joffrey Baratheon's Party,Realm Paladin,realm_paladin,defeat,final,3,52,0,69,8,44,0,1.326923,0.000000,1777,True,0.038829,1031,True,0.050436,0.769869,-0.011607
+joffrey,field,player_party,Joffrey Baratheon's Party,Riverlands Admiral,river_admiral,defeat,final,1,3,0,7,0,3,0,2.333333,0.000000,738,True,0.009485,347,True,0.008646,1.097109,0.000840
+joffrey,field,player_party,Joffrey Baratheon's Party,Stark Sworn Sword,stark_swornsword,victory,final,1,6,2,21,1,3,0,3.500000,0.333333,905,True,0.023204,280,True,0.021429,1.082873,0.001776
+joffrey,field,player_party,Joffrey Baratheon's Party,Stark Sworn Sword,stark_swornsword,defeat,final,3,16,0,23,1,15,0,1.437500,0.000000,1777,True,0.012943,1031,True,0.015519,0.834025,-0.002576
+joffrey,field,player_party,Joffrey Baratheon's Party,Vale House Guard,vale_houseguard,victory,final,1,18,6,37,2,10,0,2.055556,0.333333,905,True,0.040884,280,True,0.064286,0.635973,-0.023402
+joffrey,field,player_party,Joffrey Baratheon's Party,Vale House Guard,vale_houseguard,defeat,final,3,92,0,89,7,85,0,0.967391,0.000000,1777,True,0.050084,1031,True,0.089234,0.561272,-0.039149
+joffrey,field,player_party,Joffrey Baratheon's Party,Vale Master Archer,vale_master_archer,victory,final,1,20,13,25,0,7,0,1.250000,0.650000,905,True,0.027624,280,True,0.071429,0.386740,-0.043804
+joffrey,field,player_party,Joffrey Baratheon's Party,Vale Master Archer,vale_master_archer,defeat,final,3,80,0,83,19,61,0,1.037500,0.000000,1777,True,0.046708,1031,True,0.077595,0.601949,-0.030887
+joffrey,field,player_party,Joffrey Baratheon's Party,Westerlands Skirmisher,,victory,final,1,1,1,8,0,0,0,8.000000,1.000000,905,True,0.008840,280,True,0.003571,2.475138,0.005268
+joffrey,field,player_party,Joffrey Baratheon's Party,Westerling Elite Archer,westerling_elite_archer,defeat,final,1,5,0,9,1,4,0,1.800000,0.000000,738,True,0.012195,347,True,0.014409,0.846341,-0.002214
+joffrey,field,player_party,Joffrey Baratheon's Party,Westerling Hedgeknight,westerling_hedgeknight,victory,final,1,24,7,90,2,15,0,3.750000,0.291667,905,True,0.099448,280,True,0.085714,1.160221,0.013733
+joffrey,field,player_party,Joffrey Baratheon's Party,Westerling Hedgeknight,westerling_hedgeknight,defeat,final,3,74,0,142,8,66,0,1.918919,0.000000,1777,True,0.079910,1031,True,0.071775,1.113340,0.008135
+westerling,field,player_party,Gawen Westerling's Party,Captain of the Kingsguard,mounted_kingsguard,victory,final,1,1,1,1,0,0,0,1.000000,1.000000,179,True,0.005587,160,True,0.006250,0.893855,-0.000663
+westerling,field,player_party,Gawen Westerling's Party,Captain of the Kingsguard,mounted_kingsguard,defeat,final,1,1,0,5,0,1,0,5.000000,0.000000,302,True,0.016556,174,True,0.005747,2.880795,0.010809
+westerling,field,player_party,Gawen Westerling's Party,Casterly Rock Master Crossbowman,casterly_master_crossbowman,defeat,final,1,1,0,2,0,1,0,2.000000,0.000000,302,True,0.006623,174,True,0.005747,1.152318,0.000875
+westerling,field,player_party,Gawen Westerling's Party,Cerwyn Marauder,cerwyn_marauder,victory,final,3,11,6,23,0,5,0,2.090909,0.545455,636,True,0.036164,474,True,0.023207,1.558319,0.012957
+westerling,field,player_party,Gawen Westerling's Party,Cerwyn Marauder,cerwyn_marauder,defeat,final,2,8,0,10,1,7,0,1.250000,0.000000,549,True,0.018215,338,True,0.023669,0.769581,-0.005454
+westerling,field,player_party,Gawen Westerling's Party,Cerwyn Veteran Axeman,cerwyn_master_axeman,victory,final,1,1,1,2,0,0,0,2.000000,1.000000,150,True,0.013333,150,True,0.006667,2.000000,0.006667
+westerling,field,player_party,Gawen Westerling's Party,Clegane Levy,clegane_levy,victory,final,1,1,1,1,0,0,0,1.000000,1.000000,179,True,0.005587,160,True,0.006250,0.893855,-0.000663
+westerling,field,player_party,Gawen Westerling's Party,Elite Hired Crossbow,,victory,final,8,8,5,6,0,3,0,0.750000,0.625000,1085,True,0.005530,1117,True,0.007162,0.772120,-0.001632
+westerling,field,player_party,Gawen Westerling's Party,Elite Hired Crossbow,,defeat,final,1,1,0,1,0,1,0,1.000000,0.000000,247,True,0.004049,164,True,0.006098,0.663968,-0.002049
+westerling,field,player_party,Gawen Westerling's Party,Forest Bandit,,victory,final,2,2,2,3,0,0,0,1.500000,1.000000,385,True,0.007792,277,True,0.007220,1.079221,0.000572
+westerling,field,player_party,Gawen Westerling's Party,Kingsguard,kingsguard_captain,defeat,final,1,1,0,1,1,0,0,1.000000,0.000000,302,True,0.003311,174,True,0.005747,0.576159,-0.002436
+westerling,field,player_party,Gawen Westerling's Party,Lannister Longbowman,lannister_longbowman,defeat,final,1,2,0,2,0,2,0,1.000000,0.000000,302,True,0.006623,174,True,0.011494,0.576159,-0.004872
+westerling,field,player_party,Gawen Westerling's Party,Lannister Officer,lannister_officer,defeat,final,1,1,0,3,0,1,0,3.000000,0.000000,302,True,0.009934,174,True,0.005747,1.728477,0.004187
+westerling,field,player_party,Gawen Westerling's Party,Northern Colonel,,victory,final,3,21,15,26,1,5,0,1.238095,0.714286,636,True,0.040881,474,True,0.044304,0.922731,-0.003423
+westerling,field,player_party,Gawen Westerling's Party,Northern Colonel,,defeat,final,2,15,0,21,4,11,0,1.400000,0.000000,549,True,0.038251,338,True,0.044379,0.861931,-0.006127
+westerling,field,player_party,Gawen Westerling's Party,Northern Man at Arms,,victory,final,2,6,3,5,0,3,0,0.833333,0.500000,358,True,0.013966,241,True,0.024896,0.560987,-0.010930
+westerling,field,player_party,Gawen Westerling's Party,Northern Mounted Warlord,,victory,final,2,7,5,7,1,1,0,1.000000,0.714286,486,True,0.014403,324,True,0.021605,0.666667,-0.007202
+westerling,field,player_party,Gawen Westerling's Party,Northern Mounted Warlord,,defeat,final,2,8,0,20,0,8,0,2.500000,0.000000,549,True,0.036430,338,True,0.023669,1.539162,0.012761
+westerling,field,player_party,Gawen Westerling's Party,Northern Raider,,victory,final,1,3,1,5,1,1,0,1.666667,0.333333,235,True,0.021277,127,True,0.023622,0.900709,-0.002345
+westerling,field,player_party,Gawen Westerling's Party,Northern Recruit,,victory,final,2,18,14,3,0,4,0,0.166667,0.777778,166,True,0.018072,216,True,0.083333,0.216867,-0.065261
+westerling,field,player_party,Gawen Westerling's Party,Northern Sergeant,,victory,final,1,4,3,10,0,1,0,2.500000,0.750000,235,True,0.042553,127,True,0.031496,1.351064,0.011057
+westerling,field,player_party,Gawen Westerling's Party,Northern Soldier,,victory,final,1,8,3,2,0,5,0,0.250000,0.375000,70,True,0.028571,97,True,0.082474,0.346429,-0.053903
+westerling,field,player_party,Gawen Westerling's Party,Northern Warlord,,victory,final,2,5,5,5,0,0,0,1.000000,1.000000,486,True,0.010288,324,True,0.015432,0.666667,-0.005144
+westerling,field,player_party,Gawen Westerling's Party,Northern Winter Champion,,victory,final,3,16,11,20,1,4,0,1.250000,0.687500,636,True,0.031447,474,True,0.033755,0.931604,-0.002309
+westerling,field,player_party,Gawen Westerling's Party,Northern Winter Champion,,defeat,final,2,11,0,10,4,7,0,0.909091,0.000000,549,True,0.018215,338,True,0.032544,0.559695,-0.014329
+westerling,field,player_party,Gawen Westerling's Party,Northern Winter Warrior,,victory,final,1,1,1,2,0,0,0,2.000000,1.000000,235,True,0.008511,127,True,0.007874,1.080851,0.000637
+westerling,field,player_party,Gawen Westerling's Party,Northern Woodsman,,victory,final,2,4,4,2,0,0,0,0.500000,1.000000,358,True,0.005587,241,True,0.016598,0.336592,-0.011011
+westerling,field,player_party,Gawen Westerling's Party,Pirate,,victory,final,2,2,2,1,0,0,0,0.500000,1.000000,265,True,0.003774,260,True,0.007692,0.490566,-0.003919
+westerling,field,player_party,Gawen Westerling's Party,Ravager,,victory,final,3,6,6,4,0,0,0,0.666667,1.000000,361,True,0.011080,379,True,0.015831,0.699908,-0.004751
+westerling,field,player_party,Gawen Westerling's Party,Reaver,,victory,final,6,19,14,13,0,5,0,0.684211,0.736842,836,True,0.015550,740,True,0.025676,0.605641,-0.010125
+westerling,field,player_party,Gawen Westerling's Party,Reaver,,defeat,final,1,5,0,3,2,3,0,0.600000,0.000000,247,True,0.012146,164,True,0.030488,0.398381,-0.018342
+westerling,field,player_party,Gawen Westerling's Party,Robber Horseman,,victory,final,2,6,2,1,2,2,0,0.166667,0.333333,226,True,0.004425,241,True,0.024896,0.177729,-0.020471
+westerling,field,player_party,Gawen Westerling's Party,Robber Knight,,victory,final,3,6,5,7,0,1,0,1.166667,0.833333,381,True,0.018373,366,True,0.016393,1.120735,0.001979
+westerling,field,player_party,Gawen Westerling's Party,Robber Squire,,victory,final,3,7,6,2,0,1,0,0.285714,0.857143,388,True,0.005155,374,True,0.018717,0.275405,-0.013562
+westerling,field,player_party,Gawen Westerling's Party,Stark Sworn Sword,stark_swornsword,defeat,final,1,2,0,1,0,2,0,0.500000,0.000000,247,True,0.004049,164,True,0.012195,0.331984,-0.008147
+westerling,field,player_party,Gawen Westerling's Party,Westerlands Banner Knight,,victory,final,2,43,34,54,1,8,0,1.255814,0.790698,486,True,0.111111,324,True,0.132716,0.837209,-0.021605
+westerling,field,player_party,Gawen Westerling's Party,Westerlands Banner Knight,,defeat,final,2,51,0,112,9,42,0,2.196078,0.000000,549,True,0.204007,338,True,0.150888,1.352048,0.053120
+westerling,field,player_party,Gawen Westerling's Party,Westerling Archer,westerling_archer,victory,final,4,73,73,49,0,0,0,0.671233,1.000000,547,True,0.089580,593,True,0.123103,0.727680,-0.033523
+westerling,field,player_party,Gawen Westerling's Party,Westerling Elite Archer,westerling_elite_archer,victory,final,14,694,665,576,8,21,0,0.829971,0.958213,2076,True,0.277457,1898,True,0.365648,0.758808,-0.088191
+westerling,field,player_party,Gawen Westerling's Party,Westerling Elite Archer,westerling_elite_archer,defeat,final,2,113,0,166,23,90,0,1.469027,0.000000,549,True,0.302368,338,True,0.334320,0.904428,-0.031952
+westerling,field,player_party,Gawen Westerling's Party,Westerling Footman,westerling_footman,victory,final,6,93,71,94,1,21,0,1.010753,0.763441,779,True,0.120668,823,True,0.113001,1.067843,0.007666
+westerling,field,player_party,Gawen Westerling's Party,Westerling Hedgeknight,westerling_hedgeknight,victory,final,14,366,274,685,23,69,0,1.871585,0.748634,2076,True,0.329961,1898,True,0.192835,1.711112,0.137127
+westerling,field,player_party,Gawen Westerling's Party,Westerling Hedgeknight,westerling_hedgeknight,defeat,final,2,71,0,123,17,54,0,1.732394,0.000000,549,True,0.224044,338,True,0.210059,1.066574,0.013985
+westerling,field,player_party,Gawen Westerling's Party,Westerling House Guard,westerling_houseguard,victory,final,10,57,50,67,1,6,0,1.175439,0.877193,1317,True,0.050873,1310,True,0.043511,1.169191,0.007362
+westerling,field,player_party,Gawen Westerling's Party,Westerling Knight,westerling_horseman,victory,final,13,75,49,60,8,18,0,0.800000,0.653333,1897,True,0.031629,1738,True,0.043153,0.732947,-0.011524
+westerling,field,player_party,Gawen Westerling's Party,Westerling Knight,westerling_horseman,defeat,final,1,11,0,8,0,11,0,0.727273,0.000000,247,True,0.032389,164,True,0.067073,0.482886,-0.034685
+westerling,field,player_party,Gawen Westerling's Party,Westerling Levy,westerling_levy,victory,final,7,100,86,31,4,10,0,0.310000,0.860000,916,True,0.033843,967,True,0.103413,0.327260,-0.069570
+westerling,field,player_party,Gawen Westerling's Party,Westerling Man at Arms,westerling_man_at_arms,victory,final,8,60,46,54,2,12,0,0.900000,0.766667,1039,True,0.051973,1081,True,0.055504,0.936381,-0.003531
+westerling,field,player_party,Gawen Westerling's Party,Westerling Recruit,westerling_recruit,victory,final,2,4,2,0,0,2,0,0.000000,0.500000,203,True,0.000000,300,True,0.013333,0.000000,-0.013333
+westerling,field,player_party,Gawen Westerling's Party,Westerling Scout,westerling_rider,victory,final,4,14,10,5,1,3,0,0.357143,0.714286,577,True,0.008666,569,True,0.024605,0.352191,-0.015939
+westerling,field,player_party,Gawen Westerling's Party,White Harbor Knight Commander,whiteharbor_knight_commander,victory,final,3,7,6,12,0,1,0,1.714286,0.857143,636,True,0.018868,474,True,0.014768,1.277628,0.004100
+westerling,field,player_party,Gawen Westerling's Party,White Harbor Knight Commander,whiteharbor_knight_commander,defeat,final,1,3,0,7,0,3,0,2.333333,0.000000,302,True,0.023179,174,True,0.017241,1.344371,0.005937

@@ -1,0 +1,4 @@
+sample,cohort,context,independent_battles,deployed,kills,kills_per_deployed,ci95_low,ci95_high,player_side_kill_share,player_side_deployment_share,offensive_contribution_ratio,retention_rate,reliability_status,pooling_status
+prior_mixed_joffrey,joffrey,field,5,73,233,3.191781,2.215190,5.140625,0.057432,0.042590,1.348462,0.452055,reliable,kept_separate_not_pooled
+current_westerling_followup,westerling,field,16,437,808,1.848970,1.410920,2.257403,0.307810,0.195438,1.574970,0.627002,reliable,kept_separate_not_pooled
+current_joffrey_bridge,joffrey,field,4,98,232,2.367347,,,0.086503,0.074752,1.157193,0.071429,insufficient_evidence,kept_separate_not_pooled

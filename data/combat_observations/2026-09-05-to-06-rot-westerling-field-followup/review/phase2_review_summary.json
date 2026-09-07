@@ -1,0 +1,10 @@
+{
+  "field_level_review_decisions": 22,
+  "identity_decisions": 50,
+  "normalized_review_queue_rows": 6,
+  "note": "No Phase 1 value changed; unresolved clipped rows stay excluded from primary rankings.",
+  "numeric_corrections": 0,
+  "raw_source_locally_verified": false,
+  "reviewer": "distinct Phase 2 analysis agent",
+  "status": "complete_with_unresolved_raw_review_items"
+}

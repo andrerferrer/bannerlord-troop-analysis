@@ -1,0 +1,11 @@
+canonical_role,cohort,context,display_name,canonical_troop_id,independent_battles,deployed,kills_per_deployed,player_side_kill_share,player_side_deployment_share,offensive_contribution_ratio,retention_rate,reliability_status,role_adjusted_status
+,westerling,field,Northern Colonel,,5,36,1.305556,0.039662,0.044335,0.894609,0.416667,reliable,diagnostic_only_no_blended_offense_defense_score
+,westerling,field,Northern Winter Champion,,5,27,1.111111,0.025316,0.033251,0.761369,0.407407,reliable,diagnostic_only_no_blended_offense_defense_score
+,westerling,field,Reaver,,7,24,0.666667,0.014774,0.026549,0.556479,0.583333,reliable,diagnostic_only_no_blended_offense_defense_score
+frontline_infantry,westerling,field,Westerling Hedgeknight,westerling_hedgeknight,16,437,1.848970,0.307810,0.195438,1.574970,0.627002,reliable,diagnostic_only_no_blended_offense_defense_score
+frontline_infantry,westerling,field,Westerling House Guard,westerling_houseguard,10,57,1.175439,0.050873,0.043511,1.169191,0.877193,reliable,diagnostic_only_no_blended_offense_defense_score
+frontline_infantry,westerling,field,Westerling Footman,westerling_footman,6,93,1.010753,0.120668,0.113001,1.067843,0.763441,reliable,diagnostic_only_no_blended_offense_defense_score
+frontline_infantry,westerling,field,Westerling Man at Arms,westerling_man_at_arms,8,60,0.900000,0.051973,0.055504,0.936381,0.766667,reliable,diagnostic_only_no_blended_offense_defense_score
+frontline_infantry,westerling,field,Westerling Levy,westerling_levy,7,100,0.310000,0.033843,0.103413,0.327260,0.860000,reliable,diagnostic_only_no_blended_offense_defense_score
+melee_cavalry,westerling,field,Westerling Knight,westerling_horseman,14,86,0.790698,0.031716,0.045216,0.701449,0.569767,reliable,diagnostic_only_no_blended_offense_defense_score
+ranged,westerling,field,Westerling Elite Archer,westerling_elite_archer,16,807,0.919455,0.282667,0.360912,0.783200,0.824040,reliable,diagnostic_only_no_blended_offense_defense_score
