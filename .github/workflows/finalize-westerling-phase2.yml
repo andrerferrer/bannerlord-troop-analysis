@@ -1,0 +1,33 @@
+name: Finalize Westerling Phase 2
+
+on:
+  push:
+    branches:
+      - fix/phase2-westerling-reproducibility
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/phase2-westerling-reproducibility
+      - name: Run canonical finalizer
+        shell: bash
+        run: |
+          set -euo pipefail
+          TARGET=data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/analysis
+          python -m py_compile "$TARGET/finalize_phase2.py"
+          python "$TARGET/finalize_phase2.py"
+          git config user.name 'Andre R Ferrer'
+          git config user.email '45776359+andrerferrer@users.noreply.github.com'
+          git add data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup
+          if ! git diff --cached --quiet; then
+            git commit -m 'fix: regenerate canonical Westerling Phase 2 outputs'
+          fi
+          git rm .github/workflows/finalize-westerling-phase2.yml
+          git commit -m 'chore: remove temporary finalizer workflow'
+          git push origin HEAD:fix/phase2-westerling-reproducibility
