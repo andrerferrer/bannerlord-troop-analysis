@@ -46,17 +46,11 @@ jobs:
           battles=[json.loads(x) for x in (root/'battles.jsonl').read_text(encoding='utf-8').splitlines() if x.strip()]
           occ=[json.loads(x) for x in (root/'primary_troop_occurrences.jsonl').read_text(encoding='utf-8').splitlines() if x.strip()]
           print('BATTLE_CONTEXTS', dict(Counter(r.get('battle_context') for r in battles)))
-          print('BATTLE_RESULTS', dict(Counter(r.get('result') for r in battles)))
+          print('BATTLE_OUTCOMES', dict(Counter(r.get('player_outcome') for r in battles)))
           print('BATTLE_KEYS', sorted(battles[0]))
           print('OCC_KEYS', sorted(occ[0]))
-          print('WHITE_HARBOR_ROWS')
-          for r in occ:
-              text=json.dumps(r, ensure_ascii=False).lower()
-              if 'white harbor' in text or 'knight commander' in text:
-                  print(json.dumps(r, ensure_ascii=False, sort_keys=True))
           PY
           } | tee phase2-inspection.txt
-          echo "$OUT" > phase2-out-path.txt
       - uses: actions/upload-artifact@v4
         with:
           name: pr91-phase2-inspection
@@ -65,3 +59,8 @@ jobs:
         with:
           name: pr91-phase1-extracted
           path: ${{ runner.temp }}/pr91-phase1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pr91-repo-snapshot
+          path: .
+          include-hidden-files: false
