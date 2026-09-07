@@ -34,6 +34,7 @@ jobs:
         run: |
           set -euo pipefail
           BATCH='data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts'
+          python -m pip install --disable-pip-version-check --quiet pandas
           set +e
           python -m unittest discover -s tests -v 2>&1 | tee "$RUNNER_TEMP/full-tests.log"
           TEST_CODE=${PIPESTATUS[0]}
@@ -95,7 +96,6 @@ jobs:
           import json,sys
           p=Path(sys.argv[1]); d=json.loads(p.read_text(encoding='utf-8')); d['git_diff_check']='passed'; p.write_text(json.dumps(d,indent=2,sort_keys=True)+'\n',encoding='utf-8')
           PY
-          # validation_report changed after the previous hash pass; refresh hashes once more.
           python - "$BATCH" <<'PY'
           import csv,hashlib,sys
           from pathlib import Path
