@@ -1,0 +1,41 @@
+name: Publish Westerling Phase 1
+
+on:
+  push:
+    branches:
+      - data/2026-09-06-rot-westerling-field-followup
+    paths:
+      - .github/workflows/phase1_westerling_publish.yml
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Reconstruct and publish Phase 1 overlay
+        shell: bash
+        run: |
+          set -euo pipefail
+          TARGET='data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup'
+          PAYLOAD="$RUNNER_TEMP/westerling-overlay.tar.xz"
+          cat .phase1_payload/westerling-overlay.tar.xz.base64.part-* | base64 -d > "$PAYLOAD"
+          echo '0713e23f774a7faa89348681b3a53186195ee4cf598393fd537229a41b5cfefe  '"$PAYLOAD" | sha256sum -c -
+          mkdir -p "$TARGET"
+          tar -xJf "$PAYLOAD" -C "$TARGET"
+          ARCHIVE="$RUNNER_TEMP/phase1.tar.xz"
+          cat "$TARGET"/bundle/*normalized-phase1.tar.xz.base64.part-* | base64 -d > "$ARCHIVE"
+          echo '1ba4c3c28db029bda23f57a6c830c0d57107b9a6e89dd1b1258a70514f56222a  '"$ARCHIVE" | sha256sum -c -
+          rm -rf .phase1_payload
+          rm -f .github/workflows/phase1_westerling_publish.yml
+          git diff --check
+          git config user.name 'Andre R Ferrer'
+          git config user.email '45776359+andrerferrer@users.noreply.github.com'
+          git add -A .
+          git diff --cached --check
+          git commit -m 'data: normalize Sep 5-6 Westerling field follow-up'
+          git push origin HEAD:data/2026-09-06-rot-westerling-field-followup
