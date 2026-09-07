@@ -1,11 +1,11 @@
 ---
 name: analyze-bannerlord-combat-zip
-description: Safely normalize, review, validate, analyze, and publish Bannerlord battle-result evidence from directly attached chat screenshots, screenshot ZIPs, uploaded ZIPs exposed as local files, screenshot directories, or existing normalized combat-observation bundles. Trigger automatically when Bannerlord result screenshots are attached, even without an explicit request. Use when asked to process Bannerlord combat screenshots, build canonical empirical rankings, review uncertain extraction rows, verify or regenerate a combat batch, compare empirical results with frozen models, or resume an interrupted batch. Do not use for generic ZIP extraction, unrelated image analysis, ordinary gameplay questions without evidence files, general repository coding, or scoring-formula changes without a screenshot dataset.
+description: Safely normalize, review, validate, analyze, and publish Bannerlord battle-result evidence from directly attached chat screenshots, screenshot ZIPs, uploaded ZIPs exposed as local files, screenshot directories, or existing normalized combat-observation bundles. Trigger automatically when Bannerlord result screenshots are attached, even without an explicit request. Also use for questions about the current empirical target, completed tests, or what troop should be tested next. Do not use for generic ZIP extraction, unrelated image analysis, ordinary gameplay questions that are not about repository evidence or the empirical test queue, general repository coding, or scoring-formula changes without a screenshot dataset.
 ---
 
 # Analyze Bannerlord Combat ZIP
 
-Run the repository pipeline; never reproduce its formulas, schemas, matching, deduplication, or ranking logic in the skill.
+Run the repository pipeline; never reproduce its formulas, schemas, matching, deduplication, ranking logic, or cross-batch test queue from memory inside the skill.
 
 ## Automatic operator trigger
 
@@ -13,6 +13,30 @@ Run the repository pipeline; never reproduce its formulas, schemas, matching, de
 2. Do not ask what should be done with the evidence. A short question or comment accompanying the upload does not narrow the workflow unless the user explicitly requests inspection only, explicitly asks to leave the work unpublished/open, or cancels it.
 3. Do not stop at a chat-only transcription, preliminary arithmetic, tentative tier judgment, or list of remaining repository steps.
 4. Follow the stronger repository completion rules in `AGENTS.md`. Opening a pull request is the minimum publication floor, not necessarily the final state: continue through Phase 2, validation, ready state, merge, and merge verification whenever the repository gates allow it.
+
+## Empirical test queue source of truth
+
+1. Before answering any question about the current target, completed targets, or what troop should be tested next, read:
+
+   ```text
+   data/combat_observations/test_queues/<track>.json
+   ```
+
+   For Realm of Thrones, the exact path is:
+
+   ```text
+   data/combat_observations/test_queues/realm_of_thrones.json
+   ```
+
+2. Read `data/combat_observations/test_queues/README.md` for authority and update rules. The track queue is the only repository source of truth for the cross-batch test order.
+3. Batch-local `analysis/NEXT_TEST_RECOMMENDATION.md` files, candidate shortlists, PR bodies/comments, and chat history are evidence or proposals only. Never use one of them as the active queue unless the track queue references and incorporates it.
+4. The newest valid `bannerlord-analysis-task:v1` comment remains authoritative for the execution state of one batch. It does not answer the separate cross-batch question of what troop is next.
+5. Inspect any open evidence pull request that modifies the relevant queue. The queue on `main` controls unrelated sessions; the queue on the working branch controls continuation of that PR. Describe an unmerged queue change as pending.
+6. An empty `ordered_queue` means no future troop is approved. Do not manufacture a recommendation from incomplete results, the latest dramatic screenshot, a structural shortlist, or stale prior reports.
+7. A troop under `verification_holds` must not be recommended or retested until the historical audit resolves whether it was already tested.
+8. Record an explicit operator decision in the queue immediately. Do not leave the decision only in chat.
+9. Phase 1 may set or confirm `active_test`, but must not choose the future queue from preliminary extraction. Phase 2 must update the queue in the same batch PR whenever completed analysis changes the active target, closes a troop, adds a verification hold, parks a candidate, or selects the next test.
+10. A batch PR must not merge with a stale queue when its final `NEXT_TEST_RECOMMENDATION.md` changes what should be tested next.
 
 ## Pull-request publication floor
 
@@ -90,6 +114,7 @@ The invocation script must discover a compatible repository/package or fail with
 - Never turn uncertainty into a performance bonus or penalty.
 - Do not promote a partial or fixture-only run to production completion.
 - Do not treat an incomplete run as permission to omit publication. Open or update the draft pull request with the current validated state and explicit blockers.
+- Keep the relevant track queue valid JSON, preserve one active target at most, use unique priorities, and ensure the same troop/context is not simultaneously queued, held, parked, and closed.
 
 If an image fails, retain the failure and continue independent images. Never discard the review queue to report 100%.
 
@@ -110,11 +135,14 @@ Read [references/output-contract.md](references/output-contract.md). Report:
 - mode and extractor/reviewer provenance;
 - validation status and evidence grades;
 - player-side kill-total coverage, efficiency rank, kill share, and share-adjusted impact rank;
+- relevant test-queue path, active target, pending holds, and the queue change made by the batch;
 - paths to canonical data, rankings, model comparison, outliers, summary, and state;
 - limitations and the exact resume command when incomplete.
 
+For a queue-only question, answer from the relevant track queue and cite the evidence references recorded there. Clearly distinguish `active_test`, `ordered_queue`, `verification_holds`, and `parked`; do not convert a hold or parked troop into a recommendation.
+
 Do not send a normal progress or completion response while the batch has no pull request. When publication was genuinely blocked, state the failed GitHub action and connector/platform error instead of presenting preliminary analysis as the delivered result.
 
-Structured artifacts and the repository pull request are the product. Prose is a concise evidence-backed summary, not a replacement tier list or a substitute for publication.
+Structured artifacts, the repository pull request, and the canonical track queue are the product. Prose is a concise evidence-backed summary, not a replacement tier list or a substitute for publication.
 
 For installation or host-specific behavior, read [references/platform-adapters.md](references/platform-adapters.md). Run adapter installation only after a dry run and explicit authorization for the target directories.
