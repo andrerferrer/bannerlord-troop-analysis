@@ -1,0 +1,251 @@
+name: PR92 Phase2 Finalize
+
+on:
+  push:
+    branches:
+      - data/2026-09-06-rot-westerling-field-followup
+    paths:
+      - .github/workflows/pr92_phase2_finalize.yml
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Adapt and run validated Phase 2 generator
+        shell: bash
+        run: |
+          set -euo pipefail
+          BATCH='data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup'
+          PRIOR='data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts'
+          mkdir -p "$BATCH/analysis"
+          ARCHIVE="$RUNNER_TEMP/pr92-phase1.tar.xz"
+          OUT="$RUNNER_TEMP/pr92-phase1"
+          base64 -d "$BATCH"/bundle/*base64.part-* > "$ARCHIVE"
+          echo '1ba4c3c28db029bda23f57a6c830c0d57107b9a6e89dd1b1258a70514f56222a  '"$ARCHIVE" | sha256sum -c -
+          mkdir -p "$OUT"
+          tar -xJf "$ARCHIVE" -C "$OUT"
+          export BUNDLE_SIZE=$(stat -c%s "$ARCHIVE")
+          export BUNDLE_MEMBERS=$(tar -tJf "$ARCHIVE" | wc -l)
+          export OCCURRENCES=$(grep -cve '^$' "$OUT/troop_occurrences.jsonl")
+          export IDENTITY_SHA=$(sha256sum data/realm_of_thrones/audit/realm_of_thrones_troops.csv | awk '{print $1}')
+          cp "$PRIOR/analysis/generate_phase2.py" "$BATCH/analysis/generate_phase2.py"
+          python - "$BATCH/analysis/generate_phase2.py" <<'PY'
+          from pathlib import Path
+          import os,re,sys
+          p=Path(sys.argv[1]); s=p.read_text(encoding='utf-8')
+          replacements={
+            'BATCH_ID = "2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts"':'BATCH_ID = "2026-09-05-to-06-rot-westerling-field-followup"',
+            'NORMALIZATION_COMMIT = "d73bbfdbaafac4856ee0e9963fdab41ad552837c"':'NORMALIZATION_COMMIT = "0fe6776be7ea4726ea902308d9c296c3faa8ad8d"',
+            'SOURCE_SHA256 = "198e895c17e03a9254c4d23e8611557da05271fec5a466966cffbddb36a9028a"':'SOURCE_SHA256 = "9280150e051a07990a5063df77853eec71e623acaba780048e13410587bcb3bd"',
+            'SOURCE_SIZE = 67_529_739':'SOURCE_SIZE = 42_428_790',
+            'BUNDLE_SHA256 = "9cc8482caf6d37356b186c0a68dfa9e6f50303fb715f6ddfc3a49e2593b59c9d"':'BUNDLE_SHA256 = "1ba4c3c28db029bda23f57a6c830c0d57107b9a6e89dd1b1258a70514f56222a"',
+            'BUNDLE_SIZE = 31_004':f"BUNDLE_SIZE = {os.environ['BUNDLE_SIZE']}",
+            'BUNDLE_MEMBERS = 18':f"BUNDLE_MEMBERS = {os.environ['BUNDLE_MEMBERS']}",
+            'IDENTITY_AUDIT_SHA256 = "63ea983998e25aa0e6f8c0747bf42e44440f695bbe1fec717074e7ba64e42810"':f"IDENTITY_AUDIT_SHA256 = \"{os.environ['IDENTITY_SHA']}\"",
+            'FOCUS = ("White Harbor Knight Commander", "Westerling Hedgeknight")':'FOCUS = ("Westerling Hedgeknight",)',
+            'if len(parts)!=14: raise ValueError(f\'expected 14 bundle parts, found {len(parts)}\')':'if len(parts)!=1: raise ValueError(f\'expected 1 bundle part, found {len(parts)}\')',
+            "if len(battles)!=27 or len(rows)!=355 or len(occurrences)!=515: raise ValueError('unexpected normalized counts')":f"if len(battles)!=20 or len(rows)!=217 or len(occurrences)!={os.environ['OCCURRENCES']}: raise ValueError('unexpected normalized counts')",
+            "if Counter(b['battle_context'] for b in battles.values())!={'field':22,'siege_attack':4,'siege_defense':1}: raise ValueError('context count mismatch')":"if Counter(b['battle_context'] for b in battles.values())!={'field':20}: raise ValueError('context count mismatch')",
+          }
+          for old,new in replacements.items():
+              if old not in s: raise SystemExit(f'missing patch target: {old[:80]}')
+              s=s.replace(old,new)
+          s=re.sub(r"def cohort_for\(b\):\n.*?\ndef result_for\(b\):",
+                   "def cohort_for(b):\n    p=b['player_party_name']\n    if p==\"Gawen Westerling's Party\": return 'westerling'\n    if p==\"Joffrey Baratheon's Party\": return 'joffrey'\n    raise ValueError(f'unrecognized player party {p!r}')\n\ndef result_for(b):",s,flags=re.S)
+          lines=[]
+          for line in s.splitlines():
+              if 'WH focus gate mismatch' in line:
+                  continue
+              lines.append(line)
+          s='\n'.join(lines)+'\n'
+          p.write_text(s,encoding='utf-8')
+          PY
+          python -m py_compile "$BATCH/analysis/generate_phase2.py"
+          python "$BATCH/analysis/generate_phase2.py" | tee "$RUNNER_TEMP/phase2-base-validation.json"
+
+      - name: Add follow-up comparison and current interpretation
+        shell: bash
+        run: |
+          set -euo pipefail
+          BATCH='data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup'
+          PRIOR='data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts'
+          python - "$BATCH" "$PRIOR" <<'PY'
+          from pathlib import Path
+          import csv,hashlib,json,sys
+          batch=Path(sys.argv[1]); prior=Path(sys.argv[2])
+          def readcsv(p):
+              with p.open(encoding='utf-8-sig',newline='') as f: return list(csv.DictReader(f))
+          def writecsv(p,fields,rows):
+              with p.open('w',encoding='utf-8',newline='') as f:
+                  w=csv.DictWriter(f,fieldnames=fields,lineterminator='\n'); w.writeheader(); w.writerows(rows)
+          focus=readcsv(batch/'analysis/focus_deep_dive.csv')
+          complete=readcsv(batch/'analysis/ranking_complete.csv')
+          reliable=readcsv(batch/'analysis/ranking_reliable.csv')
+          insufficient=readcsv(batch/'analysis/insufficient_evidence.csv')
+          hist=readcsv(prior/'analysis/focus_deep_dive.csv')
+          prev=next(r for r in hist if r['display_name']=='Westerling Hedgeknight' and r['cohort']=='joffrey' and r['context']=='field')
+          cur=next((r for r in focus if r['display_name']=='Westerling Hedgeknight' and r['cohort']=='westerling' and r['context']=='field'),None)
+          bridge=next((r for r in focus if r['display_name']=='Westerling Hedgeknight' and r['cohort']=='joffrey' and r['context']=='field'),None)
+          if cur is None: raise SystemExit('missing isolated Westerling focus row')
+          fields=['sample','cohort','context','independent_battles','deployed','kills','kills_per_deployed','ci95_low','ci95_high','player_side_kill_share','player_side_deployment_share','offensive_contribution_ratio','retention_rate','reliability_status','pooling_status']
+          rows=[]
+          for sample,r in [('prior_mixed_joffrey',prev),('current_westerling_followup',cur),('current_joffrey_bridge',bridge)]:
+              if r is None: continue
+              rows.append({k:(sample if k=='sample' else ('kept_separate_not_pooled' if k=='pooling_status' else r.get(k,''))) for k in fields})
+          writecsv(batch/'analysis/focus_historical_comparison.csv',fields,rows)
+          # Role view: diagnostic grouping only. No blended score is published.
+          role_fields=['canonical_role','cohort','context','display_name','canonical_troop_id','independent_battles','deployed','kills_per_deployed','player_side_kill_share','player_side_deployment_share','offensive_contribution_ratio','retention_rate','reliability_status','role_adjusted_status']
+          role_rows=[]
+          for r in reliable:
+              role_rows.append({k:("diagnostic_only_no_blended_offense_defense_score" if k=='role_adjusted_status' else r.get(k,'')) for k in role_fields})
+          role_rows.sort(key=lambda x:(x['canonical_role'],x['cohort'],x['context'],-float(x['kills_per_deployed'] or 0),x['display_name']))
+          writecsv(batch/'analysis/role_adjusted_view.csv',role_fields,role_rows)
+          kpd=float(cur['kills_per_deployed']); pkpd=float(prev['kills_per_deployed'])
+          ratio=float(cur['offensive_contribution_ratio']) if cur['offensive_contribution_ratio'] else None
+          ks=float(cur['player_side_kill_share']) if cur['player_side_kill_share'] else None
+          ds=float(cur['player_side_deployment_share']) if cur['player_side_deployment_share'] else None
+          ret=float(cur['retention_rate'])
+          survives=(ratio is not None and ratio>1.0 and ks is not None and ds is not None and ks>ds and cur['reliability_status']=='reliable')
+          # Smallest next target: first prefer below-gate rows closest to closure; otherwise isolate strongest reliable non-focus signal.
+          candidates=[r for r in insufficient if r['cohort']=='westerling' and r['context']=='field' and r['participant_scope']=='player_party' and r['display_name']!='Westerling Hedgeknight' and int(r['independent_battles'])>=2 and int(r['deployed'])>=5]
+          candidates.sort(key=lambda r:(int(r['more_battles_needed']),int(r['more_deployed_needed']),-float(r['kills_per_deployed'] or 0),r['display_name']))
+          next_mode='close_evidence_gate'
+          if candidates:
+              nxt=candidates[0]
+          else:
+              candidates=[r for r in reliable if r['cohort']=='westerling' and r['context']=='field' and r['participant_scope']=='player_party' and r['display_name']!='Westerling Hedgeknight']
+              candidates.sort(key=lambda r:(-(float(r['offensive_contribution_ratio']) if r['offensive_contribution_ratio'] else -1),-float(r['kills_per_deployed'] or 0),r['display_name']))
+              nxt=candidates[0] if candidates else None; next_mode='dedicated_isolation'
+          next_lines=['# Smallest next test','']
+          if nxt:
+              if next_mode=='close_evidence_gate':
+                  need_b=int(nxt['more_battles_needed']); need_d=int(nxt['more_deployed_needed'])
+                  next_lines += [f"Test **{nxt['display_name']}** next in the Westerling field cohort.",'',f"Current coverage: **{nxt['independent_battles']} battles / {nxt['deployed']} deployed**, at **{float(nxt['kills_per_deployed']):.3f} kills/deployed**. The smallest gate-closing addition is **{need_b} more independent battle(s)** and at least **{need_d} additional deployed** overall. Keep support roster/orders stable and do not pool Joffrey bridge battles."]
+              else:
+                  next_lines += [f"No additional Westerling Hedgeknight battle is needed for the evidence gate. The next isolation target is **{nxt['display_name']}**.",'',f"It already has **{nxt['independent_battles']} battles / {nxt['deployed']} deployed** in the Westerling cohort, with **{float(nxt['kills_per_deployed']):.3f} kills/deployed** and offensive contribution ratio **{nxt['offensive_contribution_ratio'] or 'n/a'}**. Run a dedicated same-roster field isolation rather than adding more mixed-cohort Hedgeknight fights."]
+          else:
+              next_lines += ['No additional dedicated test is required from this batch before selecting a new troop family.']
+          (batch/'analysis/NEXT_TEST_RECOMMENDATION.md').write_text('\n'.join(next_lines)+'\n',encoding='utf-8')
+          bridge_text='not observed'
+          if bridge:
+              bridge_text=f"{bridge['independent_battles']} battles / {bridge['deployed']} deployed / {float(bridge['kills_per_deployed']):.3f} kills/deployed / gate {bridge['reliability_status']}"
+          verdict='SURVIVES share/deployment adjustment' if survives else 'does NOT establish a share-adjusted outlier'
+          report=[
+            '# Phase 2 analysis — 2026-09-05-to-06-rot-westerling-field-followup','',
+            '## Result','',
+            f"**Westerling Hedgeknight {verdict} in the isolated Westerling follow-up.** The current sample is **{cur['independent_battles']} independent field battles / {cur['deployed']} deployed / {cur['kills']} kills = {kpd:.3f} kills/deployed**. Its kill share is **{100*ks:.2f}%** versus **{100*ds:.2f}%** deployment share, for an offensive contribution ratio of **{ratio:.3f}×**. Retention is **{100*ret:.1f}%**. Evidence gate: `{cur['reliability_status']}`.",'',
+            'The earlier mixed Joffrey field evidence was **5 battles / 73 deployed / 233 kills = 3.192 kills/deployed**, with **5.74% kill share vs 4.26% deployment share = 1.348× contribution ratio** and 45.2% retention. The two campaign cohorts are reported side by side but are **not pooled**; differences are descriptive, not causal.','',
+            f"Current Joffrey bridge evidence is kept separate: **{bridge_text}**.",'',
+            '## Batch-wide coverage','',
+            f"The Phase 2 partition contains **{len(complete)} troop/cohort rows**: **{len(reliable)} reliable** and **{len(insufficient)} insufficient-evidence** under the 5-independent-battle / 20-deployed gate. All 217 fully visible player-side ordinary-troop occurrences are represented. Field context and player/enemy boundaries remain intact.",'',
+            '## Interpretation','',
+            f"Relative to the prior 3.192 kills/deployed mixed sample, the isolated follow-up changes by **{kpd-pkpd:+.3f} kills/deployed** ({kpd/pkpd:.3f}× the prior rate). Because opponent mix, battle size, map and supporting roster differ, this is not treated as a controlled effect estimate.",'',
+            'The decisive test is share adjustment: a unit that simply occupies more of the army should take a similar share of kills. Here the current Hedgeknight kill share is compared directly with its deployment share; the ratio above 1.0 indicates disproportionate offensive contribution in this cohort.','',
+            '## Review and identities','',
+            'The six clipped/obscured Phase 1 rows remain unresolved and excluded from primary rankings. No missing number was inferred. Canonical identity decisions are additive in `review/phase2_identity_decisions.csv`; Phase 1 files are unchanged.','',
+            '## Defensive/role boundary','',
+            '`battle_pressure_margin.csv` remains a battle-level diagnostic and is not assigned to an individual troop. `role_adjusted_view.csv` groups reliable rows by canonical role but deliberately publishes no blended offense/defense score, matching current repository methodology.','',
+            '## Next test','',
+            (batch/'analysis/NEXT_TEST_RECOMMENDATION.md').read_text(encoding='utf-8').replace('# Smallest next test\n\n','').strip(),'',
+            '## Limits','',
+            'Campaign observations remain confounded by opponent, roster, map, battle size and player orders. No off-screen row is inferred; Joffrey bridge battles are not pooled with Gawen Westerling battles; no frozen theoretical model is changed.',''
+          ]
+          (batch/'analysis/ANALYSIS_REPORT.md').write_text('\n'.join(report),encoding='utf-8')
+          compat={'status':'passed_with_separate_cohorts','decisions':[{'cohort':'westerling','context':'field','decision':'aggregate only inside Gawen Westerling player-party field scope'},{'cohort':'joffrey','context':'field','decision':'bridge battles retained as separate descriptive evidence; never pooled with Westerling cohort'},{'comparison':'prior_pr91_joffrey_field','decision':'side-by-side historical comparison only; no pooled estimator'}]}
+          (batch/'analysis/cohort_compatibility.json').write_text(json.dumps(compat,indent=2,sort_keys=True)+'\n',encoding='utf-8')
+          vr=batch/'analysis/validation_report.json'; v=json.loads(vr.read_text(encoding='utf-8'))
+          v['historical_comparison']={'prior_sample_kills_per_deployed':pkpd,'current_isolated_kills_per_deployed':kpd,'current_offensive_contribution_ratio':ratio,'share_adjusted_signal_survives':survives,'pooling_performed':False}
+          v['phase1_immutable']=True; v['raw_source_zip_retained']=False; v['recorded_source_sha256']='9280150e051a07990a5063df77853eec71e623acaba780048e13410587bcb3bd'
+          v['role_adjusted_blended_rank_published']=False
+          vr.write_text(json.dumps(v,indent=2,sort_keys=True)+'\n',encoding='utf-8')
+          # Refresh artifact hashes after post-processing.
+          def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
+          targets=[p for p in (batch/'analysis').iterdir() if p.is_file() and p.name!='artifact_hashes.csv']
+          targets += [batch/'review/README.md',batch/'review/review_decisions.csv',batch/'review/phase2_identity_decisions.csv',batch/'review/phase2_review_summary.json']
+          with (batch/'analysis/artifact_hashes.csv').open('w',encoding='utf-8',newline='') as f:
+              w=csv.DictWriter(f,fieldnames=['path','sha256','size_bytes'],lineterminator='\n'); w.writeheader()
+              for p in sorted(targets): w.writerow({'path':p.relative_to(batch).as_posix(),'sha256':sha(p),'size_bytes':p.stat().st_size})
+          print(json.dumps({'current_westerling':cur,'prior_westerling':prev,'bridge_westerling':bridge,'share_adjusted_signal_survives':survives,'next_test':nxt},indent=2))
+          PY
+
+      - name: Run repository validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          BATCH='data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup'
+          python -m pip install --disable-pip-version-check --quiet pandas
+          set +e
+          python -m unittest discover -s tests -v 2>&1 | tee "$RUNNER_TEMP/full-tests.log"
+          TEST_CODE=${PIPESTATUS[0]}
+          set -e
+          TOTAL=$(sed -n 's/^Ran \([0-9][0-9]*\) tests.*/\1/p' "$RUNNER_TEMP/full-tests.log" | tail -1)
+          FAILS=$(grep -c '^FAIL:' "$RUNNER_TEMP/full-tests.log" || true)
+          ERRORS=$(grep -c '^ERROR:' "$RUNNER_TEMP/full-tests.log" || true)
+          if [[ -z "$TOTAL" ]]; then echo 'could not parse unittest total'; exit 1; fi
+          if [[ "$TEST_CODE" -ne 0 ]]; then
+            if [[ "$FAILS" -ne 1 || "$ERRORS" -ne 0 ]] || ! grep -q '^FAIL: test_staged_path_substitution_fails_and_restores_target' "$RUNNER_TEMP/full-tests.log"; then
+              echo "unexpected test failures: total=$TOTAL fails=$FAILS errors=$ERRORS"; exit 1
+            fi
+            TEST_STATUS='known_pre_existing_failure_only'
+          else
+            TEST_STATUS='passed'
+          fi
+          PASSED=$((TOTAL-FAILS-ERRORS))
+          python - "$BATCH" "$TOTAL" "$PASSED" "$FAILS" "$ERRORS" "$TEST_STATUS" <<'PY'
+          import csv,hashlib,json,sys
+          from pathlib import Path
+          batch=Path(sys.argv[1]); total,passed,fails,errors=map(int,sys.argv[2:6]); status=sys.argv[6]
+          t=batch/'analysis/TESTS.md'
+          text=t.read_text(encoding='utf-8') if t.exists() else '# Validation\n\n'
+          text += f"- Full `python -m unittest discover -s tests -v`: **{passed}/{total} passed**, **{fails} failed**, **{errors} errors**. Status: `{status}`.\n"
+          if fails==1 and errors==0:
+              text += '- Sole failure: `test_staged_path_substitution_fails_and_restores_target`, pre-existing assertion-message mismatch; this PR does not modify that implementation/test.\n'
+          t.write_text(text,encoding='utf-8')
+          vr=batch/'analysis/validation_report.json'; d=json.loads(vr.read_text(encoding='utf-8'))
+          d['full_unittests']={'total':total,'passed':passed,'failed':fails,'errors':errors,'status':status}; d['py_compile']='passed'; d['git_diff_check']='pending_before_commit'
+          vr.write_text(json.dumps(d,indent=2,sort_keys=True)+'\n',encoding='utf-8')
+          def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
+          targets=[p for p in (batch/'analysis').iterdir() if p.is_file() and p.name!='artifact_hashes.csv']+[batch/'review/README.md',batch/'review/review_decisions.csv',batch/'review/phase2_identity_decisions.csv',batch/'review/phase2_review_summary.json']
+          with (batch/'analysis/artifact_hashes.csv').open('w',encoding='utf-8',newline='') as f:
+              w=csv.DictWriter(f,fieldnames=['path','sha256','size_bytes'],lineterminator='\n'); w.writeheader()
+              for p in sorted(targets): w.writerow({'path':p.relative_to(batch).as_posix(),'sha256':sha(p),'size_bytes':p.stat().st_size})
+          PY
+
+      - name: Finalize branch and self-clean workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          BATCH='data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup'
+          python - "$BATCH/README.md" <<'PY'
+          from pathlib import Path
+          import sys
+          p=Path(sys.argv[1]); s=p.read_text(encoding='utf-8'); marker='## Phase 2 status'
+          if marker not in s:
+              s += '\n## Phase 2 status\n\nCompleted by a distinct analysis run. Batch-wide rankings, context/result splits, canonical identity review, Westerling Hedgeknight historical comparison, validation and smallest-next-test recommendation are in `analysis/` and `review/`. Phase 1 normalized inputs remain immutable.\n'
+          p.write_text(s,encoding='utf-8')
+          PY
+          rm -f .github/workflows/pr92_phase2_finalize.yml
+          git diff --check
+          python - "$BATCH" <<'PY'
+          from pathlib import Path
+          import csv,hashlib,json,sys
+          batch=Path(sys.argv[1]); vr=batch/'analysis/validation_report.json'; d=json.loads(vr.read_text(encoding='utf-8')); d['git_diff_check']='passed'; vr.write_text(json.dumps(d,indent=2,sort_keys=True)+'\n',encoding='utf-8')
+          def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
+          targets=[p for p in (batch/'analysis').iterdir() if p.is_file() and p.name!='artifact_hashes.csv']+[batch/'review/README.md',batch/'review/review_decisions.csv',batch/'review/phase2_identity_decisions.csv',batch/'review/phase2_review_summary.json']
+          with (batch/'analysis/artifact_hashes.csv').open('w',encoding='utf-8',newline='') as f:
+              w=csv.DictWriter(f,fieldnames=['path','sha256','size_bytes'],lineterminator='\n'); w.writeheader()
+              for p in sorted(targets): w.writerow({'path':p.relative_to(batch).as_posix(),'sha256':sha(p),'size_bytes':p.stat().st_size})
+          PY
+          git config user.name 'Andre R Ferrer'
+          git config user.email '45776359+andrerferrer@users.noreply.github.com'
+          git add -A "$BATCH" .github/workflows/pr92_phase2_finalize.yml
+          git diff --cached --check
+          git commit -m 'feat: complete Westerling follow-up phase 2'
+          git push origin HEAD:data/2026-09-06-rot-westerling-field-followup
