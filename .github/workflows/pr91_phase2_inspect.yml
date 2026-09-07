@@ -1,0 +1,65 @@
+name: PR91 Phase2 Bundle Inspect
+
+on:
+  push:
+    branches:
+      - data/2026-09-05-rot-white-harbor-joffrey
+    paths:
+      - .github/workflows/pr91_phase2_inspect.yml
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reconstruct and inspect Phase 1 bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          BATCH='data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts'
+          ARCHIVE="$RUNNER_TEMP/pr91-phase1.tar.xz"
+          OUT="$RUNNER_TEMP/pr91-phase1"
+          cat "$BATCH"/bundle/*base64.part-* | base64 -d > "$ARCHIVE"
+          echo '9cc8482caf6d37356b186c0a68dfa9e6f50303fb715f6ddfc3a49e2593b59c9d  '"$ARCHIVE" | sha256sum -c -
+          mkdir -p "$OUT"
+          tar -xJf "$ARCHIVE" -C "$OUT"
+          {
+            echo '=== FILES ==='
+            find "$OUT" -type f -printf '%P\n' | sort
+            echo '=== REVIEW_QUEUE ==='
+            cat "$OUT/review/review_queue.csv"
+            echo '=== IDENTITY_REVIEW ==='
+            cat "$OUT/review/troop_identity_review.csv"
+            echo '=== PYTHON_SUMMARY ==='
+            python - "$OUT" <<'PY'
+          import csv, json, sys
+          from collections import Counter, defaultdict
+          from pathlib import Path
+          root=Path(sys.argv[1])
+          for p in sorted(root.rglob('*.jsonl')):
+              rows=[json.loads(x) for x in p.read_text(encoding='utf-8').splitlines() if x.strip()]
+              print(f'FILE {p.relative_to(root)} rows={len(rows)}')
+              if rows: print('KEYS', sorted(rows[0]))
+          battles=[json.loads(x) for x in (root/'battles.jsonl').read_text(encoding='utf-8').splitlines() if x.strip()]
+          occ=[json.loads(x) for x in (root/'primary_troop_occurrences.jsonl').read_text(encoding='utf-8').splitlines() if x.strip()]
+          print('BATTLE_CONTEXTS', dict(Counter(r.get('battle_context') for r in battles)))
+          print('BATTLE_RESULTS', dict(Counter(r.get('result') for r in battles)))
+          print('BATTLE_KEYS', sorted(battles[0]))
+          print('OCC_KEYS', sorted(occ[0]))
+          labels=Counter((r.get('display_name') or r.get('troop_name') or r.get('name'), r.get('battle_context')) for r in occ)
+          print('TOP_LABEL_COUNTS')
+          for k,v in labels.most_common(100): print(k,v)
+          print('WHITE_HARBOR_ROWS')
+          for r in occ:
+              text=json.dumps(r, ensure_ascii=False).lower()
+              if 'white harbor' in text or 'knight commander' in text:
+                  print(json.dumps(r, ensure_ascii=False, sort_keys=True))
+          PY
+          } | tee phase2-inspection.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pr91-phase2-inspection
+          path: phase2-inspection.txt
