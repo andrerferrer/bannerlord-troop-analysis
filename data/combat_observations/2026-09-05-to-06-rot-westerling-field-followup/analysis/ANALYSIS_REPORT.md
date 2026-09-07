@@ -10,13 +10,13 @@ Current Joffrey bridge evidence is kept separate: **4 battles / 98 deployed / 2.
 
 ## Batch-wide coverage
 
-The Phase 2 partition contains **57 troop/cohort rows**: **10 reliable** and **47 insufficient-evidence** under the 5-independent-battle / 20-deployed gate. All 217 fully visible player-side ordinary-troop occurrences are represented. Field context and player/enemy boundaries remain intact.
+The Phase 2 partition contains **57 troop/cohort rows**: **10 reliable** and **47 insufficient-evidence** under the 5-independent-battle / 20-deployed gate. All **217** fully visible player-side ordinary-troop occurrences are represented. All retained observations are field battles; player/enemy and Westerling/Joffrey cohort boundaries remain intact.
 
 ## Interpretation
 
 Relative to the prior 3.192 kills/deployed mixed sample, the isolated follow-up changes by **-1.343 kills/deployed** (0.579× the prior rate). Because opponent mix, battle size, map and supporting roster differ, this is not treated as a controlled effect estimate.
 
-The decisive test is share adjustment: a unit that simply occupies more of the army should take a similar share of kills. Here the current Hedgeknight kill share is compared directly with its deployment share; the ratio above 1.0 indicates disproportionate offensive contribution in this cohort.
+The decisive test is share adjustment: the current Hedgeknight kill share remains materially above its deployment share, so the disproportionate offensive signal survives in the isolated Westerling cohort.
 
 ## Review and identities
 
@@ -24,7 +24,7 @@ The six clipped/obscured Phase 1 rows remain unresolved and excluded from primar
 
 ## Defensive/role boundary
 
-`battle_pressure_margin.csv` remains a battle-level diagnostic and is not assigned to an individual troop. `role_adjusted_view.csv` groups reliable rows by canonical role but deliberately publishes no blended offense/defense score, matching current repository methodology.
+`battle_pressure_margin.csv` remains a battle-level diagnostic and is not assigned to an individual troop. `role_adjusted_view.csv` groups reliable rows by canonical role but deliberately publishes no blended offense/defense score.
 
 ## Next test
 
