@@ -1,0 +1,92 @@
+{
+  "batch": "2026-09-05-to-06-rot-westerling-field-followup",
+  "input_sha256": "9280150e051a07990a5063df77853eec71e623acaba780048e13410587bcb3bd",
+  "payload": [
+    {
+      "path": "README.md",
+      "sha256": "1ee67c92f441056bce2aa62fa1e78592f90af7e9af5a3b75112c239f3ba011aa",
+      "size_bytes": 1101
+    },
+    {
+      "path": "source_provenance.json",
+      "sha256": "4f9ed32147c0eb68ee4efbe113fc5655120e8c4530d334da4f307529b3ad25cc",
+      "size_bytes": 1098
+    },
+    {
+      "path": "source_inventory.csv",
+      "sha256": "3889c65bde86767fa3fb8d59020edd98065a08019cac31092dbdbd3888c11e0f",
+      "size_bytes": 13222
+    },
+    {
+      "path": "screenshots_manifest.csv",
+      "sha256": "9f77c3800ba139a5f6740c65d03fb5eb6a40840f88cb34b3353469f5b40214c6",
+      "size_bytes": 11231
+    },
+    {
+      "path": "battles.jsonl",
+      "sha256": "e94a5aaced7c813f8f1cb2d9da8a293dfda76766a562831512c595f5c5155fca",
+      "size_bytes": 22379
+    },
+    {
+      "path": "troop_occurrences.jsonl",
+      "sha256": "b64d95523708ec492a6c98b982e26690936ea827a4679e53ce58df90c70210d7",
+      "size_bytes": 462744
+    },
+    {
+      "path": "primary_troop_occurrences.jsonl",
+      "sha256": "49fa04ccd23c1f4ca1ba232029b236650306c2d9f9f963371d110f48d16f6bf1",
+      "size_bytes": 363778
+    },
+    {
+      "path": "normalization_summary.json",
+      "sha256": "ae6d5e53877eaaa2fad9fa31bde8c3ef3c16f45a8bed525a033eee095d395288",
+      "size_bytes": 546
+    },
+    {
+      "path": "normalization_validation_report.json",
+      "sha256": "fbbb58f963834e2cbea88d5c3ac6b14f9cd582c72dac16b11187d89faef38266",
+      "size_bytes": 773
+    },
+    {
+      "path": "manifest/source_inventory.csv",
+      "sha256": "3889c65bde86767fa3fb8d59020edd98065a08019cac31092dbdbd3888c11e0f",
+      "size_bytes": 13222
+    },
+    {
+      "path": "manifest/screenshots_manifest.csv",
+      "sha256": "9f77c3800ba139a5f6740c65d03fb5eb6a40840f88cb34b3353469f5b40214c6",
+      "size_bytes": 11231
+    },
+    {
+      "path": "staging/README.md",
+      "sha256": "88ddd0ef557eb28700ec0fe5ce87bc988f2a6ee173f876399a7d0abc83c08e4b",
+      "size_bytes": 53
+    },
+    {
+      "path": "staging/battles.jsonl",
+      "sha256": "e94a5aaced7c813f8f1cb2d9da8a293dfda76766a562831512c595f5c5155fca",
+      "size_bytes": 22379
+    },
+    {
+      "path": "extraction/raw_extraction.jsonl",
+      "sha256": "b64d95523708ec492a6c98b982e26690936ea827a4679e53ce58df90c70210d7",
+      "size_bytes": 462744
+    },
+    {
+      "path": "review/review_queue.csv",
+      "sha256": "065e7b2f6ee5d77de6393c40b21f3fc8504ccdd7bc315aba837cab2e3bc5ecca",
+      "size_bytes": 2896
+    },
+    {
+      "path": "review/troop_identity_review.csv",
+      "sha256": "a5d1f56371d311e1d0200aa65685a2cd5680268badff0424e5d1504cc95f6bc6",
+      "size_bytes": 7046
+    },
+    {
+      "path": "handoff/ANALYSIS_PROMPT.md",
+      "sha256": "7d9e87db628f8f32d394923069e73066c1e9e67661da5c6ae3d5e2b47d66c786",
+      "size_bytes": 2585
+    }
+  ],
+  "schema_version": "1.0.0"
+}

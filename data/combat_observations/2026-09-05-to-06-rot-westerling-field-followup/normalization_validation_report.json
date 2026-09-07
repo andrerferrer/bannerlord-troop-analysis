@@ -1,0 +1,21 @@
+{
+  "active_last_readable_battle_count": 0,
+  "already_normalized_count": 0,
+  "complete_player_side_ordinary_occurrence_count": 217,
+  "excluded_non_evidence_count": 1,
+  "historical_dedup_reference": "merged PR #91 / main SHA 3bde0f43bddec1e562937f8da66009c05af04042",
+  "historical_exact_overlap_count": 0,
+  "independent_battle_count": 20,
+  "input_image_count": 22,
+  "input_sha256": "9280150e051a07990a5063df77853eec71e623acaba780048e13410587bcb3bd",
+  "new_representative_count": 20,
+  "normalized_occurrence_count": 283,
+  "phase_boundary": "normalization_only",
+  "schema_version": "1.0.0",
+  "status": "passed",
+  "structural_error_count": 0,
+  "structural_errors": [],
+  "supplemental_count": 0,
+  "visual_duplicate_count": 1,
+  "visual_review_queue_count": 6
+}
