@@ -35,8 +35,8 @@ jobs:
             cat "$OUT/review/troop_identity_review.csv"
             echo '=== PYTHON_SUMMARY ==='
             python - "$OUT" <<'PY'
-          import csv, json, sys
-          from collections import Counter, defaultdict
+          import json, sys
+          from collections import Counter
           from pathlib import Path
           root=Path(sys.argv[1])
           for p in sorted(root.rglob('*.jsonl')):
@@ -49,9 +49,6 @@ jobs:
           print('BATTLE_RESULTS', dict(Counter(r.get('result') for r in battles)))
           print('BATTLE_KEYS', sorted(battles[0]))
           print('OCC_KEYS', sorted(occ[0]))
-          labels=Counter((r.get('display_name') or r.get('troop_name') or r.get('name'), r.get('battle_context')) for r in occ)
-          print('TOP_LABEL_COUNTS')
-          for k,v in labels.most_common(100): print(k,v)
           print('WHITE_HARBOR_ROWS')
           for r in occ:
               text=json.dumps(r, ensure_ascii=False).lower()
@@ -59,7 +56,12 @@ jobs:
                   print(json.dumps(r, ensure_ascii=False, sort_keys=True))
           PY
           } | tee phase2-inspection.txt
+          echo "$OUT" > phase2-out-path.txt
       - uses: actions/upload-artifact@v4
         with:
           name: pr91-phase2-inspection
           path: phase2-inspection.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pr91-phase1-extracted
+          path: ${{ runner.temp }}/pr91-phase1
