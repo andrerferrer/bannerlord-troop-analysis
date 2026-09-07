@@ -17,3 +17,7 @@ Phase 1 normalization for `Armoury Crate SE 03_09_2026 22_51_42.zip`.
 This commit is deliberately normalization-only. It publishes direct source and screenshot manifests for future deduplication, the explicit review queues, and a deterministic normalized bundle. It does not publish the provisional host-side rankings as completed Phase 2 analysis.
 
 Reconstruct the immutable normalized input with `bundle/README.md`, then follow `handoff/ANALYSIS_PROMPT.md` from a distinct Phase 2 agent.
+
+## Phase 2 status
+
+Completed by a distinct analysis agent. Batch-wide rankings, result/context splits, canonical identity audit, review decisions, White Harbor Knight Commander/Westerling Hedgeknight focus analysis, validation, and smallest-next-test recommendation are in `analysis/` and `review/`. Phase 1 normalized inputs remain immutable.

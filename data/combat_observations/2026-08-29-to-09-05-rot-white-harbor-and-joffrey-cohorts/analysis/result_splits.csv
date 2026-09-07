@@ -1,0 +1,176 @@
+cohort,context,participant_scope,parent_group,display_name,canonical_troop_id,result,censoring_status,independent_battles,deployed,survivors,kills,deaths,wounded,routed,kills_per_deployed,retention_rate,verified_player_side_total_kills,kill_total_coverage_complete,player_side_kill_share,verified_player_side_total_deployed,deployment_total_coverage_complete,player_side_deployment_share,offensive_contribution_ratio,offensive_share_gap
+joffrey,field,player_party,Joffrey Baratheon's Party,Andal Caravan Guard,,victory,final,2,13,4,17,2,7,0,1.307692,0.307692,1208,True,0.014073,573,True,0.022688,0.620288,-0.008615
+joffrey,field,player_party,Joffrey Baratheon's Party,Blackwood Archer,blackwood_archer,victory,final,2,10,10,14,0,0,0,1.400000,1.000000,929,True,0.015070,654,True,0.015291,0.985576,-0.000221
+joffrey,field,player_party,Joffrey Baratheon's Party,Blackwood Longbowman,blackwood_longbowman,victory,final,2,13,13,27,0,0,0,2.076923,1.000000,971,True,0.027806,670,True,0.019403,1.433098,0.008403
+joffrey,field,player_party,Joffrey Baratheon's Party,Captain of the Kingsguard,mounted_kingsguard,victory,final,12,441,340,895,19,82,0,2.029478,0.770975,5953,True,0.150344,3471,True,0.127053,1.183323,0.023292
+joffrey,field,player_party,Joffrey Baratheon's Party,Captain of the Kingsguard,mounted_kingsguard,defeat,final,1,52,0,159,10,42,0,3.057692,0.000000,1127,True,0.141083,347,True,0.149856,0.941455,-0.008773
+joffrey,field,player_party,Joffrey Baratheon's Party,Captain of the Kingsguard,mounted_kingsguard,active,censored_diagnostic,1,13,0,22,1,12,0,1.692308,0.000000,177,True,0.124294,372,True,0.034946,3.556714,0.089348
+joffrey,field,player_party,Joffrey Baratheon's Party,Crownlands Bowman,crownlands_bowman,victory,final,2,22,20,10,0,2,0,0.454545,0.909091,518,True,0.019305,468,True,0.047009,0.410670,-0.027704
+joffrey,field,player_party,Joffrey Baratheon's Party,Crownlands Levy,crownlands_levy,victory,final,1,9,9,3,0,0,0,0.333333,1.000000,101,True,0.029703,199,True,0.045226,0.656766,-0.015523
+joffrey,field,player_party,Joffrey Baratheon's Party,Crownlands Noble's Son,crownlands_noble_recruit,victory,final,3,25,10,10,4,11,0,0.400000,0.400000,589,True,0.016978,629,True,0.039746,0.427165,-0.022768
+joffrey,field,player_party,Joffrey Baratheon's Party,Crownlands Noble's Son,crownlands_noble_recruit,active,censored_diagnostic,1,4,0,1,1,3,0,0.250000,0.000000,177,True,0.005650,372,True,0.010753,0.525424,-0.005103
+joffrey,field,player_party,Joffrey Baratheon's Party,Crownlands Recruit,crownlands_recruit,victory,final,1,10,8,4,0,2,0,0.400000,0.800000,101,True,0.039604,199,True,0.050251,0.788119,-0.010647
+joffrey,field,player_party,Joffrey Baratheon's Party,Crownlands Squire,crownlands_squire,victory,final,3,24,1,14,4,19,0,0.583333,0.041667,899,True,0.015573,716,True,0.033520,0.464590,-0.017947
+joffrey,field,player_party,Joffrey Baratheon's Party,Crownlands Squire,crownlands_squire,active,censored_diagnostic,1,4,0,3,0,4,0,0.750000,0.000000,177,True,0.016949,372,True,0.010753,1.576271,0.006196
+joffrey,field,player_party,Joffrey Baratheon's Party,Elite Hired Crossbow,,defeat,final,1,2,0,11,1,1,0,5.500000,0.000000,1127,True,0.009760,347,True,0.005764,1.693434,0.003997
+joffrey,field,player_party,Joffrey Baratheon's Party,Frey Assassin,frey_assassin,victory,final,6,37,35,92,1,1,0,2.486486,0.945946,3901,True,0.023584,2037,True,0.018164,1.298378,0.005420
+joffrey,field,player_party,Joffrey Baratheon's Party,Frey Assassin,frey_assassin,defeat,final,1,6,0,23,1,5,0,3.833333,0.000000,1127,True,0.020408,347,True,0.017291,1.180272,0.003117
+joffrey,field,player_party,Joffrey Baratheon's Party,Gold Cloak Captain,goldcloak_captain,victory,final,9,79,52,76,8,19,0,0.962025,0.658228,4509,True,0.016855,2543,True,0.031066,0.542566,-0.014210
+joffrey,field,player_party,Joffrey Baratheon's Party,Gold Cloak Captain,goldcloak_captain,active,censored_diagnostic,1,14,0,7,3,11,0,0.500000,0.000000,177,True,0.039548,372,True,0.037634,1.050847,0.001914
+joffrey,field,player_party,Joffrey Baratheon's Party,Gold Cloak Elite Archer,goldcloak_elite_archer,victory,final,1,6,6,8,0,0,0,1.333333,1.000000,417,True,0.019185,269,True,0.022305,0.860112,-0.003120
+joffrey,field,player_party,Joffrey Baratheon's Party,Gold Cloak Halberdier,kingsguard,victory,final,8,133,51,214,12,70,0,1.609023,0.383459,3499,True,0.061160,2192,True,0.060675,1.007996,0.000485
+joffrey,field,player_party,Joffrey Baratheon's Party,Gold Cloak Halberdier,kingsguard,active,censored_diagnostic,1,7,0,7,3,4,0,1.000000,0.000000,177,True,0.039548,372,True,0.018817,2.101695,0.020731
+joffrey,field,player_party,Joffrey Baratheon's Party,Gold Cloak Petty Officer,goldcloak_officer,victory,final,2,21,14,26,1,6,0,1.238095,0.666667,518,True,0.050193,468,True,0.044872,1.118588,0.005321
+joffrey,field,player_party,Joffrey Baratheon's Party,Gold Cloak Sniper,goldcloak_master_archer,victory,final,8,293,227,334,15,51,0,1.139932,0.774744,3661,True,0.091232,2229,True,0.131449,0.694047,-0.040217
+joffrey,field,player_party,Joffrey Baratheon's Party,Gold Cloak Sniper,goldcloak_master_archer,active,censored_diagnostic,1,28,0,32,9,19,0,1.142857,0.000000,177,True,0.180791,372,True,0.075269,2.401937,0.105522
+joffrey,field,player_party,Joffrey Baratheon's Party,Gold Cloak Soldier,goldcloak_soldier,victory,final,1,9,0,6,3,6,0,0.666667,0.000000,417,True,0.014388,269,True,0.033457,0.430056,-0.019069
+joffrey,field,player_party,Joffrey Baratheon's Party,Guardian of the Rock,casterly_guardian,victory,final,1,2,2,7,0,0,0,3.500000,1.000000,515,True,0.013592,274,True,0.007299,1.862136,0.006293
+joffrey,field,player_party,Joffrey Baratheon's Party,Kingsguard,kingsguard_captain,victory,final,11,535,350,912,29,156,0,1.704673,0.654206,4849,True,0.188080,3010,True,0.177741,1.058170,0.010339
+joffrey,field,player_party,Joffrey Baratheon's Party,Kingsguard,kingsguard_captain,defeat,final,1,40,0,97,2,38,0,2.425000,0.000000,1127,True,0.086069,347,True,0.115274,0.746650,-0.029205
+joffrey,field,player_party,Joffrey Baratheon's Party,Kingsguard,kingsguard_captain,active,censored_diagnostic,1,10,0,11,3,7,0,1.100000,0.000000,177,True,0.062147,372,True,0.026882,2.311864,0.035265
+joffrey,field,player_party,Joffrey Baratheon's Party,Kingsguard Initiate,kingsguard_initiate,victory,final,7,80,45,89,7,28,0,1.112500,0.562500,2078,True,0.042830,1767,True,0.045274,0.946000,-0.002445
+joffrey,field,player_party,Joffrey Baratheon's Party,Kingsguard Initiate,kingsguard_initiate,active,censored_diagnostic,1,27,0,15,7,20,0,0.555556,0.000000,177,True,0.084746,372,True,0.072581,1.167608,0.012165
+joffrey,field,player_party,Joffrey Baratheon's Party,Kingsguard's Page,kingsguard_page,victory,final,3,97,70,38,6,21,0,0.391753,0.721649,589,True,0.064516,629,True,0.154213,0.418357,-0.089697
+joffrey,field,player_party,Joffrey Baratheon's Party,Kingsguard's Page,kingsguard_page,active,censored_diagnostic,1,22,0,6,4,18,0,0.272727,0.000000,177,True,0.033898,372,True,0.059140,0.573190,-0.025241
+joffrey,field,player_party,Joffrey Baratheon's Party,Kingsguard's Squire,kingsguard_squire,victory,final,6,112,45,72,15,52,0,0.642857,0.401786,1464,True,0.049180,1443,True,0.077616,0.633636,-0.028436
+joffrey,field,player_party,Joffrey Baratheon's Party,Kingsguard's Squire,kingsguard_squire,active,censored_diagnostic,1,42,0,20,14,28,0,0.476190,0.000000,177,True,0.112994,372,True,0.112903,1.000807,0.000091
+joffrey,field,player_party,Joffrey Baratheon's Party,Knight of the Vale,vale_knight_of,defeat,final,1,11,0,16,3,8,0,1.454545,0.000000,1127,True,0.014197,347,True,0.031700,0.447850,-0.017503
+joffrey,field,player_party,Joffrey Baratheon's Party,Lannister Archer,lannister_archer,victory,final,1,6,6,8,0,0,0,1.333333,1.000000,515,True,0.015534,274,True,0.021898,0.709385,-0.006364
+joffrey,field,player_party,Joffrey Baratheon's Party,Lannister Bowman,lannister_bowman,victory,final,1,6,6,8,0,0,0,1.333333,1.000000,572,True,0.013986,308,True,0.019481,0.717949,-0.005495
+joffrey,field,player_party,Joffrey Baratheon's Party,Lannister Longbowman,lannister_longbowman,victory,final,3,49,46,53,1,2,0,1.081633,0.938776,2191,True,0.024190,1043,True,0.046980,0.514899,-0.022790
+joffrey,field,player_party,Joffrey Baratheon's Party,Lannister Longbowman,lannister_longbowman,defeat,final,1,33,0,74,7,26,0,2.242424,0.000000,1127,True,0.065661,347,True,0.095101,0.690436,-0.029440
+joffrey,field,player_party,Joffrey Baratheon's Party,Mountain's Man,mountains_man,victory,final,2,7,5,26,1,1,0,3.714286,0.714286,1087,True,0.023919,582,True,0.012027,1.988698,0.011892
+joffrey,field,player_party,Joffrey Baratheon's Party,Northern Mounted Warlord,,victory,final,1,3,2,6,1,0,0,2.000000,0.666667,1104,True,0.005435,461,True,0.006508,0.835145,-0.001073
+joffrey,field,player_party,Joffrey Baratheon's Party,Ravens' Teeth,ravens_teeth,victory,final,6,100,96,502,0,4,0,5.020000,0.960000,3901,True,0.128685,2037,True,0.049092,2.621312,0.079593
+joffrey,field,player_party,Joffrey Baratheon's Party,Ravens' Teeth,ravens_teeth,defeat,final,1,29,0,280,4,25,0,9.655172,0.000000,1127,True,0.248447,347,True,0.083573,2.972799,0.164874
+joffrey,field,player_party,Joffrey Baratheon's Party,Realm Hedge Knight,realm_hedge_knight,victory,final,3,11,5,20,1,5,0,1.818182,0.454545,899,True,0.022247,716,True,0.015363,1.448074,0.006884
+joffrey,field,player_party,Joffrey Baratheon's Party,Realm Knight,realm_knight,victory,final,7,62,26,133,5,31,0,2.145161,0.419355,3392,True,0.039210,2010,True,0.030846,1.271160,0.008364
+joffrey,field,player_party,Joffrey Baratheon's Party,Realm Paladin,realm_paladin,victory,final,10,104,74,275,3,27,0,2.644231,0.711538,5627,True,0.048872,3078,True,0.033788,1.446409,0.015083
+joffrey,field,player_party,Joffrey Baratheon's Party,Realm Paladin,realm_paladin,defeat,final,1,18,0,55,5,13,0,3.055556,0.000000,1127,True,0.048802,347,True,0.051873,0.940797,-0.003071
+joffrey,field,player_party,Joffrey Baratheon's Party,Reaver,,victory,final,2,7,0,17,2,5,0,2.428571,0.000000,1362,True,0.012482,606,True,0.011551,1.080554,0.000930
+joffrey,field,player_party,Joffrey Baratheon's Party,Riverlands Admiral,river_admiral,victory,final,3,10,5,22,2,3,0,2.200000,0.500000,1826,True,0.012048,906,True,0.011038,1.091566,0.001011
+joffrey,field,player_party,Joffrey Baratheon's Party,Riverlands Axeman,river_axeman,victory,final,3,18,5,27,3,10,0,1.500000,0.277778,1916,True,0.014092,1007,True,0.017875,0.788361,-0.003783
+joffrey,field,player_party,Joffrey Baratheon's Party,Riverlands Bowman,river_bowman,victory,final,2,10,4,4,2,4,0,0.400000,0.400000,482,True,0.008299,447,True,0.022371,0.370954,-0.014073
+joffrey,field,player_party,Joffrey Baratheon's Party,Riverlands Footman,river_footman,victory,final,1,3,3,2,0,0,0,0.666667,1.000000,101,True,0.019802,199,True,0.015075,1.313531,0.004727
+joffrey,field,player_party,Joffrey Baratheon's Party,Riverlands Ranger,river_ranger,victory,final,4,71,58,144,1,12,0,2.028169,0.816901,2655,True,0.054237,1331,True,0.053343,1.016758,0.000894
+joffrey,field,player_party,Joffrey Baratheon's Party,Riverlands Recruit,river_recruit,victory,final,2,68,11,34,11,46,0,0.500000,0.161765,482,True,0.070539,447,True,0.152125,0.463693,-0.081586
+joffrey,field,player_party,Joffrey Baratheon's Party,Riverrun Captain,riverrun_captain,victory,final,1,1,1,6,0,0,0,6.000000,1.000000,515,True,0.011650,274,True,0.003650,3.192233,0.008001
+joffrey,field,player_party,Joffrey Baratheon's Party,Stark Sworn Sword,stark_swornsword,victory,final,3,22,17,55,2,3,0,2.500000,0.772727,2191,True,0.025103,1043,True,0.021093,1.190096,0.004010
+joffrey,field,player_party,Joffrey Baratheon's Party,Tully Longbowman,tully_longbowman,defeat,final,1,3,0,11,0,3,0,3.666667,0.000000,1127,True,0.009760,347,True,0.008646,1.128956,0.001115
+joffrey,field,player_party,Joffrey Baratheon's Party,Vale House Guard,vale_houseguard,victory,final,1,10,5,14,3,2,0,1.400000,0.500000,572,True,0.024476,308,True,0.032468,0.753846,-0.007992
+joffrey,field,player_party,Joffrey Baratheon's Party,Vale House Guard,vale_houseguard,defeat,final,1,18,0,34,4,14,0,1.888889,0.000000,1127,True,0.030169,347,True,0.051873,0.581583,-0.021705
+joffrey,field,player_party,Joffrey Baratheon's Party,Vale Master Archer,vale_master_archer,victory,final,1,10,10,7,0,0,0,0.700000,1.000000,572,True,0.012238,308,True,0.032468,0.376923,-0.020230
+joffrey,field,player_party,Joffrey Baratheon's Party,Vale Master Archer,vale_master_archer,defeat,final,1,21,0,90,6,15,0,4.285714,0.000000,1127,True,0.079858,347,True,0.060519,1.319559,0.019339
+joffrey,field,player_party,Joffrey Baratheon's Party,Westerlands Banner Knight,,victory,final,4,55,33,108,3,19,0,1.963636,0.600000,3402,True,0.031746,1446,True,0.038036,0.834632,-0.006290
+joffrey,field,player_party,Joffrey Baratheon's Party,Westerlands Duelist,,victory,final,3,36,15,38,6,15,0,1.055556,0.416667,1916,True,0.019833,1007,True,0.035750,0.554773,-0.015917
+joffrey,field,player_party,Joffrey Baratheon's Party,Westerlands Sharpshooter,,victory,final,1,24,0,54,4,20,0,2.250000,0.000000,945,True,0.057143,337,True,0.071217,0.802381,-0.014074
+joffrey,field,player_party,Joffrey Baratheon's Party,Westerlands Skirmisher,,victory,final,1,2,2,7,0,0,0,3.500000,1.000000,614,True,0.011401,324,True,0.006173,1.846906,0.005228
+joffrey,field,player_party,Joffrey Baratheon's Party,Westerling Elite Archer,westerling_elite_archer,defeat,final,1,5,0,13,2,3,0,2.600000,0.000000,1127,True,0.011535,347,True,0.014409,0.800532,-0.002874
+joffrey,field,player_party,Joffrey Baratheon's Party,Westerling Footman,westerling_footman,victory,final,1,7,3,6,2,2,0,0.857143,0.428571,515,True,0.011650,274,True,0.025547,0.456033,-0.013897
+joffrey,field,player_party,Joffrey Baratheon's Party,Westerling Hedgeknight,westerling_hedgeknight,victory,final,4,44,33,170,0,11,0,3.863636,0.750000,2930,True,0.058020,1367,True,0.032187,1.802591,0.025833
+joffrey,field,player_party,Joffrey Baratheon's Party,Westerling Hedgeknight,westerling_hedgeknight,defeat,final,1,29,0,63,6,23,0,2.172414,0.000000,1127,True,0.055901,347,True,0.083573,0.668880,-0.027673
+joffrey,field,player_party,Joffrey Baratheon's Party,Westerling House Guard,westerling_houseguard,victory,final,3,15,12,31,0,3,0,2.066667,0.800000,1826,True,0.016977,906,True,0.016556,1.025411,0.000421
+joffrey,field,player_party,Joffrey Baratheon's Party,Westerling Man at Arms,westerling_man_at_arms,victory,final,1,6,2,7,2,2,0,1.166667,0.333333,572,True,0.012238,308,True,0.019481,0.628205,-0.007243
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Captain of the Kingsguard,mounted_kingsguard,victory,final,1,39,36,16,0,3,0,0.410256,0.923077,206,True,0.077670,344,True,0.113372,0.685088,-0.035702
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Captain of the Kingsguard,mounted_kingsguard,retreated_to_keep,phase_complete_stage,2,73,66,191,1,6,0,2.616438,0.904110,1244,True,0.153537,1232,True,0.059253,2.591199,0.094284
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Captain of the Kingsguard,mounted_kingsguard,active,censored_diagnostic,1,41,24,80,0,17,0,1.951220,0.585366,532,True,0.150376,0,False,,,
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Frey Assassin,frey_assassin,active,censored_diagnostic,1,6,0,3,2,4,0,0.500000,0.000000,532,True,0.005639,0,False,,,
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Gold Cloak Archer,goldcloak_archer,victory,final,1,8,3,5,3,2,0,0.625000,0.375000,206,True,0.024272,344,True,0.023256,1.043689,0.001016
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Gold Cloak Captain,goldcloak_captain,retreated_to_keep,phase_complete_stage,2,26,16,24,5,5,0,0.923077,0.615385,1244,True,0.019293,1232,True,0.021104,0.914173,-0.001811
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Gold Cloak Captain,goldcloak_captain,active,censored_diagnostic,1,8,3,6,1,4,0,0.750000,0.375000,532,True,0.011278,0,False,,,
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Gold Cloak Elite Archer,goldcloak_elite_archer,victory,final,1,10,2,5,3,5,0,0.500000,0.200000,206,True,0.024272,344,True,0.029070,0.834951,-0.004798
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Gold Cloak Halberdier,kingsguard,victory,final,1,23,21,8,0,2,0,0.347826,0.913043,206,True,0.038835,344,True,0.066860,0.580836,-0.028026
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Gold Cloak Halberdier,kingsguard,active,censored_diagnostic,1,22,8,30,4,10,0,1.363636,0.363636,532,True,0.056391,0,False,,,
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Gold Cloak Sniper,goldcloak_master_archer,victory,final,1,37,12,42,2,23,0,1.135135,0.324324,206,True,0.203883,344,True,0.107558,1.895565,0.096325
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Gold Cloak Sniper,goldcloak_master_archer,retreated_to_keep,phase_complete_stage,2,46,33,80,4,9,0,1.739130,0.717391,1244,True,0.064309,1232,True,0.037338,1.722354,0.026971
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Gold Cloak Sniper,goldcloak_master_archer,active,censored_diagnostic,1,49,15,27,2,32,0,0.551020,0.306122,532,True,0.050752,0,False,,,
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Kingsguard,kingsguard_captain,victory,final,1,61,51,23,3,7,0,0.377049,0.836066,206,True,0.111650,344,True,0.177326,0.629636,-0.065675
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Kingsguard,kingsguard_captain,retreated_to_keep,phase_complete_stage,2,71,63,105,4,4,0,1.478873,0.887324,1244,True,0.084405,1232,True,0.057630,1.464608,0.026775
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Kingsguard,kingsguard_captain,active,censored_diagnostic,1,74,50,108,5,19,0,1.459459,0.675676,532,True,0.203008,0,False,,,
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Kingsguard Initiate,kingsguard_initiate,retreated_to_keep,phase_complete_stage,2,24,21,31,1,2,0,1.291667,0.875000,1244,True,0.024920,1232,True,0.019481,1.279207,0.005439
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Kingsguard's Squire,kingsguard_squire,retreated_to_keep,phase_complete_stage,1,5,2,3,1,2,0,0.600000,0.400000,606,True,0.004950,611,True,0.008183,0.604950,-0.003233
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Ravens' Teeth,ravens_teeth,active,censored_diagnostic,1,21,11,78,0,10,0,3.714286,0.523810,532,True,0.146617,0,False,,,
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Realm Hedge Knight,realm_hedge_knight,victory,final,1,6,6,3,0,0,0,0.500000,1.000000,206,True,0.014563,344,True,0.017442,0.834951,-0.002879
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Realm Hedge Knight,realm_hedge_knight,retreated_to_keep,phase_complete_stage,2,4,3,4,0,1,0,1.000000,0.750000,1244,True,0.003215,1232,True,0.003247,0.990354,-0.000031
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Realm Knight,realm_knight,retreated_to_keep,phase_complete_stage,2,8,8,12,0,0,0,1.500000,1.000000,1244,True,0.009646,1232,True,0.006494,1.485531,0.003153
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Realm Paladin,realm_paladin,victory,final,1,7,6,5,0,1,0,0.714286,0.857143,206,True,0.024272,344,True,0.020349,1.192788,0.003923
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Realm Paladin,realm_paladin,active,censored_diagnostic,1,19,11,34,1,7,0,1.789474,0.578947,532,True,0.063910,0,False,,,
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Riverlands Admiral,river_admiral,victory,final,1,3,3,3,0,0,0,1.000000,1.000000,206,True,0.014563,344,True,0.008721,1.669903,0.005842
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Riverlands Bowman,river_bowman,victory,final,1,7,2,5,0,5,0,0.714286,0.285714,206,True,0.024272,344,True,0.020349,1.192788,0.003923
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Riverlands Ranger,river_ranger,victory,final,1,8,4,16,0,4,0,2.000000,0.500000,206,True,0.077670,344,True,0.023256,3.339806,0.054414
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Riverlands Ranger,river_ranger,active,censored_diagnostic,1,17,8,9,3,6,0,0.529412,0.470588,532,True,0.016917,0,False,,,
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Westerlands Banner Knight,,active,censored_diagnostic,1,6,2,8,0,4,0,1.333333,0.333333,532,True,0.015038,0,False,,,
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Westerlands Crossbowman,,victory,final,1,10,6,13,2,2,0,1.300000,0.600000,206,True,0.063107,344,True,0.029070,2.170874,0.034037
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Westerlands Duelist,,active,censored_diagnostic,1,5,3,4,1,1,0,0.800000,0.600000,532,True,0.007519,0,False,,,
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Westerlands Hardened Crossbowman,,victory,final,1,4,2,5,1,1,0,1.250000,0.500000,206,True,0.024272,344,True,0.011628,2.087379,0.012644
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Westerlands Levy Crossbowman,,victory,final,1,11,3,6,2,6,0,0.545455,0.272727,206,True,0.029126,344,True,0.031977,0.910856,-0.002851
+joffrey,siege_attack,player_party,Joffrey Baratheon's Party,Westerling Hedgeknight,westerling_hedgeknight,active,censored_diagnostic,1,7,3,20,0,4,0,2.857143,0.428571,532,True,0.037594,0,False,,,
+joffrey,siege_defense,player_party,Joffrey Baratheon's Party,Captain of the Kingsguard,mounted_kingsguard,defeat,final,1,7,0,18,2,5,0,2.571429,0.000000,595,True,0.030252,990,True,0.007071,4.278511,0.023181
+joffrey,siege_defense,player_party,Joffrey Baratheon's Party,Crownlands Noble's Son,crownlands_noble_recruit,defeat,final,1,5,0,2,0,5,1,0.400000,0.000000,595,True,0.003361,990,True,0.005051,0.665546,-0.001689
+joffrey,siege_defense,player_party,Joffrey Baratheon's Party,Crownlands Recruit,crownlands_recruit,defeat,final,1,11,0,0,0,11,0,0.000000,0.000000,595,True,0.000000,990,True,0.011111,0.000000,-0.011111
+joffrey,siege_defense,player_party,Joffrey Baratheon's Party,Crownlands Squire,crownlands_squire,defeat,final,1,1,0,1,0,1,0,1.000000,0.000000,595,True,0.001681,990,True,0.001010,1.663866,0.000671
+joffrey,siege_defense,player_party,Joffrey Baratheon's Party,Gold Cloak Captain,goldcloak_captain,defeat,final,1,9,0,10,4,5,0,1.111111,0.000000,595,True,0.016807,990,True,0.009091,1.848739,0.007716
+joffrey,siege_defense,player_party,Joffrey Baratheon's Party,Gold Cloak Halberdier,kingsguard,defeat,final,1,7,0,10,1,6,0,1.428571,0.000000,595,True,0.016807,990,True,0.007071,2.376951,0.009736
+joffrey,siege_defense,player_party,Joffrey Baratheon's Party,Gold Cloak Sniper,goldcloak_master_archer,defeat,final,1,26,0,41,4,22,0,1.576923,0.000000,595,True,0.068908,990,True,0.026263,2.623788,0.042645
+joffrey,siege_defense,player_party,Joffrey Baratheon's Party,Kingsguard,kingsguard_captain,defeat,final,1,6,0,5,2,4,0,0.833333,0.000000,595,True,0.008403,990,True,0.006061,1.386555,0.002343
+joffrey,siege_defense,player_party,Joffrey Baratheon's Party,Kingsguard Initiate,kingsguard_initiate,defeat,final,1,8,0,19,0,8,0,2.375000,0.000000,595,True,0.031933,990,True,0.008081,3.951681,0.023852
+joffrey,siege_defense,player_party,Joffrey Baratheon's Party,Kingsguard's Page,kingsguard_page,defeat,final,1,38,0,4,10,28,0,0.105263,0.000000,595,True,0.006723,990,True,0.038384,0.175144,-0.031661
+joffrey,siege_defense,player_party,Joffrey Baratheon's Party,Kingsguard's Squire,kingsguard_squire,defeat,final,1,37,0,10,15,22,0,0.270270,0.000000,595,True,0.016807,990,True,0.037374,0.449693,-0.020567
+white_harbor,field,player_party,Wyman Manderly's Party,Bolton Footman,bolton_scout,victory,final,1,2,0,6,0,2,0,3.000000,0.000000,282,True,0.021277,240,True,0.008333,2.553191,0.012943
+white_harbor,field,player_party,Wyman Manderly's Party,Bolton Hunter,bolton_master_archer,victory,final,7,202,192,178,1,9,0,0.881188,0.950495,1381,True,0.128892,1430,True,0.141259,0.912454,-0.012367
+white_harbor,field,player_party,Wyman Manderly's Party,Bolton Hunter,bolton_master_archer,defeat,final,1,41,0,34,14,27,0,0.829268,0.000000,196,True,0.173469,256,True,0.160156,1.083126,0.013313
+white_harbor,field,player_party,Wyman Manderly's Party,Bracken Pikemaster,bracken_master_pikeman,victory,final,2,8,5,15,0,3,0,1.875000,0.625000,462,True,0.032468,476,True,0.016807,1.931818,0.015661
+white_harbor,field,player_party,Wyman Manderly's Party,Cerwyn Axeman,cerwyn_axeman,victory,final,1,1,0,5,1,0,0,5.000000,0.000000,282,True,0.017730,240,True,0.004167,4.255319,0.013564
+white_harbor,field,player_party,Wyman Manderly's Party,Cerwyn Marauder,cerwyn_marauder,victory,final,2,5,4,11,0,1,0,2.200000,0.800000,307,True,0.035831,394,True,0.012690,2.823453,0.023140
+white_harbor,field,player_party,Wyman Manderly's Party,Cerwyn Veteran Archer,cerwyn_veteran_archer,victory,final,4,16,16,17,0,0,0,1.062500,1.000000,596,True,0.028523,777,True,0.020592,1.385172,0.007931
+white_harbor,field,player_party,Wyman Manderly's Party,Dreadfort Blackguard,dreadfort_blackguard,defeat,final,1,5,0,4,2,3,0,0.800000,0.000000,196,True,0.020408,256,True,0.019531,1.044898,0.000877
+white_harbor,field,player_party,Wyman Manderly's Party,Frey Assassin,frey_assassin,defeat,final,1,3,0,10,0,3,0,3.333333,0.000000,196,True,0.051020,256,True,0.011719,4.353741,0.039302
+white_harbor,field,player_party,Wyman Manderly's Party,Frey Man at Arms,frey_man_at_arms,victory,final,1,2,2,2,0,0,0,1.000000,1.000000,168,True,0.011905,193,True,0.010363,1.148810,0.001542
+white_harbor,field,player_party,Wyman Manderly's Party,Glover Veteran Archer,glover_veteran_archer,victory,final,6,54,47,51,2,5,0,0.944444,0.870370,1099,True,0.046406,1190,True,0.045378,1.022647,0.001028
+white_harbor,field,player_party,Wyman Manderly's Party,Gold Cloak Archer,goldcloak_archer,victory,final,1,1,1,1,0,0,0,1.000000,1.000000,104,True,0.009615,192,True,0.005208,1.846154,0.004407
+white_harbor,field,player_party,Wyman Manderly's Party,Karstark Elite Archer,karstark_elite_archer,victory,final,1,7,7,5,0,0,0,0.714286,1.000000,180,True,0.027778,236,True,0.029661,0.936508,-0.001883
+white_harbor,field,player_party,Wyman Manderly's Party,Karstark Elite Archer,karstark_elite_archer,defeat,final,1,5,0,5,2,3,0,1.000000,0.000000,196,True,0.025510,256,True,0.019531,1.306122,0.005979
+white_harbor,field,player_party,Wyman Manderly's Party,Karstark Loyalist,karstark_loyalist,victory,final,1,2,2,4,0,0,0,2.000000,1.000000,180,True,0.022222,236,True,0.008475,2.622222,0.013748
+white_harbor,field,player_party,Wyman Manderly's Party,Karstark Spearman,karstark_ruffian,victory,final,1,2,0,5,0,2,0,2.500000,0.000000,282,True,0.017730,240,True,0.008333,2.127660,0.009397
+white_harbor,field,player_party,Wyman Manderly's Party,Mallister Elite Archer,mallister_elite_archer,victory,final,1,2,2,6,0,0,0,3.000000,1.000000,282,True,0.021277,240,True,0.008333,2.553191,0.012943
+white_harbor,field,player_party,Wyman Manderly's Party,Mallister Elite Archer,mallister_elite_archer,defeat,final,1,4,0,4,0,4,0,1.000000,0.000000,196,True,0.020408,256,True,0.015625,1.306122,0.004783
+white_harbor,field,player_party,Wyman Manderly's Party,Manderly Man at Arms,manderly_man_at_arms,victory,final,2,5,4,11,0,1,0,2.200000,0.800000,271,True,0.040590,314,True,0.015924,2.549077,0.024667
+white_harbor,field,player_party,Wyman Manderly's Party,Manderly Veteran Archer,manderly_veteran_archer,victory,final,7,85,78,90,0,7,0,1.058824,0.917647,1381,True,0.065170,1430,True,0.059441,1.096392,0.005730
+white_harbor,field,player_party,Wyman Manderly's Party,Manderly Veteran Archer,manderly_veteran_archer,defeat,final,1,10,0,15,3,7,0,1.500000,0.000000,196,True,0.076531,256,True,0.039062,1.959184,0.037468
+white_harbor,field,player_party,Wyman Manderly's Party,Mormont Bowmaiden,mormont_bowmaiden,victory,final,6,50,49,78,0,1,0,1.560000,0.980000,1237,True,0.063056,1274,True,0.039246,1.606661,0.023809
+white_harbor,field,player_party,Wyman Manderly's Party,Mormont Bowmaiden,mormont_bowmaiden,defeat,final,1,12,0,23,4,8,0,1.916667,0.000000,196,True,0.117347,256,True,0.046875,2.503401,0.070472
+white_harbor,field,player_party,Wyman Manderly's Party,Mormont Huntress,mormont_huntress,victory,final,1,4,4,2,0,0,0,0.500000,1.000000,104,True,0.019231,192,True,0.020833,0.923077,-0.001603
+white_harbor,field,player_party,Wyman Manderly's Party,Mormont Veteran Huntress,mormont_veteran_huntress,victory,final,3,11,11,9,0,0,0,0.818182,1.000000,399,True,0.022556,543,True,0.020258,1.113465,0.002299
+white_harbor,field,player_party,Wyman Manderly's Party,Northern Colonel,,victory,final,1,6,4,7,1,1,0,1.166667,0.666667,180,True,0.038889,236,True,0.025424,1.529630,0.013465
+white_harbor,field,player_party,Wyman Manderly's Party,Northern Horseman,,victory,final,1,2,2,5,0,0,0,2.500000,1.000000,282,True,0.017730,240,True,0.008333,2.127660,0.009397
+white_harbor,field,player_party,Wyman Manderly's Party,Northern Mounted Warlord,,victory,final,3,15,13,14,0,2,0,0.933333,0.866667,451,True,0.031042,550,True,0.027273,1.138211,0.003769
+white_harbor,field,player_party,Wyman Manderly's Party,Northern Scout,,victory,final,1,1,1,2,0,0,0,2.000000,1.000000,104,True,0.019231,192,True,0.005208,3.692308,0.014022
+white_harbor,field,player_party,Wyman Manderly's Party,Northern Winter Champion,,victory,final,2,9,5,19,1,3,0,2.111111,0.555556,462,True,0.041126,476,True,0.018908,2.175084,0.022218
+white_harbor,field,player_party,Wyman Manderly's Party,Riverlands Admiral,river_admiral,victory,final,2,4,2,8,0,2,0,2.000000,0.500000,462,True,0.017316,476,True,0.008403,2.060606,0.008913
+white_harbor,field,player_party,Wyman Manderly's Party,Riverlands Admiral,river_admiral,defeat,final,1,7,0,15,0,7,0,2.142857,0.000000,196,True,0.076531,256,True,0.027344,2.798834,0.049187
+white_harbor,field,player_party,Wyman Manderly's Party,Riverlands Archer,river_archer,victory,final,1,1,1,1,0,0,0,1.000000,1.000000,104,True,0.009615,192,True,0.005208,1.846154,0.004407
+white_harbor,field,player_party,Wyman Manderly's Party,Riverlands Axeman,river_axeman,victory,final,2,10,0,19,2,8,0,1.900000,0.000000,658,True,0.028875,495,True,0.020202,1.429331,0.008673
+white_harbor,field,player_party,Wyman Manderly's Party,Riverlands Axeman,river_axeman,defeat,final,1,4,0,6,2,2,0,1.500000,0.000000,196,True,0.030612,256,True,0.015625,1.959184,0.014987
+white_harbor,field,player_party,Wyman Manderly's Party,Riverlands Cavalry,river_calvary,victory,final,2,7,5,19,0,2,0,2.714286,0.714286,544,True,0.034926,448,True,0.015625,2.235294,0.019301
+white_harbor,field,player_party,Wyman Manderly's Party,Riverlands Horseman,river_horseman,victory,final,2,2,1,3,0,1,0,1.500000,0.500000,272,True,0.011029,385,True,0.005195,2.123162,0.005835
+white_harbor,field,player_party,Wyman Manderly's Party,Riverlands Man at Arms,river_man_at_arms,victory,final,1,4,0,7,0,4,0,1.750000,0.000000,282,True,0.024823,240,True,0.016667,1.489362,0.008156
+white_harbor,field,player_party,Wyman Manderly's Party,Riverlands Pikeman,river_pikeman,victory,final,1,4,0,5,1,3,0,1.250000,0.000000,282,True,0.017730,240,True,0.016667,1.063830,0.001064
+white_harbor,field,player_party,Wyman Manderly's Party,Riverlands Pikeman,river_pikeman,defeat,final,1,4,0,3,1,3,0,0.750000,0.000000,196,True,0.015306,256,True,0.015625,0.979592,-0.000319
+white_harbor,field,player_party,Wyman Manderly's Party,Riverlands Ranger,river_ranger,defeat,final,1,10,0,11,3,7,0,1.100000,0.000000,196,True,0.056122,256,True,0.039062,1.436735,0.017060
+white_harbor,field,player_party,Wyman Manderly's Party,Riverlands Swordmaster,river_swordmaster,defeat,final,1,3,0,4,1,2,0,1.333333,0.000000,196,True,0.020408,256,True,0.011719,1.741497,0.008689
+white_harbor,field,player_party,Wyman Manderly's Party,Stark Soldier,stark_soldier,defeat,final,1,4,0,4,2,2,0,1.000000,0.000000,196,True,0.020408,256,True,0.015625,1.306122,0.004783
+white_harbor,field,player_party,Wyman Manderly's Party,Tully Archer,tully_archer,victory,final,1,1,1,3,0,0,0,3.000000,1.000000,104,True,0.028846,192,True,0.005208,5.538462,0.023638
+white_harbor,field,player_party,Wyman Manderly's Party,Tully Longbowman,tully_longbowman,victory,final,2,3,3,4,0,0,0,1.333333,1.000000,272,True,0.014706,385,True,0.007792,1.887255,0.006914
+white_harbor,field,player_party,Wyman Manderly's Party,Tully Longbowman,tully_longbowman,defeat,final,1,7,0,4,2,5,0,0.571429,0.000000,196,True,0.020408,256,True,0.027344,0.746356,-0.006936
+white_harbor,field,player_party,Wyman Manderly's Party,Tully Man at Arms,tully_man_at_arms,victory,final,1,4,0,9,0,4,0,2.250000,0.000000,282,True,0.031915,240,True,0.016667,1.914894,0.015248
+white_harbor,field,player_party,Wyman Manderly's Party,Tully Soldier,tully_soldier,victory,final,1,3,0,7,0,3,0,2.333333,0.000000,282,True,0.024823,240,True,0.012500,1.985816,0.012323
+white_harbor,field,player_party,Wyman Manderly's Party,Umber Berzerker,umber_berzerker,victory,final,1,1,1,3,0,0,0,3.000000,1.000000,127,True,0.023622,158,True,0.006329,3.732283,0.017293
+white_harbor,field,player_party,Wyman Manderly's Party,Umber Berzerker,umber_berzerker,defeat,final,1,1,0,4,0,1,0,4.000000,0.000000,196,True,0.020408,256,True,0.003906,5.224490,0.016502
+white_harbor,field,player_party,Wyman Manderly's Party,Umber Marksman,umber_marksman,victory,final,5,20,18,25,2,0,0,1.250000,0.900000,919,True,0.027203,954,True,0.020964,1.297606,0.006239
+white_harbor,field,player_party,Wyman Manderly's Party,Westerlands Banner Knight,,victory,final,6,27,17,31,2,8,0,1.148148,0.629630,1099,True,0.028207,1190,True,0.022689,1.243218,0.005518
+white_harbor,field,player_party,Wyman Manderly's Party,Westerlands Sharpshooter,,victory,final,1,4,4,6,0,0,0,1.500000,1.000000,376,True,0.015957,255,True,0.015686,1.017287,0.000271
+white_harbor,field,player_party,Wyman Manderly's Party,White Harbor Elite Knight,whiteharbor_elite_knight,victory,final,2,9,8,13,0,1,0,1.444444,0.888889,312,True,0.041667,349,True,0.025788,1.615741,0.015879
+white_harbor,field,player_party,Wyman Manderly's Party,White Harbor Knight,whiteharbor_knight,victory,final,1,2,2,2,0,0,0,1.000000,1.000000,144,True,0.013889,156,True,0.012821,1.083333,0.001068
+white_harbor,field,player_party,Wyman Manderly's Party,White Harbor Knight Commander,whiteharbor_knight_commander,victory,final,7,275,226,282,6,43,0,1.025455,0.821818,1381,True,0.204200,1430,True,0.192308,1.061839,0.011892
+white_harbor,field,player_party,Wyman Manderly's Party,White Harbor Knight Commander,whiteharbor_knight_commander,defeat,final,1,14,0,3,2,12,0,0.214286,0.000000,196,True,0.015306,256,True,0.054688,0.279883,-0.039381
+white_harbor,field,player_party,Wyman Manderly's Party,White Harbor Pike Knight,whiteharbor_elite_pikeman,victory,final,3,11,6,15,1,4,0,1.363636,0.545455,648,True,0.023148,640,True,0.017188,1.346801,0.005961

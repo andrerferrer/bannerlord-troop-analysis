@@ -1,0 +1,28 @@
+{
+  "batch_id": "2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts",
+  "frozen_models_changed": false,
+  "identity_audit": {
+    "path": "data/realm_of_thrones/audit/realm_of_thrones_troops.csv",
+    "sha256": "63ea983998e25aa0e6f8c0747bf42e44440f695bbe1fec717074e7ba64e42810"
+  },
+  "immutable_phase1_modified": false,
+  "normalization_commit": "d73bbfdbaafac4856ee0e9963fdab41ad552837c",
+  "normalized_bundle": {
+    "members": 18,
+    "payload_hashes_verified": 17,
+    "safe_preflight_passed": true,
+    "sha256": "9cc8482caf6d37356b186c0a68dfa9e6f50303fb715f6ddfc3a49e2593b59c9d",
+    "size_bytes": 31004
+  },
+  "pipeline_mode": "offline-existing",
+  "pipeline_version": "0.4.0",
+  "schema_version": "2.0.0",
+  "source_zip": {
+    "expected_sha256": "198e895c17e03a9254c4d23e8611557da05271fec5a466966cffbddb36a9028a",
+    "expected_size_bytes": 67529739,
+    "locally_verified": false,
+    "member_hashes_verified": 0,
+    "note": "raw source optional after immutable normalized bundle verification"
+  },
+  "status": "passed"
+}
