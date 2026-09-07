@@ -1,0 +1,19 @@
+{
+  "decisions": [
+    {
+      "cohort": "westerling",
+      "context": "field",
+      "decision": "aggregate only inside Gawen Westerling player-party field scope"
+    },
+    {
+      "cohort": "joffrey",
+      "context": "field",
+      "decision": "bridge battles retained as separate descriptive evidence; never pooled with Westerling cohort"
+    },
+    {
+      "comparison": "prior_pr91_joffrey_field",
+      "decision": "side-by-side historical comparison only; no pooled estimator"
+    }
+  ],
+  "status": "passed_with_separate_cohorts"
+}

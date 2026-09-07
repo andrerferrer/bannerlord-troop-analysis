@@ -1,0 +1,28 @@
+{
+  "batch_id": "2026-09-05-to-06-rot-westerling-field-followup",
+  "frozen_models_changed": false,
+  "identity_audit": {
+    "path": "data/realm_of_thrones/audit/realm_of_thrones_troops.csv",
+    "sha256": "63ea983998e25aa0e6f8c0747bf42e44440f695bbe1fec717074e7ba64e42810"
+  },
+  "immutable_phase1_modified": false,
+  "normalization_commit": "0fe6776be7ea4726ea902308d9c296c3faa8ad8d",
+  "normalized_bundle": {
+    "members": 18,
+    "payload_hashes_verified": 17,
+    "safe_preflight_passed": true,
+    "sha256": "1ba4c3c28db029bda23f57a6c830c0d57107b9a6e89dd1b1258a70514f56222a",
+    "size_bytes": 21948
+  },
+  "pipeline_mode": "offline-existing",
+  "pipeline_version": "0.4.0",
+  "schema_version": "2.0.0",
+  "source_zip": {
+    "expected_sha256": "9280150e051a07990a5063df77853eec71e623acaba780048e13410587bcb3bd",
+    "expected_size_bytes": 42428790,
+    "locally_verified": false,
+    "member_hashes_verified": 0,
+    "note": "raw source optional after immutable normalized bundle verification"
+  },
+  "status": "passed"
+}

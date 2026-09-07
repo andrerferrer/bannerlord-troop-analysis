@@ -1,0 +1,21 @@
+display_name,canonical_troop_id,battle_id,captured_at,cohort,context,result,battle_state,deployed,survivors,kills,deaths,wounded,kills_per_deployed,retention_rate,player_side_kills,player_side_deployed
+Westerling Hedgeknight,westerling_hedgeknight,battle_jf01,2026-09-05T19:55:03,joffrey,field,defeat,final,24,0,47,2,22,1.958333,0.000000,738,347
+Westerling Hedgeknight,westerling_hedgeknight,battle_jf02,2026-09-05T20:21:21,joffrey,field,victory,final,24,7,90,2,15,3.750000,0.291667,905,280
+Westerling Hedgeknight,westerling_hedgeknight,battle_jf03,2026-09-06T00:37:04,joffrey,field,defeat,final,25,0,76,4,21,3.040000,0.000000,575,342
+Westerling Hedgeknight,westerling_hedgeknight,battle_jf04,2026-09-06T00:51:10,joffrey,field,defeat,final,25,0,19,2,23,0.760000,0.000000,464,342
+Westerling Hedgeknight,westerling_hedgeknight,battle_wf01,2026-09-06T01:43:13,westerling,field,victory,final,1,1,1,0,0,1.000000,1.000000,73,151
+Westerling Hedgeknight,westerling_hedgeknight,battle_wf02,2026-09-06T01:57:22,westerling,field,victory,final,6,6,9,0,0,1.500000,1.000000,130,149
+Westerling Hedgeknight,westerling_hedgeknight,battle_wf03,2026-09-06T02:02:25,westerling,field,victory,final,8,6,13,0,2,1.625000,0.750000,89,147
+Westerling Hedgeknight,westerling_hedgeknight,battle_wf04,2026-09-06T02:11:38,westerling,field,victory,final,17,12,20,0,5,1.176471,0.705882,255,146
+Westerling Hedgeknight,westerling_hedgeknight,battle_wf05,2026-09-06T22:23:08,westerling,field,victory,final,23,23,34,0,0,1.478261,1.000000,104,114
+Westerling Hedgeknight,westerling_hedgeknight,battle_wf06,2026-09-06T22:29:11,westerling,field,victory,final,34,33,25,0,1,0.735294,0.970588,103,127
+Westerling Hedgeknight,westerling_hedgeknight,battle_wf07,2026-09-06T22:34:56,westerling,field,victory,final,37,19,93,3,15,2.513514,0.513514,162,133
+Westerling Hedgeknight,westerling_hedgeknight,battle_wf08,2026-09-06T22:40:28,westerling,field,victory,final,26,25,37,0,1,1.423077,0.961538,96,119
+Westerling Hedgeknight,westerling_hedgeknight,battle_wf09,2026-09-06T22:43:15,westerling,field,victory,final,27,26,54,1,0,2.000000,0.962963,70,97
+Westerling Hedgeknight,westerling_hedgeknight,battle_wf10,2026-09-06T22:48:17,westerling,field,victory,final,32,32,52,0,0,1.625000,1.000000,123,114
+Westerling Hedgeknight,westerling_hedgeknight,battle_wf11,2026-09-06T22:56:02,westerling,field,victory,final,47,19,135,10,18,2.872340,0.404255,235,127
+Westerling Hedgeknight,westerling_hedgeknight,battle_wf12,2026-09-06T23:10:06,westerling,field,victory,final,40,40,50,0,0,1.250000,1.000000,150,150
+Westerling Hedgeknight,westerling_hedgeknight,battle_wf13,2026-09-06T23:20:57,westerling,field,defeat,final,40,0,96,15,25,2.400000,0.000000,247,164
+Westerling Hedgeknight,westerling_hedgeknight,battle_wf14,2026-09-06T23:30:14,westerling,field,victory,final,40,6,119,8,26,2.975000,0.150000,307,164
+Westerling Hedgeknight,westerling_hedgeknight,battle_wf15,2026-09-06T23:39:02,westerling,field,victory,final,28,26,43,1,1,1.535714,0.928571,179,160
+Westerling Hedgeknight,westerling_hedgeknight,battle_wf16,2026-09-06T23:53:50,westerling,field,defeat,final,31,0,27,2,29,0.870968,0.000000,302,174

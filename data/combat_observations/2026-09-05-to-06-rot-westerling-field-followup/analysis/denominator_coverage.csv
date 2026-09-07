@@ -1,0 +1,21 @@
+battle_id,captured_at,cohort,context,result,player_kills,player_deployed,kill_total_direct_positive,deployment_total_direct_positive,provenance,source_image_sha256
+battle_jf01,2026-09-05T19:55:03,joffrey,field,defeat,738,347,True,True,visible player_side_total,4919c360c58fc674aff5cee7c4a40973c45a5e9e43c0b8c811285e5f5cd0dbe0
+battle_jf02,2026-09-05T20:21:21,joffrey,field,victory,905,280,True,True,visible player_side_total,1943bdff65e0d945d374cf4f65f33d421feb92fa337b54a7bab29d016a05624e
+battle_jf03,2026-09-06T00:37:04,joffrey,field,defeat,575,342,True,True,visible player_side_total,dfa3eeaf267e3939def8c80b745d4a88e07dea7d3472f65f46b72144011284db
+battle_jf04,2026-09-06T00:51:10,joffrey,field,defeat,464,342,True,True,visible player_side_total,0046671a08e055d474223e5b0679cd6b69eb1b1df0451ce58bf89fe217f9c6d4
+battle_wf01,2026-09-06T01:43:13,westerling,field,victory,73,151,True,True,visible player_side_total,3aac5b7d5d8cbd1945fd37ccb9d23afbd6f66d88ded39f2c50ba61479d3fed3a
+battle_wf02,2026-09-06T01:57:22,westerling,field,victory,130,149,True,True,visible player_side_total,a4e475da41147d136df49d75db1342e7e35fb8066082fd668397395276689d71
+battle_wf03,2026-09-06T02:02:25,westerling,field,victory,89,147,True,True,visible player_side_total,f4553c6eba26dae52b8476fc5f45848be562aa2d444ad62babc5774cdbe0ef05
+battle_wf04,2026-09-06T02:11:38,westerling,field,victory,255,146,True,True,visible player_side_total,f2dc35fe87fca09140bfc3f38b4767ecf3fc1664925e80a37fd669b3b6275f3e
+battle_wf05,2026-09-06T22:23:08,westerling,field,victory,104,114,True,True,visible player_side_total,403174313967f5aaf15b6d22c70c8190cfc5992fe8365383025ab5a850d4aba9
+battle_wf06,2026-09-06T22:29:11,westerling,field,victory,103,127,True,True,visible player_side_total,108d2643499bab825dd78b99fe0aa92a60b9ded86d24970dd8c3170f3b5bff91
+battle_wf07,2026-09-06T22:34:56,westerling,field,victory,162,133,True,True,visible player_side_total,f5820d69a5146a91f55e646131ff3016d1f7dcde8031255e03b5972aa35efb55
+battle_wf08,2026-09-06T22:40:28,westerling,field,victory,96,119,True,True,visible player_side_total,9d5fd12f241ed0fbd84591f90942b1f56363312dd77cddb162f12da81dece8f3
+battle_wf09,2026-09-06T22:43:15,westerling,field,victory,70,97,True,True,visible player_side_total,fbc14242a495d6c68f300f8e945cc27ff04cb0abe4e2c1798b5a41c17c8f27d4
+battle_wf10,2026-09-06T22:48:17,westerling,field,victory,123,114,True,True,visible player_side_total,2114c09daf444fcbe5ddb6adefdd19f284ddae14c60b3a74b60c462bc7442950
+battle_wf11,2026-09-06T22:56:02,westerling,field,victory,235,127,True,True,visible player_side_total,f48aea88ac6dbe43df075c452ce381684766512efc3c318e8c7c19b41f312485
+battle_wf12,2026-09-06T23:10:06,westerling,field,victory,150,150,True,True,visible player_side_total,9c8709dfa66f54217b24b850ae86b4efdeeaa9a9b805a4d0e29aff5c132e083d
+battle_wf13,2026-09-06T23:20:57,westerling,field,defeat,247,164,True,True,visible player_side_total,89310eda3663536521ba014cbf6ce1f774651bce99a62c4e126e9fdc3445450a
+battle_wf14,2026-09-06T23:30:14,westerling,field,victory,307,164,True,True,visible player_side_total,263265cca8031363ea4c60b0bf8107937ea4dc5f9114345e1ae7bab9311b8e1b
+battle_wf15,2026-09-06T23:39:02,westerling,field,victory,179,160,True,True,visible player_side_total,d812316722e277dcb175a180de9bb1176bb86a6e45c8a50c93f53be1361e4ce9
+battle_wf16,2026-09-06T23:53:50,westerling,field,defeat,302,174,True,True,visible player_side_total,f39b8c636c8379d909db6d534a847923d8085f7afba55064777aa5c3b473b180

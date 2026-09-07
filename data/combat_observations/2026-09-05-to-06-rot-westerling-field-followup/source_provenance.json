@@ -1,0 +1,18 @@
+{
+  "extracted_file_count": 22,
+  "extractor_model": "GPT-5.6 Sol",
+  "game_track": "realm_of_thrones",
+  "game_version": "1.4.x",
+  "historical_dedup_reference": "main after squash merge of PR #91 (3bde0f43bddec1e562937f8da66009c05af04042)",
+  "historical_exact_hash_or_filename_matches": 0,
+  "input_name": "Mount and Blade II Bannerlord - Singleplayer PID_ 20840 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 05_09_2026 19_55_03.zip",
+  "input_sha256": "9280150e051a07990a5063df77853eec71e623acaba780048e13410587bcb3bd",
+  "input_size_bytes": 42428790,
+  "mode": "host-vision",
+  "observation_schema_version": "2.0.0",
+  "pipeline_version": "0.4.0",
+  "prompt_version": "combat-v2",
+  "raw_images_retained_in_overlay": false,
+  "raw_source_location_at_execution": "/mnt/data/Mount and Blade II Bannerlord - Singleplayer PID_ 20840 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 05_09_2026 19_55_03.zip",
+  "schema_version": "1.0.0"
+}

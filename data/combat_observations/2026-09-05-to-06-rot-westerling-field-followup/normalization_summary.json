@@ -1,0 +1,19 @@
+{
+  "active_or_interrupted_battles": 0,
+  "already_normalized_images": 0,
+  "battle_count": 20,
+  "canonical_verified_identity_count": 9,
+  "excluded_non_evidence_images": 1,
+  "field_battles": 20,
+  "hero_occurrences": 0,
+  "identity_confirmation_pending_count": 41,
+  "input_images": 22,
+  "new_representative_images": 20,
+  "ordinary_complete_occurrences": 217,
+  "schema_version": "1.0.0",
+  "siege_attack_battles": 0,
+  "siege_defense_battles": 0,
+  "supplemental_images": 0,
+  "unresolved_clipped_rows": 6,
+  "visual_duplicate_images": 1
+}

@@ -1,0 +1,3 @@
+cohort,context,participant_scope,parent_group,independent_battles,ordinary_occurrences,partition_rows,reliable_rows,insufficient_rows
+joffrey,field,player_party,Joffrey Baratheon's Party,4,51,17,0,17
+westerling,field,player_party,Gawen Westerling's Party,16,166,40,10,30
