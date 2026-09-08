@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "track": "realm_of_thrones",
   "game_version": "1.4.x",
-  "updated_at": "2026-09-07",
+  "updated_at": "2026-09-08",
   "queue_status": "blocked_pending_active_batch_and_historical_audit",
   "authority": {
     "path": "data/combat_observations/test_queues/realm_of_thrones.json",
@@ -46,9 +46,12 @@
         "state": "open_draft"
       },
       "consolidation_path": "data/combat_observations/consolidations/realm-paladin/consolidation.json",
+      "validation_path": "data/combat_observations/consolidations/realm-paladin/validation_report.json",
       "evidence_references": [
         "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/analysis/insufficient_evidence.csv",
         "analysis/candidates/realm_of_thrones_archer_like_mounted_melee_field.csv",
+        "data/combat_observations/consolidations/realm-paladin/evidence.csv",
+        "data/combat_observations/consolidations/realm-paladin/validation_report.json",
         "pull/71"
       ]
     },
