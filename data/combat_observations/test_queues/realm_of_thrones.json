@@ -29,6 +29,8 @@
       "context": "field",
       "status": "consolidation_pr_open_do_not_retest",
       "reason": "The operator recalls that this troop was already tested. Known committed evidence is 4 field battles / 70 deployed / 159 kills, but no dedicated evidence PR has been recovered, so the troop remains held rather than returned to the test queue.",
+      "workflow_classification": "historical_consolidation_not_new_evidence_batch",
+      "phase_1_normalization_required": false,
       "known_committed_evidence": {
         "independent_battles": 4,
         "deployed": 70,
@@ -47,12 +49,17 @@
       },
       "consolidation_path": "data/combat_observations/consolidations/realm-paladin/consolidation.json",
       "validation_path": "data/combat_observations/consolidations/realm-paladin/validation_report.json",
+      "audit_log_path": "data/combat_observations/consolidations/realm-paladin/AUDIT_LOG.md",
       "evidence_references": [
         "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/analysis/insufficient_evidence.csv",
         "analysis/candidates/realm_of_thrones_archer_like_mounted_melee_field.csv",
+        "data/combat_observations/consolidations/realm-paladin/README.md",
+        "data/combat_observations/consolidations/realm-paladin/AUDIT_LOG.md",
         "data/combat_observations/consolidations/realm-paladin/evidence.csv",
         "data/combat_observations/consolidations/realm-paladin/validation_report.json",
-        "pull/71"
+        "pull/71",
+        "pull/92",
+        "pull/95"
       ]
     },
     {
