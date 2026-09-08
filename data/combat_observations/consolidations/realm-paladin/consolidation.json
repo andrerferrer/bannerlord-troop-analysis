@@ -15,6 +15,34 @@
     "url": "https://github.com/andrerferrer/bannerlord-troop-analysis/pull/95",
     "state": "open_draft"
   },
+  "workflow_classification": {
+    "type": "historical_consolidation",
+    "new_evidence_batch": false,
+    "phase_1_normalization_required": false,
+    "phase_1_validator_applicable": false,
+    "screenshots_manifest_required": false,
+    "analysis_handoff_required": false,
+    "analysis_task_protocol_required": false,
+    "source_analysis_pull_request": 92,
+    "source_analysis_already_merged": true,
+    "expected_absent_paths": [
+      "screenshots_manifest.csv",
+      "handoff/ANALYSIS_PROMPT.md"
+    ],
+    "audit_log_path": "data/combat_observations/consolidations/realm-paladin/AUDIT_LOG.md",
+    "rule": "Do not run the new-evidence Phase 1 validator against this consolidation-only directory. Previously unpublished raw evidence must pass the ordinary ingestion workflow before it is added."
+  },
+  "local_codex_audit": {
+    "observed_at": "2026-09-08",
+    "source": "operator-provided screenshot of local Codex run",
+    "attempted_workflow": "normalize-bannerlord-combat-batch",
+    "exit_code": 2,
+    "reported_missing_path": "screenshots_manifest.csv",
+    "raw_screenshots_or_archives_found": false,
+    "repository_mutations_made": false,
+    "protocol_comments_made": false,
+    "adjudication": "expected_non_applicable_validator_failure_not_a_pr_defect"
+  },
   "known_committed_evidence": {
     "source_batch": "2026-09-05-to-06-rot-westerling-field-followup",
     "source_path": "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/analysis/insufficient_evidence.csv",
@@ -75,9 +103,11 @@
     "known_pull_request_reference": 71,
     "known_pull_request_scope": "structural shortlist only",
     "raw_dedicated_screenshots_recovered": false,
+    "audit_log_path": "data/combat_observations/consolidations/realm-paladin/AUDIT_LOG.md",
     "limitations": [
       "No dedicated Realm Paladin evidence pull request was found by pull-request search.",
       "The operator remembers a completed test, but its full compatible evidence has not yet been mapped to committed artifacts.",
+      "The local Codex Phase 1 validation attempt was non-applicable because this PR is a historical consolidation, not a raw evidence batch.",
       "No missing numeric values are inferred from memory."
     ]
   },
@@ -85,6 +115,7 @@
     "report_path": "data/combat_observations/consolidations/realm-paladin/validation_report.json",
     "source_row_exact_match": true,
     "arithmetic_recomputed": true,
+    "workflow_classification_verified": true,
     "queue_hold_present": true,
     "pr_scope_inventory_verified": true
   },
@@ -100,6 +131,7 @@
   },
   "evidence_files": [
     "data/combat_observations/consolidations/realm-paladin/README.md",
+    "data/combat_observations/consolidations/realm-paladin/AUDIT_LOG.md",
     "data/combat_observations/consolidations/realm-paladin/evidence.csv",
     "data/combat_observations/consolidations/realm-paladin/consolidation.json",
     "data/combat_observations/consolidations/realm-paladin/validation_report.json",
