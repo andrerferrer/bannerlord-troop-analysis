@@ -1,7 +1,7 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "validated_at": "2026-09-08",
-  "status": "passed_with_historical_recovery_blocker",
+  "status": "passed_with_pending_historical_consolidation_task",
   "repository": "andrerferrer/bannerlord-troop-analysis",
   "pull_request": 95,
   "branch": "data/consolidate-realm-paladin",
@@ -10,11 +10,15 @@
     "expected_changed_paths": [
       "AGENTS.md",
       "data/combat_observations/consolidations/realm-paladin/AUDIT_LOG.md",
+      "data/combat_observations/consolidations/realm-paladin/CONSOLIDATION_TASK.md",
       "data/combat_observations/consolidations/realm-paladin/README.md",
       "data/combat_observations/consolidations/realm-paladin/consolidation.json",
       "data/combat_observations/consolidations/realm-paladin/evidence.csv",
       "data/combat_observations/consolidations/realm-paladin/validation_report.json",
-      "data/combat_observations/test_queues/realm_of_thrones.json"
+      "data/combat_observations/test_queues/realm_of_thrones.json",
+      "docs/protocols/consolidation-task-v1.md",
+      "scripts/analysis/discover_analysis_tasks.py",
+      "tests/test_discover_analysis_tasks.py"
     ],
     "unrelated_runtime_or_model_changes_expected": false
   },
@@ -26,23 +30,67 @@
     "screenshots_manifest_required": false,
     "analysis_handoff_required": false,
     "analysis_task_protocol_required": false,
+    "consolidation_task_protocol_required": true,
     "source_analysis_pull_request": 92,
     "source_analysis_already_merged": true,
     "audit_log_present": true,
     "agents_workflow_guard_present": true,
     "passed": true
   },
-  "local_codex_audit": {
-    "source": "operator-provided screenshot",
-    "attempted_workflow": "normalize-bannerlord-combat-batch",
-    "exit_code": 2,
-    "reported_missing_path": "screenshots_manifest.csv",
-    "raw_screenshots_or_archives_found": false,
-    "repository_mutations_made": false,
-    "protocol_comments_made": false,
-    "adjudication": "expected_non_applicable_validator_failure_not_a_pr_defect",
-    "durable_record": "data/combat_observations/consolidations/realm-paladin/AUDIT_LOG.md"
+  "task_protocol_checks": {
+    "protocol": "bannerlord-consolidation-task",
+    "version": 1,
+    "task_id": "realm-paladin-historical-consolidation",
+    "latest_published_status": "pending",
+    "comment_id": 5585608355,
+    "branch_matches_pull_request": true,
+    "workflow": "historical_consolidation",
+    "consolidation_path": "data/combat_observations/consolidations/realm-paladin/CONSOLIDATION_TASK.md",
+    "protocol_document": "docs/protocols/consolidation-task-v1.md",
+    "dispatcher_support_present": true,
+    "dispatcher_expected_task_kind": "historical_consolidation",
+    "expected_actionable_count_for_pr_95": 1,
+    "passed": true
   },
+  "dispatcher_validation": {
+    "unit_test_command": "python -m unittest -v tests.test_discover_analysis_tasks",
+    "tests_run": 10,
+    "tests_passed": 10,
+    "tests_failed": 0,
+    "py_compile": "passed",
+    "mocked_live_comment_discovery": {
+      "tasks_found": 1,
+      "warnings": 0,
+      "task_kind": "historical_consolidation",
+      "branch_matches_pr": true,
+      "status": "pending"
+    },
+    "original_observed_failure": {
+      "command": "python3 scripts/analysis/discover_analysis_tasks.py --json",
+      "actionable_count": 0,
+      "stop_message": "No analyzable input or pending Phase 2 task was found."
+    },
+    "passed": true
+  },
+  "local_codex_audits": [
+    {
+      "source": "operator-provided screenshot",
+      "attempted_workflow": "normalize-bannerlord-combat-batch",
+      "exit_code": 2,
+      "reported_missing_path": "screenshots_manifest.csv",
+      "raw_screenshots_or_archives_found": false,
+      "repository_mutations_made": false,
+      "protocol_comments_made": false,
+      "adjudication": "expected_non_applicable_validator_failure_not_a_pr_defect"
+    },
+    {
+      "source": "operator-provided screenshot",
+      "attempted_workflow": "discover_analysis_tasks",
+      "observed_actionable_count": 0,
+      "warnings": [],
+      "adjudication": "real_dispatcher_gap_fixed_by_consolidation_protocol"
+    }
+  ],
   "source_verification": {
     "path": "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/analysis/insufficient_evidence.csv",
     "git_blob_sha": "8a9e888e30a16b1f29f71025542d1a4c0854b713",
@@ -86,7 +134,7 @@
     "share_adjusted_impact": {
       "expression": "(159 / 70) * (159 / 2682)",
       "unrounded": 0.13465963566634708,
-      "published": 0.134660,
+      "published": 0.13466,
       "passed": true
     },
     "retention_rate": {
@@ -122,24 +170,25 @@
     "realm_paladin_absent_from_parked": true,
     "status": "consolidation_pr_open_do_not_retest",
     "consolidation_pr_reference_present": true,
+    "consolidation_task_reference_present": true,
+    "protocol_comment_reference_present": true,
     "validation_reference_present": true,
     "audit_log_reference_present": true,
     "passed": true
   },
   "pull_request_checks": {
-    "draft_expected": true,
-    "mergeable_at_latest_audit": true,
-    "review_threads_at_latest_audit": 0,
-    "workflow_runs_at_latest_audit": 0,
-    "all_expected_repository_artifacts_committed": true
+    "draft_expected_while_task_pending": true,
+    "all_expected_repository_artifacts_committed": true,
+    "latest_head_review_required_after_final_updates": true
   },
-  "historical_recovery_blocker": {
+  "historical_recovery": {
     "dedicated_realm_paladin_evidence_pr_found": false,
     "operator_recollection_preserved": true,
     "missing_values_inferred": false,
     "retest_authorized": false,
     "local_path_required_for_current_consolidation": false,
     "raw_input_required_only_to_add_previously_unpublished_evidence": true,
-    "resolution_required_before_ready_or_merge": true
+    "no_additional_repository_evidence_is_a_valid_final_audit_outcome": true,
+    "task_resolution_required_before_ready_or_merge": true
   }
 }
