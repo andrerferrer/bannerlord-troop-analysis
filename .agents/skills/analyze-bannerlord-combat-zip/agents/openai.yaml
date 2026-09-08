@@ -1,4 +1,4 @@
 interface:
-  display_name: "Analyze Bannerlord Combat ZIP"
-  short_description: "Normalize and analyze Bannerlord battle screenshots"
-  default_prompt: "Use $analyze-bannerlord-combat-zip to process this Bannerlord combat screenshot ZIP into validated canonical data and evidence-backed rankings."
+  display_name: "Analyze Bannerlord Combat Evidence"
+  short_description: "Normalize, analyze, or consolidate Bannerlord battle evidence"
+  default_prompt: "Use $analyze-bannerlord-combat-zip to process the supplied Bannerlord screenshots/ZIP, continue a discovered analysis task, or execute a bannerlord-consolidation-task historical evidence audit through its pull request."
