@@ -27,7 +27,7 @@
       "troop_id": "realm_paladin",
       "display_name": "Realm Paladin",
       "context": "field",
-      "status": "consolidation_in_progress_do_not_retest",
+      "status": "consolidation_pr_open_do_not_retest",
       "reason": "The operator recalls that this troop was already tested. Known committed evidence is 4 field battles / 70 deployed / 159 kills, but no dedicated evidence PR has been recovered, so the troop remains held rather than returned to the test queue.",
       "known_committed_evidence": {
         "independent_battles": 4,
@@ -40,6 +40,11 @@
         "reliability_status": "insufficient_evidence"
       },
       "consolidation_branch": "data/consolidate-realm-paladin",
+      "consolidation_pull_request": {
+        "number": 95,
+        "url": "https://github.com/andrerferrer/bannerlord-troop-analysis/pull/95",
+        "state": "open_draft"
+      },
       "consolidation_path": "data/combat_observations/consolidations/realm-paladin/consolidation.json",
       "evidence_references": [
         "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/analysis/insufficient_evidence.csv",
