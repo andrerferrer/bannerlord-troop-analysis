@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0.0",
+  "validated_at": "2026-09-08",
+  "status": "passed_with_historical_recovery_blocker",
+  "repository": "andrerferrer/bannerlord-troop-analysis",
+  "pull_request": 95,
+  "branch": "data/consolidate-realm-paladin",
+  "base_ref": "main@9c92910d499d2663cd77385e516fd25bbc7a4669",
+  "scope": {
+    "expected_changed_paths": [
+      "data/combat_observations/consolidations/realm-paladin/README.md",
+      "data/combat_observations/consolidations/realm-paladin/consolidation.json",
+      "data/combat_observations/consolidations/realm-paladin/evidence.csv",
+      "data/combat_observations/consolidations/realm-paladin/validation_report.json",
+      "data/combat_observations/test_queues/realm_of_thrones.json"
+    ],
+    "unrelated_runtime_or_model_changes_expected": false
+  },
+  "source_verification": {
+    "path": "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/analysis/insufficient_evidence.csv",
+    "git_blob_sha": "8a9e888e30a16b1f29f71025542d1a4c0854b713",
+    "size_bytes": 18200,
+    "row_selector": {
+      "canonical_troop_id": "realm_paladin",
+      "cohort": "joffrey",
+      "context": "field",
+      "participant_scope": "player_party"
+    },
+    "row_exactly_copied_to_evidence_csv": true,
+    "identity_status": "confirmed_id",
+    "canonical_role": "melee_cavalry"
+  },
+  "arithmetic_checks": {
+    "kills_per_deployed": {
+      "expression": "159 / 70",
+      "unrounded": 2.2714285714285714,
+      "published": 2.271429,
+      "passed": true
+    },
+    "player_side_kill_share": {
+      "expression": "159 / 2682",
+      "unrounded": 0.0592841163310962,
+      "published": 0.059284,
+      "passed": true
+    },
+    "player_side_deployment_share": {
+      "expression": "70 / 1311",
+      "unrounded": 0.05339435545385202,
+      "published": 0.053394,
+      "passed": true
+    },
+    "offensive_contribution_ratio": {
+      "expression": "(159 / 2682) / (70 / 1311)",
+      "unrounded": 1.110306807286673,
+      "published": 1.110307,
+      "passed": true
+    },
+    "share_adjusted_impact": {
+      "expression": "(159 / 70) * (159 / 2682)",
+      "unrounded": 0.13465963566634708,
+      "published": 0.134660,
+      "passed": true
+    },
+    "retention_rate": {
+      "expression": "13 / 70",
+      "unrounded": 0.18571428571428572,
+      "published": 0.185714,
+      "passed": true
+    },
+    "casualty_rate": {
+      "expression": "(9 + 48) / 70",
+      "unrounded": 0.8142857142857143,
+      "published": 0.814286,
+      "passed": true
+    },
+    "gate_deficit": {
+      "expression": "battles=max(0,5-4); deployed=max(0,20-70)",
+      "published_battle_deficit": 1,
+      "published_deployment_deficit": 0,
+      "passed": true
+    }
+  },
+  "structural_candidate_verification": {
+    "path": "analysis/candidates/realm_of_thrones_archer_like_mounted_melee_field.csv",
+    "git_blob_sha": "3e5d026861f4e40f4bd437b38b5f124261bf770f",
+    "screen_band": "near_match_test_queue",
+    "values_match": true
+  },
+  "queue_checks": {
+    "path": "data/combat_observations/test_queues/realm_of_thrones.json",
+    "realm_paladin_occurs_once_in_verification_holds": true,
+    "realm_paladin_absent_from_active_test": true,
+    "realm_paladin_absent_from_ordered_queue": true,
+    "realm_paladin_absent_from_parked": true,
+    "status": "consolidation_pr_open_do_not_retest",
+    "consolidation_pr_reference_present": true,
+    "validation_reference_present": true,
+    "passed": true
+  },
+  "pull_request_checks": {
+    "draft_expected": true,
+    "mergeable_at_initial_audit": true,
+    "review_threads_at_initial_audit": 0,
+    "workflow_runs_at_initial_audit": 0,
+    "all_expected_repository_artifacts_committed": true
+  },
+  "historical_recovery_blocker": {
+    "dedicated_realm_paladin_evidence_pr_found": false,
+    "operator_recollection_preserved": true,
+    "missing_values_inferred": false,
+    "retest_authorized": false,
+    "resolution_required_before_ready_or_merge": true
+  }
+}
