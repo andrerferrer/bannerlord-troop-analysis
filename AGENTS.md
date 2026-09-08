@@ -56,6 +56,38 @@ Every new evidence batch must use one branch and one draft pull request from ing
 
 The normalization agent must not perform the analytical phase. The analysis agent must not silently rewrite normalized evidence.
 
+## Historical evidence consolidation pull requests
+
+A pull request that only inventories, copies, audits, or reconciles evidence
+that was already normalized and analyzed in merged repository artifacts is a
+**historical consolidation**, not a new evidence batch.
+
+A historical consolidation must declare that classification in its durable
+machine-readable state and must pin every reused source by repository path,
+commit/ref, Git blob SHA, and compatible track/context/cohort boundaries.
+
+For a historical consolidation:
+
+- do not invoke the new-evidence Phase 1 validator merely because the PR concerns
+  combat evidence;
+- `screenshots_manifest.csv`, a normalized archive,
+  `handoff/ANALYSIS_PROMPT.md`, and `bannerlord-analysis-task:v1` comments are not
+  required unless the PR actually introduces previously unpublished raw
+  evidence;
+- the absence of those Phase 1 artifacts is expected and must not be reported as
+  a PR defect;
+- do not ask the operator for a local screenshot/ZIP path just to validate an
+  already-committed aggregate;
+- copy recoverable rows exactly, recompute every derived metric, record missing
+  evidence as a blocker, and update the authoritative troop-test queue;
+- never infer missing battles or numeric values from memory;
+- if previously unpublished screenshots or a ZIP are later recovered, those raw
+  inputs must pass the ordinary evidence-ingestion and Phase 1 rules before they
+  can change consolidated totals.
+
+Historical consolidations remain outside the local Phase 2 analysis-task queue
+unless they later add a valid new-evidence handoff and protocol comment.
+
 ## Phase 1 — normalization agent
 
 The normalization agent must:
