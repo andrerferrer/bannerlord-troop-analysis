@@ -6,7 +6,12 @@ import sys
 import unittest
 from pathlib import Path
 
-MODULE_PATH = Path(__file__).resolve().parents[1] / "scripts" / "analysis" / "discover_analysis_tasks.py"
+MODULE_PATH = (
+    Path(__file__).resolve().parents[1]
+    / "scripts"
+    / "analysis"
+    / "discover_analysis_tasks.py"
+)
 SPEC = importlib.util.spec_from_file_location("discover_analysis_tasks", MODULE_PATH)
 assert SPEC is not None and SPEC.loader is not None
 MODULE = importlib.util.module_from_spec(SPEC)
@@ -31,13 +36,45 @@ def valid_payload(**overrides):
     return payload
 
 
-def protocol_comment(payload, *, created_at="2026-07-27T18:00:00Z", comment_id=1):
+def valid_consolidation_payload(**overrides):
+    payload = {
+        "protocol": "bannerlord-consolidation-task",
+        "version": 1,
+        "task_id": "realm-paladin-consolidation",
+        "status": "blocked",
+        "branch": "data/consolidate-realm-paladin",
+        "workflow": "historical_consolidation",
+        "consolidation_path": (
+            "data/combat_observations/consolidations/"
+            "realm-paladin/CONSOLIDATION_TASK.md"
+        ),
+        "required_actions": [
+            "verify_pinned_source",
+            "audit_history",
+            "validate_latest_head",
+        ],
+        "completion": {"action": "merge", "merge_method": "squash"},
+        "blockers": ["Missing historical evidence has not been located."],
+    }
+    payload.update(overrides)
+    return payload
+
+
+def protocol_comment(
+    payload,
+    *,
+    created_at="2026-07-27T18:00:00Z",
+    comment_id=1,
+    marker_protocol=None,
+    marker_version=1,
+):
+    protocol = marker_protocol or payload["protocol"]
     return {
         "id": comment_id,
         "created_at": created_at,
         "html_url": f"https://example.invalid/comments/{comment_id}",
         "body": (
-            "<!-- bannerlord-analysis-task:v1 -->\n"
+            f"<!-- {protocol}:v{marker_version} -->\n"
             "```json\n"
             f"{json.dumps(payload, indent=2)}\n"
             "```"
@@ -52,20 +89,92 @@ class AnalysisTaskProtocolTests(unittest.TestCase):
         assert parsed is not None
         self.assertEqual(parsed.payload["task_id"], "batch-1")
         self.assertEqual(parsed.payload["status"], "pending")
+        self.assertEqual(parsed.payload["protocol"], MODULE.ANALYSIS_PROTOCOL)
+
+    def test_parses_valid_historical_consolidation_comment(self):
+        parsed = MODULE.parse_protocol_comment(
+            protocol_comment(valid_consolidation_payload())
+        )
+        self.assertIsNotNone(parsed)
+        assert parsed is not None
+        self.assertEqual(
+            parsed.payload["protocol"],
+            MODULE.CONSOLIDATION_PROTOCOL,
+        )
+        self.assertEqual(
+            parsed.payload["workflow"],
+            "historical_consolidation",
+        )
+
+    def test_consolidation_requires_consolidation_path(self):
+        payload = valid_consolidation_payload()
+        payload.pop("consolidation_path")
+        with self.assertRaisesRegex(
+            ValueError,
+            "consolidation_path must be a non-empty string",
+        ):
+            MODULE.parse_protocol_comment(protocol_comment(payload))
+
+    def test_consolidation_rejects_wrong_workflow(self):
+        with self.assertRaisesRegex(
+            ValueError,
+            "historical_consolidation",
+        ):
+            MODULE.parse_protocol_comment(
+                protocol_comment(
+                    valid_consolidation_payload(workflow="new_evidence_batch")
+                )
+            )
+
+    def test_marker_protocol_must_match_payload_protocol(self):
+        with self.assertRaisesRegex(ValueError, "protocol must equal"):
+            MODULE.parse_protocol_comment(
+                protocol_comment(
+                    valid_consolidation_payload(),
+                    marker_protocol=MODULE.ANALYSIS_PROTOCOL,
+                )
+            )
+
+    def test_render_human_supports_consolidation_task(self):
+        payload = valid_consolidation_payload()
+        output = MODULE.render_human(
+            [
+                {
+                    "pr_number": 95,
+                    "pr_title": "Consolidate Realm Paladin",
+                    "pr_url": "https://example.invalid/pull/95",
+                    "branch_matches_pr": True,
+                    "task_protocol": MODULE.CONSOLIDATION_PROTOCOL,
+                    "task_kind": "historical_consolidation",
+                    "task": payload,
+                }
+            ]
+        )
+        self.assertIn("bannerlord-consolidation-task", output)
+        self.assertIn(payload["consolidation_path"], output)
+        self.assertNotIn("Normalization commit", output)
 
     def test_ignores_unmarked_comments(self):
         parsed = MODULE.parse_protocol_comment(
-            {"id": 2, "created_at": "2026-07-27T18:01:00Z", "body": "ordinary comment"}
+            {
+                "id": 2,
+                "created_at": "2026-07-27T18:01:00Z",
+                "body": "ordinary comment",
+            }
         )
         self.assertIsNone(parsed)
 
     def test_blocked_state_requires_blocker(self):
         with self.assertRaisesRegex(ValueError, "blocked tasks must include"):
-            MODULE.parse_protocol_comment(protocol_comment(valid_payload(status="blocked")))
+            MODULE.parse_protocol_comment(
+                protocol_comment(valid_payload(status="blocked"))
+            )
 
     def test_marker_and_payload_versions_must_match(self):
         with self.assertRaisesRegex(ValueError, "version does not match"):
-            MODULE.parse_protocol_comment(protocol_comment(valid_payload(version=2)))
+            MODULE.parse_protocol_comment(
+                protocol_comment(valid_payload(version=2))
+            )
 
     def test_flattens_paginated_comment_pages(self):
         flattened = MODULE.flatten_comment_pages([[{"id": 1}], [{"id": 2}]])
