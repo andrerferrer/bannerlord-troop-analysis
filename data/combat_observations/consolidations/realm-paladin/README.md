@@ -4,6 +4,26 @@
 
 `PARTIAL — KNOWN COMMITTED EVIDENCE CONSOLIDATED; HISTORICAL RECOVERY STILL OPEN`
 
+## Workflow classification
+
+```text
+workflow: historical_consolidation
+new evidence batch: no
+Phase 1 normalization: not applicable
+screenshots_manifest.csv: intentionally not required
+handoff/ANALYSIS_PROMPT.md: intentionally not required
+bannerlord-analysis-task:v1 protocol: intentionally not required
+```
+
+This PR consolidates an already-normalized, already-analyzed committed aggregate.
+It is **not** an unpublished screenshot batch. Do not run
+`$normalize-bannerlord-combat-batch` against this directory and do not treat the
+absence of `screenshots_manifest.csv` as a missing PR artifact.
+
+A local Codex attempt did exactly that and exited 2 on the absent Phase 1
+manifest. The attempt made no repository changes. Its diagnosis and the correct
+workflow adjudication are preserved in `AUDIT_LOG.md`.
+
 This directory is the durable cross-batch audit record for **Realm Paladin** (`realm_paladin`) in Realm of Thrones 1.4.x field combat.
 
 The operator recalls that the troop has already been tested. The repository currently exposes one compatible committed aggregate, but no dedicated Realm Paladin evidence pull request was found in the pull-request history search. This consolidation therefore prevents an accidental retest while the missing batch or screenshots are located.
@@ -107,13 +127,16 @@ Known unresolved possibilities:
 - **Do not recommend or retest Realm Paladin while this consolidation is open.**
 - Keep the troop under a verification hold in the authoritative Realm of Thrones queue.
 - Do not call the troop `reliable`, `closed`, or `completed` from the four-battle aggregate alone.
-- When missing evidence is recovered, preserve cohort/context boundaries, deduplicate by battle identity, append only verified compatible observations, and regenerate the metrics.
+- Do not ask for a local screenshot/ZIP path merely to validate the already-committed aggregate in this PR.
+- When missing raw evidence is actually recovered, process it through the normal evidence-ingestion rules before adding it to the consolidated totals.
+- Preserve cohort/context boundaries, deduplicate by battle identity, append only verified compatible observations, and regenerate the metrics.
 - If the audit establishes that no additional battle exists, the remaining formal field gate is exactly one independent compatible battle; scheduling it requires a later operator decision.
 
 ## Files
 
 - `README.md` — human-readable scope, evidence, arithmetic, and decision.
+- `AUDIT_LOG.md` — durable record of the local Codex Phase 1 misclassification and the correct workflow boundary.
 - `evidence.csv` — normalized copy of the known compatible aggregate with pinned source identity.
-- `consolidation.json` — machine-readable state, metrics, gate calculation, and blockers.
-- `validation_report.json` — source-row, arithmetic, queue, and PR-scope verification.
+- `consolidation.json` — machine-readable workflow, evidence, metrics, gate calculation, and blockers.
+- `validation_report.json` — source-row, arithmetic, workflow, queue, and PR-scope verification.
 - `data/combat_observations/test_queues/realm_of_thrones.json` — authoritative queue state.
