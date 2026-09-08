@@ -8,6 +8,8 @@
   "base_ref": "main@9c92910d499d2663cd77385e516fd25bbc7a4669",
   "scope": {
     "expected_changed_paths": [
+      ".agents/skills/analyze-bannerlord-combat-zip/agents/openai.yaml",
+      ".agents/skills/analyze-bannerlord-combat-zip/references/workflow.md",
       "AGENTS.md",
       "data/combat_observations/consolidations/realm-paladin/AUDIT_LOG.md",
       "data/combat_observations/consolidations/realm-paladin/CONSOLIDATION_TASK.md",
@@ -35,6 +37,8 @@
     "source_analysis_already_merged": true,
     "audit_log_present": true,
     "agents_workflow_guard_present": true,
+    "skill_workflow_reference_updated": true,
+    "skill_interface_updated": true,
     "passed": true
   },
   "task_protocol_checks": {
@@ -54,8 +58,8 @@
   },
   "dispatcher_validation": {
     "unit_test_command": "python -m unittest -v tests.test_discover_analysis_tasks",
-    "tests_run": 10,
-    "tests_passed": 10,
+    "tests_run": 11,
+    "tests_passed": 11,
     "tests_failed": 0,
     "py_compile": "passed",
     "mocked_live_comment_discovery": {
