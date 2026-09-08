@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "track": "realm_of_thrones",
   "game_version": "1.4.x",
   "troop_id": "realm_paladin",
@@ -15,6 +15,24 @@
     "url": "https://github.com/andrerferrer/bannerlord-troop-analysis/pull/95",
     "state": "open_draft"
   },
+  "task_protocol": {
+    "protocol": "bannerlord-consolidation-task",
+    "version": 1,
+    "task_id": "realm-paladin-historical-consolidation",
+    "status": "pending",
+    "marker": "bannerlord-consolidation-task:v1",
+    "comment_id": 5585608355,
+    "consolidation_path": "data/combat_observations/consolidations/realm-paladin/CONSOLIDATION_TASK.md",
+    "protocol_path": "docs/protocols/consolidation-task-v1.md",
+    "dispatcher_path": "scripts/analysis/discover_analysis_tasks.py",
+    "test_path": "tests/test_discover_analysis_tasks.py",
+    "actionable_statuses": [
+      "pending",
+      "in_progress",
+      "blocked"
+    ],
+    "expected_dispatcher_task_kind": "historical_consolidation"
+  },
   "workflow_classification": {
     "type": "historical_consolidation",
     "new_evidence_batch": false,
@@ -23,6 +41,7 @@
     "screenshots_manifest_required": false,
     "analysis_handoff_required": false,
     "analysis_task_protocol_required": false,
+    "consolidation_task_protocol_required": true,
     "source_analysis_pull_request": 92,
     "source_analysis_already_merged": true,
     "expected_absent_paths": [
@@ -30,19 +49,31 @@
       "handoff/ANALYSIS_PROMPT.md"
     ],
     "audit_log_path": "data/combat_observations/consolidations/realm-paladin/AUDIT_LOG.md",
-    "rule": "Do not run the new-evidence Phase 1 validator against this consolidation-only directory. Previously unpublished raw evidence must pass the ordinary ingestion workflow before it is added."
+    "rule": "Do not run the new-evidence Phase 1 validator against this consolidation-only directory. Use the consolidation task protocol and handoff. Previously unpublished raw evidence must pass the ordinary ingestion workflow before it is added."
   },
-  "local_codex_audit": {
-    "observed_at": "2026-09-08",
-    "source": "operator-provided screenshot of local Codex run",
-    "attempted_workflow": "normalize-bannerlord-combat-batch",
-    "exit_code": 2,
-    "reported_missing_path": "screenshots_manifest.csv",
-    "raw_screenshots_or_archives_found": false,
-    "repository_mutations_made": false,
-    "protocol_comments_made": false,
-    "adjudication": "expected_non_applicable_validator_failure_not_a_pr_defect"
-  },
+  "local_codex_audits": [
+    {
+      "observed_at": "2026-09-08",
+      "source": "operator-provided screenshot of local Codex run",
+      "attempted_workflow": "normalize-bannerlord-combat-batch",
+      "exit_code": 2,
+      "reported_missing_path": "screenshots_manifest.csv",
+      "raw_screenshots_or_archives_found": false,
+      "repository_mutations_made": false,
+      "protocol_comments_made": false,
+      "adjudication": "expected_non_applicable_validator_failure_not_a_pr_defect"
+    },
+    {
+      "observed_at": "2026-09-08",
+      "source": "operator-provided screenshot of local Codex run",
+      "attempted_workflow": "discover_analysis_tasks",
+      "command": "python3 scripts/analysis/discover_analysis_tasks.py --json",
+      "observed_actionable_count": 0,
+      "warnings": [],
+      "stop_message": "No analyzable input or pending Phase 2 task was found.",
+      "adjudication": "real_dispatcher_gap_fixed_by_consolidation_protocol"
+    }
+  ],
   "known_committed_evidence": {
     "source_batch": "2026-09-05-to-06-rot-westerling-field-followup",
     "source_path": "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/analysis/insufficient_evidence.csv",
@@ -66,11 +97,11 @@
     "kills_per_deployed": 2.271429,
     "verified_player_side_total_kills": 2682,
     "player_side_kill_share": 0.059284,
-    "share_adjusted_impact": 0.134660,
+    "share_adjusted_impact": 0.13466,
     "verified_player_side_total_deployed": 1311,
     "player_side_deployment_share": 0.053394,
     "offensive_contribution_ratio": 1.110307,
-    "offensive_share_gap": 0.005890,
+    "offensive_share_gap": 0.00589,
     "retention_rate": 0.185714,
     "death_rate": 0.128571,
     "casualty_rate": 0.814286,
@@ -107,7 +138,8 @@
     "limitations": [
       "No dedicated Realm Paladin evidence pull request was found by pull-request search.",
       "The operator remembers a completed test, but its full compatible evidence has not yet been mapped to committed artifacts.",
-      "The local Codex Phase 1 validation attempt was non-applicable because this PR is a historical consolidation, not a raw evidence batch.",
+      "The local Phase 1 validation attempt was non-applicable because this PR is a historical consolidation, not a raw evidence batch.",
+      "The original dispatcher did not recognize historical consolidation tasks; PR #95 adds a dedicated protocol and regression coverage.",
       "No missing numeric values are inferred from memory."
     ]
   },
@@ -116,13 +148,16 @@
     "source_row_exact_match": true,
     "arithmetic_recomputed": true,
     "workflow_classification_verified": true,
+    "consolidation_task_protocol_published": true,
+    "dispatcher_support_added": true,
+    "dispatcher_regression_tests_passed": true,
     "queue_hold_present": true,
     "pr_scope_inventory_verified": true
   },
-  "blockers": [
+  "open_evidence_questions": [
     "Locate a missing dedicated Realm Paladin batch or establish that none exists.",
     "Verify battle identities and context compatibility before combining any recovered observations.",
-    "Regenerate consolidated metrics and queue status after the audit."
+    "Regenerate consolidated metrics and queue status after any verified evidence recovery."
   ],
   "fallback_only_if_no_more_evidence_exists": {
     "additional_independent_field_battles_needed": 1,
@@ -131,10 +166,14 @@
   },
   "evidence_files": [
     "data/combat_observations/consolidations/realm-paladin/README.md",
+    "data/combat_observations/consolidations/realm-paladin/CONSOLIDATION_TASK.md",
     "data/combat_observations/consolidations/realm-paladin/AUDIT_LOG.md",
     "data/combat_observations/consolidations/realm-paladin/evidence.csv",
     "data/combat_observations/consolidations/realm-paladin/consolidation.json",
     "data/combat_observations/consolidations/realm-paladin/validation_report.json",
-    "data/combat_observations/test_queues/realm_of_thrones.json"
+    "data/combat_observations/test_queues/realm_of_thrones.json",
+    "docs/protocols/consolidation-task-v1.md",
+    "scripts/analysis/discover_analysis_tasks.py",
+    "tests/test_discover_analysis_tasks.py"
   ]
 }
