@@ -17,6 +17,14 @@ data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/
   analysis/insufficient_evidence.csv
 ```
 
+Pinned source identity:
+
+```text
+repository ref: main@9c92910d499d2663cd77385e516fd25bbc7a4669
+Git blob SHA: 8a9e888e30a16b1f29f71025542d1a4c0854b713
+size: 18,200 bytes
+```
+
 Scope is intentionally narrow:
 
 ```text
@@ -54,9 +62,12 @@ kills per deployed = 159 / 70 = 2.271429
 kill share = 159 / 2,682 = 0.059284 = 5.9284%
 deployment share = 70 / 1,311 = 0.053394 = 5.3394%
 offensive contribution ratio = 0.059284 / 0.053394 = 1.110307×
+share-adjusted impact = (159 / 70) × (159 / 2,682) = 0.134660
 retention = 13 / 70 = 0.185714 = 18.5714%
 casualty rate = (9 + 48) / 70 = 0.814286 = 81.4286%
 ```
+
+The copied row and every derived value above were rechecked against the pinned source artifact. See `validation_report.json`.
 
 ## Gate status
 
@@ -75,13 +86,14 @@ Realm Paladin was previously placed in the `near_match_test_queue` by the field-
 
 ```text
 analysis/candidates/realm_of_thrones_archer_like_mounted_melee_field.csv
+Git blob SHA: 3e5d026861f4e40f4bd437b38b5f124261bf770f
 ```
 
 That row records a melee-skill floor of 230, mobility floor of 230, mean armor 194, shield HP 370, and mean harness armor 72. It is a candidate-screen result, not empirical proof and not an instruction to repeat a completed test.
 
 ## Repository-history audit
 
-A pull-request search for `realm_paladin` found the structural shortlist PR #71, but no dedicated Realm Paladin evidence PR. Repository code search was not treated as authoritative when unavailable; only concrete committed artifacts are promoted here.
+A pull-request search for both `Realm Paladin` and `realm_paladin` found the structural shortlist PR #71, but no dedicated Realm Paladin evidence PR. Repository code search was not treated as authoritative when unavailable; only concrete committed artifacts are promoted here.
 
 Known unresolved possibilities:
 
@@ -100,6 +112,8 @@ Known unresolved possibilities:
 
 ## Files
 
-- `evidence.csv` — normalized copy of the known compatible aggregate with its exact source path.
+- `README.md` — human-readable scope, evidence, arithmetic, and decision.
+- `evidence.csv` — normalized copy of the known compatible aggregate with pinned source identity.
 - `consolidation.json` — machine-readable state, metrics, gate calculation, and blockers.
+- `validation_report.json` — source-row, arithmetic, queue, and PR-scope verification.
 - `data/combat_observations/test_queues/realm_of_thrones.json` — authoritative queue state.
