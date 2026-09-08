@@ -5,7 +5,7 @@
   "troop_id": "realm_paladin",
   "display_name": "Realm Paladin",
   "context": "field",
-  "updated_at": "2026-09-07",
+  "updated_at": "2026-09-08",
   "status": "partial_known_evidence_only",
   "decision": "hold_do_not_retest_until_historical_reconciliation",
   "operator_recollection": "Realm Paladin has already been tested.",
@@ -18,6 +18,9 @@
   "known_committed_evidence": {
     "source_batch": "2026-09-05-to-06-rot-westerling-field-followup",
     "source_path": "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/analysis/insufficient_evidence.csv",
+    "source_ref": "main@9c92910d499d2663cd77385e516fd25bbc7a4669",
+    "source_blob_sha": "8a9e888e30a16b1f29f71025542d1a4c0854b713",
+    "source_size_bytes": 18200,
     "cohort": "joffrey",
     "participant_scope": "player_party",
     "parent_group": "Joffrey Baratheon's Party",
@@ -54,6 +57,7 @@
   },
   "structural_candidate": {
     "source_path": "analysis/candidates/realm_of_thrones_archer_like_mounted_melee_field.csv",
+    "source_blob_sha": "3e5d026861f4e40f4bd437b38b5f124261bf770f",
     "screen_band": "near_match_test_queue",
     "melee_skill_floor": 230.0,
     "mobility_floor": 230.0,
@@ -64,6 +68,10 @@
   },
   "history_audit": {
     "dedicated_pull_request_found": false,
+    "pull_request_search_terms": [
+      "Realm Paladin",
+      "realm_paladin"
+    ],
     "known_pull_request_reference": 71,
     "known_pull_request_scope": "structural shortlist only",
     "raw_dedicated_screenshots_recovered": false,
@@ -72,6 +80,13 @@
       "The operator remembers a completed test, but its full compatible evidence has not yet been mapped to committed artifacts.",
       "No missing numeric values are inferred from memory."
     ]
+  },
+  "validation": {
+    "report_path": "data/combat_observations/consolidations/realm-paladin/validation_report.json",
+    "source_row_exact_match": true,
+    "arithmetic_recomputed": true,
+    "queue_hold_present": true,
+    "pr_scope_inventory_verified": true
   },
   "blockers": [
     "Locate a missing dedicated Realm Paladin batch or establish that none exists.",
@@ -84,8 +99,10 @@
     "requires_new_operator_decision": true
   },
   "evidence_files": [
-    "data/combat_observations/consolidations/realm-paladin/evidence.csv",
     "data/combat_observations/consolidations/realm-paladin/README.md",
+    "data/combat_observations/consolidations/realm-paladin/evidence.csv",
+    "data/combat_observations/consolidations/realm-paladin/consolidation.json",
+    "data/combat_observations/consolidations/realm-paladin/validation_report.json",
     "data/combat_observations/test_queues/realm_of_thrones.json"
   ]
 }
