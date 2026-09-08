@@ -79,14 +79,25 @@ For a historical consolidation:
 - do not ask the operator for a local screenshot/ZIP path just to validate an
   already-committed aggregate;
 - copy recoverable rows exactly, recompute every derived metric, record missing
-  evidence as a blocker, and update the authoritative troop-test queue;
+  evidence as a limitation or blocker, and update the authoritative troop-test
+  queue;
 - never infer missing battles or numeric values from memory;
 - if previously unpublished screenshots or a ZIP are later recovered, those raw
   inputs must pass the ordinary evidence-ingestion and Phase 1 rules before they
   can change consolidated totals.
 
-Historical consolidations remain outside the local Phase 2 analysis-task queue
-unless they later add a valid new-evidence handoff and protocol comment.
+An open historical consolidation that requires local continuation must publish
+an append-only `bannerlord-consolidation-task:v1` comment and a committed
+`consolidation_path`. The shared dispatcher recognizes this protocol without
+requiring a Phase 2 handoff. A valid consolidation task is analyzable input; do
+not stop with “No analyzable input” merely because no screenshot/ZIP or
+`bannerlord-analysis-task:v1` comment exists.
+
+The protocol specification is
+`docs/protocols/consolidation-task-v1.md`. The newest valid comment for the same
+`protocol` + `task_id` pair is authoritative. Historical consolidations remain
+outside the **Phase 2 evidence protocol**, but they are inside the shared local
+task queue through their own protocol.
 
 ## Phase 1 — normalization agent
 
@@ -108,7 +119,7 @@ The normalization agent must:
 
 The normalization agent must not publish rankings, gameplay conclusions, causal claims, model recalibration, or recommendations as part of Phase 1.
 
-A PR is not in the local analysis queue until its protocol comment exists. The PR body, labels, linked issue, and chat history are not substitutes for the comment.
+A new evidence PR is not in the local analysis queue until its protocol comment exists. The PR body, labels, linked issue, and chat history are not substitutes for the comment.
 
 ## Phase 2 — local analysis agent
 
@@ -133,7 +144,7 @@ The local analysis agent must:
 
 ## Operator command: `Fecha as análises`
 
-When the user says `Fecha as análises`, treat it as an explicit instruction to process the repository analysis queue end to end. Do not ask which PRs to inspect.
+When the user says `Fecha as análises`, treat it as an explicit instruction to process the repository task queue end to end. Do not ask which PRs to inspect.
 
 From the repository root, first run:
 
@@ -141,26 +152,38 @@ From the repository root, first run:
 python scripts/analysis/discover_analysis_tasks.py --json
 ```
 
-Then, for every actionable task returned:
+The dispatcher returns both `bannerlord-analysis-task:v1` and
+`bannerlord-consolidation-task:v1` tasks. Then, for every actionable task
+returned:
 
 1. confirm the latest valid protocol comment is version 1 and its branch matches the PR head;
 2. check out and update that branch;
-3. read `AGENTS.md`, the protocol comment, and its `handoff_path`;
-4. publish a new full-state `in_progress` comment before material work;
-5. complete all required actions and repository validation;
-6. publish a new full-state `blocked` comment when execution cannot safely finish;
-7. otherwise publish a new full-state `complete` comment;
-8. mark the PR ready when it is still draft;
-9. merge it using `completion.merge_method` when `completion.action` is `merge`;
-10. verify the PR is no longer open before processing the next task.
+3. read `AGENTS.md` and the full protocol comment;
+4. for `bannerlord-analysis-task`, read `handoff_path`; for
+   `bannerlord-consolidation-task`, read `consolidation_path` and
+   `docs/protocols/consolidation-task-v1.md`;
+5. publish a new full-state `in_progress` comment before material work;
+6. complete all required actions and repository validation under the task's own workflow boundaries;
+7. publish a new full-state `blocked` comment when execution cannot safely finish;
+8. otherwise publish a new full-state `complete` comment;
+9. mark the PR ready when it is still draft and its applicable gates pass;
+10. execute `completion.action` with `completion.merge_method` when declared;
+11. verify the PR is no longer open before processing the next task.
 
-Do not rely on stale PR-body checklists to determine task state. For each `task_id`, the newest valid `bannerlord-analysis-task:v1` comment is authoritative. Protocol comments are append-only and must not be edited.
+Do not rely on stale PR-body checklists to determine task state. For each
+`protocol` + `task_id` pair, the newest valid supported protocol comment is
+authoritative. Protocol comments are append-only and must not be edited.
 
-Open PRs without a valid protocol comment are outside this workflow and must be ignored. Tasks in `blocked` state remain visible and should be retried only after checking whether their recorded blockers can now be resolved.
+Open PRs without a valid supported task comment are outside this workflow and
+must be ignored. Tasks in `blocked` state remain visible and should be retried
+only after checking whether their recorded blockers can now be resolved. A zero
+count for Phase 2 analysis tasks is not a zero count for all work; inspect the
+shared dispatcher's consolidation tasks before reporting an empty queue.
 
-Protocol specification:
+Protocol specifications:
 
 - `docs/protocols/analysis-task-v1.md`
+- `docs/protocols/consolidation-task-v1.md`
 - dispatcher: `scripts/analysis/discover_analysis_tasks.py`
 
 ## Mandatory analytical boundaries
@@ -193,7 +216,7 @@ Protocol specification:
 
 ## Merge gate
 
-A batch pull request remains draft after normalization. It may be marked ready and merged only when:
+A new evidence batch pull request remains draft after normalization. It may be marked ready and merged only when:
 
 - the deterministic normalized evidence is repository-addressable and reconstructible;
 - normalization and structural validation are complete;
@@ -205,3 +228,9 @@ A batch pull request remains draft after normalization. It may be marked ready a
 - no track, side, or battle-context boundary was violated.
 - no visible eligible player-side ordinary troop/context row was omitted from the
   batch-wide analytical outputs or report.
+
+A historical consolidation may be marked ready and merged only when its newest
+`bannerlord-consolidation-task:v1` state is `complete`, every pinned source and
+derived metric validates, the authoritative queue matches the decision, and any
+unrecovered external evidence is represented honestly as a limitation or hold
+rather than fabricated numeric data.
