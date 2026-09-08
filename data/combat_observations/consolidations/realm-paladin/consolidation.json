@@ -10,7 +10,11 @@
   "decision": "hold_do_not_retest_until_historical_reconciliation",
   "operator_recollection": "Realm Paladin has already been tested.",
   "consolidation_branch": "data/consolidate-realm-paladin",
-  "consolidation_pull_request": null,
+  "consolidation_pull_request": {
+    "number": 95,
+    "url": "https://github.com/andrerferrer/bannerlord-troop-analysis/pull/95",
+    "state": "open_draft"
+  },
   "known_committed_evidence": {
     "source_batch": "2026-09-05-to-06-rot-westerling-field-followup",
     "source_path": "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/analysis/insufficient_evidence.csv",
