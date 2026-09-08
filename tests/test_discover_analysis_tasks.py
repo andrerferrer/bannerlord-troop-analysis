@@ -154,6 +154,38 @@ class AnalysisTaskProtocolTests(unittest.TestCase):
         self.assertIn(payload["consolidation_path"], output)
         self.assertNotIn("Normalization commit", output)
 
+    def test_discovers_consolidation_comment_from_open_pr(self):
+        payload = valid_consolidation_payload(status="pending", blockers=[])
+        comment = protocol_comment(payload, comment_id=95)
+        original = MODULE.run_gh_json
+
+        def fake_run_gh_json(arguments):
+            if arguments[:2] == ["pr", "list"]:
+                return [
+                    {
+                        "number": 95,
+                        "title": "Consolidate Realm Paladin",
+                        "url": "https://example.invalid/pull/95",
+                        "headRefName": "data/consolidate-realm-paladin",
+                        "isDraft": True,
+                    }
+                ]
+            return [[comment]]
+
+        MODULE.run_gh_json = fake_run_gh_json
+        try:
+            tasks, warnings = MODULE.discover_tasks(
+                "andrerferrer/bannerlord-troop-analysis"
+            )
+        finally:
+            MODULE.run_gh_json = original
+
+        self.assertEqual(warnings, [])
+        self.assertEqual(len(tasks), 1)
+        self.assertEqual(tasks[0]["task_kind"], "historical_consolidation")
+        self.assertTrue(tasks[0]["branch_matches_pr"])
+        self.assertEqual(tasks[0]["task"]["status"], "pending")
+
     def test_ignores_unmarked_comments(self):
         parsed = MODULE.parse_protocol_comment(
             {
