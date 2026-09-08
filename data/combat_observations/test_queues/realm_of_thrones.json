@@ -47,6 +47,17 @@
         "url": "https://github.com/andrerferrer/bannerlord-troop-analysis/pull/95",
         "state": "open_draft"
       },
+      "consolidation_task": {
+        "protocol": "bannerlord-consolidation-task",
+        "version": 1,
+        "task_id": "realm-paladin-historical-consolidation",
+        "status": "pending",
+        "comment_id": 5585608355,
+        "task_path": "data/combat_observations/consolidations/realm-paladin/CONSOLIDATION_TASK.md",
+        "protocol_path": "docs/protocols/consolidation-task-v1.md",
+        "dispatcher_path": "scripts/analysis/discover_analysis_tasks.py",
+        "expected_task_kind": "historical_consolidation"
+      },
       "consolidation_path": "data/combat_observations/consolidations/realm-paladin/consolidation.json",
       "validation_path": "data/combat_observations/consolidations/realm-paladin/validation_report.json",
       "audit_log_path": "data/combat_observations/consolidations/realm-paladin/AUDIT_LOG.md",
@@ -54,12 +65,17 @@
         "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/analysis/insufficient_evidence.csv",
         "analysis/candidates/realm_of_thrones_archer_like_mounted_melee_field.csv",
         "data/combat_observations/consolidations/realm-paladin/README.md",
+        "data/combat_observations/consolidations/realm-paladin/CONSOLIDATION_TASK.md",
         "data/combat_observations/consolidations/realm-paladin/AUDIT_LOG.md",
         "data/combat_observations/consolidations/realm-paladin/evidence.csv",
         "data/combat_observations/consolidations/realm-paladin/validation_report.json",
+        "docs/protocols/consolidation-task-v1.md",
+        "scripts/analysis/discover_analysis_tasks.py",
+        "tests/test_discover_analysis_tasks.py",
         "pull/71",
         "pull/92",
-        "pull/95"
+        "pull/95",
+        "pull/95#issuecomment-5585608355"
       ]
     },
     {
@@ -89,6 +105,7 @@
   "update_contract": {
     "phase_1": "May set or confirm active_test, but must not choose or reorder future targets from preliminary extraction.",
     "phase_2": "Must update active_test, ordered_queue, verification_holds, and parked or closed entries in the same pull request whenever the completed analysis changes what should be tested next.",
+    "historical_consolidation": "A verification-hold consolidation must publish a bannerlord-consolidation-task:v1 comment and task path so the shared dispatcher can discover it without raw screenshots or a Phase 2 handoff.",
     "operator_decision": "An explicit operator decision takes precedence and must be recorded in this file immediately.",
     "no_fallback": "Never reconstruct the queue from chat memory, a pull-request title or body, or one batch-local NEXT_TEST_RECOMMENDATION.md while this file exists.",
     "empty_queue": "An empty ordered_queue means no future target is approved yet; it does not authorize inventing a candidate."
