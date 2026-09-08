@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "track": "realm_of_thrones",
+  "game_version": "1.4.x",
+  "troop_id": "realm_paladin",
+  "display_name": "Realm Paladin",
+  "context": "field",
+  "updated_at": "2026-09-07",
+  "status": "partial_known_evidence_only",
+  "decision": "hold_do_not_retest_until_historical_reconciliation",
+  "operator_recollection": "Realm Paladin has already been tested.",
+  "consolidation_branch": "data/consolidate-realm-paladin",
+  "consolidation_pull_request": null,
+  "known_committed_evidence": {
+    "source_batch": "2026-09-05-to-06-rot-westerling-field-followup",
+    "source_path": "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/analysis/insufficient_evidence.csv",
+    "cohort": "joffrey",
+    "participant_scope": "player_party",
+    "parent_group": "Joffrey Baratheon's Party",
+    "identity_status": "confirmed_id",
+    "canonical_role": "melee_cavalry",
+    "independent_battles": 4,
+    "deployed": 70,
+    "survivors": 13,
+    "kills": 159,
+    "deaths": 9,
+    "wounded": 48,
+    "routed": 0,
+    "victory_battles": 1,
+    "defeat_battles": 3,
+    "kills_per_deployed": 2.271429,
+    "verified_player_side_total_kills": 2682,
+    "player_side_kill_share": 0.059284,
+    "share_adjusted_impact": 0.134660,
+    "verified_player_side_total_deployed": 1311,
+    "player_side_deployment_share": 0.053394,
+    "offensive_contribution_ratio": 1.110307,
+    "offensive_share_gap": 0.005890,
+    "retention_rate": 0.185714,
+    "death_rate": 0.128571,
+    "casualty_rate": 0.814286,
+    "reliability_status": "insufficient_evidence"
+  },
+  "display_gate": {
+    "minimum_independent_battles": 5,
+    "minimum_deployed": 20,
+    "known_battle_deficit": 1,
+    "known_deployment_deficit": 0,
+    "gate_met_by_known_committed_evidence": false
+  },
+  "structural_candidate": {
+    "source_path": "analysis/candidates/realm_of_thrones_archer_like_mounted_melee_field.csv",
+    "screen_band": "near_match_test_queue",
+    "melee_skill_floor": 230.0,
+    "mobility_floor": 230.0,
+    "armor_total_mean": 194.0,
+    "shield_hp_mean": 370.0,
+    "harness_armor_mean": 72.0,
+    "note": "Structural candidate status is not empirical proof and does not authorize a retest."
+  },
+  "history_audit": {
+    "dedicated_pull_request_found": false,
+    "known_pull_request_reference": 71,
+    "known_pull_request_scope": "structural shortlist only",
+    "raw_dedicated_screenshots_recovered": false,
+    "limitations": [
+      "No dedicated Realm Paladin evidence pull request was found by pull-request search.",
+      "The operator remembers a completed test, but its full compatible evidence has not yet been mapped to committed artifacts.",
+      "No missing numeric values are inferred from memory."
+    ]
+  },
+  "blockers": [
+    "Locate a missing dedicated Realm Paladin batch or establish that none exists.",
+    "Verify battle identities and context compatibility before combining any recovered observations.",
+    "Regenerate consolidated metrics and queue status after the audit."
+  ],
+  "fallback_only_if_no_more_evidence_exists": {
+    "additional_independent_field_battles_needed": 1,
+    "additional_deployed_needed": 0,
+    "requires_new_operator_decision": true
+  },
+  "evidence_files": [
+    "data/combat_observations/consolidations/realm-paladin/evidence.csv",
+    "data/combat_observations/consolidations/realm-paladin/README.md",
+    "data/combat_observations/test_queues/realm_of_thrones.json"
+  ]
+}
