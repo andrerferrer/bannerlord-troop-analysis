@@ -1,0 +1,173 @@
+{
+  "archive_contents": [
+    {
+      "path": "README.md",
+      "sha256": "ac76b8cd10b6b58302949e4734eb12e6c75c87e9120107e57da503a989bfde6a",
+      "size_bytes": 908
+    },
+    {
+      "path": "batch_state.json",
+      "sha256": "ade077ed4684b96c82533095b52c6adb5dc17dc26c5dd7a14b620d3358b709a9",
+      "size_bytes": 1227
+    },
+    {
+      "path": "canonical/README.md",
+      "sha256": "d154e15db6e5d0cc5110f96345655a68d5266fc019fb4a4d18b24f618ee52d40",
+      "size_bytes": 591
+    },
+    {
+      "path": "canonical/canonical_battles.jsonl",
+      "sha256": "08890ccfd7da30d485b5fe48b5319ab5ad51746cfc2969fa03d0d835f5bc5d40",
+      "size_bytes": 18817
+    },
+    {
+      "path": "canonical/canonical_historical_aggregates.jsonl",
+      "sha256": "1835088c5f57414ca37e7d372d4b78938b6c66c6b87be048fcddcfd921075734",
+      "size_bytes": 63522
+    },
+    {
+      "path": "canonical/canonical_occurrences.jsonl",
+      "sha256": "4f6b751715e9a7de29fb1ed39a98b9cc586fe313dc6e2ab40e6be4217afd69a0",
+      "size_bytes": 297690
+    },
+    {
+      "path": "canonical/canonical_screenshots.jsonl",
+      "sha256": "769fd6658a300329122e17530c2a18491e7d1c8fd3804ed9dbb2a0392476822f",
+      "size_bytes": 13139
+    },
+    {
+      "path": "canonical/canonical_troop_battle_consolidated.jsonl",
+      "sha256": "dc4d3cdf16af41204c49864fefe3fdf632c0caf065956f0c9eca9bd1de375d2a",
+      "size_bytes": 93782
+    },
+    {
+      "path": "handoff/ANALYSIS_PROMPT.md",
+      "sha256": "409ccf68fb93191dbb67a849afa54f74bab87202887fb7837c107c9c865298c3",
+      "size_bytes": 1516
+    },
+    {
+      "path": "handoff/ANALYSIS_TASK_V1.json",
+      "sha256": "d5b4b882fffc981dd1343c24955853233a9ed0cc542e0509479b342a4aff873a",
+      "size_bytes": 1396
+    },
+    {
+      "path": "normalization_summary.json",
+      "sha256": "5f0f4633000dd971d6b8021e54d7614274db2ca1676d9d40a0d301ab0705f010",
+      "size_bytes": 846
+    },
+    {
+      "path": "normalization_validation_report.json",
+      "sha256": "f00f15d0805a8460082b434c9fa85e21de9f17da87227e63ae1ad8d6767ea434",
+      "size_bytes": 1014
+    },
+    {
+      "path": "reports/aggregation_validation.csv",
+      "sha256": "09b9bfea1c2f08706de4bfcb77c9013defc6b228153d7ed8404d9e8c508a56e8",
+      "size_bytes": 1493
+    },
+    {
+      "path": "reports/canonical_validation_report.json",
+      "sha256": "f00f15d0805a8460082b434c9fa85e21de9f17da87227e63ae1ad8d6767ea434",
+      "size_bytes": 1014
+    },
+    {
+      "path": "reports/grouping_validation.csv",
+      "sha256": "0c2cb3afb5e8dd044d2afee9c23e1f6fe35bbffb4e9794d003b28c1b04d61ed7",
+      "size_bytes": 9044
+    },
+    {
+      "path": "reports/screenshot_deduplication_audit.csv",
+      "sha256": "96aa1e93fb7a876c9451bd5053fe655c409676c230f27622e859fecdeb937bc1",
+      "size_bytes": 18565
+    },
+    {
+      "path": "reports/unresolved_rows.csv",
+      "sha256": "fac581390f23d07526f61f3fee2a538ca12078d211dace8ef88da09d654f72aa",
+      "size_bytes": 314
+    },
+    {
+      "path": "reports/zip_preflight.json",
+      "sha256": "33b83ee639eb442cc5832e4661cceb0f09af74c06cf08558773e542594b4102c",
+      "size_bytes": 636
+    },
+    {
+      "path": "reviewed/review_resolutions.csv",
+      "sha256": "c76c44eda7398523e8dea98f7abe61fb02b45e8f26d5d273dc4bfaa19961066d",
+      "size_bytes": 1795
+    },
+    {
+      "path": "screenshots_manifest.csv",
+      "sha256": "90c333479372bba479634a1a35ddac355e9296552b489868df0890f259c55c47",
+      "size_bytes": 13471
+    },
+    {
+      "path": "source_inventory.csv",
+      "sha256": "cf639d004d4522e10eec58d15e30a5c88daae8a8f064518c67c5bde9b21a42de",
+      "size_bytes": 17060
+    },
+    {
+      "path": "source_provenance.json",
+      "sha256": "a98557a6bc762498c3ea7f75a4668caa3d02c71f85df608119a3ac46e9f15795",
+      "size_bytes": 1026
+    }
+  ],
+  "archive_name": "cerwyn_mixed_phase1.tar.xz",
+  "archive_sha256": "d780a64dbfbcde1ac8e82428b2a86fceea2922f0584c42ef64a8eddd309f3439",
+  "archive_size_bytes": 25272,
+  "batch_id": "2026-09-07-to-08-rot-cerwyn-mixed",
+  "encoding": "base64",
+  "parts": [
+    {
+      "path": "bundle/cerwyn_mixed_phase1.tar.xz.base64.part-00",
+      "sha256": "074a80e65e744a0cd0f6dccccf449f91f49a8d1077661ac4d2ec8a347d78496b",
+      "size_bytes": 4097
+    },
+    {
+      "path": "bundle/cerwyn_mixed_phase1.tar.xz.base64.part-01",
+      "sha256": "318671083c9d926aa8fe6284344a23ab48021fd595e96ed5de605b6d9c7d9e87",
+      "size_bytes": 4097
+    },
+    {
+      "path": "bundle/cerwyn_mixed_phase1.tar.xz.base64.part-02",
+      "sha256": "a820edea743467cb65e946960494bbd04a1707b1a6fb224beae0a9711f5a0207",
+      "size_bytes": 4097
+    },
+    {
+      "path": "bundle/cerwyn_mixed_phase1.tar.xz.base64.part-03",
+      "sha256": "3ff7a7f446013d8841277aaa7fd187563b57717321fa2da11316f91fa97454b3",
+      "size_bytes": 4097
+    },
+    {
+      "path": "bundle/cerwyn_mixed_phase1.tar.xz.base64.part-04",
+      "sha256": "106aa0ba4e19e62657bb68fcddfa131d02a8ced5f202bcb95e8399346ca3dc1b",
+      "size_bytes": 4097
+    },
+    {
+      "path": "bundle/cerwyn_mixed_phase1.tar.xz.base64.part-05",
+      "sha256": "6331893db0f791e2baf3827f21a0f5eedbc62c3a235ffd7048c5305d7a5d5edd",
+      "size_bytes": 4097
+    },
+    {
+      "path": "bundle/cerwyn_mixed_phase1.tar.xz.base64.part-06",
+      "sha256": "026a2cb5b9e21a4f5307a7c5dd14184312b65e4f952749f7f34b3c143034d5f3",
+      "size_bytes": 4097
+    },
+    {
+      "path": "bundle/cerwyn_mixed_phase1.tar.xz.base64.part-07",
+      "sha256": "f4223d1ff2528b4b2b2261d36bfe2a3a1ab9474a585c8d5de2aeac70c4bd403d",
+      "size_bytes": 4097
+    },
+    {
+      "path": "bundle/cerwyn_mixed_phase1.tar.xz.base64.part-08",
+      "sha256": "4ba711db925cf5ea6a1a36fc7c8954aa8244163f471b39996a203c016f310529",
+      "size_bytes": 929
+    }
+  ],
+  "schema_version": "1.0.0",
+  "source_zip_sha256": "88792f888ff37bcf29831b4f484f76bb27c84b0ec2686076f29fc18db714f770",
+  "verification_commands": [
+    "cat bundle/cerwyn_mixed_phase1.tar.xz.base64.part-* | base64 -d > /tmp/cerwyn_mixed_phase1.tar.xz",
+    "echo \"d780a64dbfbcde1ac8e82428b2a86fceea2922f0584c42ef64a8eddd309f3439  /tmp/cerwyn_mixed_phase1.tar.xz\" | sha256sum -c -",
+    "mkdir -p /tmp/cerwyn-phase1 && tar -xJf /tmp/cerwyn_mixed_phase1.tar.xz -C /tmp/cerwyn-phase1"
+  ]
+}
