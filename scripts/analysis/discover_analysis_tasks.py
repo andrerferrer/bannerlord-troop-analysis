@@ -175,6 +175,7 @@ def _validate_repository_paths(payload: dict[str, Any], primary_field: str) -> N
         elif isinstance(value, dict):
             for key, nested_value in value.items():
                 nested_field = f"{field}.{key}"
+                _require_repository_relative_path(key, f"{field}.<key>")
                 if isinstance(nested_value, (str, list, dict)):
                     validate_path_value(nested_value, nested_field)
         else:

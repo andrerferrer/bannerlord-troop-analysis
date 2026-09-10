@@ -204,6 +204,9 @@ class AnalysisTaskProtocolTests(unittest.TestCase):
             {"evidence_paths": [["../../outside.csv"]]},
             {"source_files": {"primary": "/tmp/secret"}},
             {"source_paths": [{"primary": "../outside.csv"}]},
+            {"source_files": {"../../outside.csv": 1}},
+            {"source_paths": {"/tmp/secret": {"sha256": "abc"}}},
+            {"artifacts": [{"../escape": 17}]},
         )
         for metadata in unsafe_metadata:
             with self.subTest(metadata=metadata):

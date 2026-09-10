@@ -222,3 +222,16 @@ mapping string. Regression inputs include nested lists, mappings, lists of
 mappings, leading/trailing whitespace, and control characters. Numeric metadata
 such as an archive-input file count remains valid because it cannot direct an
 executor to a filesystem location.
+
+## 2026-09-10 — exact-head review round 4
+
+Five read-only passes reviewed
+`4af7d9db0aea60e533bb0d48a3977b5149283228`. Four independently reproduced one
+remaining bypass: mappings under recognized path-bearing fields validated their
+values but not their keys. The fifth pass found no blocker, so the 4-of-5
+agreement met the review consensus threshold.
+
+The recursive validator now treats mapping keys within a path-bearing container
+as repository-relative paths as well. Regression inputs cover traversal keys,
+absolute keys, and unsafe keys nested inside lists while retaining support for
+safe metadata keys and numeric file-count metadata.
