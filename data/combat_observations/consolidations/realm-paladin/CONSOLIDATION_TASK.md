@@ -10,156 +10,116 @@ pull request: #95
 workflow: historical_consolidation
 ```
 
-This file is the executable handoff for PR #95. It is valid input for the
-analysis skill and dispatcher even though the branch contains no new screenshot,
-ZIP, `screenshots_manifest.csv`, normalized archive, or
-`handoff/ANALYSIS_PROMPT.md`.
-
 ## Objective
 
-Create one durable, auditable record of all Realm Paladin field evidence that
-can currently be proven from repository-addressable artifacts; preserve the
-operator's recollection of an additional completed test without converting it
-into numbers; and prevent an accidental retest while the missing history is
-unresolved.
+Create one auditable record of all compatible Realm Paladin field evidence in
+committed repository artifacts, preserve context and battle boundaries, and
+reconcile the authoritative Realm of Thrones test queue without inventing
+values from memory.
 
-## Authoritative inputs
+## Resolution
 
-Known empirical source:
+The repository audit recovered two compatible committed sources:
+
+1. merged PR #91: 11 field battles / 122 deployed / 330 kills;
+2. merged PR #92: 4 later field battles / 70 deployed / 159 kills.
+
+The normalized archives verify, and the 15 battle IDs and source-image hashes
+are disjoint. The combined field result is 15 battles / 192 deployed / 489
+kills. PR #91 clears the 5-battle / 20-deployed gate independently, so the field
+test is complete even without relying on the four-battle follow-up.
+
+Realm Paladin therefore moves from `verification_holds` to `closed` with status
+`completed_no_additional_test`. No future target is selected.
+
+## Authoritative sources
+
+PR #91:
 
 ```text
-path:
-data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/
-analysis/insufficient_evidence.csv
+path: data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/analysis/ranking_reliable.csv
+ref: main@3bde0f43bddec1e562937f8da66009c05af04042
+Git blob SHA: c7b603bc0f77fc4d98c643a8efe81c44101c1489
+archive SHA-256: 9cc8482caf6d37356b186c0a68dfa9e6f50303fb715f6ddfc3a49e2593b59c9d
+```
 
-source analysis:
-merged PR #92
+PR #92:
 
-pinned ref:
-main@9c92910d499d2663cd77385e516fd25bbc7a4669
-
-Git blob SHA:
-8a9e888e30a16b1f29f71025542d1a4c0854b713
-
-selector:
-canonical_troop_id=realm_paladin
-cohort=joffrey
-context=field
-participant_scope=player_party
+```text
+path: data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/analysis/insufficient_evidence.csv
+ref: main@9c92910d499d2663cd77385e516fd25bbc7a4669
+Git blob SHA: 8a9e888e30a16b1f29f71025542d1a4c0854b713
+archive SHA-256: 1ba4c3c28db029bda23f57a6c830c0d57107b9a6e89dd1b1258a70514f56222a
 ```
 
 Structural source:
 
 ```text
-path:
-analysis/candidates/realm_of_thrones_archer_like_mounted_melee_field.csv
-
-Git blob SHA:
-3e5d026861f4e40f4bd437b38b5f124261bf770f
+path: analysis/candidates/realm_of_thrones_archer_like_mounted_melee_field.csv
+Git blob SHA: 3e5d026861f4e40f4bd437b38b5f124261bf770f
 ```
 
-Queue source of truth:
+## Compatibility boundary
 
 ```text
-data/combat_observations/test_queues/realm_of_thrones.json
+track: realm_of_thrones
+game version: 1.4.x
+cohort: joffrey
+context: field
+participant scope: player_party
+parent group: Joffrey Baratheon's Party
+canonical troop: realm_paladin
+canonical role: melee_cavalry
 ```
 
-## Known numeric result
+Two siege-attack observations in PR #91 are excluded from the field result.
+Enemy-side observations, other cohorts, and other tracks are not pooled.
+
+## Consolidated metrics
 
 ```text
-battles: 4
-deployed: 70
-survivors: 13
-kills: 159
-deaths: 9
-wounded: 48
-victories / defeats: 1 / 3
-
-kills/deployed:
-159 / 70 = 2.271429
-
-kill share:
-159 / 2,682 = 0.059284
-
-deployment share:
-70 / 1,311 = 0.053394
-
-offensive contribution ratio:
-0.059284 / 0.053394 = 1.110307
-
-share-adjusted impact:
-(159 / 70) × (159 / 2,682) = 0.134660
-
-retention:
-13 / 70 = 0.185714
-
-casualty rate:
-(9 + 48) / 70 = 0.814286
+battles: 15
+deployed: 192
+survivors: 87
+kills: 489
+deaths: 17
+wounded: 88
+routed: 0
+victories / defeats: 11 / 4
+kills/deployed: 2.546875
+verified player-side total kills: 9,436
+player-side kill share: 0.051823
+share-adjusted impact: 0.131986
+verified player-side total deployed: 4,736
+player-side deployment share: 0.040541
+offensive contribution ratio: 1.278296
+offensive share gap: 0.011282
+retention: 0.453125
+death rate: 0.088542
+casualty rate: 0.546875
+reliability: reliable
 ```
 
-The known source clears deployment but has `5 - 4 = 1` missing independent
-battle for the formal display gate.
+## Completion checks
 
-## Required actions
+- [x] Read the repository workflow and consolidation protocol.
+- [x] Publish append-only `in_progress` state before material edits.
+- [x] Verify both pinned source blobs and merged pull requests.
+- [x] Reconstruct and hash both normalized archives.
+- [x] Verify archive-member safety and payload hashes.
+- [x] Copy both compatible aggregate rows to `evidence.csv`.
+- [x] Publish all 15 field observations in `battle_evidence.csv`.
+- [x] Verify disjoint battle IDs and image hashes.
+- [x] Recompute every combined metric and gate result.
+- [x] Keep siege attack separate from field.
+- [x] Reconcile with the newer merged Cerwyn queue transition.
+- [x] Move Realm Paladin from hold to closed without selecting a next target.
+- [ ] Validate the final pushed head, publish `complete`, mark ready, squash
+  merge, and verify the merge.
 
-1. Read `AGENTS.md`, `docs/protocols/consolidation-task-v1.md`,
-   `consolidation.json`, `validation_report.json`, `AUDIT_LOG.md`, and the
-   authoritative queue.
-2. Verify the pinned empirical and structural source identities.
-3. Confirm `evidence.csv` is an exact compatible copy of the selected source
-   row.
-4. Recompute every published metric and gate deficit.
-5. Search committed repository evidence and PR history for additional Realm
-   Paladin observations, preserving track, context, cohort, side, and battle
-   identity boundaries.
-6. Do not request a raw screenshot/ZIP merely to validate the already-committed
-   four-battle aggregate.
-7. Do not infer an additional battle from operator memory.
-8. Keep Realm Paladin absent from `active_test`, `ordered_queue`, and `parked`
-   while reconciliation remains open.
-9. Keep or resolve the verification hold based only on repository-addressable
-   evidence or newly ingested raw evidence.
-10. Update all consolidation artifacts, the queue, the PR body, and the newest
-    protocol state so they describe the same latest head.
-11. Run `tests.test_discover_analysis_tasks`, Python compilation, JSON parsing,
-    PR-scope comparison, workflow-run/thread checks, and latest-head review.
-12. Merge only when the final protocol state is `complete` and no declared
-    consolidation blocker remains.
-
-## Decision matrix
-
-### Additional compatible committed evidence found
-
-- deduplicate at battle level;
-- append only verified observations;
-- recompute totals and reliability;
-- update the queue and consolidation state;
-- publish a complete or blocked protocol transition according to validation.
-
-### Previously unpublished raw evidence found
-
-- do not paste remembered values into this consolidation;
-- process the raw evidence through the ordinary ingestion and Phase 1 workflow;
-- join it only after its hashes, battle identities, and compatibility pass.
-
-### No additional repository-addressable evidence found
-
-- preserve the four-battle aggregate as the complete known committed record;
-- record the negative repository audit;
-- keep the operator recollection as an unresolved historical lead;
-- keep `do_not_retest` unless the operator later authorizes the one-battle
-  fallback;
-- the consolidation itself may complete and merge once its audit, queue state,
-  validation, and protocol receipt are internally consistent.
-
-## Prohibited stopping condition
-
-Do not return:
+## Completion action
 
 ```text
-No analyzable input or pending Phase 2 task was found.
+action: merge
+merge method: squash
 ```
-
-A valid `bannerlord-consolidation-task:v1` comment plus this file is the
-analyzable input. `discover_analysis_tasks.py --json` must return this PR while
-its latest protocol status is `pending`, `in_progress`, or `blocked`.

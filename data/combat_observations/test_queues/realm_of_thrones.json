@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "track": "realm_of_thrones",
   "game_version": "1.4.x",
-  "updated_at": "2026-09-09",
+  "updated_at": "2026-09-10",
   "queue_status": "blocked_no_approved_next_target_pending_historical_audit",
   "authority": {
     "path": "data/combat_observations/test_queues/realm_of_thrones.json",
@@ -12,61 +12,6 @@
   "active_test": null,
   "ordered_queue": [],
   "verification_holds": [
-    {
-      "troop_id": "realm_paladin",
-      "display_name": "Realm Paladin",
-      "context": "field",
-      "status": "consolidation_pr_open_do_not_retest",
-      "reason": "The operator recalls that this troop was already tested. Known committed evidence is 4 field battles / 70 deployed / 159 kills, but no dedicated evidence PR has been recovered, so the troop remains held rather than returned to the test queue.",
-      "workflow_classification": "historical_consolidation_not_new_evidence_batch",
-      "phase_1_normalization_required": false,
-      "known_committed_evidence": {
-        "independent_battles": 4,
-        "deployed": 70,
-        "kills": 159,
-        "kills_per_deployed": 2.271429,
-        "player_side_kill_share": 0.059284,
-        "player_side_deployment_share": 0.053394,
-        "offensive_contribution_ratio": 1.110307,
-        "reliability_status": "insufficient_evidence"
-      },
-      "consolidation_branch": "data/consolidate-realm-paladin",
-      "consolidation_pull_request": {
-        "number": 95,
-        "url": "https://github.com/andrerferrer/bannerlord-troop-analysis/pull/95",
-        "state": "open_draft"
-      },
-      "consolidation_task": {
-        "protocol": "bannerlord-consolidation-task",
-        "version": 1,
-        "task_id": "realm-paladin-historical-consolidation",
-        "status": "pending",
-        "comment_id": 5585608355,
-        "task_path": "data/combat_observations/consolidations/realm-paladin/CONSOLIDATION_TASK.md",
-        "protocol_path": "docs/protocols/consolidation-task-v1.md",
-        "dispatcher_path": "scripts/analysis/discover_analysis_tasks.py",
-        "expected_task_kind": "historical_consolidation"
-      },
-      "consolidation_path": "data/combat_observations/consolidations/realm-paladin/consolidation.json",
-      "validation_path": "data/combat_observations/consolidations/realm-paladin/validation_report.json",
-      "audit_log_path": "data/combat_observations/consolidations/realm-paladin/AUDIT_LOG.md",
-      "evidence_references": [
-        "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/analysis/insufficient_evidence.csv",
-        "analysis/candidates/realm_of_thrones_archer_like_mounted_melee_field.csv",
-        "data/combat_observations/consolidations/realm-paladin/README.md",
-        "data/combat_observations/consolidations/realm-paladin/CONSOLIDATION_TASK.md",
-        "data/combat_observations/consolidations/realm-paladin/AUDIT_LOG.md",
-        "data/combat_observations/consolidations/realm-paladin/evidence.csv",
-        "data/combat_observations/consolidations/realm-paladin/validation_report.json",
-        "docs/protocols/consolidation-task-v1.md",
-        "scripts/analysis/discover_analysis_tasks.py",
-        "tests/test_discover_analysis_tasks.py",
-        "pull/71",
-        "pull/92",
-        "pull/95",
-        "pull/95#issuecomment-5585608355"
-      ]
-    },
     {
       "troop_id": "arryn_moonknight",
       "display_name": "Arryn Winged Knight",
@@ -135,13 +80,62 @@
           "offensive_contribution_ratio": 1.217254
         }
       ]
+    },
+    {
+      "troop_id": "realm_paladin",
+      "display_name": "Realm Paladin",
+      "context": "field",
+      "status": "completed_no_additional_test",
+      "completed_by": "data/combat_observations/consolidations/realm-paladin/README.md",
+      "decision": "Close dedicated field testing. Two compatible, battle-distinct committed sources provide 15 independent field battles / 192 deployed / 489 kills. The 11-battle source already clears the display gate independently, and the combined kill share remains above deployment share.",
+      "evidence": [
+        {
+          "pull_request": 91,
+          "independent_battles": 11,
+          "deployed": 122,
+          "kills": 330,
+          "kills_per_deployed": 2.704918,
+          "offensive_contribution_ratio": 1.371683,
+          "retention_rate": 0.606557
+        },
+        {
+          "pull_request": 92,
+          "independent_battles": 4,
+          "deployed": 70,
+          "kills": 159,
+          "kills_per_deployed": 2.271429,
+          "offensive_contribution_ratio": 1.110307,
+          "retention_rate": 0.185714
+        },
+        {
+          "combined_distinct_field_battles": 15,
+          "deployed": 192,
+          "kills": 489,
+          "kills_per_deployed": 2.546875,
+          "player_side_kill_share": 0.051823,
+          "player_side_deployment_share": 0.040541,
+          "offensive_contribution_ratio": 1.278296,
+          "share_adjusted_impact": 0.131986,
+          "retention_rate": 0.453125
+        }
+      ],
+      "evidence_references": [
+        "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/analysis/ranking_reliable.csv",
+        "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/analysis/insufficient_evidence.csv",
+        "data/combat_observations/consolidations/realm-paladin/evidence.csv",
+        "data/combat_observations/consolidations/realm-paladin/battle_evidence.csv",
+        "data/combat_observations/consolidations/realm-paladin/validation_report.json",
+        "pull/91",
+        "pull/92",
+        "pull/95"
+      ]
     }
   ],
   "last_transition": {
-    "date": "2026-09-09",
-    "batch": "data/combat_observations/2026-09-07-to-08-rot-cerwyn-mixed",
-    "from": "active_test: cerwyn_marauder / ordered_queue: []",
-    "to": "active_test: null / ordered_queue: [] / closed: cerwyn_marauder",
-    "reason": "Phase 2 completed the active evidence batch without identifying an approved future target. Verification holds and parked entries remain unchanged."
+    "date": "2026-09-10",
+    "batch": "data/combat_observations/consolidations/realm-paladin",
+    "from": "verification_holds: realm_paladin / ordered_queue: []",
+    "to": "closed: realm_paladin / ordered_queue: []",
+    "reason": "Historical consolidation recovered PR #91's compatible 11-battle reliable field aggregate and verified it is battle-distinct from PR #92's four-battle follow-up. No future target was selected."
   }
 }

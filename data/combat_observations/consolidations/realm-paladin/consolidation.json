@@ -1,179 +1,192 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "track": "realm_of_thrones",
   "game_version": "1.4.x",
   "troop_id": "realm_paladin",
   "display_name": "Realm Paladin",
   "context": "field",
-  "updated_at": "2026-09-08",
-  "status": "partial_known_evidence_only",
-  "decision": "hold_do_not_retest_until_historical_reconciliation",
-  "operator_recollection": "Realm Paladin has already been tested.",
-  "consolidation_branch": "data/consolidate-realm-paladin",
+  "updated_at": "2026-09-10",
+  "status": "complete_reliable_field_evidence_consolidated",
+  "decision": "completed_no_additional_test",
+  "operator_recollection": {
+    "statement": "Realm Paladin has already been tested.",
+    "resolution": "confirmed_by_recovered_committed_pr_91_evidence"
+  },
   "consolidation_pull_request": {
     "number": 95,
     "url": "https://github.com/andrerferrer/bannerlord-troop-analysis/pull/95",
-    "state": "open_draft"
+    "branch": "data/consolidate-realm-paladin",
+    "state_at_material_validation": "open_draft",
+    "expected_completion": "ready_then_squash_merge"
   },
   "task_protocol": {
     "protocol": "bannerlord-consolidation-task",
     "version": 1,
     "task_id": "realm-paladin-historical-consolidation",
-    "status": "pending",
-    "marker": "bannerlord-consolidation-task:v1",
-    "comment_id": 5585608355,
+    "latest_published_status_at_material_validation": "in_progress",
+    "in_progress_comment_id": 5613120648,
+    "required_final_status": "complete",
     "consolidation_path": "data/combat_observations/consolidations/realm-paladin/CONSOLIDATION_TASK.md",
     "protocol_path": "docs/protocols/consolidation-task-v1.md",
     "dispatcher_path": "scripts/analysis/discover_analysis_tasks.py",
     "test_path": "tests/test_discover_analysis_tasks.py",
-    "actionable_statuses": [
-      "pending",
-      "in_progress",
-      "blocked"
-    ],
-    "expected_dispatcher_task_kind": "historical_consolidation"
+    "completion": {
+      "action": "merge",
+      "merge_method": "squash"
+    }
   },
   "workflow_classification": {
     "type": "historical_consolidation",
     "new_evidence_batch": false,
     "phase_1_normalization_required": false,
-    "phase_1_validator_applicable": false,
-    "screenshots_manifest_required": false,
+    "screenshots_manifest_required_for_this_pull_request": false,
     "analysis_handoff_required": false,
     "analysis_task_protocol_required": false,
     "consolidation_task_protocol_required": true,
-    "source_analysis_pull_request": 92,
-    "source_analysis_already_merged": true,
-    "expected_absent_paths": [
-      "screenshots_manifest.csv",
-      "handoff/ANALYSIS_PROMPT.md"
-    ],
-    "audit_log_path": "data/combat_observations/consolidations/realm-paladin/AUDIT_LOG.md",
-    "rule": "Do not run the new-evidence Phase 1 validator against this consolidation-only directory. Use the consolidation task protocol and handoff. Previously unpublished raw evidence must pass the ordinary ingestion workflow before it is added."
+    "rule": "Only previously normalized and analyzed repository artifacts are reused. Newly recovered raw evidence must enter through the ordinary evidence workflow."
   },
-  "local_codex_audits": [
+  "committed_sources": [
     {
-      "observed_at": "2026-09-08",
-      "source": "operator-provided screenshot of local Codex run",
-      "attempted_workflow": "normalize-bannerlord-combat-batch",
-      "exit_code": 2,
-      "reported_missing_path": "screenshots_manifest.csv",
-      "raw_screenshots_or_archives_found": false,
-      "repository_mutations_made": false,
-      "protocol_comments_made": false,
-      "adjudication": "expected_non_applicable_validator_failure_not_a_pr_defect"
+      "source_batch": "2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts",
+      "source_pull_request": 91,
+      "source_merge_commit": "3bde0f43bddec1e562937f8da66009c05af04042",
+      "source_path": "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/analysis/ranking_reliable.csv",
+      "source_blob_sha": "c7b603bc0f77fc4d98c643a8efe81c44101c1489",
+      "source_size_bytes": 8212,
+      "normalized_archive_sha256": "9cc8482caf6d37356b186c0a68dfa9e6f50303fb715f6ddfc3a49e2593b59c9d",
+      "independent_battles": 11,
+      "deployed": 122,
+      "survivors": 74,
+      "kills": 330,
+      "deaths": 8,
+      "wounded": 40,
+      "routed": 0,
+      "victory_battles": 10,
+      "defeat_battles": 1,
+      "kills_per_deployed": 2.704918,
+      "verified_player_side_total_kills": 6754,
+      "player_side_kill_share": 0.04886,
+      "share_adjusted_impact": 0.132162,
+      "verified_player_side_total_deployed": 3425,
+      "player_side_deployment_share": 0.03562,
+      "offensive_contribution_ratio": 1.371683,
+      "offensive_share_gap": 0.013239,
+      "retention_rate": 0.606557,
+      "death_rate": 0.065574,
+      "casualty_rate": 0.393443,
+      "reliability_status": "reliable"
     },
     {
-      "observed_at": "2026-09-08",
-      "source": "operator-provided screenshot of local Codex run",
-      "attempted_workflow": "discover_analysis_tasks",
-      "command": "python3 scripts/analysis/discover_analysis_tasks.py --json",
-      "observed_actionable_count": 0,
-      "warnings": [],
-      "stop_message": "No analyzable input or pending Phase 2 task was found.",
-      "adjudication": "real_dispatcher_gap_fixed_by_consolidation_protocol"
+      "source_batch": "2026-09-05-to-06-rot-westerling-field-followup",
+      "source_pull_request": 92,
+      "source_ref": "9c92910d499d2663cd77385e516fd25bbc7a4669",
+      "source_path": "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/analysis/insufficient_evidence.csv",
+      "source_blob_sha": "8a9e888e30a16b1f29f71025542d1a4c0854b713",
+      "source_size_bytes": 18200,
+      "normalized_archive_sha256": "1ba4c3c28db029bda23f57a6c830c0d57107b9a6e89dd1b1258a70514f56222a",
+      "independent_battles": 4,
+      "deployed": 70,
+      "survivors": 13,
+      "kills": 159,
+      "deaths": 9,
+      "wounded": 48,
+      "routed": 0,
+      "victory_battles": 1,
+      "defeat_battles": 3,
+      "kills_per_deployed": 2.271429,
+      "verified_player_side_total_kills": 2682,
+      "player_side_kill_share": 0.059284,
+      "share_adjusted_impact": 0.13466,
+      "verified_player_side_total_deployed": 1311,
+      "player_side_deployment_share": 0.053394,
+      "offensive_contribution_ratio": 1.110307,
+      "offensive_share_gap": 0.00589,
+      "retention_rate": 0.185714,
+      "death_rate": 0.128571,
+      "casualty_rate": 0.814286,
+      "reliability_status": "insufficient_evidence"
     }
   ],
-  "known_committed_evidence": {
-    "source_batch": "2026-09-05-to-06-rot-westerling-field-followup",
-    "source_path": "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/analysis/insufficient_evidence.csv",
-    "source_ref": "main@9c92910d499d2663cd77385e516fd25bbc7a4669",
-    "source_blob_sha": "8a9e888e30a16b1f29f71025542d1a4c0854b713",
-    "source_size_bytes": 18200,
+  "compatibility": {
+    "track": "realm_of_thrones",
+    "game_version": "1.4.x",
     "cohort": "joffrey",
+    "context": "field",
     "participant_scope": "player_party",
     "parent_group": "Joffrey Baratheon's Party",
     "identity_status": "confirmed_id",
     "canonical_role": "melee_cavalry",
-    "independent_battles": 4,
-    "deployed": 70,
-    "survivors": 13,
-    "kills": 159,
-    "deaths": 9,
-    "wounded": 48,
+    "source_battle_ids_disjoint": true,
+    "source_image_hashes_disjoint": true,
+    "source_capture_sequence_non_overlapping": true,
+    "excluded_other_contexts": {
+      "siege_attack_battles": 2,
+      "reason": "Context boundary; never pooled into field."
+    }
+  },
+  "consolidated_field_evidence": {
+    "independent_battles": 15,
+    "deployed": 192,
+    "survivors": 87,
+    "kills": 489,
+    "deaths": 17,
+    "wounded": 88,
     "routed": 0,
-    "victory_battles": 1,
-    "defeat_battles": 3,
-    "kills_per_deployed": 2.271429,
-    "verified_player_side_total_kills": 2682,
-    "player_side_kill_share": 0.059284,
-    "share_adjusted_impact": 0.13466,
-    "verified_player_side_total_deployed": 1311,
-    "player_side_deployment_share": 0.053394,
-    "offensive_contribution_ratio": 1.110307,
-    "offensive_share_gap": 0.00589,
-    "retention_rate": 0.185714,
-    "death_rate": 0.128571,
-    "casualty_rate": 0.814286,
-    "reliability_status": "insufficient_evidence"
+    "victory_battles": 11,
+    "defeat_battles": 4,
+    "kills_per_deployed": 2.546875,
+    "verified_player_side_total_kills": 9436,
+    "player_side_kill_share": 0.051823,
+    "share_adjusted_impact": 0.131986,
+    "verified_player_side_total_deployed": 4736,
+    "player_side_deployment_share": 0.040541,
+    "offensive_contribution_ratio": 1.278296,
+    "offensive_share_gap": 0.011282,
+    "retention_rate": 0.453125,
+    "death_rate": 0.088542,
+    "casualty_rate": 0.546875,
+    "reliability_status": "reliable"
   },
   "display_gate": {
     "minimum_independent_battles": 5,
     "minimum_deployed": 20,
-    "known_battle_deficit": 1,
-    "known_deployment_deficit": 0,
-    "gate_met_by_known_committed_evidence": false
-  },
-  "structural_candidate": {
-    "source_path": "analysis/candidates/realm_of_thrones_archer_like_mounted_melee_field.csv",
-    "source_blob_sha": "3e5d026861f4e40f4bd437b38b5f124261bf770f",
-    "screen_band": "near_match_test_queue",
-    "melee_skill_floor": 230.0,
-    "mobility_floor": 230.0,
-    "armor_total_mean": 194.0,
-    "shield_hp_mean": 370.0,
-    "harness_armor_mean": 72.0,
-    "note": "Structural candidate status is not empirical proof and does not authorize a retest."
+    "battle_deficit": 0,
+    "deployment_deficit": 0,
+    "gate_met": true,
+    "gate_also_met_by_pr_91_alone": true
   },
   "history_audit": {
-    "dedicated_pull_request_found": false,
-    "pull_request_search_terms": [
-      "Realm Paladin",
-      "realm_paladin"
-    ],
-    "known_pull_request_reference": 71,
-    "known_pull_request_scope": "structural shortlist only",
-    "raw_dedicated_screenshots_recovered": false,
-    "audit_log_path": "data/combat_observations/consolidations/realm-paladin/AUDIT_LOG.md",
-    "limitations": [
-      "No dedicated Realm Paladin evidence pull request was found by pull-request search.",
-      "The operator remembers a completed test, but its full compatible evidence has not yet been mapped to committed artifacts.",
-      "The local Phase 1 validation attempt was non-applicable because this PR is a historical consolidation, not a raw evidence batch.",
-      "The original dispatcher did not recognize historical consolidation tasks; PR #95 adds a dedicated protocol and regression coverage.",
-      "No missing numeric values are inferred from memory."
-    ]
+    "status": "resolved_from_committed_repository_evidence",
+    "dedicated_title_match_found": false,
+    "compatible_mixed_batch_found": true,
+    "recovered_pull_request": 91,
+    "additional_followup_pull_request": 92,
+    "raw_unpublished_screenshots_required": false,
+    "remembered_values_inferred": false,
+    "history_search_path": "data/combat_observations/consolidations/realm-paladin/HISTORY_SEARCH.md"
   },
-  "validation": {
-    "report_path": "data/combat_observations/consolidations/realm-paladin/validation_report.json",
-    "source_row_exact_match": true,
-    "arithmetic_recomputed": true,
-    "workflow_classification_verified": true,
-    "consolidation_task_protocol_published": true,
-    "dispatcher_support_added": true,
-    "dispatcher_regression_tests_passed": true,
-    "queue_hold_present": true,
-    "pr_scope_inventory_verified": true
+  "queue_transition": {
+    "from": "verification_holds: realm_paladin",
+    "to": "closed: realm_paladin / completed_no_additional_test",
+    "active_test": null,
+    "ordered_queue": [],
+    "next_target_selected": false
   },
-  "open_evidence_questions": [
-    "Locate a missing dedicated Realm Paladin batch or establish that none exists.",
-    "Verify battle identities and context compatibility before combining any recovered observations.",
-    "Regenerate consolidated metrics and queue status after any verified evidence recovery."
+  "limitations": [
+    "The consolidated result is specific to Realm of Thrones 1.4.x, Joffrey player-party field observations.",
+    "Campaign observations are descriptive and not controlled experiments.",
+    "The two source blocks have materially different retention, so survival is not attributed causally to troop identity.",
+    "Two siege-attack observations remain separate and below the field question's scope.",
+    "No new cross-batch rank or frozen-model score is inferred."
   ],
-  "fallback_only_if_no_more_evidence_exists": {
-    "additional_independent_field_battles_needed": 1,
-    "additional_deployed_needed": 0,
-    "requires_new_operator_decision": true
-  },
   "evidence_files": [
     "data/combat_observations/consolidations/realm-paladin/README.md",
     "data/combat_observations/consolidations/realm-paladin/CONSOLIDATION_TASK.md",
     "data/combat_observations/consolidations/realm-paladin/AUDIT_LOG.md",
+    "data/combat_observations/consolidations/realm-paladin/HISTORY_SEARCH.md",
     "data/combat_observations/consolidations/realm-paladin/evidence.csv",
-    "data/combat_observations/consolidations/realm-paladin/consolidation.json",
+    "data/combat_observations/consolidations/realm-paladin/battle_evidence.csv",
     "data/combat_observations/consolidations/realm-paladin/validation_report.json",
-    "data/combat_observations/test_queues/realm_of_thrones.json",
-    "docs/protocols/consolidation-task-v1.md",
-    "scripts/analysis/discover_analysis_tasks.py",
-    "tests/test_discover_analysis_tasks.py"
+    "data/combat_observations/test_queues/realm_of_thrones.json"
   ]
 }

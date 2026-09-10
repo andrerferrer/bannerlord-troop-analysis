@@ -128,3 +128,32 @@ consolidated totals.
 
 The absence of that raw package does not make PR #95 undiscoverable and does not
 invalidate the four-battle committed aggregate.
+
+## 2026-09-10 — committed history recovered and consolidation resolved
+
+After the task became discoverable, a content search across committed analysis
+artifacts found the missing gate-clearing Realm Paladin result in merged PR #91.
+Its pull-request title describes the mixed White Harbor/Joffrey batch rather
+than Realm Paladin, which explains why the earlier title-oriented search missed
+it.
+
+The audit then:
+
+1. pinned PR #91's reliable field row by merge commit, path, Git blob SHA, and
+   byte size;
+2. reconstructed the PR #91 and PR #92 normalized archives and verified their
+   declared SHA-256 values;
+3. checked all archive members for absolute paths, traversal, and links;
+4. recovered 11 PR #91 and 4 PR #92 Realm Paladin field occurrences;
+5. verified 15 unique battle IDs and 15 unique source-image hashes;
+6. confirmed the last PR #91 source capture precedes the first PR #92 capture;
+7. kept two PR #91 siege-attack observations outside the field aggregate;
+8. recomputed the combined 15-battle / 192-deployed / 489-kill result;
+9. merged the newer main queue state from PR #96, preserving Cerwyn Marauder as
+   closed and leaving the ordered queue empty; and
+10. moved Realm Paladin from historical hold to
+    `completed_no_additional_test`.
+
+The operator recollection is now resolved by repository-addressable evidence.
+No remembered numeric value was used, and no additional field test is
+recommended.
