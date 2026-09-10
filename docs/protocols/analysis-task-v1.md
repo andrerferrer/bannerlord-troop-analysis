@@ -20,6 +20,10 @@ Task state lives in append-only pull-request comments.
 - Payload: one fenced JSON object immediately after the marker.
 - Identity: `task_id`.
 - Authority: the newest valid v1 comment for the same `task_id` wins.
+- Author trust: only comments whose GitHub `author_association` is `OWNER`,
+  `MEMBER`, or `COLLABORATOR` are authoritative.
+- Ordering: compare `(created_at, comment_id)` so the higher numeric comment ID
+  wins when two append-only transitions share GitHub's one-second timestamp.
 - Open PRs without a valid task comment are ignored by the analysis dispatcher.
 - PR titles, labels, descriptions, issues, and chat history are not authoritative task state.
 - Protocol comments must not be edited after publication. Publish a new full-state comment instead.
@@ -66,6 +70,14 @@ Required fields:
 
 Additional hashes, paths, acceptance criteria, and metadata may be included without changing protocol version 1.
 
+Every comment-supplied path that the executor may read must be normalized
+repository-relative POSIX syntax. Absolute paths, `.` or `..` components,
+backslashes, drive-qualified paths, and other repository escapes are invalid.
+This applies to singular and plural path, file, artifact, part, and directory
+fields, including strings nested in collections.
+After checkout, the executor must also confirm that required paths resolve to
+committed files under the repository root.
+
 ## States
 
 - `pending`: Phase 1 is complete enough for the local agent to start.
@@ -101,6 +113,12 @@ python scripts/analysis/discover_analysis_tasks.py --json
 ```
 
 The dispatcher scans every open PR and returns tasks whose latest state is `pending`, `in_progress`, or `blocked`.
+Marked comments from untrusted author associations are invalid and produce a
+warning rather than a task. Equal-second comments are ordered by numeric comment
+ID, independently of API page or response order.
+Edited comments are invalid. For each protocol/task identity, the dispatcher
+orders the unedited comments, requires `pending` as the initial state, and
+ignores with a warning any successor outside the allowed transition graph.
 
 The local analysis agent must, for each returned task:
 

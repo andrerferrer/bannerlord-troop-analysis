@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "track": "realm_of_thrones",
   "game_version": "1.4.x",
-  "updated_at": "2026-09-09",
+  "updated_at": "2026-09-10",
   "queue_status": "blocked_no_approved_next_target_pending_historical_audit",
   "authority": {
     "path": "data/combat_observations/test_queues/realm_of_thrones.json",
@@ -12,13 +12,6 @@
   "active_test": null,
   "ordered_queue": [],
   "verification_holds": [
-    {
-      "troop_id": "realm_paladin",
-      "display_name": "Realm Paladin",
-      "context": "field",
-      "status": "do_not_recommend_until_audited",
-      "reason": "The operator recalls that this troop was already tested. Historical evidence exists, but the repository previously had no single queue ledger reconciling completed and queued targets."
-    },
     {
       "troop_id": "arryn_moonknight",
       "display_name": "Arryn Winged Knight",
@@ -46,6 +39,7 @@
   "update_contract": {
     "phase_1": "May set or confirm active_test, but must not choose or reorder future targets from preliminary extraction.",
     "phase_2": "Must update active_test, ordered_queue, verification_holds, and parked or closed entries in the same pull request whenever the completed analysis changes what should be tested next.",
+    "historical_consolidation": "A verification-hold consolidation must publish a bannerlord-consolidation-task:v1 comment and task path so the shared dispatcher can discover it without raw screenshots or a Phase 2 handoff.",
     "operator_decision": "An explicit operator decision takes precedence and must be recorded in this file immediately.",
     "no_fallback": "Never reconstruct the queue from chat memory, a pull-request title or body, or one batch-local NEXT_TEST_RECOMMENDATION.md while this file exists.",
     "empty_queue": "An empty ordered_queue means no future target is approved yet; it does not authorize inventing a candidate."
@@ -86,13 +80,62 @@
           "offensive_contribution_ratio": 1.217254
         }
       ]
+    },
+    {
+      "troop_id": "realm_paladin",
+      "display_name": "Realm Paladin",
+      "context": "field",
+      "status": "completed_no_additional_test",
+      "completed_by": "data/combat_observations/consolidations/realm-paladin/README.md",
+      "decision": "Close dedicated field testing. Two compatible, battle-distinct committed sources provide 15 independent field battles / 192 deployed / 489 kills. The 11-battle source already clears the display gate independently, and the combined kill share remains above deployment share.",
+      "evidence": [
+        {
+          "pull_request": 91,
+          "independent_battles": 11,
+          "deployed": 122,
+          "kills": 330,
+          "kills_per_deployed": 2.704918,
+          "offensive_contribution_ratio": 1.371683,
+          "retention_rate": 0.606557
+        },
+        {
+          "pull_request": 92,
+          "independent_battles": 4,
+          "deployed": 70,
+          "kills": 159,
+          "kills_per_deployed": 2.271429,
+          "offensive_contribution_ratio": 1.110307,
+          "retention_rate": 0.185714
+        },
+        {
+          "combined_distinct_field_battles": 15,
+          "deployed": 192,
+          "kills": 489,
+          "kills_per_deployed": 2.546875,
+          "player_side_kill_share": 0.051823,
+          "player_side_deployment_share": 0.040541,
+          "offensive_contribution_ratio": 1.278296,
+          "share_adjusted_impact": 0.131986,
+          "retention_rate": 0.453125
+        }
+      ],
+      "evidence_references": [
+        "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/analysis/ranking_reliable.csv",
+        "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/analysis/insufficient_evidence.csv",
+        "data/combat_observations/consolidations/realm-paladin/evidence.csv",
+        "data/combat_observations/consolidations/realm-paladin/battle_evidence.csv",
+        "data/combat_observations/consolidations/realm-paladin/validation_report.json",
+        "pull/91",
+        "pull/92",
+        "pull/95"
+      ]
     }
   ],
   "last_transition": {
-    "date": "2026-09-09",
-    "batch": "data/combat_observations/2026-09-07-to-08-rot-cerwyn-mixed",
-    "from": "active_test: cerwyn_marauder / ordered_queue: []",
-    "to": "active_test: null / ordered_queue: [] / closed: cerwyn_marauder",
-    "reason": "Phase 2 completed the active evidence batch without identifying an approved future target. Verification holds and parked entries remain unchanged."
+    "date": "2026-09-10",
+    "batch": "data/combat_observations/consolidations/realm-paladin",
+    "from": "verification_holds: realm_paladin / ordered_queue: []",
+    "to": "closed: realm_paladin / ordered_queue: []",
+    "reason": "Historical consolidation recovered PR #91's compatible 11-battle reliable field aggregate and verified it is battle-distinct from PR #92's four-battle follow-up. No future target was selected."
   }
 }

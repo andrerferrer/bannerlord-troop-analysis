@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-09-10",
+  "track": "realm_of_thrones",
+  "game_version": "1.4.x",
+  "troop_id": "realm_paladin",
+  "aggregate_sources": [
+    {
+      "pull_request": 91,
+      "ref": "3bde0f43bddec1e562937f8da66009c05af04042",
+      "path": "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/analysis/ranking_reliable.csv",
+      "git_blob_sha": "c7b603bc0f77fc4d98c643a8efe81c44101c1489"
+    },
+    {
+      "pull_request": 92,
+      "ref": "9c92910d499d2663cd77385e516fd25bbc7a4669",
+      "path": "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/analysis/insufficient_evidence.csv",
+      "git_blob_sha": "8a9e888e30a16b1f29f71025542d1a4c0854b713"
+    }
+  ],
+  "structural_source": {
+    "pull_request": 71,
+    "ref": "bb71cfce293c2c7dc94497b9fe195e24d2e2b2d0",
+    "path": "analysis/candidates/realm_of_thrones_archer_like_mounted_melee_field.csv",
+    "git_blob_sha": "3e5d026861f4e40f4bd437b38b5f124261bf770f"
+  },
+  "normalized_archives": [
+    {
+      "pull_request": 91,
+      "ref": "3bde0f43bddec1e562937f8da66009c05af04042",
+      "bundle_path": "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/bundle",
+      "bundle_tree_sha": "48992fc18dfd3a59b5510541a141f2b1d28a616f",
+      "readme": {
+        "path": "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/bundle/README.md",
+        "git_blob_sha": "8763256f11d9b5ca4a6a824a9ec7b7a13d265b3e"
+      },
+      "checksum": {
+        "path": "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/bundle/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts-normalized-phase1.tar.xz.sha256",
+        "git_blob_sha": "e38d64a9d74880a04ee017a7e1c9697a9346c6cc"
+      },
+      "base64_parts": [
+        {"path": "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/bundle/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts-normalized-phase1.tar.xz.base64.part-00", "git_blob_sha": "76e964aff9c1e6a2b59aee27840a2dc875490e4d"},
+        {"path": "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/bundle/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts-normalized-phase1.tar.xz.base64.part-01", "git_blob_sha": "d1b7cea10d7e1c6a8ee12f9ebad4ab7d80252573"},
+        {"path": "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/bundle/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts-normalized-phase1.tar.xz.base64.part-02", "git_blob_sha": "8b5b53d6494e11b84036f2e8f8b67593843e0c40"},
+        {"path": "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/bundle/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts-normalized-phase1.tar.xz.base64.part-03", "git_blob_sha": "c2995efd6e5f50f43e82437bbb464e6ccb16276f"},
+        {"path": "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/bundle/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts-normalized-phase1.tar.xz.base64.part-04", "git_blob_sha": "63d5c1d4fc0515ecaaa74e8d5d515355e9ae4ea1"},
+        {"path": "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/bundle/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts-normalized-phase1.tar.xz.base64.part-05", "git_blob_sha": "f0acef3e8d9cc20b26b292468bc0c48e71dfc757"},
+        {"path": "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/bundle/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts-normalized-phase1.tar.xz.base64.part-06", "git_blob_sha": "ff60f2021f41a98b863204bd38baf9df9c302b28"},
+        {"path": "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/bundle/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts-normalized-phase1.tar.xz.base64.part-07", "git_blob_sha": "ba515edd45d8f734d38fb67070ef4d5db49e2cff"},
+        {"path": "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/bundle/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts-normalized-phase1.tar.xz.base64.part-08", "git_blob_sha": "7abdbfe67fe2caf67993eb0cd8c6aaf9d33f449c"},
+        {"path": "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/bundle/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts-normalized-phase1.tar.xz.base64.part-09", "git_blob_sha": "7d77f9396b092d23140ec763a68d4c68d18116d4"},
+        {"path": "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/bundle/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts-normalized-phase1.tar.xz.base64.part-10", "git_blob_sha": "c37d8ea41140ff862e24e5edf4082794ecea5616"},
+        {"path": "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/bundle/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts-normalized-phase1.tar.xz.base64.part-11", "git_blob_sha": "d1ba953c265f5565505ce5f429d5c9f568802a6c"},
+        {"path": "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/bundle/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts-normalized-phase1.tar.xz.base64.part-12", "git_blob_sha": "438d2467d102c42ebd011ad169375bc43712349f"},
+        {"path": "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/bundle/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts-normalized-phase1.tar.xz.base64.part-13", "git_blob_sha": "ee946ad4bea830dc7d2a48a8f031f26816696447"}
+      ],
+      "reconstruction_command": "cat data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/bundle/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts-normalized-phase1.tar.xz.base64.part-* | base64 --decode > /tmp/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts-normalized-phase1.tar.xz",
+      "expected_archive_sha256": "9cc8482caf6d37356b186c0a68dfa9e6f50303fb715f6ddfc3a49e2593b59c9d",
+      "verified_archive_sha256": "9cc8482caf6d37356b186c0a68dfa9e6f50303fb715f6ddfc3a49e2593b59c9d"
+    },
+    {
+      "pull_request": 92,
+      "ref": "9c92910d499d2663cd77385e516fd25bbc7a4669",
+      "bundle_path": "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/bundle",
+      "bundle_tree_sha": "94992e7cc381cd0e1c5870ed93fbd2bd9edf9360",
+      "readme": {
+        "path": "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/bundle/README.md",
+        "git_blob_sha": "b0ca134b59f89bb380d14a4d8f4304a5df678579"
+      },
+      "checksum": {
+        "path": "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/bundle/2026-09-05-to-06-rot-westerling-field-followup-normalized-phase1.tar.xz.sha256",
+        "git_blob_sha": "eae4be36b47c8dd6d32d08c0e478589e1fb5f94d"
+      },
+      "base64_parts": [
+        {"path": "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/bundle/2026-09-05-to-06-rot-westerling-field-followup-normalized-phase1.tar.xz.base64.part-00", "git_blob_sha": "c84948038d33dda8bbf97f6f0cff607af3f39840"}
+      ],
+      "reconstruction_command": "cat data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/bundle/2026-09-05-to-06-rot-westerling-field-followup-normalized-phase1.tar.xz.base64.part-* | base64 --decode > /tmp/2026-09-05-to-06-rot-westerling-field-followup-normalized-phase1.tar.xz",
+      "expected_archive_sha256": "1ba4c3c28db029bda23f57a6c830c0d57107b9a6e89dd1b1258a70514f56222a",
+      "verified_archive_sha256": "1ba4c3c28db029bda23f57a6c830c0d57107b9a6e89dd1b1258a70514f56222a"
+    }
+  ]
+}
