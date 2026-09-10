@@ -1,35 +1,44 @@
 {
-  "batch_path": "data/combat_observations/2026-09-07-to-08-rot-cerwyn-mixed",
-  "blockers": [
-    "repository-wide historical dedup retry pending",
-    "normalized extraction not yet complete"
-  ],
-  "branch": "data/2026-09-07-to-08-rot-cerwyn-mixed",
-  "completion": {
-    "action": "merge",
-    "merge_method": "squash"
-  },
-  "handoff_path": "data/combat_observations/2026-09-07-to-08-rot-cerwyn-mixed/handoff/ANALYSIS_PROMPT.md",
   "protocol": "bannerlord-analysis-task",
-  "queue_path": "data/combat_observations/test_queues/realm_of_thrones.json",
-  "required_actions": [
-    "finish_phase_1_extraction",
-    "publish_immutable_normalized_bundle",
-    "verify_phase_1_hashes",
-    "run_distinct_phase_2",
-    "reconcile_queue",
+  "version": 1,
+  "task_id": "2026-09-07-to-08-rot-cerwyn-mixed",
+  "status": "ready_to_merge",
+  "branch": "data/2026-09-07-to-08-rot-cerwyn-mixed",
+  "pull_request": 96,
+  "batch_path": "data/combat_observations/2026-09-07-to-08-rot-cerwyn-mixed",
+  "phase_1": {
+    "status": "complete",
+    "archive_sha256": "d780a64dbfbcde1ac8e82428b2a86fceea2922f0584c42ef64a8eddd309f3439"
+  },
+  "phase_2": {
+    "status": "complete",
+    "validation": "passed",
+    "aggregate_rows": 89,
+    "reliable_rows": 17,
+    "insufficient_rows": 72,
+    "focus_decision": "close cerwyn_marauder / field"
+  },
+  "queue": {
+    "status": "reconciled",
+    "active_test": null,
+    "ordered_queue": [],
+    "verification_holds": [
+      "realm_paladin",
+      "arryn_moonknight"
+    ],
+    "closed": [
+      "cerwyn_marauder"
+    ]
+  },
+  "remaining_actions": [
     "validate_latest_head",
+    "inspect_ci_and_reviews",
     "mark_ready",
     "squash_merge",
     "verify_merge"
   ],
-  "source": {
-    "host_upload_id": "file_0000000035d4820e857390218237b8d8",
-    "name": "Mount and Blade II Bannerlord - Singleplayer PID_ 26396 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 08_09_2026 17_19_17.zip",
-    "sha256": "88792f888ff37bcf29831b4f484f76bb27c84b0ec2686076f29fc18db714f770"
-  },
-  "state_path": "data/combat_observations/2026-09-07-to-08-rot-cerwyn-mixed/batch_state.json",
-  "status": "pending",
-  "task_id": "2026-09-07-to-08-rot-cerwyn-mixed",
-  "version": 1
+  "completion": {
+    "action": "merge",
+    "merge_method": "squash"
+  }
 }
