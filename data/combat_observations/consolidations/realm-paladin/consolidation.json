@@ -45,6 +45,15 @@
     "consolidation_task_protocol_required": true,
     "rule": "Only previously normalized and analyzed repository artifacts are reused. Newly recovered raw evidence must enter through the ordinary evidence workflow."
   },
+  "source_manifest": {
+    "path": "data/combat_observations/consolidations/realm-paladin/source_manifest.json",
+    "git_blob_sha": "7b365367e085bc9f3585dbeeb0410cff2c1dc0ce",
+    "aggregate_sources": 2,
+    "structural_sources": 1,
+    "archive_bundle_trees": 2,
+    "archive_input_files": 19,
+    "all_ref_path_objects_verified": true
+  },
   "committed_sources": [
     {
       "source_batch": "2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts",
@@ -107,6 +116,15 @@
       "reliability_status": "insufficient_evidence"
     }
   ],
+  "structural_source": {
+    "source_pull_request": 71,
+    "source_ref": "bb71cfce293c2c7dc94497b9fe195e24d2e2b2d0",
+    "source_path": "analysis/candidates/realm_of_thrones_archer_like_mounted_melee_field.csv",
+    "source_blob_sha": "3e5d026861f4e40f4bd437b38b5f124261bf770f",
+    "source_size_bytes": 773,
+    "ref_path_blob_matches": true,
+    "use": "structural candidate metadata only; not pooled with empirical results"
+  },
   "compatibility": {
     "track": "realm_of_thrones",
     "game_version": "1.4.x",
@@ -186,6 +204,7 @@
     "data/combat_observations/consolidations/realm-paladin/HISTORY_SEARCH.md",
     "data/combat_observations/consolidations/realm-paladin/evidence.csv",
     "data/combat_observations/consolidations/realm-paladin/battle_evidence.csv",
+    "data/combat_observations/consolidations/realm-paladin/source_manifest.json",
     "data/combat_observations/consolidations/realm-paladin/validation_report.json",
     "data/combat_observations/test_queues/realm_of_thrones.json"
   ]

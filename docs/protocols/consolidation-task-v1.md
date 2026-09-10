@@ -25,6 +25,10 @@ Task state lives in append-only pull-request comments.
 - Payload: one fenced JSON object immediately after the marker.
 - Identity: the pair `protocol` + `task_id`.
 - Authority: the newest valid v1 comment for that identity wins.
+- Author trust: only comments whose GitHub `author_association` is `OWNER`,
+  `MEMBER`, or `COLLABORATOR` are authoritative.
+- Ordering: compare `(created_at, comment_id)` so the higher numeric comment ID
+  wins when two append-only transitions share GitHub's one-second timestamp.
 - PR descriptions, labels, review text, chat history, and branch names are not
   substitutes for the protocol comment.
 - Protocol comments must not be edited. Publish a new full-state comment for
@@ -75,6 +79,12 @@ Required fields:
 Additional source identities, queue paths, acceptance criteria, and audit
 metadata may be included.
 
+Every comment-supplied path that the executor may read must be normalized
+repository-relative POSIX syntax. Absolute paths, `.` or `..` components,
+backslashes, drive-qualified paths, and other repository escapes are invalid.
+After checkout, the executor must also confirm that required paths resolve to
+committed files under the repository root.
+
 ## States
 
 - `pending`: the consolidation is ready for repository audit.
@@ -108,6 +118,10 @@ bannerlord-consolidation-task:v1
 The JSON result exposes `task_protocol` and `task_kind`. A blocked consolidation
 remains actionable so the next agent can check whether its blocker has become
 resolvable.
+
+Marked comments from untrusted author associations are invalid and produce a
+warning rather than a task. Equal-second comments are ordered by numeric comment
+ID, independently of API page or response order.
 
 A zero count for analysis tasks is not a zero count for all repository work.
 The dispatcher must consider both supported protocols before reporting an empty

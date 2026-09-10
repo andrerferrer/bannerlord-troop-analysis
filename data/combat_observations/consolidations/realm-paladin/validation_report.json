@@ -18,8 +18,10 @@
       "data/combat_observations/consolidations/realm-paladin/battle_evidence.csv",
       "data/combat_observations/consolidations/realm-paladin/consolidation.json",
       "data/combat_observations/consolidations/realm-paladin/evidence.csv",
+      "data/combat_observations/consolidations/realm-paladin/source_manifest.json",
       "data/combat_observations/consolidations/realm-paladin/validation_report.json",
       "data/combat_observations/test_queues/realm_of_thrones.json",
+      "docs/protocols/analysis-task-v1.md",
       "docs/protocols/consolidation-task-v1.md",
       "scripts/analysis/discover_analysis_tasks.py",
       "tests/test_discover_analysis_tasks.py"
@@ -59,7 +61,8 @@
         "git_blob_sha": "c7b603bc0f77fc4d98c643a8efe81c44101c1489",
         "size_bytes": 8212,
         "selected_rows": 1,
-        "row_exactly_copied_to_evidence_csv": true
+        "all_source_columns_match": true,
+        "evidence_csv_adds_only_provenance_and_compatibility_columns": true
       },
       {
         "pull_request": 92,
@@ -68,9 +71,19 @@
         "git_blob_sha": "8a9e888e30a16b1f29f71025542d1a4c0854b713",
         "size_bytes": 18200,
         "selected_rows": 1,
-        "row_exactly_copied_to_evidence_csv": true
+        "all_source_columns_match": true,
+        "evidence_csv_adds_only_provenance_and_compatibility_columns": true
       }
     ],
+    "structural_source": {
+      "pull_request": 71,
+      "ref": "bb71cfce293c2c7dc94497b9fe195e24d2e2b2d0",
+      "path": "analysis/candidates/realm_of_thrones_archer_like_mounted_melee_field.csv",
+      "expected_git_blob_sha": "3e5d026861f4e40f4bd437b38b5f124261bf770f",
+      "verified_git_blob_sha": "3e5d026861f4e40f4bd437b38b5f124261bf770f",
+      "size_bytes": 773,
+      "ref_path_blob_matches": true
+    },
     "selector": {
       "canonical_troop_id": "realm_paladin",
       "cohort": "joffrey",
@@ -82,17 +95,40 @@
     "passed": true
   },
   "archive_verification": {
+    "source_manifest": {
+      "path": "data/combat_observations/consolidations/realm-paladin/source_manifest.json",
+      "git_blob_sha": "7b365367e085bc9f3585dbeeb0410cff2c1dc0ce",
+      "aggregate_sources": 2,
+      "structural_sources": 1,
+      "archive_bundle_trees": 2,
+      "archive_input_files": 19,
+      "all_ref_path_objects_verified": true
+    },
     "sources": [
       {
         "pull_request": 91,
-        "archive_sha256": "9cc8482caf6d37356b186c0a68dfa9e6f50303fb715f6ddfc3a49e2593b59c9d",
+        "ref": "3bde0f43bddec1e562937f8da66009c05af04042",
+        "bundle_path": "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/bundle",
+        "bundle_tree_sha": "48992fc18dfd3a59b5510541a141f2b1d28a616f",
+        "input_files_verified": 16,
+        "all_input_git_objects_match": true,
+        "expected_archive_sha256": "9cc8482caf6d37356b186c0a68dfa9e6f50303fb715f6ddfc3a49e2593b59c9d",
+        "verified_archive_sha256": "9cc8482caf6d37356b186c0a68dfa9e6f50303fb715f6ddfc3a49e2593b59c9d",
+        "archive_hash_matches": true,
         "members": 18,
         "payload_members_verified": 17,
         "unsafe_members": 0
       },
       {
         "pull_request": 92,
-        "archive_sha256": "1ba4c3c28db029bda23f57a6c830c0d57107b9a6e89dd1b1258a70514f56222a",
+        "ref": "9c92910d499d2663cd77385e516fd25bbc7a4669",
+        "bundle_path": "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/bundle",
+        "bundle_tree_sha": "94992e7cc381cd0e1c5870ed93fbd2bd9edf9360",
+        "input_files_verified": 3,
+        "all_input_git_objects_match": true,
+        "expected_archive_sha256": "1ba4c3c28db029bda23f57a6c830c0d57107b9a6e89dd1b1258a70514f56222a",
+        "verified_archive_sha256": "1ba4c3c28db029bda23f57a6c830c0d57107b9a6e89dd1b1258a70514f56222a",
+        "archive_hash_matches": true,
         "members": 18,
         "payload_members_verified": 17,
         "unsafe_members": 0
@@ -212,8 +248,8 @@
   },
   "dispatcher_validation": {
     "unit_test_command": "python3 -m unittest -v tests.test_discover_analysis_tasks",
-    "tests_run": 11,
-    "tests_passed": 11,
+    "tests_run": 18,
+    "tests_passed": 18,
     "tests_failed": 0,
     "python_compile": "passed",
     "live_discovery_expected_before_complete_comment": {
@@ -228,8 +264,8 @@
   "repository_validation": {
     "command": "python3 -m unittest discover",
     "environment": "temporary virtual environment with declared pandas runtime dependency",
-    "tests_run": 387,
-    "tests_passed": 387,
+    "tests_run": 394,
+    "tests_passed": 394,
     "tests_failed": 0,
     "git_diff_check": "passed",
     "json_parse": "passed",
@@ -239,6 +275,10 @@
     "passed": true
   },
   "pull_request_checks": {
+    "post_push_review_round_1_head": "ef05cb6e5d5a86848b5f1cfa6c13b82d6ebf0bb2",
+    "round_1_blocking_findings": 4,
+    "non_unanimous_critical_recheck_converged": true,
+    "round_1_corrections_applied": true,
     "latest_head_review_required": true,
     "pr_body_refresh_required": true,
     "final_protocol_status_required": "complete",

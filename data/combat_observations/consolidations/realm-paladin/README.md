@@ -66,6 +66,7 @@ ref: main@3bde0f43bddec1e562937f8da66009c05af04042
 Git blob SHA: c7b603bc0f77fc4d98c643a8efe81c44101c1489
 size: 8,212 bytes
 normalized archive SHA-256: 9cc8482caf6d37356b186c0a68dfa9e6f50303fb715f6ddfc3a49e2593b59c9d
+bundle tree SHA: 48992fc18dfd3a59b5510541a141f2b1d28a616f
 ```
 
 PR #92 field row:
@@ -76,7 +77,15 @@ ref: main@9c92910d499d2663cd77385e516fd25bbc7a4669
 Git blob SHA: 8a9e888e30a16b1f29f71025542d1a4c0854b713
 size: 18,200 bytes
 normalized archive SHA-256: 1ba4c3c28db029bda23f57a6c830c0d57107b9a6e89dd1b1258a70514f56222a
+bundle tree SHA: 94992e7cc381cd0e1c5870ed93fbd2bd9edf9360
 ```
+
+The ordered Base64 parts, checksum sidecars, reconstruction READMEs, repository
+refs, and Git object identities for both bundles are pinned in
+`source_manifest.json`. The structural candidate is pinned there at
+`main@bb71cfce293c2c7dc94497b9fe195e24d2e2b2d0` with blob
+`3e5d026861f4e40f4bd437b38b5f124261bf770f` and remains separate from the
+empirical result.
 
 ## Consolidated field result
 
@@ -130,6 +139,8 @@ consolidation does not invent a new cross-batch rank or alter a frozen model.
 - `evidence.csv` — the two pinned compatible source aggregates.
 - `battle_evidence.csv` — the 15 field occurrences, battle IDs, image hashes,
   and verified player-side denominators.
+- `source_manifest.json` — immutable path/ref/Git-object inventory and archive
+  reconstruction commands.
 - `consolidation.json` — machine-readable combined result and decision.
 - `validation_report.json` — source, archive, identity, arithmetic, queue, and
   dispatcher checks.

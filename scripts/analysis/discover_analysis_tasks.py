@@ -14,6 +14,7 @@ import re
 import subprocess
 import sys
 from dataclasses import dataclass
+from pathlib import PurePosixPath
 from typing import Any, Iterable
 
 ANALYSIS_PROTOCOL = "bannerlord-analysis-task"
@@ -35,6 +36,7 @@ JSON_FENCE_RE = re.compile(
 )
 ALLOWED_STATUSES = {"pending", "in_progress", "blocked", "complete", "cancelled"}
 ACTIONABLE_STATUSES = {"pending", "in_progress", "blocked"}
+TRUSTED_AUTHOR_ASSOCIATIONS = frozenset({"OWNER", "MEMBER", "COLLABORATOR"})
 
 
 class DiscoveryError(RuntimeError):
@@ -46,7 +48,7 @@ class ParsedTask:
     payload: dict[str, Any]
     created_at: str
     comment_url: str
-    comment_id: int | None
+    comment_id: int
 
 
 def run_gh_json(arguments: list[str]) -> Any:
@@ -109,6 +111,41 @@ def _require_non_empty_strings(payload: dict[str, Any], fields: list[str]) -> No
             raise ValueError(f"{field} must be a non-empty string")
 
 
+def _require_repository_relative_path(value: Any, field: str) -> None:
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"{field} must be a non-empty repository-relative path")
+
+    path = PurePosixPath(value)
+    has_windows_drive = len(value) >= 2 and value[0].isalpha() and value[1] == ":"
+    has_unsafe_component = any(part in {"", ".", ".."} for part in value.split("/"))
+    if (
+        path.is_absolute()
+        or value.startswith("~")
+        or has_windows_drive
+        or "\\" in value
+        or has_unsafe_component
+        or path.as_posix() != value
+    ):
+        raise ValueError(f"{field} must be a normalized repository-relative path")
+
+
+def _validate_repository_paths(payload: dict[str, Any], primary_field: str) -> None:
+    _require_repository_relative_path(payload.get(primary_field), primary_field)
+
+    def visit(value: Any, field: str) -> None:
+        if isinstance(value, dict):
+            for key, nested_value in value.items():
+                nested_field = f"{field}.{key}" if field else key
+                if key == "path" or key.endswith("_path"):
+                    _require_repository_relative_path(nested_value, nested_field)
+                visit(nested_value, nested_field)
+        elif isinstance(value, list):
+            for index, nested_value in enumerate(value):
+                visit(nested_value, f"{field}[{index}]")
+
+    visit(payload, "")
+
+
 def validate_payload(
     payload: Any,
     marker_version: int,
@@ -139,11 +176,13 @@ def validate_payload(
             payload,
             ["handoff_path", "normalization_commit"],
         )
+        _validate_repository_paths(payload, "handoff_path")
     else:
         _require_non_empty_strings(
             payload,
             ["workflow", "consolidation_path"],
         )
+        _validate_repository_paths(payload, "consolidation_path")
         if payload["workflow"] != "historical_consolidation":
             raise ValueError(
                 "consolidation workflow must equal 'historical_consolidation'"
@@ -187,6 +226,15 @@ def parse_protocol_comment(comment: dict[str, Any]) -> ParsedTask | None:
     if marker is None:
         return None
 
+    author_association = comment.get("author_association")
+    if (
+        not isinstance(author_association, str)
+        or author_association.upper() not in TRUSTED_AUTHOR_ASSOCIATIONS
+    ):
+        raise ValueError(
+            f"untrusted author association: {author_association!r}"
+        )
+
     marker_protocol = marker.group("protocol").casefold()
     marker_version = int(marker.group("version"))
     fence = JSON_FENCE_RE.search(body, marker.end())
@@ -212,8 +260,8 @@ def parse_protocol_comment(comment: dict[str, Any]) -> ParsedTask | None:
         comment_url = ""
 
     comment_id = comment.get("id")
-    if not isinstance(comment_id, int):
-        comment_id = None
+    if type(comment_id) is not int:
+        raise ValueError("comment is missing integer id")
 
     return ParsedTask(
         payload=payload,
@@ -279,7 +327,13 @@ def discover_tasks(repository: str) -> tuple[list[dict[str, Any]], list[str]]:
                 parsed.payload["task_id"],
             )
             previous = latest_by_task.get(task_key)
-            if previous is None or parsed.created_at > previous.created_at:
+            if previous is None or (
+                parsed.created_at,
+                parsed.comment_id,
+            ) > (
+                previous.created_at,
+                previous.comment_id,
+            ):
                 latest_by_task[task_key] = parsed
 
         for parsed in latest_by_task.values():

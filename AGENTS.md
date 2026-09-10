@@ -156,7 +156,9 @@ The dispatcher returns both `bannerlord-analysis-task:v1` and
 `bannerlord-consolidation-task:v1` tasks. Then, for every actionable task
 returned:
 
-1. confirm the latest valid protocol comment is version 1 and its branch matches the PR head;
+1. confirm the latest valid protocol comment is version 1, comes from a trusted
+   repository association, uses repository-relative paths, and its branch
+   matches the PR head;
 2. check out and update that branch;
 3. read `AGENTS.md` and the full protocol comment;
 4. for `bannerlord-analysis-task`, read `handoff_path`; for
@@ -172,7 +174,8 @@ returned:
 
 Do not rely on stale PR-body checklists to determine task state. For each
 `protocol` + `task_id` pair, the newest valid supported protocol comment is
-authoritative. Protocol comments are append-only and must not be edited.
+authoritative. Equal-second transitions are ordered by numeric comment ID.
+Protocol comments are append-only and must not be edited.
 
 Open PRs without a valid supported task comment are outside this workflow and
 must be ignored. Tasks in `blocked` state remain visible and should be retried

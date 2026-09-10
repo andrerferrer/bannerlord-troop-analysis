@@ -41,6 +41,8 @@ path: data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-
 ref: main@3bde0f43bddec1e562937f8da66009c05af04042
 Git blob SHA: c7b603bc0f77fc4d98c643a8efe81c44101c1489
 archive SHA-256: 9cc8482caf6d37356b186c0a68dfa9e6f50303fb715f6ddfc3a49e2593b59c9d
+bundle path: data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/bundle
+bundle tree SHA: 48992fc18dfd3a59b5510541a141f2b1d28a616f
 ```
 
 PR #92:
@@ -50,12 +52,20 @@ path: data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/an
 ref: main@9c92910d499d2663cd77385e516fd25bbc7a4669
 Git blob SHA: 8a9e888e30a16b1f29f71025542d1a4c0854b713
 archive SHA-256: 1ba4c3c28db029bda23f57a6c830c0d57107b9a6e89dd1b1258a70514f56222a
+bundle path: data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/bundle
+bundle tree SHA: 94992e7cc381cd0e1c5870ed93fbd2bd9edf9360
 ```
+
+The exact repository ref, path, and Git object for every aggregate, archive
+part, checksum sidecar, reconstruction README, and structural input are listed
+in `source_manifest.json`. The validation receipt verifies every entry before
+attesting the reconstructed archive hashes.
 
 Structural source:
 
 ```text
 path: analysis/candidates/realm_of_thrones_archer_like_mounted_melee_field.csv
+ref: main@bb71cfce293c2c7dc94497b9fe195e24d2e2b2d0
 Git blob SHA: 3e5d026861f4e40f4bd437b38b5f124261bf770f
 ```
 
@@ -105,6 +115,8 @@ reliability: reliable
 - [x] Read the repository workflow and consolidation protocol.
 - [x] Publish append-only `in_progress` state before material edits.
 - [x] Verify both pinned source blobs and merged pull requests.
+- [x] Verify the structural source path, ref, and Git blob.
+- [x] Pin and verify every committed archive reconstruction input.
 - [x] Reconstruct and hash both normalized archives.
 - [x] Verify archive-member safety and payload hashes.
 - [x] Copy both compatible aggregate rows to `evidence.csv`.

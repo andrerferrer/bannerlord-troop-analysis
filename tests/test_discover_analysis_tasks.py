@@ -65,6 +65,7 @@ def protocol_comment(
     *,
     created_at="2026-07-27T18:00:00Z",
     comment_id=1,
+    author_association="OWNER",
     marker_protocol=None,
     marker_version=1,
 ):
@@ -73,6 +74,7 @@ def protocol_comment(
         "id": comment_id,
         "created_at": created_at,
         "html_url": f"https://example.invalid/comments/{comment_id}",
+        "author_association": author_association,
         "body": (
             f"<!-- {protocol}:v{marker_version} -->\n"
             "```json\n"
@@ -124,6 +126,75 @@ class AnalysisTaskProtocolTests(unittest.TestCase):
                 protocol_comment(
                     valid_consolidation_payload(workflow="new_evidence_batch")
                 )
+            )
+
+    def test_rejects_protocol_comment_from_untrusted_author(self):
+        for author_association in ("NONE", "CONTRIBUTOR"):
+            with self.subTest(author_association=author_association):
+                with self.assertRaisesRegex(
+                    ValueError,
+                    "untrusted author association",
+                ):
+                    MODULE.parse_protocol_comment(
+                        protocol_comment(
+                            valid_consolidation_payload(),
+                            author_association=author_association,
+                        )
+                    )
+
+    def test_accepts_protocol_comment_from_trusted_author(self):
+        for author_association in ("OWNER", "MEMBER", "COLLABORATOR"):
+            with self.subTest(author_association=author_association):
+                parsed = MODULE.parse_protocol_comment(
+                    protocol_comment(
+                        valid_consolidation_payload(),
+                        author_association=author_association,
+                    )
+                )
+                self.assertIsNotNone(parsed)
+
+    def test_rejects_repository_path_escape(self):
+        unsafe_paths = (
+            "../../outside.md",
+            "/tmp/outside.md",
+            "C:/outside.md",
+            "data\\outside.md",
+            "data//outside.md",
+        )
+        for unsafe_path in unsafe_paths:
+            with self.subTest(unsafe_path=unsafe_path):
+                with self.assertRaisesRegex(
+                    ValueError,
+                    "repository-relative path",
+                ):
+                    MODULE.parse_protocol_comment(
+                        protocol_comment(
+                            valid_consolidation_payload(
+                                consolidation_path=unsafe_path
+                            )
+                        )
+                    )
+
+    def test_rejects_optional_repository_path_escape(self):
+        with self.assertRaisesRegex(ValueError, "repository-relative path"):
+            MODULE.parse_protocol_comment(
+                protocol_comment(
+                    valid_consolidation_payload(queue_path="/tmp/queue.json")
+                )
+            )
+
+    def test_rejects_nested_repository_path_escape(self):
+        payload = valid_consolidation_payload()
+        payload["recovered_source_identity"] = {
+            "path": "../../outside.csv",
+        }
+        with self.assertRaisesRegex(ValueError, "repository-relative path"):
+            MODULE.parse_protocol_comment(protocol_comment(payload))
+
+    def test_rejects_analysis_handoff_path_escape(self):
+        with self.assertRaisesRegex(ValueError, "repository-relative path"):
+            MODULE.parse_protocol_comment(
+                protocol_comment(valid_payload(handoff_path="../handoff.md"))
             )
 
     def test_marker_protocol_must_match_payload_protocol(self):
@@ -185,6 +256,46 @@ class AnalysisTaskProtocolTests(unittest.TestCase):
         self.assertEqual(tasks[0]["task_kind"], "historical_consolidation")
         self.assertTrue(tasks[0]["branch_matches_pr"])
         self.assertEqual(tasks[0]["task"]["status"], "pending")
+
+    def test_latest_same_second_transition_uses_highest_comment_id(self):
+        older = protocol_comment(
+            valid_consolidation_payload(status="in_progress", blockers=[]),
+            created_at="2026-09-10T12:00:00Z",
+            comment_id=100,
+        )
+        newer = protocol_comment(
+            valid_consolidation_payload(status="complete", blockers=[]),
+            created_at="2026-09-10T12:00:00Z",
+            comment_id=101,
+        )
+        original = MODULE.run_gh_json
+
+        for comments in ([older, newer], [newer, older]):
+            with self.subTest(comment_ids=[comment["id"] for comment in comments]):
+                def fake_run_gh_json(arguments):
+                    if arguments[:2] == ["pr", "list"]:
+                        return [
+                            {
+                                "number": 95,
+                                "title": "Consolidate Realm Paladin",
+                                "url": "https://example.invalid/pull/95",
+                                "headRefName": "data/consolidate-realm-paladin",
+                                "isDraft": True,
+                            }
+                        ]
+                    return [comments]
+
+                MODULE.run_gh_json = fake_run_gh_json
+                try:
+                    tasks, warnings = MODULE.discover_tasks(
+                        "andrerferrer/bannerlord-troop-analysis"
+                    )
+                finally:
+                    MODULE.run_gh_json = original
+
+                self.assertEqual(warnings, [])
+                self.assertEqual(tasks[0]["comment_id"], 101)
+                self.assertEqual(tasks[0]["task"]["status"], "complete")
 
     def test_ignores_unmarked_comments(self):
         parsed = MODULE.parse_protocol_comment(

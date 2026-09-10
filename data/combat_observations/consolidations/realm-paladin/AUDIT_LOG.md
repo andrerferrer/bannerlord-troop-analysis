@@ -94,7 +94,8 @@ audit this already-committed aggregate.
 ## Applicable consolidation checks
 
 1. pin the immutable committed source row and its Git blob identity;
-2. copy that row exactly into `evidence.csv`;
+2. copy every source column into `evidence.csv` without changing its value,
+   adding only provenance and compatibility columns;
 3. recompute every derived metric;
 4. preserve the operator recollection as a historical lead only;
 5. search committed evidence and PR history without inferring missing values;
@@ -103,14 +104,15 @@ audit this already-committed aggregate.
 7. keep protocol, task handoff, branch state, PR body, and validation receipt in
    agreement.
 
-## Current durable state
+## State before history recovery
 
 The PR contains:
 
 - the human-readable consolidation and arithmetic in `README.md`;
 - the executable task in `CONSOLIDATION_TASK.md`;
 - this two-stage audit record;
-- the exact recoverable aggregate in `evidence.csv`;
+- the recoverable aggregate with every source column preserved in
+  `evidence.csv`;
 - machine-readable workflow, evidence, gate, protocol, and blocker state in
   `consolidation.json`;
 - the validation receipt in `validation_report.json`;
@@ -118,7 +120,7 @@ The PR contains:
   Thrones queue;
 - a dedicated consolidation protocol document and dispatcher tests.
 
-## Remaining evidence limitation
+## Evidence limitation at that stage
 
 Only the additional historical evidence remembered by the operator, if it
 exists, remains unrecovered. It must not be inferred. If previously unpublished
@@ -157,3 +159,27 @@ The audit then:
 The operator recollection is now resolved by repository-addressable evidence.
 No remembered numeric value was used, and no additional field test is
 recommended.
+
+## 2026-09-10 — post-push review corrections
+
+The first latest-head review at `ef05cb6e5d5a86848b5f1cfa6c13b82d6ebf0bb2`
+found four blocking issues. A separate three-pass recheck unanimously confirmed
+the critical findings before correction.
+
+The corrected consolidation now:
+
+1. accepts protocol authority only from GitHub `OWNER`, `MEMBER`, or
+   `COLLABORATOR` comments;
+2. orders same-second protocol transitions by numeric comment ID;
+3. rejects absolute, traversing, drive-qualified, backslash, and otherwise
+   non-normalized comment-supplied repository paths;
+4. pins every aggregate, structural source, archive bundle tree,
+   reconstruction input, and its Git object in `source_manifest.json`; and
+5. preserves every original source-column value in `evidence.csv`, adding only
+   explicit provenance and compatibility fields.
+
+Validation reconstructed both archives, checked 19 pinned reconstruction
+inputs and 34 payload members, reproduced all 15 battle rows and published
+metrics, passed 18 dispatcher tests, and passed all 394 repository tests. The
+pull-request description and final append-only protocol transition remain
+publication steps after this corrected head is pushed and reviewed.
