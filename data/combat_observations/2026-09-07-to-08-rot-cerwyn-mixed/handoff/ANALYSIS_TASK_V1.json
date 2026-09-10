@@ -1,0 +1,44 @@
+{
+  "protocol": "bannerlord-analysis-task",
+  "version": 1,
+  "task_id": "2026-09-07-to-08-rot-cerwyn-mixed",
+  "status": "ready_to_merge",
+  "branch": "data/2026-09-07-to-08-rot-cerwyn-mixed",
+  "pull_request": 96,
+  "batch_path": "data/combat_observations/2026-09-07-to-08-rot-cerwyn-mixed",
+  "phase_1": {
+    "status": "complete",
+    "archive_sha256": "d780a64dbfbcde1ac8e82428b2a86fceea2922f0584c42ef64a8eddd309f3439"
+  },
+  "phase_2": {
+    "status": "complete",
+    "validation": "passed",
+    "aggregate_rows": 89,
+    "reliable_rows": 17,
+    "insufficient_rows": 72,
+    "focus_decision": "close cerwyn_marauder / field"
+  },
+  "queue": {
+    "status": "reconciled",
+    "active_test": null,
+    "ordered_queue": [],
+    "verification_holds": [
+      "realm_paladin",
+      "arryn_moonknight"
+    ],
+    "closed": [
+      "cerwyn_marauder"
+    ]
+  },
+  "remaining_actions": [
+    "validate_latest_head",
+    "inspect_ci_and_reviews",
+    "mark_ready",
+    "squash_merge",
+    "verify_merge"
+  ],
+  "completion": {
+    "action": "merge",
+    "merge_method": "squash"
+  }
+}

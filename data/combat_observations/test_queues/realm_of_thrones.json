@@ -2,25 +2,14 @@
   "schema_version": "1.0.0",
   "track": "realm_of_thrones",
   "game_version": "1.4.x",
-  "updated_at": "2026-09-08",
-  "queue_status": "blocked_pending_active_batch_and_historical_audit",
+  "updated_at": "2026-09-09",
+  "queue_status": "blocked_no_approved_next_target_pending_historical_audit",
   "authority": {
     "path": "data/combat_observations/test_queues/realm_of_thrones.json",
     "scope": "current dedicated empirical target, ordered future targets, verification holds, and parked or closed troops",
     "rule": "This file is the only repository source of truth for what troop should be tested next. Batch-local analysis/NEXT_TEST_RECOMMENDATION.md files and pull-request bodies are proposals and historical evidence only until the same merged pull request updates this file."
   },
-  "active_test": {
-    "troop_id": "cerwyn_marauder",
-    "display_name": "Cerwyn Marauder",
-    "context": "field",
-    "status": "evidence_received_pending_canonical_batch",
-    "selected_by": "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/analysis/NEXT_TEST_RECOMMENDATION.md",
-    "notes": [
-      "The operator supplied a dedicated screenshot batch on 2026-09-07.",
-      "The uploaded batch is not canonical until its evidence pull request completes normalization and Phase 2 analysis.",
-      "Do not choose a different target or publish a future queue order from preliminary arithmetic."
-    ]
-  },
+  "active_test": null,
   "ordered_queue": [],
   "verification_holds": [
     {
@@ -109,5 +98,50 @@
     "operator_decision": "An explicit operator decision takes precedence and must be recorded in this file immediately.",
     "no_fallback": "Never reconstruct the queue from chat memory, a pull-request title or body, or one batch-local NEXT_TEST_RECOMMENDATION.md while this file exists.",
     "empty_queue": "An empty ordered_queue means no future target is approved yet; it does not authorize inventing a candidate."
+  },
+  "closed": [
+    {
+      "troop_id": "cerwyn_marauder",
+      "display_name": "Cerwyn Marauder",
+      "context": "field",
+      "status": "completed_no_additional_test",
+      "completed_by": "data/combat_observations/2026-09-07-to-08-rot-cerwyn-mixed/analysis/CERWYN_MARAUDER_FOCUS.md",
+      "decision": "Stop dedicated testing. Both exact participant field cohorts passed the 5-battle / 20-deployed gate and retained kill share above deployment share; the large Medger cohort remained positive after deleting its highest-rate battle.",
+      "evidence": [
+        {
+          "participant_party": "Gawen Westerling's Party",
+          "independent_battles": 5,
+          "deployed": 22,
+          "kills": 57,
+          "kills_per_deployed": 2.590909,
+          "offensive_contribution_ratio": 1.868354,
+          "retention_rate": 0.545455
+        },
+        {
+          "participant_party": "Medger Cerwyn's Party",
+          "independent_battles": 11,
+          "deployed": 494,
+          "kills": 744,
+          "kills_per_deployed": 1.506073,
+          "offensive_contribution_ratio": 1.459146,
+          "retention_rate": 0.82996
+        },
+        {
+          "sensitivity": "Medger without battle_cm15",
+          "independent_battles": 10,
+          "deployed": 432,
+          "kills": 456,
+          "kills_per_deployed": 1.055556,
+          "offensive_contribution_ratio": 1.217254
+        }
+      ]
+    }
+  ],
+  "last_transition": {
+    "date": "2026-09-09",
+    "batch": "data/combat_observations/2026-09-07-to-08-rot-cerwyn-mixed",
+    "from": "active_test: cerwyn_marauder / ordered_queue: []",
+    "to": "active_test: null / ordered_queue: [] / closed: cerwyn_marauder",
+    "reason": "Phase 2 completed the active evidence batch without identifying an approved future target. Verification holds and parked entries remain unchanged."
   }
 }
