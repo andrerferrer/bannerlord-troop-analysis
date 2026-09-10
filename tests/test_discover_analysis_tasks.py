@@ -64,6 +64,7 @@ def protocol_comment(
     payload,
     *,
     created_at="2026-07-27T18:00:00Z",
+    updated_at=None,
     comment_id=1,
     author_association="OWNER",
     marker_protocol=None,
@@ -73,6 +74,7 @@ def protocol_comment(
     return {
         "id": comment_id,
         "created_at": created_at,
+        "updated_at": updated_at or created_at,
         "html_url": f"https://example.invalid/comments/{comment_id}",
         "author_association": author_association,
         "body": (
@@ -191,6 +193,35 @@ class AnalysisTaskProtocolTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "repository-relative path"):
             MODULE.parse_protocol_comment(protocol_comment(payload))
 
+    def test_rejects_path_collection_and_file_key_escapes(self):
+        unsafe_metadata = (
+            {"source_paths": ["../../outside.csv"]},
+            {"evidence_files": ["/tmp/secret"]},
+            {"archive_parts": ["C:/secret.part"]},
+            {"source_identity": {"file": "../outside.csv"}},
+        )
+        for metadata in unsafe_metadata:
+            with self.subTest(metadata=metadata):
+                payload = valid_consolidation_payload()
+                payload.update(metadata)
+                with self.assertRaisesRegex(ValueError, "repository-relative path"):
+                    MODULE.parse_protocol_comment(protocol_comment(payload))
+
+        payload = valid_consolidation_payload(archive_input_files=19)
+        self.assertIsNotNone(
+            MODULE.parse_protocol_comment(protocol_comment(payload))
+        )
+
+    def test_rejects_edited_protocol_comment(self):
+        with self.assertRaisesRegex(ValueError, "edited protocol comments"):
+            MODULE.parse_protocol_comment(
+                protocol_comment(
+                    valid_payload(),
+                    created_at="2026-09-10T12:00:00Z",
+                    updated_at="2026-09-10T12:05:00Z",
+                )
+            )
+
     def test_rejects_analysis_handoff_path_escape(self):
         with self.assertRaisesRegex(ValueError, "repository-relative path"):
             MODULE.parse_protocol_comment(
@@ -258,6 +289,11 @@ class AnalysisTaskProtocolTests(unittest.TestCase):
         self.assertEqual(tasks[0]["task"]["status"], "pending")
 
     def test_latest_same_second_transition_uses_highest_comment_id(self):
+        pending = protocol_comment(
+            valid_consolidation_payload(status="pending", blockers=[]),
+            created_at="2026-09-10T11:59:59Z",
+            comment_id=99,
+        )
         older = protocol_comment(
             valid_consolidation_payload(status="in_progress", blockers=[]),
             created_at="2026-09-10T12:00:00Z",
@@ -270,7 +306,7 @@ class AnalysisTaskProtocolTests(unittest.TestCase):
         )
         original = MODULE.run_gh_json
 
-        for comments in ([older, newer], [newer, older]):
+        for comments in ([pending, older, newer], [newer, pending, older]):
             with self.subTest(comment_ids=[comment["id"] for comment in comments]):
                 def fake_run_gh_json(arguments):
                     if arguments[:2] == ["pr", "list"]:
@@ -296,6 +332,54 @@ class AnalysisTaskProtocolTests(unittest.TestCase):
                 self.assertEqual(warnings, [])
                 self.assertEqual(tasks[0]["comment_id"], 101)
                 self.assertEqual(tasks[0]["task"]["status"], "complete")
+
+    def test_invalid_state_transitions_do_not_replace_last_valid_state(self):
+        pending = protocol_comment(
+            valid_consolidation_payload(status="pending", blockers=[]),
+            created_at="2026-09-10T12:00:00Z",
+            comment_id=100,
+        )
+        in_progress = protocol_comment(
+            valid_consolidation_payload(status="in_progress", blockers=[]),
+            created_at="2026-09-10T12:01:00Z",
+            comment_id=101,
+        )
+        complete = protocol_comment(
+            valid_consolidation_payload(status="complete", blockers=[]),
+            created_at="2026-09-10T12:02:00Z",
+            comment_id=102,
+        )
+        revived = protocol_comment(
+            valid_consolidation_payload(status="pending", blockers=[]),
+            created_at="2026-09-10T12:03:00Z",
+            comment_id=103,
+        )
+        original = MODULE.run_gh_json
+
+        def fake_run_gh_json(arguments):
+            if arguments[:2] == ["pr", "list"]:
+                return [
+                    {
+                        "number": 95,
+                        "title": "Consolidate Realm Paladin",
+                        "url": "https://example.invalid/pull/95",
+                        "headRefName": "data/consolidate-realm-paladin",
+                        "isDraft": True,
+                    }
+                ]
+            return [[revived, complete, pending, in_progress]]
+
+        MODULE.run_gh_json = fake_run_gh_json
+        try:
+            tasks, warnings = MODULE.discover_tasks(
+                "andrerferrer/bannerlord-troop-analysis"
+            )
+        finally:
+            MODULE.run_gh_json = original
+
+        self.assertEqual(tasks[0]["comment_id"], 102)
+        self.assertEqual(tasks[0]["task"]["status"], "complete")
+        self.assertTrue(any("complete' -> 'pending" in warning for warning in warnings))
 
     def test_ignores_unmarked_comments(self):
         parsed = MODULE.parse_protocol_comment(

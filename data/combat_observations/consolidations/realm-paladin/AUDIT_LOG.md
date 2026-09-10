@@ -183,3 +183,28 @@ inputs and 34 payload members, reproduced all 15 battle rows and published
 metrics, passed 18 dispatcher tests, and passed all 394 repository tests. The
 pull-request description and final append-only protocol transition remain
 publication steps after this corrected head is pushed and reviewed.
+
+## 2026-09-10 — exact-head review round 2
+
+Five read-only passes reviewed
+`c72efa1bf12f4caa1175f30a98ea978a8306e8d7`. The empirical source, archive,
+row-preservation, arithmetic, and queue claims survived. Four passes reproduced
+a path-collection bypass; one pass additionally raised edited-comment and
+invalid-transition handling. Because those were critical non-unanimous
+findings, a separate three-pass adversarial recheck attempted to refute them.
+All three recheck passes confirmed all three defects as merge blockers.
+
+The dispatcher correction now:
+
+1. validates strings in singular and plural path, file, artifact, part, and
+   directory metadata, including collection members;
+2. rejects protocol comments whose GitHub update timestamp differs from their
+   creation timestamp; and
+3. sorts each task's comment history, requires `pending` as its initial state,
+   and ignores invalid successors instead of letting them replace the last
+   valid state.
+
+Direct regression cases cover all three failures. The focused dispatcher suite
+now passes 21 tests, the full repository suite passes 397 tests, and live
+discovery still returns the trusted Realm Paladin `in_progress` task with no
+warnings.

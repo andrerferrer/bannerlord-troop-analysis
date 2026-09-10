@@ -73,6 +73,8 @@ Additional hashes, paths, acceptance criteria, and metadata may be included with
 Every comment-supplied path that the executor may read must be normalized
 repository-relative POSIX syntax. Absolute paths, `.` or `..` components,
 backslashes, drive-qualified paths, and other repository escapes are invalid.
+This applies to singular and plural path, file, artifact, part, and directory
+fields, including strings nested in collections.
 After checkout, the executor must also confirm that required paths resolve to
 committed files under the repository root.
 
@@ -114,6 +116,9 @@ The dispatcher scans every open PR and returns tasks whose latest state is `pend
 Marked comments from untrusted author associations are invalid and produce a
 warning rather than a task. Equal-second comments are ordered by numeric comment
 ID, independently of API page or response order.
+Edited comments are invalid. For each protocol/task identity, the dispatcher
+orders the unedited comments, requires `pending` as the initial state, and
+ignores with a warning any successor outside the allowed transition graph.
 
 The local analysis agent must, for each returned task:
 

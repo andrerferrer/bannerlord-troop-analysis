@@ -157,8 +157,9 @@ The dispatcher returns both `bannerlord-analysis-task:v1` and
 returned:
 
 1. confirm the latest valid protocol comment is version 1, comes from a trusted
-   repository association, uses repository-relative paths, and its branch
-   matches the PR head;
+   repository association, was not edited, uses repository-relative paths,
+   follows a valid append-only state transition, and its branch matches the PR
+   head;
 2. check out and update that branch;
 3. read `AGENTS.md` and the full protocol comment;
 4. for `bannerlord-analysis-task`, read `handoff_path`; for

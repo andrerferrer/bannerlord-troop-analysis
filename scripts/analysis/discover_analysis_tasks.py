@@ -37,6 +37,29 @@ JSON_FENCE_RE = re.compile(
 ALLOWED_STATUSES = {"pending", "in_progress", "blocked", "complete", "cancelled"}
 ACTIONABLE_STATUSES = {"pending", "in_progress", "blocked"}
 TRUSTED_AUTHOR_ASSOCIATIONS = frozenset({"OWNER", "MEMBER", "COLLABORATOR"})
+PATH_FIELD_TOKENS = frozenset(
+    {
+        "artifact",
+        "artifacts",
+        "dir",
+        "dirs",
+        "directory",
+        "directories",
+        "file",
+        "files",
+        "part",
+        "parts",
+        "path",
+        "paths",
+    }
+)
+ALLOWED_TRANSITIONS = {
+    "pending": frozenset({"in_progress", "blocked", "cancelled"}),
+    "in_progress": frozenset({"complete", "blocked", "cancelled"}),
+    "blocked": frozenset({"in_progress", "cancelled"}),
+    "complete": frozenset(),
+    "cancelled": frozenset(),
+}
 
 
 class DiscoveryError(RuntimeError):
@@ -132,13 +155,35 @@ def _require_repository_relative_path(value: Any, field: str) -> None:
 def _validate_repository_paths(payload: dict[str, Any], primary_field: str) -> None:
     _require_repository_relative_path(payload.get(primary_field), primary_field)
 
+    def is_path_field(key: str) -> bool:
+        return re.split(r"[_-]+", key.casefold())[-1] in PATH_FIELD_TOKENS
+
+    def validate_path_value(value: Any, field: str) -> None:
+        if isinstance(value, str):
+            _require_repository_relative_path(value, field)
+        elif isinstance(value, list):
+            for index, nested_value in enumerate(value):
+                nested_field = f"{field}[{index}]"
+                if isinstance(nested_value, str):
+                    _require_repository_relative_path(nested_value, nested_field)
+                else:
+                    visit(nested_value, nested_field)
+        elif isinstance(value, dict):
+            visit(value, field)
+        else:
+            raise ValueError(f"{field} must contain repository-relative paths")
+
     def visit(value: Any, field: str) -> None:
         if isinstance(value, dict):
             for key, nested_value in value.items():
                 nested_field = f"{field}.{key}" if field else key
-                if key == "path" or key.endswith("_path"):
-                    _require_repository_relative_path(nested_value, nested_field)
-                visit(nested_value, nested_field)
+                if is_path_field(key) and isinstance(
+                    nested_value,
+                    (str, list, dict),
+                ):
+                    validate_path_value(nested_value, nested_field)
+                else:
+                    visit(nested_value, nested_field)
         elif isinstance(value, list):
             for index, nested_value in enumerate(value):
                 visit(nested_value, f"{field}[{index}]")
@@ -255,6 +300,12 @@ def parse_protocol_comment(comment: dict[str, Any]) -> ParsedTask | None:
     if not isinstance(created_at, str) or not created_at:
         raise ValueError("comment is missing created_at")
 
+    updated_at = comment.get("updated_at")
+    if not isinstance(updated_at, str) or not updated_at:
+        raise ValueError("comment is missing updated_at")
+    if updated_at != created_at:
+        raise ValueError("edited protocol comments are not authoritative")
+
     comment_url = comment.get("html_url")
     if not isinstance(comment_url, str):
         comment_url = ""
@@ -306,7 +357,7 @@ def discover_tasks(repository: str) -> tuple[list[dict[str, Any]], list[str]]:
             ]
         )
         comments = flatten_comment_pages(pages)
-        latest_by_task: dict[tuple[str, str], ParsedTask] = {}
+        transitions_by_task: dict[tuple[str, str], list[ParsedTask]] = {}
 
         for comment in comments:
             try:
@@ -326,15 +377,38 @@ def discover_tasks(repository: str) -> tuple[list[dict[str, Any]], list[str]]:
                 parsed.payload["protocol"],
                 parsed.payload["task_id"],
             )
-            previous = latest_by_task.get(task_key)
-            if previous is None or (
-                parsed.created_at,
-                parsed.comment_id,
-            ) > (
-                previous.created_at,
-                previous.comment_id,
+            transitions_by_task.setdefault(task_key, []).append(parsed)
+
+        latest_by_task: dict[tuple[str, str], ParsedTask] = {}
+        for task_key, transitions in transitions_by_task.items():
+            previous: ParsedTask | None = None
+            for parsed in sorted(
+                transitions,
+                key=lambda item: (item.created_at, item.comment_id),
             ):
-                latest_by_task[task_key] = parsed
+                status = parsed.payload["status"]
+                if previous is None:
+                    if status != "pending":
+                        warnings.append(
+                            f"PR #{pr_number} task {task_key[1]}: ignored invalid "
+                            f"initial status {status!r} in {parsed.comment_url}; "
+                            "expected 'pending'."
+                        )
+                        continue
+                else:
+                    previous_status = previous.payload["status"]
+                    if status not in ALLOWED_TRANSITIONS[previous_status]:
+                        warnings.append(
+                            f"PR #{pr_number} task {task_key[1]}: ignored invalid "
+                            f"state transition {previous_status!r} -> {status!r} "
+                            f"in {parsed.comment_url}."
+                        )
+                        continue
+
+                previous = parsed
+
+            if previous is not None:
+                latest_by_task[task_key] = previous
 
         for parsed in latest_by_task.values():
             payload = parsed.payload
