@@ -1,0 +1,25 @@
+{
+  "accepted_battles": 23,
+  "aggregate_rows": 89,
+  "canonical_occurrences": 278,
+  "canonical_screenshot_rows": 25,
+  "checks": [
+    "unique occurrence ids",
+    "non-negative numeric values",
+    "deployed = survivors + deaths + wounded",
+    "row totals do not exceed verified player-side totals",
+    "exact participant/context aggregation boundaries"
+  ],
+  "consolidated_rows": 278,
+  "duplicate_screenshots_excluded": 2,
+  "errors": [],
+  "excluded_unresolved_rows": 1,
+  "historical_dedup": {
+    "basis": "capture identities 2026-09-07 through 2026-09-08 are disjoint from latest merged evidence window ending 2026-09-06; queue explicitly recorded this as pending Sep 7 evidence; GitHub code-search endpoint repeatedly returned HTTP 502",
+    "risk": "low but repository-wide exact hash search could not be independently executed through the connector",
+    "status": "pass_with_external_search_limitation"
+  },
+  "medium_confidence_retained_rows": 8,
+  "schema_version": "2.0.0",
+  "status": "pass"
+}

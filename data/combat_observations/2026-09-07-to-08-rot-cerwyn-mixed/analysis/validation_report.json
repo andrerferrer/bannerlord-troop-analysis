@@ -1,0 +1,56 @@
+{
+  "batch_id": "2026-09-07-to-08-rot-cerwyn-mixed",
+  "bundle_verification": {
+    "archive_sha256": "d780a64dbfbcde1ac8e82428b2a86fceea2922f0584c42ef64a8eddd309f3439",
+    "archive_size_bytes": 25272,
+    "members_verified": 22,
+    "parts_verified": 9,
+    "safe_preflight_passed": true
+  },
+  "checks": {
+    "aggregate_row_count": true,
+    "canonical_battle_count": true,
+    "canonical_occurrence_count": true,
+    "deployment_denominator_coverage_complete": true,
+    "exact_participant_context_boundaries": true,
+    "focus_exact_cohorts_reliable": true,
+    "focus_share_adjusted_signal_survives": true,
+    "kill_denominator_coverage_complete": true,
+    "model_comparison": "not_run_no_verified_frozen_snapshot",
+    "partition_exact": true,
+    "phase1_aggregate_reproduction": "passed",
+    "python_bytecode_compile": "passed_before_publication",
+    "queue_expected_transition": "active Cerwyn -> closed; ordered_queue remains empty",
+    "role_adjusted_ranking": "not_published_unverified_role_registry",
+    "unresolved_rows_preserved": true
+  },
+  "counts": {
+    "aggregate_rows": 89,
+    "focus_battles": 16,
+    "focus_exact_participant_cohorts": 2,
+    "independent_battles": 23,
+    "input_images": 25,
+    "insufficient_rows": 72,
+    "internal_duplicates": 2,
+    "ordinary_occurrences": 278,
+    "reliable_rows": 17,
+    "unresolved_excluded_rows": 1
+  },
+  "evidence_grades": {
+    "canonical_arithmetic": "A",
+    "cerwyn_focus": "A",
+    "historical_exact_hash_dedup": "B_external_connector_limitation",
+    "row_extraction": "B_plus",
+    "source_integrity": "A",
+    "theoretical_model_comparison": "not_available"
+  },
+  "limitations": [
+    "GitHub code search repeatedly returned HTTP 502 during repository-wide historical exact-hash retry; capture chronology and queue provenance make duplicate risk low, not zero.",
+    "Eight clipped rows were retained at medium confidence; one unreadable row was excluded.",
+    "No verified frozen model snapshot or canonical role registry was supplied.",
+    "Campaign observations are not controlled experiments."
+  ],
+  "pipeline_version": "0.4.0",
+  "schema_version": "2.0.0",
+  "status": "passed"
+}

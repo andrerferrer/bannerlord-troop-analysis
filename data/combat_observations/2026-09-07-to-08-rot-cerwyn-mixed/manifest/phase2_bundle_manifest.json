@@ -1,0 +1,209 @@
+{
+  "schema_version": "1.0.0",
+  "batch_id": "2026-09-07-to-08-rot-cerwyn-mixed",
+  "phase1_archive_sha256": "d780a64dbfbcde1ac8e82428b2a86fceea2922f0584c42ef64a8eddd309f3439",
+  "archive_name": "cerwyn_mixed_phase2.tar.xz",
+  "archive_sha256": "43b206dd20c71fc528743d7fa2be179a2537e368912c58413363e18fb56c6262",
+  "archive_size_bytes": 23636,
+  "encoding": "base64",
+  "parts": [
+    {
+      "path": "phase2_bundle/cerwyn_mixed_phase2.tar.xz.base64.part-00",
+      "sha256": "be784ce4979fe9a8d5e7bd89bd82888c54f1b91fa8b5a9c5617d984775e40055",
+      "size_bytes": 4097
+    },
+    {
+      "path": "phase2_bundle/cerwyn_mixed_phase2.tar.xz.base64.part-01",
+      "sha256": "c011d29fd9c9e052a5e5ce608dd359b67c15c547eef6344c1fed481271a7a178",
+      "size_bytes": 4097
+    },
+    {
+      "path": "phase2_bundle/cerwyn_mixed_phase2.tar.xz.base64.part-02",
+      "sha256": "3d578c95006796dd0c1225d11f50dd591fbf9efdfa81d63bf434d42a651a316d",
+      "size_bytes": 4097
+    },
+    {
+      "path": "phase2_bundle/cerwyn_mixed_phase2.tar.xz.base64.part-03",
+      "sha256": "de6aa075004a189c64052264b227864df80d6d75307cb17930162efeb924f44d",
+      "size_bytes": 4097
+    },
+    {
+      "path": "phase2_bundle/cerwyn_mixed_phase2.tar.xz.base64.part-04",
+      "sha256": "4261c71f32672cfde0452883b5c1d0bd6aa682761f2516343ff996cdd1c09182",
+      "size_bytes": 4097
+    },
+    {
+      "path": "phase2_bundle/cerwyn_mixed_phase2.tar.xz.base64.part-05",
+      "sha256": "963e225f646cd5c16e955fde0aaa1e5fab573abb12f33c718effd7b74ab4deea",
+      "size_bytes": 4097
+    },
+    {
+      "path": "phase2_bundle/cerwyn_mixed_phase2.tar.xz.base64.part-06",
+      "sha256": "3f17164fba39414df413e327210a940dc19a6f5eeadd54bd978a2e99e8932d60",
+      "size_bytes": 4097
+    },
+    {
+      "path": "phase2_bundle/cerwyn_mixed_phase2.tar.xz.base64.part-07",
+      "sha256": "e0f0c1439da291734069fe0f8ca5949d29389583686cd508a1650991e210f17c",
+      "size_bytes": 2845
+    }
+  ],
+  "archive_contents": [
+    {
+      "path": "README.md",
+      "sha256": "a15b9342cf3f0997eeb979535acd706763e19e7617d759d2e6aab582bb42e021",
+      "size_bytes": 342
+    },
+    {
+      "path": "analysis/ANALYSIS_REPORT.md",
+      "sha256": "12d6a1346f057b2caaa300f924602a327c2f5e51cfc6972012c84d16047055d3",
+      "size_bytes": 2712
+    },
+    {
+      "path": "analysis/CERWYN_MARAUDER_FOCUS.md",
+      "sha256": "aed2ea6ed0360ecad5def4066796219f67fb514a314317e20faee6d91f5b4f88",
+      "size_bytes": 2009
+    },
+    {
+      "path": "analysis/NEXT_TEST_RECOMMENDATION.md",
+      "sha256": "15c54702ea17918a3ad6c9c3d8297c068011a64a556d31d1098afd0f6ac57585",
+      "size_bytes": 586
+    },
+    {
+      "path": "analysis/README.md",
+      "sha256": "bb8b6f383cff293a237dab400770cce541ad6b25ffc944a50d5cb6cdfa6bacc6",
+      "size_bytes": 567
+    },
+    {
+      "path": "analysis/STOP_DECISION.md",
+      "sha256": "46c3766415ea5fd0073de746af04c22db23128642733b33cfa0690a89df0d3a9",
+      "size_bytes": 633
+    },
+    {
+      "path": "analysis/TESTS.md",
+      "sha256": "56a82d5cc143f233ebf7db147d7298c10f60cbef6c250805d97638ca9cf6230c",
+      "size_bytes": 585
+    },
+    {
+      "path": "analysis/artifact_hashes.csv",
+      "sha256": "93ad3ad533199a87f1e82bbb5d2ef580fdccd5d7e89b0c9156541af2dc724c37",
+      "size_bytes": 2554
+    },
+    {
+      "path": "analysis/canonical_identity_audit.csv",
+      "sha256": "31a29649aa6d990c48dc56a44d5680613d24e8abe2b9a17950e1ff88eb47d37f",
+      "size_bytes": 10663
+    },
+    {
+      "path": "analysis/cohort_compatibility.json",
+      "sha256": "dfe3f1bfe6e312891e1c2d921dacdd73ad4c4d6350b762eb5dd2c17f4023c39f",
+      "size_bytes": 1259
+    },
+    {
+      "path": "analysis/context_coverage.csv",
+      "sha256": "823d0f55bd908997d879b62fcca251395df16ef1538bc8435cbd90ccf2a5a828",
+      "size_bytes": 717
+    },
+    {
+      "path": "analysis/denominator_coverage.csv",
+      "sha256": "4be6dae931253ec5692f8ba9384c6244c6cb44415bfc507ba587386fdfaeec85",
+      "size_bytes": 6400
+    },
+    {
+      "path": "analysis/focus_battle_rates.csv",
+      "sha256": "249a9c8c022fe12459ff08841c37b3a13ecdfc63153c04b49b24093fc522c1b3",
+      "size_bytes": 2393
+    },
+    {
+      "path": "analysis/focus_cohort_comparison.csv",
+      "sha256": "9145d1225f7d919b29ef9fab44158f1f91f422d54d64ae8708174aa584048948",
+      "size_bytes": 1024
+    },
+    {
+      "path": "analysis/focus_sensitivity.csv",
+      "sha256": "fc2785afc3d75d2e4c807df0a082e408def4e6c804792863318b6a476c279c79",
+      "size_bytes": 1427
+    },
+    {
+      "path": "analysis/generate_phase2.py",
+      "sha256": "783f6f78dc06053fa9c967742dadb094f74e54a16cbda454d796c941ae054cb7",
+      "size_bytes": 48053
+    },
+    {
+      "path": "analysis/insufficient_evidence.csv",
+      "sha256": "17eca37e79f0ddab586fc4bd21b61a25a4c1327bc3104397f1bdf79348a6c1fc",
+      "size_bytes": 24880
+    },
+    {
+      "path": "analysis/ranking_complete.csv",
+      "sha256": "40d0e90ce087e8410787869457b81edb4f424b7cd1348b6068636855a838e5a7",
+      "size_bytes": 30688
+    },
+    {
+      "path": "analysis/ranking_reliable.csv",
+      "sha256": "a26207cbe1e9bf362dce4ff8e303325785c32db68a1f627ceec7c03c52300839",
+      "size_bytes": 6623
+    },
+    {
+      "path": "analysis/role_adjusted_view.csv",
+      "sha256": "1155ce0b376627ae2f01105e41b7e0e94685d8ff87bff8e41a9c77fb10205079",
+      "size_bytes": 2590
+    },
+    {
+      "path": "analysis/validation_report.json",
+      "sha256": "d82148db1d81085689386231d35035dce86fb795b2b3060eb0135aca3f35e71b",
+      "size_bytes": 2177
+    },
+    {
+      "path": "analysis_task.json",
+      "sha256": "8e04cec5cc2f8064e120b19e29f6b650929733e05230f79f229b71fa71bf5619",
+      "size_bytes": 1083
+    },
+    {
+      "path": "batch_state.json",
+      "sha256": "4e4d25f8158ae5579a866ffd22207c5c4f32f73d313e6a54c7bc34061b0230b6",
+      "size_bytes": 2045
+    },
+    {
+      "path": "queue/realm_of_thrones.json",
+      "sha256": "d005e77f7bd2e41d4f0ec030bd629fe29b4ebb22edd4ee968a49b61f50f1e2f3",
+      "size_bytes": 4815
+    },
+    {
+      "path": "reports/battle_context_review.csv",
+      "sha256": "9a33406659b9ce9e4b7a39efa4bb8be1c4cbd9ff29c968c872bfb44de7886972",
+      "size_bytes": 3102
+    },
+    {
+      "path": "reports/duplicate_report.csv",
+      "sha256": "167122d700d18eff5fe78bd1c6a2579c25f504f3845d67ac1b42277fbc269350",
+      "size_bytes": 1150
+    },
+    {
+      "path": "reports/empirical_analysis_summary.md",
+      "sha256": "ca3b1fa59b0bbfb4987755318c5c27e685ad4cbcbbb69117759b606cda4a06cf",
+      "size_bytes": 594
+    },
+    {
+      "path": "reports/empirical_residual_rankings.csv",
+      "sha256": "c571117ead0ad59d059c8cedea2fadd3fafabc064b60a81d25571cdaf02b82b6",
+      "size_bytes": 159
+    },
+    {
+      "path": "reports/model_vs_empirical.csv",
+      "sha256": "24440dfd12c9ecc28f5cb4635d3ce5a1644893d607026707daa5668aeb7aea8d",
+      "size_bytes": 185
+    },
+    {
+      "path": "reports/outlier_report.csv",
+      "sha256": "d634ed19a26b62f0b5774fe3cbe52f4832e5cc15edd74bd45b86919fc838f64f",
+      "size_bytes": 3325
+    }
+  ],
+  "verification_commands": [
+    "cat phase2_bundle/cerwyn_mixed_phase2.tar.xz.base64.part-* | base64 -d > /tmp/cerwyn_mixed_phase2.tar.xz",
+    "echo \"43b206dd20c71fc528743d7fa2be179a2537e368912c58413363e18fb56c6262  /tmp/cerwyn_mixed_phase2.tar.xz\" | sha256sum -c -",
+    "mkdir -p /tmp/cerwyn-phase2 && tar -xJf /tmp/cerwyn_mixed_phase2.tar.xz -C /tmp/cerwyn-phase2",
+    "python3 /tmp/cerwyn-phase2/analysis/generate_phase2.py"
+  ]
+}

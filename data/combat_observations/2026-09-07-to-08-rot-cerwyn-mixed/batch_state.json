@@ -1,0 +1,57 @@
+{
+  "batch_id": "2026-09-07-to-08-rot-cerwyn-mixed",
+  "status": "phase_2_complete_ready_to_merge",
+  "input_name": "Mount and Blade II Bannerlord - Singleplayer PID_ 26396 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 08_09_2026 17_19_17.zip",
+  "input_sha256": "88792f888ff37bcf29831b4f484f76bb27c84b0ec2686076f29fc18db714f770",
+  "mode": "host-vision",
+  "pipeline_version": "0.4.0",
+  "schema_version": "2.0.0",
+  "counts": {
+    "input_images": 25,
+    "accepted_battles": 23,
+    "field_battles": 22,
+    "siege_attack_intermediate_battles": 1,
+    "canonical_occurrences": 278,
+    "aggregate_rows": 89,
+    "reliable_rows": 17,
+    "insufficient_rows": 72,
+    "duplicates": 2,
+    "medium_confidence_rows": 8,
+    "excluded_unresolved_rows": 1
+  },
+  "phase_statuses": {
+    "preflight": "complete",
+    "inventory": "complete",
+    "visual_dedup": "complete",
+    "historical_dedup": "complete_with_external_connector_limitation",
+    "extraction": "complete",
+    "review": "complete",
+    "canonical": "complete",
+    "normalized_bundle": "complete",
+    "phase_2": "complete",
+    "queue_reconciliation": "complete",
+    "validation": "complete",
+    "repository_review": "pending_latest_head_check",
+    "merge": "pending"
+  },
+  "focus_decision": {
+    "troop_id": "cerwyn_marauder",
+    "context": "field",
+    "decision": "completed_no_additional_test",
+    "exact_participant_cohorts_reliable": 2,
+    "share_adjusted_signal_survives": true
+  },
+  "authoritative_queue_after": {
+    "active_test": null,
+    "ordered_queue": [],
+    "verification_holds": [
+      "realm_paladin",
+      "arryn_moonknight"
+    ],
+    "closed": [
+      "cerwyn_marauder"
+    ]
+  },
+  "resume_command": "read PR #96 latest head; verify analysis/validation_report.json and phase2 bundle manifest; inspect CI/review; mark ready; squash merge; verify main",
+  "next_action": "repository latest-head validation, ready transition, squash merge, and merge verification"
+}
