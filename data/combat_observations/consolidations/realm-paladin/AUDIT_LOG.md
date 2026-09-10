@@ -208,3 +208,17 @@ Direct regression cases cover all three failures. The focused dispatcher suite
 now passes 21 tests, the full repository suite passes 397 tests, and live
 discovery still returns the trusted Realm Paladin `in_progress` task with no
 warnings.
+
+## 2026-09-10 — exact-head review round 3
+
+All five passes reviewing
+`27e23fa4b4c4a291dc45cd232e78d3e3d64756fd` verified that the round-2 findings
+were fixed, then reproduced one remaining nested-container bypass. A recognized
+path-bearing field lost its path context when a collection member was itself a
+list or mapping.
+
+The recursive validator now carries path context through every nested list and
+mapping string. Regression inputs include nested lists, mappings, lists of
+mappings, leading/trailing whitespace, and control characters. Numeric metadata
+such as an archive-input file count remains valid because it cannot direct an
+executor to a filesystem location.

@@ -141,12 +141,18 @@ def _require_repository_relative_path(value: Any, field: str) -> None:
     path = PurePosixPath(value)
     has_windows_drive = len(value) >= 2 and value[0].isalpha() and value[1] == ":"
     has_unsafe_component = any(part in {"", ".", ".."} for part in value.split("/"))
+    has_control_character = any(
+        ord(character) < 32 or ord(character) == 127
+        for character in value
+    )
     if (
         path.is_absolute()
         or value.startswith("~")
+        or value != value.strip()
         or has_windows_drive
         or "\\" in value
         or has_unsafe_component
+        or has_control_character
         or path.as_posix() != value
     ):
         raise ValueError(f"{field} must be a normalized repository-relative path")
@@ -164,12 +170,13 @@ def _validate_repository_paths(payload: dict[str, Any], primary_field: str) -> N
         elif isinstance(value, list):
             for index, nested_value in enumerate(value):
                 nested_field = f"{field}[{index}]"
-                if isinstance(nested_value, str):
-                    _require_repository_relative_path(nested_value, nested_field)
-                else:
-                    visit(nested_value, nested_field)
+                if isinstance(nested_value, (str, list, dict)):
+                    validate_path_value(nested_value, nested_field)
         elif isinstance(value, dict):
-            visit(value, field)
+            for key, nested_value in value.items():
+                nested_field = f"{field}.{key}"
+                if isinstance(nested_value, (str, list, dict)):
+                    validate_path_value(nested_value, nested_field)
         else:
             raise ValueError(f"{field} must contain repository-relative paths")
 

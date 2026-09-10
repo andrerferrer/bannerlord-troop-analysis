@@ -162,6 +162,8 @@ class AnalysisTaskProtocolTests(unittest.TestCase):
             "C:/outside.md",
             "data\\outside.md",
             "data//outside.md",
+            " data/outside.md",
+            "data/outside.md\n",
         )
         for unsafe_path in unsafe_paths:
             with self.subTest(unsafe_path=unsafe_path):
@@ -199,6 +201,9 @@ class AnalysisTaskProtocolTests(unittest.TestCase):
             {"evidence_files": ["/tmp/secret"]},
             {"archive_parts": ["C:/secret.part"]},
             {"source_identity": {"file": "../outside.csv"}},
+            {"evidence_paths": [["../../outside.csv"]]},
+            {"source_files": {"primary": "/tmp/secret"}},
+            {"source_paths": [{"primary": "../outside.csv"}]},
         )
         for metadata in unsafe_metadata:
             with self.subTest(metadata=metadata):
