@@ -1,0 +1,16 @@
+{
+  "batch_id": "2026-09-07-to-08-rot-cerwyn-mixed",
+  "capture_window": "2026-09-07T01:32:03-03:00/2026-09-08T17:22:25-03:00",
+  "extractor": "GPT-5.6 Sol Pro host vision",
+  "game_version": "1.4.x",
+  "host_upload_id": "file_0000000035d4820e857390218237b8d8",
+  "input_local_path": "/mnt/data/Mount and Blade II Bannerlord - Singleplayer PID_ 26396 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 08_09_2026 17_19_17.zip",
+  "input_name": "Mount and Blade II Bannerlord - Singleplayer PID_ 26396 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 08_09_2026 17_19_17.zip",
+  "input_sha256": "88792f888ff37bcf29831b4f484f76bb27c84b0ec2686076f29fc18db714f770",
+  "input_size_bytes": 48248066,
+  "mode": "host-vision",
+  "pipeline_version": "0.4.0",
+  "raw_zip_retention": "host-mounted source; not committed",
+  "schema_version": "2.0.0",
+  "track": "realm_of_thrones"
+}
