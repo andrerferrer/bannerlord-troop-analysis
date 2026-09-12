@@ -1,0 +1,263 @@
+{
+  "active_test": {
+    "context": "field",
+    "display_name": "Frey Assassin",
+    "troop_id": "frey_assassin"
+  },
+  "archive": {
+    "archive_contents": [
+      {
+        "path": "README.md",
+        "sha256": "276e2b23baf70700ef8ab798b1bdad4924dda5ab68d9b3568cb63a58f562bd11",
+        "size_bytes": 657
+      },
+      {
+        "path": "batch_state.json",
+        "sha256": "bfeef8c298313a4106ac94428b91c85834fcda7856c8778e6e36d9c301df5f84",
+        "size_bytes": 1618
+      },
+      {
+        "path": "canonical/README.md",
+        "sha256": "498e1b919ab6ee3d360040afe1abd0d6d94dce80fb63bef9585f6ac74453ac58",
+        "size_bytes": 664
+      },
+      {
+        "path": "canonical/canonical_battles.jsonl",
+        "sha256": "768824eabe5e542c78fcf6fa64351fd517d2ae24eed424e829f5c299df01be6d",
+        "size_bytes": 10300
+      },
+      {
+        "path": "canonical/canonical_historical_aggregates.jsonl",
+        "sha256": "80e895deff2227014670b99b478599f490fdc9d1026b535d203bfacb107fec24",
+        "size_bytes": 20113
+      },
+      {
+        "path": "canonical/canonical_occurrences.jsonl",
+        "sha256": "8934ad4144aba703472f5fdb236e7c78d1a0dda3f61a3cd355a32a4febcbe302",
+        "size_bytes": 200046
+      },
+      {
+        "path": "canonical/canonical_screenshots.jsonl",
+        "sha256": "8bfbbd41bab0f01c9c765f2dded3baff6764ab66c5c3d25487438e270d4ab44b",
+        "size_bytes": 6369
+      },
+      {
+        "path": "canonical/canonical_troop_battle_consolidated.jsonl",
+        "sha256": "e9cca0b53275e8276fbc52de1ffd08673dc1c5ce07e61c50600e47965477df15",
+        "size_bytes": 29379
+      },
+      {
+        "path": "handoff/ANALYSIS_PROMPT.md",
+        "sha256": "0dac77df5d382138e19fae9064801d5ec70eeb60c89c1aad0bd33a2a016f0193",
+        "size_bytes": 1716
+      },
+      {
+        "path": "handoff/ANALYSIS_TASK_V1.json",
+        "sha256": "1b09b55482f0a6054113cfdc314094ba2b327f5f5ad8d8b2123c6cc7bbe6fe3d",
+        "size_bytes": 726
+      },
+      {
+        "path": "normalization_summary.json",
+        "sha256": "f326c874e1c58fb64fb1cb5a3f1333f6e8574e50312d47fb0da0282cfa0e66ea",
+        "size_bytes": 1006
+      },
+      {
+        "path": "normalization_validation_report.json",
+        "sha256": "3a214e40bd05694b803e8c7f558dd323db56a5f31492ead75075ca921fcdea22",
+        "size_bytes": 1616
+      },
+      {
+        "path": "reports/aggregation_validation.csv",
+        "sha256": "4d19bb67ab0e6386cc7b4d8060d78551538bb4e591f5d4004cdec3e1bec1137f",
+        "size_bytes": 2849
+      },
+      {
+        "path": "reports/canonical_validation_report.json",
+        "sha256": "3a214e40bd05694b803e8c7f558dd323db56a5f31492ead75075ca921fcdea22",
+        "size_bytes": 1616
+      },
+      {
+        "path": "reports/grouping_validation.csv",
+        "sha256": "58cdfab8795e061c15d6400a59a38fe92a12e478e14d0a126a17cdfd4c51f541",
+        "size_bytes": 2664
+      },
+      {
+        "path": "reports/screenshot_deduplication_audit.csv",
+        "sha256": "6a74c69ba23aa1d1ad77285a325bbeae0c6b1f55a5a180bb85ff14017c726bd7",
+        "size_bytes": 4969
+      },
+      {
+        "path": "reports/unresolved_rows.csv",
+        "sha256": "2be46b1d530740ed0347b14f263db7d7df1486ae653704cb78f2b2a6a6c7d792",
+        "size_bytes": 45
+      },
+      {
+        "path": "reports/zip_preflight.json",
+        "sha256": "4db83f99aed29e31a9e70e587ab078b400e43dec3c97f4179294d1e4731d01a7",
+        "size_bytes": 212
+      },
+      {
+        "path": "reviewed/review_resolutions.csv",
+        "sha256": "d3b8fc3fb6a91b454b355287bd14cca45c6b3274c81e1c0cfdab0ef1b2edf11a",
+        "size_bytes": 123
+      },
+      {
+        "path": "screenshots_manifest.csv",
+        "sha256": "6f65567099ef901d6718fcce9f6d3572b68457da737a3b5882c46fda0919d515",
+        "size_bytes": 3915
+      },
+      {
+        "path": "source_inventory.csv",
+        "sha256": "acb5e741c822b4a5c5ff3b4ac793f209aba638cec038a704c2ba56abc07b685f",
+        "size_bytes": 3834
+      },
+      {
+        "path": "source_provenance.json",
+        "sha256": "e47188e3685c23922c6f4f636d1b2b57c4c9f55cdb8f04c96c54ff0cbaf61d9a",
+        "size_bytes": 1831
+      }
+    ],
+    "encoding": "base64",
+    "name": "frey_assassin_phase1.tar.xz",
+    "parts": 1,
+    "repository_path": "data/combat_observations/2026-09-10-to-12-rot-frey-assassin-mixed/bundle/frey_assassin_phase1.tar.xz.base64",
+    "sha256": "83c1ba5030e27abd98eae24ca3b9e4c3c2ff3beefc99df6741d39c99ec3680ec",
+    "size_bytes": 14900,
+    "verification_commands": [
+      "base64 -d bundle/frey_assassin_phase1.tar.xz.base64 > /tmp/frey_assassin_phase1.tar.xz",
+      "echo \"83c1ba5030e27abd98eae24ca3b9e4c3c2ff3beefc99df6741d39c99ec3680ec  /tmp/frey_assassin_phase1.tar.xz\" | sha256sum -c -",
+      "mkdir -p /tmp/2026-09-10-to-12-rot-frey-assassin-mixed-phase1 && tar -xJf /tmp/frey_assassin_phase1.tar.xz -C /tmp/2026-09-10-to-12-rot-frey-assassin-mixed-phase1"
+    ]
+  },
+  "batch_id": "2026-09-10-to-12-rot-frey-assassin-mixed",
+  "batch_path": "data/combat_observations/2026-09-10-to-12-rot-frey-assassin-mixed",
+  "counts": {
+    "field": 6,
+    "input_images": 8,
+    "internal_same_battle_duplicates": 1,
+    "provisional_battles": 7,
+    "retained_representatives": 7,
+    "siege_attack": 1
+  },
+  "game_version": "1.4.x",
+  "historical_dedup": {
+    "basis": "capture identities 2026-09-10 through 2026-09-12 are later than the newest merged screenshot window ending 2026-09-08; GitHub exact-hash code search returned HTTP 502",
+    "risk": "low but repository-wide exact-hash search could not be independently completed through the connector",
+    "status": "pass_with_external_search_limitation"
+  },
+  "input": {
+    "host_upload_ids": [
+      "file_00000000e468820eac29b9dd920224b4",
+      "file_0000000062a8820e91f9109f9bb7bbe3",
+      "file_00000000ede8820ea0063b32ce0d8455",
+      "file_00000008938820e8c10c51f57b6b331",
+      "file_00000000c63c820e884e48483e10e594",
+      "file_000000001c1c820ea02d6f95c5d654e8",
+      "file_0000000036d0820ead2f6a2caa407873",
+      "file_00000000a404820e9546ff668af54870"
+    ],
+    "kind": "direct_chat_screenshot_set",
+    "raw_repository_retention": "not_retained",
+    "size_bytes": 12840258,
+    "source_set_sha256": "23a83d0e0566e8fd2def0f9e7e950c5f19ea83f985f52b8bc71fcc212eaa5559"
+  },
+  "mode": "host-vision",
+  "next_action": "Open the single draft pull request, publish the pending analysis-task protocol comment, and execute Phase 2 on the same branch without changing normalized evidence.",
+  "phase1_boundary": "No ranking conclusion, stop decision, or future queue recommendation is published in Phase 1.",
+  "phase_statuses": {
+    "historical_dedup": "pass_with_external_search_limitation",
+    "inventory": "complete",
+    "normalized_bundle": "complete",
+    "phase_2": "pending",
+    "preflight": "complete",
+    "row_extraction": "complete",
+    "visual_dedup": "complete"
+  },
+  "pipeline_version": "0.4.0",
+  "protocol": "bannerlord-phase1-checkpoint",
+  "schema_version": "2.0.0",
+  "screenshots": [
+    {
+      "battle_id": "battle_fa01",
+      "classification": "internal_same_battle_duplicate",
+      "context": "siege_attack",
+      "duplicate_of": "Mount and Blade II Bannerlord - Singleplayer PID_ 26396 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 10_09_2026 00_17_53.png",
+      "file": "ChatGPT 10_09_2026 00_14_48.png",
+      "host_upload_id": "file_00000000e468820eac29b9dd920224b4",
+      "sha256": "1e28f574a1aa447d4beb4bbb1eeb0c91b62fc4e4eb6e6dfbc194c65eda5aac04",
+      "state": "active_intermediate"
+    },
+    {
+      "battle_id": "battle_fa01",
+      "classification": "new_representative",
+      "context": "siege_attack",
+      "duplicate_of": null,
+      "file": "Mount and Blade II Bannerlord - Singleplayer PID_ 26396 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 10_09_2026 00_17_53.png",
+      "host_upload_id": "file_000000062a8820e91f9109f9bb7bbe3",
+      "sha256": "47209f82761e691d6603b0800cb098f6f19aa3ff5e7c85f66bf2eb40657de9ea",
+      "state": "final"
+    },
+    {
+      "battle_id": "battle_fa02",
+      "classification": "new_representative",
+      "context": "field",
+      "duplicate_of": null,
+      "file": "Mount and Blade II Bannerlord - Singleplayer PID_ 26396 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 10_09_2026 00_39_40.png",
+      "host_upload_id": "file_00000000ede8820ea0063b32ce0d8455",
+      "sha256": "56d0de3370f67c22f9758fa337bbc9c06dd2f88113029e59c8d1c9acc8260c3d",
+      "state": "final"
+    },
+    {
+      "battle_id": "battle_fa03",
+      "classification": "new_representative",
+      "context": "field",
+      "duplicate_of": null,
+      "file": "Mount and Blade II Bannerlord - Singleplayer PID_ 26396 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 10_09_2026 01_08_24.png",
+      "host_upload_id": "file_000000008938820e8c10c51f57b6b331",
+      "sha256": "d6bab99a51171e1423b8528cdd71b4e3abb2553590cd6c13013050b6d144d31b",
+      "state": "final"
+    },
+    {
+      "battle_id": "battle_fa04",
+      "classification": "new_representative",
+      "context": "field",
+      "duplicate_of": null,
+      "file": "Mount and Blade II Bannerlord - Singleplayer PID_ 26396 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 12_09_2026 13_56_42.png",
+      "host_upload_id": "file_00000000c63c820e884e48483e10e594",
+      "sha256": "54ef843a4e5cd270d77981eabf4501d5f49375ed5648abf4710889e76c91ee7c",
+      "state": "final"
+    },
+    {
+      "battle_id": "battle_fa05",
+      "classification": "new_representative",
+      "context": "field",
+      "duplicate_of": null,
+      "file": "Mount and Blade II Bannerlord - Singleplayer PID_ 26396 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 12_09_2026 15_21_17.png",
+      "host_upload_id": "file_000000001c1c820ea02d6f95c5d654e8",
+      "sha256": "f6cdcbb2f3c1870f8965e61484d537e2945e635334926ab0924648019fdc3a65",
+      "state": "final"
+    },
+    {
+      "battle_id": "battle_fa06",
+      "classification": "new_representative",
+      "context": "field",
+      "duplicate_of": null,
+      "file": "Mount and Blade II Bannerlord - Singleplayer PID_ 26396 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 12_09_2026 15_29_14.png",
+      "host_upload_id": "file_0000000036d0820ead2f6a2caa407873",
+      "sha256": "7b34ec693371a85d6f34c5bd569e33f54ec0d7661195afb30fd1d0d6ad965633",
+      "state": "final"
+    },
+    {
+      "battle_id": "battle_fa07",
+      "classification": "new_representative",
+      "context": "field",
+      "duplicate_of": null,
+      "file": "Mount and Blade II Bannerlord - Singleplayer PID_ 26396 -  Win64_Shipping_Client Msvc14 Managed C__Program Files (x86)_Steam_steamapps_common_Mount & Blade II Bannerlord_bin_Modules_ 12_09_2026 18_45_36.png",
+      "host_upload_id": "file_00000000a404820e9546ff668af54870",
+      "sha256": "1cf4cbb407306ec98a2eba44a3fde5d477bd7bdaac88d76465cc4781f8b5a175",
+      "state": "active_last_observation"
+    }
+  ],
+  "track": "realm_of_thrones",
+  "version": 1
+}
