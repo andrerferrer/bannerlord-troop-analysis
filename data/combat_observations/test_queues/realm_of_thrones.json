@@ -1,12 +1,5 @@
 {
-  "active_test": {
-    "batch": "data/combat_observations/2026-09-10-to-12-rot-frey-assassin-mixed",
-    "context": "field",
-    "display_name": "Frey Assassin",
-    "reason": "The operator uploaded a dedicated Sep 10-12 campaign batch centered on Frey Assassin; Phase 1 confirms the tested target but makes no stop or next-target decision.",
-    "status": "in_progress",
-    "troop_id": "frey_assassin"
-  },
+  "active_test": null,
   "authority": {
     "path": "data/combat_observations/test_queues/realm_of_thrones.json",
     "rule": "This file is the only repository source of truth for what troop should be tested next. Batch-local analysis/NEXT_TEST_RECOMMENDATION.md files and pull-request bodies are proposals and historical evidence only until the same merged pull request updates this file.",
@@ -97,15 +90,52 @@
       ],
       "status": "completed_no_additional_test",
       "troop_id": "realm_paladin"
+    },
+    {
+      "completed_by": "data/combat_observations/2026-09-10-to-12-rot-frey-assassin-mixed/analysis/ANALYSIS_REPORT.md",
+      "context": "field",
+      "decision": "Stop dedicated field testing. The six-battle dedicated cohort and the five-final-battle sensitivity both pass the 5-battle / 20-deployed gate, with player-side kill share above deployment share. The earlier incidental cohort remains a separate descriptive comparison and is not pooled.",
+      "display_name": "Frey Assassin",
+      "evidence": [
+        {
+          "deployed": 534,
+          "independent_battles": 6,
+          "kills": 1549,
+          "kills_per_deployed": 2.900749,
+          "offensive_contribution_ratio": 1.319227,
+          "player_side_deployment_share": 0.447987,
+          "player_side_kill_share": 0.590996,
+          "retention_rate": 0.544944
+        },
+        {
+          "deployed": 446,
+          "independent_battles": 5,
+          "kills": 1203,
+          "kills_per_deployed": 2.697309,
+          "offensive_contribution_ratio": 1.274048,
+          "player_side_deployment_share": 0.446446,
+          "player_side_kill_share": 0.568794,
+          "retention_rate": 0.569507,
+          "sensitivity": "final results only; excludes active battle_fa07"
+        }
+      ],
+      "evidence_references": [
+        "data/combat_observations/2026-09-10-to-12-rot-frey-assassin-mixed/analysis/focus_deep_dive.csv",
+        "data/combat_observations/2026-09-10-to-12-rot-frey-assassin-mixed/analysis/focus_sensitivity.csv",
+        "data/combat_observations/2026-09-10-to-12-rot-frey-assassin-mixed/analysis/focus_historical_comparison.csv",
+        "pull/97"
+      ],
+      "status": "completed_no_additional_test",
+      "troop_id": "frey_assassin"
     }
   ],
   "game_version": "1.4.x",
   "last_transition": {
     "batch": "data/combat_observations/2026-09-10-to-12-rot-frey-assassin-mixed",
-    "date": "2026-09-12",
-    "from": "active_test: null / ordered_queue: []",
-    "reason": "Phase 1 confirms the operator-selected Frey Assassin field target. Future target selection remains blocked pending completed analysis and the existing historical audit.",
-    "to": "active_test: frey_assassin / ordered_queue: []"
+    "date": "2026-09-13",
+    "from": "active_test: frey_assassin / ordered_queue: []",
+    "reason": "Phase 2 closes dedicated Frey Assassin field testing after the full six-battle cohort and its five-final-battle sensitivity both pass the display gate with kill share above deployment share. No future target is approved while the Arryn historical audit remains open.",
+    "to": "active_test: null / ordered_queue: [] / closed: +frey_assassin"
   },
   "ordered_queue": [],
   "parked": [
@@ -135,7 +165,7 @@
     "phase_1": "May set or confirm active_test, but must not choose or reorder future targets from preliminary extraction.",
     "phase_2": "Must update active_test, ordered_queue, verification_holds, and parked or closed entries in the same pull request whenever the completed analysis changes what should be tested next."
   },
-  "updated_at": "2026-09-12",
+  "updated_at": "2026-09-13",
   "verification_holds": [
     {
       "context": "field",

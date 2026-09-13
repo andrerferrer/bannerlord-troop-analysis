@@ -1,0 +1,3 @@
+cohort,context,participant_scope,parent_group,independent_battles,ordinary_occurrences,partition_rows,reliable_rows,insufficient_rows
+frey_dedicated,field,player_party,Walder Frey's Party,6,50,16,6,10
+frey_dedicated,siege_attack,player_party,Walder Frey's Party,1,11,11,0,11

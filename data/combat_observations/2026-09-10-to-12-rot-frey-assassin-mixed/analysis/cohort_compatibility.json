@@ -1,0 +1,24 @@
+{
+  "decisions": [
+    {
+      "cohort": "frey_dedicated",
+      "contexts": [
+        "field",
+        "siege_attack"
+      ],
+      "decision": "aggregate only inside one context"
+    },
+    {
+      "battle": "battle_fa07",
+      "decision": "independent active last observation; included in offensive evidence but excluded from production pressure margin"
+    },
+    {
+      "decision": "descriptive comparison only; never pool campaign date, roster, opponent, or unrecorded difficulty states",
+      "pair": [
+        "frey_dedicated",
+        "PR_96_frey_incidental"
+      ]
+    }
+  ],
+  "status": "passed_with_context_and_historical_cohort_separation"
+}

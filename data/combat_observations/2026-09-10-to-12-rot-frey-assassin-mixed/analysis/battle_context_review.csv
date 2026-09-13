@@ -1,0 +1,8 @@
+battle_id,captured_at,cohort,context,result,observation_censoring,player_deployed,player_remaining,allied_retention,opponent_deployed,opponent_remaining,enemy_retention,pressure_margin,metric_status,included_in_final_pressure_summary,source_image_sha256
+battle_fa01,2026-09-10T00:17:53-03:00,frey_dedicated,siege_attack,victory,final,199,135,0.678392,572,0,0.000000,0.678392,final,True,47209f82761e691d6603b0800cb098f6f19aa3ff5e7c85f66bf2eb40657de9ea
+battle_fa02,2026-09-10T00:39:40-03:00,frey_dedicated,field,victory,final,195,158,0.810256,563,104,0.184725,0.625532,final,True,56d0de3370f67c22f9758fa337bbc9c06dd2f88113029e59c8d1c9acc8260c3d
+battle_fa03,2026-09-10T01:08:24-03:00,frey_dedicated,field,defeat,final,195,0,0.000000,797,500,0.627353,-0.627353,final,True,d6bab99a51171e1423b8528cdd71b4e3abb2553590cd6c13013050b6d144d31b
+battle_fa04,2026-09-12T13:56:42-03:00,frey_dedicated,field,defeat,final,203,0,0.000000,797,426,0.534504,-0.534504,final,True,54ef843a4e5cd270d77981eabf4501d5f49375ed5648abf4710889e76c91ee7c
+battle_fa05,2026-09-12T15:21:17-03:00,frey_dedicated,field,victory,final,204,185,0.906863,391,1,0.002558,0.904305,final,True,f6cdcbb2f3c1870f8965e61484d537e2945e635334926ab0924648019fdc3a65
+battle_fa06,2026-09-12T15:29:14-03:00,frey_dedicated,field,victory,final,202,148,0.732673,602,3,0.004983,0.727690,final,True,7b34ec693371a85d6f34c5bd569e33f54ec0d7661195afb30fd1d0d6ad965633
+battle_fa07,2026-09-12T18:45:36-03:00,frey_dedicated,field,active,right_censored,193,59,0.305699,1073,567,0.528425,-0.222725,diagnostic_censored_snapshot,False,1cf4cbb407306ec98a2eba44a3fde5d477bd7bdaac88d76465cc4781f8b5a175

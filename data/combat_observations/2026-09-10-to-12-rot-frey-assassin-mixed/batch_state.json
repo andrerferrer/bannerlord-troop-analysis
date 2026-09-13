@@ -12,7 +12,9 @@
   "limitations": [
     "Raw PNGs are not retained in the repository; hashes, dimensions, host IDs, and deterministic normalized records are retained.",
     "Repository-wide exact-hash search returned HTTP 502; chronology and visual audit make historical duplicate risk low, not zero.",
-    "battle_fa07 is an accepted active last observation rather than a final result."
+    "battle_fa07 is an accepted active last observation rather than a final result.",
+    "The Phase 1 source-hash prose says sorted lines, while the committed source-set hash reproduces in numeric source_order rather than lexicographic line order; Phase 2 records the ambiguity without changing provenance.",
+    "The PR #96 incidental Frey cohort is descriptive only and is not pooled because campaign roster, opponents, and difficulty state are not controlled as one experiment."
   ],
   "normalized": {
     "aggregate_rows": 27,
@@ -28,12 +30,24 @@
   },
   "phase_2": {
     "agent_role": "separate_analysis_agent",
-    "status": "pending"
+    "focus_decision": "completed_no_additional_test",
+    "insufficient_rows": 21,
+    "reliable_rows": 6,
+    "status": "complete_local_validation_passed"
   },
   "queue": {
-    "future_selection": "not_authorized_in_phase1",
+    "active_test": null,
+    "closed": [
+      "cerwyn_marauder",
+      "realm_paladin",
+      "frey_assassin"
+    ],
+    "future_selection": "none_approved_pending_historical_audit",
     "ordered_queue": [],
-    "phase1_active_test": "frey_assassin"
+    "phase1_active_test": "frey_assassin",
+    "verification_holds": [
+      "arryn_moonknight"
+    ]
   },
   "schema_version": "1.0.0",
   "source": {

@@ -1,0 +1,8 @@
+display_name,canonical_troop_id,battle_id,captured_at,cohort,context,result,censoring_status,deployed,survivors,kills,deaths,wounded,kills_per_deployed,retention_rate,player_side_kills,player_side_deployed
+Frey Assassin [T6],frey_assassin,battle_fa01,2026-09-10T00:17:53-03:00,frey_dedicated,siege_attack,victory,final,96,75,370,5,16,3.854167,0.781250,574,199
+Frey Assassin [T6],frey_assassin,battle_fa02,2026-09-10T00:39:40-03:00,frey_dedicated,field,victory,final,90,86,279,1,3,3.100000,0.955556,459,195
+Frey Assassin [T6],frey_assassin,battle_fa03,2026-09-10T01:08:24-03:00,frey_dedicated,field,defeat,final,89,0,189,16,73,2.123596,0.000000,297,195
+Frey Assassin [T6],frey_assassin,battle_fa04,2026-09-12T13:56:42-03:00,frey_dedicated,field,defeat,final,89,0,199,24,65,2.235955,0.000000,371,203
+Frey Assassin [T6],frey_assassin,battle_fa05,2026-09-12T15:21:17-03:00,frey_dedicated,field,victory,final,89,87,185,0,2,2.078652,0.977528,389,204
+Frey Assassin [T6],frey_assassin,battle_fa06,2026-09-12T15:29:14-03:00,frey_dedicated,field,victory,final,89,81,351,1,7,3.943820,0.910112,599,202
+Frey Assassin [T6],frey_assassin,battle_fa07,2026-09-12T18:45:36-03:00,frey_dedicated,field,active,censored_diagnostic,88,37,346,7,44,3.931818,0.420455,506,193
