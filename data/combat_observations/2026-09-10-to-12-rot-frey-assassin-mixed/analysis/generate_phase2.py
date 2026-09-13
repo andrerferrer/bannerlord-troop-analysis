@@ -10,6 +10,7 @@ import io
 import json
 import random
 import re
+import subprocess
 import tarfile
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -35,6 +36,12 @@ BUNDLE_MEMBERS = 22
 HISTORICAL_SHA256 = "a26207cbe1e9bf362dce4ff8e303325785c32db68a1f627ceec7c03c52300839"
 HISTORICAL_COMMIT = "f6c9bcab68f60419eaf4c7b5fdf11d4cf7676a30"
 HISTORICAL_BLOB_SHA = "508a56989537d6598c9440dc9981de7b7961e4ca"
+IMMUTABLE_PHASE1_PATHS = (
+    f"data/combat_observations/{BATCH_ID}/bundle",
+    f"data/combat_observations/{BATCH_ID}/handoff",
+    f"data/combat_observations/{BATCH_ID}/phase1_checkpoint.json",
+)
+FROZEN_MODEL_PATHS = ("analysis/model_versions",)
 GATE_BATTLES = 5
 GATE_DEPLOYED = 20
 BOOTSTRAP_REPETITIONS = 10_000
@@ -177,7 +184,6 @@ def parse_csv_blob(blob: bytes) -> list[dict[str, str]]:
 
 def verify_source_manifest(files: dict[str, bytes]) -> dict:
     inventory = parse_csv_blob(files["source_inventory.csv"])
-    screenshots = load_bundle_jsonl(files, "canonical/canonical_screenshots.jsonl")
     ordered_inventory = sorted(inventory, key=lambda row: int(row["source_order"]))
     manifest_rows = (
         f"{row['sha256']}  {row['size_bytes']}  {row['image_file']}\n"
@@ -187,7 +193,10 @@ def verify_source_manifest(files: dict[str, bytes]) -> dict:
     if source_set_sha != SOURCE_SHA256 or sum(int(row["size_bytes"]) for row in inventory) != SOURCE_SIZE:
         raise ValueError("source inventory set hash/size mismatch")
     inventory_keys = {(row["image_file"], row["sha256"]) for row in inventory}
-    screenshot_keys = {(row["image_file"], row["image_sha256"]) for row in screenshots}
+    screenshot_keys = {
+        (row["image_file"], row["image_sha256"])
+        for row in load_bundle_jsonl(files, "canonical/canonical_screenshots.jsonl")
+    }
     if inventory_keys != screenshot_keys:
         raise ValueError("source inventory/canonical screenshot mismatch")
     return {
@@ -535,6 +544,82 @@ def git_blob_sha(data: bytes) -> str:
     return hashlib.sha1(header + data).hexdigest()
 
 
+def committed_snapshot(commit: str, paths: tuple[str, ...], repo_root: Path) -> dict[str, str]:
+    command = ["git", "ls-tree", "-r", "-z", "--full-tree", commit, "--", *paths]
+    result = subprocess.run(command, cwd=repo_root, check=True, capture_output=True)
+    snapshot = {}
+    for record in result.stdout.split(b"\0"):
+        if not record:
+            continue
+        metadata, raw_path = record.split(b"\t", 1)
+        _mode, object_type, object_sha = metadata.decode().split()
+        if object_type != "blob":
+            raise ValueError(f"unexpected Git object type for {raw_path!r}: {object_type}")
+        snapshot[raw_path.decode()] = object_sha
+    return snapshot
+
+
+def working_snapshot(paths: tuple[str, ...], repo_root: Path) -> dict[str, str]:
+    snapshot = {}
+    for relative in paths:
+        root = repo_root / relative
+        if root.is_symlink():
+            raise ValueError(f"snapshot root must not be a symlink: {root}")
+        candidates = [root] if root.is_file() else sorted(root.rglob("*")) if root.is_dir() else []
+        for candidate in candidates:
+            if candidate.is_symlink():
+                raise ValueError(f"snapshot path must not be a symlink: {candidate}")
+            if candidate.is_file():
+                path = candidate.relative_to(repo_root).as_posix()
+                snapshot[path] = git_blob_sha(candidate.read_bytes())
+    return snapshot
+
+
+def snapshot_changes(expected: dict[str, str], current: dict[str, str]) -> list[dict]:
+    changes = []
+    for path in sorted(set(expected) | set(current)):
+        if path not in current:
+            status = "missing"
+        elif path not in expected:
+            status = "added"
+        elif current[path] != expected[path]:
+            status = "modified"
+        else:
+            continue
+        changes.append({
+            "path": path,
+            "status": status,
+            "expected_blob_sha": expected.get(path, ""),
+            "current_blob_sha": current.get(path, ""),
+        })
+    return changes
+
+
+def verify_repository_snapshot(
+    paths: tuple[str, ...],
+    label: str,
+    commit: str = NORMALIZATION_COMMIT,
+    repo_root: Path = REPO_ROOT,
+) -> dict:
+    expected = committed_snapshot(commit, paths, repo_root)
+    missing_baselines = [
+        path for path in paths
+        if not any(candidate == path or candidate.startswith(f"{path}/") for candidate in expected)
+    ]
+    if missing_baselines:
+        raise ValueError(f"{label} has no baseline files at {commit}: {missing_baselines}")
+    current = working_snapshot(paths, repo_root)
+    changes = snapshot_changes(expected, current)
+    if changes:
+        raise ValueError(f"{label} drift from {commit}: {json.dumps(changes, sort_keys=True)}")
+    return {
+        "baseline_commit": commit,
+        "paths": list(paths),
+        "files_verified": len(expected),
+        "modified_files": changes,
+    }
+
+
 def historical_comparison(focus_row: dict) -> list[dict]:
     payload = HISTORICAL_PATH.read_bytes()
     if sha256_bytes(payload) != HISTORICAL_SHA256 or git_blob_sha(payload) != HISTORICAL_BLOB_SHA:
@@ -586,12 +671,22 @@ def historical_comparison(focus_row: dict) -> list[dict]:
 def build_report(rankings: list[dict], reliable: list[dict], insufficient: list[dict], focus: list[dict], pressure: list[dict], identity_audit: list[dict], sensitivity: list[dict], comparison: list[dict], occurrence_count: int) -> str:
     lines = [f"# Phase 2 analysis — {BATCH_ID}", "", "## Batch-wide findings", "",
         f"All **{occurrence_count}** visible player-side ordinary-troop occurrences form **{len(rankings)}** troop/context rows: **{len(reliable)} reliable** and **{len(insufficient)} below the 5-battle / 20-deployed gate**. Field and siege attack remain separate, and the active last observation is an independent right-censored battle.", "",
-        "### Exact reliable/insufficient partition", "",
-        "| Partition | Context | Eff. rank | Impact rank | Troop | Battles | Deployed | Kills | Kills/deployed | Kill share | Deploy share | Ratio | Retention | Grade |",
-        "|---|---|---:|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---|",]
-    for row in rankings:
+        "### Reliable rows", "",
+        "Only rows that pass the 5-battle / 20-deployed display gate publish rates and ranks.", "",
+        "| Context | Eff. rank | Impact rank | Troop | Canonical ID | Battles | Deployed | Kills | Kills/deployed | Kill share | Deploy share | Ratio | Retention | Grade |",
+        "|---|---:|---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---|",]
+    for row in reliable:
         lines.append(
-            f"| {row['reliability_status']} | {row['context']} | {row['efficiency_rank']} | {row['impact_rank']} | {row['display_name']} | {row['independent_battles']} | {row['deployed']} | {row['kills']} | {row['kills_per_deployed']} | {float(row['player_side_kill_share']):.2%} | {float(row['player_side_deployment_share']):.2%} | {row['offensive_contribution_ratio']} | {float(row['retention_rate']):.2%} | {row['evidence_grade']} |"
+            f"| {row['context']} | {row['efficiency_rank']} | {row['impact_rank']} | {row['display_name']} | {row['canonical_troop_id']} | {row['independent_battles']} | {row['deployed']} | {row['kills']} | {row['kills_per_deployed']} | {float(row['player_side_kill_share']):.2%} | {float(row['player_side_deployment_share']):.2%} | {row['offensive_contribution_ratio']} | {float(row['retention_rate']):.2%} | {row['evidence_grade']} |"
+        )
+
+    lines += ["", "### Insufficient-evidence rows", "",
+        "Every below-gate row is retained with identifiers, sample size, and remaining gate gaps.", "",
+        "| Context | Troop | Canonical ID | Battles | Deployed | More battles needed | More deployed needed |",
+        "|---|---|---|---:|---:|---:|---:|"]
+    for row in insufficient:
+        lines.append(
+            f"| {row['context']} | {row['display_name']} | {row['canonical_troop_id']} | {row['independent_battles']} | {row['deployed']} | {row['more_battles_needed']} | {row['more_deployed_needed']} |"
         )
 
     current = comparison[0]
@@ -613,6 +708,14 @@ def build_report(rankings: list[dict], reliable: list[dict], insufficient: list[
 
 
 def main() -> None:
+    immutable_snapshot = verify_repository_snapshot(
+        IMMUTABLE_PHASE1_PATHS,
+        "immutable Phase 1 inputs",
+    )
+    frozen_model_snapshot = verify_repository_snapshot(
+        FROZEN_MODEL_PATHS,
+        "frozen model files",
+    )
     files, bundle_verification = extract_bundle()
     source_verification = verify_source_manifest(files)
     battles = adapt_battles(load_bundle_jsonl(files, "canonical/canonical_battles.jsonl"))
@@ -741,7 +844,10 @@ def main() -> None:
         "source_manifest": source_verification, "normalized_bundle": bundle_verification,
         "identity_audit": {"path": IDENTITY_PATH.relative_to(REPO_ROOT).as_posix(), "sha256": IDENTITY_AUDIT_SHA256},
         "historical_comparison_source": {"path": HISTORICAL_PATH.relative_to(REPO_ROOT).as_posix(), "commit": HISTORICAL_COMMIT, "blob_sha": HISTORICAL_BLOB_SHA, "sha256": HISTORICAL_SHA256},
-        "immutable_inputs_modified": [], "frozen_model_files_modified": [],
+        "immutable_phase1_snapshot": immutable_snapshot,
+        "frozen_model_snapshot": frozen_model_snapshot,
+        "immutable_inputs_modified": immutable_snapshot["modified_files"],
+        "frozen_model_files_modified": frozen_model_snapshot["modified_files"],
     }
     write_json(ANALYSIS_DIR / "input_verification.json", input_verification)
     write_json(REVIEW_DIR / "phase2_review_summary.json", {
@@ -782,12 +888,13 @@ def main() -> None:
         "- Focused archive, source-manifest, denominator, identity, partition, sensitivity, historical-pin, queue, artifact-hash, and human-report coverage assertions: passed.\n"
         "- Focused repository unit tests: **89/89 passed** (normalized analysis, canonical identity, bundle safety, task protocol, and role diagnostics).\n"
         "- Deliberate negative red/fix: permissive decoding first accepted a corrupted trailing Base64 byte; after compacting only ASCII whitespace and enabling strict validation, the same corruption fails closed.\n"
+        "- Added, missing, modified, or symlink-substituted immutable snapshot paths fail closed against the normalization commit.\n"
         "- Changed identity audit and changed historical comparison source each fail closed.\n",
         encoding="utf-8",
     )
     (ANALYSIS_DIR / "README.md").write_text(
         "# Phase 2 analytical outputs\n\n"
-        f"All 61 ordinary occurrences partition into {len(rankings)} troop/context rows: {len(reliable)} reliable and {len(insufficient)} insufficient. `ranking_complete.csv` is the exact union.\n\n"
+        f"All 61 ordinary occurrences partition into {len(rankings)} troop/context rows: {len(reliable)} reliable and {len(insufficient)} insufficient. `ranking_complete.csv` contains the full partition; `ranking_reliable.csv` contains only gate-passing rows and reranks them independently, so its rank numbers intentionally differ from the complete view.\n\n"
         "The focus, sensitivity, historical comparison, result splits, denominators, pressure margins, identities, model status, and review decisions are separate auditable artifacts.\n\n"
         "Reproduce the analysis from the repository root with:\n\n"
         f"```bash\npython3 data/combat_observations/{BATCH_ID}/analysis/generate_phase2.py\n```\n",
@@ -817,6 +924,8 @@ def main() -> None:
         "bundle_members_verified": bundle_verification["members"],
         "bundle_member_hashes_verified": bundle_verification["declared_member_hashes_verified"],
         "strict_base64_corruption_regression": "passed_after_observed_red",
+        "immutable_phase1_files_verified": immutable_snapshot["files_verified"],
+        "frozen_model_files_verified": frozen_model_snapshot["files_verified"],
         "battles": len(battles), "canonical_occurrences": len(occurrences),
         "ordinary_occurrences": len(rows), "excluded_unresolved_rows": 0,
         "unresolved_review_rows": 0, "distinct_display_labels": len(names),

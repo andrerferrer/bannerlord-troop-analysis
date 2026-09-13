@@ -4,37 +4,46 @@
 
 All **61** visible player-side ordinary-troop occurrences form **27** troop/context rows: **6 reliable** and **21 below the 5-battle / 20-deployed gate**. Field and siege attack remain separate, and the active last observation is an independent right-censored battle.
 
-### Exact reliable/insufficient partition
+### Reliable rows
 
-| Partition | Context | Eff. rank | Impact rank | Troop | Battles | Deployed | Kills | Kills/deployed | Kill share | Deploy share | Ratio | Retention | Grade |
-|---|---|---:|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---|
-| reliable | field | 1 | 1 | Frey Assassin [T6] | 6 | 534 | 1549 | 2.900749 | 59.10% | 44.80% | 1.319227 | 54.49% | high |
-| insufficient_evidence | field | 2 | 7 | Blackwood Archer [T4] | 1 | 2 | 5 | 2.500000 | 0.99% | 1.04% | 0.953557 | 50.00% | exploratory |
-| insufficient_evidence | field | 3 | 5 | Blackwood Longbowman [T5] | 1 | 4 | 8 | 2.000000 | 1.58% | 2.07% | 0.762846 | 50.00% | exploratory |
-| insufficient_evidence | field | 4 | 10 | Gold Cloak Halberdier [T5] | 1 | 2 | 4 | 2.000000 | 0.87% | 1.03% | 0.849673 | 100.00% | exploratory |
-| reliable | field | 5 | 2 | Celtigar Banneret [T6] | 6 | 225 | 397 | 1.764444 | 15.15% | 18.88% | 0.802449 | 44.89% | high |
-| reliable | field | 6 | 3 | Velaryon Sea Guard [T6] | 6 | 186 | 300 | 1.612903 | 11.45% | 15.60% | 0.733529 | 33.33% | high |
-| reliable | field | 7 | 8 | Mountain's Man [T6] | 5 | 24 | 35 | 1.458333 | 1.62% | 2.41% | 0.672506 | 29.17% | low |
-| reliable | field | 8 | 4 | Queen's Man [T6] | 6 | 116 | 151 | 1.301724 | 5.76% | 9.73% | 0.592009 | 40.52% | high |
-| insufficient_evidence | field | 9 | 6 | Riverlands Admiral [T6] | 4 | 27 | 34 | 1.259259 | 2.05% | 3.36% | 0.611379 | 29.63% | low |
-| reliable | field | 10 | 9 | Baratheon Hammerknight [T6] | 6 | 33 | 40 | 1.212121 | 1.53% | 2.77% | 0.551258 | 39.39% | medium |
-| insufficient_evidence | field | 11 | 11 | Velaryon Marine [T4] | 1 | 2 | 2 | 1.000000 | 0.44% | 1.03% | 0.424837 | 100.00% | exploratory |
-| insufficient_evidence | field | 12 | 12 | Clegane Man at Arms [T4] | 2 | 2 | 1 | 0.500000 | 0.10% | 0.49% | 0.205466 | 50.00% | exploratory |
-| insufficient_evidence | field | 13 | 13 | Bracken House Guard [T5] | 1 | 2 | 0 | 0.000000 | 0.00% | 1.04% | 0.000000 | 0.00% | exploratory |
-| insufficient_evidence | field | 14 | 14 | Velaryon Renegade [T5] | 2 | 2 | 0 | 0.000000 | 0.00% | 0.52% | 0.000000 | 50.00% | exploratory |
-| insufficient_evidence | field | 15 | 15 | Clegane Levy [T2] | 1 | 1 | 0 | 0.000000 | 0.00% | 0.50% | 0.000000 | 0.00% | exploratory |
-| insufficient_evidence | field | 16 | 16 | Gold Cloak Petty Officer [T4] | 1 | 1 | 0 | 0.000000 | 0.00% | 0.51% | 0.000000 | 0.00% | exploratory |
-| insufficient_evidence | siege_attack | 1 | 3 | Velaryon Sea Guard [T6] | 1 | 5 | 30 | 6.000000 | 5.23% | 2.51% | 2.080139 | 100.00% | exploratory |
-| insufficient_evidence | siege_attack | 2 | 1 | Frey Assassin [T6] | 1 | 96 | 370 | 3.854167 | 64.46% | 48.24% | 1.336201 | 78.12% | exploratory |
-| insufficient_evidence | siege_attack | 3 | 2 | Celtigar Banneret [T6] | 1 | 29 | 76 | 2.620690 | 13.24% | 14.57% | 0.908567 | 62.07% | exploratory |
-| insufficient_evidence | siege_attack | 4 | 4 | Dragonstone Knight [T4] | 1 | 7 | 14 | 2.000000 | 2.44% | 3.52% | 0.693380 | 71.43% | exploratory |
-| insufficient_evidence | siege_attack | 5 | 6 | Velaryon Renegade [T5] | 1 | 4 | 8 | 2.000000 | 1.39% | 2.01% | 0.693380 | 50.00% | exploratory |
-| insufficient_evidence | siege_attack | 6 | 5 | Celtigar Man at Arms [T4] | 1 | 5 | 9 | 1.800000 | 1.57% | 2.51% | 0.624042 | 80.00% | exploratory |
-| insufficient_evidence | siege_attack | 7 | 7 | Celtigar Halberdier [T5] | 1 | 7 | 9 | 1.285714 | 1.57% | 3.52% | 0.445744 | 57.14% | exploratory |
-| insufficient_evidence | siege_attack | 8 | 8 | Velaryon Marine [T4] | 1 | 7 | 9 | 1.285714 | 1.57% | 3.52% | 0.445744 | 71.43% | exploratory |
-| insufficient_evidence | siege_attack | 9 | 9 | Squire [T3] | 1 | 5 | 5 | 1.000000 | 0.87% | 2.51% | 0.346690 | 20.00% | exploratory |
-| insufficient_evidence | siege_attack | 10 | 10 | Dragonstone Shock Knight [T5] | 1 | 6 | 5 | 0.833333 | 0.87% | 3.02% | 0.288908 | 50.00% | exploratory |
-| insufficient_evidence | siege_attack | 11 | 11 | Baratheon Hammerknight [T6] | 1 | 5 | 4 | 0.800000 | 0.70% | 2.51% | 0.277352 | 40.00% | exploratory |
+Only rows that pass the 5-battle / 20-deployed display gate publish rates and ranks.
+
+| Context | Eff. rank | Impact rank | Troop | Canonical ID | Battles | Deployed | Kills | Kills/deployed | Kill share | Deploy share | Ratio | Retention | Grade |
+|---|---:|---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| field | 1 | 1 | Frey Assassin [T6] | frey_assassin | 6 | 534 | 1549 | 2.900749 | 59.10% | 44.80% | 1.319227 | 54.49% | high |
+| field | 2 | 2 | Celtigar Banneret [T6] | celtigar_banneret | 6 | 225 | 397 | 1.764444 | 15.15% | 18.88% | 0.802449 | 44.89% | high |
+| field | 3 | 3 | Velaryon Sea Guard [T6] | velaryon_sea_guard | 6 | 186 | 300 | 1.612903 | 11.45% | 15.60% | 0.733529 | 33.33% | high |
+| field | 4 | 5 | Mountain's Man [T6] | mountains_man | 5 | 24 | 35 | 1.458333 | 1.62% | 2.41% | 0.672506 | 29.17% | low |
+| field | 5 | 4 | Queen's Man [T6] | dragonstone_steel_curtain | 6 | 116 | 151 | 1.301724 | 5.76% | 9.73% | 0.592009 | 40.52% | high |
+| field | 6 | 6 | Baratheon Hammerknight [T6] | baratheon_pikeknight | 6 | 33 | 40 | 1.212121 | 1.53% | 2.77% | 0.551258 | 39.39% | medium |
+
+### Insufficient-evidence rows
+
+Every below-gate row is retained with identifiers, sample size, and remaining gate gaps.
+
+| Context | Troop | Canonical ID | Battles | Deployed | More battles needed | More deployed needed |
+|---|---|---|---:|---:|---:|---:|
+| field | Blackwood Archer [T4] | blackwood_archer | 1 | 2 | 4 | 18 |
+| field | Blackwood Longbowman [T5] | blackwood_longbowman | 1 | 4 | 4 | 16 |
+| field | Gold Cloak Halberdier [T5] | kingsguard | 1 | 2 | 4 | 18 |
+| field | Riverlands Admiral [T6] | river_admiral | 4 | 27 | 1 | 0 |
+| field | Velaryon Marine [T4] | velaryon_warrior | 1 | 2 | 4 | 18 |
+| field | Clegane Man at Arms [T4] | clegane_man_at_arms | 2 | 2 | 3 | 18 |
+| field | Bracken House Guard [T5] | bracken_houseguard | 1 | 2 | 4 | 18 |
+| field | Velaryon Renegade [T5] | velaryon_renegade | 2 | 2 | 3 | 18 |
+| field | Clegane Levy [T2] | clegane_levy | 1 | 1 | 4 | 19 |
+| field | Gold Cloak Petty Officer [T4] | goldcloak_officer | 1 | 1 | 4 | 19 |
+| siege_attack | Velaryon Sea Guard [T6] | velaryon_sea_guard | 1 | 5 | 4 | 15 |
+| siege_attack | Frey Assassin [T6] | frey_assassin | 1 | 96 | 4 | 0 |
+| siege_attack | Celtigar Banneret [T6] | celtigar_banneret | 1 | 29 | 4 | 0 |
+| siege_attack | Dragonstone Knight [T4] | dragonstone_knight | 1 | 7 | 4 | 13 |
+| siege_attack | Velaryon Renegade [T5] | velaryon_renegade | 1 | 4 | 4 | 16 |
+| siege_attack | Celtigar Man at Arms [T4] | celtigar_man_at_arms | 1 | 5 | 4 | 15 |
+| siege_attack | Celtigar Halberdier [T5] | celtigar_halberdier | 1 | 7 | 4 | 13 |
+| siege_attack | Velaryon Marine [T4] | velaryon_warrior | 1 | 7 | 4 | 13 |
+| siege_attack | Squire [T3] | dragonstone_squire | 1 | 5 | 4 | 15 |
+| siege_attack | Dragonstone Shock Knight [T5] | dragonstone_shock_knight | 1 | 6 | 4 | 14 |
+| siege_attack | Baratheon Hammerknight [T6] | baratheon_pikeknight | 1 | 5 | 4 | 15 |
 
 ## Additive Frey Assassin deep dive
 

@@ -1,6 +1,14 @@
 {
   "batch_id": "2026-09-10-to-12-rot-frey-assassin-mixed",
   "frozen_model_files_modified": [],
+  "frozen_model_snapshot": {
+    "baseline_commit": "75b500ca3deab949aa8ca5392bf8c02df26e1f77",
+    "files_verified": 9,
+    "modified_files": [],
+    "paths": [
+      "analysis/model_versions"
+    ]
+  },
   "historical_comparison_source": {
     "blob_sha": "508a56989537d6598c9440dc9981de7b7961e4ca",
     "commit": "f6c9bcab68f60419eaf4c7b5fdf11d4cf7676a30",
@@ -12,6 +20,16 @@
     "sha256": "63ea983998e25aa0e6f8c0747bf42e44440f695bbe1fec717074e7ba64e42810"
   },
   "immutable_inputs_modified": [],
+  "immutable_phase1_snapshot": {
+    "baseline_commit": "75b500ca3deab949aa8ca5392bf8c02df26e1f77",
+    "files_verified": 3,
+    "modified_files": [],
+    "paths": [
+      "data/combat_observations/2026-09-10-to-12-rot-frey-assassin-mixed/bundle",
+      "data/combat_observations/2026-09-10-to-12-rot-frey-assassin-mixed/handoff",
+      "data/combat_observations/2026-09-10-to-12-rot-frey-assassin-mixed/phase1_checkpoint.json"
+    ]
+  },
   "normalization_commit": "75b500ca3deab949aa8ca5392bf8c02df26e1f77",
   "normalized_bundle": {
     "declared_member_hashes_verified": 22,
