@@ -1,0 +1,55 @@
+{
+  "batch_id": "2026-09-10-to-12-rot-frey-assassin-mixed",
+  "frozen_model_files_modified": [],
+  "frozen_model_snapshot": {
+    "baseline_commit": "75b500ca3deab949aa8ca5392bf8c02df26e1f77",
+    "files_verified": 9,
+    "modified_files": [],
+    "paths": [
+      "analysis/model_versions"
+    ]
+  },
+  "historical_comparison_source": {
+    "blob_sha": "508a56989537d6598c9440dc9981de7b7961e4ca",
+    "commit": "f6c9bcab68f60419eaf4c7b5fdf11d4cf7676a30",
+    "path": "data/combat_observations/2026-09-07-to-08-rot-cerwyn-mixed/analysis/ranking_reliable.csv",
+    "sha256": "a26207cbe1e9bf362dce4ff8e303325785c32db68a1f627ceec7c03c52300839"
+  },
+  "identity_audit": {
+    "path": "data/realm_of_thrones/audit/realm_of_thrones_troops.csv",
+    "sha256": "63ea983998e25aa0e6f8c0747bf42e44440f695bbe1fec717074e7ba64e42810"
+  },
+  "immutable_inputs_modified": [],
+  "immutable_phase1_snapshot": {
+    "baseline_commit": "75b500ca3deab949aa8ca5392bf8c02df26e1f77",
+    "files_verified": 3,
+    "modified_files": [],
+    "paths": [
+      "data/combat_observations/2026-09-10-to-12-rot-frey-assassin-mixed/bundle",
+      "data/combat_observations/2026-09-10-to-12-rot-frey-assassin-mixed/handoff",
+      "data/combat_observations/2026-09-10-to-12-rot-frey-assassin-mixed/phase1_checkpoint.json"
+    ]
+  },
+  "normalization_commit": "75b500ca3deab949aa8ca5392bf8c02df26e1f77",
+  "normalized_bundle": {
+    "declared_member_hashes_verified": 22,
+    "members": 22,
+    "safe_preflight_passed": true,
+    "sha256": "83c1ba5030e27abd98eae24ca3b9e4c3c2ff3beefc99df6741d39c99ec3680ec",
+    "size_bytes": 14900
+  },
+  "pipeline_mode": "offline-existing",
+  "pipeline_version": "0.4.0",
+  "schema_version": "2.0.0",
+  "source_manifest": {
+    "manifest_entries_verified": 8,
+    "note": "Phase 1 hashed all source PNGs; Phase 2 verifies the retained source manifest and immutable normalized archive.",
+    "provenance_wording_note": "The Phase 1 prose says sorted lines; the committed hash is reproduced by numeric source_order, not lexicographic line order.",
+    "raw_repository_retention": "not_retained_optional_after_verified_normalization",
+    "raw_source_bytes_locally_verified": false,
+    "serialization_order": "numeric source_order",
+    "source_set_sha256": "23a83d0e0566e8fd2def0f9e7e950c5f19ea83f985f52b8bc71fcc212eaa5559",
+    "source_size_bytes": 12840258
+  },
+  "status": "passed"
+}

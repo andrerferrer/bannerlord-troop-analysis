@@ -1,0 +1,13 @@
+{
+  "batch_id": "2026-09-10-to-12-rot-frey-assassin-mixed",
+  "focus_decision": "completed_no_additional_test",
+  "normalization_commit": "75b500ca3deab949aa8ca5392bf8c02df26e1f77",
+  "queue_after": {
+    "active_test": null,
+    "ordered_queue": [],
+    "verification_holds": [
+      "arryn_moonknight"
+    ]
+  },
+  "status": "phase_2_complete_local_validation_passed"
+}

@@ -1,0 +1,62 @@
+{
+  "batch_id": "2026-09-10-to-12-rot-frey-assassin-mixed",
+  "batch_path": "data/combat_observations/2026-09-10-to-12-rot-frey-assassin-mixed",
+  "branch": "data/2026-09-10-to-12-rot-frey-assassin-mixed",
+  "focus": {
+    "context": "field",
+    "display_name": "Frey Assassin",
+    "scope": "additive_deep_dive_after_batch_wide_analysis",
+    "troop_id": "frey_assassin"
+  },
+  "game_version": "1.4.x",
+  "limitations": [
+    "Raw PNGs are not retained in the repository; hashes, dimensions, host IDs, and deterministic normalized records are retained.",
+    "Repository-wide exact-hash search returned HTTP 502; chronology and visual audit make historical duplicate risk low, not zero.",
+    "battle_fa07 is an accepted active last observation rather than a final result.",
+    "The Phase 1 source-hash prose says sorted lines, while the committed source-set hash reproduces in numeric source_order rather than lexicographic line order; Phase 2 records the ambiguity without changing provenance.",
+    "The PR #96 incidental Frey cohort is descriptive only and is not pooled because campaign roster, opponents, and difficulty state are not controlled as one experiment."
+  ],
+  "normalized": {
+    "aggregate_rows": 27,
+    "battles": 7,
+    "occurrences": 131,
+    "ordinary_player_occurrences": 61,
+    "schema_version": "2.0.0"
+  },
+  "phase_1": {
+    "agent_role": "normalization_agent",
+    "immutable_after_handoff": true,
+    "status": "complete"
+  },
+  "phase_2": {
+    "agent_role": "separate_analysis_agent",
+    "focus_decision": "completed_no_additional_test",
+    "insufficient_rows": 21,
+    "reliable_rows": 6,
+    "status": "complete_local_validation_passed"
+  },
+  "queue": {
+    "active_test": null,
+    "closed": [
+      "cerwyn_marauder",
+      "realm_paladin",
+      "frey_assassin"
+    ],
+    "future_selection": "none_approved_pending_historical_audit",
+    "ordered_queue": [],
+    "phase1_active_test": "frey_assassin",
+    "verification_holds": [
+      "arryn_moonknight"
+    ]
+  },
+  "schema_version": "1.0.0",
+  "source": {
+    "input_images": 8,
+    "internal_duplicates": 1,
+    "retained_representatives": 7,
+    "sha256": "23a83d0e0566e8fd2def0f9e7e950c5f19ea83f985f52b8bc71fcc212eaa5559",
+    "size_bytes": 12840258
+  },
+  "track": "realm_of_thrones",
+  "workflow_classification": "new_evidence_batch"
+}

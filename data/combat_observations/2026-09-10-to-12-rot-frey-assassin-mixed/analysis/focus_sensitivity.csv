@@ -1,0 +1,4 @@
+scenario,independent_battles,deployed,kills,kills_per_deployed,player_side_kill_share,player_side_deployment_share,offensive_contribution_ratio,offensive_share_gap,survivors,retention_rate,display_gate_passed
+all_observations,6,534,1549,2.900749,0.590996,0.447987,1.319227,0.143009,291,0.544944,True
+final_results_only,5,446,1203,2.697309,0.568794,0.446446,1.274048,0.122348,254,0.569507,True
+exclude_highest_rate_battle_fa06,5,445,1198,2.692135,0.592483,0.449495,1.318108,0.142988,210,0.471910,True
