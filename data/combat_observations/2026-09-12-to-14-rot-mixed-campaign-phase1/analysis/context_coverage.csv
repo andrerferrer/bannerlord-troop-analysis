@@ -1,0 +1,10 @@
+cohort,context,participant_scope,result_scope,independent_battles,ordinary_occurrences,partial_ordinary_occurrences,excluded_character_occurrences,partition_rows,reliable_rows,insufficient_rows
+Egon Emeros' Party,field,player_party,active_censored,1,8,0,7,8,0,8
+Egon Emeros' Party,field,player_party,completed,5,49,1,24,19,3,16
+Egon Emeros' Party,siege_attack,player_party,active_censored,1,8,0,7,8,0,8
+Egon Emeros' Party,siege_attack,player_party,completed,6,49,0,30,20,4,16
+Jaime Lannister's Party,field,allied_party,completed,2,18,1,0,17,0,17
+Rhoella Qar Deeth's Party,siege_attack,allied_party,completed,1,1,1,0,1,0,1
+Walder Frey's Party,field,player_party,active_censored,1,10,0,5,10,0,10
+Walder Frey's Party,field,player_party,completed,1,10,0,4,10,0,10
+Wendello Qar Deeth's Party,siege_attack,allied_party,completed,1,2,0,0,2,0,2

@@ -1,0 +1,18 @@
+{
+  "batch_id": "2026-09-12-to-14-rot-mixed-campaign-phase1",
+  "blockers": [
+    "Phase 1 declared screenshots_manifest.csv as immutable input but did not publish it as an archive member or repository file."
+  ],
+  "normalization_commit": "7ecad749acbe1a1af3c91e86050b5c23737c4921",
+  "primary_test_unit": null,
+  "primary_test_unit_reason": "No approved primary tested troop exists in this mixed campaign batch.",
+  "queue_after": {
+    "active_test": null,
+    "ordered_queue": [],
+    "verification_holds": [
+      "arryn_moonknight"
+    ]
+  },
+  "queue_change": "none",
+  "status": "phase_2_safe_analysis_complete_merge_blocked"
+}
