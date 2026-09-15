@@ -1,0 +1,33 @@
+{
+  "format": "bannerlord-combat-batch-state",
+  "schema_version": "1.0.0",
+  "batch_id": "2026-09-12-to-14-rot-mixed-campaign-phase1",
+  "phase": "normalization_complete_phase2_blocked",
+  "phase1": {
+    "status": "complete",
+    "integrity_status": "pass_with_expected_visibility_gaps",
+    "source_artifact_count": 16,
+    "event_count": 15,
+    "row_count": 232,
+    "bundle": {
+      "path": "bundle/rot_mixed_campaign_phase1.tar.xz.base64",
+      "encoding": "base64",
+      "archive": "tar.xz",
+      "sha256_encoded_text": "fce555d1f0b00398cb6babac38667206b1b1d815c0baed041f95c985b7d65c13",
+      "bytes_encoded_text": 16521,
+      "sha256_archive": "46d9010bd6be2d9121539b2408a9da91f228a67ca5b08f4b9ced8e7abca7d59c",
+      "bytes_archive": 12388
+    }
+  },
+  "phase2": {
+    "status": "blocked",
+    "blocker": "A separate downstream analysis agent is required by AGENTS.md / skill workflow; none is available in the current session.",
+    "analysis_started": false,
+    "performance_conclusions_written": false,
+    "test_queue_mutated": false
+  },
+  "publication": {
+    "target_branch": "main",
+    "requested_pr_state": "draft"
+  }
+}
