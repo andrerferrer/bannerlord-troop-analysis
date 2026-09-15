@@ -36,3 +36,11 @@ Do not silently rewrite normalized evidence. Record any correction in a reviewed
 Create the reviewed layer and the ordinary Phase 2 analysis outputs under `analysis/`, including validation, complete/reliable rankings, insufficient-evidence coverage, context splits, identity audit, and a human-readable report. Recompute every derived metric from the normalized inputs.
 
 Before marking the PR ready, verify the archive hash, normalized artifact hashes, full eligible-row partition, queue consistency, and all repository tests applicable to the batch. Publish append-only `bannerlord-analysis-task:v1` state comments as work moves from `pending` to `in_progress`, then to `complete` or `blocked`.
+
+## Repaired Phase 1 bundle identity
+
+- Screenshot manifest SHA-256: `42edb4f73e88bad528ff318c019b561ccd3bf02b4151dd714ea08325ed0734dd`
+- Archive SHA-256: `99754ec7fb614e86631bd6268c327140cd7c7882db7f612035015a6291b3adab` (12944 bytes, 11 members)
+- Base64 text SHA-256: `1fe97af8dd1979f02e4c27b7e26277a80e8bde026ebc6e50d8b989adb24692d6` (17261 bytes, including the final newline)
+- Rebuild verification: `python3 source/rebuild_phase1_bundle.py --check` from the batch directory.
+- Game version remains `unknown`; do not infer it from neighboring batches.

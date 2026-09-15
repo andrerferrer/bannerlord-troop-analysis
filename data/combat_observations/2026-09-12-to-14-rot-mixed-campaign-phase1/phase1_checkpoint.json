@@ -47,7 +47,9 @@
     "blank_cell_policy": "A visibly blank numeric cell is normalized as zero. Occluded or clipped cells are null and never imputed.",
     "hero_upgrade_icon_policy": "Non-numeric hero upgrade icons are preserved in upgrade_marker_visible; upgrade_ready remains null.",
     "retreated_to_keep_policy": "Classified as a completed outside-stage success/transition, never as a defeat.",
-    "active_snapshot_policy": "In-progress snapshots are right-censored and cannot establish a final win/loss outcome."
+    "active_snapshot_policy": "In-progress snapshots are right-censored and cannot establish a final win/loss outcome.",
+    "screenshot_manifest_rows": 16,
+    "game_version": "unknown"
   },
   "files": {
     "source_manifest": "source_manifest.json",
@@ -61,11 +63,14 @@
       "path": "bundle/rot_mixed_campaign_phase1.tar.xz.base64",
       "encoding": "base64",
       "archive": "tar.xz",
-      "sha256_encoded_text": "fce555d1f0b00398cb6babac38667206b1b1d815c0baed041f95c985b7d65c13",
-      "bytes_encoded_text": 16521,
-      "sha256_archive": "46d9010bd6be2d9121539b2408a9da91f228a67ca5b08f4b9ced8e7abca7d59c",
-      "bytes_archive": 12388
-    }
+      "member_count": 11,
+      "member_hashes_path": "bundle/rot_mixed_campaign_phase1.members.sha256",
+      "sha256_encoded_text": "1fe97af8dd1979f02e4c27b7e26277a80e8bde026ebc6e50d8b989adb24692d6",
+      "bytes_encoded_text": 17261,
+      "sha256_archive": "99754ec7fb614e86631bd6268c327140cd7c7882db7f612035015a6291b3adab",
+      "bytes_archive": 12944
+    },
+    "screenshots_manifest": "screenshots_manifest.csv"
   },
   "integrity": {
     "status": "pass_with_expected_visibility_gaps",
@@ -80,13 +85,15 @@
       "source_count": 16,
       "event_count": 15,
       "row_count": 232,
-      "party_count": 19
+      "party_count": 19,
+      "screenshots_manifest_rows": 16,
+      "screenshots_manifest_sha256": "42edb4f73e88bad528ff318c019b561ccd3bf02b4151dd714ea08325ed0734dd"
     },
     "expected_visibility_gaps": 12
   },
   "phase2_gate": {
-    "status": "blocked_in_current_session",
-    "reason": "Repository policy requires Phase 2 to be executed by a different downstream analysis agent. No separate analysis-agent runtime is available in this session.",
-    "safe_action": "Publish this Phase 1 package in a draft PR and leave performance conclusions/queue mutations untouched."
+    "status": "requires_revalidation_after_phase1_repair",
+    "reason": "The authoritative screenshots_manifest.csv was added and the Phase 1 archive identity changed; a separate Phase 2 agent must reverify the repaired inputs.",
+    "safe_action": "Keep the pull request draft until Phase 2 revalidation and all repository gates pass."
   }
 }

@@ -72,7 +72,10 @@ class RotMixedCampaignPhase1BundleTests(unittest.TestCase):
         self.assertEqual(len({row["screenshot_id"] for row in rows}), 16)
         self.assertEqual(len({row["image_sha256"] for row in rows}), 16)
         self.assertEqual(len({row["battle_id"] for row in rows}), 15)
-        self.assertEqual(Counter(row["battle_id"] for row in rows).values(), Counter({1: 14, 2: 1}))
+        self.assertEqual(
+            Counter(Counter(row["battle_id"] for row in rows).values()),
+            Counter({1: 14, 2: 1}),
+        )
         self.assertEqual({row["game_version"] for row in rows}, {"unknown"})
         self.assertEqual({row["game_track"] for row in rows}, {"realm_of_thrones"})
 
@@ -87,7 +90,7 @@ class RotMixedCampaignPhase1BundleTests(unittest.TestCase):
             row = actual_by_source[source["source_key"]]
             event_id = source["event_ids"][0]
             expected_status = (
-                "active_interrupted_primary"
+                "active"
                 if events[event_id]["result_status"] == "in_progress"
                 else "final_result"
             )

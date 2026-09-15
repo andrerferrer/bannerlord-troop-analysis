@@ -3,14 +3,16 @@
   "schema_version": "1.0.0",
   "batch_id": "2026-09-12-to-14-rot-mixed-campaign-phase1",
   "required_executor": "different_downstream_analysis_agent",
-  "status": "ready_but_not_executed",
+  "status": "ready_for_revalidation",
   "inputs": {
     "phase1_checkpoint": "phase1_checkpoint.json",
     "source_manifest": "source_manifest.json",
     "events": "normalized/events.jsonl",
     "party_summaries": "normalized/party_summaries.jsonl",
     "player_rows": "normalized/player_rows.jsonl",
-    "integrity_report": "integrity_report.json"
+    "integrity_report": "integrity_report.json",
+    "source_inventory": "source_inventory.csv",
+    "screenshots_manifest": "screenshots_manifest.csv"
   },
   "constraints": [
     "Do not merge separate battles.",
@@ -28,5 +30,12 @@
     "Return a reviewed analysis layer with explicit confidence and evidence coverage.",
     "Only propose a queue change after confirming an approved target and repository evidence-gate rules."
   ],
-  "blocker_in_current_session": "No separate downstream analysis-agent runtime is available."
+  "phase1_artifact_metadata": {
+    "source_artifacts": 16,
+    "battle_identities": 15,
+    "game_track": "realm_of_thrones",
+    "game_version": "unknown",
+    "screenshots_manifest_sha256": "42edb4f73e88bad528ff318c019b561ccd3bf02b4151dd714ea08325ed0734dd",
+    "normalized_evidence_bytes_changed": false
+  }
 }
