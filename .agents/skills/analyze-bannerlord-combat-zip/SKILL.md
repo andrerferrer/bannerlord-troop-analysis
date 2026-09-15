@@ -46,6 +46,14 @@ Run the repository pipeline; never reproduce its formulas, schemas, matching, de
 4. Lack of a mounted local file, optional raw-image retention, incomplete analysis, or unresolved review rows is not by itself a reason to remain chat-only. Publish the safely completed work and record the limitation or blocker in the draft pull request.
 5. Stop before a pull request exists only when GitHub write access, repository resolution, or another host-platform boundary genuinely prevents publication. Report the exact failed action and error; do not ask the user to reconfirm standing repository authorization.
 
+## Mandatory terminal state
+
+1. An evidence-processing run is not complete until the batch has exactly one pull request that has been verified on GitHub as `state=open` and `draft=true`.
+2. Local artifacts, a completed Phase 1, a prepared Phase 2 handoff, unavailable Phase 2 execution, unresolved review rows, or prose saying that a pull request still needs to be opened are never valid terminal states.
+3. Before any normal user-facing response, commit the safely completed state, create or update the batch branch, open or update the draft pull request, and verify that its head points to the latest published commit.
+4. Keep incomplete work in that draft pull request with explicit blockers. Do not mark it ready or merge merely to finish the current session; continue later work on the same branch and pull request.
+5. The only exception is an actual GitHub write, permission, repository-resolution, or host-platform failure. In that case, report the exact failed action and error, together with any branch or commit that was created successfully.
+
 ## Resolve inputs
 
 1. Prefer an exact local path to one of:
