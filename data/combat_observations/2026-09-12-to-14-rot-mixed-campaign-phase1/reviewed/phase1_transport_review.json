@@ -1,0 +1,25 @@
+{
+  "committed_base64_text": {
+    "actual_sha256": "1fe97af8dd1979f02e4c27b7e26277a80e8bde026ebc6e50d8b989adb24692d6",
+    "actual_size_bytes": 17261,
+    "declared_sha256": "1fe97af8dd1979f02e4c27b7e26277a80e8bde026ebc6e50d8b989adb24692d6",
+    "declared_size_bytes": 17261,
+    "evidence_values_affected": false,
+    "review_status": "verified_exact"
+  },
+  "decoded_archive_exact": true,
+  "decoded_archive_sha256": "99754ec7fb614e86631bd6268c327140cd7c7882db7f612035015a6291b3adab",
+  "decoded_archive_size_bytes": 12944,
+  "embedded_control_file_note": "The archive's embedded batch_state.json and phase1_checkpoint.json deliberately omit the self-referential archive hash; the repository-level control files pin the final archive identity.",
+  "normalized_inputs_modified": false,
+  "screenshots_manifest": {
+    "active_screens": 3,
+    "battle_ids": 15,
+    "final_result_screens": 13,
+    "repository_archive_bytes_equal": true,
+    "rows": 16,
+    "sha256": "42edb4f73e88bad528ff318c019b561ccd3bf02b4151dd714ea08325ed0734dd",
+    "status": "verified_repository_archive_exact"
+  },
+  "status": "verified_repaired_phase1_bundle_no_evidence_change"
+}

@@ -1,0 +1,159 @@
+{
+  "active_test": null,
+  "closed": [
+    {
+      "completed_by": "data/combat_observations/2026-09-07-to-08-rot-cerwyn-mixed/analysis/CERWYN_MARAUDER_FOCUS.md",
+      "context": "field",
+      "decision": "Stop dedicated testing. Both exact participant field cohorts passed the 5-battle / 20-deployed gate and retained kill share above deployment share; the large Medger cohort remained positive after deleting its highest-rate battle.",
+      "display_name": "Cerwyn Marauder",
+      "evidence": [
+        {
+          "deployed": 22,
+          "independent_battles": 5,
+          "kills": 57,
+          "kills_per_deployed": 2.590909,
+          "offensive_contribution_ratio": 1.868354,
+          "participant_party": "Gawen Westerling's Party",
+          "retention_rate": 0.545455
+        },
+        {
+          "deployed": 494,
+          "independent_battles": 11,
+          "kills": 744,
+          "kills_per_deployed": 1.506073,
+          "offensive_contribution_ratio": 1.459146,
+          "participant_party": "Medger Cerwyn's Party",
+          "retention_rate": 0.82996
+        },
+        {
+          "deployed": 432,
+          "independent_battles": 10,
+          "kills": 456,
+          "kills_per_deployed": 1.055556,
+          "offensive_contribution_ratio": 1.217254,
+          "sensitivity": "Medger without battle_cm15"
+        }
+      ],
+      "status": "completed_no_additional_test",
+      "troop_id": "cerwyn_marauder"
+    },
+    {
+      "completed_by": "data/combat_observations/consolidations/realm-paladin/README.md",
+      "context": "field",
+      "decision": "Close dedicated field testing. Two compatible, battle-distinct committed sources provide 15 independent field battles / 192 deployed / 489 kills. The 11-battle source already clears the display gate independently, and the combined kill share remains above deployment share.",
+      "display_name": "Realm Paladin",
+      "evidence": [
+        {
+          "deployed": 122,
+          "independent_battles": 11,
+          "kills": 330,
+          "kills_per_deployed": 2.704918,
+          "offensive_contribution_ratio": 1.371683,
+          "pull_request": 91,
+          "retention_rate": 0.606557
+        },
+        {
+          "deployed": 70,
+          "independent_battles": 4,
+          "kills": 159,
+          "kills_per_deployed": 2.271429,
+          "offensive_contribution_ratio": 1.110307,
+          "pull_request": 92,
+          "retention_rate": 0.185714
+        },
+        {
+          "combined_distinct_field_battles": 15,
+          "deployed": 192,
+          "kills": 489,
+          "kills_per_deployed": 2.546875,
+          "offensive_contribution_ratio": 1.278296,
+          "player_side_deployment_share": 0.040541,
+          "player_side_kill_share": 0.051823,
+          "retention_rate": 0.453125,
+          "share_adjusted_impact": 0.131986
+        }
+      ],
+      "evidence_references": [
+        "data/combat_observations/2026-08-29-to-09-05-rot-white-harbor-and-joffrey-cohorts/analysis/ranking_reliable.csv",
+        "data/combat_observations/2026-09-05-to-06-rot-westerling-field-followup/analysis/insufficient_evidence.csv",
+        "data/combat_observations/consolidations/realm-paladin/evidence.csv",
+        "data/combat_observations/consolidations/realm-paladin/battle_evidence.csv",
+        "data/combat_observations/consolidations/realm-paladin/validation_report.json",
+        "pull/91",
+        "pull/92",
+        "pull/95"
+      ],
+      "status": "completed_no_additional_test",
+      "troop_id": "realm_paladin"
+    },
+    {
+      "completed_by": "data/combat_observations/2026-09-10-to-12-rot-frey-assassin-mixed/analysis/ANALYSIS_REPORT.md",
+      "context": "field",
+      "decision": "Stop dedicated field testing. The six-battle dedicated cohort and the five-final-battle sensitivity both pass the 5-battle / 20-deployed gate, with player-side kill share above deployment share. The earlier incidental cohort remains a separate descriptive comparison and is not pooled.",
+      "display_name": "Frey Assassin",
+      "evidence": [
+        {
+          "deployed": 534,
+          "independent_battles": 6,
+          "kills": 1549,
+          "kills_per_deployed": 2.900749,
+          "offensive_contribution_ratio": 1.319227,
+          "player_side_deployment_share": 0.447987,
+          "player_side_kill_share": 0.590996,
+          "retention_rate": 0.544944
+        },
+        {
+          "deployed": 446,
+          "independent_battles": 5,
+          "kills": 1203,
+          "kills_per_deployed": 2.697309,
+          "offensive_contribution_ratio": 1.274048,
+          "player_side_deployment_share": 0.446446,
+          "player_side_kill_share": 0.568794,
+          "retention_rate": 0.569507,
+          "sensitivity": "final results only; excludes active battle_fa07"
+        }
+      ],
+      "evidence_references": [
+        "data/combat_observations/2026-09-10-to-12-rot-frey-assassin-mixed/analysis/focus_deep_dive.csv",
+        "data/combat_observations/2026-09-10-to-12-rot-frey-assassin-mixed/analysis/focus_sensitivity.csv",
+        "data/combat_observations/2026-09-10-to-12-rot-frey-assassin-mixed/analysis/focus_historical_comparison.csv",
+        "pull/97"
+      ],
+      "status": "completed_no_additional_test",
+      "troop_id": "frey_assassin"
+    }
+  ],
+  "decision_reason": "Mixed campaign rosters have no approved primary test unit; do not infer a new target.",
+  "ordered_queue": [],
+  "parked": [
+    {
+      "context": "field",
+      "display_name": "Westerling Archer",
+      "reason": "No extraordinary empirical or structural hypothesis currently justifies spending dedicated battles merely to close its display gate.",
+      "status": "parked_no_dedicated_test",
+      "troop_id": "westerling_archer"
+    },
+    {
+      "context": "field",
+      "display_name": "Westerling Elite Archer",
+      "reason": "No extraordinary empirical or structural hypothesis currently justifies additional dedicated battles.",
+      "status": "parked_no_additional_test",
+      "troop_id": "westerling_elite_archer"
+    }
+  ],
+  "path": "data/combat_observations/test_queues/realm_of_thrones.json",
+  "queue_change": "none",
+  "sha256_after": "7a2a7906bc98f5d90394e07a9a329a52abc539044780bfb97f845dde1129bf6e",
+  "sha256_before": "7a2a7906bc98f5d90394e07a9a329a52abc539044780bfb97f845dde1129bf6e",
+  "status": "passed_no_change",
+  "verification_holds": [
+    {
+      "context": "field",
+      "display_name": "Arryn Winged Knight",
+      "reason": "The operator recalls that this troop may already have been tested. The repository contains incidental coverage and repeated next-test recommendations, but no authoritative global ledger previously resolved its final status.",
+      "status": "do_not_recommend_until_audited",
+      "troop_id": "arryn_moonknight"
+    }
+  ]
+}

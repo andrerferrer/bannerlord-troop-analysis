@@ -1,0 +1,16 @@
+{
+  "batch_id": "2026-09-12-to-14-rot-mixed-campaign-phase1",
+  "blockers": [],
+  "normalization_commit": "c7004f9ead64687c1ed83bdbd2759a0ecbe32956",
+  "primary_test_unit": null,
+  "primary_test_unit_reason": "No approved primary tested troop exists in this mixed campaign batch.",
+  "queue_after": {
+    "active_test": null,
+    "ordered_queue": [],
+    "verification_holds": [
+      "arryn_moonknight"
+    ]
+  },
+  "queue_change": "none",
+  "status": "phase_2_complete_local_validation_passed"
+}

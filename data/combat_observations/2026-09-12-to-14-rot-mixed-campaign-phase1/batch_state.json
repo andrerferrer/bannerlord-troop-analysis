@@ -1,0 +1,35 @@
+{
+  "format": "bannerlord-combat-batch-state",
+  "schema_version": "1.0.0",
+  "batch_id": "2026-09-12-to-14-rot-mixed-campaign-phase1",
+  "phase": "normalization_complete_phase2_revalidation_required",
+  "phase1": {
+    "status": "complete",
+    "integrity_status": "pass_with_expected_visibility_gaps",
+    "source_artifact_count": 16,
+    "event_count": 15,
+    "row_count": 232,
+    "bundle": {
+      "path": "bundle/rot_mixed_campaign_phase1.tar.xz.base64",
+      "encoding": "base64",
+      "archive": "tar.xz",
+      "member_count": 11,
+      "member_hashes_path": "bundle/rot_mixed_campaign_phase1.members.sha256",
+      "sha256_encoded_text": "1fe97af8dd1979f02e4c27b7e26277a80e8bde026ebc6e50d8b989adb24692d6",
+      "bytes_encoded_text": 17261,
+      "sha256_archive": "99754ec7fb614e86631bd6268c327140cd7c7882db7f612035015a6291b3adab",
+      "bytes_archive": 12944
+    },
+    "game_version": "unknown",
+    "screenshots_manifest_rows": 16
+  },
+  "phase2": {
+    "agent_role": "separate_analysis_agent",
+    "status": "revalidation_required",
+    "reason": "Phase 1 archive identity changed when the omitted authoritative screenshot manifest was added."
+  },
+  "publication": {
+    "target_branch": "main",
+    "requested_pr_state": "draft"
+  }
+}
