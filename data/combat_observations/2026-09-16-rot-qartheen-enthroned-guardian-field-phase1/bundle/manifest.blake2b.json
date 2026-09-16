@@ -1,0 +1,106 @@
+{
+  "archive": {
+    "base64_path": "bundle/rot_qartheen_enthroned_guardian_field_phase1.tar.xz.base64",
+    "base64_text_bytes": 11798,
+    "base64_text_sha256": "d250d3caddee132d3e1fa80b03162498f77a698f78acb05a9b150c016241743c",
+    "blake2b_256": "700d18a1fbbd7517e6303bdbffa1c7e220e4a5709422307798216311280c0a33",
+    "bytes": 8732,
+    "filename": "rot_qartheen_enthroned_guardian_field_phase1.tar.xz",
+    "member_count": 15,
+    "sha256": "ae7c7998ae73a5f9adc358550644813770280512b05f06e0b79418d3dff78f0b"
+  },
+  "batch_id": "2026-09-16-rot-qartheen-enthroned-guardian-field-phase1",
+  "members": [
+    {
+      "blake2b_256": "4958e4f46f5b8b400c3fa506c805110c8061bad4d00dee8ff7bbdbbb016b2678",
+      "bytes": 3389,
+      "path": "README.md",
+      "sha256": "a770d51f1b3579070a2ff8126aea9453eca50b0c30e89ea910e4891eb0e7c868"
+    },
+    {
+      "blake2b_256": "b09b35905d735c5a7dca8b8cfe2549bdba60d6dec1e77f8c68fdd5526542399d",
+      "bytes": 2101,
+      "path": "source_manifest.json",
+      "sha256": "3ac9746d3e5d2e9a56fd22dd2503ef870b8966d2915fa8ea5a60a6bd4d556ac7"
+    },
+    {
+      "blake2b_256": "e2c2bed211055778d57de9b946cec0b1dee56f172a54d5c95e2a225e7cb818f5",
+      "bytes": 988,
+      "path": "source_inventory.csv",
+      "sha256": "93722fccf9d64d2bc79b779fcf165a7bf36da66c7965d35ca73da3a9de5d3541"
+    },
+    {
+      "blake2b_256": "35c0a6787ca56192f8eb4ff0e103f4f1fd847223c818091999dc2e2df8fb2a07",
+      "bytes": 1324,
+      "path": "screenshots_manifest.csv",
+      "sha256": "14e2b580c10f213da90f8f821f16f64f33a91978899d0a9d4b3aa60d19a0d7a7"
+    },
+    {
+      "blake2b_256": "eb6daf43a6ff5f15809a1bfc1207c3dc34040f10b9b5faf34e08c2ed3857e69c",
+      "bytes": 1667,
+      "path": "normalized/events.jsonl",
+      "sha256": "9abd1cc7eea6327726750ccfb7d566aed56f05d1ee1c710ebde917b7adaa65eb"
+    },
+    {
+      "blake2b_256": "1aeea18b50d685b6ec69310a7bb5c195755f589e2116ec37bb52eaad418d6cae",
+      "bytes": 1776,
+      "path": "normalized/party_summaries.jsonl",
+      "sha256": "a7b225d6bc85474c34c6bd93e559db80fe9df4718d45da1863d77b7f7a236d87"
+    },
+    {
+      "blake2b_256": "893de3147fda2b1fd50a2a76883863120f90840fa38020fcb7e7423f2effae04",
+      "bytes": 27200,
+      "path": "normalized/player_rows.jsonl",
+      "sha256": "04d2361de07cb517c29f90f7ee32094dd84ff468517c4ecf3f0eae9ee59352f2"
+    },
+    {
+      "blake2b_256": "e24ef9d9dee56408399b37f43bf2bf632c48a3a8c88d7c39d1e5431a694126da",
+      "bytes": 1020,
+      "path": "review_queue.csv",
+      "sha256": "72a10ff7ed9d976457be2c464e645cc66e00ec7c19fe5fa6e5883d625b78eb49"
+    },
+    {
+      "blake2b_256": "1e52e1ee6aeaae4b5bfe3f85578fca532aac87760d3cafcc4c8ed810899a636c",
+      "bytes": 917,
+      "path": "screenshot_deduplication_audit.csv",
+      "sha256": "96431910b67c5650e0e9d969adf141a92c7b610bb1160f0b8556bdad0b472639"
+    },
+    {
+      "blake2b_256": "0f521b259f72dbaa633077ff3b45e7ff6e544ff723b2a89a30a7df1b4e34d2a0",
+      "bytes": 883,
+      "path": "correspondence_check.json",
+      "sha256": "03123b443996c81fc0045167c03697036eb1ac0ea46089e08babe27efe67f212"
+    },
+    {
+      "blake2b_256": "d48f9cb733d84cdcbedd0b73423f294c0b54578c57d1e79a8bccd7356147d521",
+      "bytes": 1980,
+      "path": "integrity_report.json",
+      "sha256": "e77c36c0d89426833186b7b515f71ecfebd6073cb5ab09e01d8699630e711b21"
+    },
+    {
+      "blake2b_256": "7e56f822c446ad28286e5cc7844aab29a159b460415b68c55163c1baf963e201",
+      "bytes": 1000,
+      "path": "phase1_checkpoint.json",
+      "sha256": "899c9a0a3c6cdaf40505c230e2750a9456a668f768e947d79b6fd33e9dd3a5e4"
+    },
+    {
+      "blake2b_256": "e2b2da9b64b7c9f33630ee03a6c15c34f62ab54ec442f8c6b5b87c3490ee0f82",
+      "bytes": 937,
+      "path": "batch_state.json",
+      "sha256": "deb3c8a765a79b40238294b4fcfa41e3dff783452bddbfb42796222bd9b86fc2"
+    },
+    {
+      "blake2b_256": "31462d6e6ecfd01f8a5da94c7f90d0d5e9147cbd54af0b5af98154d99aba8a30",
+      "bytes": 4303,
+      "path": "handoff/ANALYSIS_PROMPT.md",
+      "sha256": "d78adade3586cc6b920029056e4a5ca94f1f477793cac2dbc12ed4c163c79b71"
+    },
+    {
+      "blake2b_256": "4078efb792a6927b8a8f1ec770ae38e42f3bbda3a18685094d05f5475e4e622c",
+      "bytes": 2689,
+      "path": "handoff/ANALYSIS_TASK_V1.json",
+      "sha256": "f865226bcf57c7f19bd92862b16da2b81637dec7b0af2a64b2cdd4e38ff51efc"
+    }
+  ],
+  "schema_version": "1.0.0"
+}

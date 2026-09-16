@@ -1,0 +1,38 @@
+{
+  "analysis_entrypoint": "handoff/ANALYSIS_PROMPT.md",
+  "analysis_scope": "Analyze every visible player-side ordinary troop row. Keep characters separate. Preserve the fully occluded row as unresolved. Treat the two screenshots as two independent completed field battles.",
+  "batch_id": "2026-09-16-rot-qartheen-enthroned-guardian-field-phase1",
+  "batch_relpath": "data/combat_observations/2026-09-16-rot-qartheen-enthroned-guardian-field-phase1",
+  "generator_script": "source/rebuild_phase1_bundle.py",
+  "historical_inputs": [
+    "data/combat_observations/2026-09-12-to-14-rot-mixed-campaign-phase1/analysis/ranking_reliable.csv",
+    "data/combat_observations/2026-09-12-to-14-rot-mixed-campaign-phase1/analysis/ordinary_occurrences.csv",
+    "data/combat_observations/2026-09-12-to-14-rot-mixed-campaign-phase1/analysis/ANALYSIS_REPORT.md"
+  ],
+  "human_confirmation_required": true,
+  "inputs": {
+    "artifact_bundle": "bundle/rot_qartheen_enthroned_guardian_field_phase1.tar.xz.base64",
+    "artifact_manifest": "bundle/manifest.blake2b.json",
+    "correspondence_check": "correspondence_check.json",
+    "events": "normalized/events.jsonl",
+    "integrity_report": "integrity_report.json",
+    "party_summaries": "normalized/party_summaries.jsonl",
+    "player_rows": "normalized/player_rows.jsonl",
+    "review_queue": "review_queue.csv",
+    "screenshots_manifest": "screenshots_manifest.csv",
+    "source_inventory": "source_inventory.csv"
+  },
+  "integrity_required": true,
+  "merged_batch_freshness_check_required": true,
+  "mixed_batch_policy": "Do not collapse the new dedicated follow-up and the Sep 12–14 mixed-campaign cohort into one causal estimate. Separate cohort tables are mandatory; a combined descriptive continuity row is allowed only with explicit caveats.",
+  "phase": "phase1-complete",
+  "protocol_version": "analysis-task-v1",
+  "queue_state_file": "data/combat_observations/test_queues/realm_of_thrones.json",
+  "repository": "andrerferrer/bannerlord-troop-analysis",
+  "required_next_action": "Run Phase 2 on the same branch and draft pull request. Verify hashes, analyze all visible ordinary rows, compare the dedicated follow-up against the historical completed field cohort, publish separate current/historical/combined descriptive views, and update the authoritative test queue without inventing a new target.",
+  "same_pr_continuation_required": true,
+  "status": "pending",
+  "target_branch": "evidence/2026-09-16-qartheen-enthroned-guardian",
+  "task_id": "rot-qeg-field-20260916-phase2",
+  "test_command": "python3 source/rebuild_phase1_bundle.py --check && python3 ../../../tests/test_rot_qartheen_enthroned_guardian_phase1_bundle.py"
+}
