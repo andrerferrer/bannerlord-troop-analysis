@@ -1,0 +1,8 @@
+canonical_troop_id,context,cohort,result_scope,empirical_rank,battle_count,total_deployed,evidence_grade,empirical_kills_per_deployed,general_score_v71,burst_score_v73,comparison_status
+enthroned_guardian,field,Egon Emeros' Party,completed,1,5,195,high,3.579487,,,not_run_no_complete_compatible_rot_v71_v73_model_universe
+qartheen_longbowman,field,Egon Emeros' Party,completed,2,5,301,high,2.172757,,,not_run_no_complete_compatible_rot_v71_v73_model_universe
+unsullied,field,Egon Emeros' Party,completed,3,5,440,high,1.552273,,,not_run_no_complete_compatible_rot_v71_v73_model_universe
+enthroned_guardian,siege_attack,Egon Emeros' Party,completed,1,6,212,high,2.674528,,,not_run_no_complete_compatible_rot_v71_v73_model_universe
+qartheen_longbowman,siege_attack,Egon Emeros' Party,completed,2,6,322,high,1.133540,,,not_run_no_complete_compatible_rot_v71_v73_model_universe
+,siege_attack,Egon Emeros' Party,completed,3,5,190,high,0.905263,,,not_run_no_complete_compatible_rot_v71_v73_model_universe
+unsullied,siege_attack,Egon Emeros' Party,completed,4,6,517,high,0.719536,,,not_run_no_complete_compatible_rot_v71_v73_model_universe

@@ -1,0 +1,99 @@
+{
+  "format": "bannerlord-phase1-checkpoint",
+  "schema_version": "2.0.0",
+  "batch_id": "2026-09-12-to-14-rot-mixed-campaign-phase1",
+  "repository_path": "data/combat_observations/2026-09-12-to-14-rot-mixed-campaign-phase1",
+  "phase": "normalization_complete",
+  "scope": {
+    "mod": "Realm of Thrones",
+    "capture_range_local": [
+      "2026-09-12T19:04:45-03:00",
+      "2026-09-14T21:11:15-03:00"
+    ],
+    "campaign_evidence_type": "mixed campaign battles",
+    "primary_test_unit": null,
+    "primary_test_unit_reason": "No single approved target can be inferred from this mixed roster evidence."
+  },
+  "normalization": {
+    "source_artifacts": 16,
+    "unique_battle_events": 15,
+    "deduplication": {
+      "merged_source_keys": [
+        "src_20260914_205747",
+        "src_20260914_205751"
+      ],
+      "merged_event_id": "rot_2026_09_14_205747_egon_bortu_victory_field",
+      "basis": "Identical duration and side totals; complementary scroll positions from the same completed battle."
+    },
+    "outcomes": {
+      "in_progress": 3,
+      "victory": 9,
+      "retreated_to_keep": 3
+    },
+    "contexts": {
+      "field": 8,
+      "siege_attack": 7
+    },
+    "player_rows": 232,
+    "party_summaries": 19,
+    "numeric_columns": [
+      "survivors",
+      "kills",
+      "upgrade_ready",
+      "deaths",
+      "wounded",
+      "routed"
+    ],
+    "blank_cell_policy": "A visibly blank numeric cell is normalized as zero. Occluded or clipped cells are null and never imputed.",
+    "hero_upgrade_icon_policy": "Non-numeric hero upgrade icons are preserved in upgrade_marker_visible; upgrade_ready remains null.",
+    "retreated_to_keep_policy": "Classified as a completed outside-stage success/transition, never as a defeat.",
+    "active_snapshot_policy": "In-progress snapshots are right-censored and cannot establish a final win/loss outcome.",
+    "screenshot_manifest_rows": 16,
+    "game_version": "unknown"
+  },
+  "files": {
+    "source_manifest": "source_manifest.json",
+    "source_inventory": "source_inventory.csv",
+    "events": "normalized/events.jsonl",
+    "party_summaries": "normalized/party_summaries.jsonl",
+    "player_rows": "normalized/player_rows.jsonl",
+    "integrity_report": "integrity_report.json",
+    "phase2_handoff": "handoff/ANALYSIS_TASK_V1.json",
+    "bundle": {
+      "path": "bundle/rot_mixed_campaign_phase1.tar.xz.base64",
+      "encoding": "base64",
+      "archive": "tar.xz",
+      "member_count": 11,
+      "member_hashes_path": "bundle/rot_mixed_campaign_phase1.members.sha256",
+      "sha256_encoded_text": "1fe97af8dd1979f02e4c27b7e26277a80e8bde026ebc6e50d8b989adb24692d6",
+      "bytes_encoded_text": 17261,
+      "sha256_archive": "99754ec7fb614e86631bd6268c327140cd7c7882db7f612035015a6291b3adab",
+      "bytes_archive": 12944
+    },
+    "screenshots_manifest": "screenshots_manifest.csv"
+  },
+  "integrity": {
+    "status": "pass_with_expected_visibility_gaps",
+    "checks": {
+      "unique_event_ids": true,
+      "all_sources_linked_once": true,
+      "source_hashes_unique": true,
+      "no_visible_row_sum_exceeds_party_summary": true,
+      "row_stats_are_nonnegative_int_or_null": true,
+      "expected_event_partition": true,
+      "one_expected_multi_source_event": true,
+      "source_count": 16,
+      "event_count": 15,
+      "row_count": 232,
+      "party_count": 19,
+      "screenshots_manifest_rows": 16,
+      "screenshots_manifest_sha256": "42edb4f73e88bad528ff318c019b561ccd3bf02b4151dd714ea08325ed0734dd"
+    },
+    "expected_visibility_gaps": 12
+  },
+  "phase2_gate": {
+    "status": "requires_revalidation_after_phase1_repair",
+    "reason": "The authoritative screenshots_manifest.csv was added and the Phase 1 archive identity changed; a separate Phase 2 agent must reverify the repaired inputs.",
+    "safe_action": "Keep the pull request draft until Phase 2 revalidation and all repository gates pass."
+  }
+}

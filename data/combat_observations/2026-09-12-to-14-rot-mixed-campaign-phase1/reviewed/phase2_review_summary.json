@@ -1,0 +1,14 @@
+{
+  "identity_decisions": 57,
+  "missing_declared_phase1_inputs": [
+    "screenshots_manifest.csv"
+  ],
+  "normalized_inputs_modified": false,
+  "numeric_corrections": 0,
+  "ordinary_identity_labels": 43,
+  "reviewer": "separate Phase 2 local analysis agent",
+  "status": "safe_analysis_complete_merge_blocked_missing_phase1_manifest",
+  "transport_metadata_findings": 1,
+  "unresolved_numeric_fields": 13,
+  "unresolved_ordinary_occurrences": 3
+}

@@ -1,0 +1,17 @@
+{
+  "committed_base64_text": {
+    "actual_sha256": "10e74584f29c7d2a3116952bc3e1e7db0992dee808875add49178356021e375a",
+    "actual_size_bytes": 16520,
+    "declared_sha256": "fce555d1f0b00398cb6babac38667206b1b1d815c0baed041f95c985b7d65c13",
+    "declared_size_bytes": 16521,
+    "evidence_values_affected": false,
+    "review_status": "accepted_transport_newline_only_archive_exact"
+  },
+  "decoded_archive_exact": true,
+  "decoded_archive_sha256": "46d9010bd6be2d9121539b2408a9da91f228a67ca5b08f4b9ced8e7abca7d59c",
+  "decoded_archive_size_bytes": 12388,
+  "embedded_control_file_note": "The archive's embedded batch_state.json and phase1_checkpoint.json predate the outer files that pin the final archive; the normalized records and integrity report are protected by the exact outer archive hash.",
+  "finding": "The committed Base64 file is the Phase 1 declared text with its final newline omitted.",
+  "normalized_inputs_modified": false,
+  "status": "reviewed_transport_metadata_correction_no_evidence_change"
+}
