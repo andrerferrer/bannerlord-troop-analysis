@@ -9,6 +9,45 @@ publication approval. Still never force-push to `main`/`master`, never skip
 hooks, and never commit secrets or unrelated untracked files (for example
 `arquivo.md`) unless explicitly asked.
 
+## Non-negotiable publication floor
+
+For evidence uploads, normalization, analysis, historical consolidations,
+test-queue updates, and skill/rule changes that produce publishable repository
+changes, **never end the delivery before the corresponding GitHub pull request
+exists and has been verified**. This also applies when resuming an interrupted
+conversation. Explicit inspection-only, unpublished-work, or cancellation
+instructions remain exceptions.
+
+Local artifacts, uploaded Git blobs, an empty branch, an unattached commit, a
+push, a compare URL, or a proposed PR title are not a pull request. In particular,
+when blobs were uploaded, finish tree creation, commit creation, branch-ref
+publication, and PR creation instead of returning those steps to the operator.
+
+Before the final response:
+
+1. Create or update the existing task PR as soon as its first safe checkpoint
+   commit is published; use a draft for incomplete work and one PR per batch.
+2. Read the PR back from GitHub and verify its repository, base/head branches,
+   latest published head SHA, and committed task artifacts. Confirm it is open
+   or, when the workflow already completed, actually merged.
+3. For a Phase 1 handoff, also publish and verify the valid append-only
+   `bannerlord-analysis-task:v1` pending comment and committed handoff path.
+4. Include the verified PR number and URL in the final response. Do not end with
+   "next: create the tree/commit, push, or open the PR" while those operations
+   remain executable by the agent.
+
+A genuine GitHub write/host-platform blocker may prevent this floor. Inspect the
+actual error and try supported safe alternatives before stopping; preserve the
+checkpoint and report the exact failed action/error without claiming completion
+or requesting redundant publication approval. Optional raw retention, incomplete
+analysis, review uncertainty, or lack of a separate Phase 2 agent do not prevent
+opening the draft PR.
+
+This is a minimum publication floor, not a replacement for the completion and
+merge gates below. Do not add a human-confirmation requirement that the operator
+or host platform did not impose. A Phase 1 draft remains pending for the separate
+Phase 2 agent; eligible completed work continues through verified merge.
+
 ## Operator command: combat-evidence upload
 
 When the user attaches Bannerlord battle-result screenshots or a ZIP containing
