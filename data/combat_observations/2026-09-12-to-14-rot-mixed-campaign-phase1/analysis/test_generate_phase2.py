@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import unittest
 from pathlib import Path
 
@@ -28,7 +29,20 @@ class Phase2ContractTest(unittest.TestCase):
 
         self.assertEqual(
             result["input_verification"]["normalized_bundle"]["sha256"],
-            "46d9010bd6be2d9121539b2408a9da91f228a67ca5b08f4b9ced8e7abca7d59c",
+            "99754ec7fb614e86631bd6268c327140cd7c7882db7f612035015a6291b3adab",
+        )
+        self.assertEqual(result["input_verification"]["normalized_bundle"]["members"], 11)
+        self.assertEqual(
+            result["input_verification"]["screenshot_manifest"],
+            {
+                "status": "verified_repository_archive_exact",
+                "sha256": "42edb4f73e88bad528ff318c019b561ccd3bf02b4151dd714ea08325ed0734dd",
+                "rows": 16,
+                "battle_ids": 15,
+                "active_screens": 3,
+                "final_result_screens": 13,
+                "repository_archive_bytes_equal": True,
+            },
         )
         self.assertEqual(validation["battles"], 15)
         self.assertEqual(validation["context_events"], {"field": 8, "siege_attack": 7})
@@ -54,9 +68,16 @@ class Phase2ContractTest(unittest.TestCase):
         self.assertEqual(result["analysis_state"]["queue_change"], "none")
         self.assertEqual(
             result["input_verification"]["handoff_inventory"]["missing_inputs"],
-            ["screenshots_manifest.csv"],
+            [],
         )
-        self.assertEqual(result["analysis_state"]["status"], "phase_2_safe_analysis_complete_merge_blocked")
+        self.assertEqual(result["input_verification"]["handoff_inventory"]["verified_count"], 11)
+        self.assertEqual(result["input_verification"]["handoff_inventory"]["status"], "passed")
+        self.assertNotIn("blocker", result["input_verification"]["handoff_inventory"])
+        self.assertEqual(result["input_verification"]["status"], "passed")
+        self.assertEqual(validation["status"], "passed_with_documented_identity_limits")
+        self.assertEqual(validation["validation_errors"], [])
+        self.assertEqual(result["analysis_state"]["status"], "phase_2_complete_local_validation_passed")
+        self.assertEqual(result["analysis_state"]["blockers"], [])
 
         below_gate = [row for row in result["rankings"] if not row["numeric_display_gate_passed"]]
         self.assertTrue(below_gate)
@@ -75,6 +96,26 @@ class Phase2ContractTest(unittest.TestCase):
         self.assertEqual(forest["resolution_status"], "unresolved_provisional_label")
         self.assertEqual(forest["canonical_troop_id"], "")
         self.assertEqual(forest["non_soldier_exact_match_ids"], "forest_bandits_chief")
+
+    def test_repository_archive_manifest_divergence_is_rejected(self) -> None:
+        generator = load_generator()
+        files, _ = generator.extract_verified_bundle()
+        source_manifest = json.loads(files["source_manifest.json"])
+        events = {
+            row["event_id"]: row
+            for row in map(json.loads, files["normalized/events.jsonl"].splitlines())
+        }
+        files["screenshots_manifest.csv"] += b"\n"
+
+        with self.assertRaisesRegex(
+            ValueError,
+            "repository/archive screenshots_manifest.csv bytes differ",
+        ):
+            generator.verify_screenshot_manifest(
+                files,
+                {row["source_key"]: row for row in source_manifest["sources"]},
+                events,
+            )
 
 
 if __name__ == "__main__":
