@@ -1,0 +1,37 @@
+{
+  "format": "bannerlord-publication-recovery-validation",
+  "schema_version": "1.0.0",
+  "batch_id": "2026-09-15-to-16-rot-qartheen-enthroned-guardian",
+  "status": "pass",
+  "archive_sha256": "7f75db2d12038c24a57a12f2bdb1f37b2220f873b34ea7247121aa7c5b9b4ced",
+  "archive_bytes": 10412,
+  "encoded_text_sha256": "8cf63f6e7ebe820a6046a61025798471229dea1083ee5fa8239d446b8fe355c5",
+  "archive_members": 24,
+  "source_pngs_verified": 10,
+  "source_bytes_verified": 23587644,
+  "battles": 10,
+  "contexts": {
+    "field": 9,
+    "siege_attack": 1
+  },
+  "ordinary_rows": 79,
+  "character_rows": 74,
+  "partial_rows": 2,
+  "shards_verified": 10,
+  "checks": [
+    "archive and encoded hashes match Phase 1 checkpoint",
+    "24 safe unique regular archive members",
+    "all 10 mounted PNGs match their recorded SHA-256 and size",
+    "screenshot manifest hash matches checkpoint",
+    "all 10 shard hashes and row counts match index",
+    "153 unique occurrence IDs; 79 ordinary and 74 character rows",
+    "nonnegative integer-or-null numeric fields; deployed formulas match",
+    "field and siege contexts remain separate"
+  ],
+  "phase_2": "not_executed_requires_separate_agent",
+  "limitations": [
+    "Historical exact-hash repository search remains subject to the original recorded HTTP 502 limitation.",
+    "Raw PNGs were verified locally but are not retained in Git.",
+    "No full repository test suite was run in the recovery environment."
+  ]
+}

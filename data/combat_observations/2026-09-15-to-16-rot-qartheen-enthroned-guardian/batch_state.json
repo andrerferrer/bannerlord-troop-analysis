@@ -1,0 +1,32 @@
+{
+  "format": "bannerlord-combat-batch-state",
+  "schema_version": "1.0.0",
+  "batch_id": "2026-09-15-to-16-rot-qartheen-enthroned-guardian",
+  "phase": "normalization_complete_phase2_pending",
+  "phase1": {
+    "status": "complete",
+    "source_artifact_count": 10,
+    "event_count": 10,
+    "row_count": 153,
+    "bundle": {
+      "path": "bundle/qartheen_enthroned_guardian_phase1.tar.xz.base64",
+      "sha256_archive": "7f75db2d12038c24a57a12f2bdb1f37b2220f873b34ea7247121aa7c5b9b4ced",
+      "bytes_archive": 10412,
+      "member_count": 24,
+      "member_hashes_path": "bundle/qartheen_enthroned_guardian_phase1.members.sha256"
+    },
+    "recovery_validation_report": "reports/publication_recovery_validation.json"
+  },
+  "phase2": {
+    "agent_role": "separate_analysis_agent",
+    "status": "pending",
+    "handoff_path": "handoff/ANALYSIS_PROMPT.md",
+    "reason": "The publication recovery does not substitute for the required separate downstream analytical agent."
+  },
+  "publication": {
+    "pull_request": 100,
+    "branch": "data/2026-09-15-to-16-rot-qartheen-enthroned-guardian",
+    "target_branch": "main",
+    "requested_pr_state": "draft"
+  }
+}
