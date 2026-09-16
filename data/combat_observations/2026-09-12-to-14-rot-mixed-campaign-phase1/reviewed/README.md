@@ -1,3 +1,3 @@
 # Phase 2 reviewed layer
 
-Phase 1 normalized records remain immutable. This layer preserves three clipped ordinary rows as null, records exact-name identity decisions against the pinned Realm of Thrones audit, reconstructs the source/deduplication manifest from the verified archive as a non-authoritative reconstruction, and documents the Base64 final-newline transport difference. The declared immutable Phase 1 `screenshots_manifest.csv` remains missing, so the merge gate is blocked.
+Phase 1 normalized records remain immutable. This layer preserves three clipped ordinary rows as null, records exact-name identity decisions against the pinned Realm of Thrones audit, and verifies the authoritative `screenshots_manifest.csv` byte-for-byte across the repository and normalized archive. The reviewed deduplication audit retains the complementary-view decision without replacing or rewriting the Phase 1 manifest.

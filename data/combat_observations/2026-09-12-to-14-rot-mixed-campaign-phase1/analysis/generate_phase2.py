@@ -28,14 +28,15 @@ QUEUE_PATH = REPO_ROOT / "data/combat_observations/test_queues/realm_of_thrones.
 
 BATCH_ID = "2026-09-12-to-14-rot-mixed-campaign-phase1"
 TRACK = "realm_of_thrones"
-GAME_VERSION = "unknown_not_recorded_in_phase1"
-NORMALIZATION_COMMIT = "7ecad749acbe1a1af3c91e86050b5c23737c4921"
-ARCHIVE_SHA256 = "46d9010bd6be2d9121539b2408a9da91f228a67ca5b08f4b9ced8e7abca7d59c"
-ARCHIVE_SIZE = 12_388
-DECLARED_BASE64_SHA256 = "fce555d1f0b00398cb6babac38667206b1b1d815c0baed041f95c985b7d65c13"
-DECLARED_BASE64_SIZE = 16_521
-ACTUAL_BASE64_SHA256 = "10e74584f29c7d2a3116952bc3e1e7db0992dee808875add49178356021e375a"
-ACTUAL_BASE64_SIZE = 16_520
+GAME_VERSION = "unknown"
+NORMALIZATION_COMMIT = "c7004f9ead64687c1ed83bdbd2759a0ecbe32956"
+ARCHIVE_SHA256 = "99754ec7fb614e86631bd6268c327140cd7c7882db7f612035015a6291b3adab"
+ARCHIVE_SIZE = 12_944
+DECLARED_BASE64_SHA256 = "1fe97af8dd1979f02e4c27b7e26277a80e8bde026ebc6e50d8b989adb24692d6"
+DECLARED_BASE64_SIZE = 17_261
+ACTUAL_BASE64_SHA256 = DECLARED_BASE64_SHA256
+ACTUAL_BASE64_SIZE = DECLARED_BASE64_SIZE
+SCREENSHOTS_MANIFEST_SHA256 = "42edb4f73e88bad528ff318c019b561ccd3bf02b4151dd714ea08325ed0734dd"
 IDENTITY_AUDIT_SHA256 = "63ea983998e25aa0e6f8c0747bf42e44440f695bbe1fec717074e7ba64e42810"
 QUEUE_SHA256 = "7a2a7906bc98f5d90394e07a9a329a52abc539044780bfb97f845dde1129bf6e"
 GATE_BATTLES = 5
@@ -48,6 +49,7 @@ EXPECTED_MEMBERS = {
     "README.md",
     "source_manifest.json",
     "source_inventory.csv",
+    "screenshots_manifest.csv",
     "integrity_report.json",
     "phase1_checkpoint.json",
     "batch_state.json",
@@ -73,6 +75,7 @@ IMMUTABLE_PHASE1_PATHS = (
     f"data/combat_observations/{BATCH_ID}/README.md",
     f"data/combat_observations/{BATCH_ID}/batch_state.json",
     f"data/combat_observations/{BATCH_ID}/phase1_checkpoint.json",
+    f"data/combat_observations/{BATCH_ID}/screenshots_manifest.csv",
     f"data/combat_observations/{BATCH_ID}/bundle",
     f"data/combat_observations/{BATCH_ID}/handoff",
 )
@@ -235,12 +238,6 @@ def extract_verified_bundle() -> tuple[dict[str, bytes], dict[str, Any]]:
     if set(files) != EXPECTED_MEMBERS:
         raise ValueError("normalized archive member set mismatch")
 
-    appended_newline = encoded + b"\n"
-    if (
-        len(appended_newline) != DECLARED_BASE64_SIZE
-        or sha256_bytes(appended_newline) != DECLARED_BASE64_SHA256
-    ):
-        raise ValueError("Phase 1 transport metadata mismatch is not the recorded final-newline case")
     member_hashes = {
         name: {"sha256": sha256_bytes(payload), "size_bytes": len(payload)}
         for name, payload in sorted(files.items())
@@ -256,7 +253,7 @@ def extract_verified_bundle() -> tuple[dict[str, bytes], dict[str, Any]]:
             "actual_sha256": ACTUAL_BASE64_SHA256,
             "declared_size_bytes": DECLARED_BASE64_SIZE,
             "actual_size_bytes": ACTUAL_BASE64_SIZE,
-            "review_status": "accepted_transport_newline_only_archive_exact",
+            "review_status": "verified_exact",
             "evidence_values_affected": False,
         },
     }
@@ -288,18 +285,88 @@ def verify_handoff_inventory(files: dict[str, bytes]) -> dict[str, Any]:
                 "sha256": digest,
             }
         )
-    expected_missing = ["screenshots_manifest.csv"]
-    if missing != expected_missing:
+    if missing:
         raise ValueError(f"unexpected handoff input inventory: missing={missing}")
     return {
-        "status": "blocked_missing_declared_immutable_input",
+        "status": "passed",
         "declared_inputs": resolutions,
-        "verified_count": len(resolutions) - len(missing),
+        "verified_count": len(resolutions),
         "missing_inputs": missing,
-        "blocker": (
-            "Phase 1 declared screenshots_manifest.csv as immutable input but did not publish it "
-            "as an archive member or repository file."
-        ),
+    }
+
+
+def verify_screenshot_manifest(
+    files: dict[str, bytes],
+    source_index: dict[str, dict[str, Any]],
+    event_index: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    repository_bytes = (BATCH_DIR / "screenshots_manifest.csv").read_bytes()
+    archive_bytes = files["screenshots_manifest.csv"]
+    if repository_bytes != archive_bytes:
+        raise ValueError("repository/archive screenshots_manifest.csv bytes differ")
+    if sha256_bytes(archive_bytes) != SCREENSHOTS_MANIFEST_SHA256:
+        raise ValueError("screenshots_manifest.csv hash mismatch")
+
+    reader = csv.DictReader(io.StringIO(archive_bytes.decode("utf-8")))
+    expected_fields = [
+        "screenshot_id",
+        "image_file",
+        "image_sha256",
+        "captured_at",
+        "battle_id",
+        "screen_status",
+        "included_in_primary",
+        "game_version",
+        "game_track",
+    ]
+    if reader.fieldnames != expected_fields:
+        raise ValueError("screenshots_manifest.csv schema mismatch")
+    rows = list(reader)
+    if len(rows) != 16:
+        raise ValueError("screenshots_manifest.csv row count mismatch")
+    rows_by_id = {row["screenshot_id"]: row for row in rows}
+    if len(rows_by_id) != len(rows):
+        raise ValueError("screenshots_manifest.csv screenshot IDs are not unique")
+
+    expected_ids = {
+        source_key.replace("src_", "screen_", 1) for source_key in source_index
+    }
+    if set(rows_by_id) != expected_ids:
+        raise ValueError("screenshots_manifest.csv source inventory mismatch")
+    for source_key, source in source_index.items():
+        event_ids = source["event_ids"]
+        if len(event_ids) != 1 or event_ids[0] not in event_index:
+            raise ValueError(f"invalid source-to-battle mapping: {source_key}")
+        event_id = event_ids[0]
+        event = event_index[event_id]
+        row = rows_by_id[source_key.replace("src_", "screen_", 1)]
+        expected = {
+            "image_file": source["filename"],
+            "image_sha256": source["sha256"],
+            "captured_at": source["capture_timestamp_local"],
+            "battle_id": event_id,
+            "screen_status": (
+                "active" if event["result_status"] == "in_progress" else "final_result"
+            ),
+            "included_in_primary": "True",
+            "game_version": GAME_VERSION,
+            "game_track": TRACK,
+        }
+        if any(row[field] != value for field, value in expected.items()):
+            raise ValueError(f"screenshots_manifest.csv source row mismatch: {source_key}")
+
+    battle_ids = {row["battle_id"] for row in rows}
+    status_counts = Counter(row["screen_status"] for row in rows)
+    if len(battle_ids) != 15 or status_counts != {"active": 3, "final_result": 13}:
+        raise ValueError("screenshots_manifest.csv battle/status partition mismatch")
+    return {
+        "status": "verified_repository_archive_exact",
+        "sha256": SCREENSHOTS_MANIFEST_SHA256,
+        "rows": len(rows),
+        "battle_ids": len(battle_ids),
+        "active_screens": status_counts["active"],
+        "final_result_screens": status_counts["final_result"],
+        "repository_archive_bytes_equal": True,
     }
 
 
@@ -972,14 +1039,6 @@ def build_report(
     lines = [
         "# Phase 2 analysis — Sep 12–14 Realm of Thrones mixed campaign",
         "",
-        "## Merge blocker",
-        "",
-        (
-            "The safe analytical work is complete, but the pull request cannot pass its merge gate: Phase 1 declared "
-            "`screenshots_manifest.csv` as an immutable input and did not publish that file in the normalized archive or repository. "
-            "The reviewed reconstruction is explicitly non-authoritative and does not replace the missing Phase 1 artifact."
-        ),
-        "",
         "## Batch-wide findings",
         "",
         (
@@ -1079,8 +1138,8 @@ def build_report(
             "## Integrity and limitations",
             "",
             (
-                f"The normalized archive matches `{ARCHIVE_SHA256}` exactly. The committed Base64 text omits only the final newline recorded by Phase 1; "
-                "the reviewed layer records both transport hashes and confirms identical decoded bytes. The separate missing-manifest blocker remains unresolved."
+                f"The normalized archive matches `{ARCHIVE_SHA256}` exactly, with all 11 members verified. "
+                "The committed Base64 text matches its declared hash and size, and the authoritative `screenshots_manifest.csv` is byte-identical in the repository and archive."
             ),
             "",
             (
@@ -1129,6 +1188,9 @@ def build_analysis(*, write_outputs: bool) -> dict[str, Any]:
     if len({row["row_id"] for row in raw_rows}) != len(raw_rows):
         raise ValueError("duplicate normalized row ID")
 
+    screenshot_manifest_verification = verify_screenshot_manifest(
+        files, source_index, event_index
+    )
     source_audit, source_verification = verify_source_records(files, events)
     identities, identity_audit = resolve_identities(raw_rows)
     ordinary, excluded = adapt_rows(raw_rows, event_index, source_index, identities)
@@ -1206,8 +1268,8 @@ def build_analysis(*, write_outputs: bool) -> dict[str, Any]:
 
     context_counts = dict(Counter(event["battle_context"] for event in events))
     validation = {
-        "status": "blocked_missing_declared_phase1_input",
-        "validation_errors": [handoff_inventory["blocker"]],
+        "status": "passed_with_documented_identity_limits",
+        "validation_errors": [],
         "batch_id": BATCH_ID,
         "pipeline_mode": "offline-existing",
         "pipeline_version": "phase2_mixed_campaign_v1",
@@ -1240,7 +1302,8 @@ def build_analysis(*, write_outputs: bool) -> dict[str, Any]:
         "source_manifest_entries_verified": source_verification["manifest_entries_verified"],
         "bundle_members_verified": bundle_verification["members"],
         "archive_hash_verified": True,
-        "base64_transport_newline_reviewed": True,
+        "base64_transport_exact": True,
+        "screenshots_manifest_verified": True,
         "identity_labels": len(identity_audit),
         "ordinary_identity_labels": sum(row["row_class"] == "ordinary_troop" for row in identity_audit),
         "identity_confirmed": sum(row["row_class"] == "ordinary_troop" and row["resolution_status"] == "confirmed_id" for row in identity_audit),
@@ -1270,20 +1333,20 @@ def build_analysis(*, write_outputs: bool) -> dict[str, Any]:
         raise ValueError("coverage partition validation failed")
 
     phase1_transport_review = {
-        "status": "reviewed_transport_metadata_correction_no_evidence_change",
+        "status": "verified_repaired_phase1_bundle_no_evidence_change",
         "normalized_inputs_modified": False,
         "committed_base64_text": bundle_verification["base64_transport"],
         "decoded_archive_sha256": ARCHIVE_SHA256,
         "decoded_archive_size_bytes": ARCHIVE_SIZE,
         "decoded_archive_exact": True,
-        "finding": "The committed Base64 file is the Phase 1 declared text with its final newline omitted.",
+        "screenshots_manifest": screenshot_manifest_verification,
         "embedded_control_file_note": (
-            "The archive's embedded batch_state.json and phase1_checkpoint.json predate the outer files that pin the final archive; "
-            "the normalized records and integrity report are protected by the exact outer archive hash."
+            "The archive's embedded batch_state.json and phase1_checkpoint.json deliberately omit the self-referential archive hash; "
+            "the repository-level control files pin the final archive identity."
         ),
     }
     input_verification = {
-        "status": "blocked_missing_declared_phase1_input",
+        "status": "passed",
         "batch_id": BATCH_ID,
         "pipeline_mode": "offline-existing",
         "pipeline_version": "phase2_mixed_campaign_v1",
@@ -1291,6 +1354,7 @@ def build_analysis(*, write_outputs: bool) -> dict[str, Any]:
         "normalization_commit": NORMALIZATION_COMMIT,
         "normalized_bundle": bundle_verification,
         "handoff_inventory": handoff_inventory,
+        "screenshot_manifest": screenshot_manifest_verification,
         "source_manifest": source_verification,
         "identity_audit": {
             "path": IDENTITY_PATH.relative_to(REPO_ROOT).as_posix(),
@@ -1311,12 +1375,12 @@ def build_analysis(*, write_outputs: bool) -> dict[str, Any]:
     }
     analysis_state = {
         "batch_id": BATCH_ID,
-        "status": "phase_2_safe_analysis_complete_merge_blocked",
+        "status": "phase_2_complete_local_validation_passed",
         "normalization_commit": NORMALIZATION_COMMIT,
         "primary_test_unit": None,
         "primary_test_unit_reason": "No approved primary tested troop exists in this mixed campaign batch.",
         "queue_change": "none",
-        "blockers": [handoff_inventory["blocker"]],
+        "blockers": [],
         "queue_after": {
             "active_test": queue_validation["active_test"],
             "ordered_queue": queue_validation["ordered_queue"],
@@ -1418,7 +1482,7 @@ def emit_outputs(result: dict[str, Any]) -> None:
     write_json(
         REVIEW_DIR / "phase2_review_summary.json",
         {
-            "status": "safe_analysis_complete_merge_blocked_missing_phase1_manifest",
+            "status": "complete_local_validation_passed",
             "reviewer": "separate Phase 2 local analysis agent",
             "normalized_inputs_modified": False,
             "numeric_corrections": 0,
@@ -1426,8 +1490,9 @@ def emit_outputs(result: dict[str, Any]) -> None:
             "ordinary_identity_labels": result["validation"]["ordinary_identity_labels"],
             "unresolved_ordinary_occurrences": len(result["unresolved_occurrences"]),
             "unresolved_numeric_fields": len(result["review_resolutions"]),
-            "transport_metadata_findings": 1,
+            "transport_metadata_findings": 0,
             "missing_declared_phase1_inputs": result["handoff_inventory"]["missing_inputs"],
+            "screenshots_manifest_status": result["input_verification"]["screenshot_manifest"]["status"],
         },
     )
     write_csv(REVIEW_DIR / "phase2_identity_decisions.csv", identity_audit[0].keys(), identity_audit)
@@ -1436,18 +1501,13 @@ def emit_outputs(result: dict[str, Any]) -> None:
         result["review_resolutions"][0].keys(),
         result["review_resolutions"],
     )
-    write_csv(
-        REVIEW_DIR / "reconstructed_screenshots_manifest.csv",
-        result["source_audit"][0].keys(),
-        result["source_audit"],
-    )
     write_csv(REVIEW_DIR / "screenshot_deduplication_audit.csv", result["source_audit"][0].keys(), result["source_audit"])
     (REVIEW_DIR / "README.md").write_text(
         "# Phase 2 reviewed layer\n\n"
         "Phase 1 normalized records remain immutable. This layer preserves three clipped ordinary rows as null, "
-        "records exact-name identity decisions against the pinned Realm of Thrones audit, reconstructs the source/deduplication "
-        "manifest from the verified archive as a non-authoritative reconstruction, and documents the Base64 final-newline transport difference. "
-        "The declared immutable Phase 1 `screenshots_manifest.csv` remains missing, so the merge gate is blocked.\n",
+        "records exact-name identity decisions against the pinned Realm of Thrones audit, and verifies the authoritative "
+        "`screenshots_manifest.csv` byte-for-byte across the repository and normalized archive. The reviewed deduplication audit "
+        "retains the complementary-view decision without replacing or rewriting the Phase 1 manifest.\n",
         encoding="utf-8",
     )
 
@@ -1472,24 +1532,25 @@ def emit_outputs(result: dict[str, Any]) -> None:
         f"All {result['validation']['ordinary_occurrences']} visible ordinary occurrences partition into "
         f"{len(rankings)} exact party/context/result-state rows: {len(reliable)} reliable and {len(insufficient)} insufficient. "
         "Character rows, identity decisions, clipped-value reviews, result splits, pressure margins, denominators, "
-        "queue validation, and transport verification remain separate auditable artifacts.\n\n"
-        "Merge remains blocked because Phase 1 declared but did not publish `screenshots_manifest.csv`.\n\n"
+        "queue validation, manifest verification, and bundle verification remain separate auditable artifacts. "
+        "Local Phase 2 validation passes; protocol completion and latest-head repository review remain delivery gates.\n\n"
         "Reproduce from the repository root with:\n\n"
         f"```bash\npython3 data/combat_observations/{BATCH_ID}/analysis/generate_phase2.py\n```\n",
         encoding="utf-8",
     )
     (ANALYSIS_DIR / "TESTS.md").write_text(
         "# Validation runs\n\n"
-        "- Red: the focused contract test failed with `FileNotFoundError` because `analysis/generate_phase2.py` did not exist.\n"
-        "- Green: `python3 -m unittest .../analysis/test_generate_phase2.py` passes.\n"
+        "- Red (targeted, after updating the repaired identity pins only): the manifest-divergence test raised `AttributeError: module 'mixed_campaign_phase2' has no attribute 'verify_screenshot_manifest'`; the main contract raised `ValueError: unexpected handoff input inventory: missing=[]`.\n"
+        "- Green: `python3 -m unittest -v data.combat_observations.2026-09-12-to-14-rot-mixed-campaign-phase1.analysis.test_generate_phase2` passes both tests.\n"
         "- The generator runs twice with byte-identical artifacts.\n"
-        "- Focused repository validation: 90/90 passed (89 shared bundle, analyzer, identity, protocol, and role tests plus this batch contract).\n"
-        "- Full stdlib suite attempt: 387 tests passed; four additional test modules could not import because this documented local Python environment has no `pandas`.\n"
-        "- The 12,388-byte normalized archive matches its declared SHA-256 and all 10 members pass safe extraction.\n"
+        "- Focused repository validation: 120/120 passed across the shared bundle, analyzer, identity, protocol, role, Phase 1 repair, and Phase 2 batch contracts.\n"
+        "- Full stdlib suite attempt: 389 tests passed; four additional test modules could not import because this documented local Python environment has no `pandas`.\n"
+        "- The 12,944-byte normalized archive matches its declared SHA-256 and all 11 members pass safe extraction.\n"
+        "- The authoritative screenshot manifest matches byte-for-byte between the repository and archive: 16 screens, 15 battle IDs, 3 active, and 13 final-result screens.\n"
         "- All 232 visible rows partition into 155 ordinary and 77 character rows; every ordinary occurrence maps to one reliable or insufficient aggregate.\n"
         "- Three clipped ordinary rows preserve 13 null fields in the reviewed layer.\n"
         "- Queue invariants pass with no mutation; frozen model files and published immutable Phase 1 inputs remain unchanged.\n"
-        "- Merge gate remains blocked: the Phase 1 handoff declared `screenshots_manifest.csv`, but that artifact is absent.\n",
+        "- Local Phase 2 validation has no unresolved blockers.\n",
         encoding="utf-8",
     )
 

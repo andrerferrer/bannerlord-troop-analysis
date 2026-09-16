@@ -1,9 +1,5 @@
 # Phase 2 analysis — Sep 12–14 Realm of Thrones mixed campaign
 
-## Merge blocker
-
-The safe analytical work is complete, but the pull request cannot pass its merge gate: Phase 1 declared `screenshots_manifest.csv` as an immutable input and did not publish that file in the normalized archive or repository. The reviewed reconstruction is explicitly non-authoritative and does not replace the missing Phase 1 artifact.
-
 ## Batch-wide findings
 
 The batch contains **15 independent battle events** (8 field, 7 siege attack), with **155 visible ordinary-troop rows** and **77 excluded character rows**. All ordinary occurrences map to exactly one of **7 reliable** or **88 below-gate** troop/party/context/result-state rows.
@@ -143,7 +139,7 @@ No queue mutation is justified. `active_test` remains null and `ordered_queue` r
 
 ## Integrity and limitations
 
-The normalized archive matches `46d9010bd6be2d9121539b2408a9da91f228a67ca5b08f4b9ced8e7abca7d59c` exactly. The committed Base64 text omits only the final newline recorded by Phase 1; the reviewed layer records both transport hashes and confirms identical decoded bytes. The separate missing-manifest blocker remains unresolved.
+The normalized archive matches `99754ec7fb614e86631bd6268c327140cd7c7882db7f612035015a6291b3adab` exactly, with all 11 members verified. The committed Base64 text matches its declared hash and size, and the authoritative `screenshots_manifest.csv` is byte-identical in the repository and archive.
 
 The pinned track audit confirms **33/43 ordinary labels** by exact name. Three ordinary rows preserve clipped numeric cells, and 12 party summaries preserve visible coverage gaps. Raw PNGs are not retained, so Phase 2 verifies their committed manifest hashes but cannot repeat pixel-level review. Phase 1 did not record an exact game version, so this batch is not pooled with versioned historical cohorts.
 

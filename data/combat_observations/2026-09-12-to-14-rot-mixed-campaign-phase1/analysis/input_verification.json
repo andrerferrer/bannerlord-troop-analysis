@@ -2,7 +2,7 @@
   "batch_id": "2026-09-12-to-14-rot-mixed-campaign-phase1",
   "frozen_model_files_modified": [],
   "frozen_model_snapshot": {
-    "baseline_commit": "7ecad749acbe1a1af3c91e86050b5c23737c4921",
+    "baseline_commit": "c7004f9ead64687c1ed83bdbd2759a0ecbe32956",
     "files_verified": 9,
     "missing_files": [],
     "modified_files": [],
@@ -11,18 +11,17 @@
     ]
   },
   "handoff_inventory": {
-    "blocker": "Phase 1 declared screenshots_manifest.csv as immutable input but did not publish it as an archive member or repository file.",
     "declared_inputs": [
       {
         "declared_path": "phase1_checkpoint.json",
         "resolution": "archive:phase1_checkpoint.json",
-        "sha256": "0e8b61a74a7ae0a561a00391f842a2cf62733f292a9460fbb9641d0a292fc071",
+        "sha256": "e5f969e4a10ce772744cc843ac61f007150544faa96032198a7c550032dab17b",
         "status": "verified"
       },
       {
         "declared_path": "batch_state.json",
         "resolution": "archive:batch_state.json",
-        "sha256": "4baec2cde157cfcd679abed7a6f6b757a943680eb7f0e3988b24bc389f78b439",
+        "sha256": "c7d68a3ee22ea7109fb9e1dd23f4ace3c908e65bead22a47a730039e1d5be6ba",
         "status": "verified"
       },
       {
@@ -40,8 +39,8 @@
       {
         "declared_path": "screenshots_manifest.csv",
         "resolution": "archive:screenshots_manifest.csv",
-        "sha256": "",
-        "status": "missing"
+        "sha256": "42edb4f73e88bad528ff318c019b561ccd3bf02b4151dd714ea08325ed0734dd",
+        "status": "verified"
       },
       {
         "declared_path": "normalized/events.jsonl",
@@ -70,21 +69,19 @@
       {
         "declared_path": "bundle/rot_mixed_campaign_phase1.tar.xz.base64",
         "resolution": "repository:bundle/rot_mixed_campaign_phase1.tar.xz.base64",
-        "sha256": "10e74584f29c7d2a3116952bc3e1e7db0992dee808875add49178356021e375a",
+        "sha256": "1fe97af8dd1979f02e4c27b7e26277a80e8bde026ebc6e50d8b989adb24692d6",
         "status": "verified"
       },
       {
         "declared_path": "bundle/rot_mixed_campaign_phase1.tar.xz.sha256",
         "resolution": "repository:bundle/rot_mixed_campaign_phase1.tar.xz.sha256",
-        "sha256": "f85eb2e155072090c260cc745bbb4a8f9574e42d94c19402ea85bea496f2cabc",
+        "sha256": "d112b11cfacf112f02f7da6d07ad95a369ffb3c94d8d28dec09f0030b8bc5200",
         "status": "verified"
       }
     ],
-    "missing_inputs": [
-      "screenshots_manifest.csv"
-    ],
-    "status": "blocked_missing_declared_immutable_input",
-    "verified_count": 10
+    "missing_inputs": [],
+    "status": "passed",
+    "verified_count": 11
   },
   "identity_audit": {
     "blob_sha": "67df28bb6cbfbb60a37a90950c781980d41a2fe9",
@@ -93,40 +90,41 @@
   },
   "immutable_inputs_modified": [],
   "immutable_phase1_snapshot": {
-    "baseline_commit": "7ecad749acbe1a1af3c91e86050b5c23737c4921",
-    "files_verified": 7,
+    "baseline_commit": "c7004f9ead64687c1ed83bdbd2759a0ecbe32956",
+    "files_verified": 10,
     "missing_files": [],
     "modified_files": [],
     "paths": [
       "data/combat_observations/2026-09-12-to-14-rot-mixed-campaign-phase1/README.md",
       "data/combat_observations/2026-09-12-to-14-rot-mixed-campaign-phase1/batch_state.json",
       "data/combat_observations/2026-09-12-to-14-rot-mixed-campaign-phase1/phase1_checkpoint.json",
+      "data/combat_observations/2026-09-12-to-14-rot-mixed-campaign-phase1/screenshots_manifest.csv",
       "data/combat_observations/2026-09-12-to-14-rot-mixed-campaign-phase1/bundle",
       "data/combat_observations/2026-09-12-to-14-rot-mixed-campaign-phase1/handoff"
     ]
   },
-  "normalization_commit": "7ecad749acbe1a1af3c91e86050b5c23737c4921",
+  "normalization_commit": "c7004f9ead64687c1ed83bdbd2759a0ecbe32956",
   "normalized_bundle": {
     "base64_transport": {
-      "actual_sha256": "10e74584f29c7d2a3116952bc3e1e7db0992dee808875add49178356021e375a",
-      "actual_size_bytes": 16520,
-      "declared_sha256": "fce555d1f0b00398cb6babac38667206b1b1d815c0baed041f95c985b7d65c13",
-      "declared_size_bytes": 16521,
+      "actual_sha256": "1fe97af8dd1979f02e4c27b7e26277a80e8bde026ebc6e50d8b989adb24692d6",
+      "actual_size_bytes": 17261,
+      "declared_sha256": "1fe97af8dd1979f02e4c27b7e26277a80e8bde026ebc6e50d8b989adb24692d6",
+      "declared_size_bytes": 17261,
       "evidence_values_affected": false,
-      "review_status": "accepted_transport_newline_only_archive_exact"
+      "review_status": "verified_exact"
     },
     "member_hashes": {
       "README.md": {
-        "sha256": "ad7a333bbdee6d944c902fc00c25fb8f0a64fe1f77f1c8de2686ab6e829df251",
-        "size_bytes": 2369
+        "sha256": "0363ad5ab9df2319a7cb3f9097faa1620d502b6c9dde910d313537520293315c",
+        "size_bytes": 2991
       },
       "batch_state.json": {
-        "sha256": "4baec2cde157cfcd679abed7a6f6b757a943680eb7f0e3988b24bc389f78b439",
-        "size_bytes": 1024
+        "sha256": "c7d68a3ee22ea7109fb9e1dd23f4ace3c908e65bead22a47a730039e1d5be6ba",
+        "size_bytes": 1133
       },
       "handoff/ANALYSIS_TASK_V1.json": {
-        "sha256": "d971da5da373d7bc4753ae24fee3116032ac0a876968f37632de406be44568ff",
-        "size_bytes": 1653
+        "sha256": "ea70cb7ae18aef1d3fc3cec7ef03cf1d7720d821190e8e37ff7ce810c7273800",
+        "size_bytes": 1975
       },
       "integrity_report.json": {
         "sha256": "60ee02c2f23649bcc8cc8fc231eb36f6c99da884d1e6bdf22fb7ebe6911fb15c",
@@ -145,8 +143,12 @@
         "size_bytes": 123230
       },
       "phase1_checkpoint.json": {
-        "sha256": "0e8b61a74a7ae0a561a00391f842a2cf62733f292a9460fbb9641d0a292fc071",
-        "size_bytes": 3417
+        "sha256": "e5f969e4a10ce772744cc843ac61f007150544faa96032198a7c550032dab17b",
+        "size_bytes": 3785
+      },
+      "screenshots_manifest.csv": {
+        "sha256": "42edb4f73e88bad528ff318c019b561ccd3bf02b4151dd714ea08325ed0734dd",
+        "size_bytes": 6334
       },
       "source_inventory.csv": {
         "sha256": "c9a03021d6acefebfc375ea4df341bef0b491de5252d9e6ce4e2cfa44c965ec8",
@@ -157,15 +159,24 @@
         "size_bytes": 17182
       }
     },
-    "members": 10,
+    "members": 11,
     "safe_preflight_passed": true,
-    "sha256": "46d9010bd6be2d9121539b2408a9da91f228a67ca5b08f4b9ced8e7abca7d59c",
-    "size_bytes": 12388
+    "sha256": "99754ec7fb614e86631bd6268c327140cd7c7882db7f612035015a6291b3adab",
+    "size_bytes": 12944
   },
   "pipeline_mode": "offline-existing",
   "pipeline_version": "phase2_mixed_campaign_v1",
   "raw_source_integrity": "manifest_hashes_only_raw_pngs_not_retained",
   "schema_version": "1.0.0",
+  "screenshot_manifest": {
+    "active_screens": 3,
+    "battle_ids": 15,
+    "final_result_screens": 13,
+    "repository_archive_bytes_equal": true,
+    "rows": 16,
+    "sha256": "42edb4f73e88bad528ff318c019b561ccd3bf02b4151dd714ea08325ed0734dd",
+    "status": "verified_repository_archive_exact"
+  },
   "source_manifest": {
     "already_normalized_screenshots": 0,
     "historical_exact_hash_matches": 0,
@@ -179,5 +190,5 @@
     "source_hashes_preserved": true,
     "supplemental_screenshots": 1
   },
-  "status": "blocked_missing_declared_phase1_input"
+  "status": "passed"
 }

@@ -3,10 +3,10 @@
   "active_last_observation_battles": 3,
   "already_normalized_screenshots": 0,
   "archive_hash_verified": true,
-  "base64_transport_newline_reviewed": true,
+  "base64_transport_exact": true,
   "batch_id": "2026-09-12-to-14-rot-mixed-campaign-phase1",
   "battles": 15,
-  "bundle_members_verified": 10,
+  "bundle_members_verified": 11,
   "cohorts_pooled": false,
   "context_events": {
     "field": 8,
@@ -49,13 +49,12 @@
   "result_split_occurrences_exact": true,
   "role_adjusted_blended_rank_published": false,
   "schema_version": "1.0.0",
+  "screenshots_manifest_verified": true,
   "source_manifest_entries_verified": 16,
-  "status": "blocked_missing_declared_phase1_input",
+  "status": "passed_with_documented_identity_limits",
   "supplemental_screenshots": 1,
   "unresolved_review_fields": 13,
-  "validation_errors": [
-    "Phase 1 declared screenshots_manifest.csv as immutable input but did not publish it as an archive member or repository file."
-  ],
+  "validation_errors": [],
   "visible_row_partition_exact": true,
   "visible_rows": 232
 }

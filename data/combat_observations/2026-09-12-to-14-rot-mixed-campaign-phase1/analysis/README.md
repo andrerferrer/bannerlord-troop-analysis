@@ -1,8 +1,6 @@
 # Phase 2 analytical outputs
 
-All 155 visible ordinary occurrences partition into 95 exact party/context/result-state rows: 7 reliable and 88 insufficient. Character rows, identity decisions, clipped-value reviews, result splits, pressure margins, denominators, queue validation, and transport verification remain separate auditable artifacts.
-
-Merge remains blocked because Phase 1 declared but did not publish `screenshots_manifest.csv`.
+All 155 visible ordinary occurrences partition into 95 exact party/context/result-state rows: 7 reliable and 88 insufficient. Character rows, identity decisions, clipped-value reviews, result splits, pressure margins, denominators, queue validation, manifest verification, and bundle verification remain separate auditable artifacts. Local Phase 2 validation passes; protocol completion and latest-head repository review remain delivery gates.
 
 Reproduce from the repository root with:
 
