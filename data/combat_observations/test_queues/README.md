@@ -26,9 +26,18 @@ Before answering a queue question or interpreting a new screenshot batch:
 1. read the queue for the relevant track;
 2. inspect any open evidence pull request that modifies that queue;
 3. read referenced batch reports only to verify the recorded rationale;
-4. never rebuild the queue from the most recent recommendation file alone.
+4. for an offensive test recommendation, read `docs/methodology/006_context_first_scoring_rules.md` and verify the primary weapon evidence before considering troop skills;
+5. never rebuild the queue from the most recent recommendation file alone.
 
 A pending change in an open pull request must be described as pending until merged. The version on the working branch controls continuation of that pull request; the version on `main` controls unrelated sessions.
+
+## Weapon-first offensive selection
+
+Weapon damage is primary. For melee, evaluate verified weapon damage and attack speed together, for the same attack usage and mount context. Relevant troop skill/attribute points come last, after the weapon comparison; high skills or a crafted-weapon template cannot replace missing primary inputs.
+
+A melee candidate rationale must expose `weapon_id`, `attack_usage`, `weapon_damage`, `weapon_attack_speed` and `source_reference`. Missing damage or speed stays null. Keep such a candidate outside `ordered_queue`, using `parked_pending_weapon_evidence` and a concrete re-entry condition, rather than recommending campaign battles on a skill-only rationale. This is not a negative combat-performance verdict.
+
+The operator has not selected numeric weights or a damage-times-speed formula. Do not silently add either or present a speed rating as measured attack frequency. This rule changes selection and future design, not frozen scores or completed empirical results.
 
 ## Update rules
 
