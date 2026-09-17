@@ -34,7 +34,7 @@ all six choices. Different questions are allowed to produce different models.
 | Question | Primary drivers | Interpretation |
 |---|---|---|
 | Infantry defense | Worn armor | Who is hardest to kill while holding a defensive position? |
-| Infantry attack | Weapon output | Who brings the strongest direct offensive equipment? |
+| Infantry attack | Weapon output; for melee, damage and weapon attack speed together | Who brings the strongest direct offensive equipment? |
 | Infantry general capability | Worn armor and weapon output | Who has the best simple balance of survivability and offense? |
 | Ranged attack or general capability with finite ammunition | Bow/crossbow damage multiplied by usable ammunition count; combine with armor only for a general-capability question | Who brings the most finite ranged damage capacity, with survivability included only when the question is general capability? |
 | Ranged attack or general capability in siege defense | Per-shot bow/crossbow output with `ammunition_policy=unlimited`; combine with armor only for a general-capability question | Who brings the strongest ranged output when ammunition count does not differentiate troops? Never multiply by a finite stack count in this context. |
@@ -42,8 +42,9 @@ all six choices. Different questions are allowed to produce different models.
 
 “Primary” is deliberate. A secondary driver requires an explicit operator
 question recorded in the candidate design note and a stated deficiency in the
-primary-only result. A model must not accumulate mobility, skill, speed, mount,
-shield, or other proxies merely because those fields are available.
+primary-only result. A model must not accumulate mobility, skill, mount, shield,
+or other proxies merely because those fields are available. Melee weapon speed
+is part of the primary weapon comparison under the operator correction below.
 
 For the armor driver, default to armor worn by the troop. Shield durability is
 not silently treated as armor; include it only when the question explicitly
@@ -60,6 +61,40 @@ a sum, mean, weight, or rank average.
 Weapon output is equally evidence-bound: attack rows authorize the driver, not
 a guessed value. Direct or validated reconstructed weapon evidence must exist
 before the candidate can rank a troop.
+
+## Offensive candidate priority — operator correction 2026-09-17
+
+This order applies to offensive discovery-test selection as well as future
+scoring, including mounted melee candidates. It supersedes the earlier rule
+that melee weapon speed needed a separate opt-in.
+
+1. **Weapon first:** identify the carried weapon and its verified damage. For
+   melee, evaluate **damage and weapon attack speed together** before comparing
+   troop skills. Match the damage and speed fields to the same attack usage
+   (for example, swing with swing, thrust with thrust) and mount context.
+2. **Relevant skills last:** consider troop skill/attribute points only after
+   the primary weapon comparison. High TwoHanded, Throwing, Athletics or Riding
+   cannot substitute for missing weapon damage/speed or independently justify
+   prioritizing an offensive candidate. A skill must be relevant to the actual
+   loadout and usage, not merely present in the troop audit.
+3. **Evidence before priority:** show weapon ID, attack usage, damage, speed and
+   source reference beside any melee selection rationale. Use direct values or
+   a validated reconstruction compatible with the selected track/version.
+   Weapon templates and skill-based structural scores are not weapon damage.
+   If either primary value is missing, keep it null and park the candidate
+   pending weapon evidence instead of asking for battles to fill that gap.
+
+The operator specified a hierarchy, not coefficients. No default damage-times-
+speed formula, weighted sum, percentage blend or skill multiplier is approved
+here. Publish the two raw melee drivers together until a combination is declared
+and validated; do not present a speed rating as measured attacks per second or
+a raw damage-times-rating product as measured DPS. Damage-only output can remain
+an explicitly incomplete diagnostic, not a completed melee priority decision.
+
+This correction does not establish a universal winner, erase empirical results,
+alter defense or ranged-ammunition rules, or authorize edits to frozen models.
+The correction to the skill-led Yi Ti selection is recorded in
+`data/combat_observations/test_queues/decisions/2026-09-17-weapon-first-correction.json`.
 
 ## Siege-defense overrides
 
@@ -85,11 +120,12 @@ defensive model with an ammo-based model.
    and documented primary-only deficiency recorded in the design note.
 4. Do not create separate “protection” and “utility” outputs unless the operator
    has asked two separate questions that need both answers.
-5. Do not include `Athletics`, `Riding`, weapon speed, troop skill, reach, damage
-   type, mount stats, or charge by default.
-6. Speed or skill multipliers are later hypotheses, not automatic parts of
-   weapon output. They require the same explicit-question gate and comparison
-   against the simpler damage-based result.
+5. Do not include `Athletics`, `Riding`, troop skill, reach, damage type, mount
+   stats, or charge by default. Melee weapon damage and attack speed are the
+   primary pair; this does not authorize unrelated mobility or skill proxies.
+6. Skill multipliers and a particular numeric damage/speed combination remain
+   later hypotheses, not automatic formulas. Relevant skills come last and
+   cannot replace missing primary weapon evidence.
 7. Combined armor-and-weapon models must publish both raw components and state
    the combination rule when they produce one rank. Do not hide scale conversion
    or weights, and do not imply that this document selected a default blend.
@@ -174,6 +210,9 @@ secondary_drivers: none
 armor_source_fields: declared by candidate
 armor_aggregation: declared by candidate
 weapon_damage_source_fields: not_applicable
+weapon_speed_source_fields: not_applicable
+weapon_attack_usage: not_applicable
+skill_role: not_applicable
 projectile_contribution: not_applicable
 roster_aggregation: arithmetic_mean
 combination_rule: not_applicable
@@ -181,7 +220,9 @@ combination_rule: not_applicable
 
 Allowed `ammunition_policy` values are `finite`, `unlimited`, and
 `not_applicable`. A finite-ranged design note must also record every field shown
-above that applies to its weapon-and-ammunition pairing.
+above that applies to its weapon-and-ammunition pairing. A melee-offense note
+must declare both damage and speed sources for the selected attack usage and
+set `skill_role` to `secondary_after_weapon_comparison` or `not_used`.
 
 If any value is absent or ambiguous, stop at design time and resolve it instead
 of inferring a universal formula.
