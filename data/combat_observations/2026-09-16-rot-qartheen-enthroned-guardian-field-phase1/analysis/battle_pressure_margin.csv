@@ -1,0 +1,3 @@
+battle_id,context,result_state,frontline_deployed,frontline_survivors,frontline_retention,frontline_status,allied_deployed,allied_remaining,enemy_deployed,enemy_remaining,allied_retention,enemy_retention,pressure_margin,metric_status
+rot_2026_09_16_184955_egon_forim_victory_field,field,completed,,,,not_designated_in_mixed_campaign_evidence,121,121,96,0,1.000000,0.000000,1.000000,final_battle_level_not_attributed_to_one_troop
+rot_2026_09_16_185905_egon_deserters_victory_field,field,completed,,,,not_designated_in_mixed_campaign_evidence,170,155,66,0,0.911765,0.000000,0.911765,final_battle_level_not_attributed_to_one_troop

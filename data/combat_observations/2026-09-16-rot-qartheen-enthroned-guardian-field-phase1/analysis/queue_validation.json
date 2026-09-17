@@ -1,0 +1,23 @@
+{
+  "active_test_after": null,
+  "active_test_before": null,
+  "decision": "No queue mutation. PR #100 already closed dedicated Guardian field testing with a stronger nine-battle cohort and sensitivity; the new two-battle follow-up is confirmatory and below the independent-battle gate.",
+  "duplicate_category_entries": [],
+  "future_target_authorized": false,
+  "guardian_closed_after": true,
+  "guardian_closed_before": true,
+  "guardian_completed_by": "data/combat_observations/2026-09-15-to-16-rot-qartheen-enthroned-guardian/analysis/ANALYSIS_REPORT.md",
+  "ordered_queue_after": [],
+  "ordered_queue_before": [],
+  "queue_path": "data/combat_observations/test_queues/realm_of_thrones.json",
+  "queue_sha256_after": "fa068f17c0d3540fe8d12d3f0dc5b5b85e0e946b03c8bc4dbff7978360c5c2f5",
+  "queue_sha256_before": "fa068f17c0d3540fe8d12d3f0dc5b5b85e0e946b03c8bc4dbff7978360c5c2f5",
+  "status": "passed_unchanged",
+  "unique_priorities": true,
+  "verification_holds_after": [
+    "arryn_moonknight"
+  ],
+  "verification_holds_before": [
+    "arryn_moonknight"
+  ]
+}

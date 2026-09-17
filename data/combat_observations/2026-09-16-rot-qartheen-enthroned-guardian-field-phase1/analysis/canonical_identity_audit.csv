@@ -1,0 +1,13 @@
+display_name,raw_name,canonical_troop_id,identity_status,canonical_default_group,canonical_role,decision
+Qartheen Enthroned Guardian [T6],Qartheen Enthroned Guardian,enthroned_guardian,confirmed_id,Ranged,ranged,exact audit match
+Qartheen Pureborn Champion [T5],Qartheen Pureborn Champion,qartheen_champion,confirmed_id,Ranged,ranged,exact audit match
+Lengii Criminal [T2],Lengii Criminal,yiti_criminal,confirmed_id,Ranged,ranged,exact audit match
+Lengii Mounted Slayer [T4],Lengii Mounted Slayer,,unresolved_provisional_label,,,preserve raw/provisional identity without alias
+Lengii Slaver [T3],Lengii Slaver,yiti_raider,confirmed_id,Infantry,infantry,exact audit match
+Broken Guard [T1],Broken Guard,looter2,confirmed_id,Infantry,infantry,exact audit match
+Braavosi Soldier [T3],Braavosi Soldier,,unresolved_provisional_label,,,preserve raw/provisional identity without alias
+Braavosi Footman [T2],Braavosi Footman,,unresolved_provisional_label,,,preserve raw/provisional identity without alias
+Qartheen Pureborn Warrior [T4],Qartheen Pureborn Warrior,qartheen_pureborn_warrior,confirmed_id,Infantry,infantry,exact audit match
+Qartheen Pureborn Fighter [T3],Qartheen Pureborn Fighter,qartheen_pureborn,confirmed_id,Infantry,infantry,exact audit match
+[unreadable ordinary label],,,unresolved_label,,,preserve raw/provisional identity without alias
+Dornish Archer [T3],Dornish Archer,,unresolved_provisional_label,,,preserve raw/provisional identity without alias

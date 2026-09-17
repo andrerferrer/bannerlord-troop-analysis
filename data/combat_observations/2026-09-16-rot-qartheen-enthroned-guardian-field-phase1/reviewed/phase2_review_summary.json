@@ -1,0 +1,15 @@
+{
+  "batch_id": "2026-09-16-rot-qartheen-enthroned-guardian-field-phase1",
+  "decisions": [
+    "Label remains unreadable; keep the numeric row separate and unpooled.",
+    "Keep Dornish Archer [T3] as a provisional raw label; no exact pinned-audit match exists.",
+    "Exact game version remains unknown.",
+    "Command mode and boost status remain unknown."
+  ],
+  "identity_aliases_added": 0,
+  "normalized_inputs_modified": false,
+  "numeric_corrections": 0,
+  "resolved_by_preservation": 4,
+  "review_items": 4,
+  "status": "complete"
+}

@@ -1,0 +1,6 @@
+check,expected,actual,status
+ordinary_occurrences,13,13,pass
+excluded_character_rows,18,18,pass
+aggregate_partition,12,12,pass
+guardian_historical_battles,5,5,pass
+guardian_new_battles,2,2,pass
