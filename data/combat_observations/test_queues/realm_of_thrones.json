@@ -127,15 +127,52 @@
       ],
       "status": "completed_no_additional_test",
       "troop_id": "frey_assassin"
+    },
+    {
+      "completed_by": "data/combat_observations/2026-09-15-to-16-rot-qartheen-enthroned-guardian/analysis/ANALYSIS_REPORT.md",
+      "context": "field",
+      "decision": "Stop dedicated field testing. The nine-battle cohort and leave-one-highest-rate-battle sensitivity both pass the 5-battle / 20-deployed gate, with player-side kill share above deployment share.",
+      "display_name": "Qartheen Enthroned Guardian",
+      "evidence": [
+        {
+          "deployed": 725,
+          "independent_battles": 9,
+          "kills": 1037,
+          "kills_per_deployed": 1.430345,
+          "offensive_contribution_ratio": 1.520621,
+          "player_side_deployment_share": 0.558982,
+          "player_side_kill_share": 0.85,
+          "retention_rate": 1.0
+        },
+        {
+          "deployed": 642,
+          "independent_battles": 8,
+          "kills": 822,
+          "kills_per_deployed": 1.280374,
+          "offensive_contribution_ratio": 1.52613,
+          "player_side_deployment_share": 0.571174,
+          "player_side_kill_share": 0.871686,
+          "retention_rate": 1.0,
+          "sensitivity": "field cohort without highest-rate battle"
+        }
+      ],
+      "evidence_references": [
+        "data/combat_observations/2026-09-15-to-16-rot-qartheen-enthroned-guardian/analysis/focus_deep_dive.csv",
+        "data/combat_observations/2026-09-15-to-16-rot-qartheen-enthroned-guardian/analysis/focus_sensitivity.csv",
+        "data/combat_observations/2026-09-15-to-16-rot-qartheen-enthroned-guardian/analysis/focus_battle_rates.csv",
+        "pull/100"
+      ],
+      "status": "completed_no_additional_test",
+      "troop_id": "enthroned_guardian"
     }
   ],
   "game_version": "1.4.x",
   "last_transition": {
-    "batch": "data/combat_observations/2026-09-10-to-12-rot-frey-assassin-mixed",
-    "date": "2026-09-13",
-    "from": "active_test: frey_assassin / ordered_queue: []",
-    "reason": "Phase 2 closes dedicated Frey Assassin field testing after the full six-battle cohort and its five-final-battle sensitivity both pass the display gate with kill share above deployment share. No future target is approved while the Arryn historical audit remains open.",
-    "to": "active_test: null / ordered_queue: [] / closed: +frey_assassin"
+    "batch": "data/combat_observations/2026-09-15-to-16-rot-qartheen-enthroned-guardian",
+    "date": "2026-09-17",
+    "from": "active_test: enthroned_guardian / ordered_queue: []",
+    "reason": "The nine-battle field cohort and leave-one-highest-rate-battle sensitivity pass the display gate; both retain kill share above deployment share.",
+    "to": "active_test: null / ordered_queue: []"
   },
   "ordered_queue": [],
   "parked": [
@@ -154,7 +191,7 @@
       "troop_id": "westerling_elite_archer"
     }
   ],
-  "queue_status": "blocked_no_approved_next_target_pending_historical_audit",
+  "queue_status": "awaiting_operator_selection",
   "schema_version": "1.0.0",
   "track": "realm_of_thrones",
   "update_contract": {
@@ -165,7 +202,7 @@
     "phase_1": "May set or confirm active_test, but must not choose or reorder future targets from preliminary extraction.",
     "phase_2": "Must update active_test, ordered_queue, verification_holds, and parked or closed entries in the same pull request whenever the completed analysis changes what should be tested next."
   },
-  "updated_at": "2026-09-13",
+  "updated_at": "2026-09-17",
   "verification_holds": [
     {
       "context": "field",

@@ -1,0 +1,11 @@
+display_name,canonical_troop_id,battle_id,captured_at,context,result,deployed,survivors,kills,deaths,wounded,kills_per_deployed,retention_rate,player_side_kills,player_side_deployed,player_side_kill_share,player_side_deployment_share
+Qartheen Enthroned Guardian,enthroned_guardian,rot_2026_09_15_163446_egon_achaku_victory_field,2026-09-15T16:34:46-03:00,field,victory,77,77,73,0,0,0.948052,1.000000,81,102,0.901235,0.754902
+Qartheen Enthroned Guardian,enthroned_guardian,rot_2026_09_15_163702_egon_ko_jhago_victory_field,2026-09-15T16:37:02-03:00,field,victory,77,77,136,0,0,1.766234,1.000000,143,105,0.951049,0.733333
+Qartheen Enthroned Guardian,enthroned_guardian,rot_2026_09_15_163950_egon_yana_victory_field,2026-09-15T16:39:50-03:00,field,victory,77,77,61,0,0,0.792208,1.000000,70,105,0.871429,0.733333
+Qartheen Enthroned Guardian,enthroned_guardian,rot_2026_09_15_164327_egon_jorah_mormont_victory_field,2026-09-15T16:43:27-03:00,field,victory,79,79,76,0,0,0.962025,1.000000,81,106,0.938272,0.745283
+Qartheen Enthroned Guardian,enthroned_guardian,rot_2026_09_16_160422_egon_qarth_victory_siege_attack,2026-09-16T16:04:22-03:00,siege_attack,victory,86,64,247,8,14,2.872093,0.744186,314,150,0.786624,0.573333
+Qartheen Enthroned Guardian,enthroned_guardian,rot_2026_09_16_162456_egon_ko_mhago_alijin_victory_field,2026-09-16T16:24:56-03:00,field,victory,83,83,156,0,0,1.879518,1.000000,195,173,0.800000,0.479769
+Qartheen Enthroned Guardian,enthroned_guardian,rot_2026_09_16_162711_egon_ko_heggo_victory_field,2026-09-16T16:27:11-03:00,field,victory,83,83,117,0,0,1.409639,1.000000,124,172,0.943548,0.482558
+Qartheen Enthroned Guardian,enthroned_guardian,rot_2026_09_16_163218_egon_anat_victory_field,2026-09-16T16:32:18-03:00,field,victory,83,83,215,0,0,2.590361,1.000000,277,173,0.776173,0.479769
+Qartheen Enthroned Guardian,enthroned_guardian,rot_2026_09_16_163841_egon_chambui_ko_forzho_victory_field,2026-09-16T16:38:41-03:00,field,victory,83,83,131,0,0,1.578313,1.000000,173,258,0.757225,0.321705
+Qartheen Enthroned Guardian,enthroned_guardian,rot_2026_09_16_184527_egon_black_rat_victory_field,2026-09-16T18:45:27-03:00,field,victory,83,83,72,0,0,0.867470,1.000000,76,103,0.947368,0.805825

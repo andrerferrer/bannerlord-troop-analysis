@@ -1,0 +1,8 @@
+{
+  "identity_decisions": 34,
+  "normalized_review_queue_rows": 2,
+  "note": "Normalized evidence is unchanged; identity decisions and visibility dispositions are additive analysis-layer records.",
+  "numeric_corrections": 0,
+  "reviewer": "separate Phase 2 local analysis agent",
+  "status": "complete_with_two_unresolved_visibility_rows_excluded_from_numeric_aggregation"
+}

@@ -45,6 +45,9 @@ Run the repository pipeline; never reproduce its formulas, schemas, matching, de
 3. Continue working on the same branch and pull request after opening it. Never create a second pull request for the same batch.
 4. Lack of a mounted local file, optional raw-image retention, incomplete analysis, or unresolved review rows is not by itself a reason to remain chat-only. Publish the safely completed work and record the limitation or blocker in the draft pull request.
 5. Stop before a pull request exists only when GitHub write access, repository resolution, or another host-platform boundary genuinely prevents publication. Report the exact failed action and error; do not ask the user to reconfirm standing repository authorization.
+6. Apply the non-negotiable publication floor in `AGENTS.md` on resumed tasks too. Uploaded Git blobs, an empty branch, an unattached commit, a push, a compare URL, and local download links are not a PR. Finish the tree, commit, branch-ref update, and PR creation rather than listing them as work for the operator.
+7. Before the final response, read the PR back from GitHub and verify its repository, base/head branches, latest published head SHA, and committed artifacts. For a Phase 1 handoff, also read back the valid append-only `bannerlord-analysis-task:v1` pending comment and confirm its committed handoff path. Do not claim publication from a write request alone.
+8. Include the verified PR number and URL in the final response. A pending separate-agent analysis may keep that existing PR draft; it never justifies ending before the PR exists. Do not add human-confirmation requirements absent an explicit operator instruction or host-platform boundary; preserve the existing merge gates.
 
 ## Resolve inputs
 

@@ -1,0 +1,92 @@
+{
+  "batch_id": "2026-09-15-to-16-rot-qartheen-enthroned-guardian",
+  "files": {
+    "bundle": {
+      "archive": "tar.xz",
+      "bytes_archive": 10412,
+      "bytes_encoded_text": 14067,
+      "encoding": "base64",
+      "member_count": 24,
+      "member_hashes_path": "bundle/qartheen_enthroned_guardian_phase1.members.sha256",
+      "path": "bundle/qartheen_enthroned_guardian_phase1.tar.xz.base64",
+      "sha256_archive": "7f75db2d12038c24a57a12f2bdb1f37b2220f873b34ea7247121aa7c5b9b4ced",
+      "sha256_encoded_text": "8cf63f6e7ebe820a6046a61025798471229dea1083ee5fa8239d446b8fe355c5"
+    },
+    "events": "normalized/events.jsonl",
+    "integrity_report": "integrity_report.json",
+    "party_summaries": "normalized/party_summaries.jsonl",
+    "phase2_handoff": "handoff/ANALYSIS_TASK_V1.json",
+    "player_rows_index": "normalized/player_rows/index.json",
+    "screenshots_manifest": "screenshots_manifest.csv",
+    "source_inventory": "source_inventory.csv",
+    "source_manifest": "source_manifest.json"
+  },
+  "format": "bannerlord-phase1-checkpoint",
+  "integrity": {
+    "checks": {
+      "all_events_are_final_victories": true,
+      "contexts_reconcile": true,
+      "no_visible_row_sum_exceeds_party_summary": true,
+      "partial_rows": 2,
+      "raw_source_hashes_match": true,
+      "row_stats_are_nonnegative_int_or_null": true,
+      "screenshots_manifest_sha256": "3c58f5260265efd32eba11ece47465ed10f6326edc8405f5e94c723cd2a319ba",
+      "source_count": 10,
+      "source_hashes_unique": true,
+      "unique_event_ids": true,
+      "unique_occurrence_ids": true
+    },
+    "status": "pass_with_expected_visibility_gaps_and_historical_search_limitation"
+  },
+  "normalization": {
+    "blank_cell_policy": "A visibly blank numeric cell is zero. Occluded or clipped cells are null and never imputed.",
+    "character_rows": 74,
+    "contexts": {
+      "field": 9,
+      "siege_attack": 1
+    },
+    "deduplication": {
+      "basis": "Full visual audit; every screen has distinct duration, totals, and opponent composition.",
+      "internal_duplicates": 0
+    },
+    "game_version": "1.4.x",
+    "numeric_columns": [
+      "survivors",
+      "kills",
+      "upgrade_ready",
+      "deaths",
+      "wounded",
+      "routed"
+    ],
+    "ordinary_troop_rows": 79,
+    "outcomes": {
+      "victory": 10
+    },
+    "partial_rows": 2,
+    "player_rows": 153,
+    "screenshots_manifest_rows": 10,
+    "source_artifacts": 10,
+    "unique_battle_events": 10
+  },
+  "phase": "normalization_complete",
+  "phase2_gate": {
+    "safe_action": "Keep the pull request draft until Phase 2 validates, publishes complete protocol state, and passes merge gates.",
+    "status": "pending"
+  },
+  "repository_path": "data/combat_observations/2026-09-15-to-16-rot-qartheen-enthroned-guardian",
+  "schema_version": "2.0.0",
+  "scope": {
+    "campaign_evidence_type": "dedicated target campaign battles",
+    "capture_range_local": [
+      "2026-09-15T16:34:46-03:00",
+      "2026-09-16T18:45:27-03:00"
+    ],
+    "mod": "Realm of Thrones",
+    "primary_test_unit": {
+      "context": "field",
+      "display_name": "Qartheen Enthroned Guardian",
+      "troop_id": "enthroned_guardian"
+    },
+    "primary_test_unit_reason": "The operator uploaded a dedicated cohort built around 77–83 copies of the same target troop in every battle."
+  }
+}
