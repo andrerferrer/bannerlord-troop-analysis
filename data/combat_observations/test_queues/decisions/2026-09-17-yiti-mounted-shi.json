@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "task_type": "test_queue_selection",
+  "date": "2026-09-17",
+  "request": "qual next eu testo?",
+  "selection_origin": "agent recommendation in response to delegated operator request; not a previously approved queue entry",
+  "source_commit": "545cbccae5e8203a452b3ba4c9caf73d144d914e",
+  "track": "realm_of_thrones",
+  "context": "field",
+  "selected": {
+    "troop_id": "yiti_samurai",
+    "display_name": "Yi Ti Mounted Shi",
+    "tier": 6,
+    "status": "selected_for_discovery_test",
+    "reason": "Test a distinct mounted two-handed attack profile after the Guardian campaign cohort closed. The pinned soldier audit records TwoHanded 260, Throwing 250, Athletics 250 and Riding 210. This is a testable structural hypothesis, not proof of combat effectiveness or a performance ranking.",
+    "hypothesis": "The mounted two-handed profile may produce useful sustained field contribution instead of only first-contact lance kills; the dedicated cohort must measure whether it actually does.",
+    "not_claimed": [
+      "No S-tier, Captain-equivalence or superiority claim.",
+      "No verified live sword damage, animation speed, throwing ammunition or AI weapon-choice claim.",
+      "No assertion that this troop has never appeared incidentally in historical screenshots."
+    ]
+  },
+  "pinned_sources": [
+    {
+      "path": "data/realm_of_thrones/audit/realm_of_thrones_troops.csv",
+      "git_blob_sha": "67df28bb6cbfbb60a37a90950c781980d41a2fe9",
+      "selector": "troop_id=yiti_samurai",
+      "observed": {"name": "Yi Ti Mounted Shi", "level": 31, "occupation": "Soldier", "default_group": "Cavalry", "TwoHanded": 260, "Throwing": 250, "Athletics": 250, "Riding": 210}
+    },
+    {
+      "path": "data/realm_of_thrones/audit/realm_of_thrones_tree_tiers.csv",
+      "git_blob_sha": "a599aca63d20d28f25767e1c4bbcd30476ba20ea",
+      "selector": "troop_id=yiti_samurai",
+      "observed": {"tree_tier": 6, "upgrade_path": "yiti_recruit|yiti_footman|yiti_infantryman|yiti_spearman|yiti_pikeman|yiti_samurai"}
+    },
+    {
+      "path": "data/combat_observations/test_queues/realm_of_thrones.json",
+      "git_blob_sha": "b0c3294a4774aea3a5325dbe2308cbc5fe6b942a",
+      "observed": "Guardian closed; active_test null; ordered_queue empty; Arryn held. These are the pre-selection facts, not authorization inferred from an empty queue."
+    }
+  ],
+  "historical_screen": {
+    "method": "Read authoritative queue and open PRs; search all PR states for Yi Ti and for yiti_samurai / Mounted Shi / Yi Ti Shi; inspect competing Starfall evidence.",
+    "dedicated_yiti_pr_found": false,
+    "searches": [
+      {"query": "\"Yi Ti\"", "results": 0},
+      {"query": "\"yiti_samurai\" OR \"Mounted Shi\" OR \"Yi Ti Shi\"", "results": 0}
+    ],
+    "limitations": [
+      "Repository code search returned HTTP 502. Local clone failed because github.com could not resolve in the execution container.",
+      "PR-search absence does not prove absence from all normalized rows, archives or unindexed conversations.",
+      "No exhaustive historical consolidation was completed or claimed. Previously recorded incidental observations must remain separate unless independently verified compatible."
+    ],
+    "alternatives_not_selected": [
+      {"troop_id": "enthroned_guardian", "reason": "Dedicated field test already closed in merged PR 100."},
+      {"troop_id": "arryn_moonknight", "reason": "Authoritative verification hold remains unchanged; do not recommend a retest."},
+      {"troop_id": "dayne_starfall_knights", "reason": "PR 89 already documents substantial dedicated Edric field coverage; do not label this an untested candidate from the older shortlist."},
+      {"troop_id": "realm_paladin", "reason": "Already closed in the authoritative queue."}
+    ]
+  },
+  "test_plan": {
+    "evidence_type": "dedicated campaign cohort, not a controlled benchmark",
+    "new_independent_field_battles": 5,
+    "suggested_target_count_per_battle": [60, 80],
+    "orders": "Keep the target mounted, in its own formation, and keep support and orders as consistent as practical.",
+    "confounder_control": "Do not mix Ravens' Teeth, Goldenheart Warriors or Enthroned Guardians into the same test force; avoid letting established ranged anchors consume the available kills.",
+    "capture": "Retain the target row and full player-side totals; complementary scrolling may add hidden rows but is not another battle.",
+    "analysis_contract": "Analyze all visible player-side ordinary troops; report kills/deployed beside kill share, deployment share and casualties. Keep siege observations and old incidental cohorts separate. Five battles permit review, not an automatic pass or stop decision."
+  },
+  "queue_effect": {
+    "active_test": null,
+    "ordered_queue": ["yiti_samurai / field"],
+    "preserve_existing_closed_parked_and_holds": true,
+    "new_evidence_ingested": false,
+    "frozen_models_changed": false
+  }
+}
