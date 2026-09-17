@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "task_type": "operator_rule_correction",
+  "date": "2026-09-17",
+  "source_commit": "844670f199e3474f8185b4c4695c9cafabcd1567",
+  "operator_rule": {
+    "scope": "offensive candidate selection and future offensive scoring",
+    "primary": "weapon damage; for melee, weapon damage and attack speed evaluated together",
+    "secondary": "relevant troop skill or attribute points, considered only after the weapon comparison",
+    "melee_required_inputs": ["weapon_id", "attack_usage", "weapon_damage", "weapon_attack_speed", "source_reference"],
+    "skill_can_replace_missing_weapon_inputs": false,
+    "combination_formula": null,
+    "numeric_weights": null,
+    "speed_rating_is_assumed_attacks_per_second": false,
+    "frozen_model_change_authorized": false
+  },
+  "supersedes": {
+    "decision_path": "data/combat_observations/test_queues/decisions/2026-09-17-yiti-mounted-shi.json",
+    "pull_request": 103,
+    "historical_record_preserved": true,
+    "reason": "The recommendation led with TwoHanded, Throwing, Athletics and Riding without first establishing the weapon damage and melee speed. A crafted weapon template or a high skill value is not the missing weapon output."
+  },
+  "candidate": {
+    "troop_id": "yiti_samurai",
+    "display_name": "Yi Ti Mounted Shi",
+    "track": "realm_of_thrones",
+    "context": "field",
+    "status": "parked_pending_weapon_evidence",
+    "previous_priority_withdrawn": true,
+    "weapon_to_verify": "yiti_sword",
+    "weapon_damage": null,
+    "weapon_attack_speed": null,
+    "performance_verdict": "not_assessed_by_this_correction",
+    "reentry_condition": "Verify the carried weapon and its damage/speed for the relevant usage against version-compatible direct values or a validated reconstruction, compare alternatives weapon-first, then consider relevant skills last."
+  },
+  "evidence": [
+    {
+      "path": "data/realm_of_thrones/audit/realm_of_thrones_items_crafted.csv",
+      "ref": "844670f199e3474f8185b4c4695c9cafabcd1567",
+      "git_blob_sha": "60fb37b65321f27ee87ed73a79062310b41b0d51",
+      "selector": "item_id=yiti_sword",
+      "observed": {
+        "name": "Yitish Sword",
+        "item_kind": "CraftedItem",
+        "crafting_template": "TwoHandedSword",
+        "crafted_stats_reconstructed": false,
+        "score_usage_status": "audit_only_no_aggressive_htk"
+      },
+      "limitation": "This audit supplies the item identity/template, not a verified damage/speed pair. No exhaustive claim is made that no other repository artifact could supply it."
+    }
+  ],
+  "queue_effect": {
+    "active_test": null,
+    "ordered_queue": [],
+    "parked_add": ["yiti_samurai / field"],
+    "existing_closed_parked_and_holds_preserved": true,
+    "replacement_target": null
+  },
+  "unchanged": [
+    "empirical battle records and completed-test results",
+    "field, siege, track and side boundaries",
+    "existing defense and ranged-ammunition policies",
+    "frozen model outputs"
+  ]
+}
