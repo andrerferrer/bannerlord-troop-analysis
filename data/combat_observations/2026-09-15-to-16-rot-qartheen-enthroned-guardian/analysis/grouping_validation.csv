@@ -1,0 +1,40 @@
+cohort,context,participant_scope,display_name,ordinary_occurrences,partition_rows,status
+Egon Emeros' Party,field,player_party,Braavosi Man at Arms,1,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Braavosi Soldier,1,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Marauder,2,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Dothraki Archer,1,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Harami,1,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Qartheen Elite Hoplite,1,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Qartheen Enthroned Guardian,9,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Ghiscari Elite Archer,2,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Dornish Viper,1,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Dothraki Hunter,1,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Ghiscari Soldier,2,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Dornish Elite Archer,2,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Dothraki Warrior,2,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Dothraki Khal's Guard,6,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Dornish Master Archer,2,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Dornish Horseman,4,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Dothraki Pillager,1,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Qartheen Pureborn Fighter,8,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Braavosi Captain,1,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Dothraki Nomad,2,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Dothraki Footman,1,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Qartheen Pureborn Champion,5,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Qartheen Pureborn Youth,2,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Broken Man,2,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Rhoynar Peasant,1,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Braavosi Footman,1,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Westerlands Infantry,1,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Broken Archer,1,1,covered_exactly_once
+Egon Emeros' Party,field,player_party,Qartheen Pureborn Warrior,5,1,covered_exactly_once
+Egon Emeros' Party,siege_attack,player_party,Qartheen Soldier,1,1,covered_exactly_once
+Egon Emeros' Party,siege_attack,player_party,Qartheen Enthroned Guardian,1,1,covered_exactly_once
+Egon Emeros' Party,siege_attack,player_party,Qartheen Pureborn Warrior,1,1,covered_exactly_once
+Egon Emeros' Party,siege_attack,player_party,Dothraki Khal's Guard,1,1,covered_exactly_once
+Egon Emeros' Party,siege_attack,player_party,Nomad Bandit,1,1,covered_exactly_once
+Egon Emeros' Party,siege_attack,player_party,Ghiscari Footman,1,1,covered_exactly_once
+Egon Emeros' Party,siege_attack,player_party,Harami,1,1,covered_exactly_once
+Egon Emeros' Party,siege_attack,player_party,Braavosi Footman,1,1,covered_exactly_once
+Egon Emeros' Party,siege_attack,player_party,Dornish Bowman,1,1,covered_exactly_once
+Egon Emeros' Party,siege_attack,player_party,Broken Guard,1,1,covered_exactly_once

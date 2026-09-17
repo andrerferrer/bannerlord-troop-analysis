@@ -1,0 +1,17 @@
+{
+  "decisions": [
+    {
+      "cohort": "Egon Emeros' Party",
+      "contexts": [
+        "field",
+        "siege_attack"
+      ],
+      "decision": "aggregate only inside one context"
+    },
+    {
+      "decision": "single siege attack excluded from field stop decision",
+      "focus": "enthroned_guardian"
+    }
+  ],
+  "status": "passed_contexts_separate"
+}

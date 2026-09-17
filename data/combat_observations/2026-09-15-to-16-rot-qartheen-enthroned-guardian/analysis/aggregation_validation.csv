@@ -1,0 +1,40 @@
+context,display_name,complete_numeric_occurrences,excluded_partial_occurrences,known_deployed,known_kills,published_deployed,published_kills,status
+field,Braavosi Man at Arms,1,0,3,6,3,6,passed_complete_sum
+field,Braavosi Soldier,1,0,3,6,3,6,passed_complete_sum
+field,Marauder,2,0,2,4,2,4,passed_complete_sum
+field,Dothraki Archer,1,0,1,2,1,2,passed_complete_sum
+field,Harami,1,0,1,2,1,2,passed_complete_sum
+field,Qartheen Elite Hoplite,1,0,1,2,1,2,passed_complete_sum
+field,Qartheen Enthroned Guardian,9,0,725,1037,725,1037,passed_complete_sum
+field,Ghiscari Elite Archer,2,0,3,4,3,4,passed_complete_sum
+field,Dornish Viper,1,0,1,1,1,1,passed_complete_sum
+field,Dothraki Hunter,1,0,1,1,1,1,passed_complete_sum
+field,Ghiscari Soldier,2,0,4,3,4,3,passed_complete_sum
+field,Dornish Elite Archer,2,0,7,5,7,5,passed_complete_sum
+field,Dothraki Warrior,2,0,8,5,8,5,passed_complete_sum
+field,Dothraki Khal's Guard,6,0,22,10,22,10,passed_complete_sum
+field,Dornish Master Archer,2,0,9,4,9,4,passed_complete_sum
+field,Dornish Horseman,4,0,23,10,23,10,passed_complete_sum
+field,Dothraki Pillager,1,0,12,5,12,5,passed_complete_sum
+field,Qartheen Pureborn Fighter,8,0,27,10,27,10,passed_complete_sum
+field,Braavosi Captain,1,0,6,2,6,2,passed_complete_sum
+field,Dothraki Nomad,2,0,21,6,21,6,passed_complete_sum
+field,Dothraki Footman,1,0,7,2,7,2,passed_complete_sum
+field,Qartheen Pureborn Champion,5,0,12,3,12,3,passed_complete_sum
+field,Qartheen Pureborn Youth,2,0,15,2,15,2,passed_complete_sum
+field,Broken Man,2,0,14,1,14,1,passed_complete_sum
+field,Rhoynar Peasant,1,0,15,1,15,1,passed_complete_sum
+field,Braavosi Footman,1,0,3,0,3,0,passed_complete_sum
+field,Westerlands Infantry,1,0,2,0,2,0,passed_complete_sum
+field,Broken Archer,1,0,1,0,1,0,passed_complete_sum
+field,Qartheen Pureborn Warrior,3,2,11,4,,,passed_partial_values_not_imputed
+siege_attack,Qartheen Soldier,1,0,1,5,1,5,passed_complete_sum
+siege_attack,Qartheen Enthroned Guardian,1,0,86,247,86,247,passed_complete_sum
+siege_attack,Qartheen Pureborn Warrior,1,0,5,13,5,13,passed_complete_sum
+siege_attack,Dothraki Khal's Guard,1,0,5,5,5,5,passed_complete_sum
+siege_attack,Nomad Bandit,1,0,5,5,5,5,passed_complete_sum
+siege_attack,Ghiscari Footman,1,0,3,3,3,3,passed_complete_sum
+siege_attack,Harami,1,0,2,2,2,2,passed_complete_sum
+siege_attack,Braavosi Footman,1,0,5,3,5,3,passed_complete_sum
+siege_attack,Dornish Bowman,1,0,5,3,5,3,passed_complete_sum
+siege_attack,Broken Guard,1,0,2,1,2,1,passed_complete_sum

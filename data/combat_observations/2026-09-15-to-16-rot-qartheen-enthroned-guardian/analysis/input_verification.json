@@ -1,0 +1,57 @@
+{
+  "batch_id": "2026-09-15-to-16-rot-qartheen-enthroned-guardian",
+  "frozen_model_files_modified": [],
+  "frozen_model_snapshot": {
+    "baseline_commit": "b51dffd676ea753160972bd4e32647ca96868d01",
+    "files_verified": 9,
+    "missing_files": [],
+    "modified_files": [],
+    "paths": [
+      "analysis/model_versions"
+    ]
+  },
+  "identity_audit": {
+    "path": "data/realm_of_thrones/audit/realm_of_thrones_troops.csv",
+    "sha256": "63ea983998e25aa0e6f8c0747bf42e44440f695bbe1fec717074e7ba64e42810"
+  },
+  "immutable_inputs_modified": [],
+  "immutable_phase1_snapshot": {
+    "baseline_commit": "b51dffd676ea753160972bd4e32647ca96868d01",
+    "files_verified": 11,
+    "missing_files": [],
+    "modified_files": [],
+    "paths": [
+      "data/combat_observations/2026-09-15-to-16-rot-qartheen-enthroned-guardian/README.md",
+      "data/combat_observations/2026-09-15-to-16-rot-qartheen-enthroned-guardian/batch_state.json",
+      "data/combat_observations/2026-09-15-to-16-rot-qartheen-enthroned-guardian/phase1_checkpoint.json",
+      "data/combat_observations/2026-09-15-to-16-rot-qartheen-enthroned-guardian/screenshots_manifest.csv",
+      "data/combat_observations/2026-09-15-to-16-rot-qartheen-enthroned-guardian/bundle",
+      "data/combat_observations/2026-09-15-to-16-rot-qartheen-enthroned-guardian/handoff",
+      "data/combat_observations/2026-09-15-to-16-rot-qartheen-enthroned-guardian/reports/publication_recovery_validation.json"
+    ]
+  },
+  "normalization_commit": "b51dffd676ea753160972bd4e32647ca96868d01",
+  "normalized_bundle": {
+    "archive_sha256": "7f75db2d12038c24a57a12f2bdb1f37b2220f873b34ea7247121aa7c5b9b4ced",
+    "archive_size_bytes": 10412,
+    "base64_sha256": "8cf63f6e7ebe820a6046a61025798471229dea1083ee5fa8239d446b8fe355c5",
+    "base64_size_bytes": 14067,
+    "members_verified": 24,
+    "repository_mirrors_verified": 4,
+    "safe_preflight_passed": true
+  },
+  "pipeline_mode": "offline-existing",
+  "pipeline_version": "batch-phase2-1.0.0",
+  "player_row_shards_verified": 10,
+  "schema_version": "2.0.0",
+  "source_manifest": {
+    "manifest_entries_verified": 10,
+    "note": "Phase 2 verified every retained source record and hash; raw PNG bytes are not repository-addressable.",
+    "raw_repository_retention": "not_retained",
+    "raw_source_hashes_phase1_recovery_verified": 10,
+    "raw_sources_repository_addressable": false,
+    "source_set_sha256": "19885f0fa97aebd73a0af2f07dff5863a80d76c8d596259792995ddd9953acc1",
+    "source_total_bytes": 23587644
+  },
+  "status": "passed"
+}

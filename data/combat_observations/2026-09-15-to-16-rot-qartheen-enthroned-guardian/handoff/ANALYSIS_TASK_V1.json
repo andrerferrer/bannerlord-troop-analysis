@@ -1,0 +1,29 @@
+{
+  "batch_id": "2026-09-15-to-16-rot-qartheen-enthroned-guardian",
+  "constraints": [
+    "Normalized evidence is immutable during Phase 2.",
+    "Field and siege attack remain separate.",
+    "The two clipped Qartheen Pureborn Warrior rows remain null and excluded from numeric aggregation.",
+    "All visible player-side ordinary troop/context rows must appear in the reliable or insufficient partition.",
+    "No future test target may be invented while the authoritative ordered queue is empty."
+  ],
+  "focus": {
+    "display_name": "Qartheen Enthroned Guardian",
+    "primary_context": "field",
+    "troop_id": "enthroned_guardian"
+  },
+  "format": "bannerlord-phase2-analysis-task",
+  "inputs": {
+    "events": "normalized/events.jsonl",
+    "integrity_report": "integrity_report.json",
+    "party_summaries": "normalized/party_summaries.jsonl",
+    "phase1_checkpoint": "phase1_checkpoint.json",
+    "player_rows_index": "normalized/player_rows/index.json",
+    "screenshots_manifest": "screenshots_manifest.csv",
+    "source_inventory": "source_inventory.csv",
+    "source_manifest": "source_manifest.json"
+  },
+  "required_executor": "separate_downstream_analysis_role",
+  "schema_version": "1.0.0",
+  "status": "ready"
+}

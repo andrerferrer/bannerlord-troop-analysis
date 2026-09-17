@@ -1,0 +1,11 @@
+battle_id,context,result,player_deployed,player_survivors,player_retention,enemy_deployed,enemy_survivors,enemy_retention,pressure_margin,metric_status
+rot_2026_09_15_163446_egon_achaku_victory_field,field,victory,102,102,1.000000,81,0,0.000000,1.000000,final_battle_level_not_attributed_to_one_troop
+rot_2026_09_15_163702_egon_ko_jhago_victory_field,field,victory,105,105,1.000000,143,0,0.000000,1.000000,final_battle_level_not_attributed_to_one_troop
+rot_2026_09_15_163950_egon_yana_victory_field,field,victory,105,105,1.000000,70,0,0.000000,1.000000,final_battle_level_not_attributed_to_one_troop
+rot_2026_09_15_164327_egon_jorah_mormont_victory_field,field,victory,106,106,1.000000,81,0,0.000000,1.000000,final_battle_level_not_attributed_to_one_troop
+rot_2026_09_16_160422_egon_qarth_victory_siege_attack,siege_attack,victory,150,96,0.640000,314,0,0.000000,0.640000,final_battle_level_not_attributed_to_one_troop
+rot_2026_09_16_162456_egon_ko_mhago_alijin_victory_field,field,victory,173,167,0.965318,256,61,0.238281,0.727037,final_battle_level_not_attributed_to_one_troop
+rot_2026_09_16_162711_egon_ko_heggo_victory_field,field,victory,172,172,1.000000,124,0,0.000000,1.000000,final_battle_level_not_attributed_to_one_troop
+rot_2026_09_16_163218_egon_anat_victory_field,field,victory,173,165,0.953757,279,2,0.007168,0.946589,final_battle_level_not_attributed_to_one_troop
+rot_2026_09_16_163841_egon_chambui_ko_forzho_victory_field,field,victory,258,253,0.980620,173,0,0.000000,0.980620,final_battle_level_not_attributed_to_one_troop
+rot_2026_09_16_184527_egon_black_rat_victory_field,field,victory,103,103,1.000000,76,0,0.000000,1.000000,final_battle_level_not_attributed_to_one_troop
