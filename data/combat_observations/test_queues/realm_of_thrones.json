@@ -168,13 +168,29 @@
   ],
   "game_version": "1.4.x",
   "last_transition": {
-    "batch": "data/combat_observations/2026-09-15-to-16-rot-qartheen-enthroned-guardian",
+    "decision_path": "data/combat_observations/test_queues/decisions/2026-09-17-yiti-mounted-shi.json",
     "date": "2026-09-17",
-    "from": "active_test: enthroned_guardian / ordered_queue: []",
-    "reason": "The nine-battle field cohort and leave-one-highest-rate-battle sensitivity pass the display gate; both retain kill share above deployment share.",
-    "to": "active_test: null / ordered_queue: []"
+    "from": "active_test: null / ordered_queue: []",
+    "reason": "New delegated next-test selection after Guardian closure. Verify the canonical T6 cavalry identity and direct skill inputs, screen existing closures and PR history, and queue a mounted two-handed discovery hypothesis without claiming an empirical result or an exhaustive no-prior-evidence audit.",
+    "to": "active_test: null / ordered_queue: [yiti_samurai / field]"
   },
-  "ordered_queue": [],
+  "ordered_queue": [
+    {
+      "priority": 1,
+      "troop_id": "yiti_samurai",
+      "display_name": "Yi Ti Mounted Shi",
+      "tier": 6,
+      "context": "field",
+      "status": "selected_for_discovery_test",
+      "reason": "Distinct T6 mounted two-handed discovery candidate: versioned soldier audit has TwoHanded 260, Throwing 250, Athletics 250 and Riding 210. No dedicated test was located by the documented PR search; this is not a proven performance ranking or an exhaustive absence claim.",
+      "evidence_references": [
+        "data/combat_observations/test_queues/decisions/2026-09-17-yiti-mounted-shi.json",
+        "data/realm_of_thrones/audit/realm_of_thrones_troops.csv",
+        "data/realm_of_thrones/audit/realm_of_thrones_tree_tiers.csv",
+        "pull/103"
+      ]
+    }
+  ],
   "parked": [
     {
       "context": "field",
@@ -191,7 +207,7 @@
       "troop_id": "westerling_elite_archer"
     }
   ],
-  "queue_status": "awaiting_operator_selection",
+  "queue_status": "next_target_selected",
   "schema_version": "1.0.0",
   "track": "realm_of_thrones",
   "update_contract": {
