@@ -1,0 +1,4 @@
+canonical_troop_id,context,empirical_rank,battle_count,total_deployed,evidence_grade,empirical_kills_per_deployed,general_score_v71,burst_score_v73,comparison_status
+enthroned_guardian,field,1,9,725,high,1.430345,,,not_run_no_complete_compatible_rot_v71_v73_model_universe
+,field,2,6,22,low,0.454545,,,not_run_no_complete_compatible_rot_v71_v73_model_universe
+qartheen_pureborn,field,3,8,27,low,0.370370,,,not_run_no_complete_compatible_rot_v71_v73_model_universe

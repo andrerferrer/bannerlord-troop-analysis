@@ -1,0 +1,11 @@
+battle_id,captured_at,context,result,player_side_total_kills,player_side_total_deployed,kill_total_direct_positive,deployment_total_direct_positive,provenance,source_key
+rot_2026_09_15_163446_egon_achaku_victory_field,2026-09-15T16:34:46-03:00,field,victory,81,102,true,true,normalized_visible_player_side_total,src_20260915_163446
+rot_2026_09_15_163702_egon_ko_jhago_victory_field,2026-09-15T16:37:02-03:00,field,victory,143,105,true,true,normalized_visible_player_side_total,src_20260915_163702
+rot_2026_09_15_163950_egon_yana_victory_field,2026-09-15T16:39:50-03:00,field,victory,70,105,true,true,normalized_visible_player_side_total,src_20260915_163950
+rot_2026_09_15_164327_egon_jorah_mormont_victory_field,2026-09-15T16:43:27-03:00,field,victory,81,106,true,true,normalized_visible_player_side_total,src_20260915_164327
+rot_2026_09_16_160422_egon_qarth_victory_siege_attack,2026-09-16T16:04:22-03:00,siege_attack,victory,314,150,true,true,normalized_visible_player_side_total,src_20260916_160422
+rot_2026_09_16_162456_egon_ko_mhago_alijin_victory_field,2026-09-16T16:24:56-03:00,field,victory,195,173,true,true,normalized_visible_player_side_total,src_20260916_162456
+rot_2026_09_16_162711_egon_ko_heggo_victory_field,2026-09-16T16:27:11-03:00,field,victory,124,172,true,true,normalized_visible_player_side_total,src_20260916_162711
+rot_2026_09_16_163218_egon_anat_victory_field,2026-09-16T16:32:18-03:00,field,victory,277,173,true,true,normalized_visible_player_side_total,src_20260916_163218
+rot_2026_09_16_163841_egon_chambui_ko_forzho_victory_field,2026-09-16T16:38:41-03:00,field,victory,173,258,true,true,normalized_visible_player_side_total,src_20260916_163841
+rot_2026_09_16_184527_egon_black_rat_victory_field,2026-09-16T18:45:27-03:00,field,victory,76,103,true,true,normalized_visible_player_side_total,src_20260916_184527

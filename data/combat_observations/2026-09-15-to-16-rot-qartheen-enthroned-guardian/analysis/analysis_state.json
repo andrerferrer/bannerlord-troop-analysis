@@ -1,0 +1,13 @@
+{
+  "batch_id": "2026-09-15-to-16-rot-qartheen-enthroned-guardian",
+  "focus_decision": "completed_no_additional_test",
+  "normalization_commit": "b51dffd676ea753160972bd4e32647ca96868d01",
+  "queue_after": {
+    "active_test": null,
+    "ordered_queue": [],
+    "verification_holds": [
+      "arryn_moonknight"
+    ]
+  },
+  "status": "phase_2_complete_local_validation_passed"
+}

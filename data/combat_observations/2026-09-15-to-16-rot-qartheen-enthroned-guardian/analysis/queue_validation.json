@@ -1,0 +1,13 @@
+{
+  "active_test_after": null,
+  "active_test_before": "enthroned_guardian",
+  "ordered_queue_after": [],
+  "path": "data/combat_observations/test_queues/realm_of_thrones.json",
+  "queue_change": "closed enthroned_guardian field; preserved empty ordered queue and Arryn hold",
+  "sha256_after": "fa068f17c0d3540fe8d12d3f0dc5b5b85e0e946b03c8bc4dbff7978360c5c2f5",
+  "sha256_before": "10c49b2d9434ce7b747526f1667f1655bd7774223eb4d0e6c8289c4e9a598855",
+  "status": "passed_closed_target_no_future_target_invented",
+  "verification_holds_after": [
+    "arryn_moonknight"
+  ]
+}
