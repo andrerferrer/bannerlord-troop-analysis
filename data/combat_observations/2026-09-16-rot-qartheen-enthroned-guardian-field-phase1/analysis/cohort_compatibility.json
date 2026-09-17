@@ -1,0 +1,24 @@
+{
+  "compatible_fields": {
+    "context": "field",
+    "focus_identity": "enthroned_guardian",
+    "participant_party": "Egon Emeros' Party",
+    "result_scope": "completed",
+    "track": "realm_of_thrones"
+  },
+  "historical_vs_new_battle_id_overlap": [],
+  "historical_vs_new_source_hash_overlap": [],
+  "limitations": [
+    "Exact game build is unknown in both the historical and new normalized evidence.",
+    "Campaign battles are uncontrolled and differ in opponent, roster, map, orders, and enemy availability.",
+    "The combined seven-battle view is descriptive continuity, not a causal or controlled-test estimate."
+  ],
+  "pr100_distinct_nine_field_battle_cohort": {
+    "battle_count": 9,
+    "battle_id_overlap_with_new": [],
+    "pooled_into_continuity_view": false,
+    "reason": "PR #100 is the distinct dedicated decision cohort and is not part of the task-pinned historical-five-plus-follow-up continuity view.",
+    "source_hash_overlap_with_new": []
+  },
+  "status": "passed_for_descriptive_continuity_only"
+}

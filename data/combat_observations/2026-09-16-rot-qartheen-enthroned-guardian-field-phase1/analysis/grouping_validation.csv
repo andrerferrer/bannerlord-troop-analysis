@@ -1,0 +1,7 @@
+check,status,detail
+player_enemy_boundary,pass,player_party rows only
+context_boundary,pass,field only; no siege pooling
+track_boundary,pass,realm_of_thrones
+cohort_boundary,pass,Egon Emeros' Party only
+unresolved_identity_boundary,pass,unreadable row remains one unpooled group
+pr100_cohort_boundary,pass,nine-battle decision cohort not pooled

@@ -1,0 +1,134 @@
+{
+  "batch_id": "2026-09-16-rot-qartheen-enthroned-guardian-field-phase1",
+  "frozen_model_snapshot": {
+    "baseline_commit": "e0c3d5c47d35f4743699311c05c397eb698ddaec",
+    "files_verified": 9,
+    "missing_files": [],
+    "modified_files": [],
+    "paths": [
+      "analysis/model_versions"
+    ]
+  },
+  "historical_cohort_pins": [
+    {
+      "commit": "03e56761316704ee44921368a751fb14b66d475c",
+      "git_blob_sha": "f4b7deecca5e0c367970df056ef68aff695a6cc7",
+      "path": "data/combat_observations/2026-09-12-to-14-rot-mixed-campaign-phase1/analysis/ranking_reliable.csv",
+      "sha256": "126afa82acb10c8439e2b062b4e19451677eea6798094e0e218267e5348bd4b6",
+      "worktree_bytes_equal_pinned_commit": true
+    },
+    {
+      "commit": "03e56761316704ee44921368a751fb14b66d475c",
+      "git_blob_sha": "fcd03e4a479c6863109c548e2a526fd036a5489a",
+      "path": "data/combat_observations/2026-09-12-to-14-rot-mixed-campaign-phase1/analysis/ordinary_occurrences.csv",
+      "sha256": "521f78a4e31d269e27f0354c6ad16f626ef0fcd59561dc9a237db24ac878f982",
+      "worktree_bytes_equal_pinned_commit": true
+    },
+    {
+      "commit": "03e56761316704ee44921368a751fb14b66d475c",
+      "git_blob_sha": "07225f3576b5b8cdd736af8fc707ed1753178d25",
+      "path": "data/combat_observations/2026-09-12-to-14-rot-mixed-campaign-phase1/analysis/ANALYSIS_REPORT.md",
+      "sha256": "bfcbe1005154db333c7ead12d1bf2e22601c29b9be2ee7029b28a388fddd8882",
+      "worktree_bytes_equal_pinned_commit": true
+    },
+    {
+      "commit": "03e56761316704ee44921368a751fb14b66d475c",
+      "git_blob_sha": "9df6af733113498baa159a06fad50b2f0694fca8",
+      "path": "data/combat_observations/2026-09-12-to-14-rot-mixed-campaign-phase1/analysis/denominator_coverage.csv",
+      "sha256": "e21f4aedd3eea81799e352625366a9c47c1074f6d4741edaf6da436302364f26",
+      "worktree_bytes_equal_pinned_commit": true
+    }
+  ],
+  "identity_audit": {
+    "commit": "03e56761316704ee44921368a751fb14b66d475c",
+    "git_blob_sha": "67df28bb6cbfbb60a37a90950c781980d41a2fe9",
+    "path": "data/realm_of_thrones/audit/realm_of_thrones_troops.csv",
+    "sha256": "63ea983998e25aa0e6f8c0747bf42e44440f695bbe1fec717074e7ba64e42810",
+    "worktree_bytes_equal_pinned_commit": true
+  },
+  "immutable_phase1_snapshot": {
+    "baseline_commit": "e0c3d5c47d35f4743699311c05c397eb698ddaec",
+    "files_verified": 13,
+    "missing_files": [],
+    "modified_files": [],
+    "paths": [
+      "data/combat_observations/2026-09-16-rot-qartheen-enthroned-guardian-field-phase1/README.md",
+      "data/combat_observations/2026-09-16-rot-qartheen-enthroned-guardian-field-phase1/batch_state.json",
+      "data/combat_observations/2026-09-16-rot-qartheen-enthroned-guardian-field-phase1/phase1_checkpoint.json",
+      "data/combat_observations/2026-09-16-rot-qartheen-enthroned-guardian-field-phase1/screenshots_manifest.csv",
+      "data/combat_observations/2026-09-16-rot-qartheen-enthroned-guardian-field-phase1/bundle",
+      "data/combat_observations/2026-09-16-rot-qartheen-enthroned-guardian-field-phase1/handoff",
+      "data/combat_observations/2026-09-16-rot-qartheen-enthroned-guardian-field-phase1/source"
+    ]
+  },
+  "main_is_ancestor": true,
+  "normalization_commit": "e0c3d5c47d35f4743699311c05c397eb698ddaec",
+  "normalized_bundle": {
+    "archive_sha256": "ae7c7998ae73a5f9adc358550644813770280512b05f06e0b79418d3dff78f0b",
+    "archive_size_bytes": 8732,
+    "base64_git_blob": "6dfc56ad73516c0c8b8bb2e5eab3dbd6a973a790",
+    "base64_sha256": "d250d3caddee132d3e1fa80b03162498f77a698f78acb05a9b150c016241743c",
+    "base64_size_bytes": 11798,
+    "member_blake2b_manifest_verified": true,
+    "member_sha256_manifest_verified": true,
+    "members_verified": 15,
+    "repository_mirrors_verified": 6,
+    "retained_raw_bytes_repository_addressable": false,
+    "retained_raw_hash_status": "manifest hashes reverified; PNG bytes were session-local and are not retained",
+    "retained_raw_source_hashes": [
+      "da236eaec047d226bcdf8f55b1f902ba5c2cf53fd174ed3d378cf12953fd45ea",
+      "ecb136913cbfc052f49b7119798447326353e8cb95746e0a92e52ff4c222c433"
+    ],
+    "safe_preflight_passed": true,
+    "source_links_verified": 31
+  },
+  "pipeline_mode": "offline-existing",
+  "pipeline_version": "pr101-phase2-1.0.0",
+  "pr100_decision_cohort_pins": [
+    {
+      "commit": "03e56761316704ee44921368a751fb14b66d475c",
+      "git_blob_sha": "c6c3b1724e4133c95a30f176ec2c764e69d2461c",
+      "path": "data/combat_observations/2026-09-15-to-16-rot-qartheen-enthroned-guardian/analysis/ANALYSIS_REPORT.md",
+      "sha256": "bc41eef948453329fa0451b28dc32ed6157090639f6af58abe11e74825eed4cb",
+      "worktree_bytes_equal_pinned_commit": true
+    },
+    {
+      "commit": "03e56761316704ee44921368a751fb14b66d475c",
+      "git_blob_sha": "d9ff8d1edae9ab53cb22820890a1125188b611db",
+      "path": "data/combat_observations/2026-09-15-to-16-rot-qartheen-enthroned-guardian/analysis/focus_deep_dive.csv",
+      "sha256": "f8928b51809078e7ce090b7859ab65ae424dcbfc36d7aba51562e0ac18fd30e4",
+      "worktree_bytes_equal_pinned_commit": true
+    },
+    {
+      "commit": "03e56761316704ee44921368a751fb14b66d475c",
+      "git_blob_sha": "52f55da2bbbbdd98ab463bdf00b4c3d103549982",
+      "path": "data/combat_observations/2026-09-15-to-16-rot-qartheen-enthroned-guardian/analysis/focus_sensitivity.csv",
+      "sha256": "7633ea691ff4108132ea47e32dc34d644b50a916ebb0af3fb462d13a3036d915",
+      "worktree_bytes_equal_pinned_commit": true
+    },
+    {
+      "commit": "03e56761316704ee44921368a751fb14b66d475c",
+      "git_blob_sha": "d077be25f7e836c773a37cdbdfec71abffddf143",
+      "path": "data/combat_observations/2026-09-15-to-16-rot-qartheen-enthroned-guardian/analysis/focus_battle_rates.csv",
+      "sha256": "754919bde9d0756d48bb9889e3422a609de0ee24718a471cd3ddb26e52ee494d",
+      "worktree_bytes_equal_pinned_commit": true
+    },
+    {
+      "commit": "03e56761316704ee44921368a751fb14b66d475c",
+      "git_blob_sha": "449498489e844ad51c5540c342de96c5d1aa6c02",
+      "path": "data/combat_observations/2026-09-15-to-16-rot-qartheen-enthroned-guardian/analysis/ordinary_occurrences.csv",
+      "sha256": "b1f17a8069ad9f7889fbcec4c3584594586372e7ad7bdce1365618d94c3b6346",
+      "worktree_bytes_equal_pinned_commit": true
+    },
+    {
+      "commit": "03e56761316704ee44921368a751fb14b66d475c",
+      "git_blob_sha": "032808518908bb349251d9806bcba88f4c2c2ddc",
+      "path": "data/combat_observations/2026-09-15-to-16-rot-qartheen-enthroned-guardian/analysis/screenshot_deduplication_audit.csv",
+      "sha256": "f916d678d6d2161048f5cfa7ebdc22e45946b692b3dd4e4b68182bf2cce05b18",
+      "worktree_bytes_equal_pinned_commit": true
+    }
+  ],
+  "required_main_commit": "03e56761316704ee44921368a751fb14b66d475c",
+  "schema_version": "1.0.0",
+  "status": "passed"
+}

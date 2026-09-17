@@ -1,0 +1,24 @@
+{
+  "batch_id": "2026-09-16-rot-qartheen-enthroned-guardian-field-phase1",
+  "blockers": [],
+  "decision": "The two new battles support the already-closed Guardian field decision descriptively but do not replace or pool with PR #100's nine-battle decision cohort.",
+  "normalization_commit": "e0c3d5c47d35f4743699311c05c397eb698ddaec",
+  "queue_after": {
+    "active_test": null,
+    "guardian_field": "closed",
+    "ordered_queue": [],
+    "verification_holds": [
+      "arryn_moonknight"
+    ]
+  },
+  "queue_before": {
+    "active_test": null,
+    "guardian_field": "closed",
+    "ordered_queue": [],
+    "verification_holds": [
+      "arryn_moonknight"
+    ]
+  },
+  "queue_change": "none_already_closed_on_main",
+  "status": "phase_2_complete_local_validation_passed"
+}

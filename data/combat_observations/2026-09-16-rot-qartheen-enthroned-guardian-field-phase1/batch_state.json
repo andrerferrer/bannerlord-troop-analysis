@@ -1,0 +1,31 @@
+{
+  "batch_id": "2026-09-16-rot-qartheen-enthroned-guardian-field-phase1",
+  "branch": "evidence/2026-09-16-qartheen-enthroned-guardian",
+  "merge_gate": {
+    "human_confirmation_required": true,
+    "status": "blocked_until_phase2_complete_and_reviewed"
+  },
+  "phase": "normalization_complete_awaiting_phase2",
+  "phase1": {
+    "agent_role": "normalization_agent",
+    "immutable_inputs": [
+      "source_manifest.json",
+      "source_inventory.csv",
+      "screenshots_manifest.csv",
+      "normalized/events.jsonl",
+      "normalized/party_summaries.jsonl",
+      "normalized/player_rows.jsonl",
+      "review_queue.csv",
+      "screenshot_deduplication_audit.csv",
+      "correspondence_check.json",
+      "integrity_report.json"
+    ],
+    "status": "complete"
+  },
+  "phase2": {
+    "agent_role": "separate_analysis_agent",
+    "status": "pending",
+    "task": "handoff/ANALYSIS_TASK_V1.json"
+  },
+  "schema_version": "1.0.0"
+}

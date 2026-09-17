@@ -1,0 +1,36 @@
+{
+  "batch_id": "2026-09-16-rot-qartheen-enthroned-guardian-field-phase1",
+  "created_at": "2026-09-16T19:30:00-03:00",
+  "integrity": {
+    "checks": {
+      "offscreen_values_not_inferred": true,
+      "party_casualties_reconciled": true,
+      "party_kills_reconciled": true,
+      "source_event_correspondence": true,
+      "source_hashes_unique": true,
+      "unreadable_label_preserved_unresolved": true
+    },
+    "status": "pass"
+  },
+  "normalization": {
+    "battle_identities": 2,
+    "character_rows": 18,
+    "contexts": {
+      "field": 2
+    },
+    "game_track": "realm_of_thrones",
+    "game_version": "unknown",
+    "ordinary_rows": 13,
+    "player_rows": 31,
+    "result_states": {
+      "completed": 2
+    },
+    "source_artifacts": 2
+  },
+  "phase": "phase1_complete",
+  "phase2_gate": {
+    "safe_action": "Keep pull request draft and unmerged until Phase 2 validation and human confirmation.",
+    "status": "awaiting_separate_analysis_agent"
+  },
+  "schema_version": "1.0.0"
+}
