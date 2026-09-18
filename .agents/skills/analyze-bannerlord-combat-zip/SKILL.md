@@ -49,6 +49,14 @@ Run the repository pipeline; never reproduce its formulas, schemas, matching, de
 7. Before the final response, read the PR back from GitHub and verify its repository, base/head branches, latest published head SHA, and committed artifacts. For a Phase 1 handoff, also read back the valid append-only `bannerlord-analysis-task:v1` pending comment and confirm its committed handoff path. Do not claim publication from a write request alone.
 8. Include the verified PR number and URL in the final response. A pending separate-agent analysis may keep that existing PR draft; it never justifies ending before the PR exists. Do not add human-confirmation requirements absent an explicit operator instruction or host-platform boundary; preserve the existing merge gates.
 
+## Mandatory terminal state
+
+1. An evidence-processing run is not complete until the batch has exactly one pull request that has been verified on GitHub as `state=open` and `draft=true`.
+2. Local artifacts, a completed Phase 1, a prepared Phase 2 handoff, unavailable Phase 2 execution, unresolved review rows, or prose saying that a pull request still needs to be opened are never valid terminal states.
+3. Before any normal user-facing response, commit the safely completed state, create or update the batch branch, open or update the draft pull request, and verify that its head points to the latest published commit.
+4. Keep incomplete work in that draft pull request with explicit blockers. Do not mark it ready or merge merely to finish the current session; continue later work on the same branch and pull request.
+5. The only exception is an actual GitHub write, permission, repository-resolution, or host-platform failure. In that case, report the exact failed action and error, together with any branch or commit that was created successfully.
+
 ## Resolve inputs
 
 1. Prefer an exact local path to one of:
