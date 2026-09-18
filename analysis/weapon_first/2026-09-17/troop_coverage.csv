@@ -1,0 +1,866 @@
+troop_id,troop_name,level,tree_depth_not_ui_tier,rosters,melee_or_unresolved_slots,complete_usage_pairs,status
+angry_wight,Angry Wight,11.0,2,1,1,0,withheld_missing_weapon_pair
+arryn_archer,Arryn Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+arryn_footman,Arryn Footman,16.0,3,1,2,0,withheld_missing_weapon_pair
+arryn_horseman,Arryn Horseman,21.0,4,1,2,0,withheld_missing_weapon_pair
+arryn_houseguard,Arryn House Guard,26.0,5,1,2,0,withheld_missing_weapon_pair
+arryn_knight,Arryn Knight,26.0,5,1,2,0,withheld_missing_weapon_pair
+arryn_levy,Arryn Levy,11.0,2,1,2,0,withheld_missing_weapon_pair
+arryn_man_at_arms,Arryn Man at Arms,21.0,4,1,2,0,withheld_missing_weapon_pair
+arryn_master_archer,Arryn Master Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+arryn_moonknight,Arryn Winged Knight,31.0,6,2,4,0,withheld_missing_weapon_pair
+arryn_recruit,Arryn Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+arryn_rider,Arryn Rider,16.0,3,1,2,0,withheld_missing_weapon_pair
+baratheon_archer,Baratheon Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+baratheon_bowman,Baratheon Bowman,16.0,3,1,1,0,withheld_missing_weapon_pair
+baratheon_footman,Baratheon Footman,11.0,2,1,1,0,withheld_missing_weapon_pair
+baratheon_hammer,Baratheon Hammerman,21.0,4,1,1,0,withheld_missing_weapon_pair
+baratheon_horseman,Baratheon Horseman,21.0,4,2,4,0,withheld_missing_weapon_pair
+baratheon_houseguard,Baratheon House Guard,26.0,5,2,4,0,withheld_missing_weapon_pair
+baratheon_knight,Baratheon Knight,26.0,5,2,4,0,withheld_missing_weapon_pair
+baratheon_longbowman,Baratheon Longbowman,26.0,5,1,1,0,withheld_missing_weapon_pair
+baratheon_pikeknight,Baratheon Hammerknight,31.0,6,2,4,0,withheld_missing_weapon_pair
+baratheon_recruit,Baratheon Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+baratheon_soldier,Baratheon Soldier,16.0,3,2,4,0,withheld_missing_weapon_pair
+beastbound_wight,Beastbound Wight,26.0,5,1,3,0,withheld_missing_weapon_pair
+blackwood_archer,Blackwood Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+blackwood_bowman,Blackwood Bowman,16.0,3,1,1,0,withheld_missing_weapon_pair
+blackwood_footman,Blackwood Footman,16.0,3,1,2,0,withheld_missing_weapon_pair
+blackwood_horseman,Blackwood Horseman,26.0,5,1,2,0,withheld_missing_weapon_pair
+blackwood_houseguard,Blackwood House Guard,26.0,5,1,2,0,withheld_missing_weapon_pair
+blackwood_levy,Blackwood Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+blackwood_longbowman,Blackwood Longbowman,26.0,5,1,1,0,withheld_missing_weapon_pair
+blackwood_man_at_arms,Blackwood Man at Arms,21.0,4,1,2,0,withheld_missing_weapon_pair
+blackwood_recruit,Blackwood Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+blackwood_scout,Blackwood Scout,21.0,4,1,2,0,withheld_missing_weapon_pair
+bolton_archer,Bolton Archer,16.0,3,1,1,0,withheld_missing_weapon_pair
+bolton_elite_archer,Bolton Veteran Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+bolton_flayer,Bolton Flayer,31.0,6,2,4,0,withheld_missing_weapon_pair
+bolton_horseman,Bolton Horseman,21.0,4,1,2,0,withheld_missing_weapon_pair
+bolton_knight,Bolton Cavalry,26.0,5,1,2,0,withheld_missing_weapon_pair
+bolton_levy,Bolton Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+bolton_master_archer,Bolton Hunter,26.0,5,1,1,0,withheld_missing_weapon_pair
+bolton_scout,Bolton Footman,16.0,3,1,1,0,withheld_missing_weapon_pair
+bolton_veteran,Bolton Veteran,21.0,4,1,2,0,withheld_missing_weapon_pair
+bolton_volunteer,Bolton Recruit,6.0,1,4,4,0,withheld_missing_weapon_pair
+boneway_guardian,Boneway Guardian,31.0,6,1,2,0,withheld_missing_weapon_pair
+bracken_archer,Bracken Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+bracken_elite_archer,Bracken Elite Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+bracken_footman,Bracken Footman,16.0,3,1,2,0,withheld_missing_weapon_pair
+bracken_horseman,Bracken Horseman,26.0,5,1,2,0,withheld_missing_weapon_pair
+bracken_houseguard,Bracken House Guard,26.0,5,1,2,0,withheld_missing_weapon_pair
+bracken_levy,Bracken Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+bracken_man_at_arms,Bracken Man at Arms,21.0,4,1,2,0,withheld_missing_weapon_pair
+bracken_master_pikeman,Bracken Pikemaster,31.0,6,1,2,0,withheld_missing_weapon_pair
+bracken_recruit,Bracken Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+bracken_rider,Bracken Rider,21.0,4,1,2,0,withheld_missing_weapon_pair
+casterly_champion,Casterly Rock Champion,26.0,4,1,2,0,withheld_missing_weapon_pair
+casterly_crossbowman,Casterly Rock Crossbowman,21.0,3,1,1,0,withheld_missing_weapon_pair
+casterly_guard,Casterly Rock Guard,11.0,1,1,2,0,withheld_missing_weapon_pair
+casterly_guardian,Guardian of the Rock,31.0,5,1,2,0,withheld_missing_weapon_pair
+casterly_knight,Casterly Rock Knight,21.0,3,1,2,0,withheld_missing_weapon_pair
+casterly_marshal,Casterly Rock Pikeman,21.0,3,1,2,0,withheld_missing_weapon_pair
+casterly_master_crossbowman,Casterly Rock Master Crossbowman,26.0,4,1,1,0,withheld_missing_weapon_pair
+casterly_pikeman,Casterly Rock Marshal,26.0,4,1,2,0,withheld_missing_weapon_pair
+casterly_soldier,Casterly Rock Soldier,16.0,2,1,2,0,withheld_missing_weapon_pair
+casterly_squire,Casterly Rock Squire,16.0,2,1,2,0,withheld_missing_weapon_pair
+celtigar_archer,Celtigar Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+celtigar_banneret,Celtigar Banneret,31.0,6,1,2,0,withheld_missing_weapon_pair
+celtigar_footman,Celtigar Footman,16.0,3,1,2,0,withheld_missing_weapon_pair
+celtigar_halberdier,Celtigar Halberdier,26.0,5,1,2,0,withheld_missing_weapon_pair
+celtigar_horseman,Celtigar Horseman,21.0,4,1,2,0,withheld_missing_weapon_pair
+celtigar_knight,Celtigar Knight,26.0,5,1,2,0,withheld_missing_weapon_pair
+celtigar_levy,Celtigar Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+celtigar_man_at_arms,Celtigar Man at Arms,21.0,4,1,2,0,withheld_missing_weapon_pair
+celtigar_recruit,Celtigar Recruit,6.0,1,4,4,0,withheld_missing_weapon_pair
+celtigar_veteran_archer,Celtigar Veteran Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+cerwyn_archer,Cerwyn Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+cerwyn_axeman,Cerwyn Axeman,21.0,4,1,2,0,withheld_missing_weapon_pair
+cerwyn_horseman,Cerwyn Horseman,26.0,5,1,2,0,withheld_missing_weapon_pair
+cerwyn_levy,Cerwyn Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+cerwyn_marauder,Cerwyn Marauder,31.0,6,1,1,0,withheld_missing_weapon_pair
+cerwyn_master_axeman,Cerwyn Veteran Axeman,26.0,5,1,3,0,withheld_missing_weapon_pair
+cerwyn_scout,Cerwyn Scout,21.0,4,1,2,0,withheld_missing_weapon_pair
+cerwyn_soldier,Cerwyn Soldier,16.0,3,1,2,0,withheld_missing_weapon_pair
+cerwyn_veteran_archer,Cerwyn Veteran Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+cerwyn_volunteer,Cerwyn Recruit,6.0,1,4,4,0,withheld_missing_weapon_pair
+clegane_archer,Clegane Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+clegane_elite_archer,Clegane Elite Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+clegane_footman,Clegane Footman,16.0,3,1,1,0,withheld_missing_weapon_pair
+clegane_horseman,Clegane Brigand,26.0,5,1,2,0,withheld_missing_weapon_pair
+clegane_houseguard,Clegane House Guard,26.0,5,1,2,0,withheld_missing_weapon_pair
+clegane_levy,Clegane Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+clegane_man_at_arms,Clegane Man at Arms,21.0,4,2,4,0,withheld_missing_weapon_pair
+clegane_recruit,Clegane Recruit,6.0,1,4,4,0,withheld_missing_weapon_pair
+clegane_scout,Clegane Scout,21.0,4,1,2,0,withheld_missing_weapon_pair
+crownlands_bowman,Crownlands Bowman,11.0,2,1,1,0,withheld_missing_weapon_pair
+crownlands_levy,Crownlands Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+crownlands_militia_archer,City Watch Crossbowman,11.0,,4,4,0,withheld_missing_weapon_pair
+crownlands_militia_spearman,City Watch Spearman,11.0,,4,10,0,withheld_missing_weapon_pair
+crownlands_militia_veteran_archer,City Watch Veteran Crossbowman,21.0,,4,4,0,withheld_missing_weapon_pair
+crownlands_militia_veteran_spearman,City Watch Veteran Spearman,21.0,,4,8,0,withheld_missing_weapon_pair
+crownlands_noble_recruit,Crownlands Noble's Son,11.0,1,1,1,0,withheld_missing_weapon_pair
+crownlands_recruit,Crownlands Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+crownlands_squire,Crownlands Squire,16.0,2,1,2,0,withheld_missing_weapon_pair
+cursed_wight,Cursed Wight,21.0,4,2,6,0,withheld_missing_weapon_pair
+dayne_archer,Dayne Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+dayne_horseman,Dayne Horseman,21.0,4,1,2,0,withheld_missing_weapon_pair
+dayne_knight,Dayne Knight,26.0,5,1,2,0,withheld_missing_weapon_pair
+dayne_levy,Dayne Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+dayne_man_at_arms,Dayne Footman,16.0,3,1,2,0,withheld_missing_weapon_pair
+dayne_pikeman,Dayne Man at Arms,21.0,4,1,2,0,withheld_missing_weapon_pair
+dayne_recruit,Dayne Recruit,6.0,1,4,4,0,withheld_missing_weapon_pair
+dayne_starfall_knights,Knights of Starfall,31.0,6,1,2,0,withheld_missing_weapon_pair
+dayne_veteran_archer,Dayne Veteran Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+dayne_veteran_pikeman,Dayne Pikeman,26.0,5,1,2,0,withheld_missing_weapon_pair
+devout_bearded_priest,Norvoshi Devout Bearded Priest,26.0,4,1,2,0,withheld_missing_weapon_pair
+dexterous_wight,Dexterous Wight,26.0,5,1,1,0,withheld_missing_weapon_pair
+dondarion_boltknight,Dondarrion Boltknight,31.0,6,1,2,0,withheld_missing_weapon_pair
+dondarion_bowman,Dondarrion Bowman,21.0,4,1,1,0,withheld_missing_weapon_pair
+dondarion_footman,Dondarrion Footman,16.0,3,1,2,0,withheld_missing_weapon_pair
+dondarion_horseman,Dondarrion Horseman,21.0,4,1,2,0,withheld_missing_weapon_pair
+dondarion_houseguard,Dondarrion House Guard,26.0,5,1,2,0,withheld_missing_weapon_pair
+dondarion_knight,Dondarrion Knight,26.0,5,1,2,0,withheld_missing_weapon_pair
+dondarion_levy,Dondarrion Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+dondarion_man_at_arms,Dondarrion Man at Arms,21.0,4,1,2,0,withheld_missing_weapon_pair
+dondarion_recruit,Dondarrion Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+dondarion_veteran_bowman,Dondarrion Veteran Bowman,26.0,5,1,1,0,withheld_missing_weapon_pair
+dragonstone_archer,Dragonstone Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+dragonstone_bowman,Dragonstone Bowman,16.0,3,1,1,0,withheld_missing_weapon_pair
+dragonstone_brute,Dragonstone Halberdier,21.0,4,1,2,0,withheld_missing_weapon_pair
+dragonstone_elite_archer,Dragonstone Elite Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+dragonstone_footman,Dragonstone Footman,11.0,2,1,1,0,withheld_missing_weapon_pair
+dragonstone_headsman,Dragonstone Elite Halberdier,26.0,5,1,2,0,withheld_missing_weapon_pair
+dragonstone_horseman,Dragonstone Horseman,26.0,5,1,2,0,withheld_missing_weapon_pair
+dragonstone_houseguard,Dragonstone House Guard,26.0,5,1,2,0,withheld_missing_weapon_pair
+dragonstone_knight,Dragonstone Knight,21.0,3,1,2,0,withheld_missing_weapon_pair
+dragonstone_man_at_arms,Dragonstone Man at Arms,21.0,4,1,2,0,withheld_missing_weapon_pair
+dragonstone_militia_archer,Dragonstone Militia Archer,11.0,,4,4,0,withheld_missing_weapon_pair
+dragonstone_militia_spearman,Dragonstone Militia Spearman,11.0,,4,8,0,withheld_missing_weapon_pair
+dragonstone_militia_veteran_archer,Dragonstone Militia Veteran Archer,16.0,,4,4,0,withheld_missing_weapon_pair
+dragonstone_militia_veteran_spearman,Dragonstone Militia Veteran Spearman,16.0,,4,8,0,withheld_missing_weapon_pair
+dragonstone_noble_recruit,Dragonstone Noble's Son,11.0,1,1,1,0,withheld_missing_weapon_pair
+dragonstone_recruit,Dragonstone Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+dragonstone_rider,Dragonstone Rider,21.0,4,1,2,0,withheld_missing_weapon_pair
+dragonstone_shock_knight,Dragonstone Shock Knight,26.0,4,1,2,0,withheld_missing_weapon_pair
+dragonstone_soldier,Dragonstone Soldier,16.0,3,1,2,0,withheld_missing_weapon_pair
+dragonstone_squire,Squire,16.0,2,1,1,0,withheld_missing_weapon_pair
+dragonstone_steel_curtain,Queen's Man,31.0,5,1,2,0,withheld_missing_weapon_pair
+dreadfort_blackguard,Dreadfort Blackguard,26.0,5,1,2,0,withheld_missing_weapon_pair
+dreadfort_pikeman,Dreadfort PIkeman,26.0,5,1,2,0,withheld_missing_weapon_pair
+elder_giant,Elder Giant,35.0,2,1,1,0,withheld_missing_weapon_pair
+enthroned_guardian,Qartheen Enthroned Guardian,31.0,5,1,1,0,withheld_missing_weapon_pair
+freefolk_archer,Free Folk Archer,16.0,3,1,1,0,withheld_missing_weapon_pair
+freefolk_axeman,Free Folk Axeman,16.0,3,1,1,0,withheld_missing_weapon_pair
+freefolk_berzerker,Free Folk Berzerker,21.0,4,1,1,0,withheld_missing_weapon_pair
+freefolk_bowman,Free Folk Bowman,11.0,2,1,1,0,withheld_missing_weapon_pair
+freefolk_frosthedge,Free Folk Frosthedge,26.0,5,1,1,0,withheld_missing_weapon_pair
+freefolk_hawkeye,Free Folk Hawkeye,26.0,5,1,1,0,withheld_missing_weapon_pair
+freefolk_horseman,Free Folk Horseman,26.0,5,1,2,0,withheld_missing_weapon_pair
+freefolk_militia_archer,Freefolk Militia Archer,11.0,,4,3,0,withheld_missing_weapon_pair
+freefolk_militia_spearman,Freefolk Militia Spearman,11.0,,4,8,0,withheld_missing_weapon_pair
+freefolk_militia_veteran_archer,Freefolk Militia Veteran Archer,16.0,,4,4,0,withheld_missing_weapon_pair
+freefolk_militia_veteran_spearman,Freefolk Militia Veteran Spearman,16.0,,4,8,0,withheld_missing_weapon_pair
+freefolk_recruit,Free Folk Clansman,6.0,1,1,1,0,withheld_missing_weapon_pair
+freefolk_sharpshooter,Free Folk Sharpshooter,21.0,4,1,1,0,withheld_missing_weapon_pair
+freefolk_shieldman,Free Folk Shieldman,21.0,4,1,1,0,withheld_missing_weapon_pair
+freefolk_spearman,Free Folk Spearman,21.0,4,1,2,0,withheld_missing_weapon_pair
+freefolk_thenn,Freefolk Thenn,16.0,2,1,2,0,withheld_missing_weapon_pair
+freefolk_thenn_cannibal,Freefolk Thenn Cannibal,26.0,4,1,2,0,withheld_missing_weapon_pair
+freefolk_thenn_impaler,Freefolk Thenn Impaler,31.0,5,1,2,0,withheld_missing_weapon_pair
+freefolk_thenn_son,Freefolk Son of Thenn,11.0,1,1,1,0,withheld_missing_weapon_pair
+freefolk_thenn_warrior,Freefolk Thenn Warrior,21.0,3,1,2,0,withheld_missing_weapon_pair
+freefolk_warrior,Free Folk Warrior,11.0,2,1,1,0,withheld_missing_weapon_pair
+freefolk_wildling_berzerker,Free Folk Wildling Berzerker,26.0,5,1,1,0,withheld_missing_weapon_pair
+freehouses_levy,Karstark Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+frey_assassin,Frey Assassin,31.0,6,1,1,0,withheld_missing_weapon_pair
+frey_crossbowman,Frey Crossbowman,16.0,3,1,1,0,withheld_missing_weapon_pair
+frey_cutthroat,Frey Cutthroat,16.0,3,1,1,0,withheld_missing_weapon_pair
+frey_horseman,Frey Horseman,26.0,5,1,2,0,withheld_missing_weapon_pair
+frey_levy,Frey Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+frey_man_at_arms,Frey Man at Arms,21.0,4,1,1,0,withheld_missing_weapon_pair
+frey_recruit,Frey Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+frey_rider,Frey Rider,21.0,4,1,2,0,withheld_missing_weapon_pair
+frey_sharpshooter,Frey Sharpshooter,26.0,5,1,1,0,withheld_missing_weapon_pair
+frey_veteran_crossbowman,Frey Veteran Crossbowman,21.0,4,1,1,0,withheld_missing_weapon_pair
+garden_sentinel,Water Gardens Sentinel,31.0,6,1,2,0,withheld_missing_weapon_pair
+ghiscari_archer,Ghiscari Archer,16.0,3,1,1,0,withheld_missing_weapon_pair
+ghiscari_bowman,Ghiscari Bowman,11.0,2,1,1,0,withheld_missing_weapon_pair
+ghiscari_cavalry,Ghiscari Cavalry,21.0,4,1,2,0,withheld_missing_weapon_pair
+ghiscari_elite_archer,Ghiscari Elite Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+ghiscari_elite_unsullied,Ghiscari Elite Pikeman,26.0,5,1,2,0,withheld_missing_weapon_pair
+ghiscari_footman,Ghiscari Footman,11.0,2,1,1,0,withheld_missing_weapon_pair
+ghiscari_horseman,Ghiscari Horseman,16.0,3,1,1,0,withheld_missing_weapon_pair
+ghiscari_manticore,Ghiscari Manticore,26.0,5,1,1,0,withheld_missing_weapon_pair
+ghiscari_militia_archer,Ghiscari Militia Archer,11.0,,2,2,0,withheld_missing_weapon_pair
+ghiscari_militia_spearman,Ghiscari Militia Spearman,11.0,,2,4,0,withheld_missing_weapon_pair
+ghiscari_militia_veteran_archer,Ghiscari Militia Veteran Archer,16.0,,2,2,0,withheld_missing_weapon_pair
+ghiscari_militia_veteran_spearman,Ghiscari Militia Veteran Spearman,16.0,,2,4,0,withheld_missing_weapon_pair
+ghiscari_mounted_archer,Ghiscari Mounted Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+ghiscari_noble_recruit,Ghiscari Former Slave,11.0,1,1,1,0,withheld_missing_weapon_pair
+ghiscari_queens_guard,Ghiscari Queen's Guard,26.0,5,1,3,0,withheld_missing_weapon_pair
+ghiscari_recruit,Ghiscari Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+ghiscari_soldier,Ghiscari Soldier,21.0,4,1,1,0,withheld_missing_weapon_pair
+ghiscari_unsullied,Ghiscari Pikeman,21.0,4,1,2,0,withheld_missing_weapon_pair
+ghiscari_unsullied_hoplite,Ghiscari Legionnaire,21.0,3,1,2,0,withheld_missing_weapon_pair
+ghiscari_unsullied_initiate,Ghiscari Legion Trainee,16.0,2,1,2,0,withheld_missing_weapon_pair
+ghiscari_unsullied_unbent,Ghiscari Elite Legionnaire,26.0,4,1,2,0,withheld_missing_weapon_pair
+ghiscari_unsullied_unbroken,Ghiscari Lockstep Legionnaire,31.0,5,1,2,0,withheld_missing_weapon_pair
+ghiscari_warrior,Ghiscari Warrior,16.0,3,1,1,0,withheld_missing_weapon_pair
+giant,Giant,26.0,1,1,1,0,withheld_missing_weapon_pair
+giant_archer,Giant Archer,31.0,2,1,1,0,withheld_missing_weapon_pair
+giant_rider,Mammoth Riding Giant,31.0,2,1,1,0,withheld_missing_weapon_pair
+glover_archer,Glover Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+glover_bushranger,Glover Bushranger,31.0,6,1,2,0,withheld_missing_weapon_pair
+glover_footman,Glover Footman,16.0,3,1,2,0,withheld_missing_weapon_pair
+glover_horseman,Glover Horseman,26.0,5,1,2,0,withheld_missing_weapon_pair
+glover_levy,Glover Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+glover_man_at_arms,Glover Man at Arms,21.0,4,1,2,0,withheld_missing_weapon_pair
+glover_rider,Glover Rider,21.0,4,1,2,0,withheld_missing_weapon_pair
+glover_veteran_archer,Glover Veteran Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+glover_volunteer,Glover Recruit,6.0,1,4,4,0,withheld_missing_weapon_pair
+glover_warrior,Glover Warrior,26.0,5,1,2,0,withheld_missing_weapon_pair
+goldcloak_archer,Gold Cloak Archer,16.0,3,1,1,0,withheld_missing_weapon_pair
+goldcloak_captain,Gold Cloak Captain,26.0,5,1,2,0,withheld_missing_weapon_pair
+goldcloak_elite_archer,Gold Cloak Elite Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+goldcloak_master_archer,Gold Cloak Sniper,26.0,5,1,1,0,withheld_missing_weapon_pair
+goldcloak_officer,Gold Cloak Petty Officer,21.0,4,1,2,0,withheld_missing_weapon_pair
+goldcloak_rider,Gold Cloak Rider,21.0,4,1,2,0,withheld_missing_weapon_pair
+goldcloak_soldier,Gold Cloak Soldier,16.0,3,1,2,0,withheld_missing_weapon_pair
+golden_crossbowman,Goldenmark Marksmen,16.0,2,2,2,0,withheld_missing_weapon_pair
+golden_elite_pikeman,Golden Company Mahout,31.0,5,2,4,0,withheld_missing_weapon_pair
+golden_horseman,Golden Company Elephant Rider,26.0,4,2,4,0,withheld_missing_weapon_pair
+golden_infantryman,Golden Company Giltblade Warriors,16.0,2,2,4,0,withheld_missing_weapon_pair
+golden_master_crossbowman,Gilded Bolt Rangers,26.0,4,2,2,0,withheld_missing_weapon_pair
+golden_pikeman,Golden Company Gilt Pike Wardens,26.0,4,2,4,0,withheld_missing_weapon_pair
+golden_recruit,Golden Company Recruit,11.0,1,2,2,0,withheld_missing_weapon_pair
+golden_rider,Golden Steed Riders,21.0,3,2,4,0,withheld_missing_weapon_pair
+golden_spearman,Golden Company Aurum Spearbearers,21.0,3,2,4,0,withheld_missing_weapon_pair
+golden_veteran_crossbowman,Gleaming Shaft Marksmen,21.0,3,2,2,0,withheld_missing_weapon_pair
+grafton_crossbowman,Grafton Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+grafton_elite_crossbowman,Grafton Elite Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+grafton_flameknight,Grafton Flaming Knight,31.0,6,1,3,0,withheld_missing_weapon_pair
+grafton_footman,Grafton Footman,16.0,3,1,2,0,withheld_missing_weapon_pair
+grafton_horseman,Grafton Horseman,26.0,5,1,2,0,withheld_missing_weapon_pair
+grafton_houseguard,Grafton House Guard,26.0,5,1,2,0,withheld_missing_weapon_pair
+grafton_levy,Grafton Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+grafton_man_at_arms,Grafton Man at Arms,21.0,4,1,2,0,withheld_missing_weapon_pair
+grafton_recruit,Grafton Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+grafton_rider,Grafton Rider,21.0,4,1,2,0,withheld_missing_weapon_pair
+greyjoy_archer,Greyjoy Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+greyjoy_fingerdancer,Greyjoy Finger Dancer,26.0,5,1,1,0,withheld_missing_weapon_pair
+greyjoy_footman,Greyjoy Footman,11.0,2,1,1,0,withheld_missing_weapon_pair
+greyjoy_horseman,Greyjoy Horseman,26.0,5,1,2,0,withheld_missing_weapon_pair
+greyjoy_houseguard,Greyjoy Deckman,21.0,4,1,2,0,withheld_missing_weapon_pair
+greyjoy_marksman,Greyjoy Marksman,26.0,5,1,1,0,withheld_missing_weapon_pair
+greyjoy_recruit,Greyjoy Deckhand,6.0,1,4,4,0,withheld_missing_weapon_pair
+greyjoy_rider,Greyjoy Rider,21.0,4,1,2,0,withheld_missing_weapon_pair
+greyjoy_sniper,Greyjoy Sniper,31.0,6,1,1,0,withheld_missing_weapon_pair
+greyjoy_soldier,Greyjoy Soldier,16.0,3,1,2,0,withheld_missing_weapon_pair
+guard_crownlands,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_dragonstone,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_freefolk,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_ghiscari,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_ibbenese,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_lorathi,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_lyseni,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_myrish,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_nightswatch,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_norvos,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_of_the_crossing,Guard of the Crossing,26.0,5,1,2,0,withheld_missing_weapon_pair
+guard_pentoshi,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_qartheen,Guard,21.0,,3,3,0,withheld_missing_weapon_pair
+guard_qohorik,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_reach,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_river,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_sarnor,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_skagosi,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_stormlands,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_summer,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_tyroshi,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_vale,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_valyrian,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_volantine,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_wight,Dead Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+guard_yiti,Guard,4.0,,2,2,0,withheld_missing_weapon_pair
+harlaw_archer,Harlaw Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+harlaw_captain,Harlaw Captain,31.0,6,1,2,0,withheld_missing_weapon_pair
+harlaw_chief_mate,Harlaw Chief Mate,26.0,5,1,2,0,withheld_missing_weapon_pair
+harlaw_footman,Harlaw Footman,16.0,3,1,2,0,withheld_missing_weapon_pair
+harlaw_horseman,Harlaw Raider,26.0,5,1,2,0,withheld_missing_weapon_pair
+harlaw_levy,Harlaw Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+harlaw_longbowman,Harlaw Longbowman,26.0,5,1,1,0,withheld_missing_weapon_pair
+harlaw_recruit,Harlaw Deckhand,6.0,1,4,4,0,withheld_missing_weapon_pair
+harlaw_rider,Harlaw Scout,21.0,4,1,2,0,withheld_missing_weapon_pair
+harlaw_seaman,Harlaw Seaman,21.0,4,1,2,0,withheld_missing_weapon_pair
+hightower_cavalry,Hightower Cavalry,26.0,5,1,2,0,withheld_missing_weapon_pair
+hightower_crossbowman,Hightower Crossbowman,21.0,4,1,1,0,withheld_missing_weapon_pair
+hightower_guard,Hightower Guard,21.0,4,1,2,0,withheld_missing_weapon_pair
+hightower_guardian,Hightower Captain,26.0,5,1,2,0,withheld_missing_weapon_pair
+hightower_horseman,Hightower Horseman,21.0,4,1,2,0,withheld_missing_weapon_pair
+hightower_levy,Hightower Levy,11.0,2,1,2,0,withheld_missing_weapon_pair
+hightower_marksman,Hightower Marksmen,26.0,5,1,1,0,withheld_missing_weapon_pair
+hightower_recruit,Hightower Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+hightower_soldier,Hightower Soldier,16.0,3,1,2,0,withheld_missing_weapon_pair
+ibbenese_footman,Ibbenese Footman,11.0,2,1,1,0,withheld_missing_weapon_pair
+ibbenese_horseman,Ibbenese Horseman,26.0,5,1,2,0,withheld_missing_weapon_pair
+ibbenese_hunter,Ibbenese Hunter,21.0,4,1,1,0,withheld_missing_weapon_pair
+ibbenese_mariner,Ibbenese Mariner,26.0,4,1,2,0,withheld_missing_weapon_pair
+ibbenese_master_huntsman,Ibbenese Master Huntsman,26.0,5,1,1,0,withheld_missing_weapon_pair
+ibbenese_militia_archer,Ibbenese Militia Archer,11.0,,4,4,0,withheld_missing_weapon_pair
+ibbenese_militia_spearman,Ibbenese Militia Spearman,11.0,,4,8,0,withheld_missing_weapon_pair
+ibbenese_militia_veteran_archer,Ibbenese Militia Veteran Archer,16.0,,4,4,0,withheld_missing_weapon_pair
+ibbenese_militia_veteran_spearman,Ibbenese Militia Veteran Spearman,16.0,,4,8,0,withheld_missing_weapon_pair
+ibbenese_navigator,Ibbenese Navigator,31.0,5,1,2,0,withheld_missing_weapon_pair
+ibbenese_noble_recruit,Ibbenese Deckhand,11.0,1,1,1,0,withheld_missing_weapon_pair
+ibbenese_recruit,Ibbenese Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+ibbenese_rider,Ibbenese Rider,21.0,4,1,2,0,withheld_missing_weapon_pair
+ibbenese_rower,Ibbenese Rower,16.0,2,1,2,0,withheld_missing_weapon_pair
+ibbenese_sailor,Ibbenese Sailor,21.0,3,1,2,0,withheld_missing_weapon_pair
+ibbenese_timberman,Ibbenese Timberman,26.0,5,1,1,0,withheld_missing_weapon_pair
+ibbenese_tracker,Ibbenese Tracker,16.0,3,1,2,0,withheld_missing_weapon_pair
+ibbenese_warrior,Ibbenese Warrior,21.0,4,1,2,0,withheld_missing_weapon_pair
+ibbenese_whaler,Ibbenese Whaler,26.0,5,1,2,0,withheld_missing_weapon_pair
+karstark_archer,Karstark Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+karstark_brute,Karstark House Guard,26.0,5,1,2,0,withheld_missing_weapon_pair
+karstark_elite_archer,Karstark Elite Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+karstark_loyalist,Karstark Loyalist,31.0,6,1,2,0,withheld_missing_weapon_pair
+karstark_outrider,Karstark Outrider,21.0,4,1,2,0,withheld_missing_weapon_pair
+karstark_ruffian,Karstark Spearman,21.0,4,1,2,0,withheld_missing_weapon_pair
+karstark_shock_cavalry,Karstark Shock Cavalry,26.0,5,1,2,0,withheld_missing_weapon_pair
+karstark_soldier,Karstark Brute,16.0,3,1,1,0,withheld_missing_weapon_pair
+karstark_volunteer,Karstark Recruit,6.0,1,4,4,0,withheld_missing_weapon_pair
+kingsguard,Gold Cloak Halberdier,26.0,5,1,2,0,withheld_missing_weapon_pair
+kingsguard_captain,Kingsguard,26.0,4,1,3,0,withheld_missing_weapon_pair
+kingsguard_initiate,Kingsguard Initiate,21.0,3,1,2,0,withheld_missing_weapon_pair
+kingsguard_page,Kingsguard's Page,11.0,1,1,1,0,withheld_missing_weapon_pair
+kingsguard_squire,Kingsguard's Squire,16.0,2,1,2,0,withheld_missing_weapon_pair
+lannister_archer,Lannister Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+lannister_bowman,Lannister Bowman,16.0,3,1,1,0,withheld_missing_weapon_pair
+lannister_footman,Lannister Footman,16.0,3,1,2,0,withheld_missing_weapon_pair
+lannister_horseman,Lannister Horseman,21.0,4,1,2,0,withheld_missing_weapon_pair
+lannister_houseguard,Lannister House Guard,26.0,5,1,2,0,withheld_missing_weapon_pair
+lannister_knight,Lannister Knight,26.0,5,1,2,0,withheld_missing_weapon_pair
+lannister_levy,Lannister Levy,11.0,2,1,2,0,withheld_missing_weapon_pair
+lannister_longbowman,Lannister Longbowman,26.0,5,1,1,0,withheld_missing_weapon_pair
+lannister_man_at_arms,Lannister Man at Arms,21.0,4,1,2,0,withheld_missing_weapon_pair
+lannister_officer,Lannister Officer,26.0,5,1,3,0,withheld_missing_weapon_pair
+lannister_prideknight,Lannister Prideknight,31.0,6,1,2,0,withheld_missing_weapon_pair
+lannister_recruit,Lannister Recruit,6.0,1,4,4,0,withheld_missing_weapon_pair
+lyseni_archer,Lyseni Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+lyseni_axe_apprentice,Lyseni Axe Apprentice,16.0,2,1,1,0,withheld_missing_weapon_pair
+lyseni_axeman,Lyseni Axeman,21.0,3,1,1,0,withheld_missing_weapon_pair
+lyseni_bowman,Lyseni Bowman,16.0,3,1,1,0,withheld_missing_weapon_pair
+lyseni_cavalry,Lyseni Cavalry,26.0,5,1,2,0,withheld_missing_weapon_pair
+lyseni_elite_archer,Lyseni Elite Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+lyseni_enforcer,Lyseni Enforcer,31.0,5,1,1,0,withheld_missing_weapon_pair
+lyseni_executioner,Lyseni Executioner,26.0,4,1,1,0,withheld_missing_weapon_pair
+lyseni_footman,Lyseni Footman,11.0,2,1,1,0,withheld_missing_weapon_pair
+lyseni_glaiveman,Lyseni Glaiveman,26.0,5,1,2,0,withheld_missing_weapon_pair
+lyseni_horseman,Lyseni Horseman,21.0,4,1,2,0,withheld_missing_weapon_pair
+lyseni_militia_archer,Lyseni Militia Archer,11.0,,2,2,0,withheld_missing_weapon_pair
+lyseni_militia_spearman,Lyseni Militia Spearman,11.0,,2,4,0,withheld_missing_weapon_pair
+lyseni_militia_veteran_archer,Lyseni Militia Veteran Archer,16.0,,2,2,0,withheld_missing_weapon_pair
+lyseni_militia_veteran_spearman,Lyseni Militia Veteran Spearman,16.0,,2,4,0,withheld_missing_weapon_pair
+lyseni_noble_recruit,Lyseni Noble Youth,11.0,1,1,1,0,withheld_missing_weapon_pair
+lyseni_recruit,Lyseni Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+lyseni_soldier,Lyseni Soldier,16.0,3,1,2,0,withheld_missing_weapon_pair
+lyseni_spearman,Lyseni Spearman,26.0,5,1,2,0,withheld_missing_weapon_pair
+lyseni_warrior,Lyseni Warrior,21.0,4,1,2,0,withheld_missing_weapon_pair
+magister_guard,Magister Guard Elite,31.0,5,1,2,0,withheld_missing_weapon_pair
+mallister_archer,Mallister Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+mallister_elite_archer,Mallister Elite Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+mallister_footman,Mallister Footman,16.0,3,1,2,0,withheld_missing_weapon_pair
+mallister_horseman,Mallister Knight,26.0,5,1,2,0,withheld_missing_weapon_pair
+mallister_houseguard,Mallister House Guard,26.0,5,1,2,0,withheld_missing_weapon_pair
+mallister_knight,Mallister Eagle Knight,31.0,6,1,2,0,withheld_missing_weapon_pair
+mallister_levy,Mallister Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+mallister_man_at_arms,Mallister Man at Arms,21.0,4,1,2,0,withheld_missing_weapon_pair
+mallister_recruit,Mallister Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+mallister_rider,Mallister Horseman,21.0,4,1,2,0,withheld_missing_weapon_pair
+manderly_archer,Manderly Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+manderly_man_at_arms,Manderly Man at Arms,21.0,4,1,2,0,withheld_missing_weapon_pair
+manderly_veteran_archer,Manderly Veteran Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+martell_archer,Martell Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+martell_bowman,Martell Bowman,16.0,3,1,1,0,withheld_missing_weapon_pair
+martell_footman,Martell Footman,16.0,3,1,1,0,withheld_missing_weapon_pair
+martell_horseman,Martell Horseman,26.0,5,1,2,0,withheld_missing_weapon_pair
+martell_houseguard,Martell House Guard,26.0,5,1,2,0,withheld_missing_weapon_pair
+martell_levy,Martell Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+martell_recruit,Martell Recruit,6.0,1,4,4,0,withheld_missing_weapon_pair
+martell_rider,Martell Rider,21.0,4,1,2,0,withheld_missing_weapon_pair
+martell_spearman,Martell Spearman,21.0,4,1,2,0,withheld_missing_weapon_pair
+martell_veteran_archer,Martell Veteran Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+mormont_bowmaiden,Mormont Bowmaiden,31.0,6,1,1,0,withheld_missing_weapon_pair
+mormont_footman,Mormont Footman,16.0,3,1,2,0,withheld_missing_weapon_pair
+mormont_horseman,Mormont Horseman,26.0,5,1,2,0,withheld_missing_weapon_pair
+mormont_houseguard,Mormont House Guard,26.0,5,1,2,0,withheld_missing_weapon_pair
+mormont_huntress,Mormont Huntress,21.0,4,1,1,0,withheld_missing_weapon_pair
+mormont_man_at_arms,Mormont Man at Arms,21.0,4,1,2,0,withheld_missing_weapon_pair
+mormont_mounted_huntress,Mormont Mounted Huntress,26.0,5,1,1,0,withheld_missing_weapon_pair
+mormont_scout,Mormont Scout,21.0,4,1,2,0,withheld_missing_weapon_pair
+mormont_trapper,Mormont Trapper,16.0,3,1,1,0,withheld_missing_weapon_pair
+mormont_veteran_huntress,Mormont Veteran Huntress,26.0,5,1,1,0,withheld_missing_weapon_pair
+mormont_volunteer,Mormont Recruit,6.0,1,4,4,0,withheld_missing_weapon_pair
+mormont_woodswoman,Mormont Woodswoman,11.0,2,1,1,0,withheld_missing_weapon_pair
+mountains_man,Mountain's Man,31.0,6,1,2,0,withheld_missing_weapon_pair
+mounted_kingsguard,Captain of the Kingsguard,31.0,5,1,3,0,withheld_missing_weapon_pair
+mounted_priest,Norvoshi Grand Bearded Priest,31.0,5,1,2,0,withheld_missing_weapon_pair
+myrish_archer,Myrish Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+myrish_artisan,Myrish Artisan of War,31.0,5,1,1,0,withheld_missing_weapon_pair
+myrish_axeman,Myrish Legionnaire,26.0,5,1,3,0,withheld_missing_weapon_pair
+myrish_bowman,Myrish Bowman,16.0,3,1,1,0,withheld_missing_weapon_pair
+myrish_cavalry,Myrish Cavalry,26.0,5,1,2,0,withheld_missing_weapon_pair
+myrish_crossbowman,Myrish Crossbowman,16.0,2,1,1,0,withheld_missing_weapon_pair
+myrish_elite_archer,Myrish Elite Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+myrish_elite_crossbowman,Myrish Elite Crossbowman,21.0,3,1,1,0,withheld_missing_weapon_pair
+myrish_footman,Myrish Footman,11.0,2,1,2,0,withheld_missing_weapon_pair
+myrish_horseman,Myrish Horseman,21.0,4,1,2,0,withheld_missing_weapon_pair
+myrish_master_crossbowman,Myrish Master Crossbowman,26.0,4,1,1,0,withheld_missing_weapon_pair
+myrish_militia_archer,Myrish Militia Archer,11.0,,2,2,0,withheld_missing_weapon_pair
+myrish_militia_spearman,Myrish Militia Spearman,11.0,,2,4,0,withheld_missing_weapon_pair
+myrish_militia_veteran_archer,Myrish Militia Veteran Archer,16.0,,2,2,0,withheld_missing_weapon_pair
+myrish_militia_veteran_spearman,Myrish Militia Veteran Spearman,16.0,,2,4,0,withheld_missing_weapon_pair
+myrish_noble_recruit,Myrish Noble Youth,11.0,1,1,1,0,withheld_missing_weapon_pair
+myrish_recruit,Myrish Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+myrish_soldier,Myrish Soldier,16.0,3,1,2,0,withheld_missing_weapon_pair
+myrish_warrior,Myrish Warrior,21.0,4,1,2,0,withheld_missing_weapon_pair
+nightswatch_crossbowman,Night's Watch Crossbowman,16.0,3,1,1,0,withheld_missing_weapon_pair
+nightswatch_defender,Night's Watch Defender,21.0,4,1,2,0,withheld_missing_weapon_pair
+nightswatch_elite_crossbowman,Night's Watch Elite Crossbowman,21.0,4,1,1,0,withheld_missing_weapon_pair
+nightswatch_elite_ranger,Night's Watch Elite Ranger,21.0,3,1,1,0,withheld_missing_weapon_pair
+nightswatch_horseman,Night's Watch Horseman,26.0,5,1,2,0,withheld_missing_weapon_pair
+nightswatch_master_crossbowman,Night's Watch Master Crossbowman,26.0,5,1,1,0,withheld_missing_weapon_pair
+nightswatch_master_ranger,Night's Watch Master Ranger,26.0,4,1,1,0,withheld_missing_weapon_pair
+nightswatch_militia_archer,Night's Watch Militia Archer,11.0,,4,4,0,withheld_missing_weapon_pair
+nightswatch_militia_spearman,Night's Watch Militia Spearman,11.0,,4,8,0,withheld_missing_weapon_pair
+nightswatch_militia_veteran_archer,Night's Watch Militia Veteran Archer,16.0,,4,4,0,withheld_missing_weapon_pair
+nightswatch_militia_veteran_spearman,Night's Watch Militia Veteran Spearman,16.0,,4,8,0,withheld_missing_weapon_pair
+nightswatch_protector,Night's Watch Protector of the Realm,31.0,5,1,1,0,withheld_missing_weapon_pair
+nightswatch_ranger,Night's Watch Ranger,16.0,2,1,1,0,withheld_missing_weapon_pair
+nightswatch_ranger_recruit,Night's Watch Ranger Recruit,11.0,1,1,1,0,withheld_missing_weapon_pair
+nightswatch_recruit,Night's Watch Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+nightswatch_shieldbrother,Night's Watch Shieldbrother,16.0,3,1,2,0,withheld_missing_weapon_pair
+nightswatch_soldier,Night's Watch Soldier,11.0,2,1,1,0,withheld_missing_weapon_pair
+nightswatch_stalwart,Night's Watch Stalwart,26.0,5,1,2,0,withheld_missing_weapon_pair
+norvos_acolyte,Norvoshi Acolyte,16.0,2,1,2,0,withheld_missing_weapon_pair
+norvos_archer,Norvoshi Archer,16.0,3,1,1,0,withheld_missing_weapon_pair
+norvos_axeman,Norvoshi Axeman,21.0,4,1,2,0,withheld_missing_weapon_pair
+norvos_bearded_priest,Norvoshi Bearded Priest,21.0,3,1,2,0,withheld_missing_weapon_pair
+norvos_bowman,Norvoshi Bowman,11.0,2,1,1,0,withheld_missing_weapon_pair
+norvos_cavalry,Norvoshi Cavalry,21.0,4,1,2,0,withheld_missing_weapon_pair
+norvos_elite_archer,Norvoshi Elite Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+norvos_footman,Norvoshi Footman,11.0,2,1,1,0,withheld_missing_weapon_pair
+norvos_horseman,Norvoshi Horseman,16.0,3,1,2,0,withheld_missing_weapon_pair
+norvos_initiate,Norvoshi Initiate,11.0,1,1,1,0,withheld_missing_weapon_pair
+norvos_master_archer,Norvoshi Master Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+norvos_master_axeman,Norvoshi Master Axeman,26.0,5,1,2,0,withheld_missing_weapon_pair
+norvos_militia_archer,Norvoshi Militia Archer,11.0,,2,2,0,withheld_missing_weapon_pair
+norvos_militia_spearman,Norvoshi Militia Spearman,11.0,,2,4,0,withheld_missing_weapon_pair
+norvos_militia_veteran_archer,Norvoshi Militia Veteran Archer,16.0,,2,2,0,withheld_missing_weapon_pair
+norvos_militia_veteran_spearman,Norvoshi Militia Veteran Spearman,16.0,,2,4,0,withheld_missing_weapon_pair
+norvos_pikeman,Norvoshi Pikeman,26.0,5,1,2,0,withheld_missing_weapon_pair
+norvos_priestguard,Norvoshi Priest Guard,26.0,5,1,2,0,withheld_missing_weapon_pair
+norvos_recruit,Norvoshi Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+norvos_soldier,Norvoshi Soldier,16.0,3,1,1,0,withheld_missing_weapon_pair
+norvos_spearman,Norvoshi Spearman,21.0,4,1,2,0,withheld_missing_weapon_pair
+oldtown_guardian,Guardian of Oldtown,31.0,6,1,3,0,withheld_missing_weapon_pair
+pentoshi_archer,Pentoshi Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+pentoshi_cavalry,Pentoshi Cavalry,26.0,5,1,2,0,withheld_missing_weapon_pair
+pentoshi_elite_archer,Pentoshi Elite Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+pentoshi_footman,Pentoshi Footman,11.0,2,1,1,0,withheld_missing_weapon_pair
+pentoshi_horseman,Pentoshi Horseman,21.0,4,1,2,0,withheld_missing_weapon_pair
+pentoshi_lancer,Pentoshi Lancer,26.0,4,1,2,0,withheld_missing_weapon_pair
+pentoshi_man_at_arms,Pentoshi Man at Arms,21.0,4,1,2,0,withheld_missing_weapon_pair
+pentoshi_militia_archer,Pentoshi Militia Archer,11.0,,2,2,0,withheld_missing_weapon_pair
+pentoshi_militia_spearman,Pentoshi Militia Spearman,11.0,,2,4,0,withheld_missing_weapon_pair
+pentoshi_militia_veteran_archer,Pentoshi Militia Veteran Archer,16.0,,2,2,0,withheld_missing_weapon_pair
+pentoshi_militia_veteran_spearman,Pentoshi Militia Veteran Spearman,16.0,,2,4,0,withheld_missing_weapon_pair
+pentoshi_mounted_archer,Pentoshi Mounted Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+pentoshi_noble_recruit,Pentoshi Noble Youth,11.0,1,1,1,0,withheld_missing_weapon_pair
+pentoshi_pike_warrior,Pentoshi Pike Warrior,21.0,3,1,2,0,withheld_missing_weapon_pair
+pentoshi_pikeman,Pentoshi Pikeman,16.0,2,1,2,0,withheld_missing_weapon_pair
+pentoshi_recruit,Pentoshi Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+pentoshi_soldier,Pentoshi Soldier,16.0,3,1,2,0,withheld_missing_weapon_pair
+pentoshi_spearman,Pentoshi Spearman,26.0,5,1,2,0,withheld_missing_weapon_pair
+qartheen_archer,Qartheen Archer,16.0,3,1,1,0,withheld_missing_weapon_pair
+qartheen_bowman,Qartheen Bowman,11.0,2,1,1,0,withheld_missing_weapon_pair
+qartheen_camel_rider,Qartheen Camel Rider,16.0,3,1,2,0,withheld_missing_weapon_pair
+qartheen_cameleer,Qartheen Cameleer,21.0,4,1,2,0,withheld_missing_weapon_pair
+qartheen_champion,Qartheen Pureborn Champion,26.0,4,1,1,0,withheld_missing_weapon_pair
+qartheen_elite_archer,Qarthene Veteran Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+qartheen_elite_hoplite,Qartheen Elite Hoplite,26.0,5,1,2,0,withheld_missing_weapon_pair
+qartheen_footman,Qartheen Footman,11.0,2,1,1,0,withheld_missing_weapon_pair
+qartheen_hoplite,Qartheen Hoplite,21.0,4,1,2,0,withheld_missing_weapon_pair
+qartheen_longbowman,Qartheen Longbowman,26.0,5,1,1,0,withheld_missing_weapon_pair
+qartheen_master_cameleer,Qartheen Master Cameleer,26.0,5,1,2,0,withheld_missing_weapon_pair
+qartheen_militia_archer,Qartheen Militia Archer,11.0,,4,4,0,withheld_missing_weapon_pair
+qartheen_militia_spearman,Qartheen Militia Spearman,11.0,,4,8,0,withheld_missing_weapon_pair
+qartheen_militia_veteran_archer,Qartheen Militia Veteran Archer,16.0,,4,4,0,withheld_missing_weapon_pair
+qartheen_militia_veteran_spearman,Qartheen Militia Veteran Spearman,16.0,,4,8,0,withheld_missing_weapon_pair
+qartheen_noble_recruit,Qartheen Pureborn Youth,11.0,1,1,1,0,withheld_missing_weapon_pair
+qartheen_pureborn,Qartheen Pureborn Fighter,16.0,2,1,2,0,withheld_missing_weapon_pair
+qartheen_pureborn_warrior,Qartheen Pureborn Warrior,21.0,3,1,2,0,withheld_missing_weapon_pair
+qartheen_recruit,Qartheen Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+qartheen_warrior,Qartheen Soldier,16.0,3,1,2,0,withheld_missing_weapon_pair
+qohorik_archer,Qohorik Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+qohorik_bowman,Qohorik Bowman,16.0,3,1,1,0,withheld_missing_weapon_pair
+qohorik_elite_archer,Qohorik Elite Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+qohorik_elite_spearman,Qohorik Elite Spearman,26.0,5,1,3,0,withheld_missing_weapon_pair
+qohorik_falxman,Qohorik Falxman,26.0,5,1,1,0,withheld_missing_weapon_pair
+qohorik_footman,Qohorik Footman,11.0,2,1,1,0,withheld_missing_weapon_pair
+qohorik_goat_devout,Black Goat Devout,26.0,4,1,2,0,withheld_missing_weapon_pair
+qohorik_goat_initiate,Black Goat Initiate,16.0,2,1,2,0,withheld_missing_weapon_pair
+qohorik_goat_sacrificer,Black Goat Sacrificer,31.0,5,1,2,0,withheld_missing_weapon_pair
+qohorik_goat_warrior,Black Goat Warrior,21.0,3,1,2,0,withheld_missing_weapon_pair
+qohorik_horseman,Qohorik Horseman,21.0,4,1,2,0,withheld_missing_weapon_pair
+qohorik_lancer,Qohorik Lancer,26.0,5,1,2,0,withheld_missing_weapon_pair
+qohorik_militia_archer,Qohorik Militia Archer,11.0,,2,2,0,withheld_missing_weapon_pair
+qohorik_militia_spearman,Qohorik Militia Spearman,11.0,,2,4,0,withheld_missing_weapon_pair
+qohorik_militia_veteran_archer,Qohorik Militia Veteran Archer,16.0,,2,2,0,withheld_missing_weapon_pair
+qohorik_militia_veteran_spearman,Qohorik Militia Veteran Spearman,16.0,,2,4,0,withheld_missing_weapon_pair
+qohorik_noble_recruit,Qohorik Noble Youth,11.0,1,1,1,0,withheld_missing_weapon_pair
+qohorik_recruit,Qohorik Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+qohorik_rider,Qohorik Rider,16.0,3,1,2,0,withheld_missing_weapon_pair
+qohorik_soldier,Qohorik Soldier,16.0,3,1,2,0,withheld_missing_weapon_pair
+qohorik_spearman,Qohorik Spearman,21.0,4,1,3,0,withheld_missing_weapon_pair
+qohorik_swordsman,Qohorik Swordsman,21.0,4,1,2,0,withheld_missing_weapon_pair
+queensguard_captain,Captain of the Queen's Guard,31.0,5,1,2,0,withheld_missing_weapon_pair
+ravens_teeth,Ravens' Teeth,31.0,6,1,1,0,withheld_missing_weapon_pair
+reach_archer,Reach Archer,16.0,3,1,1,0,withheld_missing_weapon_pair
+reach_axeman,Reach Axeman,26.0,5,1,2,0,withheld_missing_weapon_pair
+reach_bowman,Reach Bowman,11.0,2,1,1,0,withheld_missing_weapon_pair
+reach_champion,Reach Champion,26.0,4,1,3,0,withheld_missing_weapon_pair
+reach_elite_archer,Reach Elite Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+reach_flower_knight,Reach Flower Knight,31.0,5,1,3,0,withheld_missing_weapon_pair
+reach_hacker,Reach Man at Arms,21.0,4,1,2,0,withheld_missing_weapon_pair
+reach_hedge_knight,Reach Hedge Knight,21.0,3,1,2,0,withheld_missing_weapon_pair
+reach_hookman,Reach Voulgier,16.0,2,1,1,0,withheld_missing_weapon_pair
+reach_houseguard,Reach House Guard,26.0,5,1,2,0,withheld_missing_weapon_pair
+reach_knight,Reach Horseman,26.0,5,1,2,0,withheld_missing_weapon_pair
+reach_levy,Reach Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+reach_master_archer,Reach Master Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+reach_militia_archer,Reach Militia Archer,11.0,,4,4,0,withheld_missing_weapon_pair
+reach_militia_spearman,Reach Militia Spearman,11.0,,4,8,0,withheld_missing_weapon_pair
+reach_militia_veteran_archer,Reach Militia Veteran Archer,16.0,,4,4,0,withheld_missing_weapon_pair
+reach_militia_veteran_spearman,Reach Militia Veteran Spearman,16.0,,4,8,0,withheld_missing_weapon_pair
+reach_noble_recruit,Reach Noble's Son,11.0,1,1,1,0,withheld_missing_weapon_pair
+reach_recruit,Reach Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+reach_rider,Reach Rider,21.0,4,1,2,0,withheld_missing_weapon_pair
+reach_soldier,Reach Soldier,16.0,3,1,2,0,withheld_missing_weapon_pair
+realm_hedge_knight,Realm Hedge Knight,21.0,3,1,2,0,withheld_missing_weapon_pair
+realm_knight,Realm Knight,26.0,4,1,2,0,withheld_missing_weapon_pair
+realm_paladin,Realm Paladin,31.0,5,1,2,0,withheld_missing_weapon_pair
+river_admiral,Riverlands Admiral,31.0,5,1,2,0,withheld_missing_weapon_pair
+river_archer,Riverlands Archer,16.0,3,1,1,0,withheld_missing_weapon_pair
+river_axeman,Riverlands Axeman,26.0,5,1,1,0,withheld_missing_weapon_pair
+river_bowman,Riverlands Bowman,11.0,2,1,1,0,withheld_missing_weapon_pair
+river_calvary,Riverlands Cavalry,26.0,5,1,2,0,withheld_missing_weapon_pair
+river_elite_archer,Riverlands Elite Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+river_elite_swordsman,Riverlands Elite Swordsman,21.0,3,1,2,0,withheld_missing_weapon_pair
+river_footman,Riverlands Footman,11.0,2,1,1,0,withheld_missing_weapon_pair
+river_horseman,Riverlands Horseman,21.0,4,1,2,0,withheld_missing_weapon_pair
+river_houseguard,Riverlands House Guard,26.0,5,1,2,0,withheld_missing_weapon_pair
+river_man_at_arms,Riverlands Man at Arms,21.0,4,1,2,0,withheld_missing_weapon_pair
+river_militia_archer,Riverlands Militia Archer,11.0,,4,4,0,withheld_missing_weapon_pair
+river_militia_spearman,Riverlands Militia Spearman,11.0,,4,8,0,withheld_missing_weapon_pair
+river_militia_veteran_archer,Riverlands Militia Veteran Archer,16.0,,4,4,0,withheld_missing_weapon_pair
+river_militia_veteran_spearman,Riverlands Militia Veteran Spearman,16.0,,4,8,0,withheld_missing_weapon_pair
+river_noble_recruit,Riverlord's Son,11.0,1,1,1,0,withheld_missing_weapon_pair
+river_pikeman,Riverlands Pikeman,26.0,5,1,2,0,withheld_missing_weapon_pair
+river_ranger,Riverlands Ranger,26.0,5,1,1,0,withheld_missing_weapon_pair
+river_recruit,Riverlands Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+river_soldier,Riverlands Soldier,16.0,3,1,2,0,withheld_missing_weapon_pair
+river_swordmaster,Riverlands Swordmaster,26.0,4,1,2,0,withheld_missing_weapon_pair
+river_swordsman,Riverlands Swordsman,16.0,2,1,2,0,withheld_missing_weapon_pair
+riverrun_captain,Riverrun Captain,31.0,6,1,2,0,withheld_missing_weapon_pair
+royce_archer,Royce Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+royce_cavalrywomen,Royce Cavalrywomen,26.0,5,1,2,0,withheld_missing_weapon_pair
+royce_elite_warrior,Royce Elite Warrior,26.0,5,1,2,0,withheld_missing_weapon_pair
+royce_footman,Royce Footman,11.0,2,1,2,0,withheld_missing_weapon_pair
+royce_heroine,Royce Heroine,31.0,6,1,2,0,withheld_missing_weapon_pair
+royce_recruit,Royce Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+royce_rider,Royce Rider,21.0,4,1,2,0,withheld_missing_weapon_pair
+royce_soldier,Royce Soldier,16.0,3,1,2,0,withheld_missing_weapon_pair
+royce_veteran_archer,Royce Veteran Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+royce_warrior,Royce Warrior,21.0,4,1,2,0,withheld_missing_weapon_pair
+sadistic_wight,Sadistic Wight,31.0,6,1,1,0,withheld_missing_weapon_pair
+sarnor_archer,Sarnori Archer,16.0,3,1,1,0,withheld_missing_weapon_pair
+sarnor_bowman,Sarnori Bowman,11.0,2,1,1,0,withheld_missing_weapon_pair
+sarnor_cavalry,Sarnori Cavalry,21.0,4,1,2,0,withheld_missing_weapon_pair
+sarnor_elite_archer,Sarnori Elite Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+sarnor_elite_javelinier,Sarnori Elite Javelinier,21.0,3,1,2,0,withheld_missing_weapon_pair
+sarnor_footman,Sarnori Footman,11.0,2,1,1,0,withheld_missing_weapon_pair
+sarnor_glaiveman,Sarnori Glaiveman,21.0,4,1,2,0,withheld_missing_weapon_pair
+sarnor_highking_guardian,High King Guardian,26.0,5,1,2,0,withheld_missing_weapon_pair
+sarnor_horseman,Sarnori Horseman,16.0,3,1,2,0,withheld_missing_weapon_pair
+sarnor_javelinier,Sarnori Javelineer,16.0,2,1,2,0,withheld_missing_weapon_pair
+sarnor_longbowman,Sarnori Longbowman,26.0,5,1,1,0,withheld_missing_weapon_pair
+sarnor_master_javelinier,Sarnori Master Javelinier,26.0,4,1,2,0,withheld_missing_weapon_pair
+sarnor_master_spearman,Sarnori Master Spearman,26.0,5,1,2,0,withheld_missing_weapon_pair
+sarnor_militia_archer,Sarnori Militia Archer,11.0,,2,2,0,withheld_missing_weapon_pair
+sarnor_militia_spearman,Sarnori Militia Spearman,11.0,,2,4,0,withheld_missing_weapon_pair
+sarnor_militia_veteran_archer,Sarnori Militia Veteran Archer,16.0,,2,2,0,withheld_missing_weapon_pair
+sarnor_militia_veteran_spearman,Sarnori Militia Veteran Spearman,16.0,,2,4,0,withheld_missing_weapon_pair
+sarnor_noble_recruit,Sarnori Noble's Son,11.0,1,1,1,0,withheld_missing_weapon_pair
+sarnor_recruit,Sarnori Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+sarnor_spearman,Sarnori Spearman,21.0,4,1,2,0,withheld_missing_weapon_pair
+sarnor_spider,Sarnori Spider,31.0,5,1,1,0,withheld_missing_weapon_pair
+sarnor_warrior,Sarnori Warrior,16.0,3,1,2,0,withheld_missing_weapon_pair
+scorned_wight,Scorned Wight,16.0,3,3,3,0,withheld_missing_weapon_pair
+skag_archer,Skagosi Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+skag_barbarian,Skagosi Barbarian,26.0,5,1,1,0,withheld_missing_weapon_pair
+skag_bowman,Skagosi Bowman,16.0,3,1,1,0,withheld_missing_weapon_pair
+skag_footman,Skagosi Footman,11.0,2,1,1,0,withheld_missing_weapon_pair
+skag_huntsman,Skagosi Huntsman,26.0,5,1,1,0,withheld_missing_weapon_pair
+skag_master_spearman,Skagosi Master Spearman,26.0,5,1,2,0,withheld_missing_weapon_pair
+skag_recruit,Skagosi Lowborn,6.0,1,1,1,0,withheld_missing_weapon_pair
+skag_savage,Skagosi Savage,21.0,4,1,2,0,withheld_missing_weapon_pair
+skag_soldier,Skagosi Soldier,16.0,3,1,2,0,withheld_missing_weapon_pair
+skag_spearman,Skagosi Spearman,21.0,4,1,2,0,withheld_missing_weapon_pair
+skagosi_rider,Skagosi Rider,21.0,4,1,2,0,withheld_missing_weapon_pair
+skagosi_stoneborn,Skagosi Stoneborn,26.0,5,1,2,0,withheld_missing_weapon_pair
+skagosi_stoneborn_champion,Skagosi Stoneborn Champion,31.0,6,1,2,0,withheld_missing_weapon_pair
+stark_archer,Stark Longbowman,21.0,4,1,1,0,withheld_missing_weapon_pair
+stark_bowman,Stark Bowman,16.0,3,1,1,0,withheld_missing_weapon_pair
+stark_cavalry,Stark Cavalry,26.0,5,2,4,0,withheld_missing_weapon_pair
+stark_footman,Stark Footman,16.0,3,1,2,0,withheld_missing_weapon_pair
+stark_horseman,Stark Horseman,21.0,4,2,4,0,withheld_missing_weapon_pair
+stark_houseguard,Stark House Guard,26.0,5,2,4,0,withheld_missing_weapon_pair
+stark_levy,Stark Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+stark_master_archer,Stark Master Longbowman,26.0,5,2,2,0,withheld_missing_weapon_pair
+stark_pikeman,Stark Pikeman,26.0,5,2,4,0,withheld_missing_weapon_pair
+stark_soldier,Stark Soldier,21.0,4,2,4,0,withheld_missing_weapon_pair
+stark_swornsword,Stark Sworn Sword,31.0,6,2,4,0,withheld_missing_weapon_pair
+stark_volunteer,Stark Recruit,6.0,1,4,4,0,withheld_missing_weapon_pair
+stormlands_archer,Stormlands Archer,16.0,3,1,1,0,withheld_missing_weapon_pair
+stormlands_basher,Stormlands Maceman,21.0,4,1,1,0,withheld_missing_weapon_pair
+stormlands_bowman,Stormlands Bowman,11.0,2,1,1,0,withheld_missing_weapon_pair
+stormlands_crossbowman,Stormlands Crossbowman,21.0,4,1,1,0,withheld_missing_weapon_pair
+stormlands_crusher,Stormlands Elite Maceman,26.0,5,1,1,0,withheld_missing_weapon_pair
+stormlands_elite_archer,Stormlands Elite Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+stormlands_fell_knight,Stormlands Fell Knight,26.0,4,1,2,0,withheld_missing_weapon_pair
+stormlands_heavy_crossbowman,Stormlands Heavy Crossbowman,26.0,5,1,1,0,withheld_missing_weapon_pair
+stormlands_horseman,Stormlands Horseman,26.0,5,1,2,0,withheld_missing_weapon_pair
+stormlands_houseguard,Stormlands House Guard,26.0,5,1,2,0,withheld_missing_weapon_pair
+stormlands_knight,Stormlands Knight,21.0,3,1,2,0,withheld_missing_weapon_pair
+stormlands_levy,Stormlands Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+stormlands_man_at_arms,Stormlands Man at Arms,16.0,3,1,2,0,withheld_missing_weapon_pair
+stormlands_master_archer,Stormlands Master Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+stormlands_militia_archer,Stormlands Militia Archer,11.0,,4,4,0,withheld_missing_weapon_pair
+stormlands_militia_spearman,Stormlands Militia Spearman,11.0,,4,8,0,withheld_missing_weapon_pair
+stormlands_militia_veteran_archer,Stormlands Militia Veteran Archer,16.0,,4,4,0,withheld_missing_weapon_pair
+stormlands_militia_veteran_spearman,Stormlands Militia Veteran Spearman,16.0,,4,8,0,withheld_missing_weapon_pair
+stormlands_noble_recruit,Stormlands Noble's Son,11.0,1,1,1,0,withheld_missing_weapon_pair
+stormlands_recruit,Stormlands Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+stormlands_spearman,Stormlands Spearman,21.0,4,1,2,0,withheld_missing_weapon_pair
+stormlands_squire,Stormlands Squire,16.0,2,1,2,0,withheld_missing_weapon_pair
+stormlands_thunderknight,Stormlands Thunder Knight,31.0,5,1,2,0,withheld_missing_weapon_pair
+summer_bowman,Summer Isles Bowman,16.0,3,1,1,0,withheld_missing_weapon_pair
+summer_footman,Summer Isles Footman,11.0,2,1,2,0,withheld_missing_weapon_pair
+summer_horseman,Summer Isles Horseman,26.0,5,1,2,0,withheld_missing_weapon_pair
+summer_infantryman,Summer Isles Infantryman,16.0,3,1,2,0,withheld_missing_weapon_pair
+summer_longbowman,Summer Isles Longbowman,26.0,5,1,1,0,withheld_missing_weapon_pair
+summer_master_longbowman,Goldenheart Warrior,31.0,6,1,1,0,withheld_missing_weapon_pair
+summer_militia_archer,Summer Isles Militia Archer,11.0,,2,2,0,withheld_missing_weapon_pair
+summer_militia_spearman,Summer Isles Militia Spearman,11.0,,2,4,0,withheld_missing_weapon_pair
+summer_militia_veteran_archer,Summer Isles Militia Veteran Archer,16.0,,2,2,0,withheld_missing_weapon_pair
+summer_militia_veteran_spearman,Summer Isles Militia Veteran Spearman,16.0,,2,4,0,withheld_missing_weapon_pair
+summer_pikeman,Summer Isles Spearmaster,26.0,5,1,2,0,withheld_missing_weapon_pair
+summer_recruit,Summer Isles Recruit,6.0,1,4,4,0,withheld_missing_weapon_pair
+summer_rider,Summer Isles Scout,21.0,4,1,2,0,withheld_missing_weapon_pair
+summer_spearman,Summer Isles Spearman,21.0,4,1,2,0,withheld_missing_weapon_pair
+summer_veteran_bowman,Summer Isles Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+targ_knight,Targaryen Knight,21.0,3,1,2,0,withheld_missing_weapon_pair
+targ_queensguard,Targaryen Queen's Guard,26.0,4,1,2,0,withheld_missing_weapon_pair
+targ_squire,Targaryen Squire,16.0,2,1,2,0,withheld_missing_weapon_pair
+targaryen_archer,Valyrian Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+targaryen_bowman,Valyrian Bowman,16.0,3,1,1,0,withheld_missing_weapon_pair
+targaryen_dragonknight,Valyrian Cavalry,26.0,5,1,2,0,withheld_missing_weapon_pair
+targaryen_elite_pikeman,Valyrian Elite Pikeman,26.0,5,1,2,0,withheld_missing_weapon_pair
+targaryen_levy,Valyrian Levy,11.0,2,1,2,0,withheld_missing_weapon_pair
+targaryen_man_at_arms,Valyrian Man at Arms,21.0,4,1,2,0,withheld_missing_weapon_pair
+targaryen_master_archer,Valyrian Master Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+targaryen_soldier,Valyrian Soldier,16.0,3,1,2,0,withheld_missing_weapon_pair
+tarly_crossbowman,Tarly Crossbowman,21.0,4,1,1,0,withheld_missing_weapon_pair
+tarly_elite_crossbowman,Tarly Elite Crossbowman,26.0,5,1,1,0,withheld_missing_weapon_pair
+tarly_footman,Tarly Footman,11.0,2,1,2,0,withheld_missing_weapon_pair
+tarly_horseman,Tarly Horseman,21.0,4,1,2,0,withheld_missing_weapon_pair
+tarly_houseguard,Tarly House Guard,26.0,5,1,2,0,withheld_missing_weapon_pair
+tarly_knight,Tarly Knight,26.0,5,1,2,0,withheld_missing_weapon_pair
+tarly_man_at_arms,Tarly Man at Arms,21.0,4,1,2,0,withheld_missing_weapon_pair
+tarly_recruit,Tarly Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+tarly_soldier,Tarly Soldier,16.0,3,1,2,0,withheld_missing_weapon_pair
+tarly_vanguard,Tarly Vanguard,31.0,6,1,2,0,withheld_missing_weapon_pair
+tarth_crossbowman,Tarth Crossbowman,21.0,4,1,1,0,withheld_missing_weapon_pair
+tarth_elite_crossbowman,Tarth Elite Crossbowman,26.0,5,1,1,0,withheld_missing_weapon_pair
+tarth_halberdier,Tarth Halberdier,26.0,5,1,2,0,withheld_missing_weapon_pair
+tarth_horseman,Tarth Horseman,26.0,5,1,2,0,withheld_missing_weapon_pair
+tarth_man_at_arms,Tarth Man at Arms,16.0,3,1,2,0,withheld_missing_weapon_pair
+tarth_master_halberdier,Tarth Master Halberdier,31.0,6,1,2,0,withheld_missing_weapon_pair
+tarth_militia,Tarth Militia,11.0,2,1,1,0,withheld_missing_weapon_pair
+tarth_recruit,Tarth Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+tarth_rider,Tarth Rider,21.0,4,1,2,0,withheld_missing_weapon_pair
+tarth_soldier,Tarth Soldier,21.0,4,1,2,0,withheld_missing_weapon_pair
+tigercloak_archer,Volantene Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+tigercloak_camel_cavalry,Volantene Mahout,26.0,5,1,2,0,withheld_missing_weapon_pair
+tigercloak_elite,Tigercloak,21.0,3,1,1,0,withheld_missing_weapon_pair
+tigercloak_elite_initiate,Tigercloak Elite Initiate,16.0,2,1,1,0,withheld_missing_weapon_pair
+tigercloak_elite_warrior,Volantine Elite Warrior,26.0,5,1,2,0,withheld_missing_weapon_pair
+tigercloak_master,Tigercloak Elite,26.0,4,1,1,0,withheld_missing_weapon_pair
+tigercloak_master_archer,Volantene Master Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+tigercloak_rider,Volantene Rider,21.0,4,1,2,0,withheld_missing_weapon_pair
+tigercloak_warrior,Volantene Warrior,21.0,4,1,2,0,withheld_missing_weapon_pair
+triarch_guardian,Triarch Guardian,31.0,5,1,1,0,withheld_missing_weapon_pair
+tully_archer,Tully Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+tully_footman,Tully Footman,11.0,2,1,1,0,withheld_missing_weapon_pair
+tully_houseguard,Tully House Guard,26.0,5,1,2,0,withheld_missing_weapon_pair
+tully_knight,Tully Knight,26.0,5,1,2,0,withheld_missing_weapon_pair
+tully_longbowman,Tully Longbowman,26.0,5,1,1,0,withheld_missing_weapon_pair
+tully_man_at_arms,Tully Man at Arms,21.0,4,1,2,0,withheld_missing_weapon_pair
+tully_recruit,Tully Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+tully_rider,Tully Rider,21.0,4,1,2,0,withheld_missing_weapon_pair
+tully_soldier,Tully Soldier,16.0,3,1,2,0,withheld_missing_weapon_pair
+tyrell_bowman,Tyrell Longbowman,21.0,4,1,1,0,withheld_missing_weapon_pair
+tyrell_cavalier,Tyrell Cavalier,31.0,6,1,2,0,withheld_missing_weapon_pair
+tyrell_footman,Tyrell Footman,11.0,2,1,2,0,withheld_missing_weapon_pair
+tyrell_houseguard,Tyrell House Guard,26.0,5,1,2,0,withheld_missing_weapon_pair
+tyrell_knight,Tyrell Horseman,26.0,5,1,2,0,withheld_missing_weapon_pair
+tyrell_longbowman,Tyrell Elite Longbowman,26.0,5,1,1,0,withheld_missing_weapon_pair
+tyrell_man_at_arms,Tyrell Man at Arms,21.0,4,1,2,0,withheld_missing_weapon_pair
+tyrell_recruit,Tyrell Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+tyrell_scout,Tyrell Scout,21.0,4,1,2,0,withheld_missing_weapon_pair
+tyrell_soldier,Tyrell Soldier,16.0,3,1,2,0,withheld_missing_weapon_pair
+tyroshi_archer,Tyroshi Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+tyroshi_axeman,Tyroshi Axeman,21.0,4,1,1,0,withheld_missing_weapon_pair
+tyroshi_boatswain,Tyroshi Boatswain,16.0,2,1,1,0,withheld_missing_weapon_pair
+tyroshi_bowman,Tyroshi Bowman,16.0,3,1,1,0,withheld_missing_weapon_pair
+tyroshi_cavalry,Tyroshi Cavalry,26.0,5,1,2,0,withheld_missing_weapon_pair
+tyroshi_corsair,Tyroshi Corsair,31.0,5,1,1,0,withheld_missing_weapon_pair
+tyroshi_elite_archer,Tyroshi Elite Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+tyroshi_firstmate,Tyroshi Firstmate,26.0,4,1,1,0,withheld_missing_weapon_pair
+tyroshi_footman,Tyroshi Footman,11.0,2,1,2,0,withheld_missing_weapon_pair
+tyroshi_horseman,Tyroshi Horseman,21.0,4,1,2,0,withheld_missing_weapon_pair
+tyroshi_militia_archer,Tyroshi Militia Archer,11.0,,2,2,0,withheld_missing_weapon_pair
+tyroshi_militia_spearman,Tyroshi Militia Spearman,11.0,,2,4,0,withheld_missing_weapon_pair
+tyroshi_militia_veteran_archer,Tyroshi Militia Veteran Archer,16.0,,2,2,0,withheld_missing_weapon_pair
+tyroshi_militia_veteran_spearman,Tyroshi Militia Veteran Spearman,16.0,,2,4,0,withheld_missing_weapon_pair
+tyroshi_noble_recruit,Tyroshi Noble Youth,11.0,1,1,1,0,withheld_missing_weapon_pair
+tyroshi_quartermaster,Tyroshi Quartermaster,21.0,3,1,1,0,withheld_missing_weapon_pair
+tyroshi_recruit,Tyroshi Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+tyroshi_renegade,Tyroshi Renegade,26.0,5,1,1,0,withheld_missing_weapon_pair
+tyroshi_soldier,Tyroshi Soldier,16.0,3,1,2,0,withheld_missing_weapon_pair
+umber_archer,Umber Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+umber_axeman,Umber Axeman,26.0,5,1,2,0,withheld_missing_weapon_pair
+umber_berzerker,Umber Berzerker,31.0,6,1,2,0,withheld_missing_weapon_pair
+umber_footman,Umber Footman,16.0,3,1,1,0,withheld_missing_weapon_pair
+umber_horseman,Umber Horseman,26.0,5,1,2,0,withheld_missing_weapon_pair
+umber_houseguard,Umber House Guard,26.0,5,1,2,0,withheld_missing_weapon_pair
+umber_levy,Umber Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+umber_man_at_arms,Umber Man at Arms,21.0,4,2,4,0,withheld_missing_weapon_pair
+umber_marksman,Umber Marksman,26.0,5,1,1,0,withheld_missing_weapon_pair
+umber_scout,Umber Scout,21.0,4,1,2,0,withheld_missing_weapon_pair
+umber_volunteer,Umber Recruit,6.0,1,4,4,0,withheld_missing_weapon_pair
+unsullied,Unsullied,31.0,,1,2,0,withheld_missing_weapon_pair
+vale_archer,Vale Archer,16.0,3,1,1,0,withheld_missing_weapon_pair
+vale_bowman,Vale Bowman,11.0,2,1,1,0,withheld_missing_weapon_pair
+vale_elite_archer,Vale Elite Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+vale_elite_knight,Vale Elite Knight,26.0,4,1,2,0,withheld_missing_weapon_pair
+vale_elite_lancer,Vale Elite Lancer,26.0,5,1,2,0,withheld_missing_weapon_pair
+vale_elite_voulgier,Vale Elite Voulgier,26.0,5,1,2,0,withheld_missing_weapon_pair
+vale_footman,Vale Footman,11.0,2,1,1,0,withheld_missing_weapon_pair
+vale_houseguard,Vale House Guard,26.0,5,1,2,0,withheld_missing_weapon_pair
+vale_knight,Vale Knight,21.0,3,1,2,0,withheld_missing_weapon_pair
+vale_knight_of,Knight of the Vale,31.0,5,1,2,0,withheld_missing_weapon_pair
+vale_lancer,Vale Lancer,21.0,4,1,2,0,withheld_missing_weapon_pair
+vale_man_at_arms,Vale Man at Arms,21.0,4,1,2,0,withheld_missing_weapon_pair
+vale_master_archer,Vale Master Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+vale_militia_archer,Vale Militia Archer,11.0,,4,4,0,withheld_missing_weapon_pair
+vale_militia_spearman,Vale Militia Spearman,11.0,,4,8,0,withheld_missing_weapon_pair
+vale_militia_veteran_archer,Vale Militia Veteran Archer,16.0,,4,4,0,withheld_missing_weapon_pair
+vale_militia_veteran_spearman,Vale Militia Veteran Spearman,16.0,,4,8,0,withheld_missing_weapon_pair
+vale_page,Vale Page,11.0,1,1,1,0,withheld_missing_weapon_pair
+vale_recruit,Vale Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+vale_rider,Vale Rider,16.0,3,1,1,0,withheld_missing_weapon_pair
+vale_soldier,Vale Soldier,16.0,3,1,2,0,withheld_missing_weapon_pair
+vale_squire,Vale Squire,16.0,2,1,1,0,withheld_missing_weapon_pair
+vale_voulgier,Vale Voulgier,21.0,4,1,2,0,withheld_missing_weapon_pair
+valyrian_captain,Valyrian Captain,26.0,5,1,2,0,withheld_missing_weapon_pair
+valyrian_dragonknight,Valyrian Dragonknight,26.0,4,1,2,0,withheld_missing_weapon_pair
+valyrian_dragonlord_protector,Valyrian Dragonlord Protector,31.0,5,1,2,0,withheld_missing_weapon_pair
+valyrian_knight,Valyrian Knight,21.0,3,1,2,0,withheld_missing_weapon_pair
+valyrian_militia_archer,Valyrian Militia Archer,11.0,,2,2,0,withheld_missing_weapon_pair
+valyrian_militia_spearman,Valyrian Militia Spearman,11.0,,2,4,0,withheld_missing_weapon_pair
+valyrian_militia_veteran_archer,Valyrian Militia Veteran Archer,16.0,,2,2,0,withheld_missing_weapon_pair
+valyrian_militia_veteran_spearman,Valyrian Militia Veteran Spearman,16.0,,2,4,0,withheld_missing_weapon_pair
+valyrian_noble_recruit,Valyrian Noble's Son,11.0,1,1,1,0,withheld_missing_weapon_pair
+valyrian_recruit,Valyrian Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+valyrian_scout,Valyrian Scout,21.0,4,1,2,0,withheld_missing_weapon_pair
+valyrian_squire,Valyrian Squire,16.0,2,1,2,0,withheld_missing_weapon_pair
+velaryon_crossbowman,Velaryon Crossbowman,21.0,4,1,1,0,withheld_missing_weapon_pair
+velaryon_horseman,Velaryon Horseman,26.0,5,1,2,0,withheld_missing_weapon_pair
+velaryon_marksman,Velaryon Marksman,26.0,5,1,1,0,withheld_missing_weapon_pair
+velaryon_recruit,Velaryon Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+velaryon_renegade,Velaryon Renegade,26.0,5,1,3,0,withheld_missing_weapon_pair
+velaryon_scout,Velaryon Scout,21.0,4,1,2,0,withheld_missing_weapon_pair
+velaryon_sea_guard,Velaryon Sea Guard,31.0,6,1,2,0,withheld_missing_weapon_pair
+velaryon_shipman,Velaryon Shipmate,11.0,2,1,1,0,withheld_missing_weapon_pair
+velaryon_soldier,Velaryon Sailor,16.0,3,1,2,0,withheld_missing_weapon_pair
+velaryon_warrior,Velaryon Marine,21.0,4,1,2,0,withheld_missing_weapon_pair
+vicious_wight,Vicious Wight,26.0,5,1,2,0,withheld_missing_weapon_pair
+volantine_bowman,Volantene Bowman,16.0,3,1,1,0,withheld_missing_weapon_pair
+volantine_footman,Volantene Footman,11.0,2,1,1,0,withheld_missing_weapon_pair
+volantine_militia_archer,Volantene Militia Archer,11.0,,2,2,0,withheld_missing_weapon_pair
+volantine_militia_spearman,Volantene Militia Spearman,11.0,,2,4,0,withheld_missing_weapon_pair
+volantine_militia_veteran_archer,Volantene Militia Veteran Archer,16.0,,2,2,0,withheld_missing_weapon_pair
+volantine_militia_veteran_spearman,Volantene Militia Veteran Spearman,16.0,,2,4,0,withheld_missing_weapon_pair
+volantine_noble_recruit,Volantene Noble Youth,11.0,1,1,1,0,withheld_missing_weapon_pair
+volantine_recruit,Volantene Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+volantine_soldier,Volantene Soldier,16.0,3,1,2,0,withheld_missing_weapon_pair
+westerling_archer,Westerling Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+westerling_elite_archer,Westerling Elite Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+westerling_footman,Westerling Footman,16.0,3,1,2,0,withheld_missing_weapon_pair
+westerling_hedgeknight,Westerling Hedgeknight,31.0,6,1,3,0,withheld_missing_weapon_pair
+westerling_horseman,Westerling Knight,26.0,5,1,2,0,withheld_missing_weapon_pair
+westerling_houseguard,Westerling House Guard,26.0,5,1,2,0,withheld_missing_weapon_pair
+westerling_levy,Westerling Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+westerling_man_at_arms,Westerling Man at Arms,21.0,4,1,2,0,withheld_missing_weapon_pair
+westerling_recruit,Westerling Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+westerling_rider,Westerling Scout,21.0,4,1,2,0,withheld_missing_weapon_pair
+whiteharbor_elite_knight,White Harbor Elite Knight,26.0,5,1,2,0,withheld_missing_weapon_pair
+whiteharbor_elite_pikeman,White Harbor Pike Knight,26.0,5,1,2,0,withheld_missing_weapon_pair
+whiteharbor_footman,Manderly Footman,16.0,3,1,1,0,withheld_missing_weapon_pair
+whiteharbor_knight,White Harbor Knight,21.0,4,1,2,0,withheld_missing_weapon_pair
+whiteharbor_knight_commander,White Harbor Knight Commander,31.0,6,1,2,0,withheld_missing_weapon_pair
+whiteharbor_levy,Manderly Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+whiteharbor_squire,White Harbor Squire,16.0,3,1,2,0,withheld_missing_weapon_pair
+whiteharbor_volunteer,Manderly Recruit,6.0,1,4,4,0,withheld_missing_weapon_pair
+wight_militia_archer,Wight Militia Archer,11.0,,4,4,0,withheld_missing_weapon_pair
+wight_militia_spearman,Wight Militia Spearman,11.0,,4,8,0,withheld_missing_weapon_pair
+wight_militia_veteran_archer,Wight Militia Veteran Archer,16.0,,4,4,0,withheld_missing_weapon_pair
+wight_militia_veteran_spearman,Wight Militia Veteran Spearman,16.0,,4,8,0,withheld_missing_weapon_pair
+wight_recruit,Wight,6.0,1,1,1,0,withheld_missing_weapon_pair
+yiti_bowman,Yi Ti Bowman,16.0,3,1,1,0,withheld_missing_weapon_pair
+yiti_footman,Yi Ti Footman,11.0,2,1,1,0,withheld_missing_weapon_pair
+yiti_horseman,Yi Ti Glaiveman,26.0,5,1,2,0,withheld_missing_weapon_pair
+yiti_infantryman,Yi Ti Infantryman,16.0,3,1,1,0,withheld_missing_weapon_pair
+yiti_master_bowman,Yi Ti Marksman,26.0,5,1,1,0,withheld_missing_weapon_pair
+yiti_militia_archer,Yitish Militia Archer,11.0,,2,2,0,withheld_missing_weapon_pair
+yiti_militia_spearman,YiTish Militia Spearman,11.0,,2,4,0,withheld_missing_weapon_pair
+yiti_militia_veteran_archer,YiTish Militia Veteran Archer,16.0,,2,2,0,withheld_missing_weapon_pair
+yiti_militia_veteran_spearman,YiTish Militia Veteran Spearman,16.0,,2,4,0,withheld_missing_weapon_pair
+yiti_pikeman,Yi Ti Shi,26.0,5,1,2,0,withheld_missing_weapon_pair
+yiti_recruit,Yi Ti Recruit,6.0,1,4,4,0,withheld_missing_weapon_pair
+yiti_rider,Yi Ti Rider,21.0,4,1,2,0,withheld_missing_weapon_pair
+yiti_samurai,Yi Ti Mounted Shi,31.0,6,1,2,0,withheld_missing_weapon_pair
+yiti_spearman,Yi Ti Spearman,21.0,4,1,2,0,withheld_missing_weapon_pair
+yiti_veteran_bowman,Yi Ti Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+yronwood_archer,Yronwood Archer,21.0,4,1,1,0,withheld_missing_weapon_pair
+yronwood_horseman,Yronwood Horseman,21.0,4,1,2,0,withheld_missing_weapon_pair
+yronwood_knight,Yronwood Knight,26.0,5,1,2,0,withheld_missing_weapon_pair
+yronwood_levy,Yronwood Levy,11.0,2,1,1,0,withheld_missing_weapon_pair
+yronwood_man_at_arms,Yronwood Man at Arms,16.0,3,1,2,0,withheld_missing_weapon_pair
+yronwood_pikeman,Yronwood Pikeman,21.0,4,1,2,0,withheld_missing_weapon_pair
+yronwood_recruit,Yronwood Recruit,6.0,1,1,1,0,withheld_missing_weapon_pair
+yronwood_veteran_archer,Yronwood Veteran Archer,26.0,5,1,1,0,withheld_missing_weapon_pair
+yronwood_veteran_pikeman,Yronwood Veteran Pikeman,26.0,5,1,2,0,withheld_missing_weapon_pair

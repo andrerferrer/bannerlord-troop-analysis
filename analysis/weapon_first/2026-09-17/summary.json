@@ -1,0 +1,31 @@
+{
+  "base_commit": "9311f5596aabc04974d5fe4d7113f1088454143f",
+  "complete_usage_pairs": 0,
+  "distinct_items_needing_evidence": 189,
+  "evidence_grades": {
+    "ambiguous_slot": 2,
+    "crafted_unvalidated": 1717,
+    "unresolved": 5
+  },
+  "export_id": "export_20260731_150800",
+  "families": {
+    "melee": 1719,
+    "non_melee": 1496,
+    "thrown": 125,
+    "unresolved_item": 5
+  },
+  "game_version_from_package": "v1.4.7",
+  "gate_outcome": "comparison_withheld",
+  "legacy_rows_rejected": 20,
+  "live_installation_equivalence": "unverified",
+  "melee_or_unresolved_slot_rows": 1724,
+  "rank_generated": false,
+  "raw_soldiers": 1232,
+  "roster_policy": "alternatives kept separate; no favorable-roster pick, cross-roster sum or partial mean",
+  "rosters": 1151,
+  "scope": "all added/overridden ROT soldiers; untouched vanilla excluded",
+  "selected_troops": 865,
+  "skill_used_for_priority": false,
+  "track": "realm_of_thrones",
+  "weapon_slot_rows": 3345
+}

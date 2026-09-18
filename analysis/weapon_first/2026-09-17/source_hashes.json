@@ -1,0 +1,135 @@
+[
+  {
+    "bytes": 349836,
+    "git_blob_sha": "fcfd33a32f0e4a52c7ecc9e4dc573dd0390d65e3",
+    "path": "analysis_pack/realm_of_thrones/realm_of_thrones_override_report.csv",
+    "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+    "sha256": "8d69270251ca83c05bcfbd2d1e800ea4c1df2bde6c5203122009474e0fba6a62"
+  },
+  {
+    "bytes": 212968,
+    "git_blob_sha": "a599aca63d20d28f25767e1c4bbcd30476ba20ea",
+    "path": "analysis_pack/realm_of_thrones/realm_of_thrones_tree_tiers.csv",
+    "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+    "sha256": "ec46e71b1c877c9ec4ed0fa1b4649496f7e9f0ebc8bd247ec035a476a1a9d3ce"
+  },
+  {
+    "bytes": 13115265,
+    "git_blob_sha": "c5de20dd33783deca7a3297b770fc091c7ae39a1",
+    "path": "analysis_pack/realm_of_thrones/realm_of_thrones_troop_equipment_audit.csv",
+    "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+    "sha256": "e08edca636e27df34fbb00fb7d6fc6f83f974846374fb286740460aa540a678f"
+  },
+  {
+    "bytes": 847329,
+    "git_blob_sha": "67df28bb6cbfbb60a37a90950c781980d41a2fe9",
+    "path": "analysis_pack/realm_of_thrones/realm_of_thrones_troops.csv",
+    "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+    "sha256": "63ea983998e25aa0e6f8c0747bf42e44440f695bbe1fec717074e7ba64e42810"
+  },
+  {
+    "bytes": 11310,
+    "git_blob_sha": "3dd55898d83c74e685ae6a6523613632cd1ad015",
+    "path": "data/combat_observations/test_queues/realm_of_thrones.json",
+    "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+    "sha256": "3603bfd2406963c7f741cabb8bdc64732fd1728d74ff2b2ba88e0ac88d87735c"
+  },
+  {
+    "bytes": 106030,
+    "git_blob_sha": "f9a864a79052930385b090640e323811e386cc2a",
+    "path": "data/realm_of_thrones/audit/realm_of_thrones_crafted_item_pieces.csv",
+    "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+    "sha256": "497277d1140ff604ce9af761299bff4cf60e929a6ff55da923ff3858923eb516"
+  },
+  {
+    "bytes": 349836,
+    "git_blob_sha": "fcfd33a32f0e4a52c7ecc9e4dc573dd0390d65e3",
+    "path": "data/realm_of_thrones/audit/realm_of_thrones_override_report.csv",
+    "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+    "sha256": "8d69270251ca83c05bcfbd2d1e800ea4c1df2bde6c5203122009474e0fba6a62"
+  },
+  {
+    "bytes": 212968,
+    "git_blob_sha": "a599aca63d20d28f25767e1c4bbcd30476ba20ea",
+    "path": "data/realm_of_thrones/audit/realm_of_thrones_tree_tiers.csv",
+    "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+    "sha256": "ec46e71b1c877c9ec4ed0fa1b4649496f7e9f0ebc8bd247ec035a476a1a9d3ce"
+  },
+  {
+    "bytes": 13115265,
+    "git_blob_sha": "c5de20dd33783deca7a3297b770fc091c7ae39a1",
+    "path": "data/realm_of_thrones/audit/realm_of_thrones_troop_equipment_audit.csv",
+    "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+    "sha256": "e08edca636e27df34fbb00fb7d6fc6f83f974846374fb286740460aa540a678f"
+  },
+  {
+    "bytes": 847329,
+    "git_blob_sha": "67df28bb6cbfbb60a37a90950c781980d41a2fe9",
+    "path": "data/realm_of_thrones/audit/realm_of_thrones_troops.csv",
+    "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+    "sha256": "63ea983998e25aa0e6f8c0747bf42e44440f695bbe1fec717074e7ba64e42810"
+  },
+  {
+    "bytes": 122,
+    "git_blob_sha": "6f353471bbabf700228e3aa28396a0bfc9f09e08",
+    "path": "data/rot_reference/hot_20260717/v44_exact_item_profile_template.csv",
+    "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+    "sha256": "5e3f2a645cdeb0e99f8f18b2260da7e44f289dfe88eb0dcdc1fea05f3820abfb"
+  },
+  {
+    "bytes": 3502,
+    "git_blob_sha": "65fd10f88f2295dedb793cea50740fde5c62f9ce",
+    "path": "data/rot_reference/hot_20260717/v44_kinetic_profile_audit.csv",
+    "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+    "sha256": "7f8773c18578e516a1b71381c7d27e707ea950e99c59bcd451653185515fdb37"
+  },
+  {
+    "bytes": 1693,
+    "git_blob_sha": "818b9f0b5d4a3c7eda0342cef2f2dcece88dfcdd",
+    "path": "data/xml_exports/export_20260731_150800/PACKAGE.json",
+    "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+    "sha256": "609b48e9a7f4010e2ce824124fe38e413da489bcd64ad84db7cc2c0e5e709793"
+  },
+  {
+    "bytes": 1022,
+    "git_blob_sha": "ff33d20287dd35f20acdd8be15f58464f869e19c",
+    "path": "data/xml_exports/export_20260731_150800/RECONSTRUCTION.md",
+    "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+    "sha256": "36736236cf581abea5f3fed1260ea48434baeef15e0080996f307678f2e882b6"
+  },
+  {
+    "bytes": 12698,
+    "git_blob_sha": "d8fe9774df7bf404d26de2ab4c7d374a0b0e3e02",
+    "path": "data/xml_exports/export_20260731_150800/artifact_hashes.csv",
+    "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+    "sha256": "4cfbdb9a1983527ec24ff8856107834911fdde531b6bf1922ec7e9bc374aab30"
+  },
+  {
+    "bytes": 24873,
+    "git_blob_sha": "dd0c08712e5133711801a11ea12d9afa2837aabf",
+    "path": "docs/handoff/PC_CRAFTING_PIECES_EXPORT_PROMPT.md",
+    "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+    "sha256": "8e42b3228dc88eddab6145ed60f5fe4cb0a524948450a1cd18a6c7909e53f524"
+  },
+  {
+    "bytes": 4597,
+    "git_blob_sha": "35bd80f832d2519700e626f030698649c987a500",
+    "path": "docs/rot_reference/HOT_V44_KINETIC_MELEE_INTEGRATION.md",
+    "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+    "sha256": "de2977d0572d1279b2e6c0929e8a2cfa121d26adce08440c7124be4c4c326688"
+  },
+  {
+    "bytes": 42834,
+    "git_blob_sha": "a7d514b4257b2fc781ec993e77651b3e302ede54",
+    "path": "scripts/normalization/rebuild_vanilla_audit.py",
+    "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+    "sha256": "6eb6ba8a3987af5f656e191fb080999cff95704bb5fa9b6c41bf4d4a583bcb4b"
+  },
+  {
+    "bytes": 21998,
+    "git_blob_sha": "a656d2f0f65bc3a0bb9b4576e772cee67cb85c98",
+    "path": "scripts/normalization/reconstruct_crafted_weapon_stats.py",
+    "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+    "sha256": "abbfb70b8c11b3195029435d9a89812ebb1110237304110bd6471a86e3f03ed6"
+  }
+]

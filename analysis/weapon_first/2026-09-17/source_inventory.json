@@ -1,0 +1,1501 @@
+{
+  "purpose": "source inspection only; no recommendation or scoring",
+  "related_paths": [
+    "analysis/item_validation/2026-06-05_throwing_tooltips/findings.md",
+    "analysis/item_validation/2026-06-05_throwing_tooltips/item_tooltip_validation_20260605.csv",
+    "analysis/item_validation/2026-06-05_throwing_tooltips/screenshot_manifest.csv",
+    "analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_burst_assumptions.md",
+    "analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_burst_summary.md",
+    "analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_key_burst_cases_compact.csv",
+    "analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_top20_burst_units_regular_compact.csv",
+    "analysis/theoretical/BLOCKED_EMPIRIA_V44.md",
+    "data/rot_reference/empirical/20260703_battle_groups.csv",
+    "data/rot_reference/empirical/20260703_contextual_control_status.csv",
+    "data/rot_reference/empirical/20260703_empirical_control_aggregate_combined_batch1_2.csv",
+    "data/rot_reference/empirical/20260703_empirical_troop_aggregate_batch1.csv",
+    "data/rot_reference/empirical/20260703_empirical_troop_rows_template.csv",
+    "data/rot_reference/empirical/20260703_model_vs_empirical_delta_controls.csv",
+    "data/rot_reference/empirical/20260703_screenshot_manifest.csv",
+    "data/rot_reference/empirical/20260703_v42_control_adjustments.csv",
+    "data/rot_reference/empirical/20260717_metric_scope_audit.csv",
+    "data/rot_reference/empirical/20260717_robust_metric_audit.csv",
+    "data/rot_reference/hot_20260628/old_existing_troops_likely_real_updates.csv",
+    "data/rot_reference/hot_20260628/v41_castellan_house_corrections.csv",
+    "data/rot_reference/hot_20260628/v41_ibbenese_navigator_reclassification.csv",
+    "data/rot_reference/hot_20260628/v41_key_controls.csv",
+    "data/rot_reference/hot_20260628/v4_integrated_key_controls.csv",
+    "data/rot_reference/hot_20260628/v4_ranged_capacity_controls.csv",
+    "data/rot_reference/hot_20260628/weapon_first_v1_new_likely_campaign_ranked.csv",
+    "data/rot_reference/hot_20260628/weapon_first_v1_new_non_militia_ranked.csv",
+    "data/rot_reference/hot_20260717/v43_castellan_house_package_ranking.csv",
+    "data/rot_reference/hot_20260717/v43_top20_overall.csv",
+    "data/rot_reference/hot_20260717/v44_exact_item_profile_template.csv",
+    "data/rot_reference/hot_20260717/v44_kinetic_profile_audit.csv",
+    "data/rot_reference/hot_20260717/v44_kinetic_sensitivity_summary.json",
+    "data/rot_reference/hot_20260717/v44_kinetic_top20_sensitivity.csv",
+    "docs/rot_reference/EMPIRICAL_CONTEXT_SEGMENTATION_20260703.md",
+    "docs/rot_reference/EMPIRICAL_DATA_FREEZE_20260717.md",
+    "docs/rot_reference/EMPIRICAL_SCREENSHOT_INTAKE_20260703.md",
+    "docs/rot_reference/EMPIRICAL_TRANSCRIPTION_BATCH1_20260703.md",
+    "docs/rot_reference/EMPIRICAL_TRANSCRIPTION_BATCH2_20260703.md",
+    "docs/rot_reference/HOT_20260628_V41_SKIRMISHER_RECLASS.md",
+    "docs/rot_reference/HOT_20260628_V4_INTEGRATED_WEAPON_OUTPUT.md",
+    "docs/rot_reference/HOT_20260628_WEAPON_FIRST_CAPACITY_BUG.md",
+    "docs/rot_reference/HOT_20260628_WEAPON_FIRST_ERRATA.md",
+    "docs/rot_reference/HOT_20260628_WEAPON_FIRST_RANKING_V1.md",
+    "docs/rot_reference/HOT_20260717_V43_SPEED_SKILL_CASTELLAN_ANALYSIS.md",
+    "docs/rot_reference/HOT_V44_KINETIC_MELEE_INTEGRATION.md",
+    "docs/rot_reference/MODEL_VS_EMPIRICAL_DELTA_20260703.md",
+    "docs/rot_reference/ROT_ANALYSIS_FULL_HANDOFF.md",
+    "docs/rot_reference/V42_CALIBRATION_PROPOSAL_20260703.md",
+    "docs/rot_reference/rot_htk_v3_notes.md",
+    "scripts/build_v73_tooltip_damage_burst.py",
+    "scripts/rot/rot_v44_kinetic_overlay.py",
+    "tests/test_rot_v44_kinetic_overlay.py"
+  ],
+  "source_commit": "9311f5596aabc04974d5fe4d7113f1088454143f",
+  "sources": [
+    {
+      "columns": [
+        "troop_id",
+        "roster_index",
+        "slot",
+        "item_id",
+        "equipment_source"
+      ],
+      "displayed_rows": 52,
+      "git_blob_sha": "5a2afd38a5b8c2342d41559eed9e540cb740c552",
+      "matched_rows": 52,
+      "path": "data/realm_of_thrones/audit/realm_of_thrones_equipment_rosters.csv",
+      "row_count": 55436,
+      "rows": [
+        {
+          "csv_row": 47575,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "0",
+            "slot": "Item0",
+            "troop_id": "stormlands_thunderknight"
+          }
+        },
+        {
+          "csv_row": 47576,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "vlandia_lance_3_t5",
+            "roster_index": "0",
+            "slot": "Item1",
+            "troop_id": "stormlands_thunderknight"
+          }
+        },
+        {
+          "csv_row": 47577,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "stormlands_armor",
+            "roster_index": "0",
+            "slot": "Body",
+            "troop_id": "stormlands_thunderknight"
+          }
+        },
+        {
+          "csv_row": 47578,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "jon_snow_boots",
+            "roster_index": "0",
+            "slot": "Leg",
+            "troop_id": "stormlands_thunderknight"
+          }
+        },
+        {
+          "csv_row": 47579,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "kingsguard_gloves",
+            "roster_index": "0",
+            "slot": "Gloves",
+            "troop_id": "stormlands_thunderknight"
+          }
+        },
+        {
+          "csv_row": 47580,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "stormlands_helmet",
+            "roster_index": "0",
+            "slot": "Head",
+            "troop_id": "stormlands_thunderknight"
+          }
+        },
+        {
+          "csv_row": 47581,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "stormlands_shoulders",
+            "roster_index": "0",
+            "slot": "Cape",
+            "troop_id": "stormlands_thunderknight"
+          }
+        },
+        {
+          "csv_row": 47582,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "t2_battania_horse",
+            "roster_index": "0",
+            "slot": "Horse",
+            "troop_id": "stormlands_thunderknight"
+          }
+        },
+        {
+          "csv_row": 47583,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "rot_horse_armor27",
+            "roster_index": "0",
+            "slot": "HorseHarness",
+            "troop_id": "stormlands_thunderknight"
+          }
+        },
+        {
+          "csv_row": 48668,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "vlandia_sword_3_t4",
+            "roster_index": "0",
+            "slot": "Item0",
+            "troop_id": "mounted_kingsguard"
+          }
+        },
+        {
+          "csv_row": 48669,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "bracketed_heater_shield",
+            "roster_index": "0",
+            "slot": "Item1",
+            "troop_id": "mounted_kingsguard"
+          }
+        },
+        {
+          "csv_row": 48670,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "vlandia_lance_3_t5",
+            "roster_index": "0",
+            "slot": "Item2",
+            "troop_id": "mounted_kingsguard"
+          }
+        },
+        {
+          "csv_row": 48671,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "vlandia_2hsword_1_t5",
+            "roster_index": "0",
+            "slot": "Item3",
+            "troop_id": "mounted_kingsguard"
+          }
+        },
+        {
+          "csv_row": 48672,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "kg_armor",
+            "roster_index": "0",
+            "slot": "Body",
+            "troop_id": "mounted_kingsguard"
+          }
+        },
+        {
+          "csv_row": 48673,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "kg_boots",
+            "roster_index": "0",
+            "slot": "Leg",
+            "troop_id": "mounted_kingsguard"
+          }
+        },
+        {
+          "csv_row": 48674,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "kingsguard_gloves_with_bracers",
+            "roster_index": "0",
+            "slot": "Gloves",
+            "troop_id": "mounted_kingsguard"
+          }
+        },
+        {
+          "csv_row": 48675,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "kg_helmet",
+            "roster_index": "0",
+            "slot": "Head",
+            "troop_id": "mounted_kingsguard"
+          }
+        },
+        {
+          "csv_row": 48676,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "kingsguard_pauldrons_with_cloak",
+            "roster_index": "0",
+            "slot": "Cape",
+            "troop_id": "mounted_kingsguard"
+          }
+        },
+        {
+          "csv_row": 48677,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "t3_vlandia_horse",
+            "roster_index": "0",
+            "slot": "Horse",
+            "troop_id": "mounted_kingsguard"
+          }
+        },
+        {
+          "csv_row": 48678,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "kingsguard_horse_armor",
+            "roster_index": "0",
+            "slot": "HorseHarness",
+            "troop_id": "mounted_kingsguard"
+          }
+        },
+        {
+          "csv_row": 49617,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "khuzait_polearm_1_t4",
+            "roster_index": "0",
+            "slot": "Item0",
+            "troop_id": "sarnor_spider"
+          }
+        },
+        {
+          "csv_row": 49618,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "eastern_javelin_3_t4",
+            "roster_index": "0",
+            "slot": "Item1",
+            "troop_id": "sarnor_spider"
+          }
+        },
+        {
+          "csv_row": 49619,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "eastern_javelin_3_t4",
+            "roster_index": "0",
+            "slot": "Item2",
+            "troop_id": "sarnor_spider"
+          }
+        },
+        {
+          "csv_row": 49620,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "eastern_javelin_3_t4",
+            "roster_index": "0",
+            "slot": "Item3",
+            "troop_id": "sarnor_spider"
+          }
+        },
+        {
+          "csv_row": 49621,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "sarnor_armor",
+            "roster_index": "0",
+            "slot": "Body",
+            "troop_id": "sarnor_spider"
+          }
+        },
+        {
+          "csv_row": 49622,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "sarnor_boots",
+            "roster_index": "0",
+            "slot": "Leg",
+            "troop_id": "sarnor_spider"
+          }
+        },
+        {
+          "csv_row": 49623,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "sarnor_bracers",
+            "roster_index": "0",
+            "slot": "Gloves",
+            "troop_id": "sarnor_spider"
+          }
+        },
+        {
+          "csv_row": 49624,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "sarnor_shoulders",
+            "roster_index": "0",
+            "slot": "Cape",
+            "troop_id": "sarnor_spider"
+          }
+        },
+        {
+          "csv_row": 49625,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "sarnori_officer_helmet",
+            "roster_index": "0",
+            "slot": "Head",
+            "troop_id": "sarnor_spider"
+          }
+        },
+        {
+          "csv_row": 49626,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "t2_khuzait_horse",
+            "roster_index": "0",
+            "slot": "Horse",
+            "troop_id": "sarnor_spider"
+          }
+        },
+        {
+          "csv_row": 49627,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "northern_ring_barding",
+            "roster_index": "0",
+            "slot": "HorseHarness",
+            "troop_id": "sarnor_spider"
+          }
+        },
+        {
+          "csv_row": 49794,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "norvoshi_long_axe",
+            "roster_index": "0",
+            "slot": "Item0",
+            "troop_id": "mounted_priest"
+          }
+        },
+        {
+          "csv_row": 49795,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "dorne_sword",
+            "roster_index": "0",
+            "slot": "Item1",
+            "troop_id": "mounted_priest"
+          }
+        },
+        {
+          "csv_row": 49796,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "battania_shield_targe_a",
+            "roster_index": "0",
+            "slot": "Item3",
+            "troop_id": "mounted_priest"
+          }
+        },
+        {
+          "csv_row": 49797,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "norvoshi_priest_armor",
+            "roster_index": "0",
+            "slot": "Body",
+            "troop_id": "mounted_priest"
+          }
+        },
+        {
+          "csv_row": 49798,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "norvoshi_priest_boots",
+            "roster_index": "0",
+            "slot": "Leg",
+            "troop_id": "mounted_priest"
+          }
+        },
+        {
+          "csv_row": 49799,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "norvoshi_priest_bracers",
+            "roster_index": "0",
+            "slot": "Gloves",
+            "troop_id": "mounted_priest"
+          }
+        },
+        {
+          "csv_row": 49800,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "norvoshi_priest_shoulders_cape",
+            "roster_index": "0",
+            "slot": "Cape",
+            "troop_id": "mounted_priest"
+          }
+        },
+        {
+          "csv_row": 49801,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "norvoshi_priest_helmet",
+            "roster_index": "0",
+            "slot": "Head",
+            "troop_id": "mounted_priest"
+          }
+        },
+        {
+          "csv_row": 49802,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "t2_khuzait_horse",
+            "roster_index": "0",
+            "slot": "Horse",
+            "troop_id": "mounted_priest"
+          }
+        },
+        {
+          "csv_row": 49803,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "norvoshi_horse_armor",
+            "roster_index": "0",
+            "slot": "HorseHarness",
+            "troop_id": "mounted_priest"
+          }
+        },
+        {
+          "csv_row": 51407,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "yiti_sword",
+            "roster_index": "0",
+            "slot": "Item0",
+            "troop_id": "yiti_samurai"
+          }
+        },
+        {
+          "csv_row": 51408,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "yiti_qinglongji",
+            "roster_index": "0",
+            "slot": "Item1",
+            "troop_id": "yiti_samurai"
+          }
+        },
+        {
+          "csv_row": 51409,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "empire_throwingknife_t5",
+            "roster_index": "0",
+            "slot": "Item2",
+            "troop_id": "yiti_samurai"
+          }
+        },
+        {
+          "csv_row": 51410,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "empire_throwingknife_t5",
+            "roster_index": "0",
+            "slot": "Item3",
+            "troop_id": "yiti_samurai"
+          }
+        },
+        {
+          "csv_row": 51411,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "yiti_helmet3",
+            "roster_index": "0",
+            "slot": "Head",
+            "troop_id": "yiti_samurai"
+          }
+        },
+        {
+          "csv_row": 51412,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "yiti_armor3",
+            "roster_index": "0",
+            "slot": "Body",
+            "troop_id": "yiti_samurai"
+          }
+        },
+        {
+          "csv_row": 51413,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "yiti_boots",
+            "roster_index": "0",
+            "slot": "Leg",
+            "troop_id": "yiti_samurai"
+          }
+        },
+        {
+          "csv_row": 51414,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "yiti_shoulder3",
+            "roster_index": "0",
+            "slot": "Cape",
+            "troop_id": "yiti_samurai"
+          }
+        },
+        {
+          "csv_row": 51415,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "yiti_bracers2",
+            "roster_index": "0",
+            "slot": "Gloves",
+            "troop_id": "yiti_samurai"
+          }
+        },
+        {
+          "csv_row": 51416,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "t3_khuzait_horse",
+            "roster_index": "0",
+            "slot": "Horse",
+            "troop_id": "yiti_samurai"
+          }
+        },
+        {
+          "csv_row": 51417,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "volantene_horse_armor",
+            "roster_index": "0",
+            "slot": "HorseHarness",
+            "troop_id": "yiti_samurai"
+          }
+        }
+      ],
+      "sha256": "c348272b860c25466db5f849db3ac0e52d11a648a66e3afe3839fb4a04812e8a",
+      "size_bytes": 3113907
+    },
+    {
+      "columns": [
+        "item_id",
+        "name",
+        "item_kind",
+        "type",
+        "crafting_template",
+        "culture",
+        "modifier_group",
+        "source_xml",
+        "piece_ids",
+        "crafted_stats_reconstructed",
+        "score_usage_status"
+      ],
+      "displayed_rows": 7,
+      "git_blob_sha": "60fb37b65321f27ee87ed73a79062310b41b0d51",
+      "matched_rows": 7,
+      "path": "data/realm_of_thrones/audit/realm_of_thrones_items_crafted.csv",
+      "row_count": 674,
+      "rows": [
+        {
+          "csv_row": 307,
+          "values": {
+            "crafted_stats_reconstructed": "False",
+            "crafting_template": "TwoHandedPolearm",
+            "culture": "khuzait",
+            "item_id": "khuzait_polearm_1_t4",
+            "item_kind": "CraftedItem",
+            "modifier_group": "polearm",
+            "name": "Glaive",
+            "piece_ids": "spear_blade_19|spear_banner_16|spear_handle_15|default_polearm_pommel",
+            "score_usage_status": "audit_only_no_aggressive_htk",
+            "source_xml": "SandBoxCore/ModuleData/items/weapons.xml",
+            "type": "CraftedWeapon"
+          }
+        },
+        {
+          "csv_row": 406,
+          "values": {
+            "crafted_stats_reconstructed": "False",
+            "crafting_template": "TwoHandedSword",
+            "culture": "vlandia",
+            "item_id": "western_2hsword_t4",
+            "item_kind": "CraftedItem",
+            "modifier_group": "sword",
+            "name": "Broad Two Hander",
+            "piece_ids": "vlandian_blade_2|vlandian_guard_5|vlandian_grip_7|vlandian_pommel_7",
+            "score_usage_status": "audit_only_no_aggressive_htk",
+            "source_xml": "SandBoxCore/ModuleData/items/weapons.xml",
+            "type": "CraftedWeapon"
+          }
+        },
+        {
+          "csv_row": 411,
+          "values": {
+            "crafted_stats_reconstructed": "False",
+            "crafting_template": "TwoHandedSword",
+            "culture": "vlandia",
+            "item_id": "vlandia_2hsword_1_t5",
+            "item_kind": "CraftedItem",
+            "modifier_group": "sword",
+            "name": "Wide Fullered Broad Two Hander",
+            "piece_ids": "vlandian_blade_3|vlandian_guard_7|vlandian_grip_8|vlandian_pommel_4",
+            "score_usage_status": "audit_only_no_aggressive_htk",
+            "source_xml": "SandBoxCore/ModuleData/items/weapons.xml",
+            "type": "CraftedWeapon"
+          }
+        },
+        {
+          "csv_row": 465,
+          "values": {
+            "crafted_stats_reconstructed": "False",
+            "crafting_template": "ThrowingKnife",
+            "culture": "empire",
+            "item_id": "empire_throwingknife_t5",
+            "item_kind": "CraftedItem",
+            "modifier_group": "knife_throwing",
+            "name": "Broad Bladed Throwing Knives",
+            "piece_ids": "dagger_blade_12|empire_dagger_guard_3|empire_grip_2|empire_pommel_1",
+            "score_usage_status": "audit_only_no_aggressive_htk",
+            "source_xml": "SandBoxCore/ModuleData/items/weapons.xml",
+            "type": "CraftedWeapon"
+          }
+        },
+        {
+          "csv_row": 606,
+          "values": {
+            "crafted_stats_reconstructed": "False",
+            "crafting_template": "TwoHandedPolearm",
+            "culture": "norvos",
+            "item_id": "norvoshi_long_axe",
+            "item_kind": "CraftedItem",
+            "modifier_group": "polearm",
+            "name": "Norvoshi Long Axe",
+            "piece_ids": "norvoshi_long_axe_blade|norvoshi_long_axe_guard|norvoshi_long_axe_handle",
+            "score_usage_status": "audit_only_no_aggressive_htk",
+            "source_xml": "ROT-Content/ModuleData/ROTassets.xml",
+            "type": "CraftedWeapon"
+          }
+        },
+        {
+          "csv_row": 652,
+          "values": {
+            "crafted_stats_reconstructed": "False",
+            "crafting_template": "TwoHandedSword",
+            "culture": "",
+            "item_id": "yiti_sword",
+            "item_kind": "CraftedItem",
+            "modifier_group": "sword",
+            "name": "Yitish Sword",
+            "piece_ids": "yiti_blade|yiti_guard|yiti_handle|yiti_pommel",
+            "score_usage_status": "audit_only_no_aggressive_htk",
+            "source_xml": "ROT-Content/ModuleData/ROTassets.xml",
+            "type": "CraftedWeapon"
+          }
+        },
+        {
+          "csv_row": 654,
+          "values": {
+            "crafted_stats_reconstructed": "False",
+            "crafting_template": "TwoHandedPolearm",
+            "culture": "yiti",
+            "item_id": "yiti_qinglongji",
+            "item_kind": "CraftedItem",
+            "modifier_group": "polearm",
+            "name": "YiTish Qinglong ji",
+            "piece_ids": "yiti_poleaxe_blade|yiti_poleaxe_handle",
+            "score_usage_status": "audit_only_no_aggressive_htk",
+            "source_xml": "ROT-Content/ModuleData/ROTassets.xml",
+            "type": "CraftedWeapon"
+          }
+        }
+      ],
+      "sha256": "b645c469c0db1c1e66e85a1bd94f2ec54b72778287c23b1b02634550dbf20e62",
+      "size_bytes": 151807
+    },
+    {
+      "columns": [
+        "item_id",
+        "name",
+        "item_kind",
+        "type",
+        "subtype",
+        "culture",
+        "weight",
+        "value",
+        "source_xml",
+        "weapon_class",
+        "stack_amount",
+        "speed_rating",
+        "missile_speed",
+        "accuracy",
+        "weapon_length",
+        "swing_damage",
+        "swing_damage_type",
+        "thrust_damage",
+        "thrust_damage_type",
+        "hit_points",
+        "shield_armor",
+        "head_armor",
+        "body_armor",
+        "arm_armor",
+        "leg_armor",
+        "horse_speed",
+        "horse_maneuver",
+        "horse_charge_damage",
+        "horse_extra_health"
+      ],
+      "displayed_rows": 0,
+      "git_blob_sha": "f88688b1b63a781519debf96ee213495c82c69b6",
+      "matched_rows": 0,
+      "path": "data/realm_of_thrones/audit/realm_of_thrones_items_direct.csv",
+      "row_count": 3653,
+      "rows": [],
+      "sha256": "b54ad317034d2e3efa5bdb30581130e8ac2ea10c482fc9710f08f55ae28f6a49",
+      "size_bytes": 490590
+    },
+    {
+      "columns": [
+        "troop_id",
+        "troop_name",
+        "level",
+        "upgrade_depth",
+        "tree_tier",
+        "line_status",
+        "culture",
+        "default_group",
+        "roster_index",
+        "items",
+        "weapon_items",
+        "direct_weapon_items",
+        "crafted_weapon_items",
+        "crafted_templates",
+        "has_bow",
+        "has_crossbow",
+        "has_arrows",
+        "has_bolts",
+        "has_shield",
+        "has_horse",
+        "has_horse_harness",
+        "has_throwing",
+        "armor_total",
+        "shield_hp_max",
+        "horse_speed_max",
+        "horse_charge_max",
+        "horse_harness_armor_max",
+        "crafted_weapon_stat_status",
+        "unknown_item_count"
+      ],
+      "displayed_rows": 5,
+      "git_blob_sha": "ab8a9b58779cca2ae727d5dd2786de5124c56ffc",
+      "matched_rows": 5,
+      "path": "data/realm_of_thrones/audit/realm_of_thrones_roster_audit_summary.csv",
+      "row_count": 14343,
+      "rows": [
+        {
+          "csv_row": 5170,
+          "values": {
+            "armor_total": "211.0",
+            "crafted_templates": "OneHandedSword|TwoHandedPolearm|TwoHandedSword",
+            "crafted_weapon_items": "vlandia_sword_3_t4|vlandia_lance_3_t5|vlandia_2hsword_1_t5",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "crownlands",
+            "default_group": "Cavalry",
+            "direct_weapon_items": "bracketed_heater_shield",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "True",
+            "has_horse_harness": "True",
+            "has_shield": "True",
+            "has_throwing": "False",
+            "horse_charge_max": "32.0",
+            "horse_harness_armor_max": "80.0",
+            "horse_speed_max": "64.0",
+            "items": "vlandia_sword_3_t4|bracketed_heater_shield|vlandia_lance_3_t5|vlandia_2hsword_1_t5|kg_armor|kg_boots|kingsguard_gloves_with_bracers|kg_helmet|kingsguard_pauldrons_with_cloak|t3_vlandia_horse|kingsguard_horse_armor",
+            "level": "31.0",
+            "line_status": "main_or_minor_line",
+            "roster_index": "0",
+            "shield_hp_max": "370.0",
+            "tree_tier": "5.0",
+            "troop_id": "mounted_kingsguard",
+            "troop_name": "Captain of the Kingsguard",
+            "unknown_item_count": "0",
+            "upgrade_depth": "5.0",
+            "weapon_items": "vlandia_sword_3_t4|bracketed_heater_shield|vlandia_lance_3_t5|vlandia_2hsword_1_t5"
+          }
+        },
+        {
+          "csv_row": 5174,
+          "values": {
+            "armor_total": "185.0",
+            "crafted_templates": "OneHandedSword|TwoHandedPolearm",
+            "crafted_weapon_items": "norvoshi_long_axe|dorne_sword",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "norvos",
+            "default_group": "Cavalry",
+            "direct_weapon_items": "battania_shield_targe_a",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "True",
+            "has_horse_harness": "True",
+            "has_shield": "True",
+            "has_throwing": "False",
+            "horse_charge_max": "19.0",
+            "horse_harness_armor_max": "65.0",
+            "horse_speed_max": "59.0",
+            "items": "norvoshi_long_axe|dorne_sword|battania_shield_targe_a|norvoshi_priest_armor|norvoshi_priest_boots|norvoshi_priest_bracers|norvoshi_priest_shoulders_cape|norvoshi_priest_helmet|t2_khuzait_horse|norvoshi_horse_armor",
+            "level": "31.0",
+            "line_status": "main_or_minor_line",
+            "roster_index": "0",
+            "shield_hp_max": "250.0",
+            "tree_tier": "5.0",
+            "troop_id": "mounted_priest",
+            "troop_name": "Norvoshi Grand Bearded Priest",
+            "unknown_item_count": "0",
+            "upgrade_depth": "5.0",
+            "weapon_items": "norvoshi_long_axe|dorne_sword|battania_shield_targe_a"
+          }
+        },
+        {
+          "csv_row": 7460,
+          "values": {
+            "armor_total": "155.0",
+            "crafted_templates": "Javelin|TwoHandedPolearm",
+            "crafted_weapon_items": "khuzait_polearm_1_t4|eastern_javelin_3_t4|eastern_javelin_3_t4|eastern_javelin_3_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "sarnor",
+            "default_group": "Cavalry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "True",
+            "has_horse_harness": "True",
+            "has_shield": "False",
+            "has_throwing": "True",
+            "horse_charge_max": "19.0",
+            "horse_harness_armor_max": "41.0",
+            "horse_speed_max": "59.0",
+            "items": "khuzait_polearm_1_t4|eastern_javelin_3_t4|eastern_javelin_3_t4|eastern_javelin_3_t4|sarnor_armor|sarnor_boots|sarnor_bracers|sarnor_shoulders|sarnori_officer_helmet|t2_khuzait_horse|northern_ring_barding",
+            "level": "31.0",
+            "line_status": "main_or_minor_line",
+            "roster_index": "0",
+            "shield_hp_max": "0.0",
+            "tree_tier": "5.0",
+            "troop_id": "sarnor_spider",
+            "troop_name": "Sarnori Spider",
+            "unknown_item_count": "0",
+            "upgrade_depth": "5.0",
+            "weapon_items": "khuzait_polearm_1_t4|eastern_javelin_3_t4|eastern_javelin_3_t4|eastern_javelin_3_t4"
+          }
+        },
+        {
+          "csv_row": 7921,
+          "values": {
+            "armor_total": "158.0",
+            "crafted_templates": "TwoHandedPolearm|TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4|vlandia_lance_3_t5",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "stormlands",
+            "default_group": "Cavalry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "True",
+            "has_horse_harness": "True",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "22.0",
+            "horse_harness_armor_max": "75.0",
+            "horse_speed_max": "55.0",
+            "items": "western_2hsword_t4|vlandia_lance_3_t5|stormlands_armor|jon_snow_boots|kingsguard_gloves|stormlands_helmet|stormlands_shoulders|t2_battania_horse|rot_horse_armor27",
+            "level": "31.0",
+            "line_status": "main_or_minor_line",
+            "roster_index": "0",
+            "shield_hp_max": "0.0",
+            "tree_tier": "5.0",
+            "troop_id": "stormlands_thunderknight",
+            "troop_name": "Stormlands Thunder Knight",
+            "unknown_item_count": "0",
+            "upgrade_depth": "5.0",
+            "weapon_items": "western_2hsword_t4|vlandia_lance_3_t5"
+          }
+        },
+        {
+          "csv_row": 14333,
+          "values": {
+            "armor_total": "198.0",
+            "crafted_templates": "ThrowingKnife|TwoHandedPolearm|TwoHandedSword",
+            "crafted_weapon_items": "yiti_sword|yiti_qinglongji|empire_throwingknife_t5|empire_throwingknife_t5",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "yiti",
+            "default_group": "Cavalry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "True",
+            "has_horse_harness": "True",
+            "has_shield": "False",
+            "has_throwing": "True",
+            "horse_charge_max": "20.0",
+            "horse_harness_armor_max": "65.0",
+            "horse_speed_max": "60.0",
+            "items": "yiti_sword|yiti_qinglongji|empire_throwingknife_t5|empire_throwingknife_t5|yiti_helmet3|yiti_armor3|yiti_boots|yiti_shoulder3|yiti_bracers2|t3_khuzait_horse|volantene_horse_armor",
+            "level": "31.0",
+            "line_status": "main_or_minor_line",
+            "roster_index": "0",
+            "shield_hp_max": "0.0",
+            "tree_tier": "6.0",
+            "troop_id": "yiti_samurai",
+            "troop_name": "Yi Ti Mounted Shi",
+            "unknown_item_count": "0",
+            "upgrade_depth": "6.0",
+            "weapon_items": "yiti_sword|yiti_qinglongji|empire_throwingknife_t5|empire_throwingknife_t5"
+          }
+        }
+      ],
+      "sha256": "589bbbea64e78c912a8b3d5f484177473c4618dd45af55609a262075b4fec540",
+      "size_bytes": 4015269
+    },
+    {
+      "columns": [
+        "troop_id",
+        "tree_root_id",
+        "upgrade_depth",
+        "tree_tier",
+        "upgrade_path",
+        "line_status",
+        "line_status_corrected",
+        "name",
+        "level",
+        "occupation",
+        "culture",
+        "default_group",
+        "has_upgrade_targets"
+      ],
+      "displayed_rows": 5,
+      "git_blob_sha": "a599aca63d20d28f25767e1c4bbcd30476ba20ea",
+      "matched_rows": 5,
+      "path": "data/realm_of_thrones/audit/realm_of_thrones_tree_tiers.csv",
+      "row_count": 1232,
+      "rows": [
+        {
+          "csv_row": 478,
+          "values": {
+            "culture": "crownlands",
+            "default_group": "Cavalry",
+            "has_upgrade_targets": "False",
+            "level": "31.0",
+            "line_status": "main_or_minor_line",
+            "line_status_corrected": "main_or_minor_line",
+            "name": "Captain of the Kingsguard",
+            "occupation": "Soldier",
+            "tree_root_id": "kingsguard_page",
+            "tree_tier": "5",
+            "troop_id": "mounted_kingsguard",
+            "upgrade_depth": "5",
+            "upgrade_path": "kingsguard_page|kingsguard_squire|kingsguard_initiate|kingsguard_captain|mounted_kingsguard"
+          }
+        },
+        {
+          "csv_row": 479,
+          "values": {
+            "culture": "norvos",
+            "default_group": "Cavalry",
+            "has_upgrade_targets": "False",
+            "level": "31.0",
+            "line_status": "main_or_minor_line",
+            "line_status_corrected": "main_or_minor_line",
+            "name": "Norvoshi Grand Bearded Priest",
+            "occupation": "Soldier",
+            "tree_root_id": "norvos_initiate",
+            "tree_tier": "5",
+            "troop_id": "mounted_priest",
+            "upgrade_depth": "5",
+            "upgrade_path": "norvos_initiate|norvos_acolyte|norvos_bearded_priest|devout_bearded_priest|mounted_priest"
+          }
+        },
+        {
+          "csv_row": 662,
+          "values": {
+            "culture": "sarnor",
+            "default_group": "Cavalry",
+            "has_upgrade_targets": "False",
+            "level": "31.0",
+            "line_status": "main_or_minor_line",
+            "line_status_corrected": "main_or_minor_line",
+            "name": "Sarnori Spider",
+            "occupation": "Soldier",
+            "tree_root_id": "sarnor_noble_recruit",
+            "tree_tier": "5",
+            "troop_id": "sarnor_spider",
+            "upgrade_depth": "5",
+            "upgrade_path": "sarnor_noble_recruit|sarnor_javelinier|sarnor_elite_javelinier|sarnor_master_javelinier|sarnor_spider"
+          }
+        },
+        {
+          "csv_row": 711,
+          "values": {
+            "culture": "stormlands",
+            "default_group": "Cavalry",
+            "has_upgrade_targets": "False",
+            "level": "31.0",
+            "line_status": "main_or_minor_line",
+            "line_status_corrected": "main_or_minor_line",
+            "name": "Stormlands Thunder Knight",
+            "occupation": "Soldier",
+            "tree_root_id": "stormlands_noble_recruit",
+            "tree_tier": "5",
+            "troop_id": "stormlands_thunderknight",
+            "upgrade_depth": "5",
+            "upgrade_path": "stormlands_noble_recruit|stormlands_squire|stormlands_knight|stormlands_fell_knight|stormlands_thunderknight"
+          }
+        },
+        {
+          "csv_row": 919,
+          "values": {
+            "culture": "yiti",
+            "default_group": "Cavalry",
+            "has_upgrade_targets": "False",
+            "level": "31.0",
+            "line_status": "main_or_minor_line",
+            "line_status_corrected": "main_or_minor_line",
+            "name": "Yi Ti Mounted Shi",
+            "occupation": "Soldier",
+            "tree_root_id": "yiti_recruit",
+            "tree_tier": "6",
+            "troop_id": "yiti_samurai",
+            "upgrade_depth": "6",
+            "upgrade_path": "yiti_recruit|yiti_footman|yiti_infantryman|yiti_spearman|yiti_pikeman|yiti_samurai"
+          }
+        }
+      ],
+      "sha256": "ec46e71b1c877c9ec4ed0fa1b4649496f7e9f0ebc8bd247ec035a476a1a9d3ce",
+      "size_bytes": 212968
+    },
+    {
+      "columns": [
+        "troop_id",
+        "name_raw",
+        "name",
+        "level",
+        "occupation",
+        "culture",
+        "default_group",
+        "is_basic_troop",
+        "is_hero",
+        "is_template",
+        "OneHanded",
+        "TwoHanded",
+        "Polearm",
+        "Bow",
+        "Crossbow",
+        "Throwing",
+        "Riding",
+        "Athletics",
+        "upgrade_targets",
+        "has_upgrade_targets",
+        "is_soldier"
+      ],
+      "displayed_rows": 5,
+      "git_blob_sha": "67df28bb6cbfbb60a37a90950c781980d41a2fe9",
+      "matched_rows": 5,
+      "path": "data/realm_of_thrones/audit/realm_of_thrones_troops.csv",
+      "row_count": 6187,
+      "rows": [
+        {
+          "csv_row": 4749,
+          "values": {
+            "Athletics": "220.0",
+            "Bow": "30.0",
+            "Crossbow": "5.0",
+            "OneHanded": "210.0",
+            "Polearm": "220.0",
+            "Riding": "230.0",
+            "Throwing": "5.0",
+            "TwoHanded": "230.0",
+            "culture": "stormlands",
+            "default_group": "Cavalry",
+            "has_upgrade_targets": "False",
+            "is_basic_troop": "false",
+            "is_hero": "",
+            "is_soldier": "True",
+            "is_template": "",
+            "level": "31.0",
+            "name": "Stormlands Thunder Knight",
+            "name_raw": "{=ROT00908}Stormlands Thunder Knight",
+            "occupation": "Soldier",
+            "troop_id": "stormlands_thunderknight",
+            "upgrade_targets": ""
+          }
+        },
+        {
+          "csv_row": 4895,
+          "values": {
+            "Athletics": "270.0",
+            "Bow": "30.0",
+            "Crossbow": "5.0",
+            "OneHanded": "270.0",
+            "Polearm": "270.0",
+            "Riding": "250.0",
+            "Throwing": "220.0",
+            "TwoHanded": "270.0",
+            "culture": "crownlands",
+            "default_group": "Cavalry",
+            "has_upgrade_targets": "False",
+            "is_basic_troop": "false",
+            "is_hero": "",
+            "is_soldier": "True",
+            "is_template": "",
+            "level": "31.0",
+            "name": "Captain of the Kingsguard",
+            "name_raw": "{=ROT00971}Captain of the Kingsguard",
+            "occupation": "Soldier",
+            "troop_id": "mounted_kingsguard",
+            "upgrade_targets": ""
+          }
+        },
+        {
+          "csv_row": 5002,
+          "values": {
+            "Athletics": "230.0",
+            "Bow": "5.0",
+            "Crossbow": "0.0",
+            "OneHanded": "210.0",
+            "Polearm": "230.0",
+            "Riding": "260.0",
+            "Throwing": "250.0",
+            "TwoHanded": "210.0",
+            "culture": "sarnor",
+            "default_group": "Cavalry",
+            "has_upgrade_targets": "False",
+            "is_basic_troop": "false",
+            "is_hero": "",
+            "is_soldier": "True",
+            "is_template": "",
+            "level": "31.0",
+            "name": "Sarnori Spider",
+            "name_raw": "{=ROT1cc93e3ee}Sarnori Spider",
+            "occupation": "Soldier",
+            "troop_id": "sarnor_spider",
+            "upgrade_targets": ""
+          }
+        },
+        {
+          "csv_row": 5025,
+          "values": {
+            "Athletics": "210.0",
+            "Bow": "5.0",
+            "Crossbow": "0.0",
+            "OneHanded": "210.0",
+            "Polearm": "230.0",
+            "Riding": "220.0",
+            "Throwing": "190.0",
+            "TwoHanded": "200.0",
+            "culture": "norvos",
+            "default_group": "Cavalry",
+            "has_upgrade_targets": "False",
+            "is_basic_troop": "false",
+            "is_hero": "",
+            "is_soldier": "True",
+            "is_template": "",
+            "level": "31.0",
+            "name": "Norvoshi Grand Bearded Priest",
+            "name_raw": "{=ROTgrandpriest}Norvoshi Grand Bearded Priest",
+            "occupation": "Soldier",
+            "troop_id": "mounted_priest",
+            "upgrade_targets": ""
+          }
+        },
+        {
+          "csv_row": 5217,
+          "values": {
+            "Athletics": "250.0",
+            "Bow": "20.0",
+            "Crossbow": "15.0",
+            "OneHanded": "210.0",
+            "Polearm": "210.0",
+            "Riding": "210.0",
+            "Throwing": "250.0",
+            "TwoHanded": "260.0",
+            "culture": "yiti",
+            "default_group": "Cavalry",
+            "has_upgrade_targets": "False",
+            "is_basic_troop": "",
+            "is_hero": "",
+            "is_soldier": "True",
+            "is_template": "",
+            "level": "31.0",
+            "name": "Yi Ti Mounted Shi",
+            "name_raw": "{=yitisam}Yi Ti Mounted Shi",
+            "occupation": "Soldier",
+            "troop_id": "yiti_samurai",
+            "upgrade_targets": ""
+          }
+        }
+      ],
+      "sha256": "63ea983998e25aa0e6f8c0747bf42e44440f695bbe1fec717074e7ba64e42810",
+      "size_bytes": 847329
+    },
+    {
+      "columns": [
+        "item_id",
+        "weapon_class",
+        "swing_speed",
+        "handling",
+        "weapon_length",
+        "weight",
+        "has_thrust",
+        "thrust_damage",
+        "thrust_speed",
+        "source",
+        "source_sha256"
+      ],
+      "displayed_rows": 0,
+      "git_blob_sha": "6f353471bbabf700228e3aa28396a0bfc9f09e08",
+      "matched_rows": 0,
+      "path": "data/rot_reference/hot_20260717/v44_exact_item_profile_template.csv",
+      "row_count": 0,
+      "rows": [],
+      "sha256": "5e3f2a645cdeb0e99f8f18b2260da7e44f289dfe88eb0dcdc1fea05f3820abfb",
+      "size_bytes": 122
+    },
+    {
+      "columns": [
+        "troop_id",
+        "name",
+        "best_melee_item",
+        "family",
+        "kinetic_status",
+        "profile_source",
+        "missing_fields",
+        "kinetic_application_factor",
+        "profile_swing_damage",
+        "profile_swing_speed",
+        "profile_handling",
+        "profile_reach",
+        "profile_weight",
+        "profile_has_thrust",
+        "profile_thrust_damage",
+        "profile_thrust_speed"
+      ],
+      "displayed_rows": 1,
+      "git_blob_sha": "65fd10f88f2295dedb793cea50740fde5c62f9ce",
+      "matched_rows": 1,
+      "path": "data/rot_reference/hot_20260717/v44_kinetic_profile_audit.csv",
+      "row_count": 20,
+      "rows": [
+        {
+          "csv_row": 16,
+          "values": {
+            "best_melee_item": "dorne_sword",
+            "family": "onehand_sword",
+            "kinetic_application_factor": "0.81694",
+            "kinetic_status": "applied_family_prior",
+            "missing_fields": "",
+            "name": "Norvoshi Grand Bearded Priest",
+            "profile_handling": "90.0",
+            "profile_has_thrust": "True",
+            "profile_reach": "100.0",
+            "profile_source": "low_confidence_family_prior",
+            "profile_swing_damage": "60.0",
+            "profile_swing_speed": "99.972",
+            "profile_thrust_damage": "45.0",
+            "profile_thrust_speed": "89.9748",
+            "profile_weight": "1.3",
+            "troop_id": "mounted_priest"
+          }
+        }
+      ],
+      "sha256": "7f8773c18578e516a1b71381c7d27e707ea950e99c59bcd451653185515fdb37",
+      "size_bytes": 3502
+    },
+    {
+      "columns": [
+        "rank_v43",
+        "name",
+        "troop_id",
+        "culture",
+        "level",
+        "baseline_status",
+        "is_giant",
+        "is_militia",
+        "castellan",
+        "possible_special_access",
+        "excluded_from_likely_campaign",
+        "v43_robust_total",
+        "v43_total",
+        "v43_emp_adjustment_robust",
+        "v43_offense_integrated",
+        "v43_weapon_offense_score",
+        "v43_defense",
+        "v43_reliability",
+        "v43_weapon_mode",
+        "v43_ranged_carry_score",
+        "v43_melee_carry_score",
+        "v43_throw_carry_score",
+        "v43_meaningful_throwing",
+        "v43_melee_std_damage",
+        "v43_melee_std_htk",
+        "v43_melee_speed",
+        "v43_melee_skill",
+        "v43_melee_skill_mod",
+        "v43_ranged_std_damage",
+        "v43_ranged_std_htk",
+        "v43_ranged_speed",
+        "v43_ranged_skill",
+        "v43_ranged_skill_mod",
+        "v43_ranged_ammo",
+        "v43_ranged_mixed_kpm",
+        "v43_ranged_battle_output",
+        "v43_ranged_capacity_kills",
+        "v43_throw_std_damage",
+        "v43_throw_std_htk",
+        "v43_throw_skill",
+        "v43_throw_skill_mod",
+        "best_weapon_item",
+        "best_weapon_raw_damage",
+        "best_weapon_damage_type",
+        "best_weapon_speed",
+        "best_melee_item",
+        "best_ranged_item",
+        "best_throw_item",
+        "armor_total",
+        "shield_hp_max",
+        "default_group",
+        "audit_category",
+        "total_v41_integrated",
+        "total_v3c",
+        "empirical_status_robust",
+        "empirical_score_robust",
+        "empirical_confidence",
+        "empirical_battles",
+        "empirical_total_present",
+        "verified_full_side_battles",
+        "shrunk_kpp",
+        "shrunk_survival_kpp",
+        "v44_sensitivity_status",
+        "v44_sensitivity_profile_source",
+        "v44_kinetic_application_factor",
+        "v44_melee_carry_sensitivity",
+        "v44_weapon_offense_sensitivity",
+        "v44_directional_delta",
+        "v44_directional_total_proxy",
+        "v44_directional_total_sensitivity",
+        "rank_v44_sensitivity_within_input",
+        "rank_change_within_input"
+      ],
+      "displayed_rows": 1,
+      "git_blob_sha": "37e39abb59171be86259214705660a002811c3cf",
+      "matched_rows": 1,
+      "path": "data/rot_reference/hot_20260717/v44_kinetic_top20_sensitivity.csv",
+      "row_count": 20,
+      "rows": [
+        {
+          "csv_row": 16,
+          "values": {
+            "armor_total": "185.0",
+            "audit_category": "Mounted",
+            "baseline_status": "existing_baseline",
+            "best_melee_item": "dorne_sword",
+            "best_ranged_item": "",
+            "best_throw_item": "",
+            "best_weapon_damage_type": "Cut",
+            "best_weapon_item": "dorne_sword",
+            "best_weapon_raw_damage": "60.0",
+            "best_weapon_speed": "",
+            "castellan": "True",
+            "culture": "norvos",
+            "default_group": "Cavalry",
+            "empirical_battles": "2.0",
+            "empirical_confidence": "0.125",
+            "empirical_score_robust": "40.9091",
+            "empirical_status_robust": "insufficient_data",
+            "empirical_total_present": "4.0",
+            "excluded_from_likely_campaign": "True",
+            "is_giant": "False",
+            "is_militia": "False",
+            "level": "31.0",
+            "name": "Norvoshi Grand Bearded Priest",
+            "possible_special_access": "False",
+            "rank_change_within_input": "0",
+            "rank_v43": "15",
+            "rank_v44_sensitivity_within_input": "15",
+            "shield_hp_max": "250.0",
+            "shrunk_kpp": "1.4761",
+            "shrunk_survival_kpp": "1.3153",
+            "total_v3c": "79.7145",
+            "total_v41_integrated": "80.4908",
+            "troop_id": "mounted_priest",
+            "v43_defense": "81.0402",
+            "v43_emp_adjustment_robust": "0.0",
+            "v43_meaningful_throwing": "False",
+            "v43_melee_carry_score": "68.1915",
+            "v43_melee_skill": "210.0",
+            "v43_melee_skill_mod": "1.0547",
+            "v43_melee_speed": "99.972",
+            "v43_melee_std_damage": "24.9706",
+            "v43_melee_std_htk": "4.0047",
+            "v43_offense_integrated": "68.1367",
+            "v43_ranged_ammo": "",
+            "v43_ranged_battle_output": "0.0",
+            "v43_ranged_capacity_kills": "0.0",
+            "v43_ranged_carry_score": "0.0",
+            "v43_ranged_mixed_kpm": "0.0",
+            "v43_ranged_skill": "0.0",
+            "v43_ranged_skill_mod": "1.0",
+            "v43_ranged_speed": "0.0",
+            "v43_ranged_std_damage": "0.0",
+            "v43_ranged_std_htk": "",
+            "v43_reliability": "81.7393",
+            "v43_robust_total": "74.0397",
+            "v43_throw_carry_score": "0.0",
+            "v43_throw_skill": "0.0",
+            "v43_throw_skill_mod": "1.0",
+            "v43_throw_std_damage": "0.0",
+            "v43_throw_std_htk": "",
+            "v43_total": "73.4988",
+            "v43_weapon_mode": "melee",
+            "v43_weapon_offense_score": "68.1915",
+            "v44_directional_delta": "0.180336",
+            "v44_directional_total_proxy": "74.220036",
+            "v44_directional_total_sensitivity": "76.892507",
+            "v44_kinetic_application_factor": "0.81694",
+            "v44_melee_carry_sensitivity": "68.835557",
+            "v44_sensitivity_profile_source": "low_confidence_family_prior",
+            "v44_sensitivity_status": "applied_family_prior",
+            "v44_weapon_offense_sensitivity": "68.835557",
+            "verified_full_side_battles": "0.0"
+          }
+        }
+      ],
+      "sha256": "6256bb96927a211291018ffad08b84bb230f66d6a2ea557cc39dee92a8146f1a",
+      "size_bytes": 11813
+    }
+  ]
+}

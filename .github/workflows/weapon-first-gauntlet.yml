@@ -1,0 +1,56 @@
+name: Weapon-first gauntlet
+on:
+  push:
+    branches: [analysis/weapon-first-gauntlet-2026-09-17]
+permissions:
+  contents: read
+concurrency:
+  group: weapon-first-gauntlet-105
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out the exact task commit
+        run: |
+          set -eu
+          test "$GITHUB_REPOSITORY" = 'andrerferrer/bannerlord-troop-analysis'
+          test "$GITHUB_REF_NAME" = 'analysis/weapon-first-gauntlet-2026-09-17'
+          git init .
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          git fetch --no-tags origin "$GITHUB_SHA" 9311f5596aabc04974d5fe4d7113f1088454143f
+          git checkout --detach "$GITHUB_SHA"
+      - name: Run adversarial and production gates
+        run: python3 -m unittest discover -s tests -p 'test_weapon_first_*.py' -v
+      - name: Verify deterministic committed outputs and operator queue
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from scripts.analysis.weapon_first_audit import generate, QUEUE, OUT_PATH
+          first, second = generate(Path('.')), generate(Path('.'))
+          if first != second:
+              raise SystemExit('non-deterministic regeneration')
+          for name, data in first.items():
+              if (Path(OUT_PATH) / name).read_bytes() != data:
+                  raise SystemExit('committed artifact differs: ' + name)
+          if Path(QUEUE).read_bytes() != first['operator_queue_projection.json']:
+              raise SystemExit('operator queue differs from the validated override')
+          print(f'Verified {len(first)} deterministic generated files and canonical queue.')
+          PY
+      - name: Verify bounded diff and unchanged source and empirical evidence
+        run: |
+          set -eu
+          git diff --check 9311f5596aabc04974d5fe4d7113f1088454143f HEAD
+          python3 - <<'PY'
+          import subprocess
+          from scripts.analysis.weapon_first_audit import BASE, QUEUE, OUT_PATH
+          changed = subprocess.check_output(['git', 'diff', '--name-only', BASE, 'HEAD']).decode().splitlines()
+          allowed = {QUEUE, '.github/workflows/weapon-first-gauntlet.yml',
+                     'scripts/analysis/weapon_first_inventory.py',
+                     'scripts/analysis/weapon_first_audit.py', 'tests/test_weapon_first_audit.py'}
+          unexpected = [p for p in changed if p not in allowed and not p.startswith(OUT_PATH + '/')]
+          if unexpected:
+              raise SystemExit('unexpected changed paths: ' + ', '.join(unexpected))
+          print(f'Verified {len(changed)} task-scoped paths; source data, empirical batches and frozen models unchanged.')
+          PY

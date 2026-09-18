@@ -1,0 +1,182 @@
+[
+  {
+    "admitted_to_current_comparison": false,
+    "item_id": "westerling_hammer",
+    "profile_source": "low_confidence_family_prior",
+    "raw_prior_damage": 67.5,
+    "raw_prior_speed": 76.4,
+    "reason": "legacy sensitivity priors or missing input; not an exact current-profile weapon measurement",
+    "troop_id": "westerling_hedgeknight"
+  },
+  {
+    "admitted_to_current_comparison": false,
+    "item_id": "vlandia_sword_3_t4",
+    "profile_source": "unchanged_v43",
+    "raw_prior_damage": null,
+    "raw_prior_speed": null,
+    "reason": "legacy sensitivity priors or missing input; not an exact current-profile weapon measurement",
+    "troop_id": "ravens_teeth"
+  },
+  {
+    "admitted_to_current_comparison": false,
+    "item_id": "mallister_hammer",
+    "profile_source": "low_confidence_family_prior",
+    "raw_prior_damage": 58.5,
+    "raw_prior_speed": 81.6,
+    "reason": "legacy sensitivity priors or missing input; not an exact current-profile weapon measurement",
+    "troop_id": "mallister_houseguard"
+  },
+  {
+    "admitted_to_current_comparison": false,
+    "item_id": "simple_sabre_sword_t2",
+    "profile_source": "unchanged_v43",
+    "raw_prior_damage": null,
+    "raw_prior_speed": null,
+    "reason": "legacy sensitivity priors or missing input; not an exact current-profile weapon measurement",
+    "troop_id": "summer_master_longbowman"
+  },
+  {
+    "admitted_to_current_comparison": false,
+    "item_id": "northern_sword",
+    "profile_source": "low_confidence_family_prior",
+    "raw_prior_damage": 63.0,
+    "raw_prior_speed": 98.316,
+    "reason": "legacy sensitivity priors or missing input; not an exact current-profile weapon measurement",
+    "troop_id": "stark_swornsword"
+  },
+  {
+    "admitted_to_current_comparison": false,
+    "item_id": "vlandia_sword_3_t4",
+    "profile_source": "low_confidence_family_prior",
+    "raw_prior_damage": 64.35,
+    "raw_prior_speed": 100.17,
+    "reason": "legacy sensitivity priors or missing input; not an exact current-profile weapon measurement",
+    "troop_id": "tarly_vanguard"
+  },
+  {
+    "admitted_to_current_comparison": false,
+    "item_id": "ibb_sword",
+    "profile_source": "low_confidence_family_prior",
+    "raw_prior_damage": 64.5,
+    "raw_prior_speed": 93.7,
+    "reason": "legacy sensitivity priors or missing input; not an exact current-profile weapon measurement",
+    "troop_id": "ibbenese_navigator"
+  },
+  {
+    "admitted_to_current_comparison": false,
+    "item_id": "spiked_polehammer",
+    "profile_source": "low_confidence_family_prior",
+    "raw_prior_damage": 54.0,
+    "raw_prior_speed": 73.08,
+    "reason": "legacy sensitivity priors or missing input; not an exact current-profile weapon measurement",
+    "troop_id": "baratheon_pikeknight"
+  },
+  {
+    "admitted_to_current_comparison": false,
+    "item_id": "qarth_sword",
+    "profile_source": "unchanged_v43",
+    "raw_prior_damage": null,
+    "raw_prior_speed": null,
+    "reason": "legacy sensitivity priors or missing input; not an exact current-profile weapon measurement",
+    "troop_id": "enthroned_guardian"
+  },
+  {
+    "admitted_to_current_comparison": false,
+    "item_id": "vlandia_sword_3_t4",
+    "profile_source": "low_confidence_family_prior",
+    "raw_prior_damage": 64.35,
+    "raw_prior_speed": 100.17,
+    "reason": "legacy sensitivity priors or missing input; not an exact current-profile weapon measurement",
+    "troop_id": "river_admiral"
+  },
+  {
+    "admitted_to_current_comparison": false,
+    "item_id": "ibb_sword",
+    "profile_source": "low_confidence_family_prior",
+    "raw_prior_damage": 64.5,
+    "raw_prior_speed": 93.7,
+    "reason": "legacy sensitivity priors or missing input; not an exact current-profile weapon measurement",
+    "troop_id": "ibbenese_whaler"
+  },
+  {
+    "admitted_to_current_comparison": false,
+    "item_id": "battania_2hsword_4_t4",
+    "profile_source": "low_confidence_family_prior",
+    "raw_prior_damage": 80.85,
+    "raw_prior_speed": 92.412,
+    "reason": "legacy sensitivity priors or missing input; not an exact current-profile weapon measurement",
+    "troop_id": "qohorik_falxman"
+  },
+  {
+    "admitted_to_current_comparison": false,
+    "item_id": "qarth_sword",
+    "profile_source": "low_confidence_family_prior",
+    "raw_prior_damage": 64.5,
+    "raw_prior_speed": 92.5,
+    "reason": "legacy sensitivity priors or missing input; not an exact current-profile weapon measurement",
+    "troop_id": "qartheen_elite_hoplite"
+  },
+  {
+    "admitted_to_current_comparison": false,
+    "item_id": "grafton_axe",
+    "profile_source": "low_confidence_family_prior",
+    "raw_prior_damage": 67.5,
+    "raw_prior_speed": 80.4,
+    "reason": "legacy sensitivity priors or missing input; not an exact current-profile weapon measurement",
+    "troop_id": "grafton_flameknight"
+  },
+  {
+    "admitted_to_current_comparison": false,
+    "item_id": "dorne_sword",
+    "profile_source": "low_confidence_family_prior",
+    "raw_prior_damage": 60.0,
+    "raw_prior_speed": 99.972,
+    "reason": "legacy sensitivity priors or missing input; not an exact current-profile weapon measurement",
+    "troop_id": "mounted_priest"
+  },
+  {
+    "admitted_to_current_comparison": false,
+    "item_id": "qarth_sword",
+    "profile_source": "unchanged_v43",
+    "raw_prior_damage": null,
+    "raw_prior_speed": null,
+    "reason": "legacy sensitivity priors or missing input; not an exact current-profile weapon measurement",
+    "troop_id": "qartheen_longbowman"
+  },
+  {
+    "admitted_to_current_comparison": false,
+    "item_id": "war_scythe",
+    "profile_source": "low_confidence_family_prior",
+    "raw_prior_damage": 72.0,
+    "raw_prior_speed": 76.32,
+    "reason": "legacy sensitivity priors or missing input; not an exact current-profile weapon measurement",
+    "troop_id": "harlaw_captain"
+  },
+  {
+    "admitted_to_current_comparison": false,
+    "item_id": "velaryon_cutlass",
+    "profile_source": "low_confidence_family_prior",
+    "raw_prior_damage": 67.5,
+    "raw_prior_speed": 89.1,
+    "reason": "legacy sensitivity priors or missing input; not an exact current-profile weapon measurement",
+    "troop_id": "velaryon_sea_guard"
+  },
+  {
+    "admitted_to_current_comparison": false,
+    "item_id": "aserai_sword_5_t4",
+    "profile_source": "unchanged_v43",
+    "raw_prior_damage": null,
+    "raw_prior_speed": null,
+    "reason": "legacy sensitivity priors or missing input; not an exact current-profile weapon measurement",
+    "troop_id": "myrish_artisan"
+  },
+  {
+    "admitted_to_current_comparison": false,
+    "item_id": "sturgia_sword_5_t4",
+    "profile_source": "low_confidence_family_prior",
+    "raw_prior_damage": 62.7,
+    "raw_prior_speed": 100.8,
+    "reason": "legacy sensitivity priors or missing input; not an exact current-profile weapon measurement",
+    "troop_id": "greyjoy_fingerdancer"
+  }
+]

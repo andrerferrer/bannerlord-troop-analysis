@@ -1,0 +1,12 @@
+{
+  "context": "field",
+  "date": "2026-09-17",
+  "display_name": "Yi Ti Mounted Shi",
+  "meaning": "Scheduling override only. No analytical promotion, no new battle result, no replacement future target.",
+  "prior_decision_preserved": "data/combat_observations/test_queues/decisions/2026-09-17-weapon-first-correction.json",
+  "queue_source_commit": "9311f5596aabc04974d5fe4d7113f1088454143f",
+  "request": "Execute the weapon-first gauntlet to completion; operator will test this troop meanwhile.",
+  "source": "explicit_operator_choice",
+  "troop_id": "yiti_samurai",
+  "weapon_evidence_validated": false
+}

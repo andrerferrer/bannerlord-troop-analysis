@@ -1,0 +1,73 @@
+{
+  "adversarial_red_pass": {
+    "failed": 2,
+    "new_probes": [
+      "reject_unknown_context_and_mount",
+      "require_verified_usage_and_mounted_usability"
+    ],
+    "run": 11,
+    "subsequently_fixed": true
+  },
+  "base_commit": "9311f5596aabc04974d5fe4d7113f1088454143f",
+  "byte_identical_generation": true,
+  "execution_provenance": "local offline Git clone plus GitHub Actions; self-review with adversarial passes, not a separate reviewer agent",
+  "full_suite": {
+    "failed": 3,
+    "passed": 429,
+    "run": 432,
+    "status": "baseline_failures_reproduced"
+  },
+  "generated_file_count": 13,
+  "log_retention": "Original full logs retained in the delivered audit ZIP; reproducible commands and outcomes recorded here.",
+  "not_claimed": [
+    "full repository suite green",
+    "numerical all-troop weapon rank",
+    "separate independent agent review",
+    "missing weapon physics reconstructed"
+  ],
+  "original_execution_logs": [
+    {
+      "bytes": 4273,
+      "name": "weapon-first-targeted.log",
+      "sha256": "dde413787a435c908fd3b83928e14ee517ce44e462c52767d7f28cb2c38d94bb"
+    },
+    {
+      "bytes": 2996,
+      "name": "weapon-first-adversarial-red.log",
+      "sha256": "1bb3c90898f9f135c410765cadb713a3d0749e5ea4281e979576109fa08ede65"
+    },
+    {
+      "bytes": 4613,
+      "name": "weapon-first-targeted-green.log",
+      "sha256": "be13abe01e162de35fea7b799aa70541e525ef2959d452e18a8c1675b5a1e37e"
+    },
+    {
+      "bytes": 74908,
+      "name": "weapon-first-full-final.log",
+      "sha256": "518d51d0e363afe3c1e4aaab038082366bd137c51338d86d9cc4eb913fa4b615"
+    },
+    {
+      "bytes": 3404,
+      "name": "weapon-first-baseline-failures.log",
+      "sha256": "c8da33cda79de9189511c5fa6d287b5fee0d7e4937a1aac251cd407acd289a0d"
+    }
+  ],
+  "remaining_data_limits": [
+    "exact usage-specific crafted-weapon damage/speed unavailable in the pinned sources",
+    "live installation equivalence unverified",
+    "operator empirical Yi Ti test still underway"
+  ],
+  "remote_run": 35299259724,
+  "schema_version": "1.0.0",
+  "scoped_tests": {
+    "failed": 0,
+    "passed": 32,
+    "run": 32
+  },
+  "task": "weapon-first-gauntlet",
+  "unchanged_base_reproduction": {
+    "base_commit": "9311f5596aabc04974d5fe4d7113f1088454143f",
+    "failed": 3,
+    "run": 3
+  }
+}
