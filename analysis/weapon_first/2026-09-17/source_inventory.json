@@ -1,0 +1,2615 @@
+{
+  "purpose": "source inspection only; no recommendation or scoring",
+  "source_commit": "9311f5596aabc04974d5fe4d7113f1088454143f",
+  "sources": [
+    {
+      "columns": [
+        "troop_id",
+        "roster_index",
+        "slot",
+        "item_id",
+        "equipment_source"
+      ],
+      "displayed_rows": 60,
+      "git_blob_sha": "5a2afd38a5b8c2342d41559eed9e540cb740c552",
+      "matched_rows": 118,
+      "path": "data/realm_of_thrones/audit/realm_of_thrones_equipment_rosters.csv",
+      "row_count": 55436,
+      "rows": [
+        {
+          "csv_row": 1892,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "khuzait_polearm_1_t4",
+            "roster_index": "1",
+            "slot": "Item0",
+            "troop_id": "steppe_bandits_boss"
+          }
+        },
+        {
+          "csv_row": 4735,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "khuzait_polearm_1_t4",
+            "roster_index": "0",
+            "slot": "Item2",
+            "troop_id": "khuzait_torguud"
+          }
+        },
+        {
+          "csv_row": 4746,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "khuzait_polearm_1_t4",
+            "roster_index": "1",
+            "slot": "Item2",
+            "troop_id": "khuzait_torguud"
+          }
+        },
+        {
+          "csv_row": 4757,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "khuzait_polearm_1_t4",
+            "roster_index": "2",
+            "slot": "Item2",
+            "troop_id": "khuzait_torguud"
+          }
+        },
+        {
+          "csv_row": 4882,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "khuzait_polearm_1_t4",
+            "roster_index": "0",
+            "slot": "Item2",
+            "troop_id": "khuzait_kheshig"
+          }
+        },
+        {
+          "csv_row": 4893,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "khuzait_polearm_1_t4",
+            "roster_index": "1",
+            "slot": "Item2",
+            "troop_id": "khuzait_kheshig"
+          }
+        },
+        {
+          "csv_row": 4904,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "khuzait_polearm_1_t4",
+            "roster_index": "2",
+            "slot": "Item2",
+            "troop_id": "khuzait_kheshig"
+          }
+        },
+        {
+          "csv_row": 4916,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "khuzait_polearm_1_t4",
+            "roster_index": "0",
+            "slot": "Item3",
+            "troop_id": "khuzait_khans_guard"
+          }
+        },
+        {
+          "csv_row": 4927,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "khuzait_polearm_1_t4",
+            "roster_index": "1",
+            "slot": "Item3",
+            "troop_id": "khuzait_khans_guard"
+          }
+        },
+        {
+          "csv_row": 4938,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "khuzait_polearm_1_t4",
+            "roster_index": "2",
+            "slot": "Item3",
+            "troop_id": "khuzait_khans_guard"
+          }
+        },
+        {
+          "csv_row": 7320,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "khuzait_polearm_1_t4",
+            "roster_index": "0",
+            "slot": "Item1",
+            "troop_id": "crazy_man_test6"
+          }
+        },
+        {
+          "csv_row": 12543,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "khuzait_polearm_1_t4",
+            "roster_index": "0",
+            "slot": "Item0",
+            "troop_id": "weapon_practice_stage_3_khuzait"
+          }
+        },
+        {
+          "csv_row": 12546,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "khuzait_polearm_1_t4",
+            "roster_index": "1",
+            "slot": "Item0",
+            "troop_id": "weapon_practice_stage_3_khuzait"
+          }
+        },
+        {
+          "csv_row": 12548,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "khuzait_polearm_1_t4",
+            "roster_index": "2",
+            "slot": "Item0",
+            "troop_id": "weapon_practice_stage_3_khuzait"
+          }
+        },
+        {
+          "csv_row": 12550,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "khuzait_polearm_1_t4",
+            "roster_index": "3",
+            "slot": "Item0",
+            "troop_id": "weapon_practice_stage_3_khuzait"
+          }
+        },
+        {
+          "csv_row": 14073,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "0",
+            "slot": "Item0",
+            "troop_id": "conspiracy_commander_empire"
+          }
+        },
+        {
+          "csv_row": 14398,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "0",
+            "slot": "Item0",
+            "troop_id": "conspiracy_knight"
+          }
+        },
+        {
+          "csv_row": 14405,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "1",
+            "slot": "Item0",
+            "troop_id": "conspiracy_knight"
+          }
+        },
+        {
+          "csv_row": 14412,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "2",
+            "slot": "Item0",
+            "troop_id": "conspiracy_knight"
+          }
+        },
+        {
+          "csv_row": 18818,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "6",
+            "slot": "Item0",
+            "troop_id": "freefolk_duel_preset"
+          }
+        },
+        {
+          "csv_row": 19781,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "6",
+            "slot": "Item0",
+            "troop_id": "duel_preset_nightswatch"
+          }
+        },
+        {
+          "csv_row": 20408,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "6",
+            "slot": "Item0",
+            "troop_id": "duel_preset_vale"
+          }
+        },
+        {
+          "csv_row": 21634,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "6",
+            "slot": "Item0",
+            "troop_id": "duel_preset_river"
+          }
+        },
+        {
+          "csv_row": 22860,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "6",
+            "slot": "Item0",
+            "troop_id": "duel_preset_dragonstone"
+          }
+        },
+        {
+          "csv_row": 24086,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "6",
+            "slot": "Item0",
+            "troop_id": "duel_preset_stormlands"
+          }
+        },
+        {
+          "csv_row": 25312,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "6",
+            "slot": "Item0",
+            "troop_id": "duel_preset_reach"
+          }
+        },
+        {
+          "csv_row": 26574,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "6",
+            "slot": "Item0",
+            "troop_id": "duel_preset_ghiscari"
+          }
+        },
+        {
+          "csv_row": 28593,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "6",
+            "slot": "Item0",
+            "troop_id": "crownlands_duel_preset"
+          }
+        },
+        {
+          "csv_row": 29973,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "6",
+            "slot": "Item0",
+            "troop_id": "sarnor_duel_preset"
+          }
+        },
+        {
+          "csv_row": 32062,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "6",
+            "slot": "Item0",
+            "troop_id": "norvos_duel_preset"
+          }
+        },
+        {
+          "csv_row": 33136,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "6",
+            "slot": "Item0",
+            "troop_id": "valyrian_duel_preset"
+          }
+        },
+        {
+          "csv_row": 34194,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "6",
+            "slot": "Item0",
+            "troop_id": "volantine_duel_preset"
+          }
+        },
+        {
+          "csv_row": 35252,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "6",
+            "slot": "Item0",
+            "troop_id": "qohorik_duel_preset"
+          }
+        },
+        {
+          "csv_row": 36310,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "6",
+            "slot": "Item0",
+            "troop_id": "lorathi_duel_preset"
+          }
+        },
+        {
+          "csv_row": 37382,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "6",
+            "slot": "Item0",
+            "troop_id": "pentoshi_duel_preset"
+          }
+        },
+        {
+          "csv_row": 38440,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "6",
+            "slot": "Item0",
+            "troop_id": "myrish_duel_preset"
+          }
+        },
+        {
+          "csv_row": 39498,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "6",
+            "slot": "Item0",
+            "troop_id": "tyroshi_duel_preset"
+          }
+        },
+        {
+          "csv_row": 40556,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "6",
+            "slot": "Item0",
+            "troop_id": "lyseni_duel_preset"
+          }
+        },
+        {
+          "csv_row": 41677,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "6",
+            "slot": "Item0",
+            "troop_id": "yiti_duel_preset"
+          }
+        },
+        {
+          "csv_row": 42432,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "khuzait_polearm_1_t4",
+            "roster_index": "0",
+            "slot": "Item0",
+            "troop_id": "weapon_practice_stage_3_yiti"
+          }
+        },
+        {
+          "csv_row": 42435,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "khuzait_polearm_1_t4",
+            "roster_index": "1",
+            "slot": "Item0",
+            "troop_id": "weapon_practice_stage_3_yiti"
+          }
+        },
+        {
+          "csv_row": 42437,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "khuzait_polearm_1_t4",
+            "roster_index": "2",
+            "slot": "Item0",
+            "troop_id": "weapon_practice_stage_3_yiti"
+          }
+        },
+        {
+          "csv_row": 42439,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "khuzait_polearm_1_t4",
+            "roster_index": "3",
+            "slot": "Item0",
+            "troop_id": "weapon_practice_stage_3_yiti"
+          }
+        },
+        {
+          "csv_row": 42868,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "6",
+            "slot": "Item0",
+            "troop_id": "summer_duel_preset"
+          }
+        },
+        {
+          "csv_row": 44117,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "6",
+            "slot": "Item0",
+            "troop_id": "wight_duel_preset"
+          }
+        },
+        {
+          "csv_row": 47575,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "western_2hsword_t4",
+            "roster_index": "0",
+            "slot": "Item0",
+            "troop_id": "stormlands_thunderknight"
+          }
+        },
+        {
+          "csv_row": 47576,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "vlandia_lance_3_t5",
+            "roster_index": "0",
+            "slot": "Item1",
+            "troop_id": "stormlands_thunderknight"
+          }
+        },
+        {
+          "csv_row": 47577,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "stormlands_armor",
+            "roster_index": "0",
+            "slot": "Body",
+            "troop_id": "stormlands_thunderknight"
+          }
+        },
+        {
+          "csv_row": 47578,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "jon_snow_boots",
+            "roster_index": "0",
+            "slot": "Leg",
+            "troop_id": "stormlands_thunderknight"
+          }
+        },
+        {
+          "csv_row": 47579,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "kingsguard_gloves",
+            "roster_index": "0",
+            "slot": "Gloves",
+            "troop_id": "stormlands_thunderknight"
+          }
+        },
+        {
+          "csv_row": 47580,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "stormlands_helmet",
+            "roster_index": "0",
+            "slot": "Head",
+            "troop_id": "stormlands_thunderknight"
+          }
+        },
+        {
+          "csv_row": 47581,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "stormlands_shoulders",
+            "roster_index": "0",
+            "slot": "Cape",
+            "troop_id": "stormlands_thunderknight"
+          }
+        },
+        {
+          "csv_row": 47582,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "t2_battania_horse",
+            "roster_index": "0",
+            "slot": "Horse",
+            "troop_id": "stormlands_thunderknight"
+          }
+        },
+        {
+          "csv_row": 47583,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "rot_horse_armor27",
+            "roster_index": "0",
+            "slot": "HorseHarness",
+            "troop_id": "stormlands_thunderknight"
+          }
+        },
+        {
+          "csv_row": 48662,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "vlandia_2hsword_1_t5",
+            "roster_index": "0",
+            "slot": "Item3",
+            "troop_id": "kingsguard_captain"
+          }
+        },
+        {
+          "csv_row": 48668,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "vlandia_sword_3_t4",
+            "roster_index": "0",
+            "slot": "Item0",
+            "troop_id": "mounted_kingsguard"
+          }
+        },
+        {
+          "csv_row": 48669,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "bracketed_heater_shield",
+            "roster_index": "0",
+            "slot": "Item1",
+            "troop_id": "mounted_kingsguard"
+          }
+        },
+        {
+          "csv_row": 48670,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "vlandia_lance_3_t5",
+            "roster_index": "0",
+            "slot": "Item2",
+            "troop_id": "mounted_kingsguard"
+          }
+        },
+        {
+          "csv_row": 48671,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "vlandia_2hsword_1_t5",
+            "roster_index": "0",
+            "slot": "Item3",
+            "troop_id": "mounted_kingsguard"
+          }
+        },
+        {
+          "csv_row": 48672,
+          "values": {
+            "equipment_source": "roster",
+            "item_id": "kg_armor",
+            "roster_index": "0",
+            "slot": "Body",
+            "troop_id": "mounted_kingsguard"
+          }
+        }
+      ],
+      "sha256": "c348272b860c25466db5f849db3ac0e52d11a648a66e3afe3839fb4a04812e8a",
+      "size_bytes": 3113907
+    },
+    {
+      "columns": [
+        "item_id",
+        "name",
+        "item_kind",
+        "type",
+        "crafting_template",
+        "culture",
+        "modifier_group",
+        "source_xml",
+        "piece_ids",
+        "crafted_stats_reconstructed",
+        "score_usage_status"
+      ],
+      "displayed_rows": 5,
+      "git_blob_sha": "60fb37b65321f27ee87ed73a79062310b41b0d51",
+      "matched_rows": 5,
+      "path": "data/realm_of_thrones/audit/realm_of_thrones_items_crafted.csv",
+      "row_count": 674,
+      "rows": [
+        {
+          "csv_row": 307,
+          "values": {
+            "crafted_stats_reconstructed": "False",
+            "crafting_template": "TwoHandedPolearm",
+            "culture": "khuzait",
+            "item_id": "khuzait_polearm_1_t4",
+            "item_kind": "CraftedItem",
+            "modifier_group": "polearm",
+            "name": "Glaive",
+            "piece_ids": "spear_blade_19|spear_banner_16|spear_handle_15|default_polearm_pommel",
+            "score_usage_status": "audit_only_no_aggressive_htk",
+            "source_xml": "SandBoxCore/ModuleData/items/weapons.xml",
+            "type": "CraftedWeapon"
+          }
+        },
+        {
+          "csv_row": 406,
+          "values": {
+            "crafted_stats_reconstructed": "False",
+            "crafting_template": "TwoHandedSword",
+            "culture": "vlandia",
+            "item_id": "western_2hsword_t4",
+            "item_kind": "CraftedItem",
+            "modifier_group": "sword",
+            "name": "Broad Two Hander",
+            "piece_ids": "vlandian_blade_2|vlandian_guard_5|vlandian_grip_7|vlandian_pommel_7",
+            "score_usage_status": "audit_only_no_aggressive_htk",
+            "source_xml": "SandBoxCore/ModuleData/items/weapons.xml",
+            "type": "CraftedWeapon"
+          }
+        },
+        {
+          "csv_row": 411,
+          "values": {
+            "crafted_stats_reconstructed": "False",
+            "crafting_template": "TwoHandedSword",
+            "culture": "vlandia",
+            "item_id": "vlandia_2hsword_1_t5",
+            "item_kind": "CraftedItem",
+            "modifier_group": "sword",
+            "name": "Wide Fullered Broad Two Hander",
+            "piece_ids": "vlandian_blade_3|vlandian_guard_7|vlandian_grip_8|vlandian_pommel_4",
+            "score_usage_status": "audit_only_no_aggressive_htk",
+            "source_xml": "SandBoxCore/ModuleData/items/weapons.xml",
+            "type": "CraftedWeapon"
+          }
+        },
+        {
+          "csv_row": 606,
+          "values": {
+            "crafted_stats_reconstructed": "False",
+            "crafting_template": "TwoHandedPolearm",
+            "culture": "norvos",
+            "item_id": "norvoshi_long_axe",
+            "item_kind": "CraftedItem",
+            "modifier_group": "polearm",
+            "name": "Norvoshi Long Axe",
+            "piece_ids": "norvoshi_long_axe_blade|norvoshi_long_axe_guard|norvoshi_long_axe_handle",
+            "score_usage_status": "audit_only_no_aggressive_htk",
+            "source_xml": "ROT-Content/ModuleData/ROTassets.xml",
+            "type": "CraftedWeapon"
+          }
+        },
+        {
+          "csv_row": 652,
+          "values": {
+            "crafted_stats_reconstructed": "False",
+            "crafting_template": "TwoHandedSword",
+            "culture": "",
+            "item_id": "yiti_sword",
+            "item_kind": "CraftedItem",
+            "modifier_group": "sword",
+            "name": "Yitish Sword",
+            "piece_ids": "yiti_blade|yiti_guard|yiti_handle|yiti_pommel",
+            "score_usage_status": "audit_only_no_aggressive_htk",
+            "source_xml": "ROT-Content/ModuleData/ROTassets.xml",
+            "type": "CraftedWeapon"
+          }
+        }
+      ],
+      "sha256": "b645c469c0db1c1e66e85a1bd94f2ec54b72778287c23b1b02634550dbf20e62",
+      "size_bytes": 151807
+    },
+    {
+      "columns": [
+        "item_id",
+        "name",
+        "item_kind",
+        "type",
+        "subtype",
+        "culture",
+        "weight",
+        "value",
+        "source_xml",
+        "weapon_class",
+        "stack_amount",
+        "speed_rating",
+        "missile_speed",
+        "accuracy",
+        "weapon_length",
+        "swing_damage",
+        "swing_damage_type",
+        "thrust_damage",
+        "thrust_damage_type",
+        "hit_points",
+        "shield_armor",
+        "head_armor",
+        "body_armor",
+        "arm_armor",
+        "leg_armor",
+        "horse_speed",
+        "horse_maneuver",
+        "horse_charge_damage",
+        "horse_extra_health"
+      ],
+      "displayed_rows": 0,
+      "git_blob_sha": "f88688b1b63a781519debf96ee213495c82c69b6",
+      "matched_rows": 0,
+      "path": "data/realm_of_thrones/audit/realm_of_thrones_items_direct.csv",
+      "row_count": 3653,
+      "rows": [],
+      "sha256": "b54ad317034d2e3efa5bdb30581130e8ac2ea10c482fc9710f08f55ae28f6a49",
+      "size_bytes": 490590
+    },
+    {
+      "columns": [
+        "troop_id",
+        "troop_name",
+        "level",
+        "upgrade_depth",
+        "tree_tier",
+        "line_status",
+        "culture",
+        "default_group",
+        "roster_index",
+        "items",
+        "weapon_items",
+        "direct_weapon_items",
+        "crafted_weapon_items",
+        "crafted_templates",
+        "has_bow",
+        "has_crossbow",
+        "has_arrows",
+        "has_bolts",
+        "has_shield",
+        "has_horse",
+        "has_horse_harness",
+        "has_throwing",
+        "armor_total",
+        "shield_hp_max",
+        "horse_speed_max",
+        "horse_charge_max",
+        "horse_harness_armor_max",
+        "crafted_weapon_stat_status",
+        "unknown_item_count"
+      ],
+      "displayed_rows": 41,
+      "git_blob_sha": "ab8a9b58779cca2ae727d5dd2786de5124c56ffc",
+      "matched_rows": 41,
+      "path": "data/realm_of_thrones/audit/realm_of_thrones_roster_audit_summary.csv",
+      "row_count": 14343,
+      "rows": [
+        {
+          "csv_row": 47,
+          "values": {
+            "armor_total": "101.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "stormlands",
+            "default_group": "Cavalry",
+            "direct_weapon_items": "steppe_war_bow|bodkin_arrows_b",
+            "has_arrows": "True",
+            "has_bolts": "False",
+            "has_bow": "True",
+            "has_crossbow": "False",
+            "has_horse": "True",
+            "has_horse_harness": "True",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "30.0",
+            "horse_harness_armor_max": "52.0",
+            "horse_speed_max": "58.0",
+            "items": "western_2hsword_t4|steppe_war_bow|bodkin_arrows_b|stormlands_armor|stormlands_shoulders|jon_snow_boots|kg_gloves|t2_vlandia_horse|halfchain_barding",
+            "level": "",
+            "line_status": "",
+            "roster_index": "0",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "ROTwanderer30",
+            "troop_name": "Ser Harlan Blackhare",
+            "unknown_item_count": "1",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4|steppe_war_bow|bodkin_arrows_b"
+          }
+        },
+        {
+          "csv_row": 109,
+          "values": {
+            "armor_total": "128.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "crownlands",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4|chain_armor_short_tabbard|mail_mitten|tabard_gorget|plated_strip_boots",
+            "level": "",
+            "line_status": "",
+            "roster_index": "0",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "ROTwanderer62",
+            "troop_name": "Cyrus Bennett",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 2538,
+          "values": {
+            "armor_total": "51.0",
+            "crafted_templates": "TwoHandedPolearm",
+            "crafted_weapon_items": "khuzait_polearm_1_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "empire",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "khuzait_polearm_1_t4|leather_gloves|strapped_shoes|turban|ringed_desert_armor",
+            "level": "40.0",
+            "line_status": "",
+            "roster_index": "0",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "crazy_man_test6",
+            "troop_name": "Crazy Man T7",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "khuzait_polearm_1_t4"
+          }
+        },
+        {
+          "csv_row": 2550,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "crownlands",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4",
+            "level": "1.0",
+            "line_status": "",
+            "roster_index": "6",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "crownlands_duel_preset",
+            "troop_name": "Tribesman",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 2708,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "dragonstone",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4",
+            "level": "1.0",
+            "line_status": "",
+            "roster_index": "6",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "duel_preset_dragonstone",
+            "troop_name": "Tribesman",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 2718,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "ghiscari",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4",
+            "level": "1.0",
+            "line_status": "",
+            "roster_index": "6",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "duel_preset_ghiscari",
+            "troop_name": "Tribesman",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 2728,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "nightswatch",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4",
+            "level": "1.0",
+            "line_status": "",
+            "roster_index": "6",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "duel_preset_nightswatch",
+            "troop_name": "Tribesman",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 2738,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "reach",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4",
+            "level": "1.0",
+            "line_status": "",
+            "roster_index": "6",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "duel_preset_reach",
+            "troop_name": "Tribesman",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 2748,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "river",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4",
+            "level": "1.0",
+            "line_status": "",
+            "roster_index": "6",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "duel_preset_river",
+            "troop_name": "Tribesman",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 2758,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "stormlands",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4",
+            "level": "1.0",
+            "line_status": "",
+            "roster_index": "6",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "duel_preset_stormlands",
+            "troop_name": "Tribesman",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 2768,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "vale",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4",
+            "level": "1.0",
+            "line_status": "",
+            "roster_index": "6",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "duel_preset_vale",
+            "troop_name": "Tribesman",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 3052,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "freefolk",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4",
+            "level": "1.0",
+            "line_status": "",
+            "roster_index": "6",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "freefolk_duel_preset",
+            "troop_name": "Tribesman",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 4114,
+          "values": {
+            "armor_total": "172.0",
+            "crafted_templates": "TwoHandedPolearm",
+            "crafted_weapon_items": "khuzait_polearm_1_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "khuzait",
+            "default_group": "HorseArcher",
+            "direct_weapon_items": "composite_steppe_bow|steppe_arrows|steppe_arrows",
+            "has_arrows": "True",
+            "has_bolts": "False",
+            "has_bow": "True",
+            "has_crossbow": "False",
+            "has_horse": "True",
+            "has_horse_harness": "True",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "20.0",
+            "horse_harness_armor_max": "38.0",
+            "horse_speed_max": "60.0",
+            "items": "composite_steppe_bow|steppe_arrows|steppe_arrows|khuzait_polearm_1_t4|brass_lamellar_over_mail|spiked_helmet_with_facemask|khuzait_curved_boots|eastern_plated_leather_vambraces|brass_lamellar_shoulder_white|t3_khuzait_horse|steppe_half_barding",
+            "level": "31.0",
+            "line_status": "noble_line",
+            "roster_index": "0",
+            "shield_hp_max": "0.0",
+            "tree_tier": "5.0",
+            "troop_id": "khuzait_khans_guard",
+            "troop_name": "Khuzait Khan's Guard",
+            "unknown_item_count": "0",
+            "upgrade_depth": "5.0",
+            "weapon_items": "composite_steppe_bow|steppe_arrows|steppe_arrows|khuzait_polearm_1_t4"
+          }
+        },
+        {
+          "csv_row": 4115,
+          "values": {
+            "armor_total": "172.0",
+            "crafted_templates": "TwoHandedPolearm",
+            "crafted_weapon_items": "khuzait_polearm_1_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "khuzait",
+            "default_group": "HorseArcher",
+            "direct_weapon_items": "composite_steppe_bow|steppe_arrows|steppe_arrows",
+            "has_arrows": "True",
+            "has_bolts": "False",
+            "has_bow": "True",
+            "has_crossbow": "False",
+            "has_horse": "True",
+            "has_horse_harness": "True",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "20.0",
+            "horse_harness_armor_max": "38.0",
+            "horse_speed_max": "60.0",
+            "items": "composite_steppe_bow|steppe_arrows|steppe_arrows|khuzait_polearm_1_t4|brass_lamellar_over_mail|spiked_helmet_with_facemask|khuzait_curved_boots|eastern_plated_leather_vambraces|brass_lamellar_shoulder_white|t3_khuzait_horse|steppe_half_barding",
+            "level": "31.0",
+            "line_status": "noble_line",
+            "roster_index": "1",
+            "shield_hp_max": "0.0",
+            "tree_tier": "5.0",
+            "troop_id": "khuzait_khans_guard",
+            "troop_name": "Khuzait Khan's Guard",
+            "unknown_item_count": "0",
+            "upgrade_depth": "5.0",
+            "weapon_items": "composite_steppe_bow|steppe_arrows|steppe_arrows|khuzait_polearm_1_t4"
+          }
+        },
+        {
+          "csv_row": 4116,
+          "values": {
+            "armor_total": "172.0",
+            "crafted_templates": "TwoHandedPolearm",
+            "crafted_weapon_items": "khuzait_polearm_1_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "khuzait",
+            "default_group": "HorseArcher",
+            "direct_weapon_items": "composite_steppe_bow|steppe_arrows|steppe_arrows",
+            "has_arrows": "True",
+            "has_bolts": "False",
+            "has_bow": "True",
+            "has_crossbow": "False",
+            "has_horse": "True",
+            "has_horse_harness": "True",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "20.0",
+            "horse_harness_armor_max": "38.0",
+            "horse_speed_max": "60.0",
+            "items": "composite_steppe_bow|steppe_arrows|steppe_arrows|khuzait_polearm_1_t4|brass_lamellar_over_mail|spiked_helmet_with_facemask|khuzait_curved_boots|eastern_plated_leather_vambraces|brass_lamellar_shoulder_white|t3_khuzait_horse|steppe_half_barding",
+            "level": "31.0",
+            "line_status": "noble_line",
+            "roster_index": "2",
+            "shield_hp_max": "0.0",
+            "tree_tier": "5.0",
+            "troop_id": "khuzait_khans_guard",
+            "troop_name": "Khuzait Khan's Guard",
+            "unknown_item_count": "0",
+            "upgrade_depth": "5.0",
+            "weapon_items": "composite_steppe_bow|steppe_arrows|steppe_arrows|khuzait_polearm_1_t4"
+          }
+        },
+        {
+          "csv_row": 4247,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "nord",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4",
+            "level": "1.0",
+            "line_status": "",
+            "roster_index": "6",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "lorathi_duel_preset",
+            "troop_name": "Tribesman",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 4276,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "lyseni",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4",
+            "level": "1.0",
+            "line_status": "",
+            "roster_index": "6",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "lyseni_duel_preset",
+            "troop_name": "Tribesman",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 5170,
+          "values": {
+            "armor_total": "211.0",
+            "crafted_templates": "OneHandedSword|TwoHandedPolearm|TwoHandedSword",
+            "crafted_weapon_items": "vlandia_sword_3_t4|vlandia_lance_3_t5|vlandia_2hsword_1_t5",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "crownlands",
+            "default_group": "Cavalry",
+            "direct_weapon_items": "bracketed_heater_shield",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "True",
+            "has_horse_harness": "True",
+            "has_shield": "True",
+            "has_throwing": "False",
+            "horse_charge_max": "32.0",
+            "horse_harness_armor_max": "80.0",
+            "horse_speed_max": "64.0",
+            "items": "vlandia_sword_3_t4|bracketed_heater_shield|vlandia_lance_3_t5|vlandia_2hsword_1_t5|kg_armor|kg_boots|kingsguard_gloves_with_bracers|kg_helmet|kingsguard_pauldrons_with_cloak|t3_vlandia_horse|kingsguard_horse_armor",
+            "level": "31.0",
+            "line_status": "main_or_minor_line",
+            "roster_index": "0",
+            "shield_hp_max": "370.0",
+            "tree_tier": "5.0",
+            "troop_id": "mounted_kingsguard",
+            "troop_name": "Captain of the Kingsguard",
+            "unknown_item_count": "0",
+            "upgrade_depth": "5.0",
+            "weapon_items": "vlandia_sword_3_t4|bracketed_heater_shield|vlandia_lance_3_t5|vlandia_2hsword_1_t5"
+          }
+        },
+        {
+          "csv_row": 5174,
+          "values": {
+            "armor_total": "185.0",
+            "crafted_templates": "OneHandedSword|TwoHandedPolearm",
+            "crafted_weapon_items": "norvoshi_long_axe|dorne_sword",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "norvos",
+            "default_group": "Cavalry",
+            "direct_weapon_items": "battania_shield_targe_a",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "True",
+            "has_horse_harness": "True",
+            "has_shield": "True",
+            "has_throwing": "False",
+            "horse_charge_max": "19.0",
+            "horse_harness_armor_max": "65.0",
+            "horse_speed_max": "59.0",
+            "items": "norvoshi_long_axe|dorne_sword|battania_shield_targe_a|norvoshi_priest_armor|norvoshi_priest_boots|norvoshi_priest_bracers|norvoshi_priest_shoulders_cape|norvoshi_priest_helmet|t2_khuzait_horse|norvoshi_horse_armor",
+            "level": "31.0",
+            "line_status": "main_or_minor_line",
+            "roster_index": "0",
+            "shield_hp_max": "250.0",
+            "tree_tier": "5.0",
+            "troop_id": "mounted_priest",
+            "troop_name": "Norvoshi Grand Bearded Priest",
+            "unknown_item_count": "0",
+            "upgrade_depth": "5.0",
+            "weapon_items": "norvoshi_long_axe|dorne_sword|battania_shield_targe_a"
+          }
+        },
+        {
+          "csv_row": 5485,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "myrish",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4",
+            "level": "1.0",
+            "line_status": "",
+            "roster_index": "6",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "myrish_duel_preset",
+            "troop_name": "Tribesman",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 5790,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "norvos",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4",
+            "level": "1.0",
+            "line_status": "",
+            "roster_index": "6",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "norvos_duel_preset",
+            "troop_name": "Tribesman",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 5822,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "pentoshi",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4",
+            "level": "1.0",
+            "line_status": "",
+            "roster_index": "6",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "pentoshi_duel_preset",
+            "troop_name": "Tribesman",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 6588,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "qohorik",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4",
+            "level": "1.0",
+            "line_status": "",
+            "roster_index": "6",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "qohorik_duel_preset",
+            "troop_name": "Tribesman",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 7435,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "sarnor",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4",
+            "level": "1.0",
+            "line_status": "",
+            "roster_index": "6",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "sarnor_duel_preset",
+            "troop_name": "Tribesman",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 7460,
+          "values": {
+            "armor_total": "155.0",
+            "crafted_templates": "Javelin|TwoHandedPolearm",
+            "crafted_weapon_items": "khuzait_polearm_1_t4|eastern_javelin_3_t4|eastern_javelin_3_t4|eastern_javelin_3_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "sarnor",
+            "default_group": "Cavalry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "True",
+            "has_horse_harness": "True",
+            "has_shield": "False",
+            "has_throwing": "True",
+            "horse_charge_max": "19.0",
+            "horse_harness_armor_max": "41.0",
+            "horse_speed_max": "59.0",
+            "items": "khuzait_polearm_1_t4|eastern_javelin_3_t4|eastern_javelin_3_t4|eastern_javelin_3_t4|sarnor_armor|sarnor_boots|sarnor_bracers|sarnor_shoulders|sarnori_officer_helmet|t2_khuzait_horse|northern_ring_barding",
+            "level": "31.0",
+            "line_status": "main_or_minor_line",
+            "roster_index": "0",
+            "shield_hp_max": "0.0",
+            "tree_tier": "5.0",
+            "troop_id": "sarnor_spider",
+            "troop_name": "Sarnori Spider",
+            "unknown_item_count": "0",
+            "upgrade_depth": "5.0",
+            "weapon_items": "khuzait_polearm_1_t4|eastern_javelin_3_t4|eastern_javelin_3_t4|eastern_javelin_3_t4"
+          }
+        },
+        {
+          "csv_row": 7921,
+          "values": {
+            "armor_total": "158.0",
+            "crafted_templates": "TwoHandedPolearm|TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4|vlandia_lance_3_t5",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "stormlands",
+            "default_group": "Cavalry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "True",
+            "has_horse_harness": "True",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "22.0",
+            "horse_harness_armor_max": "75.0",
+            "horse_speed_max": "55.0",
+            "items": "western_2hsword_t4|vlandia_lance_3_t5|stormlands_armor|jon_snow_boots|kingsguard_gloves|stormlands_helmet|stormlands_shoulders|t2_battania_horse|rot_horse_armor27",
+            "level": "31.0",
+            "line_status": "main_or_minor_line",
+            "roster_index": "0",
+            "shield_hp_max": "0.0",
+            "tree_tier": "5.0",
+            "troop_id": "stormlands_thunderknight",
+            "troop_name": "Stormlands Thunder Knight",
+            "unknown_item_count": "0",
+            "upgrade_depth": "5.0",
+            "weapon_items": "western_2hsword_t4|vlandia_lance_3_t5"
+          }
+        },
+        {
+          "csv_row": 8012,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "summer",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4",
+            "level": "1.0",
+            "line_status": "",
+            "roster_index": "6",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "summer_duel_preset",
+            "troop_name": "Tribesman",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 8964,
+          "values": {
+            "armor_total": "173.0",
+            "crafted_templates": "TwoHandedPolearm",
+            "crafted_weapon_items": "khuzait_polearm_1_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "volantine",
+            "default_group": "Ranged",
+            "direct_weapon_items": "steppe_war_bow|steppe_arrows|steppe_arrows",
+            "has_arrows": "True",
+            "has_bolts": "False",
+            "has_bow": "True",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "khuzait_polearm_1_t4|steppe_war_bow|steppe_arrows|steppe_arrows|tigercloak_helmet|volantis_armor|targ_boots|volantis_bracers|tigercloak",
+            "level": "21.0",
+            "line_status": "main_or_minor_line",
+            "roster_index": "0",
+            "shield_hp_max": "0.0",
+            "tree_tier": "3.0",
+            "troop_id": "tigercloak_elite",
+            "troop_name": "Tigercloak",
+            "unknown_item_count": "0",
+            "upgrade_depth": "3.0",
+            "weapon_items": "khuzait_polearm_1_t4|steppe_war_bow|steppe_arrows|steppe_arrows"
+          }
+        },
+        {
+          "csv_row": 8965,
+          "values": {
+            "armor_total": "74.0",
+            "crafted_templates": "TwoHandedPolearm",
+            "crafted_weapon_items": "khuzait_polearm_1_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "volantine",
+            "default_group": "Ranged",
+            "direct_weapon_items": "steppe_bow|steppe_arrows",
+            "has_arrows": "True",
+            "has_bolts": "False",
+            "has_bow": "True",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "khuzait_polearm_1_t4|steppe_bow|steppe_arrows|volantis_light_helmet|volantis_heavy_tunic|khuzait_curved_boots",
+            "level": "16.0",
+            "line_status": "main_or_minor_line",
+            "roster_index": "0",
+            "shield_hp_max": "0.0",
+            "tree_tier": "2.0",
+            "troop_id": "tigercloak_elite_initiate",
+            "troop_name": "Tigercloak Elite Initiate",
+            "unknown_item_count": "0",
+            "upgrade_depth": "2.0",
+            "weapon_items": "khuzait_polearm_1_t4|steppe_bow|steppe_arrows"
+          }
+        },
+        {
+          "csv_row": 8967,
+          "values": {
+            "armor_total": "173.0",
+            "crafted_templates": "TwoHandedPolearm",
+            "crafted_weapon_items": "khuzait_polearm_1_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "volantine",
+            "default_group": "Ranged",
+            "direct_weapon_items": "steppe_war_bow|piercing_arrows|piercing_arrows",
+            "has_arrows": "True",
+            "has_bolts": "False",
+            "has_bow": "True",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "khuzait_polearm_1_t4|steppe_war_bow|piercing_arrows|piercing_arrows|tigercloak_helmet|volantis_armor|targ_boots|volantis_bracers|tigercloak",
+            "level": "26.0",
+            "line_status": "main_or_minor_line",
+            "roster_index": "0",
+            "shield_hp_max": "0.0",
+            "tree_tier": "4.0",
+            "troop_id": "tigercloak_master",
+            "troop_name": "Tigercloak Elite",
+            "unknown_item_count": "0",
+            "upgrade_depth": "4.0",
+            "weapon_items": "khuzait_polearm_1_t4|steppe_war_bow|piercing_arrows|piercing_arrows"
+          }
+        },
+        {
+          "csv_row": 11332,
+          "values": {
+            "armor_total": "186.0",
+            "crafted_templates": "TwoHandedPolearm",
+            "crafted_weapon_items": "khuzait_polearm_1_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "volantine",
+            "default_group": "Ranged",
+            "direct_weapon_items": "steppe_war_bow|piercing_arrows|piercing_arrows",
+            "has_arrows": "True",
+            "has_bolts": "False",
+            "has_bow": "True",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "khuzait_polearm_1_t4|steppe_war_bow|piercing_arrows|piercing_arrows|tigercloak_helmet2|volantis_armor|targ_boots|volantis_bracers|volantis_tiger_pauldrons",
+            "level": "31.0",
+            "line_status": "main_or_minor_line",
+            "roster_index": "0",
+            "shield_hp_max": "0.0",
+            "tree_tier": "5.0",
+            "troop_id": "triarch_guardian",
+            "troop_name": "Triarch Guardian",
+            "unknown_item_count": "0",
+            "upgrade_depth": "5.0",
+            "weapon_items": "khuzait_polearm_1_t4|steppe_war_bow|piercing_arrows|piercing_arrows"
+          }
+        },
+        {
+          "csv_row": 11389,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "tyroshi",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4",
+            "level": "1.0",
+            "line_status": "",
+            "roster_index": "6",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "tyroshi_duel_preset",
+            "troop_name": "Tribesman",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 11472,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "valyrian",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4",
+            "level": "1.0",
+            "line_status": "",
+            "roster_index": "6",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "valyrian_duel_preset",
+            "troop_name": "Tribesman",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 13377,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "volantine",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4",
+            "level": "1.0",
+            "line_status": "",
+            "roster_index": "6",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "volantine_duel_preset",
+            "troop_name": "Tribesman",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 13943,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedPolearm",
+            "crafted_weapon_items": "khuzait_polearm_1_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "khuzait",
+            "default_group": "Infantry",
+            "direct_weapon_items": "steppe_bow|default_arrows",
+            "has_arrows": "True",
+            "has_bolts": "False",
+            "has_bow": "True",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "khuzait_polearm_1_t4|steppe_bow|default_arrows",
+            "level": "",
+            "line_status": "",
+            "roster_index": "0",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "weapon_practice_stage_3_khuzait",
+            "troop_name": "Khuzait Weapon Dummy",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "khuzait_polearm_1_t4|steppe_bow|default_arrows"
+          }
+        },
+        {
+          "csv_row": 13946,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedPolearm",
+            "crafted_weapon_items": "khuzait_polearm_1_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "khuzait",
+            "default_group": "Infantry",
+            "direct_weapon_items": "steppe_bow|default_arrows",
+            "has_arrows": "True",
+            "has_bolts": "False",
+            "has_bow": "True",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "khuzait_polearm_1_t4|steppe_bow|default_arrows",
+            "level": "",
+            "line_status": "",
+            "roster_index": "3",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "weapon_practice_stage_3_khuzait",
+            "troop_name": "Khuzait Weapon Dummy",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "khuzait_polearm_1_t4|steppe_bow|default_arrows"
+          }
+        },
+        {
+          "csv_row": 14114,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedPolearm",
+            "crafted_weapon_items": "khuzait_polearm_1_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "yiti",
+            "default_group": "Infantry",
+            "direct_weapon_items": "steppe_bow|default_arrows",
+            "has_arrows": "True",
+            "has_bolts": "False",
+            "has_bow": "True",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "khuzait_polearm_1_t4|steppe_bow|default_arrows",
+            "level": "",
+            "line_status": "",
+            "roster_index": "0",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "weapon_practice_stage_3_yiti",
+            "troop_name": "Weapon Dummy",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "khuzait_polearm_1_t4|steppe_bow|default_arrows"
+          }
+        },
+        {
+          "csv_row": 14117,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedPolearm",
+            "crafted_weapon_items": "khuzait_polearm_1_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "yiti",
+            "default_group": "Infantry",
+            "direct_weapon_items": "steppe_bow|default_arrows",
+            "has_arrows": "True",
+            "has_bolts": "False",
+            "has_bow": "True",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "khuzait_polearm_1_t4|steppe_bow|default_arrows",
+            "level": "",
+            "line_status": "",
+            "roster_index": "3",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "weapon_practice_stage_3_yiti",
+            "troop_name": "Weapon Dummy",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "khuzait_polearm_1_t4|steppe_bow|default_arrows"
+          }
+        },
+        {
+          "csv_row": 14258,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "whitewalker",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4",
+            "level": "1.0",
+            "line_status": "",
+            "roster_index": "6",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "wight_duel_preset",
+            "troop_name": "Dead Tribesman",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 14309,
+          "values": {
+            "armor_total": "0.0",
+            "crafted_templates": "TwoHandedSword",
+            "crafted_weapon_items": "western_2hsword_t4",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "yiti",
+            "default_group": "Infantry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "False",
+            "has_horse_harness": "False",
+            "has_shield": "False",
+            "has_throwing": "False",
+            "horse_charge_max": "0.0",
+            "horse_harness_armor_max": "0.0",
+            "horse_speed_max": "0.0",
+            "items": "western_2hsword_t4",
+            "level": "1.0",
+            "line_status": "",
+            "roster_index": "6",
+            "shield_hp_max": "0.0",
+            "tree_tier": "",
+            "troop_id": "yiti_duel_preset",
+            "troop_name": "Tribesman",
+            "unknown_item_count": "0",
+            "upgrade_depth": "",
+            "weapon_items": "western_2hsword_t4"
+          }
+        },
+        {
+          "csv_row": 14333,
+          "values": {
+            "armor_total": "198.0",
+            "crafted_templates": "ThrowingKnife|TwoHandedPolearm|TwoHandedSword",
+            "crafted_weapon_items": "yiti_sword|yiti_qinglongji|empire_throwingknife_t5|empire_throwingknife_t5",
+            "crafted_weapon_stat_status": "not_reconstructed",
+            "culture": "yiti",
+            "default_group": "Cavalry",
+            "direct_weapon_items": "",
+            "has_arrows": "False",
+            "has_bolts": "False",
+            "has_bow": "False",
+            "has_crossbow": "False",
+            "has_horse": "True",
+            "has_horse_harness": "True",
+            "has_shield": "False",
+            "has_throwing": "True",
+            "horse_charge_max": "20.0",
+            "horse_harness_armor_max": "65.0",
+            "horse_speed_max": "60.0",
+            "items": "yiti_sword|yiti_qinglongji|empire_throwingknife_t5|empire_throwingknife_t5|yiti_helmet3|yiti_armor3|yiti_boots|yiti_shoulder3|yiti_bracers2|t3_khuzait_horse|volantene_horse_armor",
+            "level": "31.0",
+            "line_status": "main_or_minor_line",
+            "roster_index": "0",
+            "shield_hp_max": "0.0",
+            "tree_tier": "6.0",
+            "troop_id": "yiti_samurai",
+            "troop_name": "Yi Ti Mounted Shi",
+            "unknown_item_count": "0",
+            "upgrade_depth": "6.0",
+            "weapon_items": "yiti_sword|yiti_qinglongji|empire_throwingknife_t5|empire_throwingknife_t5"
+          }
+        }
+      ],
+      "sha256": "589bbbea64e78c912a8b3d5f484177473c4618dd45af55609a262075b4fec540",
+      "size_bytes": 4015269
+    },
+    {
+      "columns": [
+        "troop_id",
+        "tree_root_id",
+        "upgrade_depth",
+        "tree_tier",
+        "upgrade_path",
+        "line_status",
+        "line_status_corrected",
+        "name",
+        "level",
+        "occupation",
+        "culture",
+        "default_group",
+        "has_upgrade_targets"
+      ],
+      "displayed_rows": 5,
+      "git_blob_sha": "a599aca63d20d28f25767e1c4bbcd30476ba20ea",
+      "matched_rows": 5,
+      "path": "data/realm_of_thrones/audit/realm_of_thrones_tree_tiers.csv",
+      "row_count": 1232,
+      "rows": [
+        {
+          "csv_row": 478,
+          "values": {
+            "culture": "crownlands",
+            "default_group": "Cavalry",
+            "has_upgrade_targets": "False",
+            "level": "31.0",
+            "line_status": "main_or_minor_line",
+            "line_status_corrected": "main_or_minor_line",
+            "name": "Captain of the Kingsguard",
+            "occupation": "Soldier",
+            "tree_root_id": "kingsguard_page",
+            "tree_tier": "5",
+            "troop_id": "mounted_kingsguard",
+            "upgrade_depth": "5",
+            "upgrade_path": "kingsguard_page|kingsguard_squire|kingsguard_initiate|kingsguard_captain|mounted_kingsguard"
+          }
+        },
+        {
+          "csv_row": 479,
+          "values": {
+            "culture": "norvos",
+            "default_group": "Cavalry",
+            "has_upgrade_targets": "False",
+            "level": "31.0",
+            "line_status": "main_or_minor_line",
+            "line_status_corrected": "main_or_minor_line",
+            "name": "Norvoshi Grand Bearded Priest",
+            "occupation": "Soldier",
+            "tree_root_id": "norvos_initiate",
+            "tree_tier": "5",
+            "troop_id": "mounted_priest",
+            "upgrade_depth": "5",
+            "upgrade_path": "norvos_initiate|norvos_acolyte|norvos_bearded_priest|devout_bearded_priest|mounted_priest"
+          }
+        },
+        {
+          "csv_row": 662,
+          "values": {
+            "culture": "sarnor",
+            "default_group": "Cavalry",
+            "has_upgrade_targets": "False",
+            "level": "31.0",
+            "line_status": "main_or_minor_line",
+            "line_status_corrected": "main_or_minor_line",
+            "name": "Sarnori Spider",
+            "occupation": "Soldier",
+            "tree_root_id": "sarnor_noble_recruit",
+            "tree_tier": "5",
+            "troop_id": "sarnor_spider",
+            "upgrade_depth": "5",
+            "upgrade_path": "sarnor_noble_recruit|sarnor_javelinier|sarnor_elite_javelinier|sarnor_master_javelinier|sarnor_spider"
+          }
+        },
+        {
+          "csv_row": 711,
+          "values": {
+            "culture": "stormlands",
+            "default_group": "Cavalry",
+            "has_upgrade_targets": "False",
+            "level": "31.0",
+            "line_status": "main_or_minor_line",
+            "line_status_corrected": "main_or_minor_line",
+            "name": "Stormlands Thunder Knight",
+            "occupation": "Soldier",
+            "tree_root_id": "stormlands_noble_recruit",
+            "tree_tier": "5",
+            "troop_id": "stormlands_thunderknight",
+            "upgrade_depth": "5",
+            "upgrade_path": "stormlands_noble_recruit|stormlands_squire|stormlands_knight|stormlands_fell_knight|stormlands_thunderknight"
+          }
+        },
+        {
+          "csv_row": 919,
+          "values": {
+            "culture": "yiti",
+            "default_group": "Cavalry",
+            "has_upgrade_targets": "False",
+            "level": "31.0",
+            "line_status": "main_or_minor_line",
+            "line_status_corrected": "main_or_minor_line",
+            "name": "Yi Ti Mounted Shi",
+            "occupation": "Soldier",
+            "tree_root_id": "yiti_recruit",
+            "tree_tier": "6",
+            "troop_id": "yiti_samurai",
+            "upgrade_depth": "6",
+            "upgrade_path": "yiti_recruit|yiti_footman|yiti_infantryman|yiti_spearman|yiti_pikeman|yiti_samurai"
+          }
+        }
+      ],
+      "sha256": "ec46e71b1c877c9ec4ed0fa1b4649496f7e9f0ebc8bd247ec035a476a1a9d3ce",
+      "size_bytes": 212968
+    },
+    {
+      "columns": [
+        "troop_id",
+        "name_raw",
+        "name",
+        "level",
+        "occupation",
+        "culture",
+        "default_group",
+        "is_basic_troop",
+        "is_hero",
+        "is_template",
+        "OneHanded",
+        "TwoHanded",
+        "Polearm",
+        "Bow",
+        "Crossbow",
+        "Throwing",
+        "Riding",
+        "Athletics",
+        "upgrade_targets",
+        "has_upgrade_targets",
+        "is_soldier"
+      ],
+      "displayed_rows": 10,
+      "git_blob_sha": "67df28bb6cbfbb60a37a90950c781980d41a2fe9",
+      "matched_rows": 10,
+      "path": "data/realm_of_thrones/audit/realm_of_thrones_troops.csv",
+      "row_count": 6187,
+      "rows": [
+        {
+          "csv_row": 4748,
+          "values": {
+            "Athletics": "130.0",
+            "Bow": "30.0",
+            "Crossbow": "5.0",
+            "OneHanded": "110.0",
+            "Polearm": "130.0",
+            "Riding": "130.0",
+            "Throwing": "5.0",
+            "TwoHanded": "140.0",
+            "culture": "stormlands",
+            "default_group": "Cavalry",
+            "has_upgrade_targets": "True",
+            "is_basic_troop": "false",
+            "is_hero": "",
+            "is_soldier": "True",
+            "is_template": "",
+            "level": "26.0",
+            "name": "Stormlands Fell Knight",
+            "name_raw": "{=ROT00907}Stormlands Fell Knight",
+            "occupation": "Soldier",
+            "troop_id": "stormlands_fell_knight",
+            "upgrade_targets": "stormlands_thunderknight"
+          }
+        },
+        {
+          "csv_row": 4749,
+          "values": {
+            "Athletics": "220.0",
+            "Bow": "30.0",
+            "Crossbow": "5.0",
+            "OneHanded": "210.0",
+            "Polearm": "220.0",
+            "Riding": "230.0",
+            "Throwing": "5.0",
+            "TwoHanded": "230.0",
+            "culture": "stormlands",
+            "default_group": "Cavalry",
+            "has_upgrade_targets": "False",
+            "is_basic_troop": "false",
+            "is_hero": "",
+            "is_soldier": "True",
+            "is_template": "",
+            "level": "31.0",
+            "name": "Stormlands Thunder Knight",
+            "name_raw": "{=ROT00908}Stormlands Thunder Knight",
+            "occupation": "Soldier",
+            "troop_id": "stormlands_thunderknight",
+            "upgrade_targets": ""
+          }
+        },
+        {
+          "csv_row": 4894,
+          "values": {
+            "Athletics": "140.0",
+            "Bow": "30.0",
+            "Crossbow": "5.0",
+            "OneHanded": "140.0",
+            "Polearm": "140.0",
+            "Riding": "140.0",
+            "Throwing": "120.0",
+            "TwoHanded": "140.0",
+            "culture": "crownlands",
+            "default_group": "Infantry",
+            "has_upgrade_targets": "True",
+            "is_basic_troop": "false",
+            "is_hero": "",
+            "is_soldier": "True",
+            "is_template": "",
+            "level": "26.0",
+            "name": "Kingsguard",
+            "name_raw": "{=ROT00970}Kingsguard",
+            "occupation": "Soldier",
+            "troop_id": "kingsguard_captain",
+            "upgrade_targets": "mounted_kingsguard"
+          }
+        },
+        {
+          "csv_row": 4895,
+          "values": {
+            "Athletics": "270.0",
+            "Bow": "30.0",
+            "Crossbow": "5.0",
+            "OneHanded": "270.0",
+            "Polearm": "270.0",
+            "Riding": "250.0",
+            "Throwing": "220.0",
+            "TwoHanded": "270.0",
+            "culture": "crownlands",
+            "default_group": "Cavalry",
+            "has_upgrade_targets": "False",
+            "is_basic_troop": "false",
+            "is_hero": "",
+            "is_soldier": "True",
+            "is_template": "",
+            "level": "31.0",
+            "name": "Captain of the Kingsguard",
+            "name_raw": "{=ROT00971}Captain of the Kingsguard",
+            "occupation": "Soldier",
+            "troop_id": "mounted_kingsguard",
+            "upgrade_targets": ""
+          }
+        },
+        {
+          "csv_row": 5001,
+          "values": {
+            "Athletics": "140.0",
+            "Bow": "5.0",
+            "Crossbow": "0.0",
+            "OneHanded": "100.0",
+            "Polearm": "140.0",
+            "Riding": "150.0",
+            "Throwing": "140.0",
+            "TwoHanded": "100.0",
+            "culture": "sarnor",
+            "default_group": "Cavalry",
+            "has_upgrade_targets": "True",
+            "is_basic_troop": "false",
+            "is_hero": "",
+            "is_soldier": "True",
+            "is_template": "",
+            "level": "26.0",
+            "name": "Sarnori Master Javelinier",
+            "name_raw": "{=ROTsarnorimasterjavelinier}Sarnori Master Javelinier",
+            "occupation": "Soldier",
+            "troop_id": "sarnor_master_javelinier",
+            "upgrade_targets": "sarnor_spider"
+          }
+        },
+        {
+          "csv_row": 5002,
+          "values": {
+            "Athletics": "230.0",
+            "Bow": "5.0",
+            "Crossbow": "0.0",
+            "OneHanded": "210.0",
+            "Polearm": "230.0",
+            "Riding": "260.0",
+            "Throwing": "250.0",
+            "TwoHanded": "210.0",
+            "culture": "sarnor",
+            "default_group": "Cavalry",
+            "has_upgrade_targets": "False",
+            "is_basic_troop": "false",
+            "is_hero": "",
+            "is_soldier": "True",
+            "is_template": "",
+            "level": "31.0",
+            "name": "Sarnori Spider",
+            "name_raw": "{=ROT1cc93e3ee}Sarnori Spider",
+            "occupation": "Soldier",
+            "troop_id": "sarnor_spider",
+            "upgrade_targets": ""
+          }
+        },
+        {
+          "csv_row": 5024,
+          "values": {
+            "Athletics": "140.0",
+            "Bow": "5.0",
+            "Crossbow": "0.0",
+            "OneHanded": "100.0",
+            "Polearm": "140.0",
+            "Riding": "100.0",
+            "Throwing": "140.0",
+            "TwoHanded": "100.0",
+            "culture": "norvos",
+            "default_group": "Infantry",
+            "has_upgrade_targets": "True",
+            "is_basic_troop": "false",
+            "is_hero": "",
+            "is_soldier": "True",
+            "is_template": "",
+            "level": "26.0",
+            "name": "Norvoshi Devout Bearded Priest",
+            "name_raw": "{=ROTdevutbeardedpriest}Norvoshi Devout Bearded Priest",
+            "occupation": "Soldier",
+            "troop_id": "devout_bearded_priest",
+            "upgrade_targets": "mounted_priest"
+          }
+        },
+        {
+          "csv_row": 5025,
+          "values": {
+            "Athletics": "210.0",
+            "Bow": "5.0",
+            "Crossbow": "0.0",
+            "OneHanded": "210.0",
+            "Polearm": "230.0",
+            "Riding": "220.0",
+            "Throwing": "190.0",
+            "TwoHanded": "200.0",
+            "culture": "norvos",
+            "default_group": "Cavalry",
+            "has_upgrade_targets": "False",
+            "is_basic_troop": "false",
+            "is_hero": "",
+            "is_soldier": "True",
+            "is_template": "",
+            "level": "31.0",
+            "name": "Norvoshi Grand Bearded Priest",
+            "name_raw": "{=ROTgrandpriest}Norvoshi Grand Bearded Priest",
+            "occupation": "Soldier",
+            "troop_id": "mounted_priest",
+            "upgrade_targets": ""
+          }
+        },
+        {
+          "csv_row": 5216,
+          "values": {
+            "Athletics": "150.0",
+            "Bow": "20.0",
+            "Crossbow": "15.0",
+            "OneHanded": "140.0",
+            "Polearm": "140.0",
+            "Riding": "5.0",
+            "Throwing": "150.0",
+            "TwoHanded": "150.0",
+            "culture": "yiti",
+            "default_group": "Infantry",
+            "has_upgrade_targets": "True",
+            "is_basic_troop": "",
+            "is_hero": "",
+            "is_soldier": "True",
+            "is_template": "",
+            "level": "26.0",
+            "name": "Yi Ti Shi",
+            "name_raw": "{=yitisam}Yi Ti Shi",
+            "occupation": "Soldier",
+            "troop_id": "yiti_pikeman",
+            "upgrade_targets": "yiti_samurai"
+          }
+        },
+        {
+          "csv_row": 5217,
+          "values": {
+            "Athletics": "250.0",
+            "Bow": "20.0",
+            "Crossbow": "15.0",
+            "OneHanded": "210.0",
+            "Polearm": "210.0",
+            "Riding": "210.0",
+            "Throwing": "250.0",
+            "TwoHanded": "260.0",
+            "culture": "yiti",
+            "default_group": "Cavalry",
+            "has_upgrade_targets": "False",
+            "is_basic_troop": "",
+            "is_hero": "",
+            "is_soldier": "True",
+            "is_template": "",
+            "level": "31.0",
+            "name": "Yi Ti Mounted Shi",
+            "name_raw": "{=yitisam}Yi Ti Mounted Shi",
+            "occupation": "Soldier",
+            "troop_id": "yiti_samurai",
+            "upgrade_targets": ""
+          }
+        }
+      ],
+      "sha256": "63ea983998e25aa0e6f8c0747bf42e44440f695bbe1fec717074e7ba64e42810",
+      "size_bytes": 847329
+    }
+  ]
+}
