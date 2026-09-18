@@ -1,0 +1,21 @@
+{
+  "base_commit": "9311f5596aabc04974d5fe4d7113f1088454143f",
+  "boundary": "Search covers this pinned Git snapshot; not local-only exports, other commits, or the running game.",
+  "raw_xml_tracked": [],
+  "tracked_paths_scanned": 1532,
+  "v44_exact_profile_template_data_rows": 0,
+  "weapon_evidence_related_paths": [
+    "analysis/item_validation/2026-06-05_throwing_tooltips/findings.md",
+    "analysis/item_validation/2026-06-05_throwing_tooltips/item_tooltip_validation_20260605.csv",
+    "analysis/item_validation/2026-06-05_throwing_tooltips/screenshot_manifest.csv",
+    "analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_burst_assumptions.md",
+    "analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_burst_summary.md",
+    "analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_key_burst_cases_compact.csv",
+    "analysis/model_versions/v7.3_tooltip_damage_burst/bannerlord_v73_top20_burst_units_regular_compact.csv",
+    "data/rot_reference/hot_20260717/v44_exact_item_profile_template.csv",
+    "docs/handoff/PC_CRAFTING_PIECES_EXPORT_PROMPT.md",
+    "scripts/build_v73_tooltip_damage_burst.py",
+    "scripts/normalization/reconstruct_crafted_weapon_stats.py",
+    "tests/test_reconstruct_crafted_weapon_stats.py"
+  ]
+}

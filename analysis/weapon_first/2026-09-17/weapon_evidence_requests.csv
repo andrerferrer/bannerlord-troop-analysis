@@ -1,0 +1,190 @@
+item_id,item_name,crafting_template,affected_troops,affected_slots,active_test_weapon,missing_contract,no_skill_fallback
+aserai_2haxe_1_t3,Short Handled Tabar,TwoHandedAxe,3,3,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+aserai_2haxe_2_t4,Executioner Axe,TwoHandedAxe,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+aserai_mace_2_t2,Fullered Light Mace,Mace,4,4,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+aserai_sword_1_t2,Iron Flyssa,OneHandedSword,19,19,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+aserai_sword_2_t2,Iron Scimitar,OneHandedSword,6,6,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+aserai_sword_3_t3,Slightly Ridged Flyssa,OneHandedSword,4,4,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+aserai_sword_5_t4,Long Fine Steel Scimitar,OneHandedSword,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+avalanche_2haxe,Avalanche,TwoHandedAxe,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+bamboo_axe_t4,Bamboo Axe,OneHandedAxe,5,5,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+baratheon_spear,Baratheon Hunting Spear,TwoHandedPolearm,7,8,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+battania_2hsword_3_t3,Northlander Wide Fullered Greatsword,TwoHandedSword,8,8,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+battania_2hsword_4_t4,Long Falx,TwoHandedSword,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+battania_axe_1_t2,Highland Hatchet,OneHandedAxe,21,30,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+battania_axe_2_t4,One Handed Bearded Axe,OneHandedAxe,3,3,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+battania_mace_1_t2,Knobbed Club,Mace,14,14,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+battania_mace_2_t2,Highland Spiked Club,Mace,8,8,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+battania_sword_1_t2,Ridged Iron Broadsword,OneHandedSword,9,16,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+battle_axe_t4,Battle Axe,OneHandedAxe,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+bearded_axe_t3,Bearded Axe,TwoHandedAxe,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+bill_hook,Northern Billhook,TwoHandedPolearm,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+billhook_polearm_t2,Billhook,TwoHandedPolearm,22,44,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+bolton_spear,Bolton Spear,TwoHandedPolearm,3,4,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+broad_arming_sword_t4,Broad Arming Sword,OneHandedSword,15,15,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+bronze_axe,Thenn Bronze Axe,TwoHandedAxe,5,5,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+crownlands_halberd,Crownlander Halberd,TwoHandedPolearm,3,3,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+dayne_mace,Dayne Mace,Mace,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+dorne_sword,Essosi Sword,OneHandedSword,3,3,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+dragonstone_elite_halberd,Dragonstone Elite Halberd,TwoHandedPolearm,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+dragonstone_halberd,Dragonstone Halberd,TwoHandedPolearm,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+eastern_spear_1_t2,Jagged Spear,TwoHandedPolearm,22,34,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+eastern_spear_2_t3,Narrow Long Headed Spear,TwoHandedPolearm,12,24,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+eastern_spear_3_t3,Weighted Steppe Spear,TwoHandedPolearm,4,5,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+eastern_spear_4_t4,Fine Steel Leaf Spear,TwoHandedPolearm,3,3,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+eastern_throwing_spear_1_t3,Jagged Throwing Spear,TwoHandedPolearm,3,3,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+empire_lance_1_t3,Light Cavalry Lance,TwoHandedPolearm,16,16,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+empire_mace_1_t2,Spiked Club,Mace,5,5,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+empire_mace_4_t5,Light Royal Mace,Mace,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+empire_sword_1_t2,Footman's Spatha,OneHandedSword,12,15,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+empire_sword_2_t3,Spatha With Narrow Fuller,OneHandedSword,6,6,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+empire_sword_3_t3,Spatha,OneHandedSword,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+empire_sword_4_t4,Fine Steel Spatha,OneHandedSword,4,4,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+falchion_sword_t2,Falchion,OneHandedSword,5,6,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+fine_pike_t4,Fine Pike,Pike,6,7,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+ghiscari_sword,Ghiscari Sword,TwoHandedSword,6,6,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+giant_club,Giant Club,TwoHandedAxe,4,4,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+golden_company_spear,Golden Company Spear,TwoHandedPolearm,5,10,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+golden_company_sword,Golden Company Scimitar,OneHandedSword,10,20,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+grafton_axe,Grafton Axe,TwoHandedAxe,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+grafton_spear,Grafton Spear,TwoHandedPolearm,4,4,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+highland_spear_3_t3,Reinforced Highland Spear,TwoHandedPolearm,7,7,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+highland_spear_4_t4,Steel Tipped Hooked Spear,TwoHandedPolearm,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+highland_spear_t2,Highland War Spear,TwoHandedPolearm,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+hooked_axe_t4,Hooked Cavalry Axe,TwoHandedAxe,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+ibb_glaive,Ibbenese Glaive,TwoHandedPolearm,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+ibb_spear,Ibbenese Spear,TwoHandedPolearm,7,7,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+ibb_sword,Ibbenese Sword,OneHandedSword,10,10,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+imperial_axe_t3,Tzikourion,OneHandedAxe,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+imperial_spear_t2,Short Militia Spear,TwoHandedPolearm,3,11,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+imperial_throwing_spear_1_t4,Pilum,TwoHandedPolearm,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+iron_spatha_sword_t2,Iron Spatha,OneHandedSword,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+khuzait_lance_1_t3,Light Steppe Rider Lance,TwoHandedPolearm,3,3,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+khuzait_lance_3_t5,Noble Cavalry Lance,TwoHandedPolearm,9,9,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+khuzait_mace_1_t2,Steppe Light Mace,Mace,3,3,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+khuzait_polearm_1_t4,Glaive,TwoHandedPolearm,10,10,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+khuzait_sword_1_t2,Iron Saber,OneHandedSword,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+khuzait_sword_2_t3,Straight Saber,OneHandedSword,12,24,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+khuzait_sword_3_t3,Long Saber,OneHandedSword,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+kopesh_sword,Khopesh,OneHandedSword,12,12,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+lannister_sword,Lannister Sword,OneHandedSword,6,6,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+lyseni_spear,Lyseni Spear,TwoHandedPolearm,3,3,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+lyseni_sword,Lyseni Sword,OneHandedSword,5,5,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+mallister_hammer,Mallister Hammer,Mace,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+mallister_sword,Mallister Sword,OneHandedSword,4,4,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+manderly_spear,Manderly Spear,TwoHandedPolearm,3,3,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+manderly_spear2,Manderly Spear 2,TwoHandedPolearm,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+manderly_sword,Manderly Sword,OneHandedSword,9,9,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+marches_warhammer,Marches Warhammer,Mace,4,4,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+martell_sword,Martell Sword,OneHandedSword,4,4,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+military_fork_t2,Military Fork,TwoHandedPolearm,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+morningstar_mace_t3,Morningstar,Mace,6,6,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+narrow_sword_t3,Narrow Sword,OneHandedSword,12,12,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+nord_battle_axe_4_t3,Leatherbound Hardened Battle Axe,OneHandedAxe,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+nord_battle_axe_5_t3,Leatherbound Nord Battle Axe,OneHandedAxe,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+nord_battle_axe_6_t2,Drengr Long Axe,OneHandedAxe,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+nord_battle_axe_7_t2,Drengr Axe,OneHandedAxe,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+nord_hatchett_1_t2,Nord Hatchett,OneHandedAxe,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+nord_hatchett_2_t2,Leatherbound Nord Hatchett,OneHandedAxe,3,3,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+nord_hatchett_3_t1,Nord Work Hatchett,OneHandedAxe,2,3,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+nord_spear_1_t2,Knobbed Short Spear,TwoHandedPolearm,2,4,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+nord_spear_2_t2,Drilled Leaf Short Spear,TwoHandedPolearm,2,4,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+nord_twohanded_axe_1_t3,Nord Axe,TwoHandedAxe,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+northern_axe,Northern Axe,OneHandedAxe,4,4,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+northern_axe_t3,Northlander Broad Axe,TwoHandedAxe,5,5,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+northern_battle_axe_t3,Simple Raider Battle Axe,OneHandedAxe,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+northern_halberd,Northern Halberd,TwoHandedPolearm,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+northern_spear_1_t2,Short Simple Raider Spear,TwoHandedPolearm,28,75,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+northern_spear_2_t3,Broad Leaf Shaped Spear,TwoHandedPolearm,22,26,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+northern_spear_3_t4,Jagged Fine Steel Spear,TwoHandedPolearm,14,14,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+northern_spear_4_t5,Fine Steel Hewing Spear,TwoHandedPolearm,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+northern_spiked_mace,Northern Spiked Mace,Mace,3,3,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+northern_sword,Stark Arming Sword,OneHandedSword,6,8,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+northern_twoh_axe,Northern Great Axe,TwoHandedAxe,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+norvoshi_long_axe,Norvoshi Long Axe,TwoHandedPolearm,4,4,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+peasant_hammer_1_t1,Blacksmith Hammer,Mace,20,23,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+peasant_hammer_2_t1,Wooden Hammer,Mace,12,13,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+peasant_hatchet_1_t1,Hatchet,OneHandedAxe,20,37,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+peasant_maul_t1_2,Maul,TwoHandedMace,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+peasant_pickaxe_1_t1,Pickaxe,OneHandedAxe,11,11,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+peasant_pitchfork_1_t1,Iron Pitchfork,TwoHandedPolearm,6,6,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+peasant_polearm_1_t1,Scythe,TwoHandedPolearm,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+peasant_sickle_1_t1,Sickle,OneHandedAxe,7,8,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+pentoshi_spear,Pentoshi Spear,TwoHandedPolearm,5,5,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+pentoshi_sword,Pentoshi Sword,OneHandedSword,11,11,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+qarth_spear,Qartheen Spear,TwoHandedPolearm,4,4,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+qarth_spear2,Qartheen Spear 2,TwoHandedPolearm,4,4,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+qarth_sword,Qartheen Sword,OneHandedSword,11,11,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+qohorik_spear,Qohorik Spear,TwoHandedPolearm,7,7,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+qohorik_sword,Qohorik Sword,OneHandedSword,11,11,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+qohorik_sword2,Qohorik Infused Sword,OneHandedSword,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+ranseur,Ranseur,TwoHandedPolearm,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+short_sword_t3,Short Sword,OneHandedSword,17,17,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+simple_pike_t2,Simple Pike,Pike,3,3,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+simple_sabre_sword_t2,Simple Saber ,OneHandedSword,42,66,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+skagosi_spear,Skagosi Spear,TwoHandedPolearm,6,6,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+skagosi_sword,Skagosi Sword,OneHandedSword,7,7,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+sledgehammer,Sledgehammer,TwoHandedAxe,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+small_bit_axe_t2,Small Bit Axe,OneHandedAxe,5,5,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+small_spurred_axe_t2,Small Spurred Axe,OneHandedAxe,14,28,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+southern_spear_3_t3,Knob Headed Spear with Frills,TwoHandedPolearm,13,13,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+spiked_polehammer,Spiked Polehammer,TwoHandedPolearm,3,4,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+stormlands_halberd,Stormlander Halberd,TwoHandedPolearm,3,3,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+sturgia_2haxe_1_t4,Drilled Two Handed Axe,TwoHandedAxe,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+sturgia_2haxe_2_t5,Northlander Decorated Two Handed Axe,TwoHandedAxe,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+sturgia_axe_2_t2,Galloglaich Axe,OneHandedAxe,15,16,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+sturgia_axe_4_t4,Veteran Warrior Axe,OneHandedAxe,8,8,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+sturgia_axe_5_t5,Rectangular Bitted Axe,OneHandedAxe,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+sturgia_lance_1_t4,Druzhinnik Lance,TwoHandedPolearm,5,5,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+sturgia_lance_2_t5,Heavy Druzhinnik Lance,TwoHandedPolearm,10,10,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+sturgia_sword_1_t2,Tapered Blade,OneHandedSword,13,13,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+sturgia_sword_2_t3,Backsword,OneHandedSword,12,12,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+sturgia_sword_3_t3,Pointy Warsword,OneHandedSword,12,12,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+sturgia_sword_4_t4,Long Warsword,OneHandedSword,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+sturgia_sword_5_t4,Fullered Narrow Warsword,OneHandedSword,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+thamaskene_pike_t4,Thamaskene Pike,Pike,2,3,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+thenn_sword2,Thenn Broad Sword,OneHandedSword,4,4,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+triangular_spear_t3,,,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+trident,Trident,TwoHandedPolearm,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+tyroshi_axe,Tyroshi Axe,OneHandedAxe,4,4,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+tyroshi_axe2,Tyroshi Battle Axe,OneHandedAxe,3,3,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+tyroshi_axe3,Tyroshi Elite Battle Axe,OneHandedAxe,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+tzkurion_axe_t3,Broad Tzikourion,OneHandedAxe,7,7,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+unsullied_spear,Unsullied Spear,TwoHandedPolearm,5,5,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+unsullied_sword,Unsullied Short Sword,OneHandedSword,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+velaryon_axe,Velaryon Axe,TwoHandedAxe,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+velaryon_cutlass,Velaryon Cutlass,OneHandedSword,7,7,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+vlandia_2hsword_1_t5,Wide Fullered Broad Two Hander,TwoHandedSword,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+vlandia_axe_1_t3,Infantry Axe,OneHandedAxe,6,9,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+vlandia_axe_2_t4,Spiked Battle Axe,OneHandedAxe,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+vlandia_lance_1_t3,Light Lance,TwoHandedPolearm,15,16,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+vlandia_lance_2_t4,Knight Lance,TwoHandedPolearm,15,18,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+vlandia_lance_3_t5,Heavy Knight Lance,TwoHandedPolearm,40,42,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+vlandia_mace_1_t2,Spiked Mace,Mace,10,10,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+vlandia_mace_2_t4,Fullered Cavalry Mace,Mace,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+vlandia_pike_1_t5,Pike,Pike,10,10,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+vlandia_polearm_1_t5,Voulge,TwoHandedPolearm,7,7,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+vlandia_sword_1_t2,Iron Arming Sword,OneHandedSword,110,129,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+vlandia_sword_2_t3,Ridged Tipped Arming Sword,OneHandedSword,75,94,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+vlandia_sword_3_t4,Knightly Arming Sword,OneHandedSword,49,49,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+vlandia_sword_4_t4,Ridged Arming Sword,OneHandedSword,50,53,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+war_scythe,War Scythe,TwoHandedAxe,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+westerling_axe,Westerling Axe,OneHandedAxe,6,6,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+westerling_hammer,Westerling Hammer,TwoHandedAxe,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+westerling_mace,Westerling Mace,Mace,6,6,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+western_2hsword_t4,Broad Two Hander,TwoHandedSword,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+western_spear_1_t2,Simple Commoner Spear,TwoHandedPolearm,33,34,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+western_spear_2_t2,Simple Short Spear,TwoHandedPolearm,6,6,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+western_spear_3_t3,Tall Tipped Long Spear,TwoHandedPolearm,8,11,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+western_spear_5_t4,Fine Steel Spear,TwoHandedPolearm,5,5,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+wide_leaf_spear_t4,Wide Leaf Spear,TwoHandedPolearm,11,11,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+wildling_axe,Wildling Axe,OneHandedAxe,3,3,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+wildling_knife,Wildling Knife,OneHandedSword,3,3,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+wildling_pickaxe,Wildling Pickaxe,OneHandedAxe,3,3,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+wildling_shield,,,2,3,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+wildling_sword,Wildling Sword,OneHandedSword,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+woodland_axe_t3,Woodland Axe,OneHandedAxe,11,12,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+yiti_guandao,YiTish Guandao,TwoHandedPolearm,1,1,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+yiti_qinglongji,YiTish Qinglong ji,TwoHandedPolearm,2,2,True,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+yiti_spear,Yitish Spear,TwoHandedPolearm,2,2,False,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True
+yiti_sword,Yitish Sword,TwoHandedSword,2,2,True,"mode-specific damage, speed, damage type, mounted usability, verified version/source",True

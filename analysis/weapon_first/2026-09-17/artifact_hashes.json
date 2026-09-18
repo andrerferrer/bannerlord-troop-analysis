@@ -1,0 +1,14 @@
+{
+  "OPERATOR_DECISION.json": "5aeff77f32b6723e4c992ded3f088898319fdb4d4f933add3b39dcba948ca7a0",
+  "REPORT.md": "40a8eeb6287f149629052c4ad84d33148b23c1b788e4183882e2e573c85e8e58",
+  "focus_loadouts.json": "1ef40a0078720c22203ef062f9197bf7bd7e0aad42a767c6f92542cefefa7584",
+  "legacy_rejected_profiles.json": "b001d297a8a5a8dc8ed0e88bee9c5065ccb88e3482450f5426f8d299d0eae6b7",
+  "melee_weapon_audit.csv": "436dffe188d33a4e5331879f492dc1b86627053cd530443c25b817549f523db0",
+  "operator_queue_projection.json": "08e45b8ee95de7b64c4e9494243b555505edf2af9bb28af651da83e26d5d6cee",
+  "repository_evidence_search.json": "095860bb2e72252f9241619f63ed2026da874481fe25d356dbb156ed170d0172",
+  "source_hashes.json": "160f0baf7fd969728437e9dc876e865c3e461a6123fda1b5c0392d46c925e51a",
+  "summary.json": "64a373696233476170d69e620ba9cdf17e73f861ef57e525b08770dc3d6300b1",
+  "troop_coverage.csv": "1f2a92737be8233c2e396d51f1ad249c5b8ddb21bf54c0c9d4d8ffa646169e30",
+  "verified_usage_pairs.csv": "f53f57b68f64452102e036a36d41372d9b94894a79c95dfd9a2d5ebf33de1ce6",
+  "weapon_evidence_requests.csv": "2f4affd3c65f4e7b1394a71e256e127ad469ed00efa482f7f52881f99385eabe"
+}
