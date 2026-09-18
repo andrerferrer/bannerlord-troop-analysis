@@ -182,10 +182,10 @@
   "game_version": "1.4.x",
   "last_transition": {
     "date": "2026-09-18",
-    "decision_path": "data/combat_observations/test_queues/decisions/2026-09-18-velaryon-marksman.json",
-    "from": "active_test: yiti_samurai / ordered_queue: []",
-    "to": "active_test: yiti_samurai / ordered_queue: [velaryon_marksman / field]",
-    "reason": "Delegated next-test selection from verified ranged weapon/ammunition inputs. Preserve the operator-selected Yi Ti test without fabricating completion, promotion or new empirical results."
+    "decision_path": "data/combat_observations/test_queues/comparisons/2026-09-18-velaryon-frey.json",
+    "from": "Velaryon Marksman selected for field discovery; no paired protocol",
+    "to": "Same priority and active Yi Ti; Velaryon field test paired with Frey Assassin as a reference",
+    "reason": "Operator requested a comparison to investigate higher Crossbow skill. Record a practical paired test with explicit equipment/other-skill confounding; do not reopen Frey or infer Yi Ti completion."
   },
   "ordered_queue": [
     {
@@ -199,8 +199,21 @@
       "evidence_references": [
         "data/combat_observations/test_queues/decisions/2026-09-18-velaryon-marksman.json",
         "data/combat_observations/test_queues/decisions/2026-09-18-crossbow-weapon-inputs.csv",
-        "docs/methodology/006_context_first_scoring_rules.md"
-      ]
+        "docs/methodology/006_context_first_scoring_rules.md",
+        "data/combat_observations/test_queues/comparisons/2026-09-18-velaryon-frey.json",
+        "docs/test_plans/velaryon-frey-paired-field.md"
+      ],
+      "comparison": {
+        "plan_id": "rot-velaryon-frey-paired-field-v1",
+        "plan_path": "data/combat_observations/test_queues/comparisons/2026-09-18-velaryon-frey.json",
+        "reference_troop_id": "frey_assassin",
+        "reference_role": "operator_requested_paired_control_not_reopened_discovery",
+        "planned_counts": {
+          "velaryon_marksman": 50,
+          "frey_assassin": 50
+        },
+        "claim_boundary": "Stock-troop package comparison; not an isolated Crossbow-skill effect."
+      }
     }
   ],
   "parked": [
