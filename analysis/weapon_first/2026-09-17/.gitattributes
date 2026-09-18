@@ -1,0 +1,3 @@
+# This 14,048-byte immutable test-log supplement is intentionally ordinary Git.
+# Keep the root LFS policy unchanged for large archives and raw battle evidence.
+delivery_supplement.tar.xz -filter -diff -merge -text

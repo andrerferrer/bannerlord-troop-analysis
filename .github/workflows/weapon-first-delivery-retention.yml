@@ -1,0 +1,44 @@
+name: Weapon-first delivery retention
+on:
+  push:
+    branches: [archive/weapon-first-delivery-2026-09-17]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out exact archive commit and source history
+        run: |
+          set -eu
+          test "$GITHUB_REPOSITORY" = 'andrerferrer/bannerlord-troop-analysis'
+          test "$GITHUB_REF_NAME" = 'archive/weapon-first-delivery-2026-09-17'
+          git init .
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          git fetch --no-tags origin "$GITHUB_SHA" e79827d9fd61834479bcbad2d7a2f2fd6f7ce26d
+          git checkout --detach "$GITHUB_SHA"
+      - name: Verify every original file and all five complete logs
+        run: python3 analysis/weapon_first/2026-09-17/verify_delivery_archive.py
+      - name: Rerun existing scoped weapon-first tests
+        run: python3 -m unittest discover -s tests -p 'test_weapon_first_*.py' -v
+      - name: Check whitespace and archive-only scope
+        run: |
+          set -eu
+          git diff --check e79827d9fd61834479bcbad2d7a2f2fd6f7ce26d HEAD
+          python3 - <<'PY'
+          import subprocess
+          prefix = 'analysis/weapon_first/2026-09-17/'
+          expected = {prefix + p for p in ('delivery_supplement.tar.xz', 'verify_delivery_archive.py', 'DELIVERY_RETENTION.md', '.gitattributes')}
+          expected.add('.github/workflows/weapon-first-delivery-retention.yml')
+          added = set(subprocess.check_output(['git', 'diff', '--diff-filter=A', '--name-only', 'e79827d9fd61834479bcbad2d7a2f2fd6f7ce26d', 'HEAD']).decode().splitlines())
+          changed = set(subprocess.check_output(['git', 'diff', '--name-only', 'e79827d9fd61834479bcbad2d7a2f2fd6f7ce26d', 'HEAD']).decode().splitlines())
+          if changed != expected or added != expected:
+              raise SystemExit('archive-only change boundary violated')
+          attribute = subprocess.check_output(['git', 'check-attr', 'filter', '--', prefix + 'delivery_supplement.tar.xz']).decode().strip()
+          if not attribute.endswith(': filter: unset'):
+              raise SystemExit('archive unexpectedly uses LFS filtering')
+          if subprocess.check_output(['git', 'status', '--porcelain']).strip():
+              raise SystemExit('validation dirtied the working tree')
+          print('Verified five additions, ordinary-Git archive and clean tree; existing audit, models and queue unchanged.')
+          PY
