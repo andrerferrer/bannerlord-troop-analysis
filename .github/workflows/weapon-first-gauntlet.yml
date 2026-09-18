@@ -2,17 +2,13 @@ name: Weapon-first gauntlet
 on:
   push:
     branches: [analysis/weapon-first-gauntlet-2026-09-17]
-    paths:
-      - .github/workflows/weapon-first-gauntlet.yml
-      - scripts/analysis/weapon_first_*.py
-      - tests/test_weapon_first_*.py
 permissions:
-  contents: write
+  contents: read
 concurrency:
   group: weapon-first-gauntlet-105
   cancel-in-progress: false
 jobs:
-  audit:
+  validate:
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
@@ -25,37 +21,36 @@ jobs:
           git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
           git fetch --no-tags origin "$GITHUB_SHA" 9311f5596aabc04974d5fe4d7113f1088454143f
           git checkout --detach "$GITHUB_SHA"
-      - name: Prepare source-only offline Git transport
+      - name: Run adversarial and production gates
+        run: python3 -m unittest discover -s tests -p 'test_weapon_first_*.py' -v
+      - name: Verify deterministic committed outputs and operator queue
         run: |
-          git bundle create /tmp/bannerlord-weapon-first.bundle HEAD
-          sha256sum /tmp/bannerlord-weapon-first.bundle > /tmp/bannerlord-weapon-first.bundle.sha256
-      - name: Retain offline transport for this execution
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        env:
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-        with:
-          name: weapon-first-source-${{ github.sha }}
-          path: /tmp/bannerlord-weapon-first.bundle*
-          retention-days: 3
-          if-no-files-found: error
-      - name: Inspect complete pinned data and run available gauntlet
-        run: |
-          set -eu
-          python3 scripts/analysis/weapon_first_inventory.py
-          if test -f scripts/analysis/weapon_first_audit.py; then
-            python3 -m unittest discover -s tests -p 'test_weapon_first_*.py' -v
-            python3 scripts/analysis/weapon_first_audit.py --repo . --output analysis/weapon_first/2026-09-17
-          fi
-      - name: Publish only audit outputs on this task branch
-        env:
-          TOKEN: ${{ github.token }}
+          python3 - <<'PY'
+          from pathlib import Path
+          from scripts.analysis.weapon_first_audit import generate, QUEUE, OUT_PATH
+          first, second = generate(Path('.')), generate(Path('.'))
+          if first != second:
+              raise SystemExit('non-deterministic regeneration')
+          for name, data in first.items():
+              if (Path(OUT_PATH) / name).read_bytes() != data:
+                  raise SystemExit('committed artifact differs: ' + name)
+          if Path(QUEUE).read_bytes() != first['operator_queue_projection.json']:
+              raise SystemExit('operator queue differs from the validated override')
+          print(f'Verified {len(first)} deterministic generated files and canonical queue.')
+          PY
+      - name: Verify bounded diff and unchanged source and empirical evidence
         run: |
           set -eu
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- analysis/weapon_first/2026-09-17
-          if git diff --cached --quiet; then exit 0; fi
-          git diff --cached --check
-          git commit -m 'analysis: publish reproducible weapon audit output'
-          AUTH=$(printf 'x-access-token:%s' "$TOKEN" | base64 -w0)
-          git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $AUTH" push origin HEAD:refs/heads/analysis/weapon-first-gauntlet-2026-09-17
+          git diff --check 9311f5596aabc04974d5fe4d7113f1088454143f HEAD
+          python3 - <<'PY'
+          import subprocess
+          from scripts.analysis.weapon_first_audit import BASE, QUEUE, OUT_PATH
+          changed = subprocess.check_output(['git', 'diff', '--name-only', BASE, 'HEAD']).decode().splitlines()
+          allowed = {QUEUE, '.github/workflows/weapon-first-gauntlet.yml',
+                     'scripts/analysis/weapon_first_inventory.py',
+                     'scripts/analysis/weapon_first_audit.py', 'tests/test_weapon_first_audit.py'}
+          unexpected = [p for p in changed if p not in allowed and not p.startswith(OUT_PATH + '/')]
+          if unexpected:
+              raise SystemExit('unexpected changed paths: ' + ', '.join(unexpected))
+          print(f'Verified {len(changed)} task-scoped paths; source data, empirical batches and frozen models unchanged.')
+          PY

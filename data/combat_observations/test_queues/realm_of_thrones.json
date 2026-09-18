@@ -1,5 +1,18 @@
 {
-  "active_test": null,
+  "active_test": {
+    "context": "field",
+    "display_name": "Yi Ti Mounted Shi",
+    "evidence_references": [
+      "analysis/weapon_first/2026-09-17/OPERATOR_DECISION.json",
+      "analysis/weapon_first/2026-09-17/REPORT.md",
+      "pull/105"
+    ],
+    "reason": "Operator explicitly chose to test this troop while the weapon-first audit proceeds. This scheduling override is not a weapon-stat validation or an effectiveness verdict.",
+    "selection_source": "explicit_operator_decision",
+    "status": "operator_selected_test_in_progress",
+    "troop_id": "yiti_samurai",
+    "weapon_evidence_status": "damage_and_usage_speed_pending"
+  },
   "authority": {
     "path": "data/combat_observations/test_queues/realm_of_thrones.json",
     "rule": "This file is the only repository source of truth for what troop should be tested next. Batch-local analysis/NEXT_TEST_RECOMMENDATION.md files and pull-request bodies are proposals and historical evidence only until the same merged pull request updates this file.",
@@ -168,11 +181,11 @@
   ],
   "game_version": "1.4.x",
   "last_transition": {
-    "decision_path": "data/combat_observations/test_queues/decisions/2026-09-17-weapon-first-correction.json",
     "date": "2026-09-17",
-    "from": "active_test: null / ordered_queue: [yiti_samurai / field]",
-    "reason": "Operator correction: weapon damage first, melee damage and attack speed together, relevant skills last. Withdraw the skill-led Yi Ti priority until primary weapon evidence is verified; no performance demotion or replacement target is inferred.",
-    "to": "active_test: null / ordered_queue: [] / parked: +yiti_samurai pending weapon evidence"
+    "decision_path": "analysis/weapon_first/2026-09-17/OPERATOR_DECISION.json",
+    "from": "active_test: null / parked: yiti_samurai pending weapon evidence",
+    "reason": "Explicit operator choice; retain the weapon-first evidence gate for analytical conclusions and future recommendations.",
+    "to": "active_test: yiti_samurai / ordered_queue: []"
   },
   "ordered_queue": [],
   "parked": [
@@ -189,23 +202,9 @@
       "reason": "No extraordinary empirical or structural hypothesis currently justifies additional dedicated battles.",
       "status": "parked_no_additional_test",
       "troop_id": "westerling_elite_archer"
-    },
-    {
-      "context": "field",
-      "display_name": "Yi Ti Mounted Shi",
-      "reason": "The previous priority used troop skills before verifying weapon damage and melee attack speed. The inspected yiti_sword audit is crafted and unreconstructed. Missing weapon values are not replaced by skill or template proxies; this is an evidence gap, not a negative performance result.",
-      "status": "parked_pending_weapon_evidence",
-      "troop_id": "yiti_samurai",
-      "reentry_condition": "Verify the carried weapon and a version-compatible damage/speed pair for the relevant usage, compare candidates weapon-first, and consider relevant troop skills last.",
-      "evidence_references": [
-        "data/combat_observations/test_queues/decisions/2026-09-17-weapon-first-correction.json",
-        "docs/methodology/006_context_first_scoring_rules.md",
-        "data/realm_of_thrones/audit/realm_of_thrones_items_crafted.csv",
-        "pull/104"
-      ]
     }
   ],
-  "queue_status": "awaiting_weapon_first_selection",
+  "queue_status": "operator_selected_test_active",
   "schema_version": "1.0.0",
   "track": "realm_of_thrones",
   "update_contract": {
