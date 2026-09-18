@@ -181,13 +181,28 @@
   ],
   "game_version": "1.4.x",
   "last_transition": {
-    "date": "2026-09-17",
-    "decision_path": "analysis/weapon_first/2026-09-17/OPERATOR_DECISION.json",
-    "from": "active_test: null / parked: yiti_samurai pending weapon evidence",
-    "reason": "Explicit operator choice; retain the weapon-first evidence gate for analytical conclusions and future recommendations.",
-    "to": "active_test: yiti_samurai / ordered_queue: []"
+    "date": "2026-09-18",
+    "decision_path": "data/combat_observations/test_queues/decisions/2026-09-18-velaryon-marksman.json",
+    "from": "active_test: yiti_samurai / ordered_queue: []",
+    "to": "active_test: yiti_samurai / ordered_queue: [velaryon_marksman / field]",
+    "reason": "Delegated next-test selection from verified ranged weapon/ammunition inputs. Preserve the operator-selected Yi Ti test without fabricating completion, promotion or new empirical results."
   },
-  "ordered_queue": [],
+  "ordered_queue": [
+    {
+      "priority": 1,
+      "troop_id": "velaryon_marksman",
+      "display_name": "Velaryon Marksman",
+      "tier": 5,
+      "context": "field",
+      "status": "selected_for_weapon_first_discovery_test",
+      "reason": "Dismounted crossbow field discovery test: direct Bound Crossbow damage 100 and two compatible 20-bolt stacks, base-only finite capacity 4000. Tied with Hightower Marksmen and Tarth Elite Crossbowman on these primary ranged inputs; Velaryon is the chosen test representative, not a proven superior troop. No skill-driven or melee superiority claim.",
+      "evidence_references": [
+        "data/combat_observations/test_queues/decisions/2026-09-18-velaryon-marksman.json",
+        "data/combat_observations/test_queues/decisions/2026-09-18-crossbow-weapon-inputs.csv",
+        "docs/methodology/006_context_first_scoring_rules.md"
+      ]
+    }
+  ],
   "parked": [
     {
       "context": "field",
@@ -204,7 +219,7 @@
       "troop_id": "westerling_elite_archer"
     }
   ],
-  "queue_status": "operator_selected_test_active",
+  "queue_status": "operator_selected_test_active_next_target_selected",
   "schema_version": "1.0.0",
   "track": "realm_of_thrones",
   "update_contract": {
@@ -215,7 +230,7 @@
     "phase_1": "May set or confirm active_test, but must not choose or reorder future targets from preliminary extraction.",
     "phase_2": "Must update active_test, ordered_queue, verification_holds, and parked or closed entries in the same pull request whenever the completed analysis changes what should be tested next."
   },
-  "updated_at": "2026-09-17",
+  "updated_at": "2026-09-18",
   "verification_holds": [
     {
       "context": "field",
