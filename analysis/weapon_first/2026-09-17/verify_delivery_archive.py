@@ -52,7 +52,7 @@ def verify(archive: bytes, read_source: Callable[[str], bytes]) -> dict:
 
 def main() -> None:
     here = Path(__file__).resolve().parent
-    repo = here.parents[3]
+    repo = Path(subprocess.check_output(['git', '-C', str(here), 'rev-parse', '--show-toplevel'], text=True).strip())
     def read_source(path: str) -> bytes:
         return subprocess.check_output(['git', '-C', str(repo), 'show', SOURCE_COMMIT + ':' + path])
     result = verify((here / 'delivery_supplement.tar.xz').read_bytes(), read_source)

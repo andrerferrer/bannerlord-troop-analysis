@@ -53,9 +53,16 @@ against actual Git objects and reruns the existing 32 scoped weapon-first tests.
 The previous three baseline full-suite failures are retained, not repaired or
 relabeled as passing by this archival change.
 
+The initial archival CI run exposed an incorrect hardcoded parent-directory lookup
+and an LFS pointer warning. Repository discovery now uses `git rev-parse` from the
+script directory. A local `.gitattributes` entry explicitly stores only this tiny,
+immutable test-log archive in ordinary Git; root LFS rules for large archives and
+raw evidence remain unchanged. CI checks the exact file's filter is unset and the
+working tree is clean, rather than suppressing the warning or weakening hashes.
+
 ## Scope and rollback
 
-Only this note, the archive, its verifier and a branch-bounded read-only CI workflow
-are added. The 22 existing delivered files remain unchanged. Reverting this
-supplement removes the extra retained material without changing PR #105's audit
-or the canonical troop queue.
+Only this note, the archive, its verifier, the single-file Git attribute and a
+branch-bounded read-only CI workflow are added. The 22 existing delivered files
+remain unchanged. Reverting this supplement removes the extra retained material
+without changing PR #105's audit or the canonical troop queue.

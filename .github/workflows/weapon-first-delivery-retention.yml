@@ -29,11 +29,16 @@ jobs:
           python3 - <<'PY'
           import subprocess
           prefix = 'analysis/weapon_first/2026-09-17/'
-          expected = {prefix + p for p in ('delivery_supplement.tar.xz', 'verify_delivery_archive.py', 'DELIVERY_RETENTION.md')}
+          expected = {prefix + p for p in ('delivery_supplement.tar.xz', 'verify_delivery_archive.py', 'DELIVERY_RETENTION.md', '.gitattributes')}
           expected.add('.github/workflows/weapon-first-delivery-retention.yml')
           added = set(subprocess.check_output(['git', 'diff', '--diff-filter=A', '--name-only', 'e79827d9fd61834479bcbad2d7a2f2fd6f7ce26d', 'HEAD']).decode().splitlines())
           changed = set(subprocess.check_output(['git', 'diff', '--name-only', 'e79827d9fd61834479bcbad2d7a2f2fd6f7ce26d', 'HEAD']).decode().splitlines())
           if changed != expected or added != expected:
               raise SystemExit('archive-only change boundary violated')
-          print('Verified four additions; existing audit, models and queue unchanged.')
+          attribute = subprocess.check_output(['git', 'check-attr', 'filter', '--', prefix + 'delivery_supplement.tar.xz']).decode().strip()
+          if not attribute.endswith(': filter: unset'):
+              raise SystemExit('archive unexpectedly uses LFS filtering')
+          if subprocess.check_output(['git', 'status', '--porcelain']).strip():
+              raise SystemExit('validation dirtied the working tree')
+          print('Verified five additions, ordinary-Git archive and clean tree; existing audit, models and queue unchanged.')
           PY
