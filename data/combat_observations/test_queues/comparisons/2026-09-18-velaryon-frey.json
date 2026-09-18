@@ -1,0 +1,261 @@
+{
+  "schema_version": "1.0.0",
+  "task_type": "prospective_paired_test_design",
+  "date": "2026-09-18",
+  "operator_request": "Comparar os Velaryon com os Frey para observar a diferença efetiva associada à skill mais alta.",
+  "interpretation": "Velaryon means Velaryon Marksman; Frey means Frey Assassin, the control named in the immediately preceding selection.",
+  "base_commit": "00dba8b14a19d59e674b81c667a164032bb8ae43",
+  "queue_base_blob_sha": "6be1b00e420dc34accd3613bf97acbda8fa530e4",
+  "plan_id": "rot-velaryon-frey-paired-field-v1",
+  "status": "planned_no_battle_results",
+  "guide_path": "docs/test_plans/velaryon-frey-paired-field.md",
+  "sources": [
+    {
+      "path": "data/realm_of_thrones/audit/realm_of_thrones_troops.csv",
+      "ref": "00dba8b14a19d59e674b81c667a164032bb8ae43",
+      "git_blob_sha": "67df28bb6cbfbb60a37a90950c781980d41a2fe9",
+      "sha256": "63ea983998e25aa0e6f8c0747bf42e44440f695bbe1fec717074e7ba64e42810"
+    },
+    {
+      "path": "data/realm_of_thrones/audit/realm_of_thrones_troop_equipment_audit.csv",
+      "ref": "00dba8b14a19d59e674b81c667a164032bb8ae43",
+      "git_blob_sha": "c5de20dd33783deca7a3297b770fc091c7ae39a1",
+      "sha256": "e08edca636e27df34fbb00fb7d6fc6f83f974846374fb286740460aa540a678f"
+    }
+  ],
+  "observed_inputs": [
+    {
+      "troop_id": "velaryon_marksman",
+      "display_name": "Velaryon Marksman",
+      "source_troop_row": 4728,
+      "crossbow_skill": 130,
+      "other_skill_confounders": {
+        "Athletics": 130,
+        "OneHanded": 130
+      },
+      "roster_index": "0",
+      "weapon": {
+        "item_id": "crossbow_f",
+        "name": "Bound Crossbow",
+        "damage": 100,
+        "damage_type": "Pierce",
+        "speed_rating": 63,
+        "accuracy_rating": 100,
+        "missile_speed_rating": 97,
+        "source_row": 47418
+      },
+      "ammo": [
+        {
+          "slot": "Item1",
+          "item_id": "bolt_a",
+          "name": "Light Bolts",
+          "stack_amount": 20,
+          "raw_bolt_damage": 2,
+          "source_row": 47419
+        },
+        {
+          "slot": "Item2",
+          "item_id": "bolt_a",
+          "name": "Light Bolts",
+          "stack_amount": 20,
+          "raw_bolt_damage": 2,
+          "source_row": 47420
+        }
+      ],
+      "base_usable_ammo": 40,
+      "other_carried_items": [
+        {
+          "slot": "Item3",
+          "item_id": "velaryon_cutlass",
+          "source_row": 47421
+        },
+        {
+          "slot": "Body",
+          "item_id": "velaryon_soldier_armor",
+          "source_row": 47422
+        },
+        {
+          "slot": "Leg",
+          "item_id": "jon_snow_boots",
+          "source_row": 47423
+        },
+        {
+          "slot": "Gloves",
+          "item_id": "velaryon_soldier_bracers",
+          "source_row": 47424
+        },
+        {
+          "slot": "Head",
+          "item_id": "velaryon_soldier_helmet",
+          "source_row": 47425
+        }
+      ]
+    },
+    {
+      "troop_id": "frey_assassin",
+      "display_name": "Frey Assassin",
+      "source_troop_row": 4872,
+      "crossbow_skill": 250,
+      "other_skill_confounders": {
+        "Athletics": 230,
+        "OneHanded": 220
+      },
+      "roster_index": "0",
+      "weapon": {
+        "item_id": "crossbow_d",
+        "name": "Hickory Crossbow",
+        "damage": 93,
+        "damage_type": "Pierce",
+        "speed_rating": 62,
+        "accuracy_rating": 99,
+        "missile_speed_rating": 90,
+        "source_row": 48509
+      },
+      "ammo": [
+        {
+          "slot": "Item1",
+          "item_id": "bolt_c",
+          "name": "Heavy Bolts",
+          "stack_amount": 18,
+          "raw_bolt_damage": 5,
+          "source_row": 48510
+        },
+        {
+          "slot": "Item3",
+          "item_id": "bolt_c",
+          "name": "Heavy Bolts",
+          "stack_amount": 18,
+          "raw_bolt_damage": 5,
+          "source_row": 48512
+        }
+      ],
+      "base_usable_ammo": 36,
+      "other_carried_items": [
+        {
+          "slot": "Item2",
+          "item_id": "vlandia_sword_4_t4",
+          "source_row": 48511
+        },
+        {
+          "slot": "Body",
+          "item_id": "frey_armor",
+          "source_row": 48513
+        },
+        {
+          "slot": "Cape",
+          "item_id": "frey_gorget",
+          "source_row": 48514
+        },
+        {
+          "slot": "Leg",
+          "item_id": "frey_boots",
+          "source_row": 48515
+        },
+        {
+          "slot": "Head",
+          "item_id": "frey_helmet2",
+          "source_row": 48516
+        },
+        {
+          "slot": "Gloves",
+          "item_id": "karstark_gloves",
+          "source_row": 48517
+        }
+      ]
+    }
+  ],
+  "design": {
+    "track": "realm_of_thrones",
+    "context": "field",
+    "side": "player",
+    "question": "ranged_attack",
+    "attack_mode": "ranged",
+    "mount_state": "dismounted",
+    "ammunition_policy": "finite",
+    "cohort": "new_same_battle_paired_campaign_cohort",
+    "primary_drivers": [
+      "carried_crossbow_damage",
+      "compatible_ammunition"
+    ],
+    "secondary_question": "Does the Frey package, with 250 Crossbow, outperform the Velaryon package with 130 Crossbow despite lower base crossbow damage and fewer bolts?",
+    "skill_role": "secondary_after_weapon_comparison; explicit operator question, no coefficient inferred",
+    "projectile_contribution": "Different bolt items and raw bolt damage retained as confounders; no assumed engine damage-addition formula.",
+    "weapon_speed": "Raw ratings are not shots per second. No reload or accuracy effect size is inferred from skill points.",
+    "roster_policy": "Both audited troops have one roster; keep any observed runtime equipment changes separate.",
+    "armor_policy": "Different armor retained as a confounder; no new armor composite or general score.",
+    "causal_skill_effect_identifiable": false,
+    "comparative_package_effect_identifiable": "descriptive_within_battle_association_only",
+    "new_evidence_ingested": false,
+    "frozen_models_changed": false
+  },
+  "setup": {
+    "target_counts": {
+      "velaryon_marksman": 50,
+      "frey_assassin": 50
+    },
+    "formation": "One shared ranged formation on the player side, same captain and orders; loose spacing with unobstructed line of sight. Do not put the two units against each other.",
+    "support": "Keep infantry support similar; avoid other elite ranged anchors taking most available kills.",
+    "orders": "Hold a ranged position; do not intentionally charge the targets into melee.",
+    "initial_review_after_independent_battles": 5,
+    "count_policy": "Use actual independently deployed troops from the same battle, not planned strength or final survivors. Record unequal counts/reinforcements instead of guessing.",
+    "shared_formation_limit": "Shared formation reduces commander/order asymmetry but does not guarantee identical slot position, exposure or target selection.",
+    "party_captain_policy": "Keep party leader, captain, perks, difficulty, mods and applicable buffs stable; base skill/ammo exports are not guaranteed runtime effective values.",
+    "version_policy": "Inputs are from the pinned repository export; exact equivalence to the live installation is unverified."
+  },
+  "capture": {
+    "required": [
+      "Both troop rows at the same observation endpoint",
+      "Player-side totals",
+      "All visible ordinary troop rows; focus is additive, not a filter"
+    ],
+    "endpoint": "Final result, or the valid last observation before a bug-stopped battle; flag interrupted observations.",
+    "optional": "One shared pre-melee scoreboard can document an additional ranged-phase view, not another independent battle. Record known melee contact, cover asymmetry, reinforcements or ammo exhaustion; unknown stays unknown.",
+    "no_extra_setup_required_for_primary_test": true,
+    "no_scoreboard_accuracy_inference": "Final kills alone do not measure shots fired, hit rate, reload time or which weapon caused each kill."
+  },
+  "analysis_contract": {
+    "independent_unit": "battle_id; never troop appearances or number of screenshots",
+    "paired_subset": "Both canonical IDs observed on the player side in the same field battle and the same endpoint, with verified positive deployed counts. Unpaired observations stay in batch-wide outputs, not the paired contrast.",
+    "primary_metric": "delta_b = kills_frey_b / deployed_frey_b - kills_velaryon_b / deployed_velaryon_b; report each battle and the unweighted mean and median delta across independent paired battles.",
+    "relative_difference": "If the Velaryon rate is positive: rate_frey / rate_velaryon - 1. If its rate is zero, percentage is undefined; retain the absolute delta and raw counts without epsilon or infinity.",
+    "companion_metrics": [
+      "Each troop kill share and deployment share within the player side using direct same-side totals",
+      "Pair kill share, named separately from whole-army share",
+      "Deaths, wounded and retention with separate meanings; zero deaths is not assumed to mean zero casualties",
+      "Wins/losses/ties of the within-battle kills-per-deployed comparison",
+      "Sensitivity excluding interrupted endpoints and clear melee/visibility asymmetry, while retaining all originals"
+    ],
+    "five_battle_gate": "At least 5 independent paired battles and 20 deployed per troop permit a reviewed comparison, not causal identification or an automatic winner.",
+    "historical_rule": "Do not pool old Frey-only cohorts with this paired cohort or compare the old overall mean as if it were a matched control. Preserve the existing Frey closure.",
+    "no_normalization_by_prior_index": "Do not divide kills by 4000/3348, or convert +120 Crossbow points into a skill multiplier.",
+    "causal_language": "Report the observed stock-troop package contrast. A Frey advantage is compatible with skill helping, but bolts, armor, other skills, positioning and AI remain alternative explanations; a Velaryon win does not prove skill is irrelevant."
+  },
+  "isolated_skill_followup_design": {
+    "status": "design_only_not_implemented_or_run",
+    "purpose": "Estimate the effect of Crossbow 130 versus 250 without changing the rest of the troop.",
+    "treatment": [
+      130,
+      250
+    ],
+    "base_identity": "One identical test troop cloned under separate experimental IDs; never silently edit the campaign troops.",
+    "only_intended_difference": "Crossbow skill; all other skills, equipment, appearance/body parameters, health, level, culture, AI settings and effects identical.",
+    "hold_equal": [
+      "Crossbow ID and modifiers",
+      "Bolt ID, number and modifiers",
+      "Armor and secondary weapon",
+      "Other skills, captain/perks/buffs",
+      "Counts, opponent composition, scene, range, terrain, weather and orders"
+    ],
+    "randomization": "Swap or randomize spawn-side/positions across independent replications; record the fixed opponent composition in a versioned fixture before running.",
+    "measurement": "Kills/deployed over the same fixed opportunity window, with optional measured shots/hits/reload times; do not estimate these from final kills.",
+    "scope": "Results are specific to that controlled profile; keep separate from stock campaign and siege aggregates.",
+    "not_required_for_current_campaign_comparison": true
+  },
+  "queue_effect": {
+    "active_yiti_unchanged": true,
+    "next_primary_troop": "velaryon_marksman",
+    "paired_reference_troop": "frey_assassin",
+    "frey_remains_closed_for_dedicated_discovery": true,
+    "all_other_queue_states_preserved": true
+  }
+}
