@@ -1,0 +1,179 @@
+{
+  "schema_version": "1.0.0",
+  "task_type": "test_queue_selection",
+  "date_utc": "2026-09-18",
+  "request": "Qual próxima tropa?",
+  "interpretation": "Select a new target after the operator-selected Yi Ti test; this request is not evidence that Yi Ti is complete.",
+  "queue_base_commit": "a318ae77cbec8a68551490c5c6673af3cd750761",
+  "queue_base_blob_sha": "d2df095d7c432fc8333a48339964dde4aa9f2df3",
+  "selection": {
+    "priority": 1,
+    "troop_id": "velaryon_marksman",
+    "display_name": "Velaryon Marksman",
+    "tier": 5,
+    "context": "field",
+    "status": "selected_for_weapon_first_discovery_test",
+    "reason": "Dismounted crossbow field discovery test: direct Bound Crossbow damage 100 and two compatible 20-bolt stacks, base-only finite capacity 4000. Tied with Hightower Marksmen and Tarth Elite Crossbowman on these primary ranged inputs; Velaryon is the chosen test representative, not a proven superior troop. No skill-driven or melee superiority claim.",
+    "evidence_references": [
+      "data/combat_observations/test_queues/decisions/2026-09-18-velaryon-marksman.json",
+      "data/combat_observations/test_queues/decisions/2026-09-18-crossbow-weapon-inputs.csv",
+      "docs/methodology/006_context_first_scoring_rules.md"
+    ]
+  },
+  "design": {
+    "track": "realm_of_thrones",
+    "context": "field",
+    "question": "ranged_attack",
+    "attack_mode": "ranged",
+    "mount_state": "dismounted",
+    "population": "30 added/overridden ROT soldiers carrying crossbows; 39 distinct roster/weapon pairings. Not an all-role rank.",
+    "primary_drivers": [
+      "direct_crossbow_damage",
+      "usable_bolt_count"
+    ],
+    "ammunition_policy": "finite",
+    "weapon_damage_source_fields": "troop_equipment_audit.thrust_damage for type=Crossbow, cross-checked against items_direct",
+    "projectile_contribution": "excluded from base-only capacity; raw bolt damage bonuses retained separately",
+    "weapon_attack_usage": "crossbow projectile",
+    "weapon_speed_source_fields": "raw speed_rating shown for audit only, not used as attacks per second or a multiplier",
+    "skill_role": "not_used",
+    "roster_aggregation": "publish each roster separately; all three tied leading troops have exactly one roster, so their arithmetic mean equals that row",
+    "combination_rule": "weapon_damage * sum(compatible bolt stack_amount in the same roster)",
+    "armor_aggregation": "not_applicable; no armor/general-capability ranking",
+    "melee": "No inference: secondary crafted sword damage/speed remains unknown"
+  },
+  "selected_inputs": {
+    "troop_id": "velaryon_marksman",
+    "display_name": "Velaryon Marksman",
+    "roster_index": "0",
+    "weapon_slot": "Item0",
+    "weapon_id": "crossbow_f",
+    "weapon_damage": 100,
+    "damage_type": "Pierce",
+    "raw_speed_rating": 63,
+    "ammo_slots": "Item1|Item2",
+    "ammo_item_ids": "bolt_a|bolt_a",
+    "ammo_stack_counts": "20|20",
+    "ammo_damage_bonuses_excluded": "2.0|2.0",
+    "usable_ammo": 40,
+    "base_only_capacity": 4000,
+    "source_weapon_row": 47418,
+    "source_ammo_rows": "47419|47420"
+  },
+  "comparison_control": {
+    "troop_id": "frey_assassin",
+    "display_name": "Frey Assassin",
+    "roster_index": "0",
+    "weapon_slot": "Item0",
+    "weapon_id": "crossbow_d",
+    "weapon_damage": 93,
+    "damage_type": "Pierce",
+    "raw_speed_rating": 62,
+    "ammo_slots": "Item1|Item3",
+    "ammo_item_ids": "bolt_c|bolt_c",
+    "ammo_stack_counts": "18|18",
+    "ammo_damage_bonuses_excluded": "5.0|5.0",
+    "usable_ammo": 36,
+    "base_only_capacity": 3348,
+    "source_weapon_row": 48509,
+    "source_ammo_rows": "48510|48512"
+  },
+  "comparison": {
+    "base_only_capacity_arithmetic": "100 * (20 + 20) = 4000; 93 * (18 + 18) = 3348",
+    "absolute_difference": 652,
+    "relative_difference": 0.1947431302270013,
+    "meaning": "Base-weapon finite-ammunition index, not dealt damage, DPS, win probability, or percent troop superiority."
+  },
+  "tie_policy": {
+    "primary_input_tie": [
+      "hightower_marksman",
+      "tarth_elite_crossbowman",
+      "velaryon_marksman"
+    ],
+    "selected_representative": "velaryon_marksman",
+    "reason": "Choose one representative of the strongest base-only crossbow package instead of spending three duplicate discovery cohorts. No superiority over the other tied troops is asserted."
+  },
+  "historical_screen": {
+    "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+    "file_count": 779,
+    "file_extensions": [
+      ".csv",
+      ".json",
+      ".md"
+    ],
+    "scope": "All tracked text files under data/combat_observations at the pinned source commit; original compressed archives and unuploaded tests not exhaustively searched.",
+    "literal_terms": [
+      "velaryon_marksman",
+      "Velaryon Marksman"
+    ],
+    "matching_paths": [],
+    "path_and_blob_inventory_sha256": "11319269cf813aef2b994befe0f4620105f007dc968ea5127d1288e1274a64e5",
+    "freshness": "GitHub comparison confirms main a318ae77 adds only PR105/106 audit/archive files and the queue; historical combat evidence and source audits are unchanged.",
+    "pr_search": {
+      "query": "\"velaryon_marksman\" OR \"Velaryon Marksman\" OR \"Tarth Elite Crossbowman\"",
+      "results": 0
+    },
+    "open_pr_screen": "Only PR98 open; changed-file list contains the skill only, not the troop queue.",
+    "limitations": "No located dedicated cohort, not proof the operator has never tested this unit."
+  },
+  "sources": [
+    {
+      "path": "data/realm_of_thrones/audit/realm_of_thrones_troops.csv",
+      "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+      "git_blob_sha": "67df28bb6cbfbb60a37a90950c781980d41a2fe9",
+      "sha256": "63ea983998e25aa0e6f8c0747bf42e44440f695bbe1fec717074e7ba64e42810"
+    },
+    {
+      "path": "data/realm_of_thrones/audit/realm_of_thrones_override_report.csv",
+      "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+      "git_blob_sha": "fcfd33a32f0e4a52c7ecc9e4dc573dd0390d65e3",
+      "sha256": "8d69270251ca83c05bcfbd2d1e800ea4c1df2bde6c5203122009474e0fba6a62"
+    },
+    {
+      "path": "data/realm_of_thrones/audit/realm_of_thrones_tree_tiers.csv",
+      "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+      "git_blob_sha": "a599aca63d20d28f25767e1c4bbcd30476ba20ea",
+      "sha256": "ec46e71b1c877c9ec4ed0fa1b4649496f7e9f0ebc8bd247ec035a476a1a9d3ce"
+    },
+    {
+      "path": "data/realm_of_thrones/audit/realm_of_thrones_troop_equipment_audit.csv",
+      "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+      "git_blob_sha": "c5de20dd33783deca7a3297b770fc091c7ae39a1",
+      "sha256": "e08edca636e27df34fbb00fb7d6fc6f83f974846374fb286740460aa540a678f"
+    },
+    {
+      "path": "data/realm_of_thrones/audit/realm_of_thrones_items_direct.csv",
+      "ref": "9311f5596aabc04974d5fe4d7113f1088454143f",
+      "git_blob_sha": "f88688b1b63a781519debf96ee213495c82c69b6",
+      "sha256": "b54ad317034d2e3efa5bdb30581130e8ac2ea10c482fc9710f08f55ae28f6a49"
+    }
+  ],
+  "comparison_csv": {
+    "path": "data/combat_observations/test_queues/decisions/2026-09-18-crossbow-weapon-inputs.csv",
+    "sha256": "70f91f651e3dee3923e9b305d851ab38c60150859f627ef3aabe2b8ad7b17843",
+    "rows": 39,
+    "distinct_troops": 30
+  },
+  "test_plan": {
+    "independent_field_battles": 5,
+    "suggested_target_count": [
+      60,
+      80
+    ],
+    "formation": "Separate ranged formation, dismounted, hold position with consistent infantry support. No dedicated melee test.",
+    "confounders": "Avoid established elite ranged anchors consuming most kills. Preserve complete side totals and all visible ordinary troop rows; keep siege and field separate.",
+    "stop_rule": "Review after five independent battles; not an automatic positive verdict or gate pass."
+  },
+  "queue_effect": {
+    "active_test": "unchanged_yiti_samurai",
+    "ordered_queue": [
+      "velaryon_marksman / field"
+    ],
+    "all_other_states_preserved": true
+  },
+  "limitations": [
+    "Pinned export, not independent live-installation verification.",
+    "Melee weapon evidence gaps from PR105 remain unchanged.",
+    "No new evidence ingestion, historical consolidation, or frozen-model modification."
+  ]
+}

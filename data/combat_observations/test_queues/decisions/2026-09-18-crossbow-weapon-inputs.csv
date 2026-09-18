@@ -1,0 +1,40 @@
+troop_id,display_name,roster_index,weapon_slot,weapon_id,weapon_damage,damage_type,raw_speed_rating,ammo_slots,ammo_item_ids,ammo_stack_counts,ammo_damage_bonuses_excluded,usable_ammo,base_only_capacity,source_weapon_row,source_ammo_rows
+casterly_crossbowman,Casterly Rock Crossbowman,0,Item0,crossbow_d,93,Pierce,62,Item1,bolt_a,20,2.0,20,1860,49870,49871
+casterly_master_crossbowman,Casterly Rock Master Crossbowman,0,Item0,crossbow_f,100,Pierce,63,Item1,bolt_a,20,2.0,20,2000,49877,49878
+crownlands_militia_archer,City Watch Crossbowman,0,Item0,crossbow_a,67,Pierce,70,Item1|Item2,bolt_a|bolt_a,20|20,2.0|2.0,40,2680,50894,50895|50896
+crownlands_militia_archer,City Watch Crossbowman,1,Item0,crossbow_a,67,Pierce,70,Item1|Item2,bolt_a|bolt_a,20|20,2.0|2.0,40,2680,50901,50902|50903
+crownlands_militia_archer,City Watch Crossbowman,2,Item0,crossbow_a,67,Pierce,70,Item1|Item2,bolt_a|bolt_a,20|20,2.0|2.0,40,2680,50907,50908|50909
+crownlands_militia_archer,City Watch Crossbowman,3,Item0,crossbow_a,67,Pierce,70,Item1|Item2,bolt_a|bolt_a,20|20,2.0|2.0,40,2680,50914,50915|50916
+crownlands_militia_veteran_archer,City Watch Veteran Crossbowman,0,Item0,crossbow_e,77,Pierce,75,Item1|Item2,bolt_a|bolt_a,20|20,2.0|2.0,40,3080,50921,50922|50923
+crownlands_militia_veteran_archer,City Watch Veteran Crossbowman,1,Item0,crossbow_e,77,Pierce,75,Item1|Item2,bolt_a|bolt_a,20|20,2.0|2.0,40,3080,50928,50929|50930
+crownlands_militia_veteran_archer,City Watch Veteran Crossbowman,2,Item0,crossbow_e,77,Pierce,75,Item1|Item2,bolt_a|bolt_a,20|20,2.0|2.0,40,3080,50935,50936|50937
+crownlands_militia_veteran_archer,City Watch Veteran Crossbowman,3,Item0,crossbow_e,77,Pierce,75,Item1|Item2,bolt_a|bolt_a,20|20,2.0|2.0,40,3080,50942,50943|50944
+frey_assassin,Frey Assassin,0,Item0,crossbow_d,93,Pierce,62,Item1|Item3,bolt_c|bolt_c,18|18,5.0|5.0,36,3348,48509,48510|48512
+frey_crossbowman,Frey Crossbowman,0,Item0,crossbow_a,67,Pierce,70,Item1,bolt_a,20,2.0,20,1340,48486,48487
+frey_sharpshooter,Frey Sharpshooter,0,Item0,crossbow_d,93,Pierce,62,Item1|Item3,bolt_c|bolt_c,18|18,5.0|5.0,36,3348,48500,48501|48503
+frey_veteran_crossbowman,Frey Veteran Crossbowman,0,Item0,crossbow_g,85,Pierce,80,Item1|Item3,bolt_a|bolt_a,20|20,2.0|2.0,40,3400,48492,48493|48495
+golden_crossbowman,Goldenmark Marksmen,0,Item1,crossbow_a,67,Pierce,70,Item2,bolt_a,20,2.0,20,1340,51229,51230
+golden_crossbowman,Goldenmark Marksmen,1,Item1,crossbow_a,67,Pierce,70,Item2,bolt_a,20,2.0,20,1340,51235,51236
+golden_master_crossbowman,Gilded Bolt Rangers,0,Item1,crossbow_c,89,Pierce,60,Item2|Item3,bolt_b|bolt_b,18|18,4.0|4.0,36,3204,51257,51258|51259
+golden_master_crossbowman,Gilded Bolt Rangers,1,Item1,crossbow_c,89,Pierce,60,Item2|Item3,bolt_b|bolt_b,18|18,4.0|4.0,36,3204,51265,51266|51267
+golden_veteran_crossbowman,Gleaming Shaft Marksmen,0,Item1,crossbow_c,89,Pierce,60,Item2|Item3,bolt_b|bolt_b,18|18,4.0|4.0,36,3204,51241,51242|51243
+golden_veteran_crossbowman,Gleaming Shaft Marksmen,1,Item1,crossbow_c,89,Pierce,60,Item2|Item3,bolt_b|bolt_b,18|18,4.0|4.0,36,3204,51249,51250|51251
+grafton_crossbowman,Grafton Archer,0,Item1,crossbow_e,77,Pierce,75,Item2|Item3,bolt_a|bolt_a,20|20,2.0|2.0,40,3080,54360,54361|54362
+grafton_elite_crossbowman,Grafton Elite Archer,0,Item1,crossbow_g,85,Pierce,80,Item2|Item3,bolt_d|bolt_d,18|18,3.0|3.0,36,3060,54367,54368|54369
+hightower_crossbowman,Hightower Crossbowman,0,Item0,crossbow_g,85,Pierce,80,Item1,bolt_a,20,2.0,20,1700,48072,48073
+hightower_marksman,Hightower Marksmen,0,Item0,crossbow_f,100,Pierce,63,Item1|Item2,bolt_a|bolt_a,20|20,2.0|2.0,40,4000,48078,48079|48080
+myrish_artisan,Myrish Artisan of War,0,Item1,crossbow_f,100,Pierce,63,Item2,bolt_c,18,5.0,18,1800,50671,50672
+myrish_crossbowman,Myrish Crossbowman,0,Item1,crossbow_b,82,Pierce,61,Item2|Item3,bolt_b|bolt_b,18|18,4.0|4.0,36,2952,50648,50649|50650
+myrish_elite_crossbowman,Myrish Elite Crossbowman,0,Item1,crossbow_b,82,Pierce,61,Item2|Item3,bolt_b|bolt_b,18|18,4.0|4.0,36,2952,50655,50656|50657
+myrish_master_crossbowman,Myrish Master Crossbowman,0,Item1,crossbow_g,85,Pierce,80,Item2,bolt_b,18,4.0,18,1530,50663,50664
+nightswatch_crossbowman,Night's Watch Crossbowman,0,Item1,crossbow_a,67,Pierce,70,Item2,bolt_a,20,2.0,20,1340,46830,46831
+nightswatch_elite_crossbowman,Night's Watch Elite Crossbowman,0,Item1,crossbow_c,89,Pierce,60,Item2|Item3,bolt_a|bolt_a,20|20,2.0|2.0,40,3560,46836,46837|46838
+nightswatch_master_crossbowman,Night's Watch Master Crossbowman,0,Item1,crossbow_c,89,Pierce,60,Item2|Item3,bolt_a|bolt_a,20|20,2.0|2.0,40,3560,46844,46845|46846
+stormlands_crossbowman,Stormlands Crossbowman,0,Item1,crossbow_a,67,Pierce,70,Item2|Item3,bolt_a|bolt_a,20|20,2.0|2.0,40,2680,47536,47537|47538
+stormlands_heavy_crossbowman,Stormlands Heavy Crossbowman,0,Item1,crossbow_c,89,Pierce,60,Item2|Item3,bolt_a|bolt_a,20|20,2.0|2.0,40,3560,47544,47545|47546
+tarly_crossbowman,Tarly Crossbowman,0,Item0,crossbow_d,93,Pierce,62,Item1,bolt_a,20,2.0,20,1860,48160,48161
+tarly_elite_crossbowman,Tarly Elite Crossbowman,0,Item0,crossbow_f,100,Pierce,63,Item1,bolt_a,20,2.0,20,2000,48167,48168
+tarth_crossbowman,Tarth Crossbowman,0,Item0,crossbow_g,85,Pierce,80,Item1,bolt_a,20,2.0,20,1700,47758,47759
+tarth_elite_crossbowman,Tarth Elite Crossbowman,0,Item0,crossbow_f,100,Pierce,63,Item1|Item2,bolt_a|bolt_a,20|20,2.0|2.0,40,4000,47764,47765|47766
+velaryon_crossbowman,Velaryon Crossbowman,0,Item0,crossbow_g,85,Pierce,80,Item1,bolt_a,20,2.0,20,1700,47411,47412
+velaryon_marksman,Velaryon Marksman,0,Item0,crossbow_f,100,Pierce,63,Item1|Item2,bolt_a|bolt_a,20|20,2.0|2.0,40,4000,47418,47419|47420
